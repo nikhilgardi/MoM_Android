@@ -23,14 +23,14 @@
 	        <RelativeLayout
 	            android:layout_width="fill_parent" android:layout_height="fill_parent">
 	            
-		        <LinearLayout android:id="@+id/creditsale_LNR_redceiptdetails" 
+		        <LinearLayout android:id="@+id/creditsale_LNR_redceiptdetails" android:orientation="horizontal"
 		     	    android:layout_width="fill_parent" android:layout_height="50dp" android:background="#FFFFFF">
 		        </LinearLayout>
-		        <com.example.moneyonmobileapplication.SignatureView android:id="@+id/creditsale_View_signature"
+		        <com.mmpl.app.SignatureView android:id="@+id/creditsale_View_signature"
 		     	    android:layout_width="fill_parent" android:layout_height="140dp" android:layout_marginTop="4dp"
 		     	    android:background="#FFFFFF"  
 		     	    android:layout_below="@+id/creditsale_LNR_redceiptdetails">
-		        </com.example.moneyonmobileapplication.SignatureView>
+		        </com.mmpl.app.SignatureView>
 		          
 		        <LinearLayout      	
 		     	    android:layout_width="fill_parent" android:layout_height="wrap_content"
