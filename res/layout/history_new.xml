@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/appsbg"
+    android:scrollbars="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+      
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+
+            <TableLayout
+                android:id="@+id/tableLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+               
+              
+                android:shrinkColumns="*"
+                android:stretchColumns="*" >
+
+                <TableRow
+                    android:id="@+id/tableRow4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="65dp"
+                    android:background="@drawable/topbarcolor"
+                    android:gravity="center_horizontal"
+                    android:minHeight="53dp" >
+
+                    
+                    
+                    <ImageButton
+                        android:id="@+id/btn_search"
+                        android:layout_gravity="left|center_vertical"
+                        android:layout_marginLeft="15dp"
+                        android:background="@drawable/refreshbutton"
+                        android:onClick="refreshHistory"
+                        android:visibility="visible" >
+                    </ImageButton>
+                    
+                    <ImageView
+                        android:id="@+id/logo"
+                          android:layout_width="170dp"
+                    android:layout_height="98dp"
+                  
+                    
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                  
+                   
+                    
+                    android:src="@drawable/logo_320"/>
+
+                    
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tableRow5"
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:background="@drawable/topbarcolor"
+                    android:gravity="center_horizontal"
+                    android:minHeight="43dp" >
+
+                    <TextView
+                        android:id="@+id/textViewaccntbal"
+                      
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="5dp"
+                        android:paddingTop="8dp"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
+                </TableRow>
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="left"
+                    android:textColor="#000000"
+                    android:textSize="16dp"
+                    android:visibility="visible" />
+            </TableLayout>
+
+                 </RelativeLayout>
+    </LinearLayout>
+
+</ScrollView>
