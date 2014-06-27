@@ -712,17 +712,19 @@ public class HomeActivity extends Activity implements OnClickListener {
 
 	public void backpost(View v) {
 
-		this.finish();
-
+	
+	//	myintent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(reintent);
+		this.finish();
 
 	}
 
 	public void Backpost1(View v) {
 
-		this.finish();
-
+		
+	//	myintent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(reintent);
+		this.finish();
 
 	}
 

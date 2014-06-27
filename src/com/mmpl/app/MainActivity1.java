@@ -66,6 +66,7 @@ public class MainActivity1 extends ListActivity {
 	Intent myintent4 = new Intent();
 	Intent myintent5 = new Intent();
 	Intent myintent6 = new Intent();
+	Intent intentMain = new Intent();
 	Intent swipeintent = new Intent();
 	
 	WebView wv;
@@ -109,7 +110,7 @@ public class MainActivity1 extends ListActivity {
 
 		this.back =(Button) findViewById(R.id.button6);
 		
-		
+		 intentMain =new Intent(this,MainActivity1.class);
 
 		this.responsetxt = (TextView) findViewById(R.id.textView1);
 		SaveSessionData();
@@ -305,21 +306,28 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 	
 	if(item.equals("Mobile Recharge")){
 		myintent = new Intent(MainActivity1.this,HomeActivity.class);
+		myintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(myintent);
+		finish();
 	}
 	if(item.equals("DTH Recharge")){
 		myintent1 = new Intent(MainActivity1.this,HomeActivity1.class);
+		myintent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(myintent1);
+		finish();
 	}
 	if(item.equals("Bill Payment")){
 		myintent2 = new Intent(MainActivity1.this,HomeActivity2.class);
+		myintent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(myintent2);
+		finish();
 	}
 	if(item.equals("Card Sale")){
 		
 		swipeintent = new Intent(MainActivity1.this,MSwipeAndroidSDKListActivity1.class);
+		swipeintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(swipeintent);		
-		
+		finish();
 	}	
 	
  /*  if(item.equals("Aadhar")){
@@ -330,13 +338,17 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 	}	*/
 	if(item.equals("Utility Bill Payment")){
 		myintent6 = new Intent(MainActivity1.this,HomeBillActivity_PBX.class);
+		myintent6.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(myintent6);
+		finish();
 	}
 	
 	if(item.equals("History")){
 		
 		myintent4 = new Intent(MainActivity1.this,HistoryActivity.class);
+		myintent4.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(myintent4);
+		finish();
 	}
 
 		
@@ -344,7 +356,9 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 		
 		
 		myintent5 = new Intent(MainActivity1.this,InfoActivity.class);
+		myintent5.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(myintent5);
+		finish();
 		
 		
 	}
@@ -383,15 +397,15 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 	public void onDestroy() {
 		super.onDestroy();
 		}
-	@Override
-	public void onUserLeaveHint() {
-		//super.onUserLeaveHint();
-//		Intent intent =new Intent(this,MainActivity1.class);
-//		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//		startActivity(intent);
-        this.finish();
-		
-	}
+//	@Override
+//	public void onUserLeaveHint() {
+//		//super.onUserLeaveHint();
+////		Intent intent =new Intent(this,MainActivity1.class);
+////		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+////		startActivity(intent);
+//        this.finish();
+//		
+//	}
 	
 	
 	/*public void onBackPressed() {
@@ -427,14 +441,12 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
               .setCancelable(true)
                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                    public void onClick(DialogInterface dialog, int id) {
+                	   
                        dialog.cancel();
-                       finish();
-                       Helpz myhelp = new Helpz();
-                      
-               	       
-               	    myhelp.SetLogoutVariable(false);
-               	
-               		
+                        Helpz myhelp = new Helpz();
+                        myhelp.SetLogoutVariable(false);
+                        intentMain.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+               		    finish();
                    }
                })
                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

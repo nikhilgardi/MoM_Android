@@ -281,15 +281,16 @@ public class LastTrxStatus extends Activity
 		}
 	};
 	
-	@Override
-	public void onUserLeaveHint() {
-		this.finish();
-	}
+//	@Override
+//	public void onUserLeaveHint() {
+//		this.finish();
+//	}
 public void onBackPressed() {
 		
 		reintent = new Intent(LastTrxStatus.this , MSwipeAndroidSDKListActivity1.class);
+		reintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 		startActivity(reintent);
-			
+			finish();
 		}  
 	
 

@@ -611,16 +611,18 @@ public class HistoryActivity extends Activity {
 		this.rechargePost();
 	}
 
-	@Override
-	public void onUserLeaveHint() {
-		this.finish();
-		
-	}
+//	@Override
+//	public void onUserLeaveHint() {
+//		this.finish();
+//		
+//	}
 	@Override
 	public void onBackPressed() {
 		
 		myintenttest = new Intent(HistoryActivity.this, MainActivity1.class);
+		myintenttest.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(myintenttest);
+		finish();
 		return;
 	}
 

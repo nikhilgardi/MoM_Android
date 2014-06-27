@@ -4,6 +4,7 @@ package com.mmpl.app;
 import org.mswipe.sdk.MSwiperController;
 import com.mmpl.app.R;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -81,12 +82,14 @@ public class LoginView extends Activity {
       	Button btnBack = (Button) findViewById(R.id.login_BTN_back);
       	btnBack.setOnClickListener(new OnClickListener() 
 		{
+			@SuppressLint("InlinedApi")
 			@Override
 			public void onClick(View v) 
 			{
 				reintent = new Intent(LoginView.this, MSwipeAndroidSDKListActivity1.class);
+				reintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 				startActivity(reintent);
-			   finish();
+			    finish();
 	
 			}
 		});
@@ -214,15 +217,17 @@ public class LoginView extends Activity {
 		}
 	};
 	
-	@Override
-	public void onUserLeaveHint() {
-		this.finish();
-		
-	}
+//	@Override
+//	public void onUserLeaveHint() {
+//		this.finish();
+//		
+//	}
 public void onBackPressed() {
 		
-		reintent = new Intent(LoginView.this, MSwipeAndroidSDKListActivity1.class);
-		startActivity(reintent);
+//		reintent = new Intent(LoginView.this, MSwipeAndroidSDKListActivity1.class);
+//		//reintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//		startActivity(reintent);
+//		this.finish();
 		return;
 	}
 

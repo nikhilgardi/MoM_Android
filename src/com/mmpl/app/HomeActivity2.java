@@ -680,18 +680,20 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 	}
 
 	public void backpost1(View v) {
-
+		
+	//	myintent3.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		startActivity(reintent);
 		this.finish();
 
-		startActivity(reintent);
 
 	}
 
 	public void backpost2(View v) {
 
+	//	myintent3.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		startActivity(reintent);
 		this.finish();
 
-		startActivity(reintent);
 
 	}
 
@@ -1502,10 +1504,10 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 			this.response_message = "Error in logging";
 	}
 
-	@Override
-	public void onUserLeaveHint() {
-		this.finish();
-	}
+//	@Override
+//	public void onUserLeaveHint() {
+//		this.finish();
+//	}
 
 	@Override
 	public void onBackPressed() {

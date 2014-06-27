@@ -261,11 +261,13 @@ public void onBackPressed() {
 			switch (Integer.parseInt(strArrayResponse[0].toString())) {
 			case 1:
 				
-				Toast.makeText(LoginActivity.this, strArrayResponse[0].toString(), Toast.LENGTH_LONG).show();
-				response1.setVisibility(View.VISIBLE);
-				response1.setText(strArrayResponse[1].toString());
+				//Toast.makeText(LoginActivity.this, strArrayResponse[0].toString(), Toast.LENGTH_LONG).show();
+				//response1.setVisibility(View.VISIBLE);
+				//response1.setText(strArrayResponse[1].toString());
 				myintent = new Intent(LoginActivity.this,MainActivity1.class);
+				myintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(myintent);
+				finish();
 				break;
 		
 			default:
@@ -529,9 +531,9 @@ public void onBackPressed() {
 				switch (Integer.parseInt(strArrayResponse[0].toString())) {
 				case 1:
 					
-					Toast.makeText(LoginActivity.this, strArrayResponse[0].toString(), Toast.LENGTH_LONG).show();
-					response1.setVisibility(View.VISIBLE);
-					response1.setText(strArrayResponse[1].toString());
+				//	Toast.makeText(LoginActivity.this, strArrayResponse[0].toString(), Toast.LENGTH_LONG).show();
+				//	response1.setVisibility(View.VISIBLE);
+				//	response1.setText(strArrayResponse[1].toString());
 					myintent = new Intent(LoginActivity.this,MainActivity1.class);
 					startActivity(myintent);
 					break;

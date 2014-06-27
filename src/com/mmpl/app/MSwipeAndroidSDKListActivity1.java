@@ -42,6 +42,7 @@ import android.widget.TextView;
 
 	public class MSwipeAndroidSDKListActivity1 extends Activity {
 		Intent myintenttest = new Intent();
+		Intent intentMSwipe = new Intent();
 		private TextView response;
 		String output ,check ,responseBody;
 		/** Called when the activity is first created. */
@@ -51,6 +52,7 @@ import android.widget.TextView;
 	        super.onCreate(savedInstanceState);
 	    	setContentView(R.layout.mswipersdklist1);
 	    	this.response = (TextView) findViewById(R.id.textView1);
+	    	intentMSwipe =new Intent(this,MSwipeAndroidSDKListActivity1.class);
 			initViews();
 			
 		
@@ -225,13 +227,17 @@ import android.widget.TextView;
 					if(arg2 == 0)
 					{
 						Intent intent =new Intent(MSwipeAndroidSDKListActivity1.this, LoginView.class);
+						intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 						startActivity(intent);
+						finish();
 					}else if (arg2 == 1){
 									
 						if(ConstantSample.mReferenceId.length()>0)
 						{	
 							Intent intent = new Intent(MSwipeAndroidSDKListActivity1.this, CreditSaleView.class);
+							intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 							startActivity(intent);
+							finish();
 						}else{
 							ConstantSample.showDialog(MSwipeAndroidSDKListActivity1.this, "Login API", "Please login first");
 						}
@@ -252,8 +258,8 @@ import android.widget.TextView;
 						ConstantSample.mAmount= "5678";
 						*/
 						
-						
-						if(ConstantSample.NotFirstTimeLogin.equals("false"))
+	//'''/////					
+					if(ConstantSample.NotFirstTimeLogin.equals("false"))
 						{
 							ConstantSample.showDialog(MSwipeAndroidSDKListActivity1.this, "Login API", "You loggin in for first time have to change the password");
 						}else{
@@ -267,8 +273,10 @@ import android.widget.TextView;
 			
 								intent.putExtra("lstFrDgts",ConstantSample.mLast4Digits );
 								intent.putExtra("amt", ConstantSample.mAmount);
-			
+								
+								intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 								startActivity(intent);
+								finish();
 							}else{
 								ConstantSample.showDialog(MSwipeAndroidSDKListActivity1.this, "Login API", "Please login first");
 							}
@@ -284,8 +292,9 @@ import android.widget.TextView;
 						}else{
 							if(ConstantSample.mReferenceId.length()>0)
 							{	
-
+								intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 								startActivity(intent);
+								finish();
 							}else{
 								ConstantSample.showDialog(MSwipeAndroidSDKListActivity1.this, "Login API", "Please login first");
 							}
@@ -299,7 +308,9 @@ import android.widget.TextView;
 						if(ConstantSample.mReferenceId.length()>0)
 						{	
 
+							intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 							startActivity(intent);
+							finish();
 						}else{
 							ConstantSample.showDialog(MSwipeAndroidSDKListActivity1.this, "Login API", "Please login first");
 						}
@@ -309,21 +320,134 @@ import android.widget.TextView;
 				}
 			});
 		}
-		
-		
+		//////////////
+//		@Override
+//		
+//		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) 
+//		{
+//			if(arg2 == 0)
+//			{
+//				Intent intent =new Intent(MSwipeAndroidSDKListActivity1.this, LoginView.class);
+//				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//				startActivity(intent);
+//				finish();
+//			}else if (arg2 == 1){
+//				Intent intent = new Intent(MSwipeAndroidSDKListActivity1.this, CreditSaleView.class);
+//				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//				startActivity(intent);
+//				finish();		
+//				/*if(ConstantSample.mReferenceId.length()>0)
+//				{	
+//					Intent intent = new Intent(MSwipeAndroidSDKListActivity1.this, CreditSaleView.class);
+//					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//					startActivity(intent);
+//					finish();
+//				}else{
+//					ConstantSample.showDialog(MSwipeAndroidSDKListActivity1.this, "Login API", "Please login first");
+//				}*/
+//			}else if (arg2 == 2){
+//				
+//				Intent intent = new Intent(MSwipeAndroidSDKListActivity1.this, CreditSaleSignatureView.class);
+//				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//				startActivity(intent);
+//				finish();
+//		////////		
+//				/*
+//				ConstantSample.mReferenceId = "9100000288";
+//				ConstantSample.mPassword = "mswipe";
+//				
+//				ConstantSample.mStandId = "18751";
+//				ConstantSample.mRRNO= "000058628946";			
+//				ConstantSample.mAuthCode = "048110";
+//				ConstantSample.mDateTime= "29 Nov 2012";
+//
+//				ConstantSample.mLast4Digits = "3456";
+//				ConstantSample.mAmount= "5678";
+//				*/
+//				
+//				
+//			/*	if(ConstantSample.NotFirstTimeLogin.equals("false"))
+//				{
+//					ConstantSample.showDialog(MSwipeAndroidSDKListActivity1.this, "Login API", "You loggin in for first time have to change the password");
+//				}else{
+//					if(ConstantSample.mReferenceId.length()>0)
+//					{	
+//
+//						intent.putExtra("mStandId", ConstantSample.mStandId);
+//						intent.putExtra("rrno", ConstantSample.mRRNO);			
+//						intent.putExtra("authCode", ConstantSample.mAuthCode);
+//						intent.putExtra("date", ConstantSample.mDateTime);
+//	
+//						intent.putExtra("lstFrDgts",ConstantSample.mLast4Digits );
+//						intent.putExtra("amt", ConstantSample.mAmount);
+//						
+//						intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//						startActivity(intent);
+//						finish();
+//					}else{
+//						ConstantSample.showDialog(MSwipeAndroidSDKListActivity1.this, "Login API", "Please login first");
+//					}
+//				}*/
+//		}else if (arg2 == 3){
+//				
+//				Intent intent = new Intent(MSwipeAndroidSDKListActivity1.this, LastTrxStatus.class);
+//				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//				startActivity(intent);
+//				finish();
+//				
+//		/*	if(ConstantSample.NotFirstTimeLogin.equals("false"))
+//				{
+//					ConstantSample.showDialog(MSwipeAndroidSDKListActivity1.this, "Login API", "You loggin in for first time have to change the password");
+//				}else{
+//					if(ConstantSample.mReferenceId.length()>0)
+//					{	
+//						intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//						startActivity(intent);
+//						finish();
+//					}else{
+//						ConstantSample.showDialog(MSwipeAndroidSDKListActivity1.this, "Login API", "Please login first");
+//					}
+//
+//				}*/
+//			
+//		}else if (arg2 == 4){
+//			
+//				Intent intent = new Intent(MSwipeAndroidSDKListActivity1.this, ChangePassword.class);
+//				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//				startActivity(intent);
+//				finish();
+//				/*if(ConstantSample.mReferenceId.length()>0)
+//				{	
+//
+//					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//					startActivity(intent);
+//					finish();
+//				}else{
+//					ConstantSample.showDialog(MSwipeAndroidSDKListActivity1.this, "Login API", "Please login first");
+//				}*/
+//
+//		}
+//				
+//		}
+//	});
+//}
+
 		
 		public void onBackPressed() {
-			
+			intentMSwipe.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			myintenttest = new Intent(MSwipeAndroidSDKListActivity1.this, MainActivity1.class);
+			
+		//	myintenttest.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(myintenttest);
+			finish();
 			return;
 			
 		}
-		
-		@Override
-		public void onUserLeaveHint() {
-			this.finish();
-		}
+//		
+//		@Override
+//		public void onUserLeaveHint() {
+//			this.finish();
+//		}
 		/*	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event)
 		{

@@ -613,19 +613,18 @@ public void addListenerOnSpinnerItemSelection() {
 	}
 
 	public void backpost(View v) {
-
-		this.finish();
-
+		
+		//myintent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(reintent);
+		this.finish();
 
 	}
 
 	public void Backpost1(View v) {
-
-		this.finish();
-
+		
+		//myintent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(reintent);
-
+		this.finish();
 	}
 	private void rechargePost() {
 		String[] strResponse1 = null;

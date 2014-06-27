@@ -284,6 +284,7 @@ public class CreditSaleView extends Activity
 			public void onClick(View v) 
 			{
 				reintent = new Intent(CreditSaleView.this, MSwipeAndroidSDKListActivity1.class);
+				reintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 				startActivity(reintent);
 			   finish();
 	
@@ -292,7 +293,7 @@ public class CreditSaleView extends Activity
 		
 		
 	}
-
+//test//
 	
 	public void processCardTransaction()
 	{
@@ -1044,10 +1045,10 @@ public class CreditSaleView extends Activity
 		} // end-of onReceive		
 	}
 	
-	@Override
-	public void onUserLeaveHint() {
-		this.finish();
-	}
+//	@Override
+//	public void onUserLeaveHint() {
+//		this.finish();
+//	}
 	/*public void onBackPressed() {
 		
 		reintent = new Intent(CreditSaleView.this, MSwipeAndroidSDKListActivity1.class);

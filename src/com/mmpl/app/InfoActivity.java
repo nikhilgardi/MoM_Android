@@ -67,6 +67,7 @@ public class InfoActivity extends ListActivity {
 	Intent swipeintent = new Intent();
 	Intent mpinintent = new Intent();
 	Intent tpinintent = new Intent();
+	Intent intentInfo = new Intent();
 	ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
 	ArrayList<NameValuePair> nameValuePairs1 = new ArrayList<NameValuePair>(2);
 	public void onCreate(Bundle savedInstanceState) {
@@ -115,6 +116,8 @@ public class InfoActivity extends ListActivity {
 //		this.dialog.setCancelable(false);
 //		GetInfoTask task = new GetInfoTask();
 //		task.execute();
+		
+		 
 	}
 	
 	public void logout(View v) {
@@ -122,6 +125,7 @@ public class InfoActivity extends ListActivity {
 		
 	    this.finish();
 	    myhelp.SetLogoutVariable(false);
+	  //  myintentlogin.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 		startActivity(myintentlogin);
 		
 		
@@ -357,21 +361,27 @@ public class InfoActivity extends ListActivity {
 		if (item.equals("Change M-Pin")) {
 
 			mpinintent = new Intent(InfoActivity.this, MPinActivity.class);
+			//mpinintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(mpinintent);
+		//	finish();
 
 		}
 		
 		if (item.equals("Change Password")) {
 
 			mpinintent = new Intent(InfoActivity.this, ChangePasswordPBXActivity.class);
+		//	mpinintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(mpinintent);
+		//finish();
 
 		}
 
 		if (item.equals("Change T-Pin")) {
 
 			tpinintent = new Intent(InfoActivity.this, TPinActivity.class);
+		//	tpinintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(tpinintent);
+		//	finish();
 
 		}
 		
@@ -697,11 +707,12 @@ public class InfoActivity extends ListActivity {
 	
 	
 public void onBackPressed() {
-		
+	
 		myintenttest = new Intent(InfoActivity.this, MainActivity1.class);
 		myintenttest.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		startActivity(myintenttest);
 		
+		startActivity(myintenttest);
+		finish();
 		return;
 	}
 

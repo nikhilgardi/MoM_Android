@@ -177,13 +177,15 @@ public class TPinActivity extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				myintenttest = new Intent(TPinActivity.this, InfoActivity.class);
+				myintenttest.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(myintenttest);
+				finish();
 			}
 		});
 
 		AccountBalPost();
 		// this.posting();
-		myintent = new Intent(TPinActivity.this, LoginActivity.class);
+		
 
 	}
 
@@ -469,7 +471,7 @@ public class TPinActivity extends Activity {
 				Old_Password.setText("");
 				New_Password.setText("");
 				Confirm_Password.setText("");
-				myintenttest.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			//	myintenttest.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				break;
 
 			}
@@ -533,11 +535,11 @@ public class TPinActivity extends Activity {
 			return 1;
 	}
 
-	@Override
-	public void onUserLeaveHint() {
-		this.finish();
-
-	}
+//	@Override
+//	public void onUserLeaveHint() {
+//		this.finish();
+//
+//	}
 
 	public void onBackPressed() {
 
