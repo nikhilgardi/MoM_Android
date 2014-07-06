@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pre-dex-items>
+
+    <item
+        dex="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/MoM_Android1/app/build/intermediates/pre-dexed/debug/ksoap2-android-3.3.0-96a132fd7d839f0fe89521ae04c8cd6d7a35bb7d.jar"
+        jar="/Users/vaibhavsinha/.gradle/caches/modules-2/files-2.1/com.google.code.ksoap2-android/ksoap2-android/3.3.0/ca23af61438cf7e397e51a3df88b1a5b0bc9ea79/ksoap2-android-3.3.0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="ca23af61438cf7e397e51a3df88b1a5b0bc9ea79"/>
+    <item
+        dex="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/MoM_Android1/app/build/intermediates/pre-dexed/debug/internal_impl-20.0.0-8078c796d2510d4ed79fb098db8ef51f396b7a7f.jar"
+        jar="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/MoM_Android1/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/libs/internal_impl-20.0.0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d"/>
+    <item
+        dex="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/MoM_Android1/app/build/intermediates/pre-dexed/debug/ksoap2-j2se-3.3.0-e3b116b3e4037647679b34e9ca912120e1caf454.jar"
+        jar="/Users/vaibhavsinha/.gradle/caches/modules-2/files-2.1/com.google.code.ksoap2-android/ksoap2-j2se/3.3.0/3bbcf49f06570312e9014946e3f4065d002efad4/ksoap2-j2se-3.3.0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="3bbcf49f06570312e9014946e3f4065d002efad4"/>
+    <item
+        dex="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/MoM_Android1/app/build/intermediates/pre-dexed/debug/classes-e7ce29f4c95e0c55fafd900a00a0c3a3051742f6.jar"
+        jar="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/MoM_Android1/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="8694693636ab36910c8100ce527c258ff3ebece0"/>
+    <item
+        dex="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/MoM_Android1/app/build/intermediates/pre-dexed/debug/kxml-2.2.4-ec9f6d1bf4635c559125f64a613813c5cb31f3f9.jar"
+        jar="/Users/vaibhavsinha/.gradle/caches/modules-2/files-2.1/net.sourceforge.kxml/kxml/2.2.4/1642506e490548d96984b8370e44257c156097f7/kxml-2.2.4.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="1642506e490548d96984b8370e44257c156097f7"/>
+    <item
+        dex="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/MoM_Android1/app/build/intermediates/pre-dexed/debug/mswiperAPIVer2.0-a8e5595ad38000a6f71bd2cff07c4e64f5ca8f22.jar"
+        jar="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/MoM_Android1/app/libs/mswiperAPIVer2.0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="ed76c549a1b77e93ffc773bbe19631e555e95899"/>
+    <item
+        dex="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/MoM_Android1/app/build/intermediates/pre-dexed/debug/xmlpull-1.1.3.3-14a6414676249b827f51fee43787fa2599ee62e2.jar"
+        jar="/Users/vaibhavsinha/.gradle/caches/modules-2/files-2.1/org.xmlpull/xmlpull/1.1.3.3/9b62254da05ce6399a09164362da7b2419de63ca/xmlpull-1.1.3.3.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="9b62254da05ce6399a09164362da7b2419de63ca"/>
+    <item
+        dex="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/MoM_Android1/app/build/intermediates/pre-dexed/debug/ksoap2-base-3.3.0-ecf990235083c4cb52285e67dced4cc74969a36c.jar"
+        jar="/Users/vaibhavsinha/.gradle/caches/modules-2/files-2.1/com.google.code.ksoap2-android/ksoap2-base/3.3.0/6c7e0691f5b602d7db0739c31c59ad74b88f9b2a/ksoap2-base-3.3.0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="6c7e0691f5b602d7db0739c31c59ad74b88f9b2a"/>
+    <item
+        dex="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/MoM_Android1/app/build/intermediates/pre-dexed/debug/kobjects-j2me-0.0-SNAPSHOT-20040926-2-7076b4d4f5bb9246a336fec87e3b1db447ec4160.jar"
+        jar="/Users/vaibhavsinha/.gradle/caches/modules-2/files-2.1/net.sourceforge.kobjects/kobjects-j2me/0.0-SNAPSHOT-20040926-2/9246ca92b16c65114a7fb80b906801e06be95305/kobjects-j2me-0.0-SNAPSHOT-20040926-2.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="9246ca92b16c65114a7fb80b906801e06be95305"/>
+    <item
+        dex="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/MoM_Android1/app/build/intermediates/pre-dexed/debug/support-annotations-20.0.0-c87763b8be17c18e69bc474db0d4b383910b73aa.jar"
+        jar="/Users/vaibhavsinha/Documents/Development/Tools/google/adt-bundle-mac-x86_64-20131030/sdk/extras/android/m2repository/com/android/support/support-annotations/20.0.0/support-annotations-20.0.0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="9d9013e9ff35fc3756411e62873c363c70c638fa"/>
+
+</pre-dex-items>

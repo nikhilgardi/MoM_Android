@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bitmap xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:src="@drawable/appsbg"
+    android:tileMode="disabled">
+    
+
+</bitmap><!-- From: file:/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/MoM_Android1/app/src/main/res/drawable/backrepeat.xml -->

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle"
+    >
+    <item 
+        android:state_pressed="true"
+        android:drawable="@drawable/editbox_background_focus" 
+        /> <!-- pressed -->    
+    <item 
+        android:state_focused="true"
+        android:drawable="@drawable/editbox_background_focus" 
+        /> <!-- focused -->    
+    <item 
+        android:drawable="@drawable/editbox_background_normal" 
+        /> <!-- default -->
+</selector>
+<!-- From: file:/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/MoM_Android1/app/src/main/res/drawable/custom.xml -->

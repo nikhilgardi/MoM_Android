@@ -1,0 +1,140 @@
+ECLIPSE ANDROID PROJECT IMPORT SUMMARY
+======================================
+
+Ignored Files:
+--------------
+The following files were *not* copied into the new Gradle project; you
+should evaluate whether these are still needed in your project and if
+so manually move them:
+
+* .DS_Store
+* .gradle/
+* .gradle/1.12/
+* .gradle/1.12/taskArtifacts/
+* .gradle/1.12/taskArtifacts/cache.properties
+* .gradle/1.12/taskArtifacts/cache.properties.lock
+* .gradle/1.12/taskArtifacts/fileSnapshots.bin
+* .gradle/1.12/taskArtifacts/taskArtifacts.bin
+* .idea/
+* .idea/.name
+* .idea/compiler.xml
+* .idea/copyright/
+* .idea/copyright/profiles_settings.xml
+* .idea/encodings.xml
+* .idea/gradle.xml
+* .idea/misc.xml
+* .idea/modules.xml
+* .idea/scopes/
+* .idea/scopes/scope_settings.xml
+* .idea/vcs.xml
+* .idea/workspace.xml
+* MoM_2_3_aligned.apk
+* apk/
+* apk/.DS_Store
+* apk/MoneyOnMobileApplication.apk
+* ic_launcher-web.png
+* images/
+* images/MOM_Screenshots/
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-05-06.png
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-05-38.png
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-05-50.png
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-05-51.jpg
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-06-14.png
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-06-21.png
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-06-31.png
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-14-02.png
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-14-08.png
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-14-13.png
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-14-57.png
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-15-18.png
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-15-40.png
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-16-20.png
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-16-27.png
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-16-45.png
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-17-21.png
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-17-34.png
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-17-37.png
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-17-44.png
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-18-00.png
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-18-05.png
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-18-56.png
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-19-06.png
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-19-13.png
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-20-16.png
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-20-30.png
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-20-44.png
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-21-14.png
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-21-57.png
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-22-21.png
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-39-35.png
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-41-40.png
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-48-07.png
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-48-10.png
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-48-17.png
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-48-39.png
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-48-43.png
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-48-52.png
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-48-58.png
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-49-20.png
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-49-21 .jpg
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-49-22.jpg
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-49-23.jpg
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-49-24.jpg
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-49-25.jpg
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-49-27.jpg
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-49-28.jpg
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-49-29.jpg
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-49-30.jpg
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-49-31.jpg
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-49-32.jpg
+* images/MOM_Screenshots/Screenshot_2014-06-04-13-49-33.jpg
+* images/MOM_Screenshots/login.png
+* images/MOM_Screenshots/shot_000085.jpg
+* images/MOM_Screenshots/shot_000086.jpg
+* images/MOM_Screenshots/shot_000088.jpg
+* images/MOM_Screenshots/shot_000089.jpg
+* images/MOM_Screenshots/shot_000093.jpg
+* images/MOM_Screenshots/shot_000095.jpg
+* images/MOM_Screenshots/shot_000098.jpg
+* images/MOM_Screenshots/shot_000099.jpg
+* images/MOM_Screenshots/shot_000100.jpg
+* mmpl-release-key.keystore
+* proguard-project.txt
+
+Replaced Jars with Dependencies:
+--------------------------------
+The importer recognized the following .jar files as third party
+libraries and replaced them with Gradle dependencies instead. This has
+the advantage that more explicit version information is known, and the
+libraries can be updated automatically. However, it is possible that
+the .jar file in your project was of an older version than the
+dependency we picked, which could render the project not compileable.
+You can disable the jar replacement in the import wizard and try again:
+
+android-support-v4.jar => com.android.support:support-v4:+
+
+Moved Files:
+------------
+Android Gradle projects use a different directory structure than ADT
+Eclipse projects. Here's how the projects were restructured:
+
+* AndroidManifest.xml => app/src/main/AndroidManifest.xml
+* assets/ => app/src/main/assets/
+* libs/mswiperAPIVer2.0.jar => app/libs/mswiperAPIVer2.0.jar
+* res/ => app/src/main/res/
+* src/ => app/src/main/java/
+
+Next Steps:
+-----------
+You can now build the project. The Gradle project needs network
+connectivity to download dependencies.
+
+Bugs:
+-----
+If for some reason your project does not build, and you determine that
+it is due to a bug or limitation of the Eclipse to Gradle importer,
+please file a bug at http://b.android.com with category
+Component-Tools.
+
+(This import summary is for your information only, and can be deleted
+after import once you are satisfied with the results.)
