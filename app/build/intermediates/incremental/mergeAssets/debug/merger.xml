@@ -4,6 +4,9 @@
     <dataSet config="20.0.0" >
         <source path="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/MoM_Android1/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/assets" />
     </dataSet>
+    <dataSet config="19.1.0" >
+        <source path="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/MoM_Android1/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/assets" />
+    </dataSet>
     <dataSet config="main" >
         <source path="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/MoM_Android1/app/src/main/assets" />
     </dataSet>

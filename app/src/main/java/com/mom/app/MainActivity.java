@@ -1,23 +1,10 @@
 
 package com.mom.app;
 
-import java.io.IOException;
-
-import java.io.InputStream;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-
-
-
-import org.apache.http.NameValuePair;
-
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
-
 
 import com.mom.app.identifier.PlatformIdentifier;
+import com.mom.app.model.AsyncListener;
+import com.mom.app.model.DataExImpl;
 import com.mom.app.model.IDataEx;
 import com.mom.app.model.local.LocalStorage;
 import com.mom.app.model.newpl.NewPLDataExImpl;
@@ -26,15 +13,11 @@ import com.mom.app.utils.MOMConstants;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -44,12 +27,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-public class MainActivity extends ListActivity {
+public class MainActivity extends ListActivity implements AsyncListener{
     private String responseBody;
     private String session_id;
-    private TextView responsetxt;
+//    private TextView responsetxt;
 //    Helpz myHelpz = new Helpz();
 //    Intent myintent = new Intent();
 //    Intent myintent1 = new Intent();
@@ -61,11 +43,11 @@ public class MainActivity extends ListActivity {
 //    Intent intentMain = new Intent();
 //    Intent swipeintent = new Intent();
 
-    WebView wv;
-    ListView lv;
-    Button save, logout, relogout, passchng, repasschng, back;
-    EditText op, np, np1;
-    TextView res;
+//    WebView wv;
+//    ListView lv;
+//    Button save, logout, relogout, passchng, repasschng, back;
+//    EditText op, np, np1;
+//    TextView res;
 //    String url, check, output;
 //    String error = "2";
 //    String flag = "2";
@@ -95,20 +77,20 @@ public class MainActivity extends ListActivity {
 
         }
 
-        setContentView(R.layout.activity_main1);
+        setContentView(R.layout.main);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.row_layout, R.id.label, values);
         setListAdapter(adapter);
 
-        wv = (WebView) findViewById(R.id.resp);
-        lv = (ListView) findViewById(android.R.id.list);
+//        wv = (WebView) findViewById(R.id.resp);
+//        lv = (ListView) findViewById(android.R.id.list);
 
-        this.res = (TextView) findViewById(R.id.response);
+//        this.res = (TextView) findViewById(R.id.response);
 
-        this.back = (Button) findViewById(R.id.button6);
+//        this.back = (Button) findViewById(R.id.button6);
 
 //        intentMain = new Intent(this, MainActivity.class);
         getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.appsbg));
-        this.responsetxt = (TextView) findViewById(R.id.textView1);
+//        this.responsetxt = (TextView) findViewById(R.id.textView1);
 //        SaveSessionData();
         //	rechargePost();
 //        new GetLoginTask().onPostExecute("test");
@@ -116,12 +98,130 @@ public class MainActivity extends ListActivity {
 
     }
 
-    public void getBalance(){
-        IDataEx dataEx  = new NewPLDataExImpl(MOMConstants.URL_NEW_PLATFORM, getApplicationContext());
-        Log.i("MAIN", "Getting Balance");
-        double bal      = dataEx.getBalance();
-        Log.i("MAIN", "Balance: " + bal);
+    @Override
+    public void onTaskComplete(String result, DataExImpl.Methods pMethod) {
+        Log.d("TASK_C_MAIN", "Called back");
+        switch(pMethod){
+            case GET_BALANCE:
+                Log.d("TASK_C_MAIN", "Balance returned: " + result);
+                TextView balanceTxtView = (TextView) findViewById(R.id.textView1);
+                if(balanceTxtView != null){
+                    balanceTxtView.setVisibility(View.VISIBLE);
+                    balanceTxtView.setText("Balance: " + result);
+                    Log.d("TASK_C_MAIN", "Balance TextView set");
+                }
+            break;
+        }
     }
+
+    public void getBalance(){
+        Log.d("MAIN", "Getting Balance");
+        IDataEx dataEx  = new NewPLDataExImpl(this, getApplicationContext());
+        Log.d("MAIN", "DataEx instance created");
+        dataEx.getBalance();
+        Log.d("MAIN", "getBalance called");
+    }
+
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        String item = (String) getListAdapter().getItem(position);
+        Intent intent   = null;
+        if (item.equals("Mobile Recharge")) {
+            intent = new Intent(MainActivity.this, HomeActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+
+        }else if (item.equals("DTH Recharge")) {
+            intent = new Intent(MainActivity.this, HomeActivity1.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+
+        }else if (item.equals("Bill Payment")) {
+            intent = new Intent(MainActivity.this, HomeActivity2.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+        }else if (item.equals("Card Sale")) {
+            intent = new Intent(MainActivity.this, MSwipeAndroidSDKListActivity1.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+
+        }else if (item.equals("Utility Bill Payment")) {
+            intent = new Intent(MainActivity.this, HomeBillActivity_PBX.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+
+        }else if (item.equals("History")) {
+
+            intent = new Intent(MainActivity.this, HistoryActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+        }else if (item.equals("Settings")) {
+            intent = new Intent(MainActivity.this, InfoActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finish();
+        }
+    }
+
+    public void logout(View v) {
+//		Helpz myhelp = new Helpz();
+        //SharedPreferences appSettings = getSharedPreferences(LoginActivity.PREFERENCE_FILENAME, MODE_PRIVATE);
+        //session_id = appSettings.getString("user_session","-1");
+        //url="https://recharge123.com/mobileapp/logout.php";
+        //	this.sendpost(url);
+        //	SharedPreferences.Editor prefEditor = appSettings.edit();
+        //	prefEditor.putString("user_session","null");
+        //	prefEditor.commit();
+        this.finish();
+        Helpz.SetLogoutVariable(false);
+        LocalStorage.storeLocally(getApplicationContext(), MOMConstants.PREF_IS_LOGGED_IN, false);
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+
+        //session_id = appSettings.getString("user_session","-1");
+        //Log.i("logout",session_id );
+    }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            System.out.println("KEYCODE_BACK");
+            showDialog("BACK");
+            return true;
+        }
+        return false;
+    }
+
+    void showDialog(String the_key){
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
+        final Intent intentMain = new Intent(this, MainActivity.class);
+
+        alertDialog.setMessage("You have pressed the BACK  button. Would you like to exit the app?")
+                .setCancelable(true)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        Helpz myhelp = new Helpz();
+                        myhelp.SetLogoutVariable(false);
+                        intentMain.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        finish();
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = alertDialog.create();
+        alert.setTitle("Message");
+        alert.show();
+    }
+
 //    private class GetLoginTask extends AsyncTask<Void, Void, String> {
 //
 //        @Override
@@ -252,52 +352,6 @@ public class MainActivity extends ListActivity {
 //
 //    }
 
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        String item = (String) getListAdapter().getItem(position);
-        Intent intent   = null;
-        if (item.equals("Mobile Recharge")) {
-            intent = new Intent(MainActivity.this, HomeActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
-
-        }else if (item.equals("DTH Recharge")) {
-            intent = new Intent(MainActivity.this, HomeActivity1.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
-
-        }else if (item.equals("Bill Payment")) {
-            intent = new Intent(MainActivity.this, HomeActivity2.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
-        }else if (item.equals("Card Sale")) {
-            intent = new Intent(MainActivity.this, MSwipeAndroidSDKListActivity1.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
-
-        }else if (item.equals("Utility Bill Payment")) {
-            intent = new Intent(MainActivity.this, HomeBillActivity_PBX.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
-
-        }else if (item.equals("History")) {
-
-            intent = new Intent(MainActivity.this, HistoryActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
-        }else if (item.equals("Settings")) {
-            intent = new Intent(MainActivity.this, InfoActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
-        }
-    }
 
 //    public boolean SaveSessionData() {
 //        try {
@@ -310,24 +364,7 @@ public class MainActivity extends ListActivity {
 //
 //    }
 
-    public void logout(View v) {
-//		Helpz myhelp = new Helpz();
-		//SharedPreferences appSettings = getSharedPreferences(LoginActivity.PREFERENCE_FILENAME, MODE_PRIVATE);
-		//session_id = appSettings.getString("user_session","-1");
-		//url="https://recharge123.com/mobileapp/logout.php";
-	//	this.sendpost(url);
-	//	SharedPreferences.Editor prefEditor = appSettings.edit();
-	//	prefEditor.putString("user_session","null");  
-	//	prefEditor.commit();
-	    this.finish();
-	    Helpz.SetLogoutVariable(false);
-        LocalStorage.storeLocally(getApplicationContext(), MOMConstants.PREF_IS_LOGGED_IN, false);
-        Intent intent = new Intent(this, LoginActivity.class);
-		startActivity(intent);
 
-		//session_id = appSettings.getString("user_session","-1");
-		//Log.i("logout",session_id );
-	}
 	
 //	@Override
 //	public void onDestroy() {
@@ -361,39 +398,7 @@ public class MainActivity extends ListActivity {
 //	    return super.onKeyDown(keyCode, event);
 //	   
 //	}
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            System.out.println("KEYCODE_BACK");
-            showDialog("BACK");
-            return true;
-        }
-        return false;
-    }
 
-    void showDialog(String the_key){
-		AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
-        final Intent intentMain = new Intent(this, MainActivity.class);
-
-		alertDialog.setMessage("You have pressed the BACK  button. Would you like to exit the app?")
-              .setCancelable(true)
-               .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                   public void onClick(DialogInterface dialog, int id) {
-                    dialog.cancel();
-                    Helpz myhelp = new Helpz();
-                    myhelp.SetLogoutVariable(false);
-                    intentMain.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    finish();
-                   }
-               })
-               .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                   public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                   }
-               });
-        AlertDialog alert = alertDialog.create();
-        alert.setTitle("Message");
-        alert.show();
-    }
 	
 	/*public boolean onKeyDown(int keyCode, KeyEvent event)  {
 	    if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.ECLAIR

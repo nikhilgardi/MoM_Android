@@ -57,9 +57,12 @@ public class AsyncDataEx extends AsyncTask<NameValuePair, Integer, String>{
 			HttpResponse response = httpclient.execute(httppost);
 			HttpEntity entity 				= response.getEntity();
 			String sResponse 				= EntityUtils.toString(entity);
-			_callback.onTaskComplete(sResponse, _callbackData);
+            Log.d("AsyncDataEx", "Response: " + sResponse);
 
+			_callback.onTaskComplete(sResponse, _callbackData);
+            Log.d("AsyncDataEx", "Called onTaskComplete of listener");
 		}catch (Exception e) {
+            e.printStackTrace();
             Log.i("Async", e.getMessage());
 
 		}

@@ -2,16 +2,26 @@
 <resources>
 
     <string name="title_activity_main">MainActivity</string>
-    <string name="action_settings">Settings</string>
     <string name="hello_world"></string>
     <string name="title_activity_aadhar_payment">AadharPaymentActivity</string>
     <string name="title_activity_aadhar_list">AadharListActivity</string>
     <string name="title_activity_best_fusion">BestFusionActivity</string>
     <string name="title_activity_home_bill_activity__pbx">HomeBillActivity_PBX</string>
     <string name="title_activity_change_password_pbx">ChangePasswordPBXActivity</string>
-	
     <string name="login_failed_msg_default">Login Failed</string>
     <string name="login_username_pwd_required">Please enter your mobile number and password</string>
     <string name="login_username_required">Please enter your mobile Number</string>
     <string name="login_pwd_required">Please enter your password</string>
+    <string name="tpin">T-Pin</string>
+    <string name="tpin_required">Please enter your T-Pin</string>
+    <string name="tpin_incorrect">Incorrect T-Pin</string>
+    <string name="title_activity_verify_tpin">VerifyTPinActivity</string>
+
+    <string name="action_mobileRecharge">Mobile Recharge</string>
+    <string name="action_dthRecharge">DTH Recharge</string>
+    <string name="action_billPayment">Bill Payment</string>
+    <string name="action_cardSale">Card Sale</string>
+    <string name="action_utilityBill">Utility Bill Payment</string>
+    <string name="action_history">History</string>
+    <string name="action_settings">Settings</string>
 </resources>

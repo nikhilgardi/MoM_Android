@@ -129,6 +129,11 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </service>
+
+        <activity
+            android:name="com.mom.app.activity.VerifyTPinActivity"
+            android:label="@string/title_activity_verify_tpin" >
+        </activity>
     </application>
 
 </manifest>

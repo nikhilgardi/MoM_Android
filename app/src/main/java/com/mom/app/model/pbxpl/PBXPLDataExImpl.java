@@ -33,8 +33,8 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener {
     }
 
     @Override
-    public double getBalance(){
-        return 0.;
+    public void getBalance(){
+
     }
 
     public void login(NameValuePair...params){

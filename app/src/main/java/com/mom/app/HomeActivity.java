@@ -150,12 +150,12 @@ public class HomeActivity extends Activity implements OnClickListener {
 		this.rb = (RadioButton) findViewById(R.id.RadioButton01);
 		this.rb1 = (RadioButton) findViewById(R.id.RadioButton02);
 		this.rb2 = (RadioButton) findViewById(R.id.RadioButton03);
-		this.accountbal = (TextView) findViewById(R.id.AccountBal);
+//		this.accountbal = (TextView) findViewById(R.id.AccountBal);
 
 		this.tablelayout = (TableLayout) findViewById(R.id.tableLayout1);
 		getWindow().setBackgroundDrawable(
 				getResources().getDrawable(R.drawable.appsbg));
-		AccountBalPost();
+//		AccountBalPost();
 
 		SharedPreferences pref = PreferenceManager
 				.getDefaultSharedPreferences(getApplicationContext());
@@ -193,212 +193,212 @@ public class HomeActivity extends Activity implements OnClickListener {
 
 	}
 
-	private class GetLoginTask extends AsyncTask<Void, Void, String> {
+//	private class GetLoginTask extends AsyncTask<Void, Void, String> {
+//
+//		@Override
+//		protected String doInBackground(Void... params) {
+//
+//			return responseBody;
+//		}
+//
+//		@Override
+//		protected void onPostExecute(String result) {
+//			Helpz myHelpz = new Helpz();
+//			SharedPreferences pref = PreferenceManager
+//					.getDefaultSharedPreferences(getApplicationContext());
+//
+//			if (pref.getString("user_sessionMOM", "test").equals("MOM"))
+//
+//			{
+//
+//				try {
+//
+//					List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(
+//							3);
+//					nameValuePairs.add(new BasicNameValuePair("OperatorID",
+//							myHelpz.GetMyCustomerId()));
+//					nameValuePairs.add(new BasicNameValuePair("CompanyID",
+//							myHelpz.GetMyCompanyId()));
+//					nameValuePairs.add(new BasicNameValuePair("strAccessID",
+//							GlobalVariables.AccessId));
+//					HttpClient httpclient = new DefaultHttpClient();
+//					HttpPost httppost = new HttpPost(
+//							"http://msvc.money-on-mobile.net/WebServiceV3Client.asmx/getBalanceByCustomerId");
+//					httppost.addHeader("ua", "android");
+//					final HttpParams httpParams = httpclient.getParams();
+//					HttpConnectionParams
+//							.setConnectionTimeout(httpParams, 15000);
+//					HttpConnectionParams.setSoTimeout(httpParams, 15000);
+//					httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+//					HttpResponse response = httpclient.execute(httppost);
+//					HttpEntity entity = response.getEntity();
+//					responseBody = EntityUtils.toString(entity);
+//					check = responseBody;
+//					// error="0";
+//					Log.i("postData", response.getStatusLine().toString());
+//					Log.i("info", responseBody);
+//
+//					InputStream in = new ByteArrayInputStream(
+//							responseBody.getBytes("UTF-8"));
+//					new XmlPullParsingAccnt(in);
+//
+//				} catch (Exception e) {
+//					Log.e("log_tag", "Error in http connection " + e.toString());
+//					responseBody = "Timeout|Error in Http Connection";
+//					// error="1";
+//				}
+//			}
+//
+//			else if (pref.getString("user_sessionMOM", "test").equals("PBX"))
+//
+//			{
+//
+//				HttpClient httpclient = new DefaultHttpClient();
+//				HttpPost httppost = new HttpPost(
+//						"http://180.179.67.76/MobAppS/PbxMobApp.ashx");
+//				try {
+//
+//					List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(
+//							2);
+//					nameValuePairs.add(new BasicNameValuePair("RN", myHelpz
+//							.GetMyLoginMobileNumber()));
+//					nameValuePairs.add(new BasicNameValuePair("Service", "BL"));
+//
+//					httppost.addHeader("ua", "android");
+//					final HttpParams httpParams = httpclient.getParams();
+//					HttpConnectionParams
+//							.setConnectionTimeout(httpParams, 15000);
+//					HttpConnectionParams.setSoTimeout(httpParams, 15000);
+//					httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+//					HttpResponse response = httpclient.execute(httppost);
+//					HttpEntity entity = response.getEntity();
+//					responseBody = EntityUtils.toString(entity);
+//					check = responseBody;
+//					// Double number = Double.valueOf(check);
+//					// DecimalFormat df = new DecimalFormat("#.00");
+//					// String newtestString = df.format(number);
+//					//
+//					// String abc = newtestString;
+//					// error="0";
+//					Log.i("postData", response.getStatusLine().toString());
+//					Log.i("info", responseBody);
+//
+//					myHelpz.SetRMNAccountBal(check);
+//					accountbal.setVisibility(View.VISIBLE);
+//					accountbal.setText("Bal: Rs." + myHelpz.GetRMNAccountBal());
+//				} catch (Exception e) {
+//					Log.e("log_tag", "Error in http connection " + e.toString());
+//					responseBody = "Timeout|Error in Http Connection";
+//					// error="1";
+//				}
+//			} else {
+//				Toast.makeText(getApplicationContext(), "Error",
+//						Toast.LENGTH_LONG).show();
+//			}
+//		}
+//	}
 
-		@Override
-		protected String doInBackground(Void... params) {
-
-			return responseBody;
-		}
-
-		@Override
-		protected void onPostExecute(String result) {
-			Helpz myHelpz = new Helpz();
-			SharedPreferences pref = PreferenceManager
-					.getDefaultSharedPreferences(getApplicationContext());
-
-			if (pref.getString("user_sessionMOM", "test").equals("MOM"))
-
-			{
-
-				try {
-
-					List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(
-							3);
-					nameValuePairs.add(new BasicNameValuePair("OperatorID",
-							myHelpz.GetMyCustomerId()));
-					nameValuePairs.add(new BasicNameValuePair("CompanyID",
-							myHelpz.GetMyCompanyId()));
-					nameValuePairs.add(new BasicNameValuePair("strAccessID",
-							GlobalVariables.AccessId));
-					HttpClient httpclient = new DefaultHttpClient();
-					HttpPost httppost = new HttpPost(
-							"http://msvc.money-on-mobile.net/WebServiceV3Client.asmx/getBalanceByCustomerId");
-					httppost.addHeader("ua", "android");
-					final HttpParams httpParams = httpclient.getParams();
-					HttpConnectionParams
-							.setConnectionTimeout(httpParams, 15000);
-					HttpConnectionParams.setSoTimeout(httpParams, 15000);
-					httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-					HttpResponse response = httpclient.execute(httppost);
-					HttpEntity entity = response.getEntity();
-					responseBody = EntityUtils.toString(entity);
-					check = responseBody;
-					// error="0";
-					Log.i("postData", response.getStatusLine().toString());
-					Log.i("info", responseBody);
-
-					InputStream in = new ByteArrayInputStream(
-							responseBody.getBytes("UTF-8"));
-					new XmlPullParsingAccnt(in);
-
-				} catch (Exception e) {
-					Log.e("log_tag", "Error in http connection " + e.toString());
-					responseBody = "Timeout|Error in Http Connection";
-					// error="1";
-				}
-			}
-
-			else if (pref.getString("user_sessionMOM", "test").equals("PBX"))
-
-			{
-
-				HttpClient httpclient = new DefaultHttpClient();
-				HttpPost httppost = new HttpPost(
-						"http://180.179.67.76/MobAppS/PbxMobApp.ashx");
-				try {
-
-					List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(
-							2);
-					nameValuePairs.add(new BasicNameValuePair("RN", myHelpz
-							.GetMyLoginMobileNumber()));
-					nameValuePairs.add(new BasicNameValuePair("Service", "BL"));
-
-					httppost.addHeader("ua", "android");
-					final HttpParams httpParams = httpclient.getParams();
-					HttpConnectionParams
-							.setConnectionTimeout(httpParams, 15000);
-					HttpConnectionParams.setSoTimeout(httpParams, 15000);
-					httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-					HttpResponse response = httpclient.execute(httppost);
-					HttpEntity entity = response.getEntity();
-					responseBody = EntityUtils.toString(entity);
-					check = responseBody;
-					// Double number = Double.valueOf(check);
-					// DecimalFormat df = new DecimalFormat("#.00");
-					// String newtestString = df.format(number);
-					//
-					// String abc = newtestString;
-					// error="0";
-					Log.i("postData", response.getStatusLine().toString());
-					Log.i("info", responseBody);
-
-					myHelpz.SetRMNAccountBal(check);
-					accountbal.setVisibility(View.VISIBLE);
-					accountbal.setText("Bal: Rs." + myHelpz.GetRMNAccountBal());
-				} catch (Exception e) {
-					Log.e("log_tag", "Error in http connection " + e.toString());
-					responseBody = "Timeout|Error in Http Connection";
-					// error="1";
-				}
-			} else {
-				Toast.makeText(getApplicationContext(), "Error",
-						Toast.LENGTH_LONG).show();
-			}
-		}
-	}
-
-	private void AccountBalPost() {
-
-		SharedPreferences pref = PreferenceManager
-				.getDefaultSharedPreferences(getApplicationContext());
-
-		if (pref.getString("user_sessionMOM", "test").equals("MOM"))
-
-		{
-
-			accountbal.setVisibility(View.VISIBLE);
-			accountbal.setText("Bal: Rs."
-					+ myHelpz.GetRMNAccountBal().toString());
-
-			// try {
-			//
-			// List<NameValuePair> nameValuePairs = new
-			// ArrayList<NameValuePair>(
-			// 3);
-			// nameValuePairs.add(new BasicNameValuePair("OperatorID", myHelpz
-			// .GetMyCustomerId()));
-			// nameValuePairs.add(new BasicNameValuePair("CompanyID", myHelpz
-			// .GetMyCompanyId()));
-			// nameValuePairs.add(new BasicNameValuePair("strAccessID",
-			// GlobalVariables.AccessId));
-			// HttpClient httpclient = new DefaultHttpClient();
-			// HttpPost httppost = new HttpPost(
-			// "http://msvc.money-on-mobile.net/WebServiceV3Client.asmx/getBalanceByCustomerId");
-			// httppost.addHeader("ua", "android");
-			// final HttpParams httpParams = httpclient.getParams();
-			// HttpConnectionParams.setConnectionTimeout(httpParams, 15000);
-			// HttpConnectionParams.setSoTimeout(httpParams, 15000);
-			// httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-			// HttpResponse response = httpclient.execute(httppost);
-			// HttpEntity entity = response.getEntity();
-			// responseBody = EntityUtils.toString(entity);
-			// check = responseBody;
-			// // error="0";
-			// Log.i("postData", response.getStatusLine().toString());
-			// Log.i("info", responseBody);
-			//
-			// InputStream in = new ByteArrayInputStream(
-			// responseBody.getBytes("UTF-8"));
-			// new XmlPullParsingAccnt(in);
-			//
-			// } catch (Exception e) {
-			// Log.e("log_tag", "Error in http connection " + e.toString());
-			// responseBody = "Timeout|Error in Http Connection";
-			// // error="1";
-			// }
-		}
-
-		else if (pref.getString("user_sessionMOM", "test").equals("PBX"))
-
-		{
-			accountbal.setVisibility(View.VISIBLE);
-			accountbal.setText("Bal: Rs."
-					+ myHelpz.GetRMNAccountBal().toString());
-
-			// HttpClient httpclient = new DefaultHttpClient();
-			// HttpPost httppost = new HttpPost(
-			// "http://180.179.67.76/MobAppS/PbxMobApp.ashx");
-			// try {
-			//
-			// List<NameValuePair> nameValuePairs = new
-			// ArrayList<NameValuePair>(
-			// 2);
-			// nameValuePairs.add(new BasicNameValuePair("RN", myHelpz
-			// .GetMyLoginMobileNumber()));
-			// nameValuePairs.add(new BasicNameValuePair("Service", "BL"));
-			//
-			// httppost.addHeader("ua", "android");
-			// final HttpParams httpParams = httpclient.getParams();
-			// HttpConnectionParams.setConnectionTimeout(httpParams, 15000);
-			// HttpConnectionParams.setSoTimeout(httpParams, 15000);
-			// httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-			// HttpResponse response = httpclient.execute(httppost);
-			// HttpEntity entity = response.getEntity();
-			// responseBody = EntityUtils.toString(entity);
-			// check = responseBody;
-			// // Double number = Double.valueOf(check);
-			// // DecimalFormat df = new DecimalFormat("#.00");
-			// // String newtestString = df.format(number);
-			// //
-			// // String abc = newtestString;
-			// // error="0";
-			// Log.i("postData", response.getStatusLine().toString());
-			// Log.i("info", responseBody);
-			//
-			// accountbal.setVisibility(View.VISIBLE);
-			// accountbal.setText("Bal: Rs." + check);
-			//
-			// } catch (Exception e) {
-			// Log.e("log_tag", "Error in http connection " + e.toString());
-			// responseBody = "Timeout|Error in Http Connection";
-			// // error="1";
-			// }
-		} else {
-			Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG)
-					.show();
-		}
-	}
+//	private void AccountBalPost() {
+//
+//		SharedPreferences pref = PreferenceManager
+//				.getDefaultSharedPreferences(getApplicationContext());
+//
+//		if (pref.getString("user_sessionMOM", "test").equals("MOM"))
+//
+//		{
+//
+//			accountbal.setVisibility(View.VISIBLE);
+//			accountbal.setText("Bal: Rs."
+//					+ myHelpz.GetRMNAccountBal().toString());
+//
+//			// try {
+//			//
+//			// List<NameValuePair> nameValuePairs = new
+//			// ArrayList<NameValuePair>(
+//			// 3);
+//			// nameValuePairs.add(new BasicNameValuePair("OperatorID", myHelpz
+//			// .GetMyCustomerId()));
+//			// nameValuePairs.add(new BasicNameValuePair("CompanyID", myHelpz
+//			// .GetMyCompanyId()));
+//			// nameValuePairs.add(new BasicNameValuePair("strAccessID",
+//			// GlobalVariables.AccessId));
+//			// HttpClient httpclient = new DefaultHttpClient();
+//			// HttpPost httppost = new HttpPost(
+//			// "http://msvc.money-on-mobile.net/WebServiceV3Client.asmx/getBalanceByCustomerId");
+//			// httppost.addHeader("ua", "android");
+//			// final HttpParams httpParams = httpclient.getParams();
+//			// HttpConnectionParams.setConnectionTimeout(httpParams, 15000);
+//			// HttpConnectionParams.setSoTimeout(httpParams, 15000);
+//			// httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+//			// HttpResponse response = httpclient.execute(httppost);
+//			// HttpEntity entity = response.getEntity();
+//			// responseBody = EntityUtils.toString(entity);
+//			// check = responseBody;
+//			// // error="0";
+//			// Log.i("postData", response.getStatusLine().toString());
+//			// Log.i("info", responseBody);
+//			//
+//			// InputStream in = new ByteArrayInputStream(
+//			// responseBody.getBytes("UTF-8"));
+//			// new XmlPullParsingAccnt(in);
+//			//
+//			// } catch (Exception e) {
+//			// Log.e("log_tag", "Error in http connection " + e.toString());
+//			// responseBody = "Timeout|Error in Http Connection";
+//			// // error="1";
+//			// }
+//		}
+//
+//		else if (pref.getString("user_sessionMOM", "test").equals("PBX"))
+//
+//		{
+//			accountbal.setVisibility(View.VISIBLE);
+//			accountbal.setText("Bal: Rs."
+//					+ myHelpz.GetRMNAccountBal().toString());
+//
+//			// HttpClient httpclient = new DefaultHttpClient();
+//			// HttpPost httppost = new HttpPost(
+//			// "http://180.179.67.76/MobAppS/PbxMobApp.ashx");
+//			// try {
+//			//
+//			// List<NameValuePair> nameValuePairs = new
+//			// ArrayList<NameValuePair>(
+//			// 2);
+//			// nameValuePairs.add(new BasicNameValuePair("RN", myHelpz
+//			// .GetMyLoginMobileNumber()));
+//			// nameValuePairs.add(new BasicNameValuePair("Service", "BL"));
+//			//
+//			// httppost.addHeader("ua", "android");
+//			// final HttpParams httpParams = httpclient.getParams();
+//			// HttpConnectionParams.setConnectionTimeout(httpParams, 15000);
+//			// HttpConnectionParams.setSoTimeout(httpParams, 15000);
+//			// httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+//			// HttpResponse response = httpclient.execute(httppost);
+//			// HttpEntity entity = response.getEntity();
+//			// responseBody = EntityUtils.toString(entity);
+//			// check = responseBody;
+//			// // Double number = Double.valueOf(check);
+//			// // DecimalFormat df = new DecimalFormat("#.00");
+//			// // String newtestString = df.format(number);
+//			// //
+//			// // String abc = newtestString;
+//			// // error="0";
+//			// Log.i("postData", response.getStatusLine().toString());
+//			// Log.i("info", responseBody);
+//			//
+//			// accountbal.setVisibility(View.VISIBLE);
+//			// accountbal.setText("Bal: Rs." + check);
+//			//
+//			// } catch (Exception e) {
+//			// Log.e("log_tag", "Error in http connection " + e.toString());
+//			// responseBody = "Timeout|Error in Http Connection";
+//			// // error="1";
+//			// }
+//		} else {
+//			Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG)
+//					.show();
+//		}
+//	}
 
 	/*
 	 * private void AccountBalPostRecharge() {
@@ -473,103 +473,103 @@ public class HomeActivity extends Activity implements OnClickListener {
 	 * error="1"; } } else { Toast.makeText(getApplicationContext(), "Error",
 	 * Toast.LENGTH_LONG) .show(); } }
 	 */
-	public class XmlPullParsingAccnt {
-
-		protected XmlPullParser xmlpullparser1;
-		String output1;
-		String TAG = "XmlPullParsing";
-
-		public XmlPullParsingAccnt(InputStream is) {
-
-			XmlPullParserFactory factory = null;
-			try {
-				factory = XmlPullParserFactory.newInstance();
-			} catch (XmlPullParserException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			factory.setNamespaceAware(true);
-			try {
-				xmlpullparser1 = factory.newPullParser();
-			} catch (XmlPullParserException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-			try {
-				xmlpullparser1.setInput(is, "UTF-8");
-			} catch (XmlPullParserException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-			int eventType = 0;
-			try {
-				eventType = xmlpullparser1.getEventType();
-			} catch (XmlPullParserException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			while (eventType != XmlPullParser.END_DOCUMENT) {
-
-				parseTag(eventType);
-				try {
-					eventType = xmlpullparser1.next();
-				} catch (XmlPullParserException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-
-		}
-
-		void parseTag(int event) {
-
-			switch (event) {
-
-			case XmlPullParser.START_DOCUMENT:
-				Log.i(TAG, "START_DOCUMENT");
-				break;
-
-			case XmlPullParser.END_DOCUMENT:
-				Log.i(TAG, "END_DOCUMENT");
-				break;
-			case XmlPullParser.START_TAG:
-				Log.i(TAG, "START_TAG" + xmlpullparser1.getName());
-				Log.i(TAG,
-						"Attribute Name"
-								+ xmlpullparser1.getAttributeValue(null,
-										"category"));
-
-				break;
-
-			case XmlPullParser.END_TAG:
-				Log.i(TAG, "END_TAG" + xmlpullparser1.getName());
-
-				break;
-
-			case XmlPullParser.TEXT:
-				Log.i(TAG, "TEXT");
-				output = xmlpullparser1.getText();
-				String newoutputrecharge = output;
-
-				// //////// Toast.makeText(InfoActivity.this, newoutputrecharge,
-				// Toast.LENGTH_LONG).show();
-
-				myHelpz.SetRMNAccountBal(newoutputrecharge);
-
-				accountbal.setVisibility(View.VISIBLE);
-				accountbal.setText("Bal: Rs." + myHelpz.GetRMNAccountBal());
-				break;
-
-			}
-
-		}
-
-	}
+//	public class XmlPullParsingAccnt {
+//
+//		protected XmlPullParser xmlpullparser1;
+//		String output1;
+//		String TAG = "XmlPullParsing";
+//
+//		public XmlPullParsingAccnt(InputStream is) {
+//
+//			XmlPullParserFactory factory = null;
+//			try {
+//				factory = XmlPullParserFactory.newInstance();
+//			} catch (XmlPullParserException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			factory.setNamespaceAware(true);
+//			try {
+//				xmlpullparser1 = factory.newPullParser();
+//			} catch (XmlPullParserException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//
+//			try {
+//				xmlpullparser1.setInput(is, "UTF-8");
+//			} catch (XmlPullParserException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//
+//			int eventType = 0;
+//			try {
+//				eventType = xmlpullparser1.getEventType();
+//			} catch (XmlPullParserException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//			while (eventType != XmlPullParser.END_DOCUMENT) {
+//
+//				parseTag(eventType);
+//				try {
+//					eventType = xmlpullparser1.next();
+//				} catch (XmlPullParserException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//			}
+//
+//		}
+//
+//		void parseTag(int event) {
+//
+//			switch (event) {
+//
+//			case XmlPullParser.START_DOCUMENT:
+//				Log.i(TAG, "START_DOCUMENT");
+//				break;
+//
+//			case XmlPullParser.END_DOCUMENT:
+//				Log.i(TAG, "END_DOCUMENT");
+//				break;
+//			case XmlPullParser.START_TAG:
+//				Log.i(TAG, "START_TAG" + xmlpullparser1.getName());
+//				Log.i(TAG,
+//						"Attribute Name"
+//								+ xmlpullparser1.getAttributeValue(null,
+//										"category"));
+//
+//				break;
+//
+//			case XmlPullParser.END_TAG:
+//				Log.i(TAG, "END_TAG" + xmlpullparser1.getName());
+//
+//				break;
+//
+//			case XmlPullParser.TEXT:
+//				Log.i(TAG, "TEXT");
+//				output = xmlpullparser1.getText();
+//				String newoutputrecharge = output;
+//
+//				// //////// Toast.makeText(InfoActivity.this, newoutputrecharge,
+//				// Toast.LENGTH_LONG).show();
+//
+//				myHelpz.SetRMNAccountBal(newoutputrecharge);
+//
+//				accountbal.setVisibility(View.VISIBLE);
+//				accountbal.setText("Bal: Rs." + myHelpz.GetRMNAccountBal());
+//				break;
+//
+//			}
+//
+//		}
+//
+//	}
 
 	public void addListenerOnSpinnerItemSelection() {
 
@@ -985,7 +985,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 	}
 
 	private void resetLayout() {
-		AccountBalPost();
+//		AccountBalPost();
 		tablelayout.setVisibility(View.VISIBLE);
 		this.operatorSpinner.setSelection(0);
 		this.numField_mob.setText("");
@@ -1645,7 +1645,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 							((AlertDialog) dialog).getButton(
 									AlertDialog.BUTTON1).setEnabled(false);
 							rechargePost();
-							new GetLoginTask().onPostExecute("test");
+//							new GetLoginTask().onPostExecute("test");
 
 						}
 					});

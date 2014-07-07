@@ -30,12 +30,14 @@ public abstract class DataExImpl implements IDataEx{
     protected AsyncListener _listener;
 
     public enum Methods{
-        LOGIN;
+        LOGIN,
+        VERIFY_TPIN,
+        GET_BALANCE;
     }
 
-    public abstract double getBalance();
+    public abstract void getBalance();
     public abstract void login(NameValuePair...param);
-
+    public abstract void verifyTPin(String psTPin);
 
     public SoapObject getResponse(String psMethod, HashMap<String, String> pParamsMap){
         SoapObject request = new SoapObject(WSDL_TARGET_NAMESPACE, psMethod);

@@ -5,26 +5,16 @@ import java.util.ArrayList;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
 
 import com.mom.app.identifier.PlatformIdentifier;
-import com.mom.app.model.AsyncDataEx;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.IDataEx;
 import com.mom.app.model.local.LocalStorage;
 import com.mom.app.model.newpl.NewPLDataExImpl;
 import com.mom.app.model.pbxpl.PBXPLDataExImpl;
-import com.mom.app.model.xml.PullParser;
 import com.mom.app.utils.MOMConstants;
 import com.mom.app.utils.MiscUtils;
-
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 
 import android.app.Activity;
 import android.content.Context;
@@ -72,7 +62,7 @@ public class LoginActivity extends Activity implements AsyncListener {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.login);
 
 		if(isLoggedIn()){
 			navigateToMain();
@@ -295,7 +285,7 @@ public class LoginActivity extends Activity implements AsyncListener {
 //			new XmlPullParsing(in);
             Log.i("LOGIN", "Firing NEWPL login async");
 //			AsyncDataEx	dataEx		= new AsyncDataEx(this, loginUrl, PlatformIdentifier.NEW);
-            IDataEx dataEx          = new NewPLDataExImpl(this);
+            IDataEx dataEx          = new NewPLDataExImpl(this, getApplicationContext());
 
 			dataEx.login(
                     new BasicNameValuePair("user", _username.getText().toString()),

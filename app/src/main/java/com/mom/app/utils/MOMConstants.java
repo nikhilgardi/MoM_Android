@@ -1,14 +1,15 @@
 package com.mom.app.utils;
 
 public class MOMConstants {
-	public static final String APP_PREFERENCES		= "AppPreferences";
+	public static final String APP_PREFERENCES		        = "AppPreferences";
 
-    public static final String ACTIVE_PLATFORM      = "activePlatform";
-	public static final String URL_NEW_PLATFORM		= "http://msvc.money-on-mobile.net/WebServiceV3Client.asmx";
-	public static final String URL_NEW_PL_DETAILS	= "http://180.179.67.72/nokiaservice/DetailsByUserRMNCompID.aspx";
-	public static final String URL_PBX_PLATFORM		= "http://pbx.momappworld.com/MobAppS/PbxMobApp.ashx";
+    public static final String ACTIVE_PLATFORM              = "activePlatform";
+	public static final String URL_NEW_PLATFORM		        = "http://msvc.money-on-mobile.net/WebServiceV3Client.asmx";
+	public static final String URL_NEW_PL_DETAILS	        = "http://180.179.67.72/nokiaservice/DetailsByUserRMNCompID.aspx";
+	public static final String URL_PBX_PLATFORM		        = "http://pbx.momappworld.com/MobAppS/PbxMobApp.ashx";
 	
-	public static final String SVC_METHOD_LOGIN_NEW	= "/getLoggedIn";
+	public static final String SVC_NEW_METHOD_LOGIN	        = "/getLoggedIn";
+    public static final String SVC_NEW_METHOD_GET_BALANCE   = "/getBalanceByCustomerId";
 	
 	public static final String PARAM_NEW_USER		        = "strUserRMN";
 	public static final String PARAM_NEW_PWD		        = "strPassword";
@@ -29,6 +30,7 @@ public class MOMConstants {
     public static final String PARAM_NEW_USER_AREA_DIST     = "UserAreaDist";
     public static final String PARAM_NEW_USER_VAS01         = "UserVAS01";
     public static final String PARAM_NEW_USER_VAS02         = "UserVAS02";
+    public static final String PARAM_NEW_TPIN               = "strTPassword";
 
 	public static final int TIMEOUT_CONNECTION		        = 15000;
 	public static final int TIMEOUT_SOCKET			        = 45000;
@@ -38,4 +40,8 @@ public class MOMConstants {
 	
 	public static final String NEW_PL_COMPANY_ID	        = "184";
     public static final int NEW_PL_LOGIN_SUCCESS            = 101;
+    public static final int NEW_PL_TPIN_VERIFIED            = 101;
+
+    public static final String INTENT_MESSAGE               = "com.mom.app.MESSAGE";
+
 }
