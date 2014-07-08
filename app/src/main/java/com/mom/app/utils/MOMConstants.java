@@ -9,6 +9,7 @@ public class MOMConstants {
 	public static final String URL_PBX_PLATFORM		        = "http://pbx.momappworld.com/MobAppS/PbxMobApp.ashx";
 	
 	public static final String SVC_NEW_METHOD_LOGIN	        = "/getLoggedIn";
+	public static final String SVC_NEW_METHOD_CHECK_TPIN    = "/checkVallidTpin";
     public static final String SVC_NEW_METHOD_GET_BALANCE   = "/getBalanceByCustomerId";
 	
 	public static final String PARAM_NEW_USER		        = "strUserRMN";
@@ -43,5 +44,7 @@ public class MOMConstants {
     public static final int NEW_PL_TPIN_VERIFIED            = 101;
 
     public static final String INTENT_MESSAGE               = "com.mom.app.MESSAGE";
+    public static final String INTENT_MESSAGE_DEST          = "com.mom.app.MESSAGE_DEST";
+    public static final String INTENT_MESSAGE_ORIGIN        = "com.mom.app.MESSAGE_ORIGIN";
 
 }

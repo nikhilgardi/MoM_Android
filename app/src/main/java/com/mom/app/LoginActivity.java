@@ -71,11 +71,7 @@ public class LoginActivity extends Activity implements AsyncListener {
 
 		_username 	= (EditText) findViewById(R.id.et_un);
 		_password 	= (EditText) findViewById(R.id.et_pw);
-		_pb			= (ProgressBar)findViewById(R.id.progressBarLogin);
-
-        if(_pb != null) {
-            _pb.setVisibility(View.GONE);
-        }
+		getProgressBar().setVisibility(View.GONE);
 		
 //		post = (Button) findViewById(R.id.btn_login);
 //		response1 = (TextView) findViewById(R.id.tv_response);
@@ -109,6 +105,7 @@ public class LoginActivity extends Activity implements AsyncListener {
 
     @Override
     public void onTaskComplete(String result, DataExImpl.Methods pMethod) {
+        getProgressBar().setVisibility(View.GONE);
         Boolean bSuccess      = Boolean.valueOf(result);
         if(!bSuccess){
             setLoginFailed(getResources().getString(R.string.login_failed_msg_default));
@@ -156,7 +153,7 @@ public class LoginActivity extends Activity implements AsyncListener {
 	
 	public void startLogin(View v) {
 		getLoginBtn().setEnabled(false);
-//		getProgressBar().setVisibility(View.VISIBLE);
+		getProgressBar().setVisibility(View.VISIBLE);
 
 		if(!areLoginCredentialsPresent()){
 			return;

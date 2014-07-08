@@ -33,19 +33,20 @@ public class AsyncDataEx extends AsyncTask<NameValuePair, Integer, String>{
 	
 	@Override
 	protected String doInBackground(NameValuePair...pList) {
-		postData(Arrays.asList(pList));
-		return null;
+		return postData(Arrays.asList(pList));
 	}
 
-	protected void onPostExecute(Double result){
-
+	protected void onPostExecute(String result){
+        Log.d("AsyncDataEx", "Called onPostExecute of listener, calling listener");
+        _callback.onTaskComplete(result, _callbackData);
+        Log.d("AsyncDataEx", "Called onTaskComplete of listener");
 	}
 	
 	protected void onProgressUpdate(Integer... progress){
 
 	}
 
-	public void postData(List<NameValuePair> pParams) {
+	public String postData(List<NameValuePair> pParams) {
 		// Create a new HttpClient and Post Header
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpPost httppost = new HttpPost(_url);
@@ -58,13 +59,11 @@ public class AsyncDataEx extends AsyncTask<NameValuePair, Integer, String>{
 			HttpEntity entity 				= response.getEntity();
 			String sResponse 				= EntityUtils.toString(entity);
             Log.d("AsyncDataEx", "Response: " + sResponse);
-
-			_callback.onTaskComplete(sResponse, _callbackData);
-            Log.d("AsyncDataEx", "Called onTaskComplete of listener");
+            return sResponse;
 		}catch (Exception e) {
             e.printStackTrace();
             Log.i("Async", e.getMessage());
-
 		}
+        return null;
 	}
 }

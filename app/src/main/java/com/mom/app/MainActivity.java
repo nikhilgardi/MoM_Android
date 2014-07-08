@@ -2,6 +2,8 @@
 package com.mom.app;
 
 
+import com.mom.app.activity.VerifyTPinActivity;
+import com.mom.app.identifier.ActivityIdentifier;
 import com.mom.app.identifier.PlatformIdentifier;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.DataExImpl;
@@ -126,11 +128,19 @@ public class MainActivity extends ListActivity implements AsyncListener{
     protected void onListItemClick(ListView l, View v, int position, long id) {
         String item = (String) getListAdapter().getItem(position);
         Intent intent   = null;
+        Log.d("LIST_CLICKED", "Going to start activity");
         if (item.equals("Mobile Recharge")) {
-            intent = new Intent(MainActivity.this, HomeActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            Log.d("LIST_CLICKED", "Starting Mobile Recharge");
+            intent = new Intent(this, VerifyTPinActivity.class);
+            intent.putExtra(MOMConstants.INTENT_MESSAGE_DEST, ActivityIdentifier.HOME);
+            intent.putExtra(MOMConstants.INTENT_MESSAGE_ORIGIN, ActivityIdentifier.MAIN);
             startActivity(intent);
-            finish();
+            Log.d("LIST_CLICKED", "Started Mobile Recharge");
+            return;
+//            intent = new Intent(MainActivity.this, HomeActivity.class);
+//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            startActivity(intent);
+//            finish();
 
         }else if (item.equals("DTH Recharge")) {
             intent = new Intent(MainActivity.this, HomeActivity1.class);

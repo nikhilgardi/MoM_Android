@@ -93,7 +93,7 @@
             android:layout_marginLeft="21dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/custom_button"
-            android:onClick="rechargeLogin"
+            android:onClick="verifyTPin"
             android:text="Submit"
             android:textColor="#FFFFFF"
             android:textStyle="bold" />
@@ -124,5 +124,14 @@
             android:textColor="#992f2f"
             android:textSize="18dp"
             android:visibility="gone" />
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar"
+            android:layout_below="@+id/tableLayout1"
+            android:layout_centerHorizontal="true" />
+
     </RelativeLayout>
 </ScrollView>

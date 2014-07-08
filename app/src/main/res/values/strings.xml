@@ -8,7 +8,7 @@
     <string name="title_activity_best_fusion">BestFusionActivity</string>
     <string name="title_activity_home_bill_activity__pbx">HomeBillActivity_PBX</string>
     <string name="title_activity_change_password_pbx">ChangePasswordPBXActivity</string>
-    <string name="login_failed_msg_default">Login Failed</string>
+    <string name="login_failed_msg_default">Login Failed. Please check your mobile number and M-Pin</string>
     <string name="login_username_pwd_required">Please enter your mobile number and password</string>
     <string name="login_username_required">Please enter your mobile Number</string>
     <string name="login_pwd_required">Please enter your password</string>

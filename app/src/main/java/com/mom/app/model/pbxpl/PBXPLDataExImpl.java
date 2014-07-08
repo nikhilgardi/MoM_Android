@@ -33,6 +33,11 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener {
     }
 
     @Override
+    public void verifyTPin(String psTPin) {
+
+    }
+
+    @Override
     public void getBalance(){
 
     }

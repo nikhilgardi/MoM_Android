@@ -172,7 +172,7 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener{
     }
 
     public void verifyTPin(String psTPin){
-        String loginUrl				= MOMConstants.URL_NEW_PLATFORM + MOMConstants.SVC_NEW_METHOD_LOGIN;
+        String loginUrl				= MOMConstants.URL_NEW_PLATFORM + MOMConstants.SVC_NEW_METHOD_CHECK_TPIN;
 
         AsyncDataEx dataEx		    = new AsyncDataEx(this, loginUrl, Methods.VERIFY_TPIN);
 

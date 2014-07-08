@@ -1,5 +1,7 @@
 package com.mom.app.identifier;
 
+import android.util.Log;
+
 import com.mom.app.HomeActivity;
 import com.mom.app.LoginActivity;
 import com.mom.app.MainActivity;
@@ -9,6 +11,11 @@ import com.mom.app.MainActivity;
  */
 public class IdentifierUtils {
     public static Class getActivityClass(ActivityIdentifier pIdentifier){
+        if(pIdentifier == null){
+            Log.e("Activity Identifier", "null activity identifier sent!");
+            return MainActivity.class;
+        }
+
         switch (pIdentifier){
             case LOGIN:
                 return LoginActivity.class;

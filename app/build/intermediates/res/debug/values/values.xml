@@ -782,7 +782,13 @@
     <!-- From: file:/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/MoM_Android1/app/src/main/res/values/strings.xml -->
     <eat-comment />
 
+    <string name="action_billPayment">Bill Payment</string>
+    <string name="action_cardSale">Card Sale</string>
+    <string name="action_dthRecharge">DTH Recharge</string>
+    <string name="action_history">History</string>
+    <string name="action_mobileRecharge">Mobile Recharge</string>
     <string name="action_settings">Settings</string>
+    <string name="action_utilityBill">Utility Bill Payment</string>
     <!-- From: file:/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/MoM_Android1/app/src/main/res/values/stringsnorth.xml -->
     <eat-comment />
 
@@ -1056,7 +1062,7 @@
     <eat-comment />
 
     <string name="hello_world"></string>
-    <string name="login_failed_msg_default">Login Failed</string>
+    <string name="login_failed_msg_default">Login Failed. Please check your mobile number and M-Pin</string>
     <string name="login_pwd_required">Please enter your password</string>
     <string name="login_username_pwd_required">Please enter your mobile number and password</string>
     <string name="login_username_required">Please enter your mobile Number</string>
@@ -1087,6 +1093,8 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_verify_tpin">VerifyTPinActivity</string>
     <string name="tpin">T-Pin</string>
+    <string name="tpin_incorrect">Incorrect T-Pin</string>
+    <string name="tpin_required">Please enter your T-Pin</string>
     <!-- From: file:/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/MoM_Android1/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/res/values/values.xml -->
     <eat-comment />
 

@@ -20,6 +20,12 @@
         revision="19.1.0"
         sha1="3bbcf49f06570312e9014946e3f4065d002efad4"/>
     <item
+        dex="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/MoM_Android1/app/build/intermediates/pre-dexed/debug/classes-f7f723368213563f4779469b7a799f8b3cf85591.jar"
+        jar="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/MoM_Android1/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="3499ceba05ca1f6037c6a2fad73df8f636224a28"/>
+    <item
         dex="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/MoM_Android1/app/build/intermediates/pre-dexed/debug/classes-e7ce29f4c95e0c55fafd900a00a0c3a3051742f6.jar"
         jar="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/MoM_Android1/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/classes.jar"
         jumboMode="false"
