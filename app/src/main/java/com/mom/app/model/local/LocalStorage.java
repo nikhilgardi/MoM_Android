@@ -34,4 +34,16 @@ public class LocalStorage {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         return pref.getString(psKey, null);
     }
+
+    public static void storeLocally(Context context, String psKey, Float pValue){
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor prefEditor = pref.edit();
+        prefEditor.putFloat(psKey, pValue);
+        prefEditor.commit();
+    }
+
+    public static float getFloat(Context context, String psKey){
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        return pref.getFloat(psKey, 0);
+    }
 }

@@ -64,7 +64,7 @@
             android:imeOptions="actionDone"
             android:inputType="number"
             android:password="true"
-            android:visibility="visible" >
+            android:visibility="gone" >
         </EditText>
 
         <Button
@@ -81,7 +81,7 @@
             android:text="Submit"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/btn_firstback"
@@ -97,7 +97,7 @@
             android:text="Back"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
         <EditText
             android:id="@+id/number"
@@ -111,7 +111,7 @@
             android:hint="Mobile Number"
             android:inputType="number"
             android:maxLength="10"
-            android:visibility="gone" >
+            android:visibility="visible" >
         </EditText>
 
         <Spinner
@@ -123,11 +123,11 @@
             android:layout_marginTop="130dp"
             android:background="@drawable/btn_dropdown"
             android:prompt="@string/feedbacktypeMobileRecharge"
-            android:visibility="gone" >
+            android:visibility="visible" >
         </Spinner>
 
         <EditText
-            android:id="@+id/consumernumber"
+            android:id="@+id/subscriberId"
             android:layout_width="265dp"
             android:layout_height="40dp"
             android:layout_below="@+id/Operator"
@@ -137,14 +137,14 @@
             android:background="@drawable/custom"
             android:hint="Consumer Number"
             android:inputType="number"
-            android:visibility="gone" >
+            android:visibility="visible" >
         </EditText>
 
         <Button
             android:id="@+id/btn_GetBillAmount"
             android:layout_width="265dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/consumernumber"
+            android:layout_below="@+id/subscriberId"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="21dp"
             android:layout_marginTop="15dp"
@@ -154,7 +154,7 @@
             android:textColor="#FFFFFF"
             android:textSize="13px"
             android:textStyle="bold"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
         <EditText
             android:id="@+id/amount"
@@ -167,7 +167,7 @@
             android:background="@drawable/custom"
             android:hint="Enter Amount"
             android:inputType="number"
-            android:visibility="gone" >
+            android:visibility="visible" >
         </EditText>
 
         <Button
@@ -183,7 +183,7 @@
             android:text="Payment"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
         <Button
             android:id="@+id/btn_secondback"
@@ -198,7 +198,7 @@
             android:text="Back"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
         <Button
             android:id="@+id/btn_check"
@@ -214,7 +214,7 @@
             android:text="Payment"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
         <Button
             android:id="@+id/btn_back1"
@@ -260,7 +260,7 @@
             android:text="Payment2"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
         <Button
             android:id="@+id/btn_lastback"
@@ -355,7 +355,7 @@
             android:background="@drawable/btn_dropdown"
             android:entries="@array/feedbacktypelist"
             android:prompt="@string/feedbacktype"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
         <Spinner
             android:id="@+id/Spl_OperatorSBE"
@@ -369,7 +369,7 @@
             android:background="@drawable/btn_dropdown"
             android:entries="@array/feedbacktypeSBElist"
             android:prompt="@string/feedbacktypeSBERecharge"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
         <EditText
             android:id="@+id/first_name"
@@ -383,7 +383,7 @@
             android:ems="10"
             android:hint="Enter First Name"
             android:inputType="text"
-            android:visibility="gone" >
+            android:visibility="visible" >
         </EditText>
 
         <EditText
@@ -397,7 +397,7 @@
             android:ems="10"
             android:hint="Enter Last Name"
             android:inputType="text"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
         <EditText
             android:id="@+id/mobile_number"
@@ -411,7 +411,7 @@
             android:hint="Enter Mobile Number"
             android:inputType="number"
             android:maxLength="10"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
         <EditText
             android:id="@+id/spl_accountnumber"
@@ -424,7 +424,7 @@
             android:ems="10"
             android:hint="Enter Account Number"
             android:inputType="number"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
         <Button
             android:id="@+id/btn_splreclogin"
@@ -440,7 +440,7 @@
             android:text="Payment"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
         <Button
             android:id="@+id/btn_splback"

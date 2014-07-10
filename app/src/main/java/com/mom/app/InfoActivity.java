@@ -41,6 +41,9 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mom.app.activity.DashboardActivity;
+import com.mom.app.activity.LoginActivity;
+
 public class InfoActivity extends ListActivity {
 	private String responseBody;
 	private String session_id;
@@ -708,7 +711,7 @@ public class InfoActivity extends ListActivity {
 	
 public void onBackPressed() {
 	
-		myintenttest = new Intent(InfoActivity.this, MainActivity.class);
+		myintenttest = new Intent(InfoActivity.this, DashboardActivity.class);
 		myintenttest.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		
 		startActivity(myintenttest);

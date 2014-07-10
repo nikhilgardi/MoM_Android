@@ -127,7 +127,7 @@
         </Spinner>
 
         <EditText
-            android:id="@+id/consumernumber"
+            android:id="@+id/subscriberId"
             android:layout_width="265dp"
             android:layout_height="40dp"
             android:layout_below="@+id/Operator"
@@ -144,7 +144,7 @@
             android:id="@+id/btn_GetBillAmount"
             android:layout_width="265dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/consumernumber"
+            android:layout_below="@+id/subscriberId"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="21dp"
             android:layout_marginTop="15dp"

@@ -46,6 +46,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 
+import com.mom.app.activity.DashboardActivity;
+import com.mom.app.activity.LoginActivity;
+
 public class HomeBillActivity_PBXNew extends Activity implements OnClickListener {
 	// private Button reButton;
 	private Button passButton;
@@ -102,7 +105,7 @@ public class HomeBillActivity_PBXNew extends Activity implements OnClickListener
 		addListenerOnSpinnerItemSelectionSBE();
 		addListenerOnSpinnerItemSelectionNBE();
 		myintent3 = new Intent(HomeBillActivity_PBXNew.this, LoginActivity.class);
-		reintent = new Intent(HomeBillActivity_PBXNew.this, MainActivity.class);
+		reintent = new Intent(HomeBillActivity_PBXNew.this, DashboardActivity.class);
 
 	}
 
@@ -121,7 +124,7 @@ public class HomeBillActivity_PBXNew extends Activity implements OnClickListener
 		this.firstbackButton = (Button) findViewById(R.id.btn_firstback);
 		this.testButton = (Button) findViewById(R.id.btn_check);
 		this.operatorSpinner = (Spinner) findViewById(R.id.Operator);
-		this.consumernumber = (EditText) findViewById(R.id.consumernumber);
+		this.consumernumber = (EditText) findViewById(R.id.subscriberId);
 		this.GetBillAmount = (Button) findViewById(R.id.btn_GetBillAmount);
 		this.accountbal = (TextView) findViewById(R.id.AccountBal);
 		this.amountField = (EditText) findViewById(R.id.amount);

@@ -5,7 +5,9 @@ package com.mom.app.identifier;
  */
 public enum ActivityIdentifier {
     LOGIN,
-    MAIN,
+    DASHBOARD,
     TPIN,
-    HOME;
+    MOBILE_RECHARGE,
+    DTH_RECHARGE,
+    BILL_PAYMENT;
 }

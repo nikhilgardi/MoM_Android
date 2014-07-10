@@ -32,12 +32,40 @@ public abstract class DataExImpl implements IDataEx{
     public enum Methods{
         LOGIN,
         VERIFY_TPIN,
-        GET_BALANCE;
+        GET_BALANCE,
+        RECHARGE_MOBILE,
+        RECHARGE_DTH,
+        PAY_BILL,
+        GET_BILL_AMOUNT;
     }
 
     public abstract void getBalance();
     public abstract void login(NameValuePair...param);
     public abstract void verifyTPin(String psTPin);
+    public abstract void rechargeMobile(
+                                    String psConsumerNumber,
+                                    double pdAmount,
+                                    String psOperator,
+                                    int pnRechargeType
+    );
+
+    public abstract void rechargeDTH(
+                                    String psSubscriberId,
+                                    double pdAmount,
+                                    String psOperator,
+                                    String psCustomerMobile
+    );
+
+    public abstract void payBill(
+                                String psSubscriberId,
+                                double pdAmount,
+                                String psOperatorId,
+                                String psCustomerMobile,
+                                String psConsumerName,
+                                HashMap<String, String> psExtraParamsMap
+    );
+
+    public abstract void getBillAmount(String psOperatorId, String psSubscriberId);
 
     public SoapObject getResponse(String psMethod, HashMap<String, String> pParamsMap){
         SoapObject request = new SoapObject(WSDL_TARGET_NAMESPACE, psMethod);

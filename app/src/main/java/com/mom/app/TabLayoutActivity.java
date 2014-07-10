@@ -1,7 +1,6 @@
 package com.mom.app;
 
 
-import com.mom.app.R;
 import android.app.TabActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +11,9 @@ import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
 
+import com.mom.app.activity.DTHRechargeActivity;
+import com.mom.app.activity.MobileRechargeActivity;
+
 public class TabLayoutActivity extends TabActivity {
 	TabHost tabHost;
 	@Override
@@ -19,8 +21,8 @@ public class TabLayoutActivity extends TabActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.tabs);
 		tabHost = getTabHost();
-		this.addTab("Mobile",(Context)this,HomeActivity.class); 
-	    this.addTab("DTH ",(Context)this,HomeActivity1.class); 
+		this.addTab("Mobile",(Context)this,MobileRechargeActivity.class);
+	    this.addTab("DTH ",(Context)this,DTHRechargeActivity.class);
 		this.addTab("Bill",(Context)this,HomeActivity2.class); 
 		this.addTab("History",(Context)this,HistoryActivity.class);
 		this.addTab("Settings",(Context)this,InfoActivity.class);
@@ -30,7 +32,7 @@ public class TabLayoutActivity extends TabActivity {
 	public void addTab(String title,Context context, Class<?> IntentClass) {
 		LayoutInflater inflater = (LayoutInflater)context.getSystemService
 			      (Context.LAYOUT_INFLATER_SERVICE);
-		View tabIndicator=inflater.inflate(R.drawable.tabs_bg,null,false);
+		View tabIndicator=inflater.inflate(R.drawable.tabs_bg, null,false);
 		TextView tv= (TextView)tabIndicator.findViewById(R.id.tabsText);
 		tv.setText(title);
 		Intent intent = new Intent(context, IntentClass);

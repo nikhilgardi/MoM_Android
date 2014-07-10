@@ -4,28 +4,21 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.mom.app.R;
-import com.mom.app.error.MOMException;
 import com.mom.app.identifier.ActivityIdentifier;
 import com.mom.app.identifier.IdentifierUtils;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.IDataEx;
-import com.mom.app.model.local.LocalStorage;
 import com.mom.app.model.newpl.NewPLDataExImpl;
 import com.mom.app.utils.MOMConstants;
 
-import org.apache.http.message.BasicNameValuePair;
-import org.w3c.dom.Text;
-
-public class VerifyTPinActivity extends Activity implements AsyncListener{
+public class VerifyTPinActivity extends Activity implements AsyncListener<String>{
 
     ActivityIdentifier _destinationActivity         = null;
     ActivityIdentifier _originActivity              = null;
@@ -42,6 +35,11 @@ public class VerifyTPinActivity extends Activity implements AsyncListener{
         getProgressBar().setVisibility(View.GONE);
     }
 
+    public void setOriginDestinationActivity(ActivityIdentifier pOrigin, ActivityIdentifier pDestination){
+        this._originActivity        = pOrigin;
+        this._destinationActivity   = pDestination;
+    }
+
     public ProgressBar getProgressBar(){
         if(_pb == null){
             _pb			= (ProgressBar)findViewById(R.id.progressBar);
@@ -54,12 +52,14 @@ public class VerifyTPinActivity extends Activity implements AsyncListener{
         getProgressBar().setVisibility(View.GONE);
         Log.d("TPIN_COMPLETE", "Result: " + result);
 
-        if("".equals(result.trim())){
+        if(result == null || "".equals(result.trim())){
             Log.w("TPIN_COMPLETE", "Empty verification result!");
+            showMessage(getResources().getString(R.string.tpin_incorrect));
             return;
         }
 
         boolean bVerified   = Boolean.valueOf(result);
+
         if(!bVerified){
             showMessage(getResources().getString(R.string.tpin_incorrect));
             return;
@@ -91,11 +91,11 @@ public class VerifyTPinActivity extends Activity implements AsyncListener{
         String sTPin        = tpinTxt.getText().toString();
 
         if("".equals(sTPin.trim())){
-            showMessage(getResources().getString(R.string.tpin_required));
+            showMessage(getResources().getString(R.string.prompt_enter_tpin));
             return;
         }
 
-        IDataEx dataEx  = new NewPLDataExImpl(this, getApplicationContext());
+        IDataEx dataEx  = new NewPLDataExImpl(getApplicationContext(), this);
         Log.d("TPIN", "DataEx instance created");
 
         dataEx.verifyTPin(sTPin);

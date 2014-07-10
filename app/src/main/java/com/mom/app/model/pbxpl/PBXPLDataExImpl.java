@@ -1,5 +1,6 @@
 package com.mom.app.model.pbxpl;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.mom.app.model.AsyncDataEx;
@@ -11,13 +12,16 @@ import com.mom.app.utils.MOMConstants;
 import org.apache.http.NameValuePair;
 
 import java.io.ByteArrayInputStream;
+import java.util.HashMap;
 
 /**
  * Created by vaibhavsinha on 7/6/14.
  */
-public class PBXPLDataExImpl extends DataExImpl implements AsyncListener {
-    public PBXPLDataExImpl(AsyncListener pListener){
-        this._listener  = pListener;
+public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String> {
+
+    public PBXPLDataExImpl(AsyncListener pListener, Context context){
+        this._listener              = pListener;
+        this._applicationContext    = context;
     }
 
     @Override
@@ -34,6 +38,16 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener {
 
     @Override
     public void verifyTPin(String psTPin) {
+
+    }
+
+    @Override
+    public void rechargeMobile(String psConsumerNumber, double pdAmount, String psOperator, int pnRechargeType) {
+
+    }
+
+    @Override
+    public void rechargeDTH(String psSubscriberId, double pdAmount, String psOperator, String psCustomerMobile) {
 
     }
 
@@ -74,5 +88,15 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener {
         }
 
         return false;
+    }
+
+    @Override
+    public void payBill(String psSubscriberId, double pdAmount, String psOperatorId, String psCustomerMobile, String psConsumerName, HashMap<String, String> psExtraParamsMap) {
+
+    }
+
+    @Override
+    public void getBillAmount(String psOperatorId, String psSubscriberId) {
+
     }
 }
