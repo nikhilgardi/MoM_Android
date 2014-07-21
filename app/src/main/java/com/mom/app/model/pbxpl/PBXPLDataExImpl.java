@@ -3,8 +3,10 @@ package com.mom.app.model.pbxpl;
 import android.content.Context;
 import android.util.Log;
 
+import com.mom.app.identifier.PinType;
 import com.mom.app.model.AsyncDataEx;
 import com.mom.app.model.AsyncListener;
+import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.xml.PullParser;
 import com.mom.app.utils.MOMConstants;
@@ -25,15 +27,20 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
     }
 
     @Override
-    public void onTaskComplete(String result, Methods callback) {
+    public void onTaskSuccess(String result, Methods callback) {
         switch (callback){
             case LOGIN:
                 boolean bSuccess    = loginSuccessful(result);
                 if(_listener != null){
-                    _listener.onTaskComplete((new Boolean(bSuccess)).toString(), null);
+                    _listener.onTaskSuccess((new Boolean(bSuccess)).toString(), null);
                 }
                 break;
         }
+    }
+
+    @Override
+    public void onTaskError(AsyncResult pResult, Methods callback) {
+
     }
 
     @Override
@@ -97,6 +104,16 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
 
     @Override
     public void getBillAmount(String psOperatorId, String psSubscriberId) {
+
+    }
+
+    @Override
+    public void getTransactionHistory() {
+
+    }
+
+    @Override
+    public void changePin(PinType pinType, String psOldPin, String psNewPin) {
 
     }
 }

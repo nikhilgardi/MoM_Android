@@ -13,17 +13,17 @@ import com.mom.app.R;
 import com.mom.app.identifier.ActivityIdentifier;
 import com.mom.app.identifier.IdentifierUtils;
 import com.mom.app.model.AsyncListener;
+import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.IDataEx;
 import com.mom.app.model.newpl.NewPLDataExImpl;
 import com.mom.app.utils.MOMConstants;
 
-public class VerifyTPinActivity extends Activity implements AsyncListener<String>{
+public class VerifyTPinActivity extends MOMActivityBase implements AsyncListener<String>{
 
     ActivityIdentifier _destinationActivity         = null;
     ActivityIdentifier _originActivity              = null;
-    TextView _messageTextView                       = null;
-    private ProgressBar _pb                         = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -40,15 +40,13 @@ public class VerifyTPinActivity extends Activity implements AsyncListener<String
         this._destinationActivity   = pDestination;
     }
 
-    public ProgressBar getProgressBar(){
-        if(_pb == null){
-            _pb			= (ProgressBar)findViewById(R.id.progressBar);
-        }
-        return _pb;
+    @Override
+    protected void showBalance(float pfBalance) {
+
     }
 
     @Override
-    public void onTaskComplete(String result, DataExImpl.Methods callback) {
+    public void onTaskSuccess(String result, DataExImpl.Methods callback) {
         getProgressBar().setVisibility(View.GONE);
         Log.d("TPIN_COMPLETE", "Result: " + result);
 
@@ -70,17 +68,9 @@ public class VerifyTPinActivity extends Activity implements AsyncListener<String
         startActivity(new Intent(this, IdentifierUtils.getActivityClass(_destinationActivity)));
     }
 
-    public void showMessage(String psMsg){
-        TextView textView       = getMessageTextView();
-        textView.setVisibility(View.VISIBLE);
-        textView.setText(psMsg);
-    }
+    @Override
+    public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
 
-    public TextView getMessageTextView(){
-        if(_messageTextView == null){
-            _messageTextView    = (TextView)findViewById(R.id.msgDisplay);
-        }
-        return _messageTextView;
     }
 
     public void verifyTPin(View view){
@@ -110,23 +100,5 @@ public class VerifyTPinActivity extends Activity implements AsyncListener<String
 //        Intent intent = getParentActivityIntent();
         startActivity(intent);
     }
-//
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.verify_tpin, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
+
 }

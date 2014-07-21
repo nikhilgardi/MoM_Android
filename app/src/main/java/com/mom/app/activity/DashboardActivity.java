@@ -3,16 +3,14 @@ package com.mom.app.activity;
 
 
 import com.mom.app.Helpz;
-import com.mom.app.HistoryActivity;
-import com.mom.app.HomeActivity2;
 import com.mom.app.HomeBillActivity_PBX;
-import com.mom.app.InfoActivity;
 import com.mom.app.MSwipeAndroidSDKListActivity1;
 import com.mom.app.R;
 import com.mom.app.identifier.ActivityIdentifier;
 import com.mom.app.identifier.IdentifierUtils;
 import com.mom.app.identifier.PlatformIdentifier;
 import com.mom.app.model.AsyncListener;
+import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.IDataEx;
 import com.mom.app.model.local.LocalStorage;
@@ -34,6 +32,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
 
@@ -61,11 +60,10 @@ public class DashboardActivity extends ListActivity implements AsyncListener<Flo
         setContentView(R.layout.activity_dashboard);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.row_layout, R.id.label, values);
         setListAdapter(adapter);
-//        getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.appsbg));
     }
 
     @Override
-    public void onTaskComplete(Float result, DataExImpl.Methods pMethod) {
+    public void onTaskSuccess(Float result, DataExImpl.Methods pMethod) {
         Log.d("TASK_C_MAIN", "Called back");
         switch(pMethod){
             case GET_BALANCE:
@@ -74,16 +72,24 @@ public class DashboardActivity extends ListActivity implements AsyncListener<Flo
                 if(balanceTxtView != null){
                     balanceTxtView.setVisibility(View.VISIBLE);
 
-                    Locale lIndia       = new Locale("en", "IN");
-                    NumberFormat form   = NumberFormat.getCurrencyInstance(lIndia);
-                    String sBalance      = form.format(result);
-                    balanceTxtView.setText("Balance: " + sBalance);
+//                    Locale lIndia       = new Locale("en", "IN");
+//                    NumberFormat form   = NumberFormat.getNumberInstance(lIndia);
+//                    String sBalance      = form.format(result);
+                    DecimalFormat df        = new DecimalFormat( "#,###,###,##0.00" );
+                    String sBalance         = df.format(result);
+
+                    balanceTxtView.setText("Balance: " + getResources().getString(R.string.Rupee) + sBalance);
                     Log.d("TASK_C_MAIN", "Balance TextView set");
                 }
 
                 LocalStorage.storeLocally(getApplicationContext(), MOMConstants.USER_BALANCE, result);
             break;
         }
+    }
+
+    @Override
+    public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
+
     }
 
     public void getBalance(){
@@ -117,10 +123,13 @@ public class DashboardActivity extends ListActivity implements AsyncListener<Flo
             return;
 
         }else if (item.equals("Bill Payment")) {
-            intent = new Intent(DashboardActivity.this, HomeActivity2.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            Log.d("LIST_CLICKED", "Starting Bill Payment");
+            intent = new Intent(this, VerifyTPinActivity.class);
+            intent.putExtra(MOMConstants.INTENT_MESSAGE_DEST, ActivityIdentifier.BILL_PAYMENT);
+            intent.putExtra(MOMConstants.INTENT_MESSAGE_ORIGIN, ActivityIdentifier.DASHBOARD);
             startActivity(intent);
-            finish();
+            Log.d("LIST_CLICKED", "Started Bill Payment");
+            return;
         }else if (item.equals("Card Sale")) {
             intent = new Intent(DashboardActivity.this, MSwipeAndroidSDKListActivity1.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -135,15 +144,23 @@ public class DashboardActivity extends ListActivity implements AsyncListener<Flo
 
         }else if (item.equals("History")) {
 
-            intent = new Intent(DashboardActivity.this, HistoryActivity.class);
+            Log.d("LIST_CLICKED", "Starting Transaction History Activity");
+            intent = new Intent(this, TransactionHistoryActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
-            finish();
+            Log.d("LIST_CLICKED", "Started Transaction History Activity");
+
+
+//            intent = new Intent(DashboardActivity.this, HistoryActivity.class);
+//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            startActivity(intent);
+//            finish();
         }else if (item.equals("Settings")) {
-            intent = new Intent(DashboardActivity.this, InfoActivity.class);
+            Log.d("LIST_CLICKED", "Starting Settings Activity");
+            intent = new Intent(DashboardActivity.this, SettingsActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
-            finish();
+            Log.d("LIST_CLICKED", "Started Settings Activity");
         }
     }
 

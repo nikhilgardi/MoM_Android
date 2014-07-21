@@ -37,27 +37,7 @@
         <activity
             android:name=".activity.MobileRechargeActivity"
             android:configChanges="keyboard|keyboardHidden|orientation" />
-        <!--<activity-->
-            <!--android:name=".HomeActivity1"-->
-            <!--android:configChanges="keyboard|keyboardHidden|orientation" />-->
-        <activity
-            android:name=".HomeActivity2"
-            android:configChanges="keyboard|keyboardHidden|orientation" />
-        <activity
-            android:name=".HistoryActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation" >
-        </activity>
-        <activity
-            android:name=".InfoActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation" />
-        <activity
-            android:name=".MPinActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation" >
-        </activity>
-        <activity
-            android:name=".TPinActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation" >
-        </activity>
+
         <activity
             android:name=".HomeBillActivity_PBX"
             android:configChanges="keyboard|keyboardHidden|orientation"
@@ -144,6 +124,30 @@
             android:name=".activity.BillPaymentActivity"
             android:label="@string/title_activity_bill_payment" >
         </activity>
+        <activity
+            android:name=".activity.TransactionHistoryActivity"
+            android:label="@string/title_activity_transaction_history" >
+        </activity>
+        <activity
+            android:name=".activity.ChangePINActivity"
+            android:label="@string/title_activity_change_pin" >
+        </activity>
+        <activity
+            android:name=".activity.SettingsActivity"
+            android:label="@string/title_activity_settings" >
+        </activity>
     </application>
+
+    <!--
+     To retrieve OAuth 2.0 tokens or invalidate tokens to disconnect a user. This disconnect
+     option is required to comply with the Google+ Sign-In developer policies
+    -->
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+
+    <!-- To retrieve the account name (email) as part of sign-in: -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.READ_PROFILE" />
 
 </manifest>

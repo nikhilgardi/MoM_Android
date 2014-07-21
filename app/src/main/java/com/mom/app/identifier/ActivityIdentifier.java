@@ -9,5 +9,6 @@ public enum ActivityIdentifier {
     TPIN,
     MOBILE_RECHARGE,
     DTH_RECHARGE,
-    BILL_PAYMENT;
+    BILL_PAYMENT,
+    TRANSACTION_HISTORY;
 }

@@ -82,21 +82,36 @@
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
             android:background="@drawable/custom"
-            android:hint="@string/lblSubscriberId"
-            android:inputType="number"></EditText>
+            android:hint="@string/lblConsumerNumber"
+            android:inputType="number"
+            android:visibility="gone"></EditText>
+
+        <TextView
+            android:id="@+id/billMsgDisplay"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/inputText"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/subscriberId"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:gravity="center_horizontal"
+            android:textColor="#992f2f"
+            android:textSize="18dp"
+            />
 
         <Button
             android:id="@+id/btn_GetBillAmount"
             android:layout_width="265dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/subscriberId"
+            android:layout_below="@+id/billMsgDisplay"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="15dp"
             android:background="@drawable/custom_button"
             android:onClick="getBillAmount"
             android:text="@string/btn_getBillAmount"
             android:textColor="#FFFFFF"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="gone"/>
 
         <EditText
             android:id="@+id/number"
@@ -146,7 +161,7 @@
             android:id="@+id/btnBack"
             android:layout_width="100dip"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/btn_recharge"
+            android:layout_below="@+id/btn_pay"
             android:layout_centerHorizontal="true"
             android:layout_marginRight="21dp"
             android:layout_marginTop="15dp"

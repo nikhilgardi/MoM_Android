@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="Rupee">\u20B9</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="hello_world"></string>
     <string name="title_activity_aadhar_payment">AadharPaymentActivity</string>
@@ -31,10 +32,12 @@
     <string name="error_amount_min_max">Amount should be between Rs. %1$d and Rs. %2$d.</string>
     <string name="error_subscriber_id_length">Subscriber ID should be of %1$d characters.</string>
     <string name="error_subscriber_id_min_max">Subscriber ID should be between %1$d and %2$d characters.</string>
+    <string name="error_obtaining_bill_amount">Could not obtain the bill amount. Please check the consumer number.</string>
     <string name="btn_dashboard">Dashboard</string>
     <string name="btn_recharge">Recharge</string>
     <string name="btn_pay">Pay</string>
     <string name="btn_new_recharge">New Recharge</string>
+    <string name="btn_new_bill_pay">Pay another Bill</string>
     <string name="btn_back">Back</string>
     <string name="btn_getBillAmount">Get Your Bill Amount</string>
     <string name="prompt_enter_tpin">Please enter your T-Pin</string>
@@ -44,11 +47,23 @@
     <string name="lblRechargeAmount">Recharge Amount</string>
     <string name="lblAmount">Amount</string>
     <string name="lblYourMobile">Your Mobile Number</string>
-
     <string name="lblConsumerNumber">Consumer Number</string>
     <string name="lblCustomerMobile">Customer\'s Mobile Number</string>
     <string name="lblCustomerLandlineNumber">Customer\'s Land Line Number</string>
     <string name="lblAccountNumber">Account Number</string>
+    <string name="tpin_old">Old T-PIN</string>
+    <string name="tpin_new">New T-PIN</string>
+    <string name="tpin_new_confirm">Confirm New T-PIN</string>
+
+    <string name="mpin_old">Old M-PIN</string>
+    <string name="mpin_new">New M-PIN</string>
+    <string name="mpin_new_confirm">Confirm New M-PIN</string>
+
     <string name="title_activity_bill_payment">BillPaymentActivity</string>
+    <string name="title_activity_transaction_history">Transaction History</string>
+    <string name="title_activity_transaction_history_count">Last %1$d Transaction(s)</string>
+    <string name="no_transactions_found">No Transactions found</string>
+    <string name="title_activity_change_pin">Change PIN</string>
+    <string name="title_activity_settings">Settings</string>
 
 </resources>

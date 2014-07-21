@@ -10,6 +10,7 @@ import com.mom.app.Helpz;
 import com.mom.app.R;
 import com.mom.app.identifier.PlatformIdentifier;
 import com.mom.app.model.AsyncListener;
+import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.IDataEx;
 import com.mom.app.model.local.LocalStorage;
@@ -43,7 +44,7 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
+        setContentView(R.layout.activity_login);
 
 		if(isLoggedIn()){
 			navigateToMain();
@@ -76,7 +77,7 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
     }
 
     @Override
-    public void onTaskComplete(String result, DataExImpl.Methods pMethod) {
+    public void onTaskSuccess(String result, DataExImpl.Methods pMethod) {
         getProgressBar().setVisibility(View.GONE);
         Boolean bSuccess      = Boolean.valueOf(result);
         if(!bSuccess){
@@ -100,7 +101,12 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
         navigateToMain();
     }
 
-	public boolean isLoggedIn(){
+    @Override
+    public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
+
+    }
+
+    public boolean isLoggedIn(){
         return LocalStorage.getBoolean(getApplicationContext(), MOMConstants.PREF_IS_LOGGED_IN);
 	}
 
@@ -126,12 +132,15 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 	}
 	
 	public void startLogin(View v) {
+        if(!areLoginCredentialsPresent()){
+            return;
+        }
+
 		getLoginBtn().setEnabled(false);
+        Log.d("LOGIN", "Disable login button");
+        
 		getProgressBar().setVisibility(View.VISIBLE);
 
-		if(!areLoginCredentialsPresent()){
-			return;
-		}
 		
 		if(isNewPLLogin()){
 			loginToNewPL();

@@ -3,8 +3,11 @@ package com.mom.app.model.newpl;
 import android.content.Context;
 import android.util.Log;
 
+import com.mom.app.error.MOMException;
+import com.mom.app.identifier.PinType;
 import com.mom.app.model.AsyncDataEx;
 import com.mom.app.model.AsyncListener;
+import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.local.LocalStorage;
 import com.mom.app.model.xml.PullParser;
@@ -21,7 +24,8 @@ import java.util.HashMap;
  */
 public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>{
 
-    private String LOG_TAG     = "DATAEX_NEW";
+    private String LOG_TAG          = "DATAEX_NEW";
+    private String _operatorId      = null;
 
     public NewPLDataExImpl(Context pContext, AsyncListener pListener){
         super.SOAP_ADDRESS = "http://msvc.money-on-mobile.net/WebServiceV3Client.asmx";
@@ -31,62 +35,97 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
 
 
     @Override
-    public void onTaskComplete(String result, Methods callback) {
-        Log.d(LOG_TAG, "onTaskComplete");
-        switch (callback){
-            case LOGIN:
-                Log.d(LOG_TAG, "TaskComplete: Login method, result: " + result);
-                boolean bLoginSuccess    = loginSuccessful(result);
-                if(_listener != null){
-                    _listener.onTaskComplete((new Boolean(bLoginSuccess)).toString(), null);
-                }
-            break;
-            case VERIFY_TPIN:
-                Log.d(LOG_TAG, "TaskComplete: verifyTPin method, result: " + result);
-                boolean bTPinSuccess    = tpinVerified(result);
-                if(_listener != null){
-                    _listener.onTaskComplete((new Boolean(bTPinSuccess)).toString(), null);
-                }
-                break;
-            case GET_BALANCE:
-                Log.d(LOG_TAG, "TaskComplete: getBalance method, result: " + result);
-                float balance      = extractBalance(result);
+    public void onTaskSuccess(String result, Methods callback) {
+        Log.d(LOG_TAG, "onTaskSuccess");
+        try {
+            switch (callback) {
+                case LOGIN:
+                    Log.d(LOG_TAG, "TaskComplete: Login method, result: " + result);
+                    boolean bLoginSuccess = loginSuccessful(result);
+                    if (_listener != null) {
+                        _listener.onTaskSuccess((new Boolean(bLoginSuccess)).toString(), null);
+                    }
+                    break;
+                case VERIFY_TPIN:
+                    Log.d(LOG_TAG, "TaskComplete: verifyTPin method, result: " + result);
+                    boolean bTPinSuccess = tpinVerified(result);
+                    if (_listener != null) {
+                        _listener.onTaskSuccess((new Boolean(bTPinSuccess)).toString(), null);
+                    }
+                    break;
+                case GET_BALANCE:
+                    Log.d(LOG_TAG, "TaskComplete: getBalance method, result: " + result);
+                    float balance = extractBalance(result);
 
-                if(_listener != null) {
-                    _listener.onTaskComplete(balance, Methods.GET_BALANCE);
-                }
-            break;
-            case RECHARGE_MOBILE:
-                Log.d(LOG_TAG, "TaskComplete: rechargeMobile method, result: " + result);
-                if(_listener != null) {
-                    _listener.onTaskComplete(getRechargeResult(result), Methods.RECHARGE_MOBILE);
-                }
-            break;
-            case RECHARGE_DTH:
-                Log.d(LOG_TAG, "TaskComplete: rechargeDTH method, result: " + result);
-                if(_listener != null) {
-                    _listener.onTaskComplete(getRechargeResult(result), Methods.RECHARGE_DTH);
-                }
-            break;
-            case PAY_BILL:
-                Log.d(LOG_TAG, "TaskComplete: payBill method, result: " + result);
+                    if (_listener != null) {
+                        _listener.onTaskSuccess(balance, Methods.GET_BALANCE);
+                    }
+                    break;
+                case RECHARGE_MOBILE:
+                    Log.d(LOG_TAG, "TaskComplete: rechargeMobile method, result: " + result);
+                    if (_listener != null) {
+                        _listener.onTaskSuccess(getRechargeResult(result), Methods.RECHARGE_MOBILE);
+                    }
+                    break;
+                case RECHARGE_DTH:
+                    Log.d(LOG_TAG, "TaskComplete: rechargeDTH method, result: " + result);
+                    if (_listener != null) {
+                        _listener.onTaskSuccess(getRechargeResult(result), Methods.RECHARGE_DTH);
+                    }
+                    break;
+                case PAY_BILL:
+                    Log.d(LOG_TAG, "TaskComplete: payBill method, result: " + result);
 
-                if(_listener != null) {
-                    _listener.onTaskComplete(getRechargeResult(result), Methods.PAY_BILL);
-                }
-            break;
-            case GET_BILL_AMOUNT:
-                Log.d(LOG_TAG, "TaskComplete: getBillAmount method, result: " + result);
-                float billAmount      = extractBalance(result);
+                    if (_listener != null) {
+                        _listener.onTaskSuccess(getRechargeResult(result), Methods.PAY_BILL);
+                    }
+                    break;
+                case GET_BILL_AMOUNT:
+                    Log.d(LOG_TAG, "TaskComplete: getBillAmount method, result: " + result);
+                    float billAmount = extractBillAmount(result);
 
-                if(_listener != null) {
-                    _listener.onTaskComplete(billAmount, Methods.GET_BILL_AMOUNT);
-                }
-            break;
+                    if (_listener != null) {
+                        _listener.onTaskSuccess(billAmount, Methods.GET_BILL_AMOUNT);
+                    }
+                    break;
+                case TRANSACTION_HISTORY:
+                    Log.d(LOG_TAG, "TaskComplete: getTransactionHistory method, result: " + result);
+                    if (_listener != null) {
+                        _listener.onTaskSuccess(result, Methods.TRANSACTION_HISTORY);
+                    }
+                    break;
+                case CHANGE_PIN:
+                    Log.d(LOG_TAG, "TaskComplete: changeMPin method, result: " + result);
+
+                    result              = extractChangePinResponse(result);
+
+                    if (_listener != null) {
+                        _listener.onTaskSuccess(result, Methods.CHANGE_PIN);
+                    }
+
+                    break;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            if(_listener != null) {
+                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.GENERAL_FAILURE), callback);
+            }
+        }
+    }
+
+    @Override
+    public void onTaskError(AsyncResult pResult, Methods callback) {
+        if(_listener != null) {
+            _listener.onTaskError(pResult, Methods.GET_BILL_AMOUNT);
         }
     }
 
     public void login(NameValuePair...params){
+        if(params == null || params.length < 1){
+            if(_listener != null) {
+                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.LOGIN);
+            }
+        }
         String loginUrl				= MOMConstants.URL_NEW_PLATFORM + MOMConstants.SVC_NEW_METHOD_LOGIN;
 
         AsyncDataEx dataEx		    = new AsyncDataEx(this, loginUrl, Methods.LOGIN);
@@ -137,7 +176,7 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
                         LocalStorage.getString(_applicationContext, MOMConstants.PARAM_NEW_COMPANY_ID)
                 ),
                 new BasicNameValuePair(
-                        MOMConstants.PARAM_NEW_STR_ACCESS_ID,
+                        MOMConstants.PARAM_NEW_STR_ACCESS_ID_SMALL_D,
                         "haduiy23d"
                 )
         );
@@ -145,9 +184,9 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
         Log.d(LOG_TAG, "Called web service via async");
     }
 
-    public float extractBalance(String psResult){
-        if("".equals(psResult)){
-            return 0;
+    public float extractBalance(String psResult) throws MOMException{
+        if(psResult == null || "".equals(psResult.trim())){
+            throw new MOMException();
         }
 
         try {
@@ -164,6 +203,12 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
     }
 
     public void verifyTPin(String psTPin){
+        if(psTPin == null || "".equals(psTPin)){
+            if(_listener != null) {
+                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.LOGIN);
+            }
+        }
+
         String url				= MOMConstants.URL_NEW_PLATFORM + MOMConstants.SVC_NEW_METHOD_CHECK_TPIN;
 
         AsyncDataEx dataEx		    = new AsyncDataEx(this, url, Methods.VERIFY_TPIN);
@@ -178,7 +223,7 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
                         MOMConstants.PARAM_NEW_COMPANY_ID,
                         LocalStorage.getString(_applicationContext, MOMConstants.PARAM_NEW_COMPANY_ID)
                 ),
-                new BasicNameValuePair(MOMConstants.PARAM_NEW_STR_ACCESS_ID, "KJHASFD")
+                new BasicNameValuePair(MOMConstants.PARAM_NEW_STR_ACCESS_ID_SMALL_D, "KJHASFD")
                 );
     }
 
@@ -210,7 +255,20 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
 
     public void rechargeMobile(String psConsumerNumber, double pdAmount, String psOperator, int pnRechargeType){
 
-        String url				= MOMConstants.URL_NEW_PLATFORM_TXN + MOMConstants.SVC_NEW_METHOD_RECHARGE_MOBILE;
+        if(
+            psConsumerNumber == null || "".equals(psConsumerNumber) ||
+            pdAmount < 1 || psOperator == null || "".equals(psOperator)
+            ){
+
+            if(_listener != null) {
+                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.LOGIN);
+            }
+            return;
+        }
+
+        _operatorId                 = psOperator;
+
+        String url				    = MOMConstants.URL_NEW_PLATFORM_TXN + MOMConstants.SVC_NEW_METHOD_RECHARGE_MOBILE;
 
         AsyncDataEx dataEx		    = new AsyncDataEx(this, url, Methods.RECHARGE_MOBILE);
 
@@ -231,9 +289,9 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
         );
     }
 
-    public String getRechargeResult(String psResult){
-        if("".equals(psResult)){
-            return null;
+    public String getRechargeResult(String psResult) throws MOMException{
+        if(psResult == null || "".equals(psResult.trim())){
+            throw new MOMException();
         }
 
         try {
@@ -250,7 +308,19 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
     }
 
     public void rechargeDTH(String psSubscriberId, double pdAmount, String psOperator, String psCustomerMobile){
-        String url				= MOMConstants.URL_NEW_PLATFORM_TXN + MOMConstants.SVC_NEW_METHOD_RECHARGE_DTH;
+        if(
+                psSubscriberId == null || "".equals(psSubscriberId) ||
+                pdAmount < 1 || psOperator == null || "".equals(psOperator)
+                ){
+
+            if(_listener != null) {
+                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.LOGIN);
+            }
+        }
+
+        _operatorId                 = psOperator;
+
+        String url				    = MOMConstants.URL_NEW_PLATFORM_TXN + MOMConstants.SVC_NEW_METHOD_RECHARGE_DTH;
 
         AsyncDataEx dataEx		    = new AsyncDataEx(this, url, Methods.RECHARGE_DTH);
 
@@ -263,7 +333,7 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
                         MOMConstants.PARAM_NEW_COMPANY_ID,
                         LocalStorage.getString(_applicationContext, MOMConstants.PARAM_NEW_COMPANY_ID)
                 ),
-                new BasicNameValuePair(MOMConstants.PARAM_NEW_STR_ACCESS_ID, "KJHASFD"),
+                new BasicNameValuePair(MOMConstants.PARAM_NEW_STR_ACCESS_ID, "Test"),
                 new BasicNameValuePair(MOMConstants.PARAM_NEW_STR_MOBILE_NUMBER, psSubscriberId),
                 new BasicNameValuePair(MOMConstants.PARAM_NEW_RECHARGE_AMOUNT, String.valueOf(pdAmount)),
                 new BasicNameValuePair(MOMConstants.PARAM_NEW_OPERATOR, psOperator),
@@ -277,10 +347,12 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
                         String psOperatorId,
                         String psCustomerMobile,
                         String psConsumerName,
-                        HashMap<String, String> psExtraParamsMap
+                        HashMap<String, String> pExtraParamsMap
                     ){
 
-        String url				= MOMConstants.URL_NEW_PLATFORM_TXN + MOMConstants.SVC_NEW_METHOD_BILL_PAYMENT;
+        _operatorId                 = psOperatorId;
+
+        String url				    = MOMConstants.URL_NEW_PLATFORM_TXN + MOMConstants.SVC_NEW_METHOD_BILL_PAYMENT;
 
         AsyncDataEx dataEx		    = new AsyncDataEx(this, url, Methods.PAY_BILL);
 
@@ -296,16 +368,40 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
             strCustomerNumber   = psSubscriberId + "|" + psCustomerMobile
                                 + "|" + sUserId;
 
-        } else if (MOMConstants.OPERATOR_ID_SBE.equals(psOperatorId)) {
+        } else if (MOMConstants.OPERATOR_ID_SBE.equals(psOperatorId) && pExtraParamsMap != null) {
+            if(
+                    !pExtraParamsMap.containsKey(MOMConstants.PARAM_NEW_RELIANCE_SBE_NBE) ||
+                    !pExtraParamsMap.containsKey(MOMConstants.PARAM_NEW_SPECIAL_OPERATOR)
+                ){
 
+                Log.d("NEW_PL_DATA", "Parameters not sent for SBE");
+                if(_listener != null) {
+                    _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.LOGIN);
+                }
+                return;
+            }
             strCustomerNumber   = "SBE|" + psSubscriberId + "|" + psConsumerName + "|"
-                                + "|" + psExtraParamsMap.get(MOMConstants.PARAM_NEW_RELIANCE_SBE_NBE)
-                                + "|" + psExtraParamsMap.get(MOMConstants.PARAM_NEW_SPECIAL_OPERATOR);
+                                + "|" + pExtraParamsMap.get(MOMConstants.PARAM_NEW_RELIANCE_SBE_NBE)
+                                + "|" + pExtraParamsMap.get(MOMConstants.PARAM_NEW_SPECIAL_OPERATOR);
 
-        } else if (MOMConstants.OPERATOR_ID_NBE.equals(psOperatorId)) {
+        } else if (MOMConstants.OPERATOR_ID_NBE.equals(psOperatorId) && pExtraParamsMap != null) {
+            if(
+                    !pExtraParamsMap.containsKey(MOMConstants.PARAM_NEW_RELIANCE_SBE_NBE) ||
+                            !pExtraParamsMap.containsKey(MOMConstants.PARAM_NEW_SPECIAL_OPERATOR_NBE)
+                ){
+
+                Log.d("NEW_PL_DATA", "Parameters not sent for NBE");
+
+                if(_listener != null) {
+                    _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.LOGIN);
+                }
+
+                return;
+            }
+
             strCustomerNumber   = "NBE|" + psSubscriberId + "|" + psConsumerName + "|"
-                    + "|" + psExtraParamsMap.get(MOMConstants.PARAM_NEW_RELIANCE_SBE_NBE)
-                    + "|" + psExtraParamsMap.get(MOMConstants.PARAM_NEW_SPECIAL_OPERATOR_NBE);
+                    + "|" + pExtraParamsMap.get(MOMConstants.PARAM_NEW_RELIANCE_SBE_NBE)
+                    + "|" + pExtraParamsMap.get(MOMConstants.PARAM_NEW_SPECIAL_OPERATOR_NBE);
 
         }
 
@@ -329,9 +425,123 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
 
     public void getBillAmount(String psOperatorId, String psSubscriberId){
 
-        String url				= MOMConstants.URL_NEW_PLATFORM_GET_BILL;
+        if(
+                psSubscriberId == null || "".equals(psSubscriberId) ||
+                psOperatorId == null || "".equals(psOperatorId)
+                ){
 
-        AsyncDataEx dataEx		    = new AsyncDataEx(this, url, Methods.PAY_BILL);
+            if(_listener != null) {
+                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.LOGIN);
+            }
+        }
 
+        _operatorId             = psOperatorId;
+
+        Log.d("BILL_AMOUNT", "going to get bill amount for operator: " + psOperatorId + ", subscriber: " + psSubscriberId);
+
+        String url				= MOMConstants.URL_NEW_PLATFORM_GET_BEST_BILL;
+
+        AsyncDataEx dataEx		= new AsyncDataEx(this, url, Methods.GET_BILL_AMOUNT);
+        String sParameterName   = MOMConstants.PARAM_NEW_CANUMBER;
+
+        if(MOMConstants.OPERATOR_ID_BEST_ELECTRICITY.equals(psOperatorId)){
+            sParameterName      = MOMConstants.PARAM_NEW_ACCOUNT_NUMBER;
+        }else if(MOMConstants.OPERATOR_ID_RELIANCE_ENERGY.equals(psOperatorId)) {
+            url                 = MOMConstants.URL_NEW_PLATFORM_GET_RELIANCE_BILL;
+        }else if(MOMConstants.OPERATOR_ID_MAHANAGAR_GAS.equals(psOperatorId)) {
+            url                 = MOMConstants.URL_NEW_PLATFORM_GET_MGL_BILL;
+        }else{
+            Log.e("BILL_AMOUNT", "Bill information cannot be checked for this operator");
+            onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.GET_BILL_AMOUNT);
+            return;
+        }
+
+        dataEx.execute(new BasicNameValuePair(sParameterName, psSubscriberId));
+    }
+
+    public float extractBillAmount(String psResult) throws MOMException{
+        if(psResult == null || "".equals(psResult.trim()) || _operatorId == null){
+            throw new MOMException();
+        }
+
+        String[] sArrResponse       = psResult.split("~");
+        String sBill                = null;
+
+        if(_operatorId.equals(MOMConstants.OPERATOR_ID_BEST_ELECTRICITY) && sArrResponse.length > 15){
+            sBill                   = sArrResponse[16];
+        }else if(_operatorId.equals(MOMConstants.OPERATOR_ID_RELIANCE_ENERGY) && sArrResponse.length > 2){
+            sBill                   = sArrResponse[3];
+        }else if(_operatorId.equals(MOMConstants.OPERATOR_ID_MAHANAGAR_GAS) && sArrResponse.length > 3){
+            sBill                   = sArrResponse[4];
+        }
+
+        if(sBill == null || "".equals(sBill.trim())){
+            throw new MOMException();
+        }
+
+        Log.d("BILL", "Bill: " + sBill);
+
+        return Float.valueOf(sBill);
+    }
+
+    @Override
+    public void getTransactionHistory() {
+        String url				= MOMConstants.URL_NEW_PL_HISTORY;
+
+        AsyncDataEx dataEx		= new AsyncDataEx(this, url, Methods.TRANSACTION_HISTORY);
+        String sUserId          = LocalStorage.getString(_applicationContext, MOMConstants.PARAM_NEW_USER_ID);
+
+        dataEx.execute(new BasicNameValuePair(MOMConstants.PARAM_NEW_USER_ID, sUserId));
+    }
+
+    @Override
+    public void changePin(PinType pinType, String psOldPin, String psNewPin) {
+
+        String method           = pinType == PinType.M_PIN
+                                    ? MOMConstants.SVC_NEW_METHOD_CHANGE_MPIN
+                                    : MOMConstants.SVC_NEW_METHOD_CHANGE_TPIN;
+
+        String url				= MOMConstants.URL_NEW_PLATFORM + method;
+
+        AsyncDataEx dataEx		= new AsyncDataEx(this, url, Methods.CHANGE_PIN);
+        String sUserId          = LocalStorage.getString(_applicationContext, MOMConstants.PARAM_NEW_USER_ID);
+
+        dataEx.execute(
+                new BasicNameValuePair(
+                        MOMConstants.PARAM_NEW_CUSTOMER_ID,
+                        LocalStorage.getString(_applicationContext, MOMConstants.PARAM_NEW_CUSTOMER_ID)
+                ),
+                new BasicNameValuePair(
+                        MOMConstants.PARAM_NEW_COMPANY_ID,
+                        LocalStorage.getString(_applicationContext, MOMConstants.PARAM_NEW_COMPANY_ID)
+                ),
+                new BasicNameValuePair(MOMConstants.PARAM_NEW_STR_ACCESS_ID, "KJHASFD"),
+                new BasicNameValuePair(MOMConstants.PARAM_NEW_STR_PASSWORD, psOldPin),
+                new BasicNameValuePair(MOMConstants.PARAM_NEW_STR_NEW_PASSWORD, psNewPin)
+
+        );
+    }
+
+    public String extractChangePinResponse(String psResult) throws MOMException{
+            if(psResult == null || "".equals(psResult.trim())){
+                throw new MOMException();
+            }
+
+            try {
+                PullParser parser   = new PullParser(new ByteArrayInputStream(psResult.getBytes()));
+                String response     = parser.getTextResponse();
+
+                Log.d(LOG_TAG, "Response: " + response);
+                String[] strArrayResponse = response.split("~");
+                if(strArrayResponse.length < 2){
+                    throw new MOMException();
+                }
+
+                return strArrayResponse[1];
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+
+            return "";
     }
 }

@@ -6,5 +6,8 @@
     <dimen name="large">16dp</dimen>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="inputText">28dp</dimen>
+    <dimen name="inputText">28sp</dimen>
+    <dimen name="list_margin">16dp</dimen>
+    <dimen name="historyHeader">24sp</dimen>
+    <dimen name="listEmptyMessage">18sp</dimen>
 </resources>

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.mom.app.R;
@@ -30,6 +31,11 @@ public class TransactionMessageActivity extends Activity {
         Not using getParentActivityIntent to maintain minSdk level of 8
          */
         _originActivity     = (ActivityIdentifier) getIntent().getSerializableExtra(MOMConstants.INTENT_MESSAGE_ORIGIN);
+
+        if(_originActivity == ActivityIdentifier.BILL_PAYMENT){
+            Button btnRecharge  = (Button) findViewById(R.id.btnNewRecharge);
+            btnRecharge.setText(getResources().getString(R.string.btn_new_bill_pay));
+        }
 
         textView.setText(message);
     }

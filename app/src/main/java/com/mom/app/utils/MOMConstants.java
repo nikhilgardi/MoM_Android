@@ -10,9 +10,16 @@ public class MOMConstants {
     public static final String ACTIVE_PLATFORM              = "activePlatform";
 	public static final String URL_NEW_PLATFORM		        = "http://msvc.money-on-mobile.net/WebServiceV3Client.asmx";
 	public static final String URL_NEW_PLATFORM_TXN	        = "http://msvc.money-on-mobile.net/WebServiceV3Trans.asmx";
-    public static final String URL_NEW_PLATFORM_GET_BILL    = "http://180.179.67.72/bestpayments/billInquiry.ashx";
+    public static final String URL_NEW_PLATFORM_GET_BEST_BILL
+                                                            = "http://180.179.67.72/bestpayments/billInquiry.ashx";
+
+    public static final String URL_NEW_PLATFORM_GET_RELIANCE_BILL
+                                                            = "http://180.179.67.72/RelianceEnergy/billEnquiry.ashx";
+    public static final String URL_NEW_PLATFORM_GET_MGL_BILL
+                                                            = "http://180.179.67.72/mgl/billInquiry.aspx";
 
 	public static final String URL_NEW_PL_DETAILS	        = "http://180.179.67.72/nokiaservice/DetailsByUserRMNCompID.aspx";
+	public static final String URL_NEW_PL_HISTORY	        = "http://180.179.67.72/nokiaservice/Lastfivetransactions.aspx";
 	public static final String URL_PBX_PLATFORM		        = "http://pbx.momappworld.com/MobAppS/PbxMobApp.ashx";
 
     /*
@@ -25,14 +32,28 @@ public class MOMConstants {
                                                             = "/DoMobRecharge";
     public static final String SVC_NEW_METHOD_RECHARGE_DTH  = "/DoDTHRechargeV2";
     public static final String SVC_NEW_METHOD_BILL_PAYMENT  = "/doBillPayment";
+    public static final String SVC_NEW_METHOD_CHANGE_TPIN   = "/ChangeT_Pin";
+    public static final String SVC_NEW_METHOD_CHANGE_MPIN   = "/ChangeM_Pin";
+
     //Service Methods end
+
+    //Get Bill information parameter
+    public static final String PARAM_NEW_ACCOUNT_NUMBER     = "AccountNumber";
+    public static final String PARAM_NEW_CANUMBER           = "CANumber";
+
+    //PIN RELATED
+    public static final String M_PIN                        = "M-Pin";
+    public static final String T_PIN                        = "T-Pin";
+    //End get bill information
 
 	public static final String PARAM_NEW_USER		        = "strUserRMN";
 	public static final String PARAM_NEW_PWD		        = "strPassword";
 	public static final String PARAM_NEW_RMN		        = "UserRMN";
 	public static final String PARAM_NEW_COMPANY_ID	        = "CompanyID";
     public static final String PARAM_NEW_OPERATOR_ID        = "OperatorID";
-	public static final String PARAM_NEW_STR_ACCESS_ID      = "strAccessId";
+	public static final String PARAM_NEW_STR_ACCESS_ID      = "strAccessID";
+	public static final String PARAM_NEW_STR_ACCESS_ID_SMALL_D
+                                                            = "strAccessId";
     public static final String PARAM_NEW_USER_ID            = "UserID";
     public static final String PARAM_NEW_CUSTOMER_ID        = "CustomerID";
     public static final String PARAM_NEW_MOBILE_NUMBER      = "MobileNumber";
@@ -66,6 +87,8 @@ public class MOMConstants {
     public static final String PARAM_NEW_SPECIAL_OPERATOR   = "specialOperator";
     public static final String PARAM_NEW_SPECIAL_OPERATOR_NBE
                                                             = "specialOperatorNBE";
+    public static final String PARAM_NEW_STR_PASSWORD       = "strPassword";
+    public static final String PARAM_NEW_STR_NEW_PASSWORD   = "strNewPassword";
 
 	public static final int TIMEOUT_CONNECTION		        = 15000;
 	public static final int TIMEOUT_SOCKET			        = 45000;
@@ -81,6 +104,7 @@ public class MOMConstants {
     public static final String INTENT_MESSAGE               = "com.mom.app.MESSAGE";
     public static final String INTENT_MESSAGE_DEST          = "com.mom.app.MESSAGE_DEST";
     public static final String INTENT_MESSAGE_ORIGIN        = "com.mom.app.MESSAGE_ORIGIN";
+
 
     public static final String OPERATOR_ID_AIRCEL           = "1";
     public static final String OPERATOR_ID_AIRTEL           = "2";
