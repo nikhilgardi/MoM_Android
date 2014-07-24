@@ -6,49 +6,17 @@
     android:orientation="vertical"
     android:background="@drawable/appsbg">
 
-    <TableLayout
-        android:id="@+id/tableLayout1"
-        android:layout_width="wrap_content"
+    <fragment
+        android:id="@+id/momHeader"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/topbarcolor"
-        android:shrinkColumns="*"
-        android:stretchColumns="*" >
-
-        <TableRow
-            android:id="@+id/tableRow4"
-            android:layout_width="match_parent"
-            android:layout_height="53px"
-            android:gravity="center_horizontal"
-            android:minHeight="53dp" >
-
-            <TextView
-                android:id="@+id/AccountBal"
-                android:layout_width="160dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:paddingTop="50dp"
-                android:textColor="#005076"
-                android:textSize="7pt" />
-
-            <ImageView
-                android:id="@+id/logo"
-                android:layout_width="170dp"
-                android:layout_height="98dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:src="@drawable/logo_320" />
-        </TableRow>
-    </TableLayout>
+        class="com.mom.app.fragment.HeaderFragment" />
 
     <EditText
         android:id="@+id/oldPin"
         android:layout_width="265dp"
         android:layout_height="40dp"
-        android:layout_below="@+id/tableLayout1"
+        android:layout_below="@+id/momHeader"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:background="@drawable/custom"

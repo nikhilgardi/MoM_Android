@@ -9,39 +9,35 @@ import com.mom.app.R;
 import com.mom.app.identifier.ActivityIdentifier;
 import com.mom.app.identifier.IdentifierUtils;
 import com.mom.app.identifier.PlatformIdentifier;
-import com.mom.app.model.AsyncListener;
-import com.mom.app.model.AsyncResult;
-import com.mom.app.model.DataExImpl;
-import com.mom.app.model.IDataEx;
 import com.mom.app.model.local.LocalStorage;
-import com.mom.app.model.newpl.NewPLDataExImpl;
+import com.mom.app.utils.DataProvider;
 import com.mom.app.utils.MOMConstants;
+import com.mom.app.widget.ImageTextViewAdapter;
+import com.mom.app.widget.holder.ImageItem;
 
 
 import android.app.AlertDialog;
-import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.AdapterView;
+import android.widget.GridView;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.util.Locale;
-
-public class DashboardActivity extends ListActivity implements AsyncListener<Float>{
+public class DashboardActivity extends MOMActivityBase{
 
     private PlatformIdentifier _currentPlatform;
+    GridView gridView;
+    ImageTextViewAdapter gridViewAdapter;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_dashboard);
         Log.i("MainActivity", "started onCreate");
 
         _currentPlatform    = IdentifierUtils.getPlatformIdentifier(getApplicationContext());
@@ -50,61 +46,52 @@ public class DashboardActivity extends ListActivity implements AsyncListener<Flo
 
         if (_currentPlatform == PlatformIdentifier.NEW)
         {
-            getBalance();
+            getBalanceAsync();
             values = new String[]{"Mobile Recharge", "DTH Recharge", "Bill Payment", "Card Sale", "History", "Settings"};
         } else {
             values = new String[]{"Mobile Recharge", "DTH Recharge", "Bill Payment", "Utility Bill Payment", "History", "Settings"};
-
         }
 
-        setContentView(R.layout.activity_dashboard);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.row_layout, R.id.label, values);
-        setListAdapter(adapter);
-    }
+        gridView            = (GridView) findViewById(R.id.gridView);
+        gridViewAdapter     = new ImageTextViewAdapter(this, R.layout.row_grid, DataProvider.getDashboard(this));
 
-    @Override
-    public void onTaskSuccess(Float result, DataExImpl.Methods pMethod) {
-        Log.d("TASK_C_MAIN", "Called back");
-        switch(pMethod){
-            case GET_BALANCE:
-                Log.d("TASK_C_MAIN", "Balance returned: " + result);
-                TextView balanceTxtView = (TextView) findViewById(R.id.textView1);
-                if(balanceTxtView != null){
-                    balanceTxtView.setVisibility(View.VISIBLE);
+        gridView.setAdapter(gridViewAdapter);
+        gridView.setNumColumns(2);
 
-//                    Locale lIndia       = new Locale("en", "IN");
-//                    NumberFormat form   = NumberFormat.getNumberInstance(lIndia);
-//                    String sBalance      = form.format(result);
-                    DecimalFormat df        = new DecimalFormat( "#,###,###,##0.00" );
-                    String sBalance         = df.format(result);
 
-                    balanceTxtView.setText("Balance: " + getResources().getString(R.string.Rupee) + sBalance);
-                    Log.d("TASK_C_MAIN", "Balance TextView set");
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+
+                Log.d("DASHBOARD", "Clicked " + position);
+                ImageItem item  = (ImageItem) gridViewAdapter.getItem(position);
+                if(item == null){
+                    Log.e("DASHBOARD", "No click target found, returning.");
+                    return;
+                }
+                Log.d("DASHBOARD", "Altering selection to " + !item.getSelected());
+
+                item.setSelected(!item.getSelected());
+
+                if(item.getSelected()) {
+                    v.setBackgroundColor(getResources().getColor(R.color.row_selected));
+                }else{
+                    v.setBackgroundColor(Color.TRANSPARENT);
                 }
 
-                LocalStorage.storeLocally(getApplicationContext(), MOMConstants.USER_BALANCE, result);
-            break;
-        }
+                Log.d("DASHBOARD", "Going to selected activity");
+                nextActivity(item.getTitle());
+
+            }
+        });
     }
 
     @Override
-    public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
+    protected void showBalance(float pfBalance) {
 
     }
 
-    public void getBalance(){
-        Log.d("MAIN", "Getting Balance");
-        IDataEx dataEx  = new NewPLDataExImpl(getApplicationContext(), this);
-        Log.d("MAIN", "DataEx instance created");
-        dataEx.getBalance();
-        Log.d("MAIN", "getBalance called");
-    }
-
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        String item = (String) getListAdapter().getItem(position);
+    private void nextActivity(String item){
         Intent intent   = null;
-        Log.d("LIST_CLICKED", "Going to start activity");
         if (item.equals("Mobile Recharge")) {
             Log.d("LIST_CLICKED", "Starting Mobile Recharge");
             intent = new Intent(this, VerifyTPinActivity.class);
@@ -150,11 +137,6 @@ public class DashboardActivity extends ListActivity implements AsyncListener<Flo
             startActivity(intent);
             Log.d("LIST_CLICKED", "Started Transaction History Activity");
 
-
-//            intent = new Intent(DashboardActivity.this, HistoryActivity.class);
-//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//            startActivity(intent);
-//            finish();
         }else if (item.equals("Settings")) {
             Log.d("LIST_CLICKED", "Starting Settings Activity");
             intent = new Intent(DashboardActivity.this, SettingsActivity.class);
@@ -163,7 +145,6 @@ public class DashboardActivity extends ListActivity implements AsyncListener<Flo
             Log.d("LIST_CLICKED", "Started Settings Activity");
         }
     }
-
     public void logout(View v) {
 
         this.finish();

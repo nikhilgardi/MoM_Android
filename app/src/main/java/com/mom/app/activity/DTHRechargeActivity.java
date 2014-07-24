@@ -50,7 +50,6 @@ public class DTHRechargeActivity extends MOMActivityBase implements AsyncListene
     private EditText amountField;
     private EditText _etCustomerNumber;
 
-    TextView accountbal;
     Spinner operatorSpinner;
 
     String responseBody;
@@ -63,10 +62,8 @@ public class DTHRechargeActivity extends MOMActivityBase implements AsyncListene
         this.operatorSpinner    = (Spinner) findViewById(R.id.Operator);
         this._etSubscriberId    = (EditText) findViewById(R.id.subscriberId);
         this.amountField        = (EditText) findViewById(R.id.amount);
-        this.accountbal         = (TextView) findViewById(R.id.AccountBal);
         this._etCustomerNumber  = (EditText) findViewById(R.id.number);
         getAllOperators();
-        showBalance(accountbal);
         getProgressBar().setVisibility(View.GONE);
     }
 
@@ -97,7 +94,6 @@ public class DTHRechargeActivity extends MOMActivityBase implements AsyncListene
 
     @Override
     protected void showBalance(float pfBalance) {
-        showBalance(accountbal, pfBalance);
     }
 
 

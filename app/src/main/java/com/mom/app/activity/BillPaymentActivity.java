@@ -57,10 +57,6 @@ public class BillPaymentActivity extends MOMActivityBase implements AsyncListene
     private EditText _etCustomerNumber;
     private TextView _billMsgDisplay;
 
-    //	private Button postButton, secondback;
-//	private Button newButton;
-//	TableLayout tablelayout;
-    TextView accountbal;
     Spinner operatorSpinner;
     String responseBody;
 
@@ -76,11 +72,9 @@ public class BillPaymentActivity extends MOMActivityBase implements AsyncListene
 
         this._etSubscriberId    = (EditText) findViewById(R.id.subscriberId);
         this.amountField        = (EditText) findViewById(R.id.amount);
-        this.accountbal         = (TextView) findViewById(R.id.AccountBal);
         this._etCustomerNumber  = (EditText) findViewById(R.id.number);
         getAllOperators();
 
-        showBalance(accountbal);
         getProgressBar().setVisibility(View.GONE);
     }
 
@@ -111,7 +105,7 @@ public class BillPaymentActivity extends MOMActivityBase implements AsyncListene
 
     @Override
     protected void showBalance(float pfBalance) {
-        showBalance(accountbal, pfBalance);
+
     }
 
 

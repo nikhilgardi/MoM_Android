@@ -9,5 +9,8 @@
     <color name="listHeader">#ffffff</color>
     <color name="listDetails">#ff626262</color>
     <color name="listTxnStatus">#000000</color>
-    <color name="rowSelected">#ff17c9ff</color>
+    <color name="row_selected">#ff17c9ff</color>
+    <color name="mom_blue">#6dcff6</color>
+    <color name="disabled">#ffe6e6e6</color>
+    <color name="balance_amount">#ffff6e37</color>
 </resources>

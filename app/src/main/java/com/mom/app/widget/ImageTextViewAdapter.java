@@ -40,6 +40,8 @@ public class ImageTextViewAdapter extends ArrayAdapter{
         if (row == null) {
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
             row                 = inflater.inflate(layoutResourceId, parent, false);
+            row.setBackground(context.getResources().getDrawable(R.drawable.rounded_rect));
+
             holder              = new ViewHolder();
             holder.imageTitle   = (TextView) row.findViewById(R.id.text);
             ImageView imgView   = (ImageView) row.findViewById(R.id.image);
@@ -54,7 +56,7 @@ public class ImageTextViewAdapter extends ArrayAdapter{
         holder.image.setImageBitmap(item.getImage());
         Log.d("ADAPTER", position + " selected = " + item.getSelected());
         if(item.getSelected()) {
-            row.setBackgroundColor(row.getResources().getColor(R.color.rowSelected));
+            row.setBackgroundColor(row.getResources().getColor(R.color.row_selected));
             row.getBackground().setAlpha(128);
         }
         return row;

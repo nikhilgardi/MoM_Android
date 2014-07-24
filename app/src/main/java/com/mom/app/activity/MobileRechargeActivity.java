@@ -27,7 +27,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -41,17 +40,13 @@ import com.mom.app.identifier.PlatformIdentifier;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
-import com.mom.app.model.IDataEx;
 import com.mom.app.model.local.LocalStorage;
-import com.mom.app.model.newpl.NewPLDataExImpl;
-import com.mom.app.model.pbxpl.PBXPLDataExImpl;
 import com.mom.app.utils.MOMConstants;
 
 public class MobileRechargeActivity extends MOMActivityBase implements AsyncListener<String>{
-	private EditText numField_mob;
+	private EditText rechargeTargetPhone;
 	private EditText amountField;
 
-	TextView accountbal;
 	Spinner operatorSpinner;
 	RadioButton rbtnTopUp, rbtnValidity, rbtnSpecial;
 
@@ -64,16 +59,15 @@ public class MobileRechargeActivity extends MOMActivityBase implements AsyncList
         _currentPlatform        = IdentifierUtils.getPlatformIdentifier(getApplicationContext());
 
         this.operatorSpinner    = (Spinner) findViewById(R.id.Operator);
-		this.numField_mob       = (EditText) findViewById(R.id.consumerNumber);
+		this.rechargeTargetPhone
+                                = (EditText) findViewById(R.id.rechargeTargetPhone);
+
         this.amountField        = (EditText) findViewById(R.id.amount);
         this.rbtnTopUp          = (RadioButton) findViewById(R.id.rbtnTopUp);
 		this.rbtnValidity       = (RadioButton) findViewById(R.id.rbtnValidity);
 		this.rbtnSpecial        = (RadioButton) findViewById(R.id.rbtnSpecial);
 
-        this.accountbal         = (TextView)findViewById(R.id.AccountBal);
-
         getAllOperators();
-        showBalance(accountbal);
 
 		addListenerOnSpinnerItemSelection();
         getProgressBar().setVisibility(View.GONE);
@@ -107,7 +101,6 @@ public class MobileRechargeActivity extends MOMActivityBase implements AsyncList
 
     @Override
     protected void showBalance(float pfBalance) {
-        showBalance(accountbal, pfBalance);
     }
 
 	public void addListenerOnSpinnerItemSelection() {
@@ -247,7 +240,7 @@ public class MobileRechargeActivity extends MOMActivityBase implements AsyncList
         int nMaxPhoneLength     = 10;
         int nExactPhoneLength   = 10;
 
-        int nPhoneLength        = numField_mob.getText().toString().length();
+        int nPhoneLength        = rechargeTargetPhone.getText().toString().length();
         int nAmount             = 0;
 
         try {
@@ -287,7 +280,7 @@ public class MobileRechargeActivity extends MOMActivityBase implements AsyncList
 	private void startRecharge() {
 		String[] strResponse1 = null;
 
-        String sConsumerNumber          = numField_mob.getText().toString();
+        String sConsumerNumber          = rechargeTargetPhone.getText().toString();
         String sRechargeAmount          = amountField.getText().toString();
         String sOperatorID              = getOperatorId(operatorSpinner.getSelectedItem().toString());
         int nRechargeType               = 0;
@@ -381,7 +374,7 @@ public class MobileRechargeActivity extends MOMActivityBase implements AsyncList
 
 			// Setting Dialog Message
 			alertDialog.setMessage("Mobile Number:" + " "
-					+ numField_mob.getText().toString() + "\n" + "Operator:"
+					+ rechargeTargetPhone.getText().toString() + "\n" + "Operator:"
 					+ " " + operatorSpinner.getSelectedItem().toString() + "\n"
 					+ "Amount:" + " " + "Rs." + " "
 					+ amountField.getText().toString());
@@ -413,7 +406,7 @@ public class MobileRechargeActivity extends MOMActivityBase implements AsyncList
 	public class CustomOnItemSelectedListener implements OnItemSelectedListener {
 		public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 
-            numField_mob.setText("");
+            rechargeTargetPhone.setText("");
             amountField.setText("");
 
             rbtnTopUp.setChecked(false);
@@ -436,7 +429,7 @@ public class MobileRechargeActivity extends MOMActivityBase implements AsyncList
                     sOperatorId.equals(MOMConstants.OPERATOR_ID_UNINOR)
                     ){
 
-                numField_mob.setText("");
+                rechargeTargetPhone.setText("");
                 amountField.setText("");
                 rbtnTopUp.setVisibility(view.VISIBLE);
                 rbtnValidity.setVisibility(view.GONE);
