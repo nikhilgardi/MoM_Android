@@ -49,7 +49,7 @@ public abstract class MOMActivityBase extends Activity{
             if(_currentPlatform == PlatformIdentifier.NEW){
                 _dataEx     = new NewPLDataExImpl(getApplicationContext(), pListener);
             }else{
-                _dataEx     = new PBXPLDataExImpl(pListener, getApplicationContext());
+                _dataEx     = new PBXPLDataExImpl(getApplicationContext(), pListener);
             }
         }
 

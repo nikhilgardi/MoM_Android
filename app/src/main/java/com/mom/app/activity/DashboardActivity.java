@@ -9,13 +9,17 @@ import com.mom.app.R;
 import com.mom.app.identifier.ActivityIdentifier;
 import com.mom.app.identifier.IdentifierUtils;
 import com.mom.app.identifier.PlatformIdentifier;
+import com.mom.app.model.AsyncListener;
+import com.mom.app.model.AsyncResult;
+import com.mom.app.model.DataExImpl;
+import com.mom.app.model.IDataEx;
 import com.mom.app.model.local.LocalStorage;
-<<<<<<< HEAD
+
 import com.mom.app.model.newpl.NewPLDataExImpl;
 import com.mom.app.model.pbxpl.PBXPLDataExImpl;
-=======
+
 import com.mom.app.utils.DataProvider;
->>>>>>> d7a40db13170cbead14dbff634d05d489fb9eee4
+
 import com.mom.app.utils.MOMConstants;
 import com.mom.app.widget.ImageTextViewAdapter;
 import com.mom.app.widget.holder.ImageItem;
@@ -33,6 +37,8 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+
+import org.json.JSONObject;
 
 public class DashboardActivity extends MOMActivityBase{
 
@@ -69,8 +75,8 @@ public class DashboardActivity extends MOMActivityBase{
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 
                 Log.d("DASHBOARD", "Clicked " + position);
-                ImageItem item  = (ImageItem) gridViewAdapter.getItem(position);
-                if(item == null){
+                ImageItem item = (ImageItem) gridViewAdapter.getItem(position);
+                if (item == null) {
                     Log.e("DASHBOARD", "No click target found, returning.");
                     return;
                 }
@@ -78,9 +84,9 @@ public class DashboardActivity extends MOMActivityBase{
 
                 item.setSelected(!item.getSelected());
 
-                if(item.getSelected()) {
+                if (item.getSelected()) {
                     v.setBackgroundColor(getResources().getColor(R.color.row_selected));
-                }else{
+                } else {
                     v.setBackgroundColor(Color.TRANSPARENT);
                 }
 
@@ -93,7 +99,17 @@ public class DashboardActivity extends MOMActivityBase{
 
     public void getBalancePBX(){
         Log.d("MAIN", "Getting BalancePBX");
-        IDataEx dataEx  = new PBXPLDataExImpl(this,getApplicationContext());
+        IDataEx dataEx  = new PBXPLDataExImpl(getApplicationContext(), new AsyncListener() {
+            @Override
+            public void onTaskSuccess(Object result, DataExImpl.Methods callback) {
+
+            }
+
+            @Override
+            public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
+
+            }
+        });
         Log.d("MAIN", "DataEx instance created");
         dataEx.getBalance();
         Log.d("MAIN", "getBalancePBX called");
@@ -202,5 +218,7 @@ public class DashboardActivity extends MOMActivityBase{
         alert.setTitle("Message");
         alert.show();
     }
+
+
 }
 	

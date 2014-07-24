@@ -3,6 +3,7 @@ package com.mom.app.model.pbxpl;
 import android.content.Context;
 import android.util.Log;
 
+import com.google.gson.GsonBuilder;
 import com.mom.app.identifier.PinType;
 import com.mom.app.model.AsyncDataEx;
 import com.mom.app.model.AsyncListener;
@@ -14,6 +15,7 @@ import com.mom.app.utils.MOMConstants;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONObject;
 
 import java.io.ByteArrayInputStream;
 import java.util.HashMap;
@@ -23,7 +25,11 @@ import java.util.HashMap;
  */
 public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String> {
     private String LOG_TAG     = "DATAEX_PBX";
-    public PBXPLDataExImpl(AsyncListener pListener, Context context){
+
+    public PBXPLDataExImpl(){
+
+    }
+    public PBXPLDataExImpl(Context context, AsyncListener pListener){
         this._listener              = pListener;
         this._applicationContext    = context;
     }
@@ -42,7 +48,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
                 float balance      = extractBalance(result);
 
                 if(_listener != null) {
-                    _listener.onTaskComplete(balance, Methods.GET_BALANCE);
+                    _listener.onTaskSuccess(balance, Methods.GET_BALANCE);
                 }
                 break;
         }
@@ -112,7 +118,6 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
     public void getBillAmount(String psOperatorId, String psSubscriberId) {
 
     }
-<<<<<<< HEAD
     @Override
     public void getBalance(){
         String url				= MOMConstants.URL_PBX_PLATFORM_Test;
@@ -137,23 +142,23 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
         Log.d(LOG_TAG, "Called web service via async");
     }
 
-    public float extractBalance(String psResult){
-        if("".equals(psResult)){
+    public float extractBalance(String psResult) {
+        if ("".equals(psResult)) {
             return 0;
         }
 
         try {
-            PullParser parser   = new PullParser(new ByteArrayInputStream(psResult.getBytes()));
-            String response     = parser.getTextResponse();
+            PullParser parser = new PullParser(new ByteArrayInputStream(psResult.getBytes()));
+            String response = parser.getTextResponse();
 
             Log.d(LOG_TAG, "Response: " + response);
             return Float.parseFloat(response);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return 0;
-=======
+    }
 
     @Override
     public void getTransactionHistory() {
@@ -163,6 +168,14 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
     @Override
     public void changePin(PinType pinType, String psOldPin, String psNewPin) {
 
->>>>>>> d7a40db13170cbead14dbff634d05d489fb9eee4
+    }
+
+    public Balance extractJSONBalance(){
+        String json = "{balance: 10.0, status: \"success\"}";
+
+        Balance balance = new GsonBuilder().create().fromJson(json, Balance.class);
+
+        return balance;
+
     }
 }

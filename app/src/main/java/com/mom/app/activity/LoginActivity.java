@@ -270,7 +270,7 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 			EditText pword = (EditText) findViewById(R.id.et_pw);
 			String password = pword.getText().toString();
 
-            IDataEx dataEx          = new PBXPLDataExImpl(this, getApplicationContext());
+            IDataEx dataEx          = new PBXPLDataExImpl(getApplicationContext(), this);
 
             Log.i("LOGIN", "Calling PBXPL for login");
 

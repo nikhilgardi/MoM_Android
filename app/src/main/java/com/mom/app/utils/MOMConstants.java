@@ -31,15 +31,12 @@ public class MOMConstants {
 	public static final String SVC_NEW_METHOD_RECHARGE_MOBILE = "/DoMobRecharge";
     public static final String SVC_NEW_METHOD_RECHARGE_DTH  = "/DoDTHRechargeV2";
     public static final String SVC_NEW_METHOD_BILL_PAYMENT  = "/doBillPayment";
-<<<<<<< HEAD
-
 
     public static final String SVC_PBX_METHOD_GET_BALANCE   = "/getBalanceByCustomerId";
-=======
     public static final String SVC_NEW_METHOD_CHANGE_TPIN   = "/ChangeT_Pin";
     public static final String SVC_NEW_METHOD_CHANGE_MPIN   = "/ChangeM_Pin";
 
->>>>>>> d7a40db13170cbead14dbff634d05d489fb9eee4
+
     //Service Methods end
 
     //Get Bill information parameter
@@ -90,21 +87,14 @@ public class MOMConstants {
 
     public static final String PARAM_NEW_RELIANCE_SBE_NBE   = "relianceSBENBE";
     public static final String PARAM_NEW_SPECIAL_OPERATOR   = "specialOperator";
-<<<<<<< HEAD
     public static final String PARAM_NEW_SPECIAL_OPERATOR_NBE= "specialOperatorNBE";
 
 
     public static final String PARAM_PBX_LOGIN_MOBILENUMBER       = "RN";
     public static final String PARAM_PBX_SERVICE                  = "SERVICE";
 
-
-
-=======
-    public static final String PARAM_NEW_SPECIAL_OPERATOR_NBE
-                                                            = "specialOperatorNBE";
     public static final String PARAM_NEW_STR_PASSWORD       = "strPassword";
     public static final String PARAM_NEW_STR_NEW_PASSWORD   = "strNewPassword";
->>>>>>> d7a40db13170cbead14dbff634d05d489fb9eee4
 
 	public static final int TIMEOUT_CONNECTION		        = 15000;
 	public static final int TIMEOUT_SOCKET			        = 45000;
