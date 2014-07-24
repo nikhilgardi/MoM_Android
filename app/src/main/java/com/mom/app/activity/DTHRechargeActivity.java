@@ -1,9 +1,7 @@
 package com.mom.app.activity;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -38,6 +36,7 @@ import com.mom.app.identifier.ActivityIdentifier;
 import com.mom.app.identifier.IdentifierUtils;
 import com.mom.app.identifier.PlatformIdentifier;
 import com.mom.app.model.AsyncListener;
+import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.IDataEx;
 import com.mom.app.model.local.LocalStorage;
@@ -45,86 +44,31 @@ import com.mom.app.model.newpl.NewPLDataExImpl;
 import com.mom.app.model.pbxpl.PBXPLDataExImpl;
 import com.mom.app.utils.MOMConstants;
 
-public class DTHRechargeActivity extends TransactionActivityBase implements AsyncListener<String>{
+public class DTHRechargeActivity extends MOMActivityBase implements AsyncListener<String>{
 
-    PlatformIdentifier _currentPlatform;
-    IDataEx _dataEx     = null;
-
-    ProgressBar _pb;
-
-    //	private Button backButton;
-//	private EditText passField;
     private EditText _etSubscriberId;
     private EditText amountField;
     private EditText _etCustomerNumber;
 
-    //	private Button postButton, secondback;
-//	private Button newButton;
-//	TableLayout tablelayout;
-    TextView accountbal;
     Spinner operatorSpinner;
 
-
-    ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
     String responseBody;
 
-    TextView responseText;//, secondback_responseText, responseText1;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dth_recharge);
-        _currentPlatform        = IdentifierUtils.getPlatformIdentifier(getApplicationContext());
 
         this.operatorSpinner    = (Spinner) findViewById(R.id.Operator);
-        this.responseText       = (TextView) findViewById(R.id.msgDisplay);
         this._etSubscriberId    = (EditText) findViewById(R.id.subscriberId);
         this.amountField        = (EditText) findViewById(R.id.amount);
-        this.accountbal         = (TextView) findViewById(R.id.AccountBal);
         this._etCustomerNumber  = (EditText) findViewById(R.id.number);
         getAllOperators();
-
         getProgressBar().setVisibility(View.GONE);
     }
 
-    public void setDataEx(IDataEx pDataEx){
-        this._dataEx    = pDataEx;
-    }
-
-    public IDataEx getDataEx(){
-        if(_dataEx == null){
-            if(_currentPlatform == PlatformIdentifier.NEW){
-                _dataEx     = new NewPLDataExImpl(getApplicationContext(), this);
-            }else{
-                _dataEx     = new PBXPLDataExImpl(this, getApplicationContext());
-            }
-        }
-
-        return _dataEx;
-    }
-
-    public void showMessage(String psMsg){
-        TextView response	= getMessageTextView();
-
-        response.setVisibility(View.VISIBLE);
-        response.setText(psMsg);
-    }
-
-    public TextView getMessageTextView(){
-        if(responseText == null){
-            responseText    = (TextView) findViewById(R.id.msgDisplay);
-        }
-        return responseText;
-    }
-
-    public ProgressBar getProgressBar(){
-        if(_pb == null){
-            _pb			= (ProgressBar)findViewById(R.id.progressBar);
-        }
-        return _pb;
-    }
-
     @Override
-    public void onTaskComplete(String result, DataExImpl.Methods callback) {
+    public void onTaskSuccess(String result, DataExImpl.Methods callback) {
         Log.d("TASK_C_MAIN", "Called back");
         switch(callback){
             case RECHARGE_DTH:
@@ -144,11 +88,12 @@ public class DTHRechargeActivity extends TransactionActivityBase implements Asyn
     }
 
     @Override
+    public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
+
+    }
+
+    @Override
     protected void showBalance(float pfBalance) {
-        Locale lIndia       = new Locale("en", "IN");
-        NumberFormat form   = NumberFormat.getCurrencyInstance(lIndia);
-        String sBalance      = form.format(pfBalance);
-        accountbal.setText("Balance: " + sBalance);
     }
 
 
@@ -362,7 +307,7 @@ public class DTHRechargeActivity extends TransactionActivityBase implements Asyn
 
         if (_currentPlatform == PlatformIdentifier.NEW){
 
-            getDataEx().rechargeDTH(sSubscriberId, Double.parseDouble(sRechargeAmount), sOperatorID, sCustomerNumber);
+            getDataEx(this).rechargeDTH(sSubscriberId, Double.parseDouble(sRechargeAmount), sOperatorID, sCustomerNumber);
 
         } else if (_currentPlatform == PlatformIdentifier.PBX){
             HttpClient httpclient = new DefaultHttpClient();

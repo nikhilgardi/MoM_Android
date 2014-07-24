@@ -1,0 +1,105 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/appsbg">
+
+    <fragment
+        android:id="@+id/momHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        class="com.mom.app.fragment.HeaderFragment" />
+
+    <EditText
+        android:id="@+id/oldPin"
+        android:layout_width="265dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/momHeader"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:background="@drawable/custom"
+        android:hint="@string/mpin_old"
+        android:inputType="number"
+        android:password="true"
+        android:maxLength="10"
+        android:visibility="visible" >
+    </EditText>
+
+    <EditText
+        android:id="@+id/newPin"
+        android:layout_width="265dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/oldPin"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/custom"
+        android:hint="@string/mpin_new"
+        android:maxLength="8"
+        android:password="true"
+        android:inputType="number"
+        android:visibility="visible" >
+    </EditText>
+
+    <EditText
+        android:id="@+id/newPinConfirm"
+        android:layout_width="265dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/newPin"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/custom"
+        android:hint="@string/mpin_new_confirm"
+        android:inputType="number"
+        android:password="true"
+        android:maxLength="8"
+        android:visibility="visible" >
+    </EditText>
+
+    <Button
+        android:id="@+id/btn_Submit"
+        android:layout_width="100dip"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/newPinConfirm"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/custom_button"
+        android:text="Submit"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:visibility="visible"
+        android:onClick="changePIN"/>
+
+    <Button
+        android:id="@+id/btn_back"
+        android:layout_width="100dip"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_Submit"
+        android:layout_centerHorizontal="true"
+        android:layout_marginRight="21dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/custom_button"
+        android:onClick="goBack"
+        android:text="Back"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/msgDisplay"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:lineSpacingExtra="5dp"
+        android:layout_below="@+id/btn_back"
+        android:gravity="center_horizontal"
+        android:textColor="#333"
+        android:textSize="18dp"
+        android:visibility="gone" />
+</RelativeLayout>

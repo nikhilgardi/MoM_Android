@@ -3,47 +3,46 @@ package com.mom.app.activity;
 
 
 import com.mom.app.Helpz;
-import com.mom.app.HistoryActivity;
-import com.mom.app.HomeActivity2;
 import com.mom.app.HomeBillActivity_PBX;
-import com.mom.app.InfoActivity;
 import com.mom.app.MSwipeAndroidSDKListActivity1;
 import com.mom.app.R;
 import com.mom.app.identifier.ActivityIdentifier;
 import com.mom.app.identifier.IdentifierUtils;
 import com.mom.app.identifier.PlatformIdentifier;
-import com.mom.app.model.AsyncListener;
-import com.mom.app.model.DataExImpl;
-import com.mom.app.model.IDataEx;
 import com.mom.app.model.local.LocalStorage;
+<<<<<<< HEAD
 import com.mom.app.model.newpl.NewPLDataExImpl;
 import com.mom.app.model.pbxpl.PBXPLDataExImpl;
+=======
+import com.mom.app.utils.DataProvider;
+>>>>>>> d7a40db13170cbead14dbff634d05d489fb9eee4
 import com.mom.app.utils.MOMConstants;
+import com.mom.app.widget.ImageTextViewAdapter;
+import com.mom.app.widget.holder.ImageItem;
 
 
 import android.app.AlertDialog;
-import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.AdapterView;
+import android.widget.GridView;
 
-import java.text.NumberFormat;
-import java.util.Locale;
-
-public class DashboardActivity extends ListActivity implements AsyncListener<Float>{
+public class DashboardActivity extends MOMActivityBase{
 
     private PlatformIdentifier _currentPlatform;
+    GridView gridView;
+    ImageTextViewAdapter gridViewAdapter;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_dashboard);
         Log.i("MainActivity", "started onCreate");
 
         _currentPlatform    = IdentifierUtils.getPlatformIdentifier(getApplicationContext());
@@ -52,48 +51,44 @@ public class DashboardActivity extends ListActivity implements AsyncListener<Flo
 
         if (_currentPlatform == PlatformIdentifier.NEW)
         {
-            getBalance();
+            getBalanceAsync();
             values = new String[]{"Mobile Recharge", "DTH Recharge", "Bill Payment", "Card Sale", "History", "Settings"};
         } else {
             getBalancePBX();
             values = new String[]{"Mobile Recharge", "DTH Recharge", "Bill Payment", "Utility Bill Payment", "History", "Settings"};
-
         }
 
-        setContentView(R.layout.activity_dashboard);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.row_layout, R.id.label, values);
-        setListAdapter(adapter);
-//        getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.appsbg));
-    }
+        gridView            = (GridView) findViewById(R.id.gridView);
+        gridViewAdapter     = new ImageTextViewAdapter(this, R.layout.row_grid, DataProvider.getDashboard(this));
 
-    @Override
-    public void onTaskComplete(Float result, DataExImpl.Methods pMethod) {
-        Log.d("TASK_C_MAIN", "Called back");
-        switch(pMethod){
-            case GET_BALANCE:
-                Log.d("TASK_C_MAIN", "Balance returned: " + result);
-                TextView balanceTxtView = (TextView) findViewById(R.id.textView1);
-                if(balanceTxtView != null){
-                    balanceTxtView.setVisibility(View.VISIBLE);
+        gridView.setAdapter(gridViewAdapter);
+        gridView.setNumColumns(2);
 
-                    Locale lIndia       = new Locale("en", "IN");
-                    NumberFormat form   = NumberFormat.getCurrencyInstance(lIndia);
-                    String sBalance      = form.format(result);
-                    balanceTxtView.setText("Balance: " + sBalance);
-                    Log.d("TASK_C_MAIN", "Balance TextView set");
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+
+                Log.d("DASHBOARD", "Clicked " + position);
+                ImageItem item  = (ImageItem) gridViewAdapter.getItem(position);
+                if(item == null){
+                    Log.e("DASHBOARD", "No click target found, returning.");
+                    return;
+                }
+                Log.d("DASHBOARD", "Altering selection to " + !item.getSelected());
+
+                item.setSelected(!item.getSelected());
+
+                if(item.getSelected()) {
+                    v.setBackgroundColor(getResources().getColor(R.color.row_selected));
+                }else{
+                    v.setBackgroundColor(Color.TRANSPARENT);
                 }
 
-                LocalStorage.storeLocally(getApplicationContext(), MOMConstants.USER_BALANCE, result);
-            break;
-        }
-    }
+                Log.d("DASHBOARD", "Going to selected activity");
+                nextActivity(item.getTitle());
 
-    public void getBalance(){
-        Log.d("MAIN", "Getting Balance");
-        IDataEx dataEx  = new NewPLDataExImpl(getApplicationContext(), this);
-        Log.d("MAIN", "DataEx instance created");
-        dataEx.getBalance();
-        Log.d("MAIN", "getBalance called");
+            }
+        });
     }
 
     public void getBalancePBX(){
@@ -105,10 +100,12 @@ public class DashboardActivity extends ListActivity implements AsyncListener<Flo
     }
 
     @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        String item = (String) getListAdapter().getItem(position);
+    protected void showBalance(float pfBalance) {
+
+    }
+
+    private void nextActivity(String item){
         Intent intent   = null;
-        Log.d("LIST_CLICKED", "Going to start activity");
         if (item.equals("Mobile Recharge")) {
             Log.d("LIST_CLICKED", "Starting Mobile Recharge");
             intent = new Intent(this, VerifyTPinActivity.class);
@@ -127,10 +124,13 @@ public class DashboardActivity extends ListActivity implements AsyncListener<Flo
             return;
 
         }else if (item.equals("Bill Payment")) {
-            intent = new Intent(DashboardActivity.this, HomeActivity2.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            Log.d("LIST_CLICKED", "Starting Bill Payment");
+            intent = new Intent(this, VerifyTPinActivity.class);
+            intent.putExtra(MOMConstants.INTENT_MESSAGE_DEST, ActivityIdentifier.BILL_PAYMENT);
+            intent.putExtra(MOMConstants.INTENT_MESSAGE_ORIGIN, ActivityIdentifier.DASHBOARD);
             startActivity(intent);
-            finish();
+            Log.d("LIST_CLICKED", "Started Bill Payment");
+            return;
         }else if (item.equals("Card Sale")) {
             intent = new Intent(DashboardActivity.this, MSwipeAndroidSDKListActivity1.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -145,18 +145,20 @@ public class DashboardActivity extends ListActivity implements AsyncListener<Flo
 
         }else if (item.equals("History")) {
 
-            intent = new Intent(DashboardActivity.this, HistoryActivity.class);
+            Log.d("LIST_CLICKED", "Starting Transaction History Activity");
+            intent = new Intent(this, TransactionHistoryActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
-            finish();
+            Log.d("LIST_CLICKED", "Started Transaction History Activity");
+
         }else if (item.equals("Settings")) {
-            intent = new Intent(DashboardActivity.this, InfoActivity.class);
+            Log.d("LIST_CLICKED", "Starting Settings Activity");
+            intent = new Intent(DashboardActivity.this, SettingsActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
-            finish();
+            Log.d("LIST_CLICKED", "Started Settings Activity");
         }
     }
-
     public void logout(View v) {
 
         this.finish();

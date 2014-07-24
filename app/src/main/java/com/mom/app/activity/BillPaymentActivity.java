@@ -1,9 +1,8 @@
 package com.mom.app.activity;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -40,6 +39,7 @@ import com.mom.app.identifier.ActivityIdentifier;
 import com.mom.app.identifier.IdentifierUtils;
 import com.mom.app.identifier.PlatformIdentifier;
 import com.mom.app.model.AsyncListener;
+import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.IDataEx;
 import com.mom.app.model.local.LocalStorage;
@@ -47,91 +47,42 @@ import com.mom.app.model.newpl.NewPLDataExImpl;
 import com.mom.app.model.pbxpl.PBXPLDataExImpl;
 import com.mom.app.utils.MOMConstants;
 
-public class BillPaymentActivity extends TransactionActivityBase implements AsyncListener<String>{
+public class BillPaymentActivity extends MOMActivityBase implements AsyncListener<String>{
 
-    PlatformIdentifier _currentPlatform;
-    IDataEx _dataEx     = null;
 
-    ProgressBar _pb;
 
     Button _getBillAmount;
     private EditText _etSubscriberId;
     private EditText amountField;
     private EditText _etCustomerNumber;
+    private TextView _billMsgDisplay;
 
-    //	private Button postButton, secondback;
-//	private Button newButton;
-//	TableLayout tablelayout;
-    TextView accountbal;
     Spinner operatorSpinner;
-
-
-
     String responseBody;
 
-    TextView responseText;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bill_payment);
-        _currentPlatform        = IdentifierUtils.getPlatformIdentifier(getApplicationContext());
+
         _getBillAmount          = (Button) findViewById(R.id.btn_GetBillAmount);
 
         this.operatorSpinner    = (Spinner) findViewById(R.id.Operator);
         this.operatorSpinner.setOnItemSelectedListener(new OperatorSelectedListener());
 
-        this.responseText       = (TextView) findViewById(R.id.msgDisplay);
         this._etSubscriberId    = (EditText) findViewById(R.id.subscriberId);
         this.amountField        = (EditText) findViewById(R.id.amount);
-        this.accountbal         = (TextView) findViewById(R.id.AccountBal);
         this._etCustomerNumber  = (EditText) findViewById(R.id.number);
         getAllOperators();
 
         getProgressBar().setVisibility(View.GONE);
     }
 
-    public void setDataEx(IDataEx pDataEx){
-        this._dataEx    = pDataEx;
-    }
-
-    public IDataEx getDataEx(){
-        if(_dataEx == null){
-            if(_currentPlatform == PlatformIdentifier.NEW){
-                _dataEx     = new NewPLDataExImpl(getApplicationContext(), this);
-            }else{
-                _dataEx     = new PBXPLDataExImpl(this, getApplicationContext());
-            }
-        }
-
-        return _dataEx;
-    }
-
-    public void showMessage(String psMsg){
-        TextView response	= getMessageTextView();
-
-        response.setVisibility(View.VISIBLE);
-        response.setText(psMsg);
-    }
-
-    public TextView getMessageTextView(){
-        if(responseText == null){
-            responseText    = (TextView) findViewById(R.id.msgDisplay);
-        }
-        return responseText;
-    }
-
-    public ProgressBar getProgressBar(){
-        if(_pb == null){
-            _pb			= (ProgressBar)findViewById(R.id.progressBar);
-        }
-        return _pb;
-    }
-
     @Override
-    public void onTaskComplete(String result, DataExImpl.Methods callback) {
+    public void onTaskSuccess(String result, DataExImpl.Methods callback) {
         Log.d("TASK_C_MAIN", "Called back");
         switch(callback){
-            case RECHARGE_DTH:
+            case PAY_BILL:
                 if(result == null){
                     Log.d("TASK_COMPLETE", "Obtained NULL bill payment response");
                     showMessage(getResources().getString(R.string.error_recharge_failed));
@@ -148,11 +99,13 @@ public class BillPaymentActivity extends TransactionActivityBase implements Asyn
     }
 
     @Override
+    public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
+
+    }
+
+    @Override
     protected void showBalance(float pfBalance) {
-        Locale lIndia       = new Locale("en", "IN");
-        NumberFormat form   = NumberFormat.getCurrencyInstance(lIndia);
-        String sBalance      = form.format(pfBalance);
-        accountbal.setText("Balance: " + sBalance);
+
     }
 
 
@@ -165,10 +118,11 @@ public class BillPaymentActivity extends TransactionActivityBase implements Asyn
         if (_currentPlatform == PlatformIdentifier.NEW)
         {
             try {
-                String[] strOperators = new String[] {
-                        "Select Service Provider",
-                        "AIRTEL DIGITAL" , "BIG TV" , "DISH" ,"SUN DIRECT" ,"TATA SKY", "VIDEOCON DTH"
-                };
+                String[] strOperators = new String[] {"Select Service Provider","AIRCEL BILL" , "AIRTEL BILL", "AIRTEL LAND LINE" ,"BESCOM BANGALURU",
+                        "BEST ELECTRICITY BILL" ,"BSES RAJDHANI" ,"BSNL BILL PAY" ,"CELLONE BILL PAY"," CESC LIMITED" ,"CESCOM MYSORE",
+                        "DHBVN HARYANA", "IDEA BILL" ,"INDRAPRASTH GAS" , "MAHANAGAR GAS BILL","NORTH BIHAR ELECTRICITY",
+                        "RELIANCE BILL GSM" ,"RELIANCE CDMA BILL", "RELIANCE ENERGY BILL", "SOUTH BIHAR ELECTRICITY","TATA BILL",
+                        "TATA POWER DELHI", "TIKONA BILL PAYMENT","UHBVN HARYANA","VODAFONE BILL"};
 
                 ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(
                         this, android.R.layout.simple_spinner_item,
@@ -270,9 +224,37 @@ public class BillPaymentActivity extends TransactionActivityBase implements Asyn
         }
     }
 
+    public void showBillMessage(String psMsg){
+        if(_billMsgDisplay == null){
+            _billMsgDisplay = (TextView) findViewById(R.id.billMsgDisplay);
+        }
+        _billMsgDisplay.setVisibility(View.VISIBLE);
+        _billMsgDisplay.setText(psMsg);
+    }
+
     public void getBillAmount(View view){
         Log.d("BIL_PAY", "Get Bill Amount called");
+        String sSubscriberId            = _etSubscriberId.getText().toString();
+        String sOperatorID              = getOperatorId(operatorSpinner.getSelectedItem().toString());
 
+        IDataEx dataEx  = new NewPLDataExImpl(getApplicationContext(), new AsyncListener<Float>() {
+            @Override
+            public void onTaskSuccess(Float result, DataExImpl.Methods callback) {
+                Log.e("BILL_PAY", "Obtainined bill amount: " + result);
+                int bill                = Math.round(result);
+                amountField.setText(String.valueOf(bill));
+                amountField.setBackgroundColor(getResources().getColor(R.color.green));
+            }
+
+            @Override
+            public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
+                Log.e("BILL_PAY", "Error obtaining bill amount");
+                amountField.setBackgroundColor(getResources().getColor(R.color.red));
+                showBillMessage(getResources().getString(R.string.error_obtaining_bill_amount));
+            }
+        });
+
+        dataEx.getBillAmount(sOperatorID, sSubscriberId);
         Log.d("BIL_PAY", "Get Bill Amount finished");
     }
 
@@ -291,11 +273,12 @@ public class BillPaymentActivity extends TransactionActivityBase implements Asyn
         int nMinLength          = 10;
         int nMaxLength          = 10;
 
-        int nSubscriberLength   = _etSubscriberId.getText().toString().length();
+        int nCustomerNumberLength
+                                = _etCustomerNumber.getText().toString().trim().length();
         int nAmount             = 0;
 
         try {
-            nAmount             = Integer.parseInt(amountField.getText().toString());
+            nAmount             = Integer.parseInt(amountField.getText().toString().trim());
         }catch (NumberFormatException nfe){
             nfe.printStackTrace();
             showMessage(getResources().getString(R.string.prompt_numbers_only_amount));
@@ -331,11 +314,11 @@ public class BillPaymentActivity extends TransactionActivityBase implements Asyn
             nMinAmount      = 50;
         }
 
-        if(nSubscriberLength < nMinLength || nSubscriberLength > nMaxLength){
+        if(nCustomerNumberLength < nMinLength || nCustomerNumberLength > nMaxLength){
             if(nMinLength == nMaxLength){
-                showMessage(String.format(getResources().getString(R.string.error_subscriber_id_length), nMinLength));
+                showMessage(String.format(getResources().getString(R.string.error_phone_length), nMinLength));
             }else{
-                showMessage(String.format(getResources().getString(R.string.error_subscriber_id_min_max), nMinLength, nMaxLength));
+                showMessage(String.format(getResources().getString(R.string.error_phone_length_min_max), nMinLength, nMaxLength));
             }
             return;
         }
@@ -345,27 +328,33 @@ public class BillPaymentActivity extends TransactionActivityBase implements Asyn
             return;
         }
 
-        String sCustomerNumber          = _etCustomerNumber.getText().toString().trim();
+        if(
+                MOMConstants.OPERATOR_ID_RELIANCE_ENERGY.equals(sOperatorId) ||
+                        MOMConstants.OPERATOR_ID_BEST_ELECTRICITY.equals(sOperatorId) ||
+                        MOMConstants.OPERATOR_ID_MAHANAGAR_GAS.equals(sOperatorId)){
 
-        if("".equals(sCustomerNumber)) {
-            showMessage(getResources().getString(R.string.error_customer_phone_required));
-            return;
-        }else if(sCustomerNumber.length() != MOMConstants.STANDARD_MOBILE_NUMBER_LENGTH){
-            showMessage(String.format(getResources().getString(R.string.error_phone_length), MOMConstants.STANDARD_MOBILE_NUMBER_LENGTH));
-            return;
+            String sSubscriberId          = _etSubscriberId.getText().toString().trim();
+
+            if("".equals(sSubscriberId)) {
+                showMessage(getResources().getString(R.string.error_subscriber_id_length));
+                return;
+            }
         }
+
 
         confirmPayment();
     }
 
     private void startPayment() {
+        getProgressBar().setVisibility(View.VISIBLE);
+
         String[] strResponse1           = null;
 
         String sSubscriberId            = _etSubscriberId.getText().toString();
         String sRechargeAmount          = amountField.getText().toString();
         String sOperatorID              = getOperatorId(operatorSpinner.getSelectedItem().toString());
         String sCustomerNumber          = _etCustomerNumber.getText().toString().trim();
-
+        String sCustomerName            = "";
 
         int nRechargeType               = 0;
 
@@ -373,8 +362,12 @@ public class BillPaymentActivity extends TransactionActivityBase implements Asyn
 //                .getDefaultSharedPreferences(getApplicationContext());
 
         if (_currentPlatform == PlatformIdentifier.NEW){
+            HashMap<String, String> map     = new HashMap<String, String>();
 
-            getDataEx().rechargeDTH(sSubscriberId, Double.parseDouble(sRechargeAmount), sOperatorID, sCustomerNumber);
+            map.put(MOMConstants.PARAM_NEW_RELIANCE_SBE_NBE, "");
+            map.put(MOMConstants.PARAM_NEW_SPECIAL_OPERATOR_NBE, "");
+
+            getDataEx(this).payBill(sSubscriberId, Double.parseDouble(sRechargeAmount), sOperatorID, sCustomerNumber, sCustomerName, map);
 
         } else if (_currentPlatform == PlatformIdentifier.PBX){
             HttpClient httpclient = new DefaultHttpClient();
@@ -435,18 +428,7 @@ public class BillPaymentActivity extends TransactionActivityBase implements Asyn
 
 
 
-    public void goBack(View view) {
-        Intent intent = new Intent(this, DashboardActivity.class);
-        startActivity(intent);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        this.finish();
-        return;
-    }
-
-
     public void confirmPayment() {
-        getProgressBar().setVisibility(View.VISIBLE);
-
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(
                 BillPaymentActivity.this);
@@ -454,12 +436,28 @@ public class BillPaymentActivity extends TransactionActivityBase implements Asyn
         // Setting Dialog Title
         alertDialog.setTitle("Confirm MobileRecharge...");
 
+        String sMsg     = "Operator: "
+                        + operatorSpinner.getSelectedItem() + "\n"
+                        + "Amount:" + " " + "Rs." + " "
+                        + amountField.getText() + "\n"
+                        + "Phone: " + _etCustomerNumber.getText();
+
+        String sOperator                = operatorSpinner.getSelectedItem().toString();
+
+        String sOperatorId              = getOperatorId(sOperator);
+
+        if(
+                MOMConstants.OPERATOR_ID_RELIANCE_ENERGY.equals(sOperatorId) ||
+                MOMConstants.OPERATOR_ID_BEST_ELECTRICITY.equals(sOperatorId) ||
+                MOMConstants.OPERATOR_ID_MAHANAGAR_GAS.equals(sOperatorId)
+                ){
+
+            sMsg        = getResources().getString(R.string.lblConsumerNumber) + ": "
+                        + _etSubscriberId.getText() + "\n" + sMsg;
+        }
+
         // Setting Dialog Message
-        alertDialog.setMessage("Subscriber ID:" + " "
-                + _etSubscriberId.getText().toString() + "\n" + "Operator:"
-                + " " + operatorSpinner.getSelectedItem().toString() + "\n"
-                + "Amount:" + " " + "Rs." + " "
-                + amountField.getText().toString());
+        alertDialog.setMessage(sMsg);
 
         alertDialog.setPositiveButton("YES",
                 new DialogInterface.OnClickListener() {
@@ -467,7 +465,6 @@ public class BillPaymentActivity extends TransactionActivityBase implements Asyn
                         ((AlertDialog) dialog).getButton(
                                 AlertDialog.BUTTON1).setEnabled(false);
                         startPayment();
-//							new GetLoginTask().onPostExecute("test");
 
                     }
                 });
@@ -491,6 +488,8 @@ public class BillPaymentActivity extends TransactionActivityBase implements Asyn
     }
 
     public void hideRetrieveBillFields(){
+        amountField.setBackgroundColor(getResources().getColor(R.color.white));
+       _etSubscriberId.setText("");
         _etSubscriberId.setVisibility(View.GONE);
         _getBillAmount.setVisibility(View.GONE);
     }
@@ -498,16 +497,26 @@ public class BillPaymentActivity extends TransactionActivityBase implements Asyn
     public class OperatorSelectedListener implements AdapterView.OnItemSelectedListener{
         @Override
         public void onNothingSelected(AdapterView<?> adapterView) {
+
+        }
+
+        @Override
+        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
             String sConsumerNumber          = getResources().getString(R.string.lblConsumerNumber);
             String sAccountNumber           = getResources().getString(R.string.lblAccountNumber);
             String sMobileNumber            = getResources().getString(R.string.lblCustomerMobile);
 
-            String sHintDisplay             = sMobileNumber;
+            String sHintDisplay             = sConsumerNumber;
+
+            showBillMessage("");
 
             String sOperator                = operatorSpinner.getSelectedItem().toString();
+
+            Log.d("ITEM_SELECT", "Operator selected: " + sOperator);
             String sOperatorId              = getOperatorId(sOperator);
 
             if(sOperatorId == null){
+                Log.d("ITEM_SELECT", "Could not find operator id, doing nothing");
                 return;
             }
 
@@ -517,17 +526,15 @@ public class BillPaymentActivity extends TransactionActivityBase implements Asyn
                 sHintDisplay                = sConsumerNumber;
             }else if(
                     MOMConstants.OPERATOR_ID_RELIANCE_ENERGY.equals(sOperatorId) ||
-                    MOMConstants.OPERATOR_ID_BEST_ELECTRICITY.equals(sOperatorId) ||
-                    MOMConstants.OPERATOR_ID_MAHANAGAR_GAS.equals(sOperatorId)){
+                            MOMConstants.OPERATOR_ID_BEST_ELECTRICITY.equals(sOperatorId) ||
+                            MOMConstants.OPERATOR_ID_MAHANAGAR_GAS.equals(sOperatorId)){
+
+                sHintDisplay                = sAccountNumber;
+
                 showRetrieveBillFields();
             }
 
             _etSubscriberId.setHint(sHintDisplay);
-        }
-
-        @Override
-        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
         }
     }
 

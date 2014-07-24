@@ -3,6 +3,10 @@
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/res" />
+<<<<<<< HEAD
+=======
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/libs/internal_impl-20.0.0.jar!/" />
+>>>>>>> d7a40db13170cbead14dbff634d05d489fb9eee4
     </CLASSES>
     <JAVADOC />
     <SOURCES />

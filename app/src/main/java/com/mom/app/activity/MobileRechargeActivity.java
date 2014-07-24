@@ -1,9 +1,7 @@
 package com.mom.app.activity;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -29,7 +27,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -41,31 +38,20 @@ import com.mom.app.identifier.ActivityIdentifier;
 import com.mom.app.identifier.IdentifierUtils;
 import com.mom.app.identifier.PlatformIdentifier;
 import com.mom.app.model.AsyncListener;
+import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
-import com.mom.app.model.IDataEx;
 import com.mom.app.model.local.LocalStorage;
-import com.mom.app.model.newpl.NewPLDataExImpl;
-import com.mom.app.model.pbxpl.PBXPLDataExImpl;
 import com.mom.app.utils.MOMConstants;
 
-public class MobileRechargeActivity extends TransactionActivityBase implements AsyncListener<String>{
-
-    PlatformIdentifier _currentPlatform;
-    IDataEx _dataEx     = null;
-
-    ProgressBar _pb;
-
-	private EditText numField_mob;
+public class MobileRechargeActivity extends MOMActivityBase implements AsyncListener<String>{
+	private EditText rechargeTargetPhone;
 	private EditText amountField;
 
-	TextView accountbal;
 	Spinner operatorSpinner;
 	RadioButton rbtnTopUp, rbtnValidity, rbtnSpecial;
 
-	ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
 	String responseBody;
 
-	TextView responseText;//, secondback_responseText, responseText1;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -73,14 +59,13 @@ public class MobileRechargeActivity extends TransactionActivityBase implements A
         _currentPlatform        = IdentifierUtils.getPlatformIdentifier(getApplicationContext());
 
         this.operatorSpinner    = (Spinner) findViewById(R.id.Operator);
-        this.responseText       = (TextView) findViewById(R.id.msgDisplay);
-		this.numField_mob       = (EditText) findViewById(R.id.consumerNumber);
+		this.rechargeTargetPhone
+                                = (EditText) findViewById(R.id.rechargeTargetPhone);
+
         this.amountField        = (EditText) findViewById(R.id.amount);
         this.rbtnTopUp          = (RadioButton) findViewById(R.id.rbtnTopUp);
 		this.rbtnValidity       = (RadioButton) findViewById(R.id.rbtnValidity);
 		this.rbtnSpecial        = (RadioButton) findViewById(R.id.rbtnSpecial);
-
-        this.accountbal         = (TextView)findViewById(R.id.AccountBal);
 
         getAllOperators();
 
@@ -88,45 +73,9 @@ public class MobileRechargeActivity extends TransactionActivityBase implements A
         getProgressBar().setVisibility(View.GONE);
 	}
 
-    public void setDataEx(IDataEx pDataEx){
-        this._dataEx    = pDataEx;
-    }
-
-    public IDataEx getDataEx(){
-        if(_dataEx == null){
-            if(_currentPlatform == PlatformIdentifier.NEW){
-                _dataEx     = new NewPLDataExImpl(getApplicationContext(), this);
-            }else{
-                _dataEx     = new PBXPLDataExImpl(this, getApplicationContext());
-            }
-        }
-
-        return _dataEx;
-    }
-
-    public void showMessage(String psMsg){
-        TextView response	= getMessageTextView();
-
-        response.setVisibility(View.VISIBLE);
-        response.setText(psMsg);
-    }
-
-    public TextView getMessageTextView(){
-        if(responseText == null){
-            responseText    = (TextView) findViewById(R.id.msgDisplay);
-        }
-        return responseText;
-    }
-
-    public ProgressBar getProgressBar(){
-        if(_pb == null){
-            _pb			= (ProgressBar)findViewById(R.id.progressBar);
-        }
-        return _pb;
-    }
 
     @Override
-    public void onTaskComplete(String result, DataExImpl.Methods callback) {
+    public void onTaskSuccess(String result, DataExImpl.Methods callback) {
         Log.d("TASK_C_MAIN", "Called back");
         switch(callback){
             case RECHARGE_MOBILE:
@@ -146,11 +95,12 @@ public class MobileRechargeActivity extends TransactionActivityBase implements A
     }
 
     @Override
+    public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
+
+    }
+
+    @Override
     protected void showBalance(float pfBalance) {
-        Locale lIndia       = new Locale("en", "IN");
-        NumberFormat form   = NumberFormat.getCurrencyInstance(lIndia);
-        String sBalance      = form.format(pfBalance);
-        accountbal.setText("Balance: " + sBalance);
     }
 
 	public void addListenerOnSpinnerItemSelection() {
@@ -290,7 +240,7 @@ public class MobileRechargeActivity extends TransactionActivityBase implements A
         int nMaxPhoneLength     = 10;
         int nExactPhoneLength   = 10;
 
-        int nPhoneLength        = numField_mob.getText().toString().length();
+        int nPhoneLength        = rechargeTargetPhone.getText().toString().length();
         int nAmount             = 0;
 
         try {
@@ -330,7 +280,7 @@ public class MobileRechargeActivity extends TransactionActivityBase implements A
 	private void startRecharge() {
 		String[] strResponse1 = null;
 
-        String sConsumerNumber          = numField_mob.getText().toString();
+        String sConsumerNumber          = rechargeTargetPhone.getText().toString();
         String sRechargeAmount          = amountField.getText().toString();
         String sOperatorID              = getOperatorId(operatorSpinner.getSelectedItem().toString());
         int nRechargeType               = 0;
@@ -342,7 +292,7 @@ public class MobileRechargeActivity extends TransactionActivityBase implements A
         }
 
 		if (_currentPlatform == PlatformIdentifier.NEW){
-            getDataEx().rechargeMobile(sConsumerNumber, Double.parseDouble(sRechargeAmount), sOperatorID, nRechargeType);
+            getDataEx(this).rechargeMobile(sConsumerNumber, Double.parseDouble(sRechargeAmount), sOperatorID, nRechargeType);
         } else if (_currentPlatform == PlatformIdentifier.PBX){
 			HttpClient httpclient = new DefaultHttpClient();
 			HttpPost httppost = new HttpPost(
@@ -424,7 +374,7 @@ public class MobileRechargeActivity extends TransactionActivityBase implements A
 
 			// Setting Dialog Message
 			alertDialog.setMessage("Mobile Number:" + " "
-					+ numField_mob.getText().toString() + "\n" + "Operator:"
+					+ rechargeTargetPhone.getText().toString() + "\n" + "Operator:"
 					+ " " + operatorSpinner.getSelectedItem().toString() + "\n"
 					+ "Amount:" + " " + "Rs." + " "
 					+ amountField.getText().toString());
@@ -456,7 +406,7 @@ public class MobileRechargeActivity extends TransactionActivityBase implements A
 	public class CustomOnItemSelectedListener implements OnItemSelectedListener {
 		public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 
-            numField_mob.setText("");
+            rechargeTargetPhone.setText("");
             amountField.setText("");
 
             rbtnTopUp.setChecked(false);
@@ -479,7 +429,7 @@ public class MobileRechargeActivity extends TransactionActivityBase implements A
                     sOperatorId.equals(MOMConstants.OPERATOR_ID_UNINOR)
                     ){
 
-                numField_mob.setText("");
+                rechargeTargetPhone.setText("");
                 amountField.setText("");
                 rbtnTopUp.setVisibility(view.VISIBLE);
                 rbtnValidity.setVisibility(view.GONE);

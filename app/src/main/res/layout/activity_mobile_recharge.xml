@@ -1,215 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@drawable/appsbg"
-    android:scrollbars="vertical">
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
 
-    <RelativeLayout
-        android:id="@+id/RelativeLayout1"
+    <fragment
+        android:id="@+id/momHeader"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        class="com.mom.app.fragment.HeaderFragment" />
 
-        android:orientation="vertical">
-
-        <TableLayout
-            android:id="@+id/tableLayout1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:background="@drawable/topbarcolor"
-            android:shrinkColumns="*"
-            android:stretchColumns="*">
-
-            <TableRow
-                android:id="@+id/tableRow4"
-                android:layout_width="match_parent"
-                android:layout_height="53px"
-                android:gravity="center_horizontal"
-                android:minHeight="53dp">
-
-
-                <TextView
-                    android:id="@+id/AccountBal"
-                    android:layout_width="160dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="10dp"
-
-                    android:layout_marginTop="5dp"
-                    android:paddingTop="50dp"
-
-
-                    android:textColor="#005076"
-                    android:textSize="7pt" />
-
-
-                <ImageView
-                    android:id="@+id/logo"
-                    android:layout_width="170dp"
-                    android:layout_height="98dp"
-
-
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="5dp"
-
-
-                    android:src="@drawable/logo_320" />
-
-
-            </TableRow>
-        </TableLayout>
-
-
-        <EditText
-            android:id="@+id/number"
-            android:layout_width="265dp"
-            android:layout_height="40dp"
-            android:layout_below="@+id/Operator"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/custom"
-            android:hint="Mobile Number"
-            android:inputType="number"
-            android:maxLength="10"
-            android:visibility="gone"></EditText>
-
-        <Spinner
-            android:id="@+id/Operator"
-            android:layout_width="265dp"
-            android:layout_height="55dp"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="130dp"
-            android:background="@drawable/btn_dropdown"
-            android:prompt="@string/feedbacktypeMobileRecharge"></Spinner>
-
-        <EditText
-            android:id="@+id/consumerNumber"
-            android:layout_width="265dp"
-            android:layout_height="40dp"
-            android:layout_below="@+id/number"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/custom"
-            android:hint="Consumer Number"
-            android:inputType="number"></EditText>
-
-        <EditText
-            android:id="@+id/amount"
-            android:layout_width="265dp"
-            android:layout_height="40dp"
-            android:layout_below="@+id/consumerNumber"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/custom"
-            android:hint="Enter Amount"
-            android:inputType="number"></EditText>
-
-        <LinearLayout
-            android:id="@+id/LinLayout"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_below="@+id/amount"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <RadioGroup
-                android:id="@+id/RadioGroup01"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
-
-                <RadioButton
-                    android:id="@+id/rbtnTopUp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Top-Up"
-                    android:textColor="#992f2f"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:visibility="gone"></RadioButton>
-
-                <RadioButton
-                    android:id="@+id/rbtnValidity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Validity"
-                    android:textColor="#992f2f"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:visibility="gone"></RadioButton>
-
-                <RadioButton
-                    android:id="@+id/rbtnSpecial"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Special"
-                    android:textColor="#992f2f"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:visibility="gone"></RadioButton>
-            </RadioGroup>
-        </LinearLayout>
-
-
-        <Button
-            android:id="@+id/btn_recharge"
-            android:layout_width="100dip"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/LinLayout"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="80dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/custom_button"
-            android:onClick="validateAndRecharge"
-            android:text="@string/btn_recharge"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/btnBack"
-            android:layout_width="100dip"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/btn_recharge"
-            android:layout_centerHorizontal="true"
-            android:layout_marginRight="21dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/custom_button"
-            android:onClick="goBack"
-            android:text="@string/btn_back"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/momHeader"
+        android:orientation="horizontal"
+        android:weightSum="100">
 
         <TextView
-            android:id="@+id/msgDisplay"
-            android:layout_width="fill_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/btnBack"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:gravity="center_horizontal"
-            android:textColor="#992f2f"
-            android:textSize="18dp"
-            android:visibility="gone" />
+            android:layout_weight="10"/>
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="80"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/msgDisplay"
+                android:layout_above="@id/momHeader"
+                style="@style/MoMTheme.wrapped.alertMsg"
+                android:textSize="@dimen/text_medium"
+                android:visibility="gone" />
+
+            <Spinner
+                android:id="@+id/Operator"
+                style="@style/SpinnerAppTheme"
+                android:prompt="@string/prompt_spinner_select_operator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/medium"></Spinner>
+
+            <EditText
+                android:id="@+id/rechargeTargetPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/EditTextAppTheme.phone"
+                android:hint="Mobile Number"
+                android:layout_marginBottom="@dimen/medium"></EditText>
+
+
+            <EditText
+                android:id="@+id/amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/EditTextAppTheme.money"
+                android:hint="Enter Amount"
+                android:layout_marginBottom="@dimen/medium"></EditText>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/amount"
+                android:layout_centerHorizontal="true"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/LinLayout"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_below="@+id/amount"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <RadioGroup
+                    android:id="@+id/RadioGroup01"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <RadioButton
+                        android:id="@+id/rbtnTopUp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/RadioButtonAppTheme"
+                        android:text="Top-Up"
+                        android:visibility="gone"></RadioButton>
+
+                    <RadioButton
+                        android:id="@+id/rbtnValidity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Validity"
+                        style="@style/RadioButtonAppTheme"
+                        android:visibility="gone"></RadioButton>
+
+                    <RadioButton
+                        android:id="@+id/rbtnSpecial"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Special"
+                        style="@style/RadioButtonAppTheme"
+                        android:visibility="gone"></RadioButton>
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:weightSum="3"
+                style="@style/MoMTheme.btn_container">
+                <Button
+                    android:id="@+id/btn_recharge"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    style="@style/ButtonAppTheme"
+                    android:onClick="validateAndRecharge"
+                    android:text="@string/btn_recharge"/>
+
+                <Button
+                    android:id="@+id/btnBack"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    style="@style/ButtonAppTheme"
+                    android:onClick="goBack"
+                    android:text="@string/btn_back"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/amount"
-            android:layout_centerHorizontal="true"
-            android:visibility="gone" />
-
-
-    </RelativeLayout>
-
-</ScrollView>
+            android:layout_weight="10"/>
+    </LinearLayout>
+</RelativeLayout>

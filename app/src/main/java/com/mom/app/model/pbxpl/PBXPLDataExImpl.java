@@ -3,8 +3,10 @@ package com.mom.app.model.pbxpl;
 import android.content.Context;
 import android.util.Log;
 
+import com.mom.app.identifier.PinType;
 import com.mom.app.model.AsyncDataEx;
 import com.mom.app.model.AsyncListener;
+import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.local.LocalStorage;
 import com.mom.app.model.xml.PullParser;
@@ -27,12 +29,12 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
     }
 
     @Override
-    public void onTaskComplete(String result, Methods callback) {
+    public void onTaskSuccess(String result, Methods callback) {
         switch (callback){
             case LOGIN:
                 boolean bSuccess    = loginSuccessful(result);
                 if(_listener != null){
-                    _listener.onTaskComplete((new Boolean(bSuccess)).toString(), null);
+                    _listener.onTaskSuccess((new Boolean(bSuccess)).toString(), null);
                 }
                 break;
             case GET_BALANCE:
@@ -44,6 +46,11 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
                 }
                 break;
         }
+    }
+
+    @Override
+    public void onTaskError(AsyncResult pResult, Methods callback) {
+
     }
 
     @Override
@@ -105,6 +112,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
     public void getBillAmount(String psOperatorId, String psSubscriberId) {
 
     }
+<<<<<<< HEAD
     @Override
     public void getBalance(){
         String url				= MOMConstants.URL_PBX_PLATFORM_Test;
@@ -145,5 +153,16 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
         }
 
         return 0;
+=======
+
+    @Override
+    public void getTransactionHistory() {
+
+    }
+
+    @Override
+    public void changePin(PinType pinType, String psOldPin, String psNewPin) {
+
+>>>>>>> d7a40db13170cbead14dbff634d05d489fb9eee4
     }
 }

@@ -1,5 +1,7 @@
 package com.mom.app.model;
 
+import com.mom.app.identifier.PinType;
+
 import org.apache.http.NameValuePair;
 
 import java.util.HashMap;
@@ -22,5 +24,8 @@ public interface IDataEx {
             String psConsumerName,
             HashMap<String, String> psExtraParamsMap
     );
+
     public void getBillAmount(String psOperatorId, String psSubscriberId);
+    public void getTransactionHistory();
+    public void changePin(PinType pinType, String psOldPin, String psNewPin);
 }

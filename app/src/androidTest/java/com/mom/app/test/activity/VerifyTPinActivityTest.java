@@ -34,7 +34,7 @@ public class VerifyTPinActivityTest extends ActivityInstrumentationTestCase2<Ver
         TextView textView   = (TextView)mActivity.findViewById(R.id.msgDisplay);
 
         VerifyTPinActivity verifyTPinActivity   = (VerifyTPinActivity)mActivity;
-        verifyTPinActivity.onTaskComplete(null, DataExImpl.Methods.VERIFY_TPIN);
+        verifyTPinActivity.onTaskSuccess(null, DataExImpl.Methods.VERIFY_TPIN);
 
         String failedResult = textView.getText().toString();
 

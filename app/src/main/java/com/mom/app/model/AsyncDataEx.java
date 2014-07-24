@@ -1,21 +1,20 @@
 package com.mom.app.model;
 
+import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
-import java.util.ArrayList;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 
-import com.mom.app.identifier.PlatformIdentifier;
-
-import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -38,8 +37,8 @@ public class AsyncDataEx extends AsyncTask<NameValuePair, Integer, String>{
 
 	protected void onPostExecute(String result){
         Log.d("AsyncDataEx", "Called onPostExecute of listener, calling listener");
-        _callback.onTaskComplete(result, _callbackData);
-        Log.d("AsyncDataEx", "Called onTaskComplete of listener");
+        _callback.onTaskSuccess(result, _callbackData);
+        Log.d("AsyncDataEx", "Called onTaskSuccess of listener");
 	}
 	
 	protected void onProgressUpdate(Integer... progress){
@@ -66,4 +65,6 @@ public class AsyncDataEx extends AsyncTask<NameValuePair, Integer, String>{
 		}
         return null;
 	}
+
+
 }
