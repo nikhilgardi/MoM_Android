@@ -14,17 +14,19 @@ public class MOMConstants {
 
 	public static final String URL_NEW_PL_DETAILS	        = "http://180.179.67.72/nokiaservice/DetailsByUserRMNCompID.aspx";
 	public static final String URL_PBX_PLATFORM		        = "http://pbx.momappworld.com/MobAppS/PbxMobApp.ashx";
-
+    public static final String URL_PBX_PLATFORM_Test		= "http://180.179.67.76/MobAppS/PbxMobApp.ashx";
     /*
     Service Methods to call
      */
 	public static final String SVC_NEW_METHOD_LOGIN	        = "/getLoggedIn";
 	public static final String SVC_NEW_METHOD_CHECK_TPIN    = "/checkVallidTpin";
     public static final String SVC_NEW_METHOD_GET_BALANCE   = "/getBalanceByCustomerId";
-	public static final String SVC_NEW_METHOD_RECHARGE_MOBILE
-                                                            = "/DoMobRecharge";
+	public static final String SVC_NEW_METHOD_RECHARGE_MOBILE = "/DoMobRecharge";
     public static final String SVC_NEW_METHOD_RECHARGE_DTH  = "/DoDTHRechargeV2";
     public static final String SVC_NEW_METHOD_BILL_PAYMENT  = "/doBillPayment";
+
+
+    public static final String SVC_PBX_METHOD_GET_BALANCE   = "/getBalanceByCustomerId";
     //Service Methods end
 
 	public static final String PARAM_NEW_USER		        = "strUserRMN";
@@ -64,8 +66,14 @@ public class MOMConstants {
 
     public static final String PARAM_NEW_RELIANCE_SBE_NBE   = "relianceSBENBE";
     public static final String PARAM_NEW_SPECIAL_OPERATOR   = "specialOperator";
-    public static final String PARAM_NEW_SPECIAL_OPERATOR_NBE
-                                                            = "specialOperatorNBE";
+    public static final String PARAM_NEW_SPECIAL_OPERATOR_NBE= "specialOperatorNBE";
+
+
+    public static final String PARAM_PBX_LOGIN_MOBILENUMBER       = "RN";
+    public static final String PARAM_PBX_SERVICE                  = "SERVICE";
+
+
+
 
 	public static final int TIMEOUT_CONNECTION		        = 15000;
 	public static final int TIMEOUT_SOCKET			        = 45000;
@@ -76,6 +84,8 @@ public class MOMConstants {
 	
 	public static final String NEW_PL_COMPANY_ID	        = "184";
     public static final int NEW_PL_LOGIN_SUCCESS            = 101;
+    public static final int PBX_PL_LOGIN_SUCCESS           = 1;
+
     public static final int NEW_PL_TPIN_VERIFIED            = 101;
 
     public static final String INTENT_MESSAGE               = "com.mom.app.MESSAGE";

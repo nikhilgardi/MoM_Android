@@ -49,9 +49,10 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import com.mom.app.activity.DashboardActivity;
 import com.mom.app.activity.LoginActivity;
 
-public class HomeActivity2 extends Activity implements OnClickListener {
-	// private Button reButton;
-	private Button passButton;
+//public class HomeActivity2 extends Activity implements OnClickListener {
+    public class HomeActivity2 extends Activity {
+    // private Button reButton;
+/*	private Button passButton;
 	private EditText passField;
 	private EditText consumerMobile, first_name, last_name, mobile_number,
 			accountnumber;
@@ -109,7 +110,7 @@ public class HomeActivity2 extends Activity implements OnClickListener {
 		myintent3 = new Intent(HomeActivity2.this, LoginActivity.class);
 		reintent = new Intent(HomeActivity2.this, DashboardActivity.class);
 
-	}
+	}*/
 
 	/*
 	 * private class GetRechargeTask extends AsyncTask<Void, Void, String> {
@@ -137,7 +138,7 @@ public class HomeActivity2 extends Activity implements OnClickListener {
 	 * }
 	 */
 
-	private void init() {
+/*	private void init() {
 		// this.tv_secpass = (TextView) findViewById(R.id.secpass);
 		this.responseText = (TextView) findViewById(R.id.responseText);
 		this.responseText1 = (TextView) findViewById(R.id.responseText1);
@@ -888,7 +889,7 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 		 * responseText.setText("Incorrect Pass/Missing Params"); }
 		 * if(this.response_status.equals("l")){ startActivity(myintent1); }
 		 */
-	}
+//}
 
 //	public void backpost(View v) {
 //
@@ -947,11 +948,11 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 	 * this.dialog.show(); this.dialog.setCancelable(false); GetRechargeTask
 	 * task = new GetRechargeTask(); task.execute(); }
 	 */
-	public void testData(View view1) {
+	//public void testData(View view1) {
 		/*
 		Function retrieves bill amount for certain operators
 		 */
-		try {
+		/*try {
 			//myHelpez.SetMyRechargeOperator(operatorSpinner.getSelectedItem().toString());
 		    myHelpez.SetConsumerNumber(consumernumber.getText().toString());
 			myHelpez.SetMyRechargeAmount(amountField.getText().toString());
@@ -1035,7 +1036,7 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 				break;
 			}
 		}
-	}
+	}*/
 
 //	public void newRecharge(View v) {
 //		this.resetLayout();
@@ -1358,7 +1359,7 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 //		return (urlOK);
 //	}
 
-	private void fillParams() {
+	/*private void fillParams() {
 		// TODO Auto-generated method stub
 		this.checkbox = responseCheckbox.isChecked();
 		if (checkbox == true) {
@@ -1378,9 +1379,9 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 		// operatorSpinner1.getSelectedItem().toString()));
 		nameValuePairs.add(new BasicNameValuePair("topup", this.Topup));
 
-	}
+	}*/
 
-	private void sendPost() {
+/*	private void sendPost() {
 
 		Helpz myHelpz = new Helpz();
 		try {
@@ -1433,9 +1434,9 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 			this.responseBody = "null";
 		}
 
-	}
+	}*/
 
-	public static String[] Split(String strResponse, String delimiter) {
+/*	public static String[] Split(String strResponse, String delimiter) {
 		StringBuffer token = new StringBuffer();
 		Vector tokens = new Vector();
 		// split
@@ -1461,9 +1462,9 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 			splitArray[i] = (String) tokens.elementAt(i);
 		}
 		return splitArray;
-	}
+	}*/
 
-	public class XmlPullParsing {
+/*	public class XmlPullParsing {
 
 		protected XmlPullParser xmlpullparser1;
 		String output1;
@@ -1579,7 +1580,7 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 
 		}
 
-	}
+	}*/
 
 //	public class NewXmlPullParsing {
 //
@@ -1703,7 +1704,7 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 //
 //	}
 
-	private boolean fillData() {
+	/*private boolean fillData() {
 		// TODO Auto-generated method stub
 
 		if (passField.getText().toString().trim().equals("")) {
@@ -1717,9 +1718,9 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 			// this.session_id));
 			return true;
 		}
-	}
+	}*/
 
-	private void parseResponse() {
+	/*private void parseResponse() {
 		// TODO Auto-generated method stub
 		this.pairs = this.responseBody.split("[|]");
 		for (int i = 0; i < pairs.length; i++) {
@@ -1729,9 +1730,9 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 				this.responseMap.put(temp[0].trim(), temp[1].trim());
 			}
 		}
-	}
+	}*/
 
-	private void setResponse() {
+	/*private void setResponse() {
 		// TODO Auto-generated method stub
 		if (this.responseMap.containsKey("status")) {
 			this.response_status = this.responseMap.get("status");
@@ -1744,29 +1745,29 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 		else
 			this.response_message = "Error in logging";
 	}
-
+*/
 //	@Override
 //	public void onUserLeaveHint() {
 //		this.finish();
 //	}
 
-	@Override
+/*	@Override
 	public void onBackPressed() {
 		startActivity(reintent);
 		reintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		this.finish();
 		return;
-	}
+	}*/
 
-	@Override
-	public void onClick(View view) {
+	//@Override
+//	public void onClick(View view) {
 		//Helpz myHelpez = new Helpz();
 		/*try {
 			myHelpez.SetMyRechargeOperator(operatorSpinner.getSelectedItem()
 					.toString());
 		} catch (Exception ex) {
 		}*/
-		String Operatorid = (Get_OperatorID(operatorSpinner.getSelectedItem().toString()));
+	/*	String Operatorid = (Get_OperatorID(operatorSpinner.getSelectedItem().toString()));
 		if ((validate() == 0) && (Operatorid.equals("51"))) {
 
 			secondback_responseText.setText(" ");
@@ -1993,8 +1994,8 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 			}
 		}
 	}
-
-	public class CustomOnItemSelectedListener implements OnItemSelectedListener {
+*/
+/*	public class CustomOnItemSelectedListener implements OnItemSelectedListener {
 		//Helpz myHelpez = new Helpz();
 
 		public void onItemSelected(AdapterView<?> parent, View view, int pos,
@@ -2072,9 +2073,9 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 			// TODO Auto-generated method stub
 
 		}
-	}
+	}*/
 
-	public class CustomOnItemSelectedListenerNBE implements
+	/*public class CustomOnItemSelectedListenerNBE implements
 			OnItemSelectedListener {
 
 		public void onItemSelected(AdapterView<?> parent, View view, int pos,
@@ -2114,9 +2115,9 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 		public void onNothingSelected(AdapterView<?> arg0) {
 			// TODO Auto-generated method stub
 		}
-	}
+	}*/
 
-	public void SBE_NBERecharge(View view) {
+//	public void SBE_NBERecharge(View view) {
 		//Helpz myHelpez = new Helpz();
 		/*try {
 			myHelpez.SetMyRechargeOperator(operatorSpinner.getSelectedItem()
@@ -2124,7 +2125,7 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 
 		} catch (Exception ex) {
 		}*/
-		String Operatorid = (Get_OperatorID(myHelpez.GetMyRechargeOperator()
+	/*	String Operatorid = (Get_OperatorID(myHelpez.GetMyRechargeOperator()
 				.toString()));
 
 		if ((validatenew() == 0) && (Operatorid.equals("49"))) {
@@ -2250,9 +2251,9 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 				break;
 			}
 		}
-	}
+	}*/
 
-	private int validatenew() {
+//	private int validatenew() {
 
 		//Helpz myHelpez = new Helpz();
 	/*	try {
@@ -2262,7 +2263,7 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 
 		}*/
 
-		String Operatorid = (Get_OperatorID(myHelpez.GetMyRechargeOperator()
+	/*	String Operatorid = (Get_OperatorID(myHelpez.GetMyRechargeOperator()
 				.toString()));
 
 		if (Operatorid.equals("49"))
@@ -2310,9 +2311,9 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 			return 0;
 		}
 
-	}
+	}*/
 
-	public void GetbillamountData(View view) {
+	/*public void GetbillamountData(View view) {
 		GetbillData();
 	}
 
@@ -2445,6 +2446,6 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 
 		}
 
-	}
+	}*/
 
 }

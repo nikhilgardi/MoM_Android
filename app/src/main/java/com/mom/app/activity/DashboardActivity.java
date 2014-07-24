@@ -17,6 +17,7 @@ import com.mom.app.model.DataExImpl;
 import com.mom.app.model.IDataEx;
 import com.mom.app.model.local.LocalStorage;
 import com.mom.app.model.newpl.NewPLDataExImpl;
+import com.mom.app.model.pbxpl.PBXPLDataExImpl;
 import com.mom.app.utils.MOMConstants;
 
 
@@ -54,6 +55,7 @@ public class DashboardActivity extends ListActivity implements AsyncListener<Flo
             getBalance();
             values = new String[]{"Mobile Recharge", "DTH Recharge", "Bill Payment", "Card Sale", "History", "Settings"};
         } else {
+            getBalancePBX();
             values = new String[]{"Mobile Recharge", "DTH Recharge", "Bill Payment", "Utility Bill Payment", "History", "Settings"};
 
         }
@@ -92,6 +94,14 @@ public class DashboardActivity extends ListActivity implements AsyncListener<Flo
         Log.d("MAIN", "DataEx instance created");
         dataEx.getBalance();
         Log.d("MAIN", "getBalance called");
+    }
+
+    public void getBalancePBX(){
+        Log.d("MAIN", "Getting BalancePBX");
+        IDataEx dataEx  = new PBXPLDataExImpl(this,getApplicationContext());
+        Log.d("MAIN", "DataEx instance created");
+        dataEx.getBalance();
+        Log.d("MAIN", "getBalancePBX called");
     }
 
     @Override
