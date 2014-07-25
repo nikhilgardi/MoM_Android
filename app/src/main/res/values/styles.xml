@@ -3,7 +3,7 @@
     <style name="r123" parent="android:Theme.Light.NoTitleBar">
         <item name="android:colorBackground">@color/green</item>
 	</style>
-    <style name="MoMTheme" parent="android:Theme.Light">
+    <style name="MoMTheme" parent="android:Theme.Holo.Light">
 
     </style>
 

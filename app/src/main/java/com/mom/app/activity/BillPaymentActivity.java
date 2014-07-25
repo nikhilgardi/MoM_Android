@@ -227,7 +227,7 @@ public class BillPaymentActivity extends MOMActivityBase implements AsyncListene
 
     public void showBillMessage(String psMsg){
         if(_billMsgDisplay == null){
-            _billMsgDisplay = (TextView) findViewById(R.id.billMsgDisplay);
+            _billMsgDisplay = (TextView) findViewById(R.id.msgDisplay);
         }
         _billMsgDisplay.setVisibility(View.VISIBLE);
         _billMsgDisplay.setText(psMsg);
@@ -490,7 +490,7 @@ public class BillPaymentActivity extends MOMActivityBase implements AsyncListene
 
     public void hideRetrieveBillFields(){
         amountField.setBackgroundColor(getResources().getColor(R.color.white));
-       _etSubscriberId.setText("");
+        _etSubscriberId.setText("");
         _etSubscriberId.setVisibility(View.GONE);
         _getBillAmount.setVisibility(View.GONE);
     }

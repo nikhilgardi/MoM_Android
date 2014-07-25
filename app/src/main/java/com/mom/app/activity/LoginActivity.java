@@ -146,18 +146,11 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
         Log.i("navigate", "Going to MainActivity");
 		Intent intent 						= new Intent(LoginActivity.this, DashboardActivity.class);
 		
-//		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
         Log.i("navigate", "Finishing LoginActivity");
 
 		startActivity(intent);
 	}
 
-	
-//	@Override
-//	public void onUserLeaveHint() {
-//		this.finish();
-//	}
 
 	public void onBackPressed() {
         finish();

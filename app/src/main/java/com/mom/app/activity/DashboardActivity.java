@@ -2,15 +2,11 @@
 package com.mom.app.activity;
 
 
-import com.mom.app.Helpz;
-import com.mom.app.HomeBillActivity_PBX;
-import com.mom.app.MSwipeAndroidSDKListActivity1;
 import com.mom.app.R;
 import com.mom.app.identifier.ActivityIdentifier;
 import com.mom.app.identifier.IdentifierUtils;
 import com.mom.app.identifier.PlatformIdentifier;
 import com.mom.app.model.local.EphemeralStorage;
-import com.mom.app.model.local.LocalStorage;
 import com.mom.app.utils.DataProvider;
 import com.mom.app.utils.MOMConstants;
 import com.mom.app.widget.ImageTextViewAdapter;
@@ -118,18 +114,6 @@ public class DashboardActivity extends MOMActivityBase{
             startActivity(intent);
             Log.d("LIST_CLICKED", "Started Bill Payment");
             return;
-        }else if (item.equals("Card Sale")) {
-            intent = new Intent(DashboardActivity.this, MSwipeAndroidSDKListActivity1.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
-
-        }else if (item.equals("Utility Bill Payment")) {
-            intent = new Intent(DashboardActivity.this, HomeBillActivity_PBX.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
-
         }else if (item.equals("History")) {
 
             Log.d("LIST_CLICKED", "Starting Transaction History Activity");
