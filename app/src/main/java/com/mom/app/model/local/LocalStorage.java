@@ -9,41 +9,20 @@ import com.mom.app.utils.MOMConstants;
 /**
  * Created by vaibhavsinha on 7/5/14.
  */
-public class LocalStorage {
+public abstract class LocalStorage implements IStorage{
 
-    public static void storeLocally(Context context, String psKey, boolean pbValue){
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor prefEditor = pref.edit();
-        prefEditor.putBoolean(psKey, pbValue);
-        prefEditor.commit();
-    }
+    protected static IStorage _instance;
+    protected Context _context;
 
-    public static boolean getBoolean(Context context, String psKey){
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
-        return pref.getBoolean(psKey, false);
-    }
+    public abstract void storeLocally(String psKey, boolean pbValue);
 
-    public static void storeLocally(Context context, String psKey, String psValue){
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor prefEditor = pref.edit();
-        prefEditor.putString(psKey, psValue);
-        prefEditor.commit();
-    }
+    public abstract boolean getBoolean(String psKey, boolean pbDefault);
 
-    public static String getString(Context context, String psKey){
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
-        return pref.getString(psKey, null);
-    }
+    public abstract void storeLocally(String psKey, String psValue);
 
-    public static void storeLocally(Context context, String psKey, Float pValue){
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
-        SharedPreferences.Editor prefEditor = pref.edit();
-        prefEditor.putFloat(psKey, pValue);
-        prefEditor.commit();
-    }
+    public abstract String getString(String psKey, String psDefault);
 
-    public static float getFloat(Context context, String psKey){
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
-        return pref.getFloat(psKey, 0);
-    }
+    public abstract void storeLocally(String psKey, float pValue);
+
+    public abstract float getFloat(String psKey, float pfDefault);
 }

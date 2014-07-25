@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class MOMConstants {
 	public static final String APP_PREFERENCES		        = "AppPreferences";
-
+    public static final String UTF_8                        = "utf-8";
     public static final String USER_BALANCE                 = "userBalance";
 
     public static final String ACTIVE_PLATFORM              = "activePlatform";
@@ -37,6 +37,7 @@ public class MOMConstants {
 
     //Service Methods end
 
+    public static final float ERROR_BALANCE                 = -1000000;
     //Get Bill information parameter
     public static final String PARAM_NEW_ACCOUNT_NUMBER     = "AccountNumber";
     public static final String PARAM_NEW_CANUMBER           = "CANumber";
@@ -94,7 +95,7 @@ public class MOMConstants {
 	public static final int TIMEOUT_SOCKET			        = 45000;
 	public static final int STANDARD_MOBILE_NUMBER_LENGTH   = 10;
 
-	public static final String PREF_IS_LOGGED_IN	        = "isLoggedIn";
+	public static final String IS_LOGGED_IN = "isLoggedIn";
 	public static final String LOGGED_IN_USERNAME	        = "username";
 	
 	public static final String NEW_PL_COMPANY_ID	        = "184";

@@ -39,6 +39,7 @@ import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.IDataEx;
+import com.mom.app.model.local.EphemeralStorage;
 import com.mom.app.model.local.LocalStorage;
 import com.mom.app.model.newpl.NewPLDataExImpl;
 import com.mom.app.model.pbxpl.PBXPLDataExImpl;
@@ -320,7 +321,7 @@ public class DTHRechargeActivity extends MOMActivityBase implements AsyncListene
                 nameValuePairs.add(new BasicNameValuePair("CustMobile", sSubscriberId));
                 nameValuePairs.add(new BasicNameValuePair("Amount", sRechargeAmount));
                 nameValuePairs.add(new BasicNameValuePair("OP", sOperatorID));
-                String sUserMobile  = LocalStorage.getString(getApplicationContext(), MOMConstants.LOGGED_IN_USERNAME);
+                String sUserMobile  = EphemeralStorage.getInstance(this).getString(MOMConstants.LOGGED_IN_USERNAME, "");
                 nameValuePairs.add(new BasicNameValuePair("RN", sUserMobile));
                 nameValuePairs.add(new BasicNameValuePair("Service", "RM"));
 

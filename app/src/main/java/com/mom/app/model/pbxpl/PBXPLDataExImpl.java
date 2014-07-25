@@ -21,9 +21,10 @@ import java.util.HashMap;
  */
 public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String> {
 
-    public PBXPLDataExImpl(AsyncListener pListener, Context context){
+    public PBXPLDataExImpl(AsyncListener pListener, Context pContext){
         this._listener              = pListener;
-        this._applicationContext    = context;
+        this._applicationContext    = pContext;
+        checkConnectivity(pContext);
     }
 
     @Override

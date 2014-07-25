@@ -1,6 +1,7 @@
 package com.mom.app.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,7 @@ import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.IDataEx;
+import com.mom.app.model.local.EphemeralStorage;
 import com.mom.app.model.local.LocalStorage;
 import com.mom.app.model.newpl.NewPLDataExImpl;
 import com.mom.app.model.pbxpl.PBXPLDataExImpl;
@@ -86,22 +88,30 @@ public abstract class MOMActivityBase extends Activity{
     }
 
     protected void showBalance(TextView tv){
-        float balance         = LocalStorage.getFloat(getApplicationContext(), MOMConstants.USER_BALANCE);
+        float balance         = EphemeralStorage.getInstance(this).getFloat(MOMConstants.USER_BALANCE, MOMConstants.ERROR_BALANCE);
         showBalance(tv, balance);
     }
 
     protected void showBalance(TextView tv, Float balance){
-        DecimalFormat df   = new DecimalFormat( "#,###,###,##0.00" );
-        String sBal         = df.format(balance);
-        tv.setText(sBal);
+        String sBal         = null;
+        if(balance == MOMConstants.ERROR_BALANCE){
+            sBal            = getString(R.string.error_getting_balance);
+            return;
+        }else {
+            DecimalFormat df = new DecimalFormat("#,###,###,##0.00");
+            sBal = df.format(balance);
+        }
+
+        tv.setText("Balance: " + getResources().getString(R.string.Rupee) + sBal);
     }
 
     public void getBalanceAsync(){
+        final Context context   = this;
         Log.d("MAIN", "Getting Balance");
         IDataEx dataEx  = new NewPLDataExImpl(getApplicationContext(), new AsyncListener<Float>() {
             @Override
             public void onTaskSuccess(Float result, DataExImpl.Methods callback) {
-                LocalStorage.storeLocally(getApplicationContext(), MOMConstants.USER_BALANCE, result);
+                EphemeralStorage.getInstance(context).storeLocally(MOMConstants.USER_BALANCE, result);
                 showBalance(result);
             }
 

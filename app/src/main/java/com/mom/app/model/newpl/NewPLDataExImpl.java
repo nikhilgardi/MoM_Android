@@ -9,8 +9,10 @@ import com.mom.app.model.AsyncDataEx;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
+import com.mom.app.model.local.EphemeralStorage;
 import com.mom.app.model.local.LocalStorage;
 import com.mom.app.model.xml.PullParser;
+import com.mom.app.utils.ConnectionUtil;
 import com.mom.app.utils.MOMConstants;
 
 import org.apache.http.NameValuePair;
@@ -31,6 +33,8 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
         super.SOAP_ADDRESS = "http://msvc.money-on-mobile.net/WebServiceV3Client.asmx";
         this._applicationContext    = pContext;
         this._listener              = pListener;
+
+        checkConnectivity(pContext);
     }
 
 
@@ -39,18 +43,24 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
         Log.d(LOG_TAG, "onTaskSuccess");
         try {
             switch (callback) {
+                case CHECK_PLATFORM_DETAILS:
+                    Log.d(LOG_TAG, "TaskComplete: Check platform, result: " + result);
+                    if (_listener != null) {
+                        _listener.onTaskSuccess(result, callback);
+                    }
+                    break;
                 case LOGIN:
                     Log.d(LOG_TAG, "TaskComplete: Login method, result: " + result);
                     boolean bLoginSuccess = loginSuccessful(result);
                     if (_listener != null) {
-                        _listener.onTaskSuccess((new Boolean(bLoginSuccess)).toString(), null);
+                        _listener.onTaskSuccess((new Boolean(bLoginSuccess)).toString(), callback);
                     }
                     break;
                 case VERIFY_TPIN:
                     Log.d(LOG_TAG, "TaskComplete: verifyTPin method, result: " + result);
                     boolean bTPinSuccess = tpinVerified(result);
                     if (_listener != null) {
-                        _listener.onTaskSuccess((new Boolean(bTPinSuccess)).toString(), null);
+                        _listener.onTaskSuccess((new Boolean(bTPinSuccess)).toString(), callback);
                     }
                     break;
                 case GET_BALANCE:
@@ -60,6 +70,7 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
                     if (_listener != null) {
                         _listener.onTaskSuccess(balance, Methods.GET_BALANCE);
                     }
+
                     break;
                 case RECHARGE_MOBILE:
                     Log.d(LOG_TAG, "TaskComplete: rechargeMobile method, result: " + result);
@@ -120,6 +131,18 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
         }
     }
 
+    public void checkPlatform(NameValuePair...params){
+        if(params == null || params.length < 1){
+            if(_listener != null) {
+                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.LOGIN);
+            }
+        }
+
+        String url                  = MOMConstants.URL_NEW_PL_DETAILS;
+        AsyncDataEx dataEx          = new AsyncDataEx(this, url, Methods.CHECK_PLATFORM_DETAILS, AsyncDataEx.HttpMethod.GET);
+        dataEx.execute(params);
+    }
+
     public void login(NameValuePair...params){
         if(params == null || params.length < 1){
             if(_listener != null) {
@@ -169,11 +192,11 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
         dataEx.execute(
                 new BasicNameValuePair(
                         MOMConstants.PARAM_NEW_OPERATOR_ID,
-                        LocalStorage.getString(_applicationContext, MOMConstants.PARAM_NEW_CUSTOMER_ID)
+                        EphemeralStorage.getInstance(_applicationContext).getString(MOMConstants.PARAM_NEW_CUSTOMER_ID, null)
                 ),
                 new BasicNameValuePair(
                         MOMConstants.PARAM_NEW_COMPANY_ID,
-                        LocalStorage.getString(_applicationContext, MOMConstants.PARAM_NEW_COMPANY_ID)
+                        EphemeralStorage.getInstance(_applicationContext).getString(MOMConstants.PARAM_NEW_COMPANY_ID, null)
                 ),
                 new BasicNameValuePair(
                         MOMConstants.PARAM_NEW_STR_ACCESS_ID_SMALL_D,
@@ -217,11 +240,11 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
                 new BasicNameValuePair(MOMConstants.PARAM_NEW_TPIN, psTPin),
                 new BasicNameValuePair(
                         MOMConstants.PARAM_NEW_CUSTOMER_ID,
-                        LocalStorage.getString(_applicationContext, MOMConstants.PARAM_NEW_CUSTOMER_ID)
+                        EphemeralStorage.getInstance(_applicationContext).getString(MOMConstants.PARAM_NEW_CUSTOMER_ID, null)
                 ),
                 new BasicNameValuePair(
                         MOMConstants.PARAM_NEW_COMPANY_ID,
-                        LocalStorage.getString(_applicationContext, MOMConstants.PARAM_NEW_COMPANY_ID)
+                        EphemeralStorage.getInstance(_applicationContext).getString(MOMConstants.PARAM_NEW_COMPANY_ID, null)
                 ),
                 new BasicNameValuePair(MOMConstants.PARAM_NEW_STR_ACCESS_ID_SMALL_D, "KJHASFD")
                 );
@@ -275,11 +298,11 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
         dataEx.execute(
                 new BasicNameValuePair(
                         MOMConstants.PARAM_NEW_INT_CUSTOMER_ID,
-                        LocalStorage.getString(_applicationContext, MOMConstants.PARAM_NEW_CUSTOMER_ID)
+                        EphemeralStorage.getInstance(_applicationContext).getString(MOMConstants.PARAM_NEW_CUSTOMER_ID, null)
                 ),
                 new BasicNameValuePair(
                         MOMConstants.PARAM_NEW_COMPANY_ID,
-                        LocalStorage.getString(_applicationContext, MOMConstants.PARAM_NEW_COMPANY_ID)
+                        EphemeralStorage.getInstance(_applicationContext).getString(MOMConstants.PARAM_NEW_COMPANY_ID, null)
                 ),
                 new BasicNameValuePair(MOMConstants.PARAM_NEW_STR_ACCESS_ID, "KJHASFD"),
                 new BasicNameValuePair(MOMConstants.PARAM_NEW_STR_MOBILE_NUMBER, psConsumerNumber),
@@ -327,11 +350,11 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
         dataEx.execute(
                 new BasicNameValuePair(
                         MOMConstants.PARAM_NEW_INT_CUSTOMER_ID,
-                        LocalStorage.getString(_applicationContext, MOMConstants.PARAM_NEW_CUSTOMER_ID)
+                        EphemeralStorage.getInstance(_applicationContext).getString(MOMConstants.PARAM_NEW_CUSTOMER_ID, null)
                 ),
                 new BasicNameValuePair(
                         MOMConstants.PARAM_NEW_COMPANY_ID,
-                        LocalStorage.getString(_applicationContext, MOMConstants.PARAM_NEW_COMPANY_ID)
+                        EphemeralStorage.getInstance(_applicationContext).getString(MOMConstants.PARAM_NEW_COMPANY_ID, null)
                 ),
                 new BasicNameValuePair(MOMConstants.PARAM_NEW_STR_ACCESS_ID, "Test"),
                 new BasicNameValuePair(MOMConstants.PARAM_NEW_STR_MOBILE_NUMBER, psSubscriberId),
@@ -358,7 +381,7 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
 
         String strCustomerNumber    = psSubscriberId;
 
-        String sUserId              = LocalStorage.getString(_applicationContext, MOMConstants.PARAM_NEW_USER_ID);
+        String sUserId              = EphemeralStorage.getInstance(_applicationContext).getString(MOMConstants.PARAM_NEW_USER_ID, null);
 
         if (
                 MOMConstants.OPERATOR_ID_BEST_ELECTRICITY.equals(psOperatorId) ||
@@ -410,11 +433,11 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
         dataEx.execute(
                 new BasicNameValuePair(
                         MOMConstants.PARAM_NEW_INT_CUSTOMER_ID,
-                        LocalStorage.getString(_applicationContext, MOMConstants.PARAM_NEW_CUSTOMER_ID)
+                        EphemeralStorage.getInstance(_applicationContext).getString(MOMConstants.PARAM_NEW_CUSTOMER_ID, null)
                 ),
                 new BasicNameValuePair(
                         MOMConstants.PARAM_NEW_COMPANY_ID_CAMEL_CASE,
-                        LocalStorage.getString(_applicationContext, MOMConstants.PARAM_NEW_COMPANY_ID)
+                        EphemeralStorage.getInstance(_applicationContext).getString(MOMConstants.PARAM_NEW_COMPANY_ID, null)
                 ),
                 new BasicNameValuePair(MOMConstants.PARAM_NEW_STR_ACCESS_ID, "KJHASFD"),
                 new BasicNameValuePair(MOMConstants.PARAM_NEW_STR_CUSTOMER_NUMBER, strCustomerNumber),
@@ -489,7 +512,7 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
         String url				= MOMConstants.URL_NEW_PL_HISTORY;
 
         AsyncDataEx dataEx		= new AsyncDataEx(this, url, Methods.TRANSACTION_HISTORY);
-        String sUserId          = LocalStorage.getString(_applicationContext, MOMConstants.PARAM_NEW_USER_ID);
+        String sUserId          = EphemeralStorage.getInstance(_applicationContext).getString(MOMConstants.PARAM_NEW_USER_ID, null);
 
         dataEx.execute(new BasicNameValuePair(MOMConstants.PARAM_NEW_USER_ID, sUserId));
     }
@@ -504,16 +527,16 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
         String url				= MOMConstants.URL_NEW_PLATFORM + method;
 
         AsyncDataEx dataEx		= new AsyncDataEx(this, url, Methods.CHANGE_PIN);
-        String sUserId          = LocalStorage.getString(_applicationContext, MOMConstants.PARAM_NEW_USER_ID);
+        String sUserId          = EphemeralStorage.getInstance(_applicationContext).getString(MOMConstants.PARAM_NEW_USER_ID, null);
 
         dataEx.execute(
                 new BasicNameValuePair(
                         MOMConstants.PARAM_NEW_CUSTOMER_ID,
-                        LocalStorage.getString(_applicationContext, MOMConstants.PARAM_NEW_CUSTOMER_ID)
+                        EphemeralStorage.getInstance(_applicationContext).getString(MOMConstants.PARAM_NEW_CUSTOMER_ID, null)
                 ),
                 new BasicNameValuePair(
                         MOMConstants.PARAM_NEW_COMPANY_ID,
-                        LocalStorage.getString(_applicationContext, MOMConstants.PARAM_NEW_COMPANY_ID)
+                        EphemeralStorage.getInstance(_applicationContext).getString(MOMConstants.PARAM_NEW_COMPANY_ID, null)
                 ),
                 new BasicNameValuePair(MOMConstants.PARAM_NEW_STR_ACCESS_ID, "KJHASFD"),
                 new BasicNameValuePair(MOMConstants.PARAM_NEW_STR_PASSWORD, psOldPin),

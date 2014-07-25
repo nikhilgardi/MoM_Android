@@ -40,6 +40,7 @@ import com.mom.app.identifier.PlatformIdentifier;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
+import com.mom.app.model.local.EphemeralStorage;
 import com.mom.app.model.local.LocalStorage;
 import com.mom.app.utils.MOMConstants;
 
@@ -304,7 +305,7 @@ public class MobileRechargeActivity extends MOMActivityBase implements AsyncList
 				nameValuePairs.add(new BasicNameValuePair("CustMobile", sConsumerNumber));
 				nameValuePairs.add(new BasicNameValuePair("Amount", sRechargeAmount));
 				nameValuePairs.add(new BasicNameValuePair("OP", sOperatorID));
-                String sUserMobile  = LocalStorage.getString(getApplicationContext(), MOMConstants.LOGGED_IN_USERNAME);
+                String sUserMobile  = EphemeralStorage.getInstance(this).getString(MOMConstants.LOGGED_IN_USERNAME, null);
 				nameValuePairs.add(new BasicNameValuePair("RN", sUserMobile));
 				nameValuePairs.add(new BasicNameValuePair("Service", "RM"));
 

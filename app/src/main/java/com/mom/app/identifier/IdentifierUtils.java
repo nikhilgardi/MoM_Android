@@ -8,6 +8,7 @@ import com.mom.app.activity.DTHRechargeActivity;
 import com.mom.app.activity.DashboardActivity;
 import com.mom.app.activity.MobileRechargeActivity;
 import com.mom.app.activity.LoginActivity;
+import com.mom.app.model.local.EphemeralStorage;
 import com.mom.app.model.local.LocalStorage;
 import com.mom.app.utils.MOMConstants;
 
@@ -38,7 +39,7 @@ public class IdentifierUtils {
     }
 
     public static PlatformIdentifier getPlatformIdentifier(Context context){
-        String sPlatform        = LocalStorage.getString(context, MOMConstants.ACTIVE_PLATFORM);
+        String sPlatform        = EphemeralStorage.getInstance(context).getString(MOMConstants.ACTIVE_PLATFORM, null);
         if(PlatformIdentifier.PBX.toString().equals(sPlatform)){
             return PlatformIdentifier.PBX;
         }

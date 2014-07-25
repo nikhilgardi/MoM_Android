@@ -9,6 +9,7 @@ import com.mom.app.R;
 import com.mom.app.identifier.ActivityIdentifier;
 import com.mom.app.identifier.IdentifierUtils;
 import com.mom.app.identifier.PlatformIdentifier;
+import com.mom.app.model.local.EphemeralStorage;
 import com.mom.app.model.local.LocalStorage;
 import com.mom.app.utils.DataProvider;
 import com.mom.app.utils.MOMConstants;
@@ -145,16 +146,19 @@ public class DashboardActivity extends MOMActivityBase{
             Log.d("LIST_CLICKED", "Started Settings Activity");
         }
     }
-    public void logout(View v) {
 
+
+    public void logout(View v) {
+        logout();
+    }
+
+    public void logout(){
         this.finish();
-        Helpz.SetLogoutVariable(false);
-        LocalStorage.storeLocally(getApplicationContext(), MOMConstants.PREF_IS_LOGGED_IN, false);
+        EphemeralStorage.getInstance(this).clear();
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
     }
-
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
             System.out.println("KEYCODE_BACK");
@@ -172,10 +176,8 @@ public class DashboardActivity extends MOMActivityBase{
                 .setCancelable(true)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                        Helpz myhelp = new Helpz();
-                        myhelp.SetLogoutVariable(false);
-                        intentMain.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        dialog.dismiss();
+                        logout();
                         finish();
                     }
                 })

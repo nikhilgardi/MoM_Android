@@ -6,18 +6,17 @@ import java.util.ArrayList;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
-import com.mom.app.Helpz;
 import com.mom.app.R;
 import com.mom.app.identifier.PlatformIdentifier;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.IDataEx;
+import com.mom.app.model.local.EphemeralStorage;
 import com.mom.app.model.local.LocalStorage;
 import com.mom.app.model.newpl.NewPLDataExImpl;
 import com.mom.app.model.pbxpl.PBXPLDataExImpl;
 import com.mom.app.utils.MOMConstants;
-import com.mom.app.utils.MiscUtils;
 
 import android.app.Activity;
 import android.content.Context;
@@ -46,15 +45,9 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 		super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-		if(isLoggedIn()){
-			navigateToMain();
-			return;
-		}
-
 		_username 	= (EditText) findViewById(R.id.et_un);
 		_password 	= (EditText) findViewById(R.id.et_pw);
 		getProgressBar().setVisibility(View.GONE);
-
 
 		getWindow().setBackgroundDrawable(
 							getResources().getDrawable(R.drawable.appsbg)
@@ -64,14 +57,14 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 
     public ProgressBar getProgressBar(){
         if(_pb == null){
-            _pb			= (ProgressBar)findViewById(R.id.progressBarLogin);
+            _pb			= (ProgressBar)findViewById(R.id.progressBar);
         }
         return _pb;
     }
 
     public Button getLoginBtn(){
         if(_loginBtn == null){
-            _loginBtn   = (Button)findViewById(R.id.btn_login);
+            _loginBtn   = (Button)findViewById(R.id.btnLogin);
         }
         return _loginBtn;
     }
@@ -79,26 +72,65 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
     @Override
     public void onTaskSuccess(String result, DataExImpl.Methods pMethod) {
         getProgressBar().setVisibility(View.GONE);
-        Boolean bSuccess      = Boolean.valueOf(result);
-        if(!bSuccess){
-            setLoginFailed(getResources().getString(R.string.login_failed_msg_default));
-            return;
+        switch (pMethod){
+            case LOGIN:
+                Boolean bSuccess      = Boolean.valueOf(result);
+                if(!bSuccess){
+                    setLoginFailed(getResources().getString(R.string.login_failed_msg_default));
+                    return;
+                }
+
+                switch (_currentPlatform){
+                    case NEW:
+
+                        break;
+                    case PBX:
+                        break;
+                }
+                EphemeralStorage.getInstance(this).storeLocally(MOMConstants.ACTIVE_PLATFORM, _currentPlatform.toString());
+                EphemeralStorage.getInstance(this).storeLocally(MOMConstants.LOGGED_IN_USERNAME, _username.getText().toString());
+                EphemeralStorage.getInstance(this).storeLocally(MOMConstants.IS_LOGGED_IN, true);
+
+                navigateToMain();
+                break;
+            case CHECK_PLATFORM_DETAILS:
+                Log.i("LOGIN", "Check result: " + result);
+
+                if(result == null || result.trim().equals("")){
+                    Log.i("LOGIN", "1. User not of new PL");
+                    loginToPBXPL();
+                    return;
+                }
+
+                String[] sArrDetails	= result.split("~");
+
+                if(sArrDetails.length < 12){
+                    Log.i("LOGIN", "2. User not of new PL");
+                    loginToPBXPL();
+                    return;
+                }
+
+                Context context     = getApplicationContext();
+                EphemeralStorage.getInstance(this).storeLocally(MOMConstants.PARAM_NEW_USER_ID, sArrDetails[0]);
+
+                EphemeralStorage.getInstance(this).storeLocally(MOMConstants.PARAM_NEW_CUSTOMER_ID, sArrDetails[1]);
+                EphemeralStorage.getInstance(this).storeLocally(MOMConstants.PARAM_NEW_MOBILE_NUMBER, sArrDetails[2]);
+                EphemeralStorage.getInstance(this).storeLocally(MOMConstants.PARAM_NEW_COMPANY_ID, sArrDetails[3]);
+                EphemeralStorage.getInstance(this).storeLocally(MOMConstants.PARAM_NEW_ROLE_ID, sArrDetails[4]);
+                EphemeralStorage.getInstance(this).storeLocally(MOMConstants.PARAM_NEW_USER_AUTH_ID, sArrDetails[5]);
+                EphemeralStorage.getInstance(this).storeLocally(MOMConstants.PARAM_NEW_USER_WALLET_ID, sArrDetails[6]);
+                EphemeralStorage.getInstance(this).storeLocally(MOMConstants.PARAM_NEW_USER_STATUS, sArrDetails[7]);
+                EphemeralStorage.getInstance(this).storeLocally(MOMConstants.PARAM_NEW_USER_FRANCH_ID, sArrDetails[8]);
+                EphemeralStorage.getInstance(this).storeLocally(MOMConstants.PARAM_NEW_USER_MAST_DIST, sArrDetails[9]);
+                EphemeralStorage.getInstance(this).storeLocally(MOMConstants.PARAM_NEW_USER_AREA_DIST, sArrDetails[10]);
+                EphemeralStorage.getInstance(this).storeLocally(MOMConstants.PARAM_NEW_USER_VAS01, sArrDetails[11]);
+                EphemeralStorage.getInstance(this).storeLocally(MOMConstants.PARAM_NEW_USER_VAS02, sArrDetails[12]);
+
+
+                loginToNewPL();
+                break;
         }
 
-        switch (_currentPlatform){
-            case NEW:
-                LocalStorage.storeLocally(getApplicationContext(), "user_sessionMOM", "MOM");
-            break;
-            case PBX:
-                LocalStorage.storeLocally(getApplicationContext(), "user_sessionMOM", "PBX");
-            break;
-        }
-
-        LocalStorage.storeLocally(getApplicationContext(), MOMConstants.ACTIVE_PLATFORM, _currentPlatform.toString());
-        LocalStorage.storeLocally(getApplicationContext(), MOMConstants.LOGGED_IN_USERNAME, _username.getText().toString());
-
-        Helpz.SetMyLoginMobileNumber(_username.getText().toString());
-        navigateToMain();
     }
 
     @Override
@@ -107,7 +139,7 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
     }
 
     public boolean isLoggedIn(){
-        return LocalStorage.getBoolean(getApplicationContext(), MOMConstants.PREF_IS_LOGGED_IN);
+        return EphemeralStorage.getInstance(this).getBoolean(MOMConstants.IS_LOGGED_IN, false);
 	}
 
 	public void navigateToMain(){
@@ -142,93 +174,38 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 		getProgressBar().setVisibility(View.VISIBLE);
 
 		
-		if(isNewPLLogin()){
-			loginToNewPL();
-		}else{
-			loginToPBXPL();
-		}
+		checkPlatformAndLogin();
 	}
 
 	private boolean areLoginCredentialsPresent() {
-		TextView response	= (TextView) findViewById(R.id.tv_response);
-		
-		if (
-			_username.getText().toString().trim().equals("")
-			&& ((_password.getText().toString().equals("")))
-			){
-			
-			response.setVisibility(View.VISIBLE);
-			response.setText(R.string.login_username_pwd_required);
-			
-			return false;
-		}else if (_username.getText().toString().trim().equals("")) {
-			response.setText(R.string.login_username_required);
+
+		if (_username.getText().toString().trim().equals("")) {
+//			response.setText(R.string.login_username_required);
+            _username.setError(getResources().getString(R.string.error_mobile_required));
 			return false;
 		} else if (_password.getText().toString().equals("")) {
-			response.setText(R.string.login_pwd_required);
+//			response.setText(R.string.login_pwd_required);
+            _password.setError(getResources().getString(R.string.login_pwd_required));
 			return false;
 		}
 		
 		return true;
 	}
 	
-	public boolean isNewPLLogin(){
+	public void checkPlatformAndLogin(){
 		EditText uname 				= (EditText) findViewById(R.id.et_un);
 		String username 			= uname.getText().toString();
 		
 		List<NameValuePair> list	= new ArrayList<NameValuePair>();
 		list.add(new BasicNameValuePair(MOMConstants.PARAM_NEW_RMN, username));
 		list.add(new BasicNameValuePair(MOMConstants.PARAM_NEW_COMPANY_ID, MOMConstants.NEW_PL_COMPANY_ID));
-		
-		String response	= MiscUtils.getHttpGetResponse(
-                MOMConstants.URL_NEW_PL_DETAILS + "?" + MOMConstants.PARAM_NEW_RMN + "=" + username + "&"
-                        + MOMConstants.PARAM_NEW_COMPANY_ID + "=" + MOMConstants.NEW_PL_COMPANY_ID
+
+        NewPLDataExImpl dataEx      = new NewPLDataExImpl(this, this);
+        dataEx.checkPlatform(
+                new BasicNameValuePair(MOMConstants.PARAM_NEW_RMN, username),
+                new BasicNameValuePair(MOMConstants.PARAM_NEW_COMPANY_ID, MOMConstants.NEW_PL_COMPANY_ID)
         );
 
-        Log.i("LOGIN", "Check result: " + response);
-
-		if(response == null || response.trim().equals("")){
-            Log.i("LOGIN", "1. User not of new PL");
-			return false;
-		}
-		
-		String[] sArrDetails	= response.split("~");
-		
-		if(sArrDetails.length < 12){
-            Log.i("LOGIN", "2. User not of new PL");
-			return false;
-		}
-
-		Context context     = getApplicationContext();
-        LocalStorage.storeLocally(context, MOMConstants.PARAM_NEW_USER_ID, sArrDetails[0]);
-        LocalStorage.storeLocally(context, MOMConstants.PARAM_NEW_CUSTOMER_ID, sArrDetails[1]);
-        LocalStorage.storeLocally(context, MOMConstants.PARAM_NEW_MOBILE_NUMBER, sArrDetails[2]);
-        LocalStorage.storeLocally(context, MOMConstants.PARAM_NEW_COMPANY_ID, sArrDetails[3]);
-        LocalStorage.storeLocally(context, MOMConstants.PARAM_NEW_ROLE_ID, sArrDetails[4]);
-        LocalStorage.storeLocally(context, MOMConstants.PARAM_NEW_USER_AUTH_ID, sArrDetails[5]);
-        LocalStorage.storeLocally(context, MOMConstants.PARAM_NEW_USER_WALLET_ID, sArrDetails[6]);
-        LocalStorage.storeLocally(context, MOMConstants.PARAM_NEW_USER_STATUS, sArrDetails[7]);
-        LocalStorage.storeLocally(context, MOMConstants.PARAM_NEW_USER_FRANCH_ID, sArrDetails[8]);
-        LocalStorage.storeLocally(context, MOMConstants.PARAM_NEW_USER_MAST_DIST, sArrDetails[9]);
-        LocalStorage.storeLocally(context, MOMConstants.PARAM_NEW_USER_AREA_DIST, sArrDetails[10]);
-        LocalStorage.storeLocally(context, MOMConstants.PARAM_NEW_USER_VAS01, sArrDetails[11]);
-        LocalStorage.storeLocally(context, MOMConstants.PARAM_NEW_USER_VAS02, sArrDetails[12]);
-
-        Helpz.SetMyUserId(sArrDetails[0]);
-		Helpz.SetMyCustomerId(sArrDetails[1]);
-		Helpz.SetMyRechargeMobileNumber(sArrDetails[2]);
-		Helpz.SetMyCompanyId(sArrDetails[3]);
-		Helpz.SetMyRoleID(sArrDetails[4]);
-		Helpz.SetMyUserAuthID(sArrDetails[5]);
-		Helpz.SetMyUserWalletID(sArrDetails[6]);
-		Helpz.SetMyUserStatus(sArrDetails[7]);
-		Helpz.SetMyUserFranchID(sArrDetails[8]);
-		Helpz.SetMyUserMastDist(sArrDetails[9]);
-		Helpz.SetMyUserAreaDist(sArrDetails[10]);
-		Helpz.SetMyUserVAS01(sArrDetails[11]);
-		Helpz.SetMyUserVAS02(sArrDetails[12]);
-		
-		return true;
 	}
 	
 	public void loginToNewPL() {
@@ -288,7 +265,7 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 
     public TextView getMessageTextView(){
         if(_tvMessage == null){
-            _tvMessage = (TextView) findViewById(R.id.tv_response);
+            _tvMessage = (TextView) findViewById(R.id.msgDisplay);
         }
         return _tvMessage;
     }
