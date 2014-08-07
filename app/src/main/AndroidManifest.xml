@@ -21,7 +21,11 @@
             android:name=".activity.LoginActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".activity.DashboardActivity"
@@ -110,11 +114,7 @@
         <activity
             android:name=".activity.TransactionHistoryActivity"
             android:label="@string/title_activity_transaction_history" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".activity.ChangePINActivity"
