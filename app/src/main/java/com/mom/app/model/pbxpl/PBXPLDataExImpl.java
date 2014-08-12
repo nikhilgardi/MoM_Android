@@ -9,7 +9,7 @@ import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.xml.PullParser;
-import com.mom.app.utils.MOMConstants;
+import com.mom.app.utils.AppConstants;
 
 import org.apache.http.NameValuePair;
 
@@ -65,7 +65,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
     }
 
     public void login(NameValuePair...params){
-        String loginUrl				= MOMConstants.URL_PBX_PLATFORM;
+        String loginUrl				= AppConstants.URL_PBX_PLATFORM;
         Log.i("PBXPL", "Calling Async login");
 
         AsyncDataEx dataEx		    = new AsyncDataEx(this, loginUrl, Methods.LOGIN);
@@ -87,7 +87,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
 
             int i = Integer.parseInt(strArrayResponse[0]);
 
-            if(i == MOMConstants.NEW_PL_LOGIN_SUCCESS){
+            if(i == AppConstants.NEW_PL_LOGIN_SUCCESS){
                 Log.i("LoginResult", "Login successful");
                 return true;
             }

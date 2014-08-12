@@ -1,6 +1,5 @@
 package com.mom.app.model;
 
-import java.net.URI;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,17 +13,16 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.mom.app.utils.MOMConstants;
+import com.mom.app.utils.AppConstants;
 
 
 public class AsyncDataEx extends AsyncTask<NameValuePair, Integer, String>{
-    String _LOG             = "ASYNC_DATAEX";
+    String _LOG             = AppConstants.LOG_PREFIX + "ASYNC_DATAEX";
     public static enum HttpMethod{GET, POST};
     HttpMethod _httpMethod;
 	AsyncListener _callback;
@@ -39,9 +37,10 @@ public class AsyncDataEx extends AsyncTask<NameValuePair, Integer, String>{
     }
 
 	public AsyncDataEx(AsyncListener pListener, String psUrl, DataExImpl.Methods pCallbackData){
-		this._url			= psUrl;
-		this._callback		= pListener;
-        this._callbackData  = pCallbackData;
+		_url			= psUrl;
+		_callback		= pListener;
+        _callbackData  = pCallbackData;
+        _httpMethod    = HttpMethod.POST;
 	}
 	
 	@Override
@@ -68,7 +67,7 @@ public class AsyncDataEx extends AsyncTask<NameValuePair, Integer, String>{
 
             if(_httpMethod == HttpMethod.GET){
                 Log.d(_LOG, "Going to make GET request");
-                String params   = URLEncodedUtils.format(pParams, MOMConstants.UTF_8);
+                String params   = URLEncodedUtils.format(pParams, AppConstants.UTF_8);
                 _url            = _url + "?" + params;
                 Log.d(_LOG, "Calling: " + _url);
                 httpReq         = new HttpGet(_url);

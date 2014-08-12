@@ -1,6 +1,5 @@
 package com.mom.app.activity;
 
-import android.app.ListActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,22 +8,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
-import android.widget.ListView;
 
 import com.mom.app.R;
-import com.mom.app.identifier.ActivityIdentifier;
 import com.mom.app.identifier.IdentifierUtils;
-import com.mom.app.identifier.PinType;
 import com.mom.app.identifier.PlatformIdentifier;
+import com.mom.app.utils.AppConstants;
 import com.mom.app.utils.DataProvider;
-import com.mom.app.utils.MOMConstants;
 import com.mom.app.widget.ImageTextViewAdapter;
 import com.mom.app.widget.holder.ImageItem;
 
 public class SettingsActivity extends MOMActivityBase {
-
+    String _LOG             = AppConstants.LOG_PREFIX + "SETTINGS";
+    
     private PlatformIdentifier _currentPlatform;
     GridView gridView;
     ImageTextViewAdapter gridViewAdapter;
@@ -46,13 +42,13 @@ public class SettingsActivity extends MOMActivityBase {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 
-                Log.d("SETTINGS", "Clicked " + position);
+                Log.d(_LOG, "Clicked " + position);
                 ImageItem item = (ImageItem) gridViewAdapter.getItem(position);
                 if (item == null) {
-                    Log.e("SETTINGS", "No click target found, returning.");
+                    Log.e(_LOG, "No click target found, returning.");
                     return;
                 }
-                Log.d("SETTINGS", "Altering selection to " + !item.getSelected());
+                Log.d(_LOG, "Altering selection to " + !item.getSelected());
 
                 item.setSelected(!item.getSelected());
 
@@ -62,7 +58,7 @@ public class SettingsActivity extends MOMActivityBase {
                     v.setBackgroundColor(Color.TRANSPARENT);
                 }
 
-                Log.d("SETTINGS", "Going to selected activity");
+                Log.d(_LOG, "Going to selected activity");
                 nextActivity(item.getTitle());
             }
         });
@@ -96,17 +92,17 @@ public class SettingsActivity extends MOMActivityBase {
     private void nextActivity(String item) {
         Intent intent = null;
         if (item.equals("Change M-Pin")) {
-            Log.d("LIST_CLICKED", "Starting Change M-Pin");
+            Log.d(_LOG, "Starting Change M-Pin");
             intent      = new Intent(this, ChangePINActivity.class);
             startActivity(intent);
-            Log.d("LIST_CLICKED", "Started Mobile Recharge");
+            Log.d(_LOG, "Started Mobile Recharge");
             return;
         } else if (item.equals("Change T-Pin")) {
-            Log.d("LIST_CLICKED", "Starting Change T_Pin");
+            Log.d(_LOG, "Starting Change T_Pin");
             intent = new Intent(this, ChangePINActivity.class);
 
             startActivity(intent);
-            Log.d("LIST_CLICKED", "Started DTH Recharge");
+            Log.d(_LOG, "Started DTH Recharge");
             return;
 
         }

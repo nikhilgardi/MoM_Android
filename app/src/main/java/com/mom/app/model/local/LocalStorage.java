@@ -1,10 +1,6 @@
 package com.mom.app.model.local;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-
-import com.mom.app.utils.MOMConstants;
 
 /**
  * Created by vaibhavsinha on 7/5/14.

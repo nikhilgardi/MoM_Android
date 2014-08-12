@@ -13,10 +13,9 @@ import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.IDataEx;
 import com.mom.app.model.local.EphemeralStorage;
-import com.mom.app.model.local.LocalStorage;
 import com.mom.app.model.newpl.NewPLDataExImpl;
 import com.mom.app.model.pbxpl.PBXPLDataExImpl;
-import com.mom.app.utils.MOMConstants;
+import com.mom.app.utils.AppConstants;
 
 import android.app.Activity;
 import android.content.Context;
@@ -30,8 +29,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class LoginActivity extends Activity implements AsyncListener <String>{
-
-	EditText _username, _password;
+    String _LOG         = AppConstants.LOG_PREFIX + "LOGIN";
+    
+            EditText _username, _password;
 
 	private ProgressBar _pb;
 	private PlatformIdentifier _currentPlatform;
@@ -87,17 +87,17 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
                     case PBX:
                         break;
                 }
-                EphemeralStorage.getInstance(this).storeLocally(MOMConstants.ACTIVE_PLATFORM, _currentPlatform.toString());
-                EphemeralStorage.getInstance(this).storeLocally(MOMConstants.LOGGED_IN_USERNAME, _username.getText().toString());
-                EphemeralStorage.getInstance(this).storeLocally(MOMConstants.IS_LOGGED_IN, true);
+                EphemeralStorage.getInstance(this).storeLocally(AppConstants.ACTIVE_PLATFORM, _currentPlatform.toString());
+                EphemeralStorage.getInstance(this).storeLocally(AppConstants.LOGGED_IN_USERNAME, _username.getText().toString());
+                EphemeralStorage.getInstance(this).storeLocally(AppConstants.IS_LOGGED_IN, true);
 
                 navigateToMain();
                 break;
             case CHECK_PLATFORM_DETAILS:
-                Log.i("LOGIN", "Check result: " + result);
+                Log.i(_LOG, "Check result: " + result);
 
                 if(result == null || result.trim().equals("")){
-                    Log.i("LOGIN", "1. User not of new PL");
+                    Log.i(_LOG, "1. User not of new PL");
                     loginToPBXPL();
                     return;
                 }
@@ -105,26 +105,26 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
                 String[] sArrDetails	= result.split("~");
 
                 if(sArrDetails.length < 12){
-                    Log.i("LOGIN", "2. User not of new PL");
+                    Log.i(_LOG, "2. User not of new PL");
                     loginToPBXPL();
                     return;
                 }
 
                 Context context     = getApplicationContext();
-                EphemeralStorage.getInstance(this).storeLocally(MOMConstants.PARAM_NEW_USER_ID, sArrDetails[0]);
+                EphemeralStorage.getInstance(this).storeLocally(AppConstants.PARAM_NEW_USER_ID, sArrDetails[0]);
 
-                EphemeralStorage.getInstance(this).storeLocally(MOMConstants.PARAM_NEW_CUSTOMER_ID, sArrDetails[1]);
-                EphemeralStorage.getInstance(this).storeLocally(MOMConstants.PARAM_NEW_MOBILE_NUMBER, sArrDetails[2]);
-                EphemeralStorage.getInstance(this).storeLocally(MOMConstants.PARAM_NEW_COMPANY_ID, sArrDetails[3]);
-                EphemeralStorage.getInstance(this).storeLocally(MOMConstants.PARAM_NEW_ROLE_ID, sArrDetails[4]);
-                EphemeralStorage.getInstance(this).storeLocally(MOMConstants.PARAM_NEW_USER_AUTH_ID, sArrDetails[5]);
-                EphemeralStorage.getInstance(this).storeLocally(MOMConstants.PARAM_NEW_USER_WALLET_ID, sArrDetails[6]);
-                EphemeralStorage.getInstance(this).storeLocally(MOMConstants.PARAM_NEW_USER_STATUS, sArrDetails[7]);
-                EphemeralStorage.getInstance(this).storeLocally(MOMConstants.PARAM_NEW_USER_FRANCH_ID, sArrDetails[8]);
-                EphemeralStorage.getInstance(this).storeLocally(MOMConstants.PARAM_NEW_USER_MAST_DIST, sArrDetails[9]);
-                EphemeralStorage.getInstance(this).storeLocally(MOMConstants.PARAM_NEW_USER_AREA_DIST, sArrDetails[10]);
-                EphemeralStorage.getInstance(this).storeLocally(MOMConstants.PARAM_NEW_USER_VAS01, sArrDetails[11]);
-                EphemeralStorage.getInstance(this).storeLocally(MOMConstants.PARAM_NEW_USER_VAS02, sArrDetails[12]);
+                EphemeralStorage.getInstance(this).storeLocally(AppConstants.PARAM_NEW_CUSTOMER_ID, sArrDetails[1]);
+                EphemeralStorage.getInstance(this).storeLocally(AppConstants.PARAM_NEW_MOBILE_NUMBER, sArrDetails[2]);
+                EphemeralStorage.getInstance(this).storeLocally(AppConstants.PARAM_NEW_COMPANY_ID, sArrDetails[3]);
+                EphemeralStorage.getInstance(this).storeLocally(AppConstants.PARAM_NEW_ROLE_ID, sArrDetails[4]);
+                EphemeralStorage.getInstance(this).storeLocally(AppConstants.PARAM_NEW_USER_AUTH_ID, sArrDetails[5]);
+                EphemeralStorage.getInstance(this).storeLocally(AppConstants.PARAM_NEW_USER_WALLET_ID, sArrDetails[6]);
+                EphemeralStorage.getInstance(this).storeLocally(AppConstants.PARAM_NEW_USER_STATUS, sArrDetails[7]);
+                EphemeralStorage.getInstance(this).storeLocally(AppConstants.PARAM_NEW_USER_FRANCH_ID, sArrDetails[8]);
+                EphemeralStorage.getInstance(this).storeLocally(AppConstants.PARAM_NEW_USER_MAST_DIST, sArrDetails[9]);
+                EphemeralStorage.getInstance(this).storeLocally(AppConstants.PARAM_NEW_USER_AREA_DIST, sArrDetails[10]);
+                EphemeralStorage.getInstance(this).storeLocally(AppConstants.PARAM_NEW_USER_VAS01, sArrDetails[11]);
+                EphemeralStorage.getInstance(this).storeLocally(AppConstants.PARAM_NEW_USER_VAS02, sArrDetails[12]);
 
 
                 loginToNewPL();
@@ -139,14 +139,14 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
     }
 
     public boolean isLoggedIn(){
-        return EphemeralStorage.getInstance(this).getBoolean(MOMConstants.IS_LOGGED_IN, false);
+        return EphemeralStorage.getInstance(this).getBoolean(AppConstants.IS_LOGGED_IN, false);
 	}
 
 	public void navigateToMain(){
-        Log.i("navigate", "Going to MainActivity");
+        Log.i(_LOG, "Going to MainActivity");
 		Intent intent 						= new Intent(LoginActivity.this, DashboardActivity.class);
 		
-        Log.i("navigate", "Finishing LoginActivity");
+        Log.i(_LOG, "Finishing LoginActivity");
 
 		startActivity(intent);
 	}
@@ -162,7 +162,7 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
         }
 
 		getLoginBtn().setEnabled(false);
-        Log.d("LOGIN", "Disable login button");
+        Log.d(_LOG, "Disable login button");
         
 		getProgressBar().setVisibility(View.VISIBLE);
 
@@ -190,19 +190,19 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 		String username 			= uname.getText().toString();
 		
 		List<NameValuePair> list	= new ArrayList<NameValuePair>();
-		list.add(new BasicNameValuePair(MOMConstants.PARAM_NEW_RMN, username));
-		list.add(new BasicNameValuePair(MOMConstants.PARAM_NEW_COMPANY_ID, MOMConstants.NEW_PL_COMPANY_ID));
+		list.add(new BasicNameValuePair(AppConstants.PARAM_NEW_RMN, username));
+		list.add(new BasicNameValuePair(AppConstants.PARAM_NEW_COMPANY_ID, AppConstants.NEW_PL_COMPANY_ID));
 
         NewPLDataExImpl dataEx      = new NewPLDataExImpl(this, this);
         dataEx.checkPlatform(
-                new BasicNameValuePair(MOMConstants.PARAM_NEW_RMN, username),
-                new BasicNameValuePair(MOMConstants.PARAM_NEW_COMPANY_ID, MOMConstants.NEW_PL_COMPANY_ID)
+                new BasicNameValuePair(AppConstants.PARAM_NEW_RMN, username),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_COMPANY_ID, AppConstants.NEW_PL_COMPANY_ID)
         );
 
 	}
 	
 	public void loginToNewPL() {
-		Log.i("LOGIN", "Going to login to New pl");
+		Log.i(_LOG, "Going to login to New pl");
         _currentPlatform        = PlatformIdentifier.NEW;
 		try {
 			// Add user name and password
@@ -211,26 +211,26 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 
 			EditText pword = (EditText) findViewById(R.id.et_pw);
 			String password = pword.getText().toString();
-            Log.i("LOGIN", "Firing NEWPL login async");
+            Log.i(_LOG, "Firing NEWPL login async");
             IDataEx dataEx          = new NewPLDataExImpl(getApplicationContext(), this);
 
 			dataEx.login(
                     new BasicNameValuePair("user", _username.getText().toString()),
                     new BasicNameValuePair("pass", _password.getText().toString()),
-                    new BasicNameValuePair(MOMConstants.PARAM_NEW_USER, username),
-                    new BasicNameValuePair(MOMConstants.PARAM_NEW_PWD, password),
-                    new BasicNameValuePair(MOMConstants.PARAM_NEW_COMPANY_ID, MOMConstants.NEW_PL_COMPANY_ID),
-                    new BasicNameValuePair(MOMConstants.PARAM_NEW_STR_ACCESS_ID, "abc")
+                    new BasicNameValuePair(AppConstants.PARAM_NEW_USER, username),
+                    new BasicNameValuePair(AppConstants.PARAM_NEW_PWD, password),
+                    new BasicNameValuePair(AppConstants.PARAM_NEW_COMPANY_ID, AppConstants.NEW_PL_COMPANY_ID),
+                    new BasicNameValuePair(AppConstants.PARAM_NEW_STR_ACCESS_ID, "abc")
             );
 
-            Log.i("LOGIN", "Async login request sent to new pl");
+            Log.i(_LOG, "Async login request sent to new pl");
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 	}
 	
 	public void loginToPBXPL() {
-        Log.i("LOGIN", "Going to login to PBXPL");
+        Log.i(_LOG, "Going to login to PBXPL");
         _currentPlatform        = PlatformIdentifier.PBX;
 
 		try {
@@ -242,7 +242,7 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 
             IDataEx dataEx          = new PBXPLDataExImpl(this, getApplicationContext());
 
-            Log.i("LOGIN", "Calling PBXPL for login");
+            Log.i(_LOG, "Calling PBXPL for login");
 
             dataEx.login(
                     new BasicNameValuePair("UN", username),

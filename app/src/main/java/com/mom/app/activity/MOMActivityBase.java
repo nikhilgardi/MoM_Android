@@ -18,10 +18,9 @@ import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.IDataEx;
 import com.mom.app.model.local.EphemeralStorage;
-import com.mom.app.model.local.LocalStorage;
 import com.mom.app.model.newpl.NewPLDataExImpl;
 import com.mom.app.model.pbxpl.PBXPLDataExImpl;
-import com.mom.app.utils.MOMConstants;
+import com.mom.app.utils.AppConstants;
 
 import java.text.DecimalFormat;
 
@@ -29,7 +28,9 @@ import java.text.DecimalFormat;
  * Created by vaibhavsinha on 7/9/14.
  */
 public abstract class MOMActivityBase extends Activity{
-    PlatformIdentifier _currentPlatform;
+    String _LOG         = AppConstants.LOG_PREFIX + "BASE";
+
+            PlatformIdentifier _currentPlatform;
     IDataEx _dataEx     = null;
     ProgressBar _pb;
     TextView tvMsgDisplay;
@@ -88,13 +89,13 @@ public abstract class MOMActivityBase extends Activity{
     }
 
     protected void showBalance(TextView tv){
-        float balance         = EphemeralStorage.getInstance(this).getFloat(MOMConstants.USER_BALANCE, MOMConstants.ERROR_BALANCE);
+        float balance         = EphemeralStorage.getInstance(this).getFloat(AppConstants.USER_BALANCE, AppConstants.ERROR_BALANCE);
         showBalance(tv, balance);
     }
 
     protected void showBalance(TextView tv, Float balance){
         String sBal         = null;
-        if(balance == MOMConstants.ERROR_BALANCE){
+        if(balance == AppConstants.ERROR_BALANCE){
             sBal            = getString(R.string.error_getting_balance);
             return;
         }else {
@@ -107,11 +108,11 @@ public abstract class MOMActivityBase extends Activity{
 
     public void getBalanceAsync(){
         final Context context   = this;
-        Log.d("MAIN", "Getting Balance");
+        Log.d(_LOG, "Getting Balance");
         IDataEx dataEx  = new NewPLDataExImpl(getApplicationContext(), new AsyncListener<Float>() {
             @Override
             public void onTaskSuccess(Float result, DataExImpl.Methods callback) {
-                EphemeralStorage.getInstance(context).storeLocally(MOMConstants.USER_BALANCE, result);
+                EphemeralStorage.getInstance(context).storeLocally(AppConstants.USER_BALANCE, result);
                 showBalance(result);
             }
 
@@ -120,17 +121,17 @@ public abstract class MOMActivityBase extends Activity{
 
             }
         });
-        Log.d("MAIN", "DataEx instance created");
+        Log.d(_LOG, "DataEx instance created");
         dataEx.getBalance();
-        Log.d("MAIN", "getBalance called");
+        Log.d(_LOG, "getBalance called");
     }
 
     public void navigateToTransactionMessageActivity(ActivityIdentifier pSendingActivity, String psMsg){
-        Log.d("NAVIGATE_TO_TXN_MSG", "Going to show response: " + psMsg);
+        Log.d(_LOG, "Going to show response: " + psMsg);
 
         Intent intent   = new Intent(this, TransactionMessageActivity.class);
-        intent.putExtra(MOMConstants.INTENT_MESSAGE, psMsg);
-        intent.putExtra(MOMConstants.INTENT_MESSAGE_ORIGIN, pSendingActivity);
+        intent.putExtra(AppConstants.INTENT_MESSAGE, psMsg);
+        intent.putExtra(AppConstants.INTENT_MESSAGE_ORIGIN, pSendingActivity);
         startActivity(intent);
         finish();
     }

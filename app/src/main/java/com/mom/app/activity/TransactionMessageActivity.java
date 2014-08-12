@@ -2,7 +2,6 @@ package com.mom.app.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,7 +12,7 @@ import android.widget.TextView;
 import com.mom.app.R;
 import com.mom.app.identifier.ActivityIdentifier;
 import com.mom.app.identifier.IdentifierUtils;
-import com.mom.app.utils.MOMConstants;
+import com.mom.app.utils.AppConstants;
 
 public class TransactionMessageActivity extends Activity {
 
@@ -26,11 +25,11 @@ public class TransactionMessageActivity extends Activity {
 
         TextView textView   = (TextView)findViewById(R.id.confirmationMessage);
 
-        String message      = getIntent().getStringExtra(MOMConstants.INTENT_MESSAGE);
+        String message      = getIntent().getStringExtra(AppConstants.INTENT_MESSAGE);
         /*
         Not using getParentActivityIntent to maintain minSdk level of 8
          */
-        _originActivity     = (ActivityIdentifier) getIntent().getSerializableExtra(MOMConstants.INTENT_MESSAGE_ORIGIN);
+        _originActivity     = (ActivityIdentifier) getIntent().getSerializableExtra(AppConstants.INTENT_MESSAGE_ORIGIN);
 
         if(_originActivity == ActivityIdentifier.BILL_PAYMENT){
             Button btnRecharge  = (Button) findViewById(R.id.btnNewRecharge);

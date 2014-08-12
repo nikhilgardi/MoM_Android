@@ -18,7 +18,6 @@ import org.apache.http.util.EntityUtils;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 
 import android.os.Bundle;
@@ -29,28 +28,24 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mom.app.R;
 import com.mom.app.identifier.ActivityIdentifier;
-import com.mom.app.identifier.IdentifierUtils;
 import com.mom.app.identifier.PlatformIdentifier;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.IDataEx;
 import com.mom.app.model.local.EphemeralStorage;
-import com.mom.app.model.local.LocalStorage;
 import com.mom.app.model.newpl.NewPLDataExImpl;
-import com.mom.app.model.pbxpl.PBXPLDataExImpl;
-import com.mom.app.utils.MOMConstants;
+import com.mom.app.utils.AppConstants;
 
 public class BillPaymentActivity extends MOMActivityBase implements AsyncListener<String>{
 
-
+    private String _LOG = AppConstants.LOG_PREFIX + "BILL PAY";
 
     Button _getBillAmount;
     private EditText _etSubscriberId;
@@ -81,17 +76,17 @@ public class BillPaymentActivity extends MOMActivityBase implements AsyncListene
 
     @Override
     public void onTaskSuccess(String result, DataExImpl.Methods callback) {
-        Log.d("TASK_C_MAIN", "Called back");
+        Log.d(_LOG, "Called back");
         switch(callback){
             case PAY_BILL:
                 if(result == null){
-                    Log.d("TASK_COMPLETE", "Obtained NULL bill payment response");
+                    Log.d(_LOG, "Obtained NULL bill payment response");
                     showMessage(getResources().getString(R.string.error_recharge_failed));
                     return;
                 }
-                Log.d("TASK_COMPLETE", "Going to get new balance");
+                Log.d(_LOG, "Going to get new balance");
                 getBalanceAsync();
-                Log.d("TASK_COMPLETE", "Starting navigation to TxnMsg Activity");
+                Log.d(_LOG, "Starting navigation to TxnMsg Activity");
                 navigateToTransactionMessageActivity(ActivityIdentifier.BILL_PAYMENT, result);
                 break;
         }
@@ -187,7 +182,7 @@ public class BillPaymentActivity extends MOMActivityBase implements AsyncListene
 
         if (_currentPlatform == PlatformIdentifier.NEW)
         {
-            String id      = MOMConstants.OPERATOR_NEW.get(strOperatorName);
+            String id      = AppConstants.OPERATOR_NEW.get(strOperatorName);
             if(id == null){
                 return "-1";
             }
@@ -234,14 +229,14 @@ public class BillPaymentActivity extends MOMActivityBase implements AsyncListene
     }
 
     public void getBillAmount(View view){
-        Log.d("BIL_PAY", "Get Bill Amount called");
+        Log.d(_LOG, "Get Bill Amount called");
         String sSubscriberId            = _etSubscriberId.getText().toString();
         String sOperatorID              = getOperatorId(operatorSpinner.getSelectedItem().toString());
 
         IDataEx dataEx  = new NewPLDataExImpl(getApplicationContext(), new AsyncListener<Float>() {
             @Override
             public void onTaskSuccess(Float result, DataExImpl.Methods callback) {
-                Log.e("BILL_PAY", "Obtainined bill amount: " + result);
+                Log.e(_LOG, "Obtainined bill amount: " + result);
                 int bill                = Math.round(result);
                 amountField.setText(String.valueOf(bill));
                 amountField.setBackgroundColor(getResources().getColor(R.color.green));
@@ -249,14 +244,14 @@ public class BillPaymentActivity extends MOMActivityBase implements AsyncListene
 
             @Override
             public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
-                Log.e("BILL_PAY", "Error obtaining bill amount");
+                Log.e(_LOG, "Error obtaining bill amount");
                 amountField.setBackgroundColor(getResources().getColor(R.color.red));
                 showBillMessage(getResources().getString(R.string.error_obtaining_bill_amount));
             }
         });
 
         dataEx.getBillAmount(sOperatorID, sSubscriberId);
-        Log.d("BIL_PAY", "Get Bill Amount finished");
+        Log.d(_LOG, "Get Bill Amount finished");
     }
 
 
@@ -287,7 +282,7 @@ public class BillPaymentActivity extends MOMActivityBase implements AsyncListene
         }
 
         if(
-                sOperatorId.equals(MOMConstants.OPERATOR_ID_AIRTEL_BILL) ||
+                sOperatorId.equals(AppConstants.OPERATOR_ID_AIRTEL_BILL) ||
                         sOperatorId.equals("BAI")
                 ){
 
@@ -295,13 +290,13 @@ public class BillPaymentActivity extends MOMActivityBase implements AsyncListene
             nMinLength      = 10;
             nMaxLength      = 11;
         }else if(
-                sOperatorId.equals(MOMConstants.OPERATOR_ID_AIRCEL_BILL) ||
-                sOperatorId.equals(MOMConstants.OPERATOR_ID_BSNL_BILL_PAY) ||
-                sOperatorId.equals(MOMConstants.OPERATOR_ID_IDEA_BILL) ||
-                sOperatorId.equals(MOMConstants.OPERATOR_ID_RELIANCE_BILL_GSM) ||
-                sOperatorId.equals(MOMConstants.OPERATOR_ID_RELIANCE_BILL_CDMA) ||
-                sOperatorId.equals(MOMConstants.OPERATOR_ID_TATA_BILL) ||
-                sOperatorId.equals(MOMConstants.OPERATOR_ID_VODAFONE_BILL) ||
+                sOperatorId.equals(AppConstants.OPERATOR_ID_AIRCEL_BILL) ||
+                sOperatorId.equals(AppConstants.OPERATOR_ID_BSNL_BILL_PAY) ||
+                sOperatorId.equals(AppConstants.OPERATOR_ID_IDEA_BILL) ||
+                sOperatorId.equals(AppConstants.OPERATOR_ID_RELIANCE_BILL_GSM) ||
+                sOperatorId.equals(AppConstants.OPERATOR_ID_RELIANCE_BILL_CDMA) ||
+                sOperatorId.equals(AppConstants.OPERATOR_ID_TATA_BILL) ||
+                sOperatorId.equals(AppConstants.OPERATOR_ID_VODAFONE_BILL) ||
                 sOperatorId.equals("BAC") ||
                 sOperatorId.equals("BLL") ||
                 sOperatorId.equals("BID") ||
@@ -330,9 +325,9 @@ public class BillPaymentActivity extends MOMActivityBase implements AsyncListene
         }
 
         if(
-                MOMConstants.OPERATOR_ID_RELIANCE_ENERGY.equals(sOperatorId) ||
-                        MOMConstants.OPERATOR_ID_BEST_ELECTRICITY.equals(sOperatorId) ||
-                        MOMConstants.OPERATOR_ID_MAHANAGAR_GAS.equals(sOperatorId)){
+                AppConstants.OPERATOR_ID_RELIANCE_ENERGY.equals(sOperatorId) ||
+                        AppConstants.OPERATOR_ID_BEST_ELECTRICITY.equals(sOperatorId) ||
+                        AppConstants.OPERATOR_ID_MAHANAGAR_GAS.equals(sOperatorId)){
 
             String sSubscriberId          = _etSubscriberId.getText().toString().trim();
 
@@ -365,8 +360,8 @@ public class BillPaymentActivity extends MOMActivityBase implements AsyncListene
         if (_currentPlatform == PlatformIdentifier.NEW){
             HashMap<String, String> map     = new HashMap<String, String>();
 
-            map.put(MOMConstants.PARAM_NEW_RELIANCE_SBE_NBE, "");
-            map.put(MOMConstants.PARAM_NEW_SPECIAL_OPERATOR_NBE, "");
+            map.put(AppConstants.PARAM_NEW_RELIANCE_SBE_NBE, "");
+            map.put(AppConstants.PARAM_NEW_SPECIAL_OPERATOR_NBE, "");
 
             getDataEx(this).payBill(sSubscriberId, Double.parseDouble(sRechargeAmount), sOperatorID, sCustomerNumber, sCustomerName, map);
 
@@ -381,7 +376,7 @@ public class BillPaymentActivity extends MOMActivityBase implements AsyncListene
                 nameValuePairs.add(new BasicNameValuePair("CustMobile", sSubscriberId));
                 nameValuePairs.add(new BasicNameValuePair("Amount", sRechargeAmount));
                 nameValuePairs.add(new BasicNameValuePair("OP", sOperatorID));
-                String sUserMobile  = EphemeralStorage.getInstance(this).getString(MOMConstants.LOGGED_IN_USERNAME, "");
+                String sUserMobile  = EphemeralStorage.getInstance(this).getString(AppConstants.LOGGED_IN_USERNAME, "");
                 nameValuePairs.add(new BasicNameValuePair("RN", sUserMobile));
                 nameValuePairs.add(new BasicNameValuePair("Service", "RM"));
 
@@ -416,7 +411,7 @@ public class BillPaymentActivity extends MOMActivityBase implements AsyncListene
                     showMessage(responseBody);
                 }
             } catch (Exception e) {
-                Log.e("log_tagTESTabcd",
+                Log.e(_LOG,
                         "Error in http connection " + e.toString());
             }
 
@@ -448,9 +443,9 @@ public class BillPaymentActivity extends MOMActivityBase implements AsyncListene
         String sOperatorId              = getOperatorId(sOperator);
 
         if(
-                MOMConstants.OPERATOR_ID_RELIANCE_ENERGY.equals(sOperatorId) ||
-                MOMConstants.OPERATOR_ID_BEST_ELECTRICITY.equals(sOperatorId) ||
-                MOMConstants.OPERATOR_ID_MAHANAGAR_GAS.equals(sOperatorId)
+                AppConstants.OPERATOR_ID_RELIANCE_ENERGY.equals(sOperatorId) ||
+                AppConstants.OPERATOR_ID_BEST_ELECTRICITY.equals(sOperatorId) ||
+                AppConstants.OPERATOR_ID_MAHANAGAR_GAS.equals(sOperatorId)
                 ){
 
             sMsg        = getResources().getString(R.string.lblConsumerNumber) + ": "
@@ -513,22 +508,22 @@ public class BillPaymentActivity extends MOMActivityBase implements AsyncListene
 
             String sOperator                = operatorSpinner.getSelectedItem().toString();
 
-            Log.d("ITEM_SELECT", "Operator selected: " + sOperator);
+            Log.d(_LOG, "Operator selected: " + sOperator);
             String sOperatorId              = getOperatorId(sOperator);
 
             if(sOperatorId == null){
-                Log.d("ITEM_SELECT", "Could not find operator id, doing nothing");
+                Log.d(_LOG, "Could not find operator id, doing nothing");
                 return;
             }
 
             hideRetrieveBillFields();
 
-            if(MOMConstants.OPERATOR_ID_NBE.equals(sOperatorId) || MOMConstants.OPERATOR_ID_SBE.equals(sOperatorId)){
+            if(AppConstants.OPERATOR_ID_NBE.equals(sOperatorId) || AppConstants.OPERATOR_ID_SBE.equals(sOperatorId)){
                 sHintDisplay                = sConsumerNumber;
             }else if(
-                    MOMConstants.OPERATOR_ID_RELIANCE_ENERGY.equals(sOperatorId) ||
-                            MOMConstants.OPERATOR_ID_BEST_ELECTRICITY.equals(sOperatorId) ||
-                            MOMConstants.OPERATOR_ID_MAHANAGAR_GAS.equals(sOperatorId)){
+                    AppConstants.OPERATOR_ID_RELIANCE_ENERGY.equals(sOperatorId) ||
+                            AppConstants.OPERATOR_ID_BEST_ELECTRICITY.equals(sOperatorId) ||
+                            AppConstants.OPERATOR_ID_MAHANAGAR_GAS.equals(sOperatorId)){
 
                 sHintDisplay                = sAccountNumber;
 

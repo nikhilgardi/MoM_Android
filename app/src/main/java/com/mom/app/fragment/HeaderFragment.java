@@ -11,8 +11,7 @@ import android.widget.TextView;
 
 import com.mom.app.R;
 import com.mom.app.model.local.EphemeralStorage;
-import com.mom.app.model.local.LocalStorage;
-import com.mom.app.utils.MOMConstants;
+import com.mom.app.utils.AppConstants;
 
 import java.text.DecimalFormat;
 
@@ -45,9 +44,9 @@ public class HeaderFragment extends Fragment {
 
         TextView balanceTv  = (TextView) view.findViewById(R.id.balance);
         if(balanceTv != null){
-            Float balance   = EphemeralStorage.getInstance(getActivity()).getFloat(MOMConstants.USER_BALANCE, MOMConstants.ERROR_BALANCE);
+            Float balance   = EphemeralStorage.getInstance(getActivity()).getFloat(AppConstants.USER_BALANCE, AppConstants.ERROR_BALANCE);
             String sBal         = null;
-            if(balance == MOMConstants.ERROR_BALANCE){
+            if(balance == AppConstants.ERROR_BALANCE){
                 sBal            = getString(R.string.error_getting_balance);
                 return view;
             }else {

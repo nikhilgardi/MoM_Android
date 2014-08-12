@@ -1,7 +1,5 @@
 package com.mom.app.activity;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -10,16 +8,15 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.mom.app.R;
-import com.mom.app.identifier.IdentifierUtils;
 import com.mom.app.identifier.PinType;
-import com.mom.app.identifier.PlatformIdentifier;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
-import com.mom.app.utils.MOMConstants;
+import com.mom.app.utils.AppConstants;
 
 public class ChangePINActivity extends MOMActivityBase  implements AsyncListener<String>{
-
+    String _LOG             = AppConstants.LOG_PREFIX + "CHANGE PIN";
+    
     private PinType _pinType;
 
     private EditText _oldPin;
@@ -30,9 +27,9 @@ public class ChangePINActivity extends MOMActivityBase  implements AsyncListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_pin);
 
-        Log.i("ChangePINActivity", "started onCreate");
+        Log.i(_LOG, "started onCreate");
 
-        _pinType            = (PinType) getIntent().getSerializableExtra(MOMConstants.INTENT_MESSAGE);
+        _pinType            = (PinType) getIntent().getSerializableExtra(AppConstants.INTENT_MESSAGE);
         _oldPin             = (EditText)findViewById(R.id.oldPin);
         _newPin             = (EditText)findViewById(R.id.newPin);
         _newPinConfirm      = (EditText)findViewById(R.id.newPinConfirm);
@@ -45,13 +42,13 @@ public class ChangePINActivity extends MOMActivityBase  implements AsyncListener
 
     @Override
     public void onTaskSuccess(String result, DataExImpl.Methods callback) {
-        Log.d("CHANGE_PIN", "Change Pin callback, result: " + result);
+        Log.d(_LOG, "Change Pin callback, result: " + result);
 
         if(callback != DataExImpl.Methods.CHANGE_PIN){
-            Log.d("CHANGE_PIN", "Callback not for CHANGE_PIN, called for: " + callback);
+            Log.d(_LOG, "Callback not for CHANGE_PIN, called for: " + callback);
             return;
         }
-        Log.d("CHANGE_PIN", "Displaying message to user");
+        Log.d(_LOG, "Displaying message to user");
         showMessage(result);
     }
 

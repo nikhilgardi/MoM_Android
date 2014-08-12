@@ -7,8 +7,8 @@ import com.mom.app.identifier.ActivityIdentifier;
 import com.mom.app.identifier.IdentifierUtils;
 import com.mom.app.identifier.PlatformIdentifier;
 import com.mom.app.model.local.EphemeralStorage;
+import com.mom.app.utils.AppConstants;
 import com.mom.app.utils.DataProvider;
-import com.mom.app.utils.MOMConstants;
 import com.mom.app.widget.ImageTextViewAdapter;
 import com.mom.app.widget.holder.ImageItem;
 
@@ -27,6 +27,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 public class DashboardActivity extends MOMActivityBase{
+    String _LOG         = AppConstants.LOG_PREFIX + "DASHBOARD";
 
     private PlatformIdentifier _currentPlatform;
     GridView gridView;
@@ -59,13 +60,13 @@ public class DashboardActivity extends MOMActivityBase{
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 
-                Log.d("DASHBOARD", "Clicked " + position);
+                Log.d(_LOG, "Clicked " + position);
                 ImageItem item  = (ImageItem) gridViewAdapter.getItem(position);
                 if(item == null){
-                    Log.e("DASHBOARD", "No click target found, returning.");
+                    Log.e(_LOG, "No click target found, returning.");
                     return;
                 }
-                Log.d("DASHBOARD", "Altering selection to " + !item.getSelected());
+                Log.d(_LOG, "Altering selection to " + !item.getSelected());
 
                 item.setSelected(!item.getSelected());
 
@@ -75,7 +76,7 @@ public class DashboardActivity extends MOMActivityBase{
                     v.setBackgroundColor(Color.TRANSPARENT);
                 }
 
-                Log.d("DASHBOARD", "Going to selected activity");
+                Log.d(_LOG, "Going to selected activity");
                 nextActivity(item.getTitle());
 
             }
@@ -90,44 +91,44 @@ public class DashboardActivity extends MOMActivityBase{
     private void nextActivity(String item){
         Intent intent   = null;
         if (item.equals("Mobile Recharge")) {
-            Log.d("LIST_CLICKED", "Starting Mobile Recharge");
+            Log.d(_LOG, "Starting Mobile Recharge");
             intent = new Intent(this, VerifyTPinActivity.class);
-            intent.putExtra(MOMConstants.INTENT_MESSAGE_DEST, ActivityIdentifier.MOBILE_RECHARGE);
-            intent.putExtra(MOMConstants.INTENT_MESSAGE_ORIGIN, ActivityIdentifier.DASHBOARD);
+            intent.putExtra(AppConstants.INTENT_MESSAGE_DEST, ActivityIdentifier.MOBILE_RECHARGE);
+            intent.putExtra(AppConstants.INTENT_MESSAGE_ORIGIN, ActivityIdentifier.DASHBOARD);
             startActivity(intent);
-            Log.d("LIST_CLICKED", "Started Mobile Recharge");
+            Log.d(_LOG, "Started Mobile Recharge");
             return;
         }else if (item.equals("DTH Recharge")) {
-            Log.d("LIST_CLICKED", "Starting DTH Recharge");
+            Log.d(_LOG, "Starting DTH Recharge");
             intent = new Intent(this, VerifyTPinActivity.class);
-            intent.putExtra(MOMConstants.INTENT_MESSAGE_DEST, ActivityIdentifier.DTH_RECHARGE);
-            intent.putExtra(MOMConstants.INTENT_MESSAGE_ORIGIN, ActivityIdentifier.DASHBOARD);
+            intent.putExtra(AppConstants.INTENT_MESSAGE_DEST, ActivityIdentifier.DTH_RECHARGE);
+            intent.putExtra(AppConstants.INTENT_MESSAGE_ORIGIN, ActivityIdentifier.DASHBOARD);
             startActivity(intent);
-            Log.d("LIST_CLICKED", "Started DTH Recharge");
+            Log.d(_LOG, "Started DTH Recharge");
             return;
 
         }else if (item.equals("Bill Payment")) {
-            Log.d("LIST_CLICKED", "Starting Bill Payment");
+            Log.d(_LOG, "Starting Bill Payment");
             intent = new Intent(this, VerifyTPinActivity.class);
-            intent.putExtra(MOMConstants.INTENT_MESSAGE_DEST, ActivityIdentifier.BILL_PAYMENT);
-            intent.putExtra(MOMConstants.INTENT_MESSAGE_ORIGIN, ActivityIdentifier.DASHBOARD);
+            intent.putExtra(AppConstants.INTENT_MESSAGE_DEST, ActivityIdentifier.BILL_PAYMENT);
+            intent.putExtra(AppConstants.INTENT_MESSAGE_ORIGIN, ActivityIdentifier.DASHBOARD);
             startActivity(intent);
-            Log.d("LIST_CLICKED", "Started Bill Payment");
+            Log.d(_LOG, "Started Bill Payment");
             return;
         }else if (item.equals("History")) {
 
-            Log.d("LIST_CLICKED", "Starting Transaction History Activity");
+            Log.d(_LOG, "Starting Transaction History Activity");
             intent = new Intent(this, TransactionHistoryActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
-            Log.d("LIST_CLICKED", "Started Transaction History Activity");
+            Log.d(_LOG, "Started Transaction History Activity");
 
         }else if (item.equals("Settings")) {
-            Log.d("LIST_CLICKED", "Starting Settings Activity");
+            Log.d(_LOG, "Starting Settings Activity");
             intent = new Intent(DashboardActivity.this, SettingsActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
-            Log.d("LIST_CLICKED", "Started Settings Activity");
+            Log.d(_LOG, "Started Settings Activity");
         }
     }
 

@@ -26,26 +26,20 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mom.app.R;
 import com.mom.app.identifier.ActivityIdentifier;
-import com.mom.app.identifier.IdentifierUtils;
 import com.mom.app.identifier.PlatformIdentifier;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
-import com.mom.app.model.IDataEx;
 import com.mom.app.model.local.EphemeralStorage;
-import com.mom.app.model.local.LocalStorage;
-import com.mom.app.model.newpl.NewPLDataExImpl;
-import com.mom.app.model.pbxpl.PBXPLDataExImpl;
-import com.mom.app.utils.MOMConstants;
+import com.mom.app.utils.AppConstants;
 
 public class DTHRechargeActivity extends MOMActivityBase implements AsyncListener<String>{
+    String _LOG         = AppConstants.LOG_PREFIX + "DTH RECHARGE";
 
     private EditText _etSubscriberId;
     private EditText amountField;
@@ -70,17 +64,17 @@ public class DTHRechargeActivity extends MOMActivityBase implements AsyncListene
 
     @Override
     public void onTaskSuccess(String result, DataExImpl.Methods callback) {
-        Log.d("TASK_C_MAIN", "Called back");
+        Log.d(_LOG, "Called back");
         switch(callback){
             case RECHARGE_DTH:
                 if(result == null){
-                    Log.d("TASK_COMPLETE", "Obtained NULL recharge response");
+                    Log.d(_LOG, "Obtained NULL recharge response");
                     showMessage(getResources().getString(R.string.error_recharge_failed));
                     return;
                 }
-                Log.d("TASK_COMPLETE", "Going to get new balance");
+                Log.d(_LOG, "Going to get new balance");
                 getBalanceAsync();
-                Log.d("TASK_COMPLETE", "Starting navigation to TxnMsg Activity");
+                Log.d(_LOG, "Starting navigation to TxnMsg Activity");
                 navigateToTransactionMessageActivity(ActivityIdentifier.DTH_RECHARGE, result);
                 break;
         }
@@ -144,8 +138,8 @@ public class DTHRechargeActivity extends MOMActivityBase implements AsyncListene
                 HttpEntity entity = response.getEntity();
                 responseBody = EntityUtils.toString(entity);
                 String strOperators = responseBody;
-                Log.i("postData", response.getStatusLine().toString());
-                Log.i("postData", this.responseBody);
+                Log.i(_LOG, response.getStatusLine().toString());
+                Log.i(_LOG, this.responseBody);
                 String[] strArrOperators = strOperators.split("\\|");
 
                 strResponse1 = strArrOperators;
@@ -174,7 +168,7 @@ public class DTHRechargeActivity extends MOMActivityBase implements AsyncListene
 
         if (_currentPlatform == PlatformIdentifier.NEW)
         {
-            String id      = MOMConstants.OPERATOR_NEW.get(strOperatorName);
+            String id      = AppConstants.OPERATOR_NEW.get(strOperatorName);
             if(id == null){
                 return "-1";
             }
@@ -239,8 +233,8 @@ public class DTHRechargeActivity extends MOMActivityBase implements AsyncListene
         }
 
         if(
-                sOperatorId.equals(MOMConstants.OPERATOR_ID_DISH) ||
-                sOperatorId.equals(MOMConstants.OPERATOR_ID_SUN_DIRECT) ||
+                sOperatorId.equals(AppConstants.OPERATOR_ID_DISH) ||
+                sOperatorId.equals(AppConstants.OPERATOR_ID_SUN_DIRECT) ||
                 sOperatorId.equals("DSH") ||
                 sOperatorId.equals("SUN")
                 ){
@@ -249,7 +243,7 @@ public class DTHRechargeActivity extends MOMActivityBase implements AsyncListene
             nMaxLength      = 11;
             nMinAmount      = 10;
         }else if(
-                sOperatorId.equals(MOMConstants.OPERATOR_ID_BIG_TV) ||
+                sOperatorId.equals(AppConstants.OPERATOR_ID_BIG_TV) ||
                 sOperatorId.equals("BIG")
                 ){
 
@@ -257,7 +251,7 @@ public class DTHRechargeActivity extends MOMActivityBase implements AsyncListene
             nMaxLength      = 12;
             nMinAmount      = 25;
         }else if(
-                sOperatorId.equals(MOMConstants.OPERATOR_ID_VIDEOCON_DTH) ||
+                sOperatorId.equals(AppConstants.OPERATOR_ID_VIDEOCON_DTH) ||
                 sOperatorId.equals("D2H")
                 ){
 
@@ -285,8 +279,8 @@ public class DTHRechargeActivity extends MOMActivityBase implements AsyncListene
         if("".equals(sCustomerNumber)) {
             showMessage(getResources().getString(R.string.error_customer_phone_required));
             return;
-        }else if(sCustomerNumber.length() != MOMConstants.STANDARD_MOBILE_NUMBER_LENGTH){
-            showMessage(String.format(getResources().getString(R.string.error_phone_length), MOMConstants.STANDARD_MOBILE_NUMBER_LENGTH));
+        }else if(sCustomerNumber.length() != AppConstants.STANDARD_MOBILE_NUMBER_LENGTH){
+            showMessage(String.format(getResources().getString(R.string.error_phone_length), AppConstants.STANDARD_MOBILE_NUMBER_LENGTH));
             return;
         }
 
@@ -321,7 +315,7 @@ public class DTHRechargeActivity extends MOMActivityBase implements AsyncListene
                 nameValuePairs.add(new BasicNameValuePair("CustMobile", sSubscriberId));
                 nameValuePairs.add(new BasicNameValuePair("Amount", sRechargeAmount));
                 nameValuePairs.add(new BasicNameValuePair("OP", sOperatorID));
-                String sUserMobile  = EphemeralStorage.getInstance(this).getString(MOMConstants.LOGGED_IN_USERNAME, "");
+                String sUserMobile  = EphemeralStorage.getInstance(this).getString(AppConstants.LOGGED_IN_USERNAME, "");
                 nameValuePairs.add(new BasicNameValuePair("RN", sUserMobile));
                 nameValuePairs.add(new BasicNameValuePair("Service", "RM"));
 
