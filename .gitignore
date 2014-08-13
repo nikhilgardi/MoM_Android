@@ -1,7 +1,5 @@
 app/build
 .gradle/
 .idea/
-MoM_Android.iml
 build/
-app/app.iml
 gen/
