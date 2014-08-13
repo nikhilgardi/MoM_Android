@@ -1,7 +1,0 @@
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-android:shape="rectangle" >
-  <gradient android:startColor="#1392c5" 
-		android:endColor="#004b72" android:angle="-90" />
- </shape>
- 
-<!-- From: file:/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/android/res/drawable/normal.xml -->
