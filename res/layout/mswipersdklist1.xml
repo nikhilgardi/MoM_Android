@@ -19,7 +19,7 @@
             android:background="@drawable/topbarcolor"
             android:gravity="center_horizontal"
             android:minHeight="83dp" >
-  <TextView
+            <com.mom.app.ui.CustomTextView
                 android:id="@+id/textView1"
                 android:layout_width="160dp"
                 

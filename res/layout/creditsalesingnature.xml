@@ -6,7 +6,7 @@
 	<RelativeLayout android:id="@+id/top_bar"
     android:layout_width ="fill_parent" android:layout_height ="wrap_content"
     android:orientation="vertical" android:gravity="top">
-		<TextView android:id="@+id/topbar_LBL_heading"
+		<com.mom.app.ui.CustomTextView android:id="@+id/topbar_LBL_heading"
 		    android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:typeface="serif" android:textStyle="bold"
 			android:gravity="center" android:paddingLeft="10dp" android:paddingRight="10dp"
@@ -38,13 +38,13 @@
 		     	    android:layout_gravity="center_horizontal" android:gravity="center_horizontal"
 		     	    android:layout_below="@+id/creditsale_View_signature" 
 		     	    android:layout_marginTop="3dp"  android:background="#FFFFFF"> 
-		   	    	<Button android:id="@+id/creditsale_BTN_clear"
+		   	    	<com.mom.app.ui.CustomButton android:id="@+id/creditsale_BTN_clear"
 				   	 	android:layout_width="100dp" android:layout_height="40dp"
 				    	android:textColor="#ffffff"
 				    	android:typeface="sans"
 						android:background="@drawable/custom_button" android:text="@string/btn_clear"  android:gravity="center"
 						android:textSize="17dp" android:layout_marginRight="5dp"/>
-				    <Button android:id="@+id/creditsale_BTN_submitsignature"
+				    <com.mom.app.ui.CustomButton android:id="@+id/creditsale_BTN_submitsignature"
 				   	 	android:layout_width="100dp" android:layout_height="40dp"
 				    	android:textColor="#ffffff"
 				    	android:typeface="sans"

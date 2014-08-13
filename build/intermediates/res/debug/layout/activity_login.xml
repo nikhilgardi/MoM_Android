@@ -19,7 +19,7 @@
         android:scaleType="centerInside"
         android:src="@drawable/logo_320" />
 
-    <TextView
+    <com.mom.app.ui.CustomTextView
         android:id="@+id/tv_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
         android:textColor="#333"
         android:textSize="8pt"
         android:visibility="invisible" />
-	<EditText
+	<com.mom.app.ui.CustomEditText
         android:id="@+id/et_un"
         android:background="@drawable/custom"
         android:hint="MobileNumber"
@@ -48,7 +48,7 @@
         android:maxLength="10"
         android:visibility="invisible"/>
 
-    <TextView
+    <com.mom.app.ui.CustomTextView
         android:id="@+id/tv_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
         android:textSize="8pt"
         android:visibility="invisible" />
 
-    <EditText
+    <com.mom.app.ui.CustomEditText
         android:id="@+id/et_pw"
         android:background="@drawable/custom"
         android:hint="M-Pin"
@@ -76,7 +76,7 @@
         android:inputType="number"
         android:password="true"
         android:visibility="invisible" />
-    <Button
+    <com.mom.app.ui.CustomButton
         android:id="@+id/btn_login"
         android:layout_width="100dip"
         android:background="@drawable/custom_button"
@@ -89,7 +89,7 @@
         android:textColor="#FFFFFF"
         android:visibility="invisible" />
 
-    <TextView
+    <com.mom.app.ui.CustomTextView
         android:id="@+id/tv_response"
         android:layout_width="fill_parent"
         android:layout_height="40dip"
@@ -102,7 +102,7 @@
         android:visibility="invisible"
          />
     
-     <TextView
+     <com.mom.app.ui.CustomTextView
         android:id="@+id/tv_response1"
         android:layout_width="fill_parent"
         android:layout_height="40dip"

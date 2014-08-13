@@ -16,6 +16,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
+        android:name="com.mom.app.MoMApp"
         android:allowBackup="true"
         android:icon="@drawable/momicon"
         android:label="@string/app_name"

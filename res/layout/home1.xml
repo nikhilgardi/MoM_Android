@@ -29,7 +29,7 @@
                 android:gravity="center_horizontal"
                 android:minHeight="53dp" >
 
-                <TextView
+                <com.mom.app.ui.CustomTextView
                     android:id="@+id/AccountBal"
                     android:layout_width="160dp"
                 android:layout_height="wrap_content"
@@ -62,7 +62,7 @@
             </TableRow>
         </TableLayout>
 
-        <EditText
+        <com.mom.app.ui.CustomEditText
             android:id="@+id/repass"
             android:layout_width="265dp"
             android:layout_height="40dp"
@@ -77,10 +77,9 @@
             android:inputType="number"
             android:password="true"
             android:visibility="invisible" 
-            >
-        </EditText>
+            />
 
-        <Button
+        <com.mom.app.ui.CustomButton
             android:id="@+id/btn_reclogin"
             android:layout_width="100dip"
             android:layout_height="wrap_content"
@@ -95,7 +94,7 @@
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:visibility="invisible" />
-          <Button
+          <com.mom.app.ui.CustomButton
             android:id="@+id/btn_firstback"
             android:layout_width="100dip"
             android:layout_height="wrap_content"
@@ -111,7 +110,7 @@
             android:textStyle="bold"
             android:visibility="invisible" />
 
-        <TextView
+        <com.mom.app.ui.CustomTextView
             android:id="@+id/responseText"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -124,7 +123,7 @@
             android:textColor="#992f2f"
             android:textSize="18dp"
             android:visibility="gone" />
-         <TextView
+         <com.mom.app.ui.CustomTextView
             android:id="@+id/responseText1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -138,7 +137,7 @@
             android:textSize="18dp"
             android:visibility="gone" />
 
-        <EditText
+        <com.mom.app.ui.CustomEditText
             android:id="@+id/number"
             android:layout_width="265dp"
             android:layout_height="40dp"
@@ -150,8 +149,7 @@
             android:hint="@string/lblSubscriberId"
             android:inputType="number"
             
-            android:visibility="gone" >
-        </EditText>
+            android:visibility="gone" />
 
         <Spinner
             android:id="@+id/Operator"
@@ -166,7 +164,7 @@
             android:visibility="gone" >
         </Spinner>
 
-        <EditText
+        <com.mom.app.ui.CustomEditText
             android:id="@+id/amount"
             android:layout_width="265dp"
             android:layout_height="40dp"
@@ -177,10 +175,9 @@
             android:background="@drawable/custom"
             android:hint="@string/lblAmount"
             android:inputType="number"
-            android:visibility="gone" >
-        </EditText>
+            android:visibility="gone" />
 
-        <EditText
+        <com.mom.app.ui.CustomEditText
             android:id="@+id/CustomerNumber"
             android:layout_width="265dp"
             android:layout_height="40dp"
@@ -192,10 +189,9 @@
             android:hint="@string/lblConsumerNumber"
             android:inputType="number"
             android:maxLength="10"
-            android:visibility="gone" >
-        </EditText>
+            android:visibility="gone" />
 
-        <Button
+        <com.mom.app.ui.CustomButton
             android:id="@+id/btn_recharge"
             android:layout_width="100dip"
             android:layout_height="wrap_content"
@@ -211,7 +207,7 @@
             android:textStyle="bold"
             android:visibility="gone" />
 
-          <Button
+          <com.mom.app.ui.CustomButton
             android:id="@+id/btn_secondback"
             android:layout_width="100dip"
             android:layout_height="wrap_content"
@@ -226,7 +222,7 @@
             android:textStyle="bold"
             android:visibility="gone" />
 
-        <TextView
+        <com.mom.app.ui.CustomTextView
             android:id="@+id/secondresponseText"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -240,11 +236,7 @@
             android:textSize="18dp"
             android:visibility="gone" />
         
-        
-      
-
-       
-        <Button
+        <com.mom.app.ui.CustomButton
             android:id="@+id/new_recharge"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
