@@ -23,247 +23,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4b89dba2-bf8c-4664-bb4f-dfbd36b0b90c" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/MoneyOnMobileApplication.apk" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes.dex" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/.idea/.name" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/.idea/app.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/.idea/compiler.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/.idea/copyright/profiles_settings.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/.idea/encodings.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/.idea/misc.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/.idea/modules.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/.idea/scopes/scope_settings.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/.idea/vcs.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/.idea/workspace.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/AccountBal$GetLoginTask.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/AccountBal.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/BuildConfig.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/ChangePassword$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/ChangePassword$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/ChangePassword$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/ChangePassword.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/ChangePasswordPBXActivity$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/ChangePasswordPBXActivity$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/ChangePasswordPBXActivity$NewXmlPullParsing.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/ChangePasswordPBXActivity$XmlPullParsing.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/ChangePasswordPBXActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/ConstantSample$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/ConstantSample.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/CreditSaleSignatureView$1$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/CreditSaleSignatureView$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/CreditSaleSignatureView$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/CreditSaleSignatureView$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/CreditSaleSignatureView$RecieptView.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/CreditSaleSignatureView.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/CreditSaleView$1$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/CreditSaleView$1$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/CreditSaleView$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/CreditSaleView$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/CreditSaleView$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/CreditSaleView$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/CreditSaleView$5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/CreditSaleView$6.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/CreditSaleView$IncomingCallServiceReceiver.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/CreditSaleView$StateChangedListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/CreditSaleView$XmlPullParsing.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/CreditSaleView.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/CreditSaleViewAmexCard$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/CreditSaleViewAmexCard.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/GlobalVariables.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/Helpz.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HistoryActivity$GetLoginTask.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HistoryActivity$XmlPullParsing.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HistoryActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeActivity$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeActivity$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeActivity$CustomOnItemSelectedListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeActivity$GetLoginTask.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeActivity$NewXmlPullParsing.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeActivity$XmlPullParsing.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeActivity$XmlPullParsingAccnt.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeActivity1$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeActivity1$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeActivity1$CustomOnItemSelectedListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeActivity1$GetLoginTask.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeActivity1$NewXmlPullParsing.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeActivity1$XmlPullParsing.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeActivity1$XmlPullParsingAccnt.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeActivity1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeActivity2$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeActivity2$10.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeActivity2$11.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeActivity2$12.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeActivity2$13.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeActivity2$14.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeActivity2$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeActivity2$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeActivity2$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeActivity2$5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeActivity2$6.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeActivity2$7.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeActivity2$8.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeActivity2$9.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeActivity2$CustomOnItemSelectedListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeActivity2$CustomOnItemSelectedListenerNBE.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeActivity2$CustomOnItemSelectedListenerSBE.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeActivity2$GetLoginTask.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeActivity2$GetLoginTaskNew.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeActivity2$NewXmlPullParsing.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeActivity2$XmlPullParsing.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeActivity2$XmlPullParsingAccnt.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeActivity2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeActivity2.java.bak" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeBillActivity_PBX$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeBillActivity_PBX$10.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeBillActivity_PBX$11.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeBillActivity_PBX$12.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeBillActivity_PBX$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeBillActivity_PBX$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeBillActivity_PBX$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeBillActivity_PBX$5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeBillActivity_PBX$6.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeBillActivity_PBX$7.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeBillActivity_PBX$8.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeBillActivity_PBX$9.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeBillActivity_PBX$CustomOnItemSelectedListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeBillActivity_PBX$CustomOnItemSelectedListenerNBE.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeBillActivity_PBX$CustomOnItemSelectedListenerSBE.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeBillActivity_PBX$NewXmlPullParsing.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeBillActivity_PBX$XmlPullParsing.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeBillActivity_PBX$XmlPullParsingAccnt.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeBillActivity_PBX.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeBillActivity_PBXNew$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeBillActivity_PBXNew$10.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeBillActivity_PBXNew$11.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeBillActivity_PBXNew$12.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeBillActivity_PBXNew$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeBillActivity_PBXNew$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeBillActivity_PBXNew$4.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeBillActivity_PBXNew$5.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeBillActivity_PBXNew$6.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeBillActivity_PBXNew$7.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeBillActivity_PBXNew$8.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeBillActivity_PBXNew$9.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeBillActivity_PBXNew$CustomOnItemSelectedListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeBillActivity_PBXNew$CustomOnItemSelectedListenerNBE.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeBillActivity_PBXNew$CustomOnItemSelectedListenerSBE.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeBillActivity_PBXNew$NewXmlPullParsing.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeBillActivity_PBXNew$XmlPullParsing.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeBillActivity_PBXNew$XmlPullParsingAccnt.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/HomeBillActivity_PBXNew.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/InfoActivity$AccntBalXmlPullParsing.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/InfoActivity$LogoutTask.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/InfoActivity$LogoutTask1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/InfoActivity$XmlPullParsing.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/InfoActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/LastTrxStatus$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/LastTrxStatus.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/LoginActivity$CustomOnItemSelectedListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/LoginActivity$GetLoginTask.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/LoginActivity$XmlPullParsing.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/LoginActivity$XmlPullParsingAccntBal.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/LoginActivity$XmlPullParsingB2C.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/LoginActivity$XmlPullParsingPBX.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/LoginActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/LoginView$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/LoginView$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/LoginView$3.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/LoginView.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/MPinActivity$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/MPinActivity$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/MPinActivity$NewXmlPullParsing.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/MPinActivity$XmlPullParsing.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/MPinActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/MSwipeAndroidSDKListActivity1$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/MSwipeAndroidSDKListActivity1$GetLoginTask.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/MSwipeAndroidSDKListActivity1$XmlPullParsing.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/MSwipeAndroidSDKListActivity1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/MainActivity1$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/MainActivity1$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/MainActivity1$GetLoginTask.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/MainActivity1$XmlPullParsing.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/MainActivity1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/ParsingXml$XmlPullParsing.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/ParsingXml.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/R$array.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/R$attr.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/R$color.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/R$dimen.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/R$drawable.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/R$id.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/R$layout.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/R$menu.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/R$string.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/R$style.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/R.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/SignatureView.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/SplitOutput.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/SwiperCallStateService$IncomingCallListener.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/SwiperCallStateService.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/TPinActivity$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/TPinActivity$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/TPinActivity$NewXmlPullParsing.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/TPinActivity$XmlPullParsing.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/TPinActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/TabLayoutActivity.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/bin/classes/com/mmpl/app/model/DataEx.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src.zip" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/mmpl/app/HomeActivity2.java.bak" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/res/drawable/sea.9 .png" afterPath="$PROJECT_DIR$/res/drawable/sea.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/mmpl/app/.idea/.name" afterPath="$PROJECT_DIR$/src/com/mom/app/.idea/.name" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/mmpl/app/.idea/app.iml" afterPath="$PROJECT_DIR$/src/com/mom/app/.idea/app.iml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/mmpl/app/.idea/compiler.xml" afterPath="$PROJECT_DIR$/src/com/mom/app/.idea/compiler.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/mmpl/app/.idea/copyright/profiles_settings.xml" afterPath="$PROJECT_DIR$/src/com/mom/app/.idea/copyright/profiles_settings.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/mmpl/app/.idea/encodings.xml" afterPath="$PROJECT_DIR$/src/com/mom/app/.idea/encodings.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/mmpl/app/.idea/misc.xml" afterPath="$PROJECT_DIR$/src/com/mom/app/.idea/misc.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/mmpl/app/.idea/modules.xml" afterPath="$PROJECT_DIR$/src/com/mom/app/.idea/modules.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/mmpl/app/.idea/scopes/scope_settings.xml" afterPath="$PROJECT_DIR$/src/com/mom/app/.idea/scopes/scope_settings.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/mmpl/app/.idea/vcs.xml" afterPath="$PROJECT_DIR$/src/com/mom/app/.idea/vcs.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/mmpl/app/.idea/workspace.xml" afterPath="$PROJECT_DIR$/src/com/mom/app/.idea/workspace.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/mmpl/app/AccountBal.java" afterPath="$PROJECT_DIR$/src/com/mom/app/AccountBal.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/mmpl/app/ChangePassword.java" afterPath="$PROJECT_DIR$/src/com/mom/app/ChangePassword.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/mmpl/app/ChangePasswordPBXActivity.java" afterPath="$PROJECT_DIR$/src/com/mom/app/ChangePasswordPBXActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/mmpl/app/ConstantSample.java" afterPath="$PROJECT_DIR$/src/com/mom/app/ConstantSample.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/mmpl/app/CreditSaleSignatureView.java" afterPath="$PROJECT_DIR$/src/com/mom/app/CreditSaleSignatureView.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/mmpl/app/CreditSaleView.java" afterPath="$PROJECT_DIR$/src/com/mom/app/CreditSaleView.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/mmpl/app/CreditSaleViewAmexCard.java" afterPath="$PROJECT_DIR$/src/com/mom/app/CreditSaleViewAmexCard.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/mmpl/app/GlobalVariables.java" afterPath="$PROJECT_DIR$/src/com/mom/app/GlobalVariables.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/mmpl/app/Helpz.java" afterPath="$PROJECT_DIR$/src/com/mom/app/Helpz.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/mmpl/app/HistoryActivity.java" afterPath="$PROJECT_DIR$/src/com/mom/app/HistoryActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/mmpl/app/HomeActivity.java" afterPath="$PROJECT_DIR$/src/com/mom/app/HomeActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/mmpl/app/HomeActivity1.java" afterPath="$PROJECT_DIR$/src/com/mom/app/HomeActivity1.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/mmpl/app/HomeActivity2.java" afterPath="$PROJECT_DIR$/src/com/mom/app/HomeActivity2.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/mmpl/app/HomeBillActivity_PBX.java" afterPath="$PROJECT_DIR$/src/com/mom/app/HomeBillActivity_PBX.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/mmpl/app/HomeBillActivity_PBXNew.java" afterPath="$PROJECT_DIR$/src/com/mom/app/HomeBillActivity_PBXNew.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/mmpl/app/InfoActivity.java" afterPath="$PROJECT_DIR$/src/com/mom/app/InfoActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/mmpl/app/LastTrxStatus.java" afterPath="$PROJECT_DIR$/src/com/mom/app/LastTrxStatus.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/mmpl/app/LoginActivity.java" afterPath="$PROJECT_DIR$/src/com/mom/app/LoginActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/mmpl/app/LoginView.java" afterPath="$PROJECT_DIR$/src/com/mom/app/LoginView.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/mmpl/app/MPinActivity.java" afterPath="$PROJECT_DIR$/src/com/mom/app/MPinActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/mmpl/app/MSwipeAndroidSDKListActivity1.java" afterPath="$PROJECT_DIR$/src/com/mom/app/MSwipeAndroidSDKListActivity1.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/mmpl/app/MainActivity1.java" afterPath="$PROJECT_DIR$/src/com/mom/app/MainActivity1.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/mmpl/app/ParsingXml.java" afterPath="$PROJECT_DIR$/src/com/mom/app/ParsingXml.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/mmpl/app/SignatureView.java" afterPath="$PROJECT_DIR$/src/com/mom/app/SignatureView.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/mmpl/app/SplitOutput.java" afterPath="$PROJECT_DIR$/src/com/mom/app/SplitOutput.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/mmpl/app/SwiperCallStateService.java" afterPath="$PROJECT_DIR$/src/com/mom/app/SwiperCallStateService.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/mmpl/app/TPinActivity.java" afterPath="$PROJECT_DIR$/src/com/mom/app/TPinActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/mmpl/app/TabLayoutActivity.java" afterPath="$PROJECT_DIR$/src/com/mom/app/TabLayoutActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/com/mmpl/app/model/DataEx.java" afterPath="$PROJECT_DIR$/src/com/mom/app/model/DataEx.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/1.12/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/1.12/taskArtifacts/cache.properties.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/1.12/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/1.12/taskArtifacts/fileSnapshots.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/1.12/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/1.12/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bin/AndroidManifest.xml" afterPath="$PROJECT_DIR$/bin/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gen/com/mmpl/app/BuildConfig.java" afterPath="$PROJECT_DIR$/gen/com/mmpl/app/BuildConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gen/com/mmpl/app/R.java" afterPath="$PROJECT_DIR$/gen/com/mmpl/app/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/creditsalesingnature.xml" afterPath="$PROJECT_DIR$/res/layout/creditsalesingnature.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values/dimens.xml" afterPath="$PROJECT_DIR$/res/values/dimens.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/main.xml" afterPath="$PROJECT_DIR$/res/layout/main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values/strings.xml" afterPath="$PROJECT_DIR$/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values-gu/stringsdata.xml" afterPath="$PROJECT_DIR$/res/values-gu/stringsdata.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/mom/app/LoginActivity.java" afterPath="$PROJECT_DIR$/src/com/mom/app/LoginActivity.java" />
     </list>
     <ignored path="gradle.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -286,26 +46,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="EnglishTextStyle.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/mom/app/ui/fonts/english/EnglishTextStyle.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="465">
-              <caret line="8" column="12" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="12" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GujaratiTextStyle.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/mom/app/ui/fonts/gujarati/GujaratiTextStyle.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="450">
-              <caret line="8" column="12" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="12" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="HindiTextStyle.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/mom/app/ui/fonts/hindi/HindiTextStyle.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -373,11 +113,40 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="stringsdata.xml" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="stringsdata.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/res/values-gu/stringsdata.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.48507464" vertical-offset="75" max-vertical-offset="3015">
+            <state vertical-scroll-proportion="-7.5" vertical-offset="75" max-vertical-offset="3015">
               <caret line="18" column="39" selection-start-line="18" selection-start-column="39" selection-end-line="18" selection-end-column="39" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LoginActivity.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/mom/app/LoginActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.7690015" vertical-offset="2184" max-vertical-offset="17640">
+              <caret line="180" column="0" selection-start-line="180" selection-start-column="0" selection-end-line="180" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2125#2140#0" expanded="true" />
+                <element signature="e#4764#4778#0" expanded="true" />
+                <element signature="e#8313#8328#0" expanded="true" />
+                <element signature="e#10589#10604#0" expanded="true" />
+                <element signature="e#12663#12678#0" expanded="true" />
+                <element signature="e#35618#35633#0" expanded="true" />
+                <element signature="e#37630#37645#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LanguageItem.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/mom/app/ui/LanguageItem.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="122" max-vertical-offset="1890">
+              <caret line="35" column="31" selection-start-line="35" selection-start-column="31" selection-end-line="35" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -974,7 +743,6 @@
         <option value="$PROJECT_DIR$/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/src/com/mom/app/model/local/PersistentStorage.java" />
         <option value="$PROJECT_DIR$/res/values/dimens.xml" />
-        <option value="$PROJECT_DIR$/src/com/mom/app/LoginActivity.java" />
         <option value="$PROJECT_DIR$/src/com/mom/app/ui/CustomEditText.java" />
         <option value="$PROJECT_DIR$/src/com/mom/app/ui/CustomTextView.java" />
         <option value="$PROJECT_DIR$/src/com/mom/app/ui/LanguageItem.java" />
@@ -989,6 +757,7 @@
         <option value="$PROJECT_DIR$/src/com/mom/app/ui/fonts/telugu/TeluguTextStyle.java" />
         <option value="$PROJECT_DIR$/src/com/mom/app/ui/CustomButton.java" />
         <option value="$PROJECT_DIR$/res/layout/main.xml" />
+        <option value="$PROJECT_DIR$/src/com/mom/app/LoginActivity.java" />
       </list>
     </option>
   </component>
@@ -1422,7 +1191,7 @@
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32904148" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32904148" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32904148" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1750,36 +1519,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/mom/app/ui/LanguageItem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1219" max-vertical-offset="1890">
-          <caret line="29" column="5" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/mom/app/LoginActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2019" max-vertical-offset="17625">
-          <caret line="153" column="0" selection-start-line="153" selection-start-column="0" selection-end-line="153" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2125#2140#0" expanded="true" />
-            <element signature="e#4764#4778#0" expanded="true" />
-            <element signature="e#7202#7203#0" expanded="true" />
-            <element signature="e#7237#7238#0" expanded="true" />
-            <element signature="e#8256#8271#0" expanded="true" />
-            <element signature="e#10532#10547#0" expanded="true" />
-            <element signature="e#12606#12621#0" expanded="true" />
-            <element signature="e#34012#34067#0" expanded="true" />
-            <element signature="e#34199#34257#0" expanded="true" />
-            <element signature="e#34379#34432#0" expanded="true" />
-            <element signature="e#35561#35576#0" expanded="true" />
-            <element signature="e#37573#37588#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="525">
@@ -1885,9 +1624,34 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/res/values-gu/stringsdata.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.48507464" vertical-offset="75" max-vertical-offset="3015">
+        <state vertical-scroll-proportion="-7.5" vertical-offset="75" max-vertical-offset="3015">
           <caret line="18" column="39" selection-start-line="18" selection-start-column="39" selection-end-line="18" selection-end-column="39" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/mom/app/ui/LanguageItem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="122" max-vertical-offset="1890">
+          <caret line="35" column="31" selection-start-line="35" selection-start-column="31" selection-end-line="35" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/mom/app/LoginActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7690015" vertical-offset="2184" max-vertical-offset="17640">
+          <caret line="180" column="0" selection-start-line="180" selection-start-column="0" selection-end-line="180" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2125#2140#0" expanded="true" />
+            <element signature="e#4764#4778#0" expanded="true" />
+            <element signature="e#8313#8328#0" expanded="true" />
+            <element signature="e#10589#10604#0" expanded="true" />
+            <element signature="e#12663#12678#0" expanded="true" />
+            <element signature="e#35618#35633#0" expanded="true" />
+            <element signature="e#37630#37645#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
