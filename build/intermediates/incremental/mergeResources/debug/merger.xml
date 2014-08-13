@@ -1375,9 +1375,9 @@
                 </dimen>
                 <dimen name="activity_vertical_margin" >16dp
                 </dimen>
-                <dimen name="padding_large" >16dp
-                </dimen>
                 <dimen name="medium" >16dp
+                </dimen>
+                <dimen name="padding_large" >16dp
                 </dimen>
             </file>
             <file
@@ -1407,36 +1407,36 @@
                 </string>
                 <string name="language_oriya_code" >or
                 </string>
-                <string name="title_activity_home_bill_activity__pbx" >HomeBillActivity_PBX
-                </string>
                 <string name="language_malayalam" >Malayalam
                 </string>
-                <string name="language_bengali" >Bengali
+                <string name="title_activity_home_bill_activity__pbx" >HomeBillActivity_PBX
                 </string>
                 <string name="language_hindi_code" >hi
                 </string>
+                <string name="language_bengali" >Bengali
+                </string>
                 <string name="language_gujarati" >Gujarati
                 </string>
-                <string name="language_gujarati_code" >gu
+                <string name="language_malayalam_code" >ml
                 </string>
                 <string name="language_hindi" >Hindi
                 </string>
-                <string name="language_malayalam_code" >ml
+                <string name="language_gujarati_code" >gu
                 </string>
                 <string name="language_telugu_code" >te
                 </string>
                 <string name="hello_world" ></string>
-                <string name="title_activity_aadhar_payment" >AadharPaymentActivity
-                </string>
                 <string name="language_oriya" >Oriya
+                </string>
+                <string name="title_activity_aadhar_payment" >AadharPaymentActivity
                 </string>
             </file>
             <file
                 path="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/android/res/values/strings1.xml"
                 qualifiers="" >
-                <string name="app_name1" >Money-On-Mobile
-                </string>
                 <string name="feedbacktypeMobileRecharge" >Select Service Provider
+                </string>
+                <string name="app_name1" >Money-On-Mobile
                 </string>
                 <string name="repass1" >T-Pin
                 </string>
@@ -1448,23 +1448,23 @@
                 qualifiers="" >
                 <string name="feedbacktypeBillPay16" >DOMREM
                 </string>
-                <string name="feedbacktypeBillPay15" >DOMESTIC REMITTANCE
-                </string>
                 <string name="feedbacktypeBillPayOperatorList" >Select Operator
+                </string>
+                <string name="feedbacktypeBillPay15" >DOMESTIC REMITTANCE
                 </string>
                 <string name="feedbacktypeBillPay18" >HEALTH INSURANCE
                 </string>
                 <string name="feedbacktypeBillPay17" >DONATION
                 </string>
-                <string name="feedbacktypeBillPay0" >Select Operator
-                </string>
                 <string name="feedbacktypeBillPay38" > UHBVN HARYANA
                 </string>
-                <string name="feedbacktypeBillPay19" >IDEA BILL
+                <string name="feedbacktypeBillPay0" >Select Operator
+                </string>
+                <string name="feedbacktypeBillPay37" >TIKONA BILL PAYMENT
                 </string>
                 <string name="feedbacktypeBillPay1" >AIRCEL BILL
                 </string>
-                <string name="feedbacktypeBillPay37" >TIKONA BILL PAYMENT
+                <string name="feedbacktypeBillPay19" >IDEA BILL
                 </string>
                 <string name="feedbacktypeBillPay2" >AIRTEL BILL
                 </string>
@@ -1492,9 +1492,9 @@
                 </string>
                 <string name="feedbacktypeBillPay14" >DHBVN HARYANA
                 </string>
-                <string name="feedbacktypeBillPay13" >CESCOM MYSORE
-                </string>
                 <string name="feedbacktypeBillPay31" >RELIANCE ENERGY BILL
+                </string>
+                <string name="feedbacktypeBillPay13" >CESCOM MYSORE
                 </string>
                 <string name="feedbacktypeBillPay5" >BEST ELECTRICITY BILL
                 </string>
@@ -1536,11 +1536,11 @@
                 </string>
                 <string name="error_newMpin" >The new MPIN should be 8 numeric characters only
                 </string>
-                <string name="validity_radio_btn" >Validity
+                <string name="prompt_Validity_accntnumber" >Invalid Account Number
                 </string>
                 <string name="lblSubscriberId" >Subscriber ID
                 </string>
-                <string name="prompt_Validity_accntnumber" >Invalid Account Number
+                <string name="validity_radio_btn" >Validity
                 </string>
                 <string name="Lbl_Operator" >Operator:
                 </string>
@@ -1578,9 +1578,9 @@
                 </string>
                 <string name="prompt_enter_tpin" >Please enter your T-Pin
                 </string>
-                <string name="btn_Ok" >OK
-                </string>
                 <string name="title_activity_main1" >MainActivity
+                </string>
+                <string name="btn_Ok" >OK
                 </string>
                 <string name="tpin_incorrect" >Incorrect T-Pin
                 </string>
@@ -1590,9 +1590,9 @@
                 </string>
                 <string name="error_obtaining_bill_amount" >Could not obtain the bill amount. Please check the consumer number.
                 </string>
-                <string name="action_mobileRecharge" >Mobile Recharge
-                </string>
                 <string name="lbl_ExpiryDate" >Expiry Date
+                </string>
+                <string name="action_mobileRecharge" >Mobile Recharge
                 </string>
                 <string name="lbl_AuthCode" >Auth Code
                 </string>
@@ -1612,21 +1612,21 @@
                 </string>
                 <string name="hello_blank_fragment" >Hello blank fragment
                 </string>
-                <string name="lblCustomerLandlineNumber" >Customer\'s Land Line Number
-                </string>
-                <string name="btn_getBillAmount" >Get Your Bill Amount
+                <string name="AlertDialog_MobileRecharge" >Confirm MobileRecharge
                 </string>
                 <string name="title_activity_bill_payment" >Bill Payment Activity
                 </string>
-                <string name="AlertDialog_MobileRecharge" >Confirm MobileRecharge
+                <string name="btn_getBillAmount" >Get Your Bill Amount
+                </string>
+                <string name="lblCustomerLandlineNumber" >Customer\'s Land Line Number
                 </string>
                 <string name="action_changepassword" >Change Password
                 </string>
                 <string name="lbl_Cardholder" >Cardholder
                 </string>
-                <string name="login_pwd_required" >Please enter your password
-                </string>
                 <string name="Dialog_Yes" >YES
+                </string>
+                <string name="login_pwd_required" >Please enter your password
                 </string>
                 <string name="prompt_Validity_mobile_number" >Invalid MobileNumber
                 </string>
@@ -1722,17 +1722,17 @@
                 </string>
                 <string name="btn_billpayment" >Payment
                 </string>
-                <string name="btn_back" >Back
-                </string>
                 <string name="lbl_AmountRs." >Amount Rs.
+                </string>
+                <string name="btn_back" >Back
                 </string>
                 <string name="btn_pay" >Pay
                 </string>
                 <string name="lbl_RRNo" >RR No
                 </string>
-                <string name="tpin_back_btn" >Back
-                </string>
                 <string name="mpin_new_confirm" >Confirm New M-PIN
+                </string>
+                <string name="tpin_back_btn" >Back
                 </string>
                 <string name="title_activity_best_fusion1" >BestFusionActivity
                 </string>
@@ -1740,21 +1740,21 @@
                 </string>
                 <string name="action_history" >History
                 </string>
-                <string name="btn_new_recharge" >New Recharge
-                </string>
                 <string name="error_customer_phone_required" >Please enter the customer\'s phone number.
+                </string>
+                <string name="btn_new_recharge" >New Recharge
                 </string>
                 <string name="title_activity_dthrecharge" >DTH Recharge
                 </string>
                 <string name="changepassword_old" >Old Password
                 </string>
-                <string name="login_username_pwd_required" >Please enter your mobile number and password
-                </string>
                 <string name="action_changeMpin" >Change M-Pin
                 </string>
-                <string name="lbl_LastName" >Enter Last Name
+                <string name="login_username_pwd_required" >Please enter your mobile number and password
                 </string>
                 <string name="cardsale_lastdigits" >Card Last\n4 digits
+                </string>
+                <string name="lbl_LastName" >Enter Last Name
                 </string>
                 <string name="error_newTpin" >The new TPIN should be 8 numeric characters only
                 </string>
@@ -1768,9 +1768,9 @@
                 </string>
                 <string name="lblConsumerNumber" >Consumer Number
                 </string>
-                <string name="btn_stop" >Stop
-                </string>
                 <string name="topUp_radio_btn" >Top-Up
+                </string>
+                <string name="btn_stop" >Stop
                 </string>
                 <string name="title_activity_transaction_history_count" >Last %1$d Transaction(s)
                 </string>
@@ -1780,17 +1780,17 @@
                 </string>
                 <string name="btn_Next" >Next
                 </string>
-                <string name="lblAmount" >Amount
-                </string>
                 <string name="AlertDialog_DTHRecharge" >Confirm DTHRecharge
+                </string>
+                <string name="lblAmount" >Amount
                 </string>
                 <string name="no_transactions_found" >No Transactions found
                 </string>
-                <string name="btn_logout" >Logout
+                <string name="error_Tpin_matching" >New TPIN and Confirm Password doesnot match
                 </string>
                 <string name="AlertDialog_BillPayment" >Confirm Payment
                 </string>
-                <string name="error_Tpin_matching" >New TPIN and Confirm Password doesnot match
+                <string name="btn_logout" >Logout
                 </string>
                 <string name="action_Logout" >Logout
                 </string>
@@ -1802,50 +1802,50 @@
                 </string>
                 <string name="error_recharge_failed" >Error occurred during recharge. Please try again or contact Customer Support for help.
                 </string>
+                <string name="hello_worldtest" ></string>
                 <string name="lblAccountNumber" >Account Number
                 </string>
-                <string name="hello_worldtest" ></string>
                 <string name="feedbacktypeMOMList1" >DTH Recharge
                 </string>
                 <string name="action_utilityBill" >Utility Bill Payment
                 </string>
                 <string name="feedbacktypeMOMList3" >Card Sale
                 </string>
-                <string name="mpin" >Enter M-Pin
+                <string name="feedbacktypeMOMList2" >Bill Payment
                 </string>
                 <string name="changepassword_confirm" >Confirm Password
                 </string>
-                <string name="feedbacktypeMOMList2" >Bill Payment
+                <string name="mpin" >Enter M-Pin
                 </string>
                 <string name="lblYourMobile" >Your Mobile Number
                 </string>
                 <string name="lbl_Email" >Email
                 </string>
-                <string name="mpin_incorrect" >Incorrect M-Pin
-                </string>
                 <string name="feedbacktypeMOMList9" >Logout
+                </string>
+                <string name="mpin_incorrect" >Incorrect M-Pin
                 </string>
                 <string name="feedbacktypeMOMList8" >Change T-Pin
                 </string>
                 <string name="feedbacktypeMOMList5" >History
                 </string>
-                <string name="login_failed_msg_default" >Login Failed. Please check your mobile number and M-Pin
-                </string>
                 <string name="feedbacktypeMOMList4" >Utility Bill Payment
+                </string>
+                <string name="login_failed_msg_default" >Login Failed. Please check your mobile number and M-Pin
                 </string>
                 <string name="feedbacktypeMOMList7" >Change M-Pin
                 </string>
-                <string name="prompt_Validity_radio_btn" >Select radio button
-                </string>
                 <string name="feedbacktypeMOMList6" >Settings
+                </string>
+                <string name="prompt_Validity_radio_btn" >Select radio button
                 </string>
                 <string name="tpin_oldHin" >Old T-पिन
                 </string>
-                <string name="btnn_recharge" >Recharge
+                <string name="title_activity_home_bill_activity__pbx1" >HomeBillActivity_PBX
                 </string>
                 <string name="btn_Cancel" >Cancel
                 </string>
-                <string name="title_activity_home_bill_activity__pbx1" >HomeBillActivity_PBX
+                <string name="btnn_recharge" >Recharge
                 </string>
                 <string name="btn_clear" >Clear
                 </string>
@@ -1863,9 +1863,9 @@
                 </string>
                 <string name="feedbacktypeDTH6" >VIDEOCON DTH
                 </string>
-                <string name="feedbacktypeDTHOperatorList" >Select Operator
-                </string>
                 <string name="feedbacktypeDTH5" >TATA SKY
+                </string>
+                <string name="feedbacktypeDTHOperatorList" >Select Operator
                 </string>
                 <string name="feedbacktypeDTH4" >SUN DIRECT
                 </string>
@@ -1955,9 +1955,9 @@
                 </string>
                 <string name="feedbacktype12" >Purnea (Rural)
                 </string>
-                <string name="repass" >T-Pin
-                </string>
                 <string name="feedbacktype13" >Purnea (Urban)
+                </string>
+                <string name="repass" >T-Pin
                 </string>
                 <string name="feedbacktype17" >Madhepur
                 </string>
@@ -2019,43 +2019,43 @@
                 </string>
                 <string name="feedbacktype0" >Select NorthSubDivisionName
                 </string>
-                <string name="feedbacktype29" >Darbhanga (Urban)
-                </string>
                 <string name="feedbacktype78" >Mahua
+                </string>
+                <string name="feedbacktype29" >Darbhanga (Urban)
                 </string>
                 <string name="feedbacktype79" >Dholi
                 </string>
-                <string name="feedbacktype9" >Banmankhi
-                </string>
                 <string name="feedbacktype76" >Lalganj
+                </string>
+                <string name="feedbacktype9" >Banmankhi
                 </string>
                 <string name="feedbacktype77" >Mahnar
                 </string>
-                <string name="feedbacktype25" >Benipur
+                <string name="feedbacktype74" >Bidupur
                 </string>
                 <string name="feedbacktype7" >Kishanganj
                 </string>
-                <string name="feedbacktype74" >Bidupur
-                </string>
-                <string name="feedbacktype26" >Biraul
-                </string>
-                <string name="feedbacktype8" >Thakurganj
+                <string name="feedbacktype25" >Benipur
                 </string>
                 <string name="feedbacktype75" >Hajipur
                 </string>
-                <string name="feedbacktype27" >Darbhanga (Rural)
+                <string name="feedbacktype8" >Thakurganj
                 </string>
-                <string name="feedbacktype5" >Katihar (Urban)
-                </string>
-                <string name="hello" >Hello World, RechargeActivity!
+                <string name="feedbacktype26" >Biraul
                 </string>
                 <string name="feedbacktype72" >Ghorashahan
                 </string>
-                <string name="feedbacktype28" >Sakri
+                <string name="hello" >Hello World, RechargeActivity!
+                </string>
+                <string name="feedbacktype5" >Katihar (Urban)
+                </string>
+                <string name="feedbacktype27" >Darbhanga (Rural)
+                </string>
+                <string name="feedbacktype73" >Raxaul
                 </string>
                 <string name="feedbacktype6" >Bahadurganj
                 </string>
-                <string name="feedbacktype73" >Raxaul
+                <string name="feedbacktype28" >Sakri
                 </string>
                 <string name="feedbacktype33" >Phulparas
                 </string>
@@ -2067,9 +2067,9 @@
                 </string>
                 <string name="feedbacktype31" >Jhanjharpur
                 </string>
-                <string name="feedbacktype30" >Laheriasarai
-                </string>
                 <string name="feedbacktype69" >Chakia
+                </string>
+                <string name="feedbacktype30" >Laheriasarai
                 </string>
                 <string name="feedbacktype80" >Muzzaffarpur (East)
                 </string>
@@ -2083,21 +2083,21 @@
                 </string>
                 <string name="feedbacktype89" >Pupri
                 </string>
-                <string name="feedbacktype38" >Barauni
-                </string>
                 <string name="feedbacktype83" >Maripur
                 </string>
-                <string name="feedbacktype39" >Ballia
+                <string name="feedbacktype38" >Barauni
                 </string>
                 <string name="feedbacktype84" >Saraiyaganj
                 </string>
-                <string name="feedbacktype36" >Madhubani
+                <string name="feedbacktype39" >Ballia
                 </string>
                 <string name="feedbacktype85" >Motipur
                 </string>
-                <string name="feedbacktype37" >Bachwara
+                <string name="feedbacktype36" >Madhubani
                 </string>
                 <string name="feedbacktype86" >Muzzafarpur (West)
+                </string>
+                <string name="feedbacktype37" >Bachwara
                 </string>
                 <string name="feedbacktype46" >Kalyanpur
                 </string>
@@ -2165,13 +2165,13 @@
                 </string>
                 <string name="feedbacktypeSBERecharge63" >Kharagpur
                 </string>
-                <string name="feedbacktypeSBERecharge64" >Kochas
-                </string>
                 <string name="feedbacktypeSBERecharge8" >Bahadurpur
                 </string>
-                <string name="feedbacktypeSBERecharge65" >Kudra
+                <string name="feedbacktypeSBERecharge64" >Kochas
                 </string>
                 <string name="feedbacktypeSBERecharge9" >Baktiyarpur
+                </string>
+                <string name="feedbacktypeSBERecharge65" >Kudra
                 </string>
                 <string name="feedbacktypeSBERecharge56" >Kahalgaon
                 </string>
@@ -2193,9 +2193,9 @@
                 </string>
                 <string name="feedbacktypeSBERecharge74" >Meena Bazar
                 </string>
-                <string name="feedbacktypeSBERecharge71" >Manour
-                </string>
                 <string name="feedbacktypeSBERecharg96" >Rajendra Nagar
+                </string>
+                <string name="feedbacktypeSBERecharge71" >Manour
                 </string>
                 <string name="feedbacktypeSBERecharge72" >Maroofganj
                 </string>
@@ -2317,9 +2317,9 @@
                 </string>
                 <string name="feedbacktypeSBERecharge16" >Bhabhua
                 </string>
-                <string name="feedbacktypeSBERecharge17" >Bhagalpur
-                </string>
                 <string name="hello2" >Hello World, RechargeActivity!
+                </string>
+                <string name="feedbacktypeSBERecharge17" >Bhagalpur
                 </string>
                 <string name="feedbacktypeSBERecharge18" >Bhagalpur (East)
                 </string>
@@ -2387,27 +2387,27 @@
                 qualifiers="gu" >
                 <string name="title_activity_settings" >Settings
                 </string>
-                <string name="action_dthRecharge" >ડીટીએચ  રિચાર્જ
-                </string>
                 <string name="mpin_new_confirm" >Confirm New M-PIN
+                </string>
+                <string name="action_dthRecharge" >ડીટીએચ  રિચાર્જ
                 </string>
                 <string name="error_no_internet_title" >No Internet!
                 </string>
-                <string name="tpin_back_btn" >પાછળ
-                </string>
                 <string name="title_activity_bill_payment" >Bill Payment Activity
+                </string>
+                <string name="tpin_back_btn" >પાછળ
                 </string>
                 <string name="error_newMpin" >નવી એમ પિન પ્રયત્ન કરીશું 8 આંકડાકીય અક્ષરો માત્ર
                 </string>
-                <string name="tpin_submit_btn" >દાખલ  કરો
-                </string>
-                <string name="lblYourMobile" >મોબાઇલ નંબર 
-                </string>
-                <string name="validate_oldnewMpin" > જૂના એમ પિન અને નવા એમ પિન જ ન હોઈ શકે
+                <string name="error_Tpin_matching" >નવા ટી પિન અને ખાતરી પાસવર્ડ મેળ ખાતો નથી
                 </string>
                 <string name="error_oldTpin" >યોગ્ય જૂના ટી પિન દાખલ કરો
                 </string>
-                <string name="error_Tpin_matching" >નવા ટી પિન અને ખાતરી પાસવર્ડ મેળ ખાતો નથી
+                <string name="validate_oldnewMpin" > જૂના એમ પિન અને નવા એમ પિન જ ન હોઈ શકે
+                </string>
+                <string name="lblYourMobile" >મોબાઇલ નંબર 
+                </string>
+                <string name="tpin_submit_btn" >દાખલ  કરો
                 </string>
                 <string name="title_activity_transaction_history" >Transaction History
                 </string>
@@ -2433,17 +2433,17 @@
                 </string>
                 <string name="feedbacktypeMOMList4" >ઉપયોગિતા બિલ ચુકવણી
                 </string>
-                <string name="btnn_recharge" >રિચાર્જ
-                </string>
-                <string name="lblAmount" >રકમ
-                </string>
-                <string name="action_mobileRecharge" >મોબાઇલ રિચાર્જ
-                </string>
-                <string name="title_activity_aadhar_list1" >AadharListActivity
+                <string name="feedbacktypeMOMList3" >કાર્ડ નુ વેચાણ 
                 </string>
                 <string name="lbl_TxDate" >Tx Date
                 </string>
-                <string name="feedbacktypeMOMList3" >કાર્ડ નુ વેચાણ 
+                <string name="title_activity_aadhar_list1" >AadharListActivity
+                </string>
+                <string name="action_mobileRecharge" >મોબાઇલ રિચાર્જ
+                </string>
+                <string name="lblAmount" >રકમ
+                </string>
+                <string name="btnn_recharge" >રિચાર્જ
                 </string>
                 <string name="feedbacktypeMOMList2" >બિલની ચૂકવણી
                 </string>
@@ -2463,9 +2463,9 @@
                 </string>
                 <string name="feedbacktypeMOMList8" >ટી પિન બદલો
                 </string>
-                <string name="btn_swipe" >Swipe
-                </string>
                 <string name="feedbacktypeMOMList5" >ઈતિહાસ
+                </string>
+                <string name="btn_swipe" >Swipe
                 </string>
                 <string name="feedbacktypeMOMList6" >સેટિંગ્સ
                 </string>
@@ -2477,9 +2477,9 @@
                 </string>
                 <string name="action_history" >ઈતિહાસ
                 </string>
-                <string name="title_activity_main1" >MainActivity
-                </string>
                 <string name="btn_pay" >Pay
+                </string>
+                <string name="title_activity_main1" >MainActivity
                 </string>
                 <string name="error_amount_min_max" >Amount should be between Rs. %1$d and Rs. %2$d.
                 </string>
@@ -2584,57 +2584,57 @@
                 </string>
                 <string name="login_failed_msg_default" >Login Failed. Please check your mobile number and M-Pin
                 </string>
-                <string name="tpin1" >ટી પિન
-                </string>
                 <string name="prompt_Validity_north_serviceprovider" >ઉત્તર સેવા પ્રદાતા પસંદ કરો
+                </string>
+                <string name="tpin1" >ટી પિન
                 </string>
                 <string name="prompt_spinner_select_operator" >પસંદ સેવા પ્રદાતા
                 </string>
                 <string name="login_username_required" >તમારા મોબાઇલ નંબર દાખલ કરો
                 </string>
-                <string name="validity_radio_btn" >માન્યતા
-                </string>
                 <string name="error_phone_length" >Phone Number should be of %1$d digits.
+                </string>
+                <string name="validity_radio_btn" >માન્યતા
                 </string>
                 <string name="prompt_Validity_amount" >અમાન્ય રકમ
                 </string>
                 <string name="action_changeTpin" >ટી પિન બદલો
                 </string>
-                <string name="lbl_StanId" >Stan Id
-                </string>
                 <string name="validate_oldnewTpin" > જૂના ટી પિન અને નવા ટી પિન જ ન હોઈ શકે
                 </string>
-                <string name="lblBal" >બેલન્સ: રૂ.
+                <string name="lbl_StanId" >Stan Id
                 </string>
                 <string name="error_subscriber_id_length" >Subscriber ID should be of %1$d characters.
                 </string>
-                <string name="lblSubscriberId" >ઉપભોક્તા આઈડી
+                <string name="lblBal" >બેલન્સ: રૂ.
                 </string>
                 <string name="AlertDialog_BillPayment" >ચુકવણીની ખાતરી કરો
                 </string>
-                <string name="btn_logout" >લૉગઆઉટ
+                <string name="lblSubscriberId" >ઉપભોક્તા આઈડી
                 </string>
                 <string name="Lbl_Amount" >રકમ: રૂ.
                 </string>
-                <string name="btn_billpayment" >ચુકવણી
+                <string name="btn_logout" >લૉગઆઉટ
                 </string>
-                <string name="prompt_Title" >Message
+                <string name="btn_billpayment" >ચુકવણી
                 </string>
                 <string name="hello_blank_fragment" >Hello blank fragment
                 </string>
-                <string name="title_activity_verify_tpin" >VerifyTPinActivity
+                <string name="prompt_Title" >Message
+                </string>
+                <string name="title_activity_change_pin" >Change PIN
                 </string>
                 <string name="mpin_new" >નવી ટી પિન
                 </string>
-                <string name="title_activity_change_pin" >Change PIN
+                <string name="title_activity_verify_tpin" >VerifyTPinActivity
                 </string>
                 <string name="error_Mpin_matching" >નવા એમ પિન અને ખાતરી પાસવર્ડ મેળ ખાતો નથી
                 </string>
                 <string name="lbl_Notes" >Notes
                 </string>
-                <string name="lbl_AccountNumber" >એકાઉન્ટ નંબર દાખલ કરો
-                </string>
                 <string name="changepassword_old" >Old Password
+                </string>
+                <string name="lbl_AccountNumber" >એકાઉન્ટ નંબર દાખલ કરો
                 </string>
                 <string name="login_username_pwd_required" >તમારા મોબાઇલ નંબર અને પાસવર્ડ દાખલ કરો
                 </string>
@@ -2644,11 +2644,11 @@
                 </string>
                 <string name="no_transactions_found" >No Transactions found
                 </string>
-                <string name="prompt_Message" >""તમે પાછળ બટન દબાવવામાં આવી છે.તમે એપ્લિકેશન બહાર નીકળવા માંગો છો?"
+                <string name="feedbacktypeMOMList10" >પાસવર્ડ બદલો
                 </string>
                 <string name="lbl_ExpiryDate" >Expiry Date
                 </string>
-                <string name="feedbacktypeMOMList10" >પાસવર્ડ બદલો
+                <string name="prompt_Message" >""તમે પાછળ બટન દબાવવામાં આવી છે.તમે એપ્લિકેશન બહાર નીકળવા માંગો છો?"
                 </string>
                 <string name="login_missing_params" >પેરામીટર ખૂટે
                 </string>
@@ -2658,9 +2658,9 @@
                 </string>
                 <string name="error_phone_length_min_max" >Phone Number should be between %1$d and %2$d digits.
                 </string>
-                <string name="lbl_FirstName" >પ્રથમ નામ દાખલ કરો
-                </string>
                 <string name="lbl_Type" >Type
+                </string>
+                <string name="lbl_FirstName" >પ્રથમ નામ દાખલ કરો
                 </string>
                 <string name="btn_secondback" >પાછળ
                 </string>
@@ -2670,11 +2670,11 @@
                 </string>
                 <string name="error_subscriber_id_min_max" >Subscriber ID should be between %1$d and %2$d characters.
                 </string>
-                <string name="tpin_incorrect" >Incorrect T-Pin
+                <string name="changepassword_new" >New Password
                 </string>
                 <string name="action_settings1" >સેટિંગ્સ
                 </string>
-                <string name="changepassword_new" >New Password
+                <string name="tpin_incorrect" >Incorrect T-Pin
                 </string>
                 <string name="lbl_Signature" >Signature
                 </string>
@@ -2690,17 +2690,17 @@
                 </string>
                 <string name="topUp_radio_btn" >ટોપ-અપ 
                 </string>
-                <string name="btn_login" >લોગિન
-                </string>
                 <string name="mpin" >એમ પિન
                 </string>
-                <string name="action_changepassword" >પાસવર્ડ બદલો
+                <string name="btn_login" >લોગિન
                 </string>
                 <string name="Dialog_No" >ના 
                 </string>
-                <string name="lbl_Cardholder" >Cardholder
+                <string name="action_changepassword" >પાસવર્ડ બદલો
                 </string>
                 <string name="lbl_Login" >લોગિન
+                </string>
+                <string name="lbl_Cardholder" >Cardholder
                 </string>
                 <string name="tpin_oldHin" >Old T-पिन
                 </string>
@@ -2708,9 +2708,9 @@
             <file
                 path="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/android/res/values-hi/stringsdata.xml"
                 qualifiers="hi" >
-                <string name="action_changepassword" >पासवर्ड बदलें
-                </string>
                 <string name="lbl_AuthCode" >Auth Code
+                </string>
+                <string name="action_changepassword" >पासवर्ड बदलें
                 </string>
                 <string name="mpin" >M-पिन
                 </string>
@@ -2720,9 +2720,9 @@
                 </string>
                 <string name="error_phone_length_min_max" >Phone Number should be between %1$d and %2$d digits.
                 </string>
-                <string name="prompt_select_operator" >Please select the Operator
-                </string>
                 <string name="login_username_pwd_required" >Please enter your mobile number and password
+                </string>
+                <string name="prompt_select_operator" >Please select the Operator
                 </string>
                 <string name="action_cardSale" >कार्ड बिक्री
                 </string>
@@ -2758,9 +2758,9 @@
                 </string>
                 <string name="lblAmount" >राशि
                 </string>
-                <string name="prompt_Message" >You have pressed the BACK  button. Would you like to exit the app?
-                </string>
                 <string name="action_utilityBill" >Utility Bill Payment
+                </string>
+                <string name="prompt_Message" >You have pressed the BACK  button. Would you like to exit the app?
                 </string>
                 <string name="title_activity_dthrecharge" >DTH Recharge
                 </string>
@@ -2774,25 +2774,25 @@
                 </string>
                 <string name="tpin_oldHin" >Old T-पिन
                 </string>
-                <string name="tpin_new" >New T-PIN
-                </string>
                 <string name="Lbl_MobileNumber" >मोबाइल नंबर:
+                </string>
+                <string name="tpin_new" >New T-PIN
                 </string>
                 <string name="btn_dashboard" >Dashboard
                 </string>
                 <string name="title_activity_transaction_confirmation" >Transaction Result
                 </string>
-                <string name="tpin1" >T-PIN
-                </string>
                 <string name="mpin_incorrect" >Incorrect M-Pin
                 </string>
-                <string name="prompt_numbers_only_amount" >Please only enter numbers in the amount field
+                <string name="tpin1" >T-PIN
                 </string>
-                <string name="prompt_Validity_amount" >अमान्य राशि
+                <string name="lbl_Type" >Type
                 </string>
                 <string name="lbl_Status" >Status
                 </string>
-                <string name="lbl_Type" >Type
+                <string name="prompt_Validity_amount" >अमान्य राशि
+                </string>
+                <string name="prompt_numbers_only_amount" >Please only enter numbers in the amount field
                 </string>
                 <string name="tpin" >T-पिन
                 </string>
@@ -2898,11 +2898,11 @@
                 </string>
                 <string name="tpin_back_btn" >वापस
                 </string>
-                <string name="tpin_old" >Old T-PIN
+                <string name="error_amount_min_max" >Amount should be between Rs. %1$d and Rs. %2$d.
                 </string>
                 <string name="prompt_Validity_mobile_number" >अमान्य मोबाइल नंबर
                 </string>
-                <string name="error_amount_min_max" >Amount should be between Rs. %1$d and Rs. %2$d.
+                <string name="tpin_old" >Old T-PIN
                 </string>
                 <string name="btn_Next" >Next
                 </string>
@@ -2923,9 +2923,9 @@
                 </string>
                 <string name="feedbacktypeMOMList9" >लॉगआउट
                 </string>
-                <string name="btn_secondback" >वापस
-                </string>
                 <string name="action_settings1" >सेटिंग्स
+                </string>
+                <string name="btn_secondback" >वापस
                 </string>
                 <string name="AlertDialog_BillPayment" >भुगतान की पुष्टि करें
                 </string>
@@ -2937,17 +2937,17 @@
                 </string>
                 <string name="btn_Cancel" >Cancel
                 </string>
-                <string name="lbl_StanId" >Stan Id
-                </string>
                 <string name="error_newMpin" >The new MPIN should be 8 numeric characters only
                 </string>
-                <string name="lbl_Email" >Email
+                <string name="lbl_StanId" >Stan Id
                 </string>
                 <string name="password" >पासवर्ड
                 </string>
-                <string name="action_Logout" >लॉगआउट
+                <string name="lbl_Email" >Email
                 </string>
                 <string name="title_activity_bill_payment" >Bill Payment Activity
+                </string>
+                <string name="action_Logout" >लॉगआउट
                 </string>
                 <string name="lbl_TxDate" >Tx Date
                 </string>
@@ -2957,9 +2957,9 @@
                 </string>
                 <string name="no_transactions_found" >No Transactions found
                 </string>
-                <string name="tpin_submit_btn" >प्रस्तुत करें
-                </string>
                 <string name="lbl_AmountRs." >Amount Rs.
+                </string>
+                <string name="tpin_submit_btn" >प्रस्तुत करें
                 </string>
                 <string name="lbl_AccountNumber" >Enter Account Number
                 </string>
@@ -2969,19 +2969,19 @@
                 </string>
                 <string name="error_obtaining_bill_amount" >Could not obtain the bill amount. Please check the consumer number.
                 </string>
-                <string name="action_changeTpin" >Change T-Pin
-                </string>
                 <string name="error_customer_phone_required" >Please enter the customer\'s phone number.
                 </string>
-                <string name="lbl_FirstName" >Enter First Name
+                <string name="action_changeTpin" >Change T-Pin
                 </string>
                 <string name="error_no_internet" >Your device is not connected to the Internet. Please try this when your Internet connection is back.
                 </string>
+                <string name="lbl_FirstName" >Enter First Name
+                </string>
                 <string name="lbl_TxMessage" >Tx Message
                 </string>
-                <string name="topUp_radio_btn" >टॉप-अप
-                </string>
                 <string name="lbl_TransactionStatus" >Transaction Status
+                </string>
+                <string name="topUp_radio_btn" >टॉप-अप
                 </string>
                 <string name="error_newTpin" >The new TPIN should be 8 numeric characters only
                 </string>
@@ -3001,9 +3001,9 @@
                 </string>
                 <string name="title_activity_aadhar_list1" >AadharListActivity
                 </string>
-                <string name="title_activity_change_password_pbx1" >ChangePasswordPBXActivity
-                </string>
                 <string name="tpin_new_confirm" >Confirm New T-PIN
+                </string>
+                <string name="title_activity_change_password_pbx1" >ChangePasswordPBXActivity
                 </string>
                 <string name="prompt_enter_tpin" >Please enter your T-Pin
                 </string>
@@ -3021,9 +3021,9 @@
                 </string>
                 <string name="btn_new_recharge" >नया लेन-देन
                 </string>
-                <string name="prompt_spinner_select_operator" >सेवा प्रदाता चुनें
-                </string>
                 <string name="lbl_Notes" >Notes
+                </string>
+                <string name="prompt_spinner_select_operator" >सेवा प्रदाता चुनें
                 </string>
                 <string name="title_activity_best_fusion1" >BestFusionActivity
                 </string>
@@ -3031,11 +3031,11 @@
             <file
                 path="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/android/res/values-or/stringsdata.xml"
                 qualifiers="or" >
-                <string name="btn_new_recharge" >ନୂତନ ଟ୍ରାଞ୍ଜାକ୍‌ସନ୍
+                <string name="error_phone_length_min_max" >Phone Number should be between %1$d and %2$d digits.
                 </string>
                 <string name="error_customer_phone_required" >Please enter the customer\'s phone number.
                 </string>
-                <string name="error_phone_length_min_max" >Phone Number should be between %1$d and %2$d digits.
+                <string name="btn_new_recharge" >ନୂତନ ଟ୍ରାଞ୍ଜାକ୍‌ସନ୍
                 </string>
                 <string name="lbl_TransactionStatus" >Transaction Status
                 </string>
@@ -3047,9 +3047,9 @@
                 </string>
                 <string name="changepassword_confirm" >Confirm Password
                 </string>
-                <string name="tpin_back_btn" >ବ୍ୟାକ୍‌
-                </string>
                 <string name="lblConsumerNumber" >Consumer Number
+                </string>
+                <string name="tpin_back_btn" >ବ୍ୟାକ୍‌
                 </string>
                 <string name="mpin_old" >Old M-PIN
                 </string>
@@ -3093,17 +3093,17 @@
                 </string>
                 <string name="btn_clear" >Clear
                 </string>
-                <string name="lblSubscriberId" >ଉପଭୋକ୍ତାଙ୍କ ID:
+                <string name="tpin_new" >New T-PIN
                 </string>
                 <string name="tpin" >Enter T-Pin
                 </string>
-                <string name="tpin_new" >New T-PIN
+                <string name="lblSubscriberId" >ଉପଭୋକ୍ତାଙ୍କ ID:
                 </string>
                 <string name="error_getting_balance" >Error
                 </string>
-                <string name="tpin_old" >Old T-PIN
-                </string>
                 <string name="title_activity_change_password_pbx1" >ChangePasswordPBXActivity
+                </string>
+                <string name="tpin_old" >Old T-PIN
                 </string>
                 <string name="prompt_Validity_subscriberId" >ଅବୈଧ ଉପଭୋକ୍ତାଙ୍କ ID
                 </string>
@@ -3111,11 +3111,11 @@
                 </string>
                 <string name="btn_newRecharge" >ନୂତନ ଟ୍ରାଞ୍ଜାକ୍‌ସନ୍
                 </string>
-                <string name="lbl_Email" >Email
+                <string name="topUp_radio_btn" >ଟପ୍‌-ଅପ୍‌
                 </string>
                 <string name="validity_radio_btn" >Validity
                 </string>
-                <string name="topUp_radio_btn" >ଟପ୍‌-ଅପ୍‌
+                <string name="lbl_Email" >Email
                 </string>
                 <string name="action_changeMpin" >Change M-Pin
                 </string>
@@ -3221,9 +3221,9 @@
                 </string>
                 <string name="btn_GetbillamountData" >Get Your Bill Amount
                 </string>
-                <string name="hello_worldtest" ></string>
                 <string name="btn_logout" >ଲଗ୍‌ଆଉଟ୍‌
                 </string>
+                <string name="hello_worldtest" ></string>
                 <string name="changepassword_new" >New Password
                 </string>
                 <string name="error_no_internet" >Your device is not connected to the Internet. Please try this when your Internet connection is back.
@@ -3238,39 +3238,39 @@
                 </string>
                 <string name="error_oldMpin" >Enter Correct Old MPIN
                 </string>
-                <string name="action_billPayment" >ବିଲ୍‌ ପୈଠ
-                </string>
                 <string name="action_dthRecharge" >DTH ରିଚାର୍ଜ
+                </string>
+                <string name="action_billPayment" >ବିଲ୍‌ ପୈଠ
                 </string>
                 <string name="lblCustomerLandlineNumber" >Customer\'s Land Line Number
                 </string>
                 <string name="cardsale_lastdigits" >Card Last\n4 digits
                 </string>
-                <string name="lbl_FirstName" >Enter First Name
-                </string>
                 <string name="btn_recharge" >ରିଚାର୍ଜ
+                </string>
+                <string name="lbl_FirstName" >Enter First Name
                 </string>
                 <string name="Lbl_Operator" >ଅପରେଟର୍‌:
                 </string>
                 <string name="prompt_Validity_mobile_number" >ଅବୈଧ ମୋବାଇଲ୍‌ ନମ୍ବର୍‌
                 </string>
-                <string name="error_subscriber_id_length" >Subscriber ID should be of %1$d characters.
-                </string>
                 <string name="mpin_new_confirm" >Confirm New M-PIN
+                </string>
+                <string name="error_subscriber_id_length" >Subscriber ID should be of %1$d characters.
                 </string>
                 <string name="tpin_submit_btn" >ଦାଖଲ
                 </string>
                 <string name="action_settings1" >ସେଟିଙ୍ଗ୍ସ୍
                 </string>
-                <string name="Rupee" >\u20B9
-                </string>
                 <string name="AlertDialog_BillPayment" >ପୈଠ ସୁନିଶ୍ଚିତ
+                </string>
+                <string name="Rupee" >\u20B9
                 </string>
                 <string name="password" >ପାସ୍‌ୱାର୍ଡ
                 </string>
-                <string name="btn_stop" >Stop
-                </string>
                 <string name="lbl_Voucher" >Voucher
+                </string>
+                <string name="btn_stop" >Stop
                 </string>
                 <string name="title_activity_transaction_history_count" >Last %1$d Transaction(s)
                 </string>
@@ -3280,11 +3280,11 @@
                 </string>
                 <string name="lbl_AccountNumber" >Enter Account Number
                 </string>
-                <string name="btn_swipe" >Swipe
+                <string name="btn_dashboard" >Dashboard
                 </string>
                 <string name="prompt_spinner_select_operator" >ସେବା ପ୍ରଦାନକର୍ତ୍ତା ଚୟନ
                 </string>
-                <string name="btn_dashboard" >Dashboard
+                <string name="btn_swipe" >Swipe
                 </string>
                 <string name="login_username_required" >Please enter your mobile Number
                 </string>
@@ -3306,11 +3306,11 @@
                 </string>
                 <string name="title_activity_main1" >MainActivity
                 </string>
-                <string name="btn_billpayment" >ପୈଠ
+                <string name="Lbl_SubscriberID" >ଉପଭୋକ୍ତାଙ୍କ ID:
                 </string>
                 <string name="action_changeTpin" >Change T-Pin
                 </string>
-                <string name="Lbl_SubscriberID" >ଉପଭୋକ୍ତାଙ୍କ ID:
+                <string name="btn_billpayment" >ପୈଠ
                 </string>
                 <string name="lblRechargeAmount" >Recharge Amount
                 </string>
@@ -3318,23 +3318,23 @@
                 </string>
                 <string name="error_newMpin" >The new MPIN should be 8 numeric characters only
                 </string>
-                <string name="prompt_Message" >You have pressed the BACK  button. Would you like to exit the app?
-                </string>
                 <string name="title_activity_aadhar_payment1" >AadharPaymentActivity
+                </string>
+                <string name="prompt_Message" >You have pressed the BACK  button. Would you like to exit the app?
                 </string>
                 <string name="lblBal" >ରାଶି: ଟ. 
                 </string>
-                <string name="lblAmount" >ରାଶି: ଟ. 
-                </string>
                 <string name="login_pwd_required" >ଦୟାକରି ଆପଣଙ୍କର ପାସ୍‌ୱାର୍ଡ ପ୍ରବେଶ କରାନ୍ତୁ
                 </string>
-                <string name="lbl_Notes" >Notes
+                <string name="lblAmount" >ରାଶି: ଟ. 
                 </string>
                 <string name="error_Mpin_matching" >New MPIN and Confirm Password doesnot match
                 </string>
-                <string name="lblCustomerMobile" >Customer\'s Mobile Number
+                <string name="lbl_Notes" >Notes
                 </string>
                 <string name="action_history" >ଇତିହାସ
+                </string>
+                <string name="lblCustomerMobile" >Customer\'s Mobile Number
                 </string>
                 <string name="lbl_ExpiryDate" >Expiry Date
                 </string>
@@ -3346,9 +3346,9 @@
                 </string>
                 <string name="error_obtaining_bill_amount" >Could not obtain the bill amount. Please check the consumer number.
                 </string>
-                <string name="prompt_numbers_only_amount" >Please only enter numbers in the amount field
-                </string>
                 <string name="AlertDialog_DTHRecharge" >DTH ରିଚାର୍ଜ ସୁନିଶ୍ଚିତ
+                </string>
+                <string name="prompt_numbers_only_amount" >Please only enter numbers in the amount field
                 </string>
             </file>
             <file
@@ -3360,29 +3360,29 @@
             <file
                 path="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/android/res/values-ta/stringsdata.xml"
                 qualifiers="ta" >
-                <string name="btn_Login" >உள்நுழைக
-                </string>
                 <string name="title_activity_transaction_confirmation" >Transaction Result
+                </string>
+                <string name="btn_Login" >உள்நுழைக
                 </string>
                 <string name="lbl_Cardholder" >Cardholder
                 </string>
-                <string name="lbl_AccountNumber" >Enter Account Number
-                </string>
                 <string name="Rupee" >\u20B9
+                </string>
+                <string name="lbl_AccountNumber" >Enter Account Number
                 </string>
                 <string name="Lbl_MobileNumber" >மொபைல் ரீசார்ஜ்:
                 </string>
                 <string name="btn_recharge" >ரீசார்ஜ் செய்க
                 </string>
-                <string name="lbl_ExpiryDate" >Expiry Date
-                </string>
                 <string name="AlertDialog_DTHRecharge" >DTH ரீசார்ஜை உறுதிப்படுத்துக
+                </string>
+                <string name="lbl_ExpiryDate" >Expiry Date
                 </string>
                 <string name="btn_stop" >Stop
                 </string>
-                <string name="lblSubscriberId" >சந்தாதாரர் ID: 
-                </string>
                 <string name="error_newMpin" >The new MPIN should be 8 numeric characters only
+                </string>
+                <string name="lblSubscriberId" >சந்தாதாரர் ID: 
                 </string>
                 <string name="title_activity_transaction_history" >Transaction History
                 </string>
@@ -3406,13 +3406,13 @@
                 </string>
                 <string name="btn_secondback" >பின்செல்
                 </string>
-                <string name="btn_new_bill_pay" >Pay another Bill
-                </string>
                 <string name="action_Logout" >வெளியேறுக
                 </string>
-                <string name="btn_Cancel" >Cancel
+                <string name="btn_new_bill_pay" >Pay another Bill
                 </string>
                 <string name="lbl_Status" >Status
+                </string>
+                <string name="btn_Cancel" >Cancel
                 </string>
                 <string name="lbl_Login" >உள்நுழைக
                 </string>
@@ -3431,9 +3431,9 @@
                 <string name="hello_worldtest" ></string>
                 <string name="lbl_Type" >Type
                 </string>
-                <string name="action_changepassword" >கடவுச்சொல்லை மாற்றுக
-                </string>
                 <string name="lbl_StanId" >Stan Id
+                </string>
+                <string name="action_changepassword" >கடவுச்சொல்லை மாற்றுக
                 </string>
                 <string name="error_oldMpin" >Enter Correct Old MPIN
                 </string>
@@ -3447,9 +3447,9 @@
                 </string>
                 <string name="changepassword_new" >New Password
                 </string>
-                <string name="lbl_RRNo" >RR No
-                </string>
                 <string name="feedbacktypeMOMList6" >அமைப்புகள்
+                </string>
+                <string name="lbl_RRNo" >RR No
                 </string>
                 <string name="feedbacktypeMOMList7" >Change M-Pin
                 </string>
@@ -3549,33 +3549,33 @@
                 </string>
                 <string name="tpin_new" >New T-PIN
                 </string>
-                <string name="btn_swipe" >Swipe
-                </string>
                 <string name="mpin_new" >New M-PIN
                 </string>
-                <string name="tpin1" >T-PIN
+                <string name="btn_swipe" >Swipe
+                </string>
+                <string name="lbl_TransactionStatus" >Transaction Status
                 </string>
                 <string name="action_utilityBill" >Utility Bill Payment
                 </string>
-                <string name="lbl_TransactionStatus" >Transaction Status
+                <string name="tpin1" >T-PIN
                 </string>
                 <string name="feedbacktypeMOMList" >மொபைல் ரீசார்ஜ்
                 </string>
                 <string name="mpin" >M-Pin
                 </string>
-                <string name="prompt_Validity_consumer_number" >Invalid ConsumerNumber
-                </string>
                 <string name="error_subscriber_id_length" >Subscriber ID should be of %1$d characters.
                 </string>
-                <string name="prompt_Validity_amount" >தவறான தொகை
+                <string name="prompt_Validity_consumer_number" >Invalid ConsumerNumber
                 </string>
                 <string name="error_mobile_required" >मोबाइल नंबर required
                 </string>
+                <string name="prompt_Validity_amount" >தவறான தொகை
+                </string>
                 <string name="action_changeMpin" >Change M-Pin
                 </string>
-                <string name="prompt_select_operator" >Please select the Operator
-                </string>
                 <string name="Lbl_SubscriberID" >சந்தாதாரர் ID:
+                </string>
+                <string name="prompt_select_operator" >Please select the Operator
                 </string>
                 <string name="btnn_recharge" >ரீசார்ஜ் செய்க
                 </string>
@@ -3587,9 +3587,9 @@
                 </string>
                 <string name="lbl_Last4digits" >Last 4 digits
                 </string>
-                <string name="lblConsumerNumber" >Consumer Number
-                </string>
                 <string name="error_phone_length_min_max" >Phone Number should be between %1$d and %2$d digits.
+                </string>
+                <string name="lblConsumerNumber" >Consumer Number
                 </string>
                 <string name="Lbl_Operator" >ஆப்பரேட்டர்:
                 </string>
@@ -3597,11 +3597,11 @@
                 </string>
                 <string name="validate_oldnewMpin" > Old MPIN and New MPIN cannot be same
                 </string>
-                <string name="lblCustomerLandlineNumber" >Customer\'s Land Line Number
+                <string name="error_newTpin" >The new TPIN should be 8 numeric characters only
                 </string>
                 <string name="lblBal" >இருப்பு: ரூ.
                 </string>
-                <string name="error_newTpin" >The new TPIN should be 8 numeric characters only
+                <string name="lblCustomerLandlineNumber" >Customer\'s Land Line Number
                 </string>
                 <string name="error_amount_min_max" >Amount should be between Rs. %1$d and Rs. %2$d.
                 </string>
@@ -3613,17 +3613,17 @@
                 </string>
                 <string name="lbl_AuthCode" >Auth Code
                 </string>
-                <string name="btn_login" >உள்நுழைக
-                </string>
                 <string name="title_activity_change_password_pbx1" >ChangePasswordPBXActivity
                 </string>
-                <string name="btn_verifyTpin" >Verify T-Pin
+                <string name="btn_login" >உள்நுழைக
                 </string>
                 <string name="lbl_TxMessage" >Tx Message
                 </string>
-                <string name="btn_logout" >வெளியேறுக
+                <string name="btn_verifyTpin" >Verify T-Pin
                 </string>
                 <string name="title_activity_change_pin" >Change PIN
+                </string>
+                <string name="btn_logout" >வெளியேறுக
                 </string>
                 <string name="lblAmount" >தொகை:
                 </string>
@@ -3631,15 +3631,15 @@
                 </string>
                 <string name="title_activity_verify_tpin" >VerifyTPinActivity
                 </string>
-                <string name="lblAccountNumber" >Account Number
-                </string>
                 <string name="tpin" >T-पिन
+                </string>
+                <string name="lblAccountNumber" >Account Number
                 </string>
                 <string name="lbl_AmountRs." >Amount Rs.
                 </string>
-                <string name="prompt_Title" >Message
-                </string>
                 <string name="login_failed_msg_default" >Login Failed. Please check your mobile number and M-Pin
+                </string>
+                <string name="prompt_Title" >Message
                 </string>
                 <string name="login_pwd_required" >தயவுசெய்து உங்கள் கடவுச்சொல்லை உள்ளிடவும்
                 </string>
@@ -3659,17 +3659,17 @@
                 </string>
                 <string name="Dialog_No" >இல்லை 
                 </string>
-                <string name="action_changeTpin" >Change T-Pin
-                </string>
                 <string name="lbl_Signature" >Signature
+                </string>
+                <string name="action_changeTpin" >Change T-Pin
                 </string>
                 <string name="btn_new_recharge" >புதிய பரிவர்த்தனை
                 </string>
                 <string name="error_phone_length" >Phone Number should be of %1$d digits.
                 </string>
-                <string name="title_activity_best_fusion1" >BestFusionActivity
-                </string>
                 <string name="error_Mpin_matching" >New MPIN and Confirm Password doesnot match
+                </string>
+                <string name="title_activity_best_fusion1" >BestFusionActivity
                 </string>
                 <string name="lbl_LastName" >Enter Last Name
                 </string>
@@ -3697,9 +3697,9 @@
                 </string>
                 <string name="btn_pay" >Pay
                 </string>
-                <string name="btn_verifyTpin" >Verify T-Pin
-                </string>
                 <string name="login_failed_msg_default" >Login Failed. Please check your mobile number and M-Pin
+                </string>
+                <string name="btn_verifyTpin" >Verify T-Pin
                 </string>
                 <string name="action_cardSale" >కార్డు అమ్మకం
                 </string>
@@ -3729,45 +3729,45 @@
                 </string>
                 <string name="prompt_enter_tpin" >Please enter your T-Pin
                 </string>
-                <string name="lbl_FirstName" >Enter First Name
-                </string>
                 <string name="feedbacktypeMOMList3" >కార్డు అమ్మకం
                 </string>
-                <string name="lbl_Type" >Type
+                <string name="lbl_FirstName" >Enter First Name
                 </string>
                 <string name="feedbacktypeMOMList2" >బిల్లు చెల్లింపు
                 </string>
-                <string name="error_customer_phone_required" >Please enter the customer\'s phone number.
-                </string>
-                <string name="lbl_Login" >లాగిన్
+                <string name="lbl_Type" >Type
                 </string>
                 <string name="feedbacktypeMOMList1" >డిటిహెచ్ రీఛార్జ్
                 </string>
-                <string name="feedbacktypeMOMList7" >Change M-Pin
+                <string name="lbl_Login" >లాగిన్
                 </string>
-                <string name="btn_clear" >Clear
+                <string name="error_customer_phone_required" >Please enter the customer\'s phone number.
+                </string>
+                <string name="feedbacktypeMOMList7" >Change M-Pin
                 </string>
                 <string name="feedbacktypeMOMList6" >సెట్టింగ్స్
                 </string>
-                <string name="tpin_incorrect" >Incorrect T-Pin
+                <string name="btn_clear" >Clear
                 </string>
                 <string name="feedbacktypeMOMList5" >చరిత్ర
                 </string>
-                <string name="lbl_AuthCode" >Auth Code
+                <string name="tpin_incorrect" >Incorrect T-Pin
                 </string>
                 <string name="feedbacktypeMOMList4" >Utility Bill Payment
                 </string>
-                <string name="validity_radio_btn" >Validity
+                <string name="lbl_AuthCode" >Auth Code
                 </string>
                 <string name="btn_new_bill_pay" >Pay another Bill
+                </string>
+                <string name="validity_radio_btn" >Validity
                 </string>
                 <string name="lblAccountNumber" >Account Number
                 </string>
                 <string name="lblConsumerNumber" >Consumer Number
                 </string>
-                <string name="no_transactions_found" >No Transactions found
-                </string>
                 <string name="AlertDialog_MobileRecharge" >మొబైల్ రీఛార్జ్ ధృవీకరించండి
+                </string>
+                <string name="no_transactions_found" >No Transactions found
                 </string>
                 <string name="prompt_Message" >You have pressed the BACK  button. Would you like to exit the app?
                 </string>
@@ -3879,33 +3879,33 @@
                 </string>
                 <string name="lblAmount" >మొత్తం: రూ. 
                 </string>
-                <string name="title_activity_settings" >Settings
-                </string>
                 <string name="feedbacktypeMOMList10" >పాస్వర్డ్ మార్చు
+                </string>
+                <string name="title_activity_settings" >Settings
                 </string>
                 <string name="lbl_Voucher" >Voucher
                 </string>
                 <string name="AlertDialog_DTHRecharge" >డిటిహెచ్ రీఛార్జ్ ధృవీకరించండి
                 </string>
-                <string name="btn_getBillAmount" >Get Your Bill Amount
-                </string>
                 <string name="mpin_new" >New M-PIN
+                </string>
+                <string name="btn_getBillAmount" >Get Your Bill Amount
                 </string>
                 <string name="lbl_AccountNumber" >Enter Account Number
                 </string>
-                <string name="prompt_Validity_radio_btn" >Select radio button
-                </string>
-                <string name="title_activity_best_fusion1" >BestFusionActivity
+                <string name="password" >పాస్‌వర్డ్
                 </string>
                 <string name="error_mobile_required" >मोबाइल नंबर required
                 </string>
-                <string name="password" >పాస్‌వర్డ్
+                <string name="title_activity_best_fusion1" >BestFusionActivity
+                </string>
+                <string name="prompt_Validity_radio_btn" >Select radio button
                 </string>
                 <string name="btn_newRecharge" >కొత్త లావాదేవీ
                 </string>
-                <string name="mpin_incorrect" >Incorrect M-Pin
-                </string>
                 <string name="btn_logout" >లాగవుట్
+                </string>
+                <string name="mpin_incorrect" >Incorrect M-Pin
                 </string>
                 <string name="btn_back" >వెనక
                 </string>
@@ -3929,9 +3929,9 @@
                 </string>
                 <string name="error_recharge_failed" >Error occurred during recharge. Please try again or contact Customer Support for help.
                 </string>
-                <string name="error_phone_length" >Phone Number should be of %1$d digits.
-                </string>
                 <string name="error_Tpin_matching" >New TPIN and Confirm Password doesnot match
+                </string>
+                <string name="error_phone_length" >Phone Number should be of %1$d digits.
                 </string>
                 <string name="action_utilityBill" >Utility Bill Payment
                 </string>
@@ -3945,60 +3945,60 @@
                 </string>
                 <string name="prompt_spinner_select_operator" >సర్వీస్ ప్రొవైడర్ ఎంచుకో
                 </string>
-                <string name="lbl_Last4digits" >Last 4 digits
+                <string name="Lbl_Operator" >ఆపరేటర్:
                 </string>
                 <string name="mpin_new_confirm" >Confirm New M-PIN
                 </string>
-                <string name="Lbl_Operator" >ఆపరేటర్:
+                <string name="lbl_Last4digits" >Last 4 digits
                 </string>
                 <string name="error_getting_balance" >Error
                 </string>
                 <string name="tpin1" >T-PIN
                 </string>
-                <string name="title_activity_transaction_confirmation" >Transaction Result
-                </string>
                 <string name="lbl_StanId" >Stan Id
+                </string>
+                <string name="title_activity_transaction_confirmation" >Transaction Result
                 </string>
                 <string name="hello_worldtest" ></string>
                 <string name="btn_recharge" >మొత్తాన్ని ఎంటర్ చేయి
                 </string>
                 <string name="special_radio_btn" >స్పెషల్
                 </string>
-                <string name="btn_swipe" >Swipe
+                <string name="lbl_Signature" >Signature
                 </string>
                 <string name="prompt_Validity_consumer_number" >Invalid ConsumerNumber
                 </string>
-                <string name="lbl_Signature" >Signature
+                <string name="btn_swipe" >Swipe
                 </string>
                 <string name="mpin_old" >Old M-PIN
                 </string>
-                <string name="Rupee" >\u20B9
-                </string>
                 <string name="prompt_Validity_north_serviceprovider" >Select NorthService Provider
                 </string>
-                <string name="prompt_Validity_amount" >చెల్లుబాటుకాని మొత్తం
-                </string>
-                <string name="error_subscriber_id_min_max" >Subscriber ID should be between %1$d and %2$d characters.
+                <string name="Rupee" >\u20B9
                 </string>
                 <string name="Dialog_Yes" >అవును
                 </string>
+                <string name="error_subscriber_id_min_max" >Subscriber ID should be between %1$d and %2$d characters.
+                </string>
+                <string name="prompt_Validity_amount" >చెల్లుబాటుకాని మొత్తం
+                </string>
                 <string name="validate_oldnewMpin" > Old MPIN and New MPIN cannot be same
                 </string>
-                <string name="btn_new_recharge" >కొత్త లావాదేవీ
-                </string>
                 <string name="changepassword_old" >Old Password
+                </string>
+                <string name="btn_new_recharge" >కొత్త లావాదేవీ
                 </string>
                 <string name="changepassword_confirm" >Confirm Password
                 </string>
                 <string name="title_activity_bill_payment" >Bill Payment Activity
                 </string>
-                <string name="title_activity_change_password_pbx1" >ChangePasswordPBXActivity
-                </string>
                 <string name="action_Logout" >లాగవుట్
                 </string>
-                <string name="topUp_radio_btn" >టాప్ అప్
+                <string name="title_activity_change_password_pbx1" >ChangePasswordPBXActivity
                 </string>
                 <string name="action_changepassword" >పాస్వర్డ్ మార్చు
+                </string>
+                <string name="topUp_radio_btn" >టాప్ అప్
                 </string>
                 <string name="error_oldMpin" >Enter Correct Old MPIN
                 </string>
