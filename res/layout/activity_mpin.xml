@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/appsbg"
+   
     android:scrollbars="vertical" >
 
     <RelativeLayout
@@ -75,7 +75,7 @@
             android:layout_below="@+id/Operator"
             android:layout_marginTop="130dp"
             android:background="@drawable/custom"
-            android:hint="Old MPIN"
+            android:hint="@string/mpin_old"
             android:password="true"
             android:inputType="number"
         
@@ -92,7 +92,7 @@
             android:layout_below="@+id/OldPassword"
             android:layout_marginTop="15dp"
             android:background="@drawable/custom"
-            android:hint="New MPIN"
+            android:hint="@string/mpin_new"
             android:maxLength="8"
             android:password="true"
             android:inputType="number"
@@ -108,7 +108,7 @@
             android:layout_below="@+id/NewPassword"
             android:layout_marginTop="15dp"
             android:background="@drawable/custom"
-            android:hint="Confirm MPIN"
+            android:hint="@string/mpin_new_confirm"
             android:password="true"
             android:inputType="number"
             android:maxLength="8"
@@ -128,7 +128,7 @@
             android:layout_marginLeft="80dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/custom_button"
-            android:text="Submit"
+            android:text="@string/tpin_submit_btn"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:visibility="visible" />
@@ -143,7 +143,7 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/custom_button"
             android:onClick="backpost"
-            android:text="Back"
+            android:text="@string/btn_back"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:visibility="visible" />

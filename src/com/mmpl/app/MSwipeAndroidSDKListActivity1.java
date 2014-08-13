@@ -26,10 +26,14 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import com.mmpl.app.R;
 
+
 import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -38,6 +42,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 	public class MSwipeAndroidSDKListActivity1 extends Activity {
@@ -62,7 +67,25 @@ import android.widget.TextView;
 		public void onDestroy() {
 			super.onDestroy();
 			}
+		private class GetLoginTask extends AsyncTask<Void, Void, String> {
+
+			@Override
+			protected String doInBackground(Void... params) {
+				
+				
+				return responseBody;
+			}
 		
+		
+		@Override
+		protected void onPostExecute(String result) {
+			Helpz myHelpz = new Helpz();
+			
+					response.setVisibility(View.VISIBLE);
+					response.setText("Bal: Rs." + myHelpz.GetRMNAccountBal().toString());
+					Log.i("postDataAccntMOMMSwipe",myHelpz.GetRMNAccountBal().toString() );
+		}		
+		}
 		private void AccountBalPost(){
 			 
 			 Helpz myHelpz = new Helpz();
@@ -201,7 +224,9 @@ import android.widget.TextView;
 		
 		private void initViews() 
 		{
-			AccountBalPost();
+			//AccountBalPost();
+			  getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.appsbg)); 
+			new GetLoginTask().onPostExecute("test");
 			ListView listView = (ListView) findViewById(R.id.mswipelist);
 			String[] values = new String[] { "Login", "CreditSale", "Signature","Last Transaction Status", "Change password"};
 			

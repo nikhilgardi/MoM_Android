@@ -56,7 +56,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import org.json.JSONObject;
 public class ChangePasswordPBXActivity extends Activity {
 	private String responseBody;
 	String responseBodyhistory;
@@ -82,7 +82,7 @@ public class ChangePasswordPBXActivity extends Activity {
 	Intent myintenttest = new Intent();
 
 	String response_status;
-
+	Helpz myHelpz = new Helpz();
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_changepassword);
@@ -108,6 +108,7 @@ public class ChangePasswordPBXActivity extends Activity {
 		this.backButton = (Button) findViewById(R.id.btn_back);
 
 		this.submitButton = (Button) findViewById(R.id.btn_Submit);
+		  getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.appsbg)); 
 		submitButton.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -189,39 +190,41 @@ public class ChangePasswordPBXActivity extends Activity {
 
 	private void AccountBalPost() {
 
-		Helpz myHelpz = new Helpz();
+		
 		
 			HttpClient httpclient = new DefaultHttpClient();
 			HttpPost httppost = new HttpPost(
 					"http://180.179.67.76/MobAppS/PbxMobApp.ashx");
-			try {
-
-				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-				nameValuePairs.add(new BasicNameValuePair("RN", myHelpz
-						.GetMyLoginMobileNumber()));
-				nameValuePairs.add(new BasicNameValuePair("Service", "BL"));
-
-				httppost.addHeader("ua", "android");
-				final HttpParams httpParams = httpclient.getParams();
-				HttpConnectionParams.setConnectionTimeout(httpParams, 15000);
-				HttpConnectionParams.setSoTimeout(httpParams, 15000);
-				httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-				HttpResponse response = httpclient.execute(httppost);
-				HttpEntity entity = response.getEntity();
-				responseBody = EntityUtils.toString(entity);
-				check = responseBody;
-				
-				Log.i("postData", response.getStatusLine().toString());
-				Log.i("info", responseBody);
-
-				accntbalresponse.setVisibility(View.VISIBLE);
-				accntbalresponse.setText("Bal: Rs." + check);
-
-			} catch (Exception e) {
-				Log.e("log_tag", "Error in http connection " + e.toString());
-				responseBody = "Timeout|Error in Http Connection";
-				// error="1";
-			}
+//			try {
+//
+//				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+//				nameValuePairs.add(new BasicNameValuePair("RN", myHelpz
+//						.GetMyLoginMobileNumber()));
+//				nameValuePairs.add(new BasicNameValuePair("Service", "BL"));
+//
+//				httppost.addHeader("ua", "android");
+//				final HttpParams httpParams = httpclient.getParams();
+//				HttpConnectionParams.setConnectionTimeout(httpParams, 15000);
+//				HttpConnectionParams.setSoTimeout(httpParams, 15000);
+//				httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+//				HttpResponse response = httpclient.execute(httppost);
+//				HttpEntity entity = response.getEntity();
+//				responseBody = EntityUtils.toString(entity);
+//				check = responseBody;
+//				
+//				Log.i("postData", response.getStatusLine().toString());
+//				Log.i("info", responseBody);
+//
+//				accntbalresponse.setVisibility(View.VISIBLE);
+//				accntbalresponse.setText("Bal: Rs." + check);
+//
+//			} catch (Exception e) {
+//				Log.e("log_tag", "Error in http connection " + e.toString());
+//				responseBody = "Timeout|Error in Http Connection";
+//				// error="1";
+//			}
+			accntbalresponse.setVisibility(View.VISIBLE);
+			accntbalresponse.setText("Bal: Rs." + myHelpz.GetRMNAccountBal().toString());
 	}
 
 	public class XmlPullParsing {
@@ -548,7 +551,10 @@ public class ChangePasswordPBXActivity extends Activity {
 //	}
 
 	public void onBackPressed() {
-
+		myintenttest = new Intent(ChangePasswordPBXActivity.this, InfoActivity.class);
+		myintenttest.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		startActivity(myintenttest);
+		this.finish();
 		return;
 	}
 

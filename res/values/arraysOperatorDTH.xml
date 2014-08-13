@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <string-array name="feedbacktypeDTHOperator">
+	    <item>@string/feedbacktypeDTH0</item>
+		<item>@string/feedbacktypeDTH1</item>
+		<item>@string/feedbacktypeDTH2</item>
+		<item>@string/feedbacktypeDTH3</item>
+		<item>@string/feedbacktypeDTH4</item>
+		<item>@string/feedbacktypeDTH5</item>
+		<item>@string/feedbacktypeDTH6</item>
+	</string-array>   
+</resources>

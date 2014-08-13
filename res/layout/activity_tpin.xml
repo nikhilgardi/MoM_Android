@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/appsbg"
+  
     android:scrollbars="vertical" >
 
     <RelativeLayout
@@ -58,7 +58,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="130dp"
             android:background="@drawable/custom"
-            android:hint="Old TPIN"
+            android:hint="@string/tpin_old"
             android:inputType="number"
              android:password="true"
             android:maxLength="10"
@@ -74,7 +74,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
             android:background="@drawable/custom"
-            android:hint="New TPIN"
+            android:hint="@string/tpin_new"
             android:maxLength="8"
              android:password="true"
             android:inputType="number"
@@ -90,7 +90,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
             android:background="@drawable/custom"
-            android:hint="Confirm TPIN"
+            android:hint="@string/tpin_new_confirm"
             android:inputType="number"
              android:password="true"
             android:maxLength="8"
@@ -106,7 +106,7 @@
             android:layout_marginLeft="80dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/custom_button"
-            android:text="Submit"
+            android:text="@string/tpin_submit_btn"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:visibility="visible" />
@@ -121,7 +121,7 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/custom_button"
             android:onClick="backpost"
-            android:text="Back"
+            android:text="@string/btn_back"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:visibility="visible" />

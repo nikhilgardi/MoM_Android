@@ -12,7 +12,7 @@
 		    android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:typeface="normal" 
 			android:gravity="center" android:paddingLeft="10dp" android:paddingRight="10dp"
-		    android:text="Transaction Status" android:textSize="25sp" android:textColor="#464646" android:textStyle="bold"
+		    android:text="@string/lbl_TransactionStatus" android:textSize="25sp" android:textColor="#464646" android:textStyle="bold"
 		   
 		    android:layout_alignParentTop="true" android:layout_centerInParent="true"/>
 	</RelativeLayout>
@@ -33,7 +33,7 @@
 	            	android:layout_width="100dp" android:layout_height="wrap_content"
 	            	android:typeface="sans" 
 	            	android:visibility="gone" 
-	                android:text="Status"/>
+	                android:text="@string/lbl_Status"/>
 		        <TextView android:id="@+id/lsttrxstatus_LBL_TxStatus"
 		            android:layout_width="wrap_content" android:layout_height="wrap_content"
 		            android:textColor="#000000"
@@ -48,7 +48,7 @@
 	            	android:textSize="17dp" android:textColor="#464646"
 	            	android:layout_width="100dp" android:layout_height="wrap_content"
 	            	android:typeface="sans" 
-	                android:text="Tx Date"/>
+	                android:text="@string/lbl_TxDate"/>
 		        <TextView android:id="@+id/lsttrxstatus_LBL_TxDateTime"
 		            android:layout_width="wrap_content" android:layout_height="wrap_content"
 		            android:textColor="#000000"
@@ -62,7 +62,7 @@
 	            	android:textSize="17dp" android:textColor="#464646"
 	            	android:typeface="sans" 
 	            	android:layout_width="100dp" android:layout_height="wrap_content"
-	                android:text="Cardholder"/>
+	                android:text="@string/lbl_Cardholder"/>
 		        <TextView android:id="@+id/lsttrxstatus_LBL_CardholderName"
 		            android:layout_width="wrap_content" android:layout_height="wrap_content"
 		            android:typeface="sans"
@@ -77,7 +77,7 @@
 	            	android:textSize="17dp" android:textColor="#464646"
 	            	android:typeface="sans" 
 	            	android:layout_width="100dp" android:layout_height="wrap_content"
-	                android:text="Amount Rs."/>
+	                android:text="@string/lbl_AmountRs."/>
                 		
 		        <TextView android:id="@+id/lsttrxstatus_LBL_AmtRs"
 		            android:layout_width="wrap_content" android:layout_height="wrap_content"
@@ -92,7 +92,7 @@
 	            	android:textSize="17dp" android:textColor="#464646"
 	            	android:typeface="sans" 
 	            	android:layout_width="100dp" android:layout_height="wrap_content"
-	                android:text="Last 4 digits"/>
+	                android:text="@string/lbl_Last4digits"/>
 		        <TextView android:id="@+id/lsttrxstatus_LBL_CreditCardNum"
 		            android:layout_width="wrap_content" android:layout_height="wrap_content"
 		            android:textColor="#000000"
@@ -106,7 +106,7 @@
 	            	android:textSize="17dp" android:textColor="#464646"
 	            	android:typeface="sans" 
 	            	android:layout_width="100dp" android:layout_height="wrap_content"
-	                android:text="Type"/>
+	                android:text="@string/lbl_Type"/>
 		        <TextView android:id="@+id/lsttrxstatus_LBL_TypeofTx"
 		            android:layout_width="wrap_content" android:layout_height="wrap_content"
 		            android:textColor="#000000"
@@ -121,7 +121,7 @@
 	            	android:typeface="sans" 
 	            	android:layout_width="100dp" android:layout_height="wrap_content"
 	            	android:visibility="gone"
-	                android:text="Auth Code"/>
+	                android:text="@string/lbl_AuthCode"/>
 		        <TextView android:id="@+id/lsttrxstatus_LBL_AuthNo"
 		            android:layout_width="wrap_content" android:layout_height="wrap_content"
 		            android:textColor="#000000"
@@ -136,7 +136,7 @@
 	            	android:textSize="17dp" android:textColor="#464646"
 	            	android:layout_width="100dp" android:layout_height="wrap_content"
 	            	android:visibility="gone"
-	                android:text="RR No"/>
+	                android:text="@string/lbl_RRNo"/>
 		        <TextView android:id="@+id/lsttrxstatus_LBL_RRNo"
 		            android:layout_width="wrap_content" android:layout_height="wrap_content"
 		            android:textColor="#000000"
@@ -150,7 +150,7 @@
 	            	android:textSize="17dp" android:textColor="#464646"
 	            	android:typeface="sans" 
 	            	android:layout_width="100dp" android:layout_height="wrap_content"
-	                android:text="Stan Id"/>
+	                android:text="@string/lbl_StanId"/>
 		        <TextView android:id="@+id/lsttrxstatus_LBL_StanID"
 		            android:layout_width="wrap_content" android:layout_height="wrap_content"
 		            android:textColor="#000000"
@@ -165,7 +165,7 @@
 	            	android:typeface="sans" 
 	            	android:layout_width="100dp" android:layout_height="wrap_content"
 	            	android:visibility="gone"
-	                android:text="Voucher"/>
+	                android:text="@string/lbl_Voucher"/>
 		        <TextView android:id="@+id/lsttrxstatus_LBL_Voucher"
 		            android:layout_width="wrap_content" android:layout_height="wrap_content"
 		            android:textColor="#000000"
@@ -180,7 +180,7 @@
 	            	android:typeface="sans" 
 	            	android:layout_width="100dp" android:layout_height="wrap_content"
 	            	android:visibility="gone"
-	                android:text="Tx Message"/>
+	                android:text="@string/lbl_TxMessage"/>
 		        <TextView android:id="@+id/lsttrxstatus_TXT_TerminalMessage"
 		            android:layout_width="wrap_content" android:layout_height="wrap_content"
 		            android:textColor="#000000"
@@ -196,7 +196,7 @@
 	            	android:typeface="sans" 
 	            	android:layout_width="100dp" android:layout_height="wrap_content"
 	            	android:visibility="gone"
-	                android:text="Notes"/>
+	                android:text="@string/lbl_Notes"/>
 		        <EditText android:id="@+id/lsttrxstatus_TXT_Notes"
 				    android:layout_width="285dip" android:layout_height="120dip"
 					android:layout_below="@+id/lsttrxstatus_LBL_lblNotes"

@@ -224,10 +224,10 @@ public class LoginView extends Activity {
 //	}
 public void onBackPressed() {
 		
-//		reintent = new Intent(LoginView.this, MSwipeAndroidSDKListActivity1.class);
-//		//reintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//		startActivity(reintent);
-//		this.finish();
+		reintent = new Intent(LoginView.this, MSwipeAndroidSDKListActivity1.class);
+		reintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		startActivity(reintent);
+		this.finish();
 		return;
 	}
 

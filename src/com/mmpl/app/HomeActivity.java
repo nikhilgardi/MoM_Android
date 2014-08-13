@@ -25,7 +25,6 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import com.mmpl.app.R;
-import com.mmpl.app.HistoryActivity.XmlPullParsing;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -33,7 +32,8 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.opengl.Visibility;
+
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -88,6 +88,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 	int i;
 	Intent myintent1 = new Intent();
 	Intent reintent = new Intent();
+	Helpz myHelpz = new Helpz();
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -95,6 +96,11 @@ public class HomeActivity extends Activity implements OnClickListener {
 		// SharedPreferences appSettings =
 		// getSharedPreferences(LoginActivity.PREFERENCE_FILENAME,
 		// MODE_PRIVATE);
+
+		/*
+		 * String OpeartorID=Get_OperatorID("BSNL"); Log.i("OperatorId",
+		 * OpeartorID);
+		 */
 
 		init();
 
@@ -150,10 +156,13 @@ public class HomeActivity extends Activity implements OnClickListener {
 		this.accountbal = (TextView) findViewById(R.id.AccountBal);
 
 		this.tablelayout = (TableLayout) findViewById(R.id.tableLayout1);
+		getWindow().setBackgroundDrawable(
+				getResources().getDrawable(R.drawable.appsbg));
 		AccountBalPost();
+
 		SharedPreferences pref = PreferenceManager
 				.getDefaultSharedPreferences(getApplicationContext());
-		if (pref.getString("user_sessionMOM", "test").equals("MOM"))
+		if ((pref.getString("user_sessionMOM", "test").equals("MOM")) || (pref.getString("user_sessionMOM", "test").equals("B2C")))
 
 		{
 			passButton.setVisibility(View.VISIBLE);
@@ -171,112 +180,307 @@ public class HomeActivity extends Activity implements OnClickListener {
 			amountField.setVisibility(View.VISIBLE);
 		}
 
-		String[] strOperators = getAllOperators();
+		getAllOperators();
 
-		// Get_OperatorID("Airtel");
-		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, strOperators);
-		dataAdapter
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		operatorSpinner.setAdapter(dataAdapter);
+		/*
+		 * String[] strOperators = new String[] {"AIRCEL", "AIRTEL", "BSNL",
+		 * "DATACOMM","IDEA","LOOP", "MOM CARD REFILL", "MTNL","MTS",
+		 * "QUE MOBILE", "RELIANCE CDMA","RELIANCE GSM","STEL","TATA",
+		 * "TATA DOCOMO","TATA WALKY","UNINOR","VIRGIN","VODAFONE"}; //
+		 * Get_OperatorID("Airtel") ArrayAdapter<String> dataAdapter = new
+		 * ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
+		 * strOperators); dataAdapter
+		 * .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item
+		 * ); operatorSpinner.setAdapter(dataAdapter);
+		 */
 
+	}
+
+	private class GetLoginTask extends AsyncTask<Void, Void, String> {
+
+		@Override
+		protected String doInBackground(Void... params) {
+
+			return responseBody;
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+			Helpz myHelpz = new Helpz();
+			SharedPreferences pref = PreferenceManager
+					.getDefaultSharedPreferences(getApplicationContext());
+
+			if ((pref.getString("user_sessionMOM", "test").equals("MOM")) || (pref.getString("user_sessionMOM", "test").equals("B2C")))
+
+			{
+
+				try {
+
+					List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(
+							3);
+					nameValuePairs.add(new BasicNameValuePair("OperatorID",
+							myHelpz.GetMyCustomerId()));
+					nameValuePairs.add(new BasicNameValuePair("CompanyID",
+							myHelpz.GetMyCompanyId()));
+					nameValuePairs.add(new BasicNameValuePair("strAccessID",
+							GlobalVariables.AccessId));
+					HttpClient httpclient = new DefaultHttpClient();
+					HttpPost httppost = new HttpPost(
+							"http://msvc.money-on-mobile.net/WebServiceV3Client.asmx/getBalanceByCustomerId");
+					httppost.addHeader("ua", "android");
+					final HttpParams httpParams = httpclient.getParams();
+					HttpConnectionParams
+							.setConnectionTimeout(httpParams, 15000);
+					HttpConnectionParams.setSoTimeout(httpParams, 15000);
+					httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+					HttpResponse response = httpclient.execute(httppost);
+					HttpEntity entity = response.getEntity();
+					responseBody = EntityUtils.toString(entity);
+					check = responseBody;
+					// error="0";
+					Log.i("postData", response.getStatusLine().toString());
+					Log.i("info", responseBody);
+
+					InputStream in = new ByteArrayInputStream(
+							responseBody.getBytes("UTF-8"));
+					new XmlPullParsingAccnt(in);
+
+				} catch (Exception e) {
+					Log.e("log_tag", "Error in http connection " + e.toString());
+					responseBody = "Timeout|Error in Http Connection";
+					// error="1";
+				}
+			}
+
+			else if (pref.getString("user_sessionMOM", "test").equals("PBX"))
+
+			{
+
+				HttpClient httpclient = new DefaultHttpClient();
+				HttpPost httppost = new HttpPost(
+						"http://180.179.67.76/MobAppS/PbxMobApp.ashx");
+				try {
+
+					List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(
+							2);
+					nameValuePairs.add(new BasicNameValuePair("RN", myHelpz
+							.GetMyLoginMobileNumber()));
+					nameValuePairs.add(new BasicNameValuePair("Service", "BL"));
+
+					httppost.addHeader("ua", "android");
+					final HttpParams httpParams = httpclient.getParams();
+					HttpConnectionParams
+							.setConnectionTimeout(httpParams, 15000);
+					HttpConnectionParams.setSoTimeout(httpParams, 15000);
+					httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+					HttpResponse response = httpclient.execute(httppost);
+					HttpEntity entity = response.getEntity();
+					responseBody = EntityUtils.toString(entity);
+					check = responseBody;
+					// Double number = Double.valueOf(check);
+					// DecimalFormat df = new DecimalFormat("#.00");
+					// String newtestString = df.format(number);
+					//
+					// String abc = newtestString;
+					// error="0";
+					Log.i("postData", response.getStatusLine().toString());
+					Log.i("info", responseBody);
+
+					myHelpz.SetRMNAccountBal(check);
+					accountbal.setVisibility(View.VISIBLE);
+					accountbal.setText(getResources().getString(R.string.lblBal) + myHelpz.GetRMNAccountBal());
+				} catch (Exception e) {
+					Log.e("log_tag", "Error in http connection " + e.toString());
+					responseBody = "Timeout|Error in Http Connection";
+					// error="1";
+				}
+			} else {
+				Toast.makeText(getApplicationContext(), "Error",
+						Toast.LENGTH_LONG).show();
+			}
+		}
 	}
 
 	private void AccountBalPost() {
 
-		Helpz myHelpz = new Helpz();
-
 		SharedPreferences pref = PreferenceManager
 				.getDefaultSharedPreferences(getApplicationContext());
-
+ 
 		if (pref.getString("user_sessionMOM", "test").equals("MOM"))
 
 		{
 
-			try {
+			accountbal.setVisibility(View.VISIBLE);
+			accountbal.setText(getResources().getString(R.string.lblBal)
+					+ myHelpz.GetRMNAccountBal().toString());
 
-				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(
-						3);
-				nameValuePairs.add(new BasicNameValuePair("OperatorID", myHelpz
-						.GetMyCustomerId()));
-				nameValuePairs.add(new BasicNameValuePair("CompanyID", myHelpz
-						.GetMyCompanyId()));
-				nameValuePairs.add(new BasicNameValuePair("strAccessID",
-						GlobalVariables.AccessId));
-				HttpClient httpclient = new DefaultHttpClient();
-				HttpPost httppost = new HttpPost(
-						"http://msvc.money-on-mobile.net/WebServiceV3Client.asmx/getBalanceByCustomerId");
-				httppost.addHeader("ua", "android");
-				final HttpParams httpParams = httpclient.getParams();
-				HttpConnectionParams.setConnectionTimeout(httpParams, 15000);
-				HttpConnectionParams.setSoTimeout(httpParams, 15000);
-				httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-				HttpResponse response = httpclient.execute(httppost);
-				HttpEntity entity = response.getEntity();
-				responseBody = EntityUtils.toString(entity);
-				check = responseBody;
-				// error="0";
-				Log.i("postData", response.getStatusLine().toString());
-				Log.i("info", responseBody);
-
-				InputStream in = new ByteArrayInputStream(
-						responseBody.getBytes("UTF-8"));
-				new XmlPullParsingAccnt(in);
-
-			} catch (Exception e) {
-				Log.e("log_tag", "Error in http connection " + e.toString());
-				responseBody = "Timeout|Error in Http Connection";
-				// error="1";
-			}
+			// try {
+			//
+			// List<NameValuePair> nameValuePairs = new
+			// ArrayList<NameValuePair>(
+			// 3);
+			// nameValuePairs.add(new BasicNameValuePair("OperatorID", myHelpz
+			// .GetMyCustomerId()));
+			// nameValuePairs.add(new BasicNameValuePair("CompanyID", myHelpz
+			// .GetMyCompanyId()));
+			// nameValuePairs.add(new BasicNameValuePair("strAccessID",
+			// GlobalVariables.AccessId));
+			// HttpClient httpclient = new DefaultHttpClient();
+			// HttpPost httppost = new HttpPost(
+			// "http://msvc.money-on-mobile.net/WebServiceV3Client.asmx/getBalanceByCustomerId");
+			// httppost.addHeader("ua", "android");
+			// final HttpParams httpParams = httpclient.getParams();
+			// HttpConnectionParams.setConnectionTimeout(httpParams, 15000);
+			// HttpConnectionParams.setSoTimeout(httpParams, 15000);
+			// httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+			// HttpResponse response = httpclient.execute(httppost);
+			// HttpEntity entity = response.getEntity();
+			// responseBody = EntityUtils.toString(entity);
+			// check = responseBody;
+			// // error="0";
+			// Log.i("postData", response.getStatusLine().toString());
+			// Log.i("info", responseBody);
+			//
+			// InputStream in = new ByteArrayInputStream(
+			// responseBody.getBytes("UTF-8"));
+			// new XmlPullParsingAccnt(in);
+			//
+			// } catch (Exception e) {
+			// Log.e("log_tag", "Error in http connection " + e.toString());
+			// responseBody = "Timeout|Error in Http Connection";
+			// // error="1";
+			// }
 		}
-
+		else if (pref.getString("user_sessionMOM", "test").equals("B2C"))
+		{
+			accountbal.setVisibility(View.VISIBLE);
+			accountbal.setText(getResources().getString(R.string.lblBal)
+					+ myHelpz.GetRMNAccountBal().toString());
+		}
 		else if (pref.getString("user_sessionMOM", "test").equals("PBX"))
 
 		{
+			accountbal.setVisibility(View.VISIBLE);
+			accountbal.setText(getResources().getString(R.string.lblBal)
+					+ myHelpz.GetRMNAccountBal().toString());
 
-			HttpClient httpclient = new DefaultHttpClient();
-			HttpPost httppost = new HttpPost(
-					"http://180.179.67.76/MobAppS/PbxMobApp.ashx");
-			try {
-
-				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(
-						2);
-				nameValuePairs.add(new BasicNameValuePair("RN", myHelpz
-						.GetMyLoginMobileNumber()));
-				nameValuePairs.add(new BasicNameValuePair("Service", "BL"));
-
-				httppost.addHeader("ua", "android");
-				final HttpParams httpParams = httpclient.getParams();
-				HttpConnectionParams.setConnectionTimeout(httpParams, 15000);
-				HttpConnectionParams.setSoTimeout(httpParams, 15000);
-				httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-				HttpResponse response = httpclient.execute(httppost);
-				HttpEntity entity = response.getEntity();
-				responseBody = EntityUtils.toString(entity);
-				check = responseBody;
-				// Double number = Double.valueOf(check);
-				// DecimalFormat df = new DecimalFormat("#.00");
-				// String newtestString = df.format(number);
-				//
-				// String abc = newtestString;
-				// error="0";
-				Log.i("postData", response.getStatusLine().toString());
-				Log.i("info", responseBody);
-
-				accountbal.setVisibility(View.VISIBLE);
-				accountbal.setText("Bal: Rs." + check);
-
-			} catch (Exception e) {
-				Log.e("log_tag", "Error in http connection " + e.toString());
-				responseBody = "Timeout|Error in Http Connection";
-				// error="1";
-			}
+			// HttpClient httpclient = new DefaultHttpClient();
+			// HttpPost httppost = new HttpPost(
+			// "http://180.179.67.76/MobAppS/PbxMobApp.ashx");
+			// try {
+			//
+			// List<NameValuePair> nameValuePairs = new
+			// ArrayList<NameValuePair>(
+			// 2);
+			// nameValuePairs.add(new BasicNameValuePair("RN", myHelpz
+			// .GetMyLoginMobileNumber()));
+			// nameValuePairs.add(new BasicNameValuePair("Service", "BL"));
+			//
+			// httppost.addHeader("ua", "android");
+			// final HttpParams httpParams = httpclient.getParams();
+			// HttpConnectionParams.setConnectionTimeout(httpParams, 15000);
+			// HttpConnectionParams.setSoTimeout(httpParams, 15000);
+			// httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+			// HttpResponse response = httpclient.execute(httppost);
+			// HttpEntity entity = response.getEntity();
+			// responseBody = EntityUtils.toString(entity);
+			// check = responseBody;
+			// // Double number = Double.valueOf(check);
+			// // DecimalFormat df = new DecimalFormat("#.00");
+			// // String newtestString = df.format(number);
+			// //
+			// // String abc = newtestString;
+			// // error="0";
+			// Log.i("postData", response.getStatusLine().toString());
+			// Log.i("info", responseBody);
+			//
+			// accountbal.setVisibility(View.VISIBLE);
+			// accountbal.setText("Bal: Rs." + check);
+			//
+			// } catch (Exception e) {
+			// Log.e("log_tag", "Error in http connection " + e.toString());
+			// responseBody = "Timeout|Error in Http Connection";
+			// // error="1";
+			// }
 		} else {
 			Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG)
 					.show();
 		}
 	}
 
+	/*
+	 * private void AccountBalPostRecharge() {
+	 * 
+	 * 
+	 * 
+	 * SharedPreferences pref = PreferenceManager
+	 * .getDefaultSharedPreferences(getApplicationContext());
+	 * 
+	 * if (pref.getString("user_sessionMOM", "test").equals("MOM"))
+	 * 
+	 * {
+	 * 
+	 * try {
+	 * 
+	 * List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>( 3);
+	 * nameValuePairs.add(new BasicNameValuePair("OperatorID", myHelpz
+	 * .GetMyCustomerId())); nameValuePairs.add(new
+	 * BasicNameValuePair("CompanyID", myHelpz .GetMyCompanyId()));
+	 * nameValuePairs.add(new BasicNameValuePair("strAccessID",
+	 * GlobalVariables.AccessId)); HttpClient httpclient = new
+	 * DefaultHttpClient(); HttpPost httppost = new HttpPost(
+	 * "http://msvc.money-on-mobile.net/WebServiceV3Client.asmx/getBalanceByCustomerId"
+	 * ); httppost.addHeader("ua", "android"); final HttpParams httpParams =
+	 * httpclient.getParams();
+	 * HttpConnectionParams.setConnectionTimeout(httpParams, 15000);
+	 * HttpConnectionParams.setSoTimeout(httpParams, 15000);
+	 * httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+	 * HttpResponse response = httpclient.execute(httppost); HttpEntity entity =
+	 * response.getEntity(); responseBody = EntityUtils.toString(entity); check
+	 * = responseBody; // error="0"; Log.i("postData",
+	 * response.getStatusLine().toString()); Log.i("info", responseBody);
+	 * 
+	 * InputStream in = new ByteArrayInputStream(
+	 * responseBody.getBytes("UTF-8")); new XmlPullParsingAccnt(in);
+	 * 
+	 * } catch (Exception e) { Log.e("log_tag", "Error in http connection " +
+	 * e.toString()); responseBody = "Timeout|Error in Http Connection"; //
+	 * error="1"; } }
+	 * 
+	 * else if (pref.getString("user_sessionMOM", "test").equals("PBX"))
+	 * 
+	 * {
+	 * 
+	 * 
+	 * HttpClient httpclient = new DefaultHttpClient(); HttpPost httppost = new
+	 * HttpPost( "http://180.179.67.76/MobAppS/PbxMobApp.ashx"); try {
+	 * 
+	 * List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>( 2);
+	 * nameValuePairs.add(new BasicNameValuePair("RN", myHelpz
+	 * .GetMyLoginMobileNumber())); nameValuePairs.add(new
+	 * BasicNameValuePair("Service", "BL"));
+	 * 
+	 * httppost.addHeader("ua", "android"); final HttpParams httpParams =
+	 * httpclient.getParams();
+	 * HttpConnectionParams.setConnectionTimeout(httpParams, 15000);
+	 * HttpConnectionParams.setSoTimeout(httpParams, 15000);
+	 * httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+	 * HttpResponse response = httpclient.execute(httppost); HttpEntity entity =
+	 * response.getEntity(); responseBody = EntityUtils.toString(entity); check
+	 * = responseBody; // Double number = Double.valueOf(check); //
+	 * DecimalFormat df = new DecimalFormat("#.00"); // String newtestString =
+	 * df.format(number); // // String abc = newtestString; // error="0";
+	 * Log.i("postData", response.getStatusLine().toString()); Log.i("info",
+	 * responseBody);
+	 * 
+	 * 
+	 * myHelpz.SetRMNAccountBal(check); accountbal.setVisibility(View.VISIBLE);
+	 * accountbal.setText("Bal: Rs." + myHelpz.GetRMNAccountBal()); } catch
+	 * (Exception e) { Log.e("log_tag", "Error in http connection " +
+	 * e.toString()); responseBody = "Timeout|Error in Http Connection"; //
+	 * error="1"; } } else { Toast.makeText(getApplicationContext(), "Error",
+	 * Toast.LENGTH_LONG) .show(); } }
+	 */
 	public class XmlPullParsingAccnt {
 
 		protected XmlPullParser xmlpullparser1;
@@ -363,9 +567,10 @@ public class HomeActivity extends Activity implements OnClickListener {
 				// //////// Toast.makeText(InfoActivity.this, newoutputrecharge,
 				// Toast.LENGTH_LONG).show();
 
-				accountbal.setVisibility(View.VISIBLE);
-				accountbal.setText("Bal: Rs." + newoutputrecharge);
+				myHelpz.SetRMNAccountBal(newoutputrecharge);
 
+				accountbal.setVisibility(View.VISIBLE);
+				accountbal.setText(getResources().getString(R.string.lblBal) + myHelpz.GetRMNAccountBal());
 				break;
 
 			}
@@ -385,29 +590,30 @@ public class HomeActivity extends Activity implements OnClickListener {
 		SharedPreferences pref = PreferenceManager
 				.getDefaultSharedPreferences(getApplicationContext());
 
-		if (pref.getString("user_sessionMOM", "test").equals("MOM"))
+		if ((pref.getString("user_sessionMOM", "test").equals("MOM")) || (pref.getString("user_sessionMOM", "test").equals("B2C")))
 
 		{
-			HttpClient httpclient = new DefaultHttpClient();
+
 			try {
+				String[] strOperators = new String[] {
+						getResources().getString(R.string.prompt_spinner_select_operator), "AIRCEL", "AIRTEL",
+						"BSNL", "DATACOMM", "IDEA", "LOOP", "MOM CARD REFILL",
+						"MTNL", "MTS", "QUE MOBILE", "RELIANCE CDMA",
+						"RELIANCE GSM", "STEL", "TATA", "TATA DOCOMO",
+						"TATA WALKY", "UNINOR", "VIRGIN", "VODAFONE" };
 
-				HttpPost httppost = new HttpPost(
-						"http://180.179.67.72/nokiaservice/getProductByProductType.aspx?OperatorType=1");
-				HttpResponse response = httpclient.execute(httppost);
-				HttpEntity entity = response.getEntity();
-				this.responseBody = EntityUtils.toString(entity);
-				String strOperators = responseBody;
-				Log.i("postData", response.getStatusLine().toString());
-				Log.i("postData", this.responseBody);
-
-				String[] strArrOperators = Split(strOperators, "~");
-
-				strResponse1 = strArrOperators;
+				ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(
+						this, android.R.layout.simple_spinner_item,
+						strOperators);
+				dataAdapter
+						.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				operatorSpinner.setAdapter(dataAdapter);
 
 			} catch (Exception ex) {
 				String[] strResponse = { "NO ITEM TO DISPLAY" };
 				strResponse1 = strResponse;
 			}
+
 		} else if (pref.getString("user_sessionMOM", "test").equals("PBX")) {
 			HttpClient httpclient = new DefaultHttpClient();
 			HttpPost httppost = new HttpPost(
@@ -434,6 +640,13 @@ public class HomeActivity extends Activity implements OnClickListener {
 
 				strResponse1 = strArrOperators;
 
+				ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(
+						this, android.R.layout.simple_spinner_item,
+						strResponse1);
+				dataAdapter
+						.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				operatorSpinner.setAdapter(dataAdapter);
+
 			} catch (Exception ex) {
 				String[] strResponse = { "NO ITEM TO DISPLAY" };
 				strResponse1 = strResponse;
@@ -444,6 +657,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 		}
 
 		return strResponse1;
+
 	}
 
 	private String Get_OperatorID(String strOperatorName) {
@@ -451,25 +665,68 @@ public class HomeActivity extends Activity implements OnClickListener {
 		SharedPreferences pref = PreferenceManager
 				.getDefaultSharedPreferences(getApplicationContext());
 
-		if (pref.getString("user_sessionMOM", "test").equals("MOM"))
+		if ((pref.getString("user_sessionMOM", "test").equals("MOM")) || (pref.getString("user_sessionMOM", "test").equals("B2C")))
 
 		{
-			HttpClient httpclient = new DefaultHttpClient();
-			try {
 
-				HttpPost httppostnew = new HttpPost(
-						"http://180.179.67.72/nokiaservice/getOperatorIdByOperatorName.aspx?OperatorName="
-								+ urlEncode(strOperatorName.toString()));
-				HttpResponse response = httpclient.execute(httppostnew);
-				HttpEntity entity = response.getEntity();
-				this.responseBody = EntityUtils.toString(entity);
-				String strResponse = responseBody;
-				Log.i("postData", response.getStatusLine().toString());
-				Log.i("postData", this.responseBody);
+			if (strOperatorName.equals("AIRCEL")) {
 
-				return strResponse;
+				return "1";
+			} else if (strOperatorName.equals("AIRTEL")) {
 
-			} catch (Exception ex) {
+				return "2";
+			} else if (strOperatorName.equals("BSNL")) {
+
+				return "5";
+			} else if (strOperatorName.equals("DATACOMM")) {
+
+				return "33";
+			} else if (strOperatorName.equals("IDEA")) {
+
+				return "28";
+			} else if (strOperatorName.equals("LOOP")) {
+
+				return "9";
+			} else if (strOperatorName.equals("MOM CARD REFILL")) {
+
+				return "46";
+			} else if (strOperatorName.equals("MTNL")) {
+
+				return "23";
+			} else if (strOperatorName.equals("MTS")) {
+
+				return "10";
+			} else if (strOperatorName.equals("QUE MOBILE")) {
+
+				return "72";
+			} else if (strOperatorName.equals("RELIANCE CDMA")) {
+
+				return "12";
+			} else if (strOperatorName.equals("RELIANCE GSM")) {
+
+				return "32";
+			} else if (strOperatorName.equals("STEL")) {
+
+				return "29";
+			} else if (strOperatorName.equals("TATA")) {
+
+				return "15";
+			} else if (strOperatorName.equals("TATA DOCOMO")) {
+
+				return "16";
+			} else if (strOperatorName.equals("TATA WALKY")) {
+
+				return "37";
+			} else if (strOperatorName.equals("UNINOR")) {
+
+				return "30";
+			} else if (strOperatorName.equals("VIRGIN")) {
+
+				return "19";
+			} else if (strOperatorName.equals("VODAFONE")) {
+
+				return "25";
+			} else {
 				return "0";
 			}
 		} else if (pref.getString("user_sessionMOM", "test").equals("PBX")) {
@@ -577,6 +834,8 @@ public class HomeActivity extends Activity implements OnClickListener {
 				return 1;
 			} else if (numField_mob.getText().toString().length() < 10) {
 				return 2;
+			} else if (numField_mob.getText().toString().length() > 10) {
+				return 2;
 			} else if (amountField.getText().toString().length() == 0) {
 				return 3;
 			} else if (Integer.parseInt(amountField.getText().toString()) < 10) {
@@ -602,6 +861,8 @@ public class HomeActivity extends Activity implements OnClickListener {
 				return 1;
 			} else if (numField_mob.getText().toString().length() < 10) {
 				return 2;
+			} else if (numField_mob.getText().toString().length() > 10) {
+				return 2;
 			} else if (amountField.getText().toString().length() == 0) {
 				return 3;
 			} else if (Integer.parseInt(amountField.getText().toString()) < 10) {
@@ -618,10 +879,48 @@ public class HomeActivity extends Activity implements OnClickListener {
 			} else {
 				return 0;
 			}
-		} else {
+		}
+
+		else if (Operatorid.equals("37")) {
+			if (operatorSpinner.getSelectedItemPosition() < 1) {
+				return 1;
+			} else if (numField_mob.getText().toString().length() < 1) {
+				return 2;
+			} else if (numField_mob.getText().toString().length() > 12) {
+				return 2;
+			} else if (amountField.getText().toString().length() == 0) {
+				return 3;
+			} else if (Integer.parseInt(amountField.getText().toString()) < 10) {
+				return 3;
+			} else if (Integer.parseInt(amountField.getText().toString()) > 10000) {
+				return 3;
+			} else {
+				return 0;
+			}
+		}
+		else if (Operatorid.equals("TWT")) {
+			if (operatorSpinner.getSelectedItemPosition() < 1) {
+				return 1;
+			} else if (numField_mob.getText().toString().length() < 1) {
+				return 2;
+			} else if (numField_mob.getText().toString().length() > 12) {
+				return 2;
+			} else if (amountField.getText().toString().length() == 0) {
+				return 3;
+			} else if (Integer.parseInt(amountField.getText().toString()) < 10) {
+				return 3;
+			} else if (Integer.parseInt(amountField.getText().toString()) > 10000) {
+				return 3;
+			} else {
+				return 0;
+			}
+		}
+		else {
 			if (operatorSpinner.getSelectedItemPosition() < 1) {
 				return 1;
 			} else if (numField_mob.getText().toString().length() < 10) {
+				return 2;
+			} else if (numField_mob.getText().toString().length() > 10) {
 				return 2;
 			} else if (amountField.getText().toString().length() == 0) {
 				return 3;
@@ -675,7 +974,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 		this.image.setVisibility(View.VISIBLE);
 		this.responseText.setVisibility(View.VISIBLE);
 		this.newButton.setVisibility(View.VISIBLE);
-		image.setImageResource(R.drawable.success);
+
 		this.responseText.setText(this.newoutputrecharge);
 		// //////// Toast.makeText(HomeActivity.this, this.newoutputrecharge,
 		// Toast.LENGTH_SHORT).show();
@@ -712,8 +1011,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 
 	public void backpost(View v) {
 
-	
-	//	myintent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		// myintent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(reintent);
 		this.finish();
 
@@ -721,8 +1019,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 
 	public void Backpost1(View v) {
 
-		
-	//	myintent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		// myintent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(reintent);
 		this.finish();
 
@@ -760,7 +1057,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 		SharedPreferences pref = PreferenceManager
 				.getDefaultSharedPreferences(getApplicationContext());
 
-		if (pref.getString("user_sessionMOM", "test").equals("MOM"))
+		if ((pref.getString("user_sessionMOM", "test").equals("MOM")) || (pref.getString("user_sessionMOM", "test").equals("B2C")))
 
 		{
 			/*
@@ -824,7 +1121,11 @@ public class HomeActivity extends Activity implements OnClickListener {
 
 				Log.i("postData", response.getStatusLine().toString());
 				Log.i("postData", this.responseBody);
-
+				Log.i("operatorIdTest",
+						Get_OperatorID(myHelpez.GetMyRechargeOperator())
+								.toString());
+				Log.i("CompanyID", myHelpez
+						.GetMyCompanyId());
 				/*
 				 * this.numField.setVisibility(View.GONE);
 				 * this.postButton.setVisibility(View.GONE);
@@ -882,8 +1183,8 @@ public class HomeActivity extends Activity implements OnClickListener {
 				nameValuePairs.add(new BasicNameValuePair("Service", "RM"));
 
 				final HttpParams httpParams = httpclient.getParams();
-			//	HttpConnectionParams.setConnectionTimeout(httpParams, 15000);
-			//	HttpConnectionParams.setSoTimeout(httpParams, 15000);
+				// HttpConnectionParams.setConnectionTimeout(httpParams, 15000);
+				// HttpConnectionParams.setSoTimeout(httpParams, 15000);
 				httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 				HttpResponse response = httpclient.execute(httppost);
 				HttpEntity entity = response.getEntity();
@@ -897,8 +1198,8 @@ public class HomeActivity extends Activity implements OnClickListener {
 					sb.append("StatusCode : " + strResponse1[0].toString()
 							+ "\n" + "TransId : " + strResponse1[2].toString()
 							+ "\n" + "Message:" + strResponse1[1].toString()
-							 + "\n" + "Amount :" + strResponse1[3].toString());
-					       
+							+ "\n" + "Balance:" + strResponse1[3].toString());
+
 					sb.append("\n");
 					sb.append("\n");
 
@@ -1152,7 +1453,6 @@ public class HomeActivity extends Activity implements OnClickListener {
 				switch (Integer.parseInt(strArrayResponse[0].toString())) {
 				case 101:
 
-					
 					passButton.setVisibility(View.GONE);
 					// tv_secpass.setVisibility(View.GONE);
 					passField.setVisibility(View.GONE);
@@ -1165,11 +1465,9 @@ public class HomeActivity extends Activity implements OnClickListener {
 					operatorSpinner.setVisibility(View.VISIBLE);
 					amountField.setVisibility(View.VISIBLE);
 					myintent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-					
+
 					break;
 				default:
-
-					
 
 					responseText.setVisibility(View.VISIBLE);
 					responseText.setText(strArrayResponse[1].toString());
@@ -1307,29 +1605,29 @@ public class HomeActivity extends Activity implements OnClickListener {
 
 		if (passField.getText().toString().trim().equals("")) {
 			this.responseText.setVisibility(View.VISIBLE);
-			responseText.setText("Please enter your Password");
+			responseText.setText(getResources().getString(R.string.login_pwd_required));
 			return false;
 		} else {
 			nameValuePairs.add(new BasicNameValuePair("recharge_key", passField
 					.getText().toString()));
-			
+
 			return true;
 		}
 	}
 
-	
-
-	
-//
-//	@Override
-//	public void onUserLeaveHint() {
-//		
-//		this.finish();
-//	}
+	//
+	// @Override
+	// public void onUserLeaveHint() {
+	//
+	// this.finish();
+	// }
 
 	@Override
 	public void onBackPressed() {
-				return;
+		startActivity(reintent);
+		reintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		this.finish();
+		return;
 	}
 
 	@Override
@@ -1339,40 +1637,38 @@ public class HomeActivity extends Activity implements OnClickListener {
 
 			AlertDialog.Builder alertDialog = new AlertDialog.Builder(
 					HomeActivity.this);
-			
+
 			// Setting Dialog Title
-			alertDialog.setTitle("Confirm MobileRecharge...");
+			alertDialog.setTitle(getResources().getString(R.string.AlertDialog_MobileRecharge));
 
 			// Setting Dialog Message
-			alertDialog.setMessage("Mobile Number:" + " "
-					+ numField_mob.getText().toString() + "\n" + "Operator:"
+			alertDialog.setMessage(getResources().getString(R.string.Lbl_MobileNumber) + " " 
+					+ numField_mob.getText().toString() + "\n" + getResources().getString(R.string.Lbl_Operator)
 					+ " " + operatorSpinner.getSelectedItem().toString() + "\n"
-					+ "Amount:" + " " + "Rs." + " "
+					+ getResources().getString(R.string.Lbl_Amount) + " "
 					+ amountField.getText().toString());
 
-			
-			
-			alertDialog.setPositiveButton("YES",
+			alertDialog.setPositiveButton(getResources().getString(R.string.Dialog_Yes),
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 							((AlertDialog) dialog).getButton(
 									AlertDialog.BUTTON1).setEnabled(false);
 							rechargePost();
+							new GetLoginTask().onPostExecute("test");
 
 						}
 					});
 
 			// Setting Negative "NO" Button
-			alertDialog.setNegativeButton("NO",
+			alertDialog.setNegativeButton(getResources().getString(R.string.Dialog_No),
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which1) {
-							
+
 							dialog.cancel();
 
 						}
 					});
 
-			
 			alertDialog.show();
 
 			// TODO Auto-generated method stub
@@ -1380,9 +1676,9 @@ public class HomeActivity extends Activity implements OnClickListener {
 		} else {
 			switch (validate()) {
 			case 1:
-
+                secondback_responseText.setText("");
 				secondback_responseText.setVisibility(View.VISIBLE);
-				secondback_responseText.setText("Select Service Provider");
+				secondback_responseText.setText(getResources().getString(R.string.prompt_spinner_select_operator));
 				operatorSpinner.setSelection(0);
 				numField_mob.setText("");
 				amountField.setText("");
@@ -1390,15 +1686,16 @@ public class HomeActivity extends Activity implements OnClickListener {
 				break;
 
 			case 2:
-
+				secondback_responseText.setText("");
 				secondback_responseText.setVisibility(View.VISIBLE);
-				secondback_responseText.setText("Invalid MobileNumber");
+				secondback_responseText.setText(getResources().getString(R.string.prompt_Validity_mobile_number));
 				numField_mob.setText("");
 				break;
 
 			case 3:
+				secondback_responseText.setText("");
 				secondback_responseText.setVisibility(View.VISIBLE);
-				secondback_responseText.setText("Invalid Amount");
+				secondback_responseText.setText(getResources().getString(R.string.prompt_Validity_amount));
 				amountField.setText("");
 				break;
 
@@ -1407,8 +1704,9 @@ public class HomeActivity extends Activity implements OnClickListener {
 			 * responseText.setText("Select CheckBox"); break;
 			 */
 			case 4:
+				secondback_responseText.setText("");
 				secondback_responseText.setVisibility(View.VISIBLE);
-				secondback_responseText.setText("Select radio button");
+				secondback_responseText.setText(getResources().getString(R.string.prompt_Validity_radio_btn));
 				break;
 			}
 		}
@@ -1418,7 +1716,7 @@ public class HomeActivity extends Activity implements OnClickListener {
 
 		public void onItemSelected(AdapterView<?> parent, View view, int pos,
 				long id) {
-			
+			secondback_responseText.setText("");
 			Helpz myHelpez = new Helpz();
 			try {
 				myHelpez.SetMyRechargeOperator(operatorSpinner
@@ -1434,7 +1732,6 @@ public class HomeActivity extends Activity implements OnClickListener {
 				numField_mob.setText("");
 				amountField.setText("");
 
-				
 				rb.setChecked(true);
 				rb1.setChecked(false);
 				rb.setVisibility(view.VISIBLE);

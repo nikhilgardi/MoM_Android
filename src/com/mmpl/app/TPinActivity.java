@@ -38,6 +38,7 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
@@ -81,7 +82,7 @@ public class TPinActivity extends Activity {
 	Intent myintenttest = new Intent();
 
 	String response_status;
-
+	Helpz myHelpz = new Helpz();
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tpin);
@@ -107,6 +108,7 @@ public class TPinActivity extends Activity {
 		this.backButton = (Button) findViewById(R.id.btn_back);
 
 		this.submitButton = (Button) findViewById(R.id.btn_Submit);
+		  getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.appsbg)); 
 		submitButton.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -123,7 +125,7 @@ public class TPinActivity extends Activity {
 					case 1:
 
 						responseText.setVisibility(View.VISIBLE);
-						responseText.setText("Enter Correct Old TPIN");
+						responseText.setText(getResources().getString(R.string.error_oldTpin));
 						Old_Password.setText("");
 						New_Password.setText("");
 						Confirm_Password.setText("");
@@ -132,7 +134,7 @@ public class TPinActivity extends Activity {
 					case 2:
 
 						responseText.setVisibility(View.VISIBLE);
-						responseText.setText("Enter Correct Old TPIN");
+						responseText.setText(getResources().getString(R.string.error_oldTpin));
 						New_Password.setText("");
 						Confirm_Password.setText("");
 
@@ -141,14 +143,14 @@ public class TPinActivity extends Activity {
 					case 3:
 
 						responseText.setVisibility(View.VISIBLE);
-						responseText.setText("The new TPIN should be 8 numeric characters only");
+						responseText.setText(getResources().getString(R.string.error_newTpin));
 						Confirm_Password.setText("");
 						break;
 
 					case 4:
 						responseText1.setVisibility(View.GONE);
 						responseText.setVisibility(View.VISIBLE);
-						responseText.setText("New TPIN and Confirm Password doesnot match");
+						responseText.setText(getResources().getString(R.string.error_Tpin_matching));
 						New_Password.setText("");
 						Confirm_Password.setText("");
 						break;
@@ -157,7 +159,7 @@ public class TPinActivity extends Activity {
                     case 5:
 						
 						responseText.setVisibility(View.VISIBLE);
-						responseText.setText("Old MPIN and New TPIN cannot be same");
+						responseText.setText(getResources().getString(R.string.validate_oldnewTpin));
 						Old_Password.setText("");
 						New_Password.setText("");
 						Confirm_Password.setText("");
@@ -190,41 +192,23 @@ public class TPinActivity extends Activity {
 	}
 
 	private void AccountBalPost() {
+		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-		Helpz myHelpz = new Helpz();
-		try {
+		if (pref.getString("user_sessionMOM", "test").equals("MOM"))
 
-			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
-			nameValuePairs.add(new BasicNameValuePair("OperatorID", myHelpz
-					.GetMyCustomerId()));
-			nameValuePairs.add(new BasicNameValuePair("CompanyID", myHelpz
-					.GetMyCompanyId()));
-			nameValuePairs.add(new BasicNameValuePair("strAccessID",
-					GlobalVariables.AccessId));
-			HttpClient httpclient = new DefaultHttpClient();
-			HttpPost httppost = new HttpPost(
-					"http://msvc.money-on-mobile.net/WebServiceV3Client.asmx/getBalanceByCustomerId");
-			httppost.addHeader("ua", "android");
-			final HttpParams httpParams = httpclient.getParams();
-			HttpConnectionParams.setConnectionTimeout(httpParams, 15000);
-			HttpConnectionParams.setSoTimeout(httpParams, 15000);
-			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-			HttpResponse response = httpclient.execute(httppost);
-			HttpEntity entity = response.getEntity();
-			responseBody = EntityUtils.toString(entity);
-			check = responseBody;
-			// error="0";
-			Log.i("postData", response.getStatusLine().toString());
-			Log.i("info", responseBody);
-
-			InputStream in = new ByteArrayInputStream(
-					responseBody.getBytes("UTF-8"));
-			new XmlPullParsing(in);
-
-		} catch (Exception e) {
-			Log.e("log_tag", "Error in http connection " + e.toString());
-			responseBody = "Timeout|Error in Http Connection";
-			// error="1";
+		{
+		accntbalresponse.setVisibility(View.VISIBLE);
+		accntbalresponse.setText(getResources().getString(R.string.lblBal) + myHelpz.GetRMNAccountBal().toString());
+	
+	}
+		else if (pref.getString("user_sessionMOM", "test").equals("B2C"))
+		{
+			accntbalresponse.setVisibility(View.VISIBLE);
+			accntbalresponse.setText(getResources().getString(R.string.lblBal)+ myHelpz.GetRMNAccountBal().toString());
+		}
+		else {
+			Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG)
+					.show();
 		}
 	}
 
@@ -315,7 +299,7 @@ public class TPinActivity extends Activity {
 				// Toast.LENGTH_LONG).show();
 
 				accntbalresponse.setVisibility(View.VISIBLE);
-				accntbalresponse.setText("Bal: Rs. " + newoutputrecharge);
+				accntbalresponse.setText(getResources().getString(R.string.lblBal) + newoutputrecharge);
 				// response.setText("Bal: Rs. 100000000");
 
 				break;
@@ -335,6 +319,12 @@ public class TPinActivity extends Activity {
 	private void rechargePost() {
 
 		Helpz myHelpez = new Helpz();
+		SharedPreferences pref = PreferenceManager
+				.getDefaultSharedPreferences(getApplicationContext());
+
+		if ((pref.getString("user_sessionMOM", "test").equals("MOM"))|| (pref.getString("user_sessionMOM", "test").equals("B2C")))
+
+		{
 
 		try {
 
@@ -370,14 +360,18 @@ public class TPinActivity extends Activity {
 
 			Log.i("postData", response.getStatusLine().toString());
 			Log.i("postData", this.responseBody);
-
+			Log.i("TPiN", myHelpez.GetMyCompanyId());
 			InputStream in = new ByteArrayInputStream(
 					this.responseBody.getBytes("UTF-8"));
 			new NewXmlPullParsing(in);
 
 		} catch (Exception ex) {
 		}
-
+		
+   }else {
+			Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG)
+					.show();
+		}
 	}
 
 	public class NewXmlPullParsing {
@@ -542,7 +536,10 @@ public class TPinActivity extends Activity {
 //	}
 
 	public void onBackPressed() {
-
+		myintenttest = new Intent(TPinActivity.this, InfoActivity.class);
+		myintenttest.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		startActivity(myintenttest);
+		this.finish();
 		return;
 	}
 

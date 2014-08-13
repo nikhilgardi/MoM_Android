@@ -574,7 +574,7 @@ public class HomeBillActivity_PBXNew extends Activity implements OnClickListener
 		this.image.setVisibility(View.VISIBLE);
 		this.responseText.setVisibility(View.VISIBLE);
 		this.newButton.setVisibility(View.VISIBLE);
-		image.setImageResource(R.drawable.success);
+	
 		this.responseText.setText(this.newoutputrecharge);
 		// /////// Toast.makeText(HomeActivity2.this, this.newoutputrecharge,
 		// Toast.LENGTH_SHORT).show();
@@ -909,7 +909,7 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 						
 							responseText1.setVisibility(View.VISIBLE);
 							newButton.setVisibility(View.VISIBLE);
-							image.setImageResource(R.drawable.success);
+						
 							responseText1.setText(a);
 				    	  
 
@@ -941,7 +941,7 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 								
 								responseText1.setVisibility(View.VISIBLE);
 								newButton.setVisibility(View.VISIBLE);
-								image.setImageResource(R.drawable.success);
+								
 								responseText1.setText(check);
 						 }
 						 
@@ -1315,7 +1315,7 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 				// ResultResponse_responseText.setVisibility(View.VISIBLE);
 				responseText1.setVisibility(View.VISIBLE);
 				newButton.setVisibility(View.VISIBLE);
-				image.setImageResource(R.drawable.success);
+				
 				responseText1.setText(newoutputrecharge);
 				// ResultResponse_responseText.setText(newoutputrecharge);
 

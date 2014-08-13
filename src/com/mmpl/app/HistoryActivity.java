@@ -88,18 +88,57 @@ public class HistoryActivity extends Activity {
 		setContentView(R.layout.history_new);
 		wv = (WebView) findViewById(R.id.resp);
 		refresh = (ImageButton) findViewById(R.id.btn_search);
-		//number = (ImageButton) findViewById(R.id.btn_num);
+	
 		res = (TextView) findViewById(R.id.textView1);
 		responsetest = (TextView) findViewById(R.id.textView1);
 		accntbalresponse = (TextView) findViewById(R.id.textViewaccntbal);
-		//this.numField = (EditText) findViewById(R.id.cus_number);
-		
-		// listview = (ListView) findViewById(R.id.listView1);
-		AccountBalPost();
+		  getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.appsbg)); 
+		//new GetLoginTask().onPostExecute("http://msvc.money-on-mobile.net/WebServiceV3Client.asmx/getBalanceByCustomerId");
+		new GetLoginTask().onPostExecute("test");
+	//	AccountBalPost(); 
 		this.posting();
 		myintent = new Intent(HistoryActivity.this, LoginActivity.class);
 	
 	}
+
+	private class GetLoginTask extends AsyncTask<Void, Void, String> {
+
+		@Override
+		protected String doInBackground(Void... params) {
+			
+			
+			return responseBody;
+		}
+	
+	
+	@Override
+	protected void onPostExecute(String result) {
+		Helpz myHelpz = new Helpz();
+		 SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+			
+			if ((pref.getString("user_sessionMOM", "test").equals("MOM"))|| (pref.getString("user_sessionMOM", "test").equals("B2C")))
+				
+				{
+				accntbalresponse.setVisibility(View.VISIBLE);
+				accntbalresponse.setText("Bal: Rs." + myHelpz.GetRMNAccountBal().toString());
+
+				}
+			
+			else if(pref.getString("user_sessionMOM", "test").equals("PBX"))
+				
+				
+			{
+				accntbalresponse.setVisibility(View.VISIBLE);
+				accntbalresponse.setText("Bal: Rs." + myHelpz.GetRMNAccountBal().toString());
+
+			}
+			else{
+				Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
+			}
+	}
+	}
+
+	
 	private void AccountBalPost(){
 		 
 		 Helpz myHelpz = new Helpz();
@@ -184,6 +223,8 @@ public class HistoryActivity extends Activity {
 				Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
 			}
 	}
+	
+
 	public class XmlPullParsing {
 
 		  protected XmlPullParser xmlpullparser1;
@@ -388,7 +429,7 @@ public class HistoryActivity extends Activity {
 		Helpz myHelpz = new Helpz();
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		
-		if(pref.getString("user_sessionMOM", "test").equals("MOM"))
+		if ((pref.getString("user_sessionMOM", "test").equals("MOM"))|| (pref.getString("user_sessionMOM", "test").equals("B2C")))
 			
 			{
 

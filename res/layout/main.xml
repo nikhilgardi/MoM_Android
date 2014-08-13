@@ -3,11 +3,11 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
 	android:scrollbars="vertical" 
   	android:layout_height="match_parent" 
-  	android:background="@drawable/appsbg"
+  	
 	android:layout_width="fill_parent">
 <RelativeLayout 
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="fill_parent"
    
     android:orientation="vertical" >
     
@@ -34,7 +34,7 @@
 	<EditText
         android:id="@+id/et_un"
         android:background="@drawable/custom"
-        android:hint="MobileNumber"
+        android:hint="@string/lblYourMobile"
         android:layout_width="265dp"
         android:layout_height="40dp"
         android:layout_centerHorizontal="true"
@@ -64,7 +64,7 @@
     <EditText
         android:id="@+id/et_pw"
         android:background="@drawable/custom"
-        android:hint="M-Pin"
+        android:hint="@string/mpin"
         android:layout_width="265dp"
         android:layout_height="40dp"
         android:layout_centerHorizontal="true"
@@ -85,7 +85,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
         android:onClick="postData"
-        android:text="Login"
+        android:text="@string/btn_Login"
         android:textColor="#FFFFFF"
         android:visibility="invisible" />
 
@@ -114,6 +114,20 @@
         android:textSize="16dp"
         android:visibility="invisible"
          />
+     
+     <Spinner
+            android:id="@+id/Operator"
+            android:layout_width="265dp"
+            android:layout_height="55dp"
+             android:layout_below="@+id/tv_response1"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="130dp"
+            android:background="@drawable/btn_dropdown"
+            android:prompt="@string/feedbacktypeMobileRecharge"
+          
+            android:visibility="visible" >
+        </Spinner>
 
 </RelativeLayout>
 </ScrollView>

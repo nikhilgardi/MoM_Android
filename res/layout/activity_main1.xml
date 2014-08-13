@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/appsbg"
+   
     android:orientation="vertical" >
 
     <TableLayout
@@ -85,7 +85,7 @@
         android:layout_marginTop="5dp"
         android:background="@drawable/custom_button"
         android:onClick="back"
-        android:text="Back"
+        android:text="@string/btn_back"
         android:textColor="#FFFFFF"
         android:visibility="gone" />
 
@@ -110,7 +110,7 @@
         android:layout_marginTop="5dp"
         android:background="@drawable/custom_button"
         android:onClick="logout"
-        android:text="Logout"
+        android:text="@string/btn_logout"
         android:textColor="#FFFFFF"
         android:visibility="gone" />
 

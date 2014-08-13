@@ -29,6 +29,7 @@ public class Helpz {
 	private static boolean LogoutVariable;
 	private static String Finger_Print_Data;
 	 private static String UserPartyTypeName;
+	 private static String RMNAccountBal;
 
 	public void SetMyRechargeMobileNumber(String InputmobileNumber) {
 		Recharge_txtfield_mobileNumber = InputmobileNumber;
@@ -317,5 +318,11 @@ public class Helpz {
 	public String GetChangeTPinUrl() {
 		return "http://msvc.money-on-mobile.net/WebServiceV3Client.asmx/ChangeT_Pin";
 	}
+	public void SetRMNAccountBal(String AccountBal) {
+		RMNAccountBal = AccountBal;
+	}
 
+	public String GetRMNAccountBal() {
+		return RMNAccountBal;
+	}
 }

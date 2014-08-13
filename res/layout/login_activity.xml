@@ -11,7 +11,7 @@
 		    android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:typeface="normal" android:textStyle="bold"
 			android:gravity="center" android:paddingLeft="10dp" android:paddingRight="10dp"
-		    android:text="Login" android:textSize="28sp" android:textColor="#464646"
+		    android:text="@string/lbl_Login" android:textSize="28sp" android:textColor="#464646"
 		   
 		    android:layout_alignParentTop="true" android:layout_centerInParent="true"/>
 		<!-- android:background="@drawable/headingrect" -->
@@ -102,7 +102,7 @@
             android:layout_marginRight="10dip"
             android:layout_marginTop="15dp"
             android:background="@drawable/custom"
-            android:hint="Password"
+            android:hint="@string/password"
             android:imeOptions="actionDone"
             android:inputType="textPassword"
             android:password="true"
@@ -120,7 +120,7 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/custom_button"
             android:onClick="rechargeLogin"
-            android:text="Login"
+            android:text="@string/btn_login"
             android:textSize="15dp"
             android:typeface="sans"
             android:textColor="#FFFFFF"
@@ -140,7 +140,7 @@
             android:background="@drawable/custom_button"
             android:onClick="backpost"
             android:typeface="sans"
-            android:text="Back"
+            android:text="@string/btn_back"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:visibility="visible" />

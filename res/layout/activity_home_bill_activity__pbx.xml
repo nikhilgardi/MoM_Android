@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/appsbg"
+   
     android:scrollbars="vertical" >
 
     <RelativeLayout
@@ -60,7 +60,7 @@
             android:layout_marginRight="10dip"
             android:layout_marginTop="130dp"
             android:background="@drawable/custom"
-            android:hint="T-Pin"
+            android:hint="@string/tpin1"
             android:imeOptions="actionDone"
             android:inputType="number"
             android:password="true"
@@ -78,7 +78,7 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/custom_button"
             android:onClick="rechargeLogin"
-            android:text="Submit"
+            android:text="@string/tpin_submit_btn"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:visibility="gone" />
@@ -94,7 +94,7 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/custom_button"
             android:onClick="backpost"
-            android:text="Back"
+            android:text="@string/btn_back"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:visibility="gone" />
@@ -108,7 +108,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:background="@drawable/custom"
-            android:hint="Mobile Number"
+            android:hint="@string/lblYourMobile"
             android:inputType="number"
             android:maxLength="10"
             android:visibility="gone" >
@@ -135,7 +135,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
             android:background="@drawable/custom"
-            android:hint="Consumer Number"
+            android:hint="@string/lblConsumerNumber"
             android:inputType="number"
             android:visibility="gone" >
         </EditText>
@@ -150,7 +150,7 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/custom_button"
             android:onClick="GetbillamountData"
-            android:text="Get Your Bill Amount"
+            android:text="@string/btn_GetbillamountData"
             android:textColor="#FFFFFF"
             android:textSize="13px"
             android:textStyle="bold"
@@ -165,7 +165,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
             android:background="@drawable/custom"
-            android:hint="Enter Amount"
+            android:hint="@string/lblAmount"
             android:inputType="number"
             android:visibility="gone" >
         </EditText>
@@ -180,7 +180,7 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/custom_button"
             android:onClick="rechargeData"
-            android:text="Payment"
+            android:text="@string/btn_billpayment"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:visibility="gone" />
@@ -195,7 +195,7 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/custom_button"
             android:onClick="Backpost1"
-            android:text="Back"
+            android:text="@string/btn_back"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:visibility="gone" />
@@ -211,7 +211,7 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/custom_button"
             android:onClick="testData"
-            android:text="Payment"
+            android:text="@string/btn_billpayment"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:visibility="gone" />
@@ -227,7 +227,7 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/custom_button"
             android:onClick="backpost1"
-            android:text="Back"
+            android:text="@string/btn_back"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:visibility="gone" />
@@ -257,7 +257,7 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/custom_button"
             android:onClick="testData1"
-            android:text="Payment2"
+            android:text="@string/btn_billpayment"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:visibility="gone" />
@@ -273,7 +273,7 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/custom_button"
             android:onClick="backpost2"
-            android:text="Back2"
+            android:text="@string/btn_back"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:visibility="gone" />
@@ -339,7 +339,7 @@
             android:layout_marginTop="5dp"
             android:background="@drawable/custom_button"
             android:onClick="newRecharge"
-            android:text="New Transaction"
+            android:text="@string/btn_newRecharge"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:visibility="gone" />
@@ -381,7 +381,7 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/custom"
             android:ems="10"
-            android:hint="Enter First Name"
+            android:hint="@string/lbl_FirstName"
             android:inputType="text"
             android:visibility="gone" >
         </EditText>
@@ -395,7 +395,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
             android:ems="10"
-            android:hint="Enter Last Name"
+            android:hint="@string/lbl_LastName"
             android:inputType="text"
             android:visibility="gone" />
 
@@ -408,7 +408,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
             android:ems="10"
-            android:hint="Enter Mobile Number"
+            android:hint="@string/lblYourMobile"
             android:inputType="number"
             android:maxLength="10"
             android:visibility="gone" />
@@ -422,7 +422,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
             android:ems="10"
-            android:hint="Enter Account Number"
+            android:hint="@string/lbl_AccountNumber"
             android:inputType="number"
             android:visibility="gone" />
 
@@ -437,7 +437,7 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/custom_button"
             android:onClick="SBE_NBERecharge"
-            android:text="Payment"
+            android:text="@string/btn_billpayment"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:visibility="gone" />
@@ -453,7 +453,7 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/custom_button"
             android:onClick="backpost2"
-            android:text="Back"
+            android:text="@string/btn_back"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:visibility="gone" />

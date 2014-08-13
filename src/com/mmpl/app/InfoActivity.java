@@ -70,26 +70,28 @@ public class InfoActivity extends ListActivity {
 	Intent intentInfo = new Intent();
 	ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
 	ArrayList<NameValuePair> nameValuePairs1 = new ArrayList<NameValuePair>(2);
+	 Helpz myHelpz = new Helpz();
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		//String[] values = new String[] { "My Info", "Change Recharge Password", "Change Password", "Recharge Logout","Logout"};
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		if(pref.getString("user_sessionMOM", "test").equals("MOM"))
+		if ((pref.getString("user_sessionMOM", "test").equals("MOM"))|| (pref.getString("user_sessionMOM", "test").equals("B2C")))
 			
 		{
-		String[] values = new String[] { "Account Balance", "Change M-Pin","Change T-Pin","Logout"};
+		
+	//////	String[] values = new String[] {"Change M-Pin","Change T-Pin","Logout"};
 		setContentView(R.layout.myinfo);
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.row_layout,R.id.label, values);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.row_layout,R.id.label, getResources().getStringArray(R.array.Info_ActivityList_MOMB2C));
 		setListAdapter(adapter);
 		}
 		else if(pref.getString("user_sessionMOM", "test").equals("PBX"))
 		{
-			String[] values = new String[] {"Change Password","Logout"};
+	//////		String[] values = new String[] {"Change Password","Logout"};
 			setContentView(R.layout.myinfo);
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.row_layout,R.id.label, values);
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.row_layout,R.id.label, getResources().getStringArray(R.array.Info_ActivityList_PBX));
 			setListAdapter(adapter);
 		}
-		
+		  getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.appsbg)); 
 		wv = (WebView) findViewById(R.id.resp);
 		lv = (ListView) findViewById(android.R.id.list);
 		this.res = (TextView) findViewById(R.id.response);
@@ -133,84 +135,91 @@ public class InfoActivity extends ListActivity {
 	
 	private void AccountBalPost(){
 		 
-		 Helpz myHelpz = new Helpz();
+		
 		 SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 			
 			if(pref.getString("user_sessionMOM", "test").equals("MOM"))
 				
 				{
-			try {
-			 	 
-				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
-	            nameValuePairs.add(new BasicNameValuePair("OperatorID",myHelpz.GetMyCustomerId()));
-	            nameValuePairs.add(new BasicNameValuePair("CompanyID", myHelpz.GetMyCompanyId()));
-				nameValuePairs.add(new BasicNameValuePair("strAccessID",GlobalVariables.AccessId));
-				HttpClient httpclient = new DefaultHttpClient();
-				HttpPost httppost = new HttpPost("http://msvc.money-on-mobile.net/WebServiceV3Client.asmx/getBalanceByCustomerId");
-				httppost.addHeader("ua", "android");
-				final HttpParams httpParams = httpclient.getParams();
-				HttpConnectionParams.setConnectionTimeout(httpParams, 15000);
-				HttpConnectionParams.setSoTimeout(httpParams, 15000);
-				httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-				HttpResponse response = httpclient.execute(httppost);
-				HttpEntity entity = response.getEntity();
-				responseBody = EntityUtils.toString(entity);
-				 check = responseBody;
-//				error="0";
-				Log.i("postData", response.getStatusLine().toString());
-				Log.i("info", responseBody);
-				
-				InputStream in = new ByteArrayInputStream(responseBody.getBytes("UTF-8"));
-			    new AccntBalXmlPullParsing(in);	
-			 
-			} catch (Exception e) {
-				Log.e("log_tag", "Error in http connection " + e.toString());
-				responseBody= "Timeout|Error in Http Connection";
-//				error="1";
-			}
+				accntbalresponse.setVisibility(View.VISIBLE);
+				accntbalresponse.setText(getResources().getString(R.string.lblBal) + myHelpz.GetRMNAccountBal().toString());
+//			try {
+//			 	 
+//				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
+//	            nameValuePairs.add(new BasicNameValuePair("OperatorID",myHelpz.GetMyCustomerId()));
+//	            nameValuePairs.add(new BasicNameValuePair("CompanyID", myHelpz.GetMyCompanyId()));
+//				nameValuePairs.add(new BasicNameValuePair("strAccessID",GlobalVariables.AccessId));
+//				HttpClient httpclient = new DefaultHttpClient();
+//				HttpPost httppost = new HttpPost("http://msvc.money-on-mobile.net/WebServiceV3Client.asmx/getBalanceByCustomerId");
+//				httppost.addHeader("ua", "android");
+//				final HttpParams httpParams = httpclient.getParams();
+//				HttpConnectionParams.setConnectionTimeout(httpParams, 15000);
+//				HttpConnectionParams.setSoTimeout(httpParams, 15000);
+//				httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+//				HttpResponse response = httpclient.execute(httppost);
+//				HttpEntity entity = response.getEntity();
+//				responseBody = EntityUtils.toString(entity);
+//				 check = responseBody;
+////				error="0";
+//				Log.i("postData", response.getStatusLine().toString());
+//				Log.i("info", responseBody);
+//				
+//				InputStream in = new ByteArrayInputStream(responseBody.getBytes("UTF-8"));
+//			    new AccntBalXmlPullParsing(in);	
+//			 
+//			} catch (Exception e) {
+//				Log.e("log_tag", "Error in http connection " + e.toString());
+//				responseBody= "Timeout|Error in Http Connection";
+////				error="1";
+//			}
 				}
-			
+			else if (pref.getString("user_sessionMOM", "test").equals("B2C"))
+			{
+				accntbalresponse.setVisibility(View.VISIBLE);
+				accntbalresponse.setText(getResources().getString(R.string.lblBal)+ myHelpz.GetRMNAccountBal().toString());
+			}
 			else if(pref.getString("user_sessionMOM", "test").equals("PBX"))
 				
 				
 			{
-				
-				HttpClient httpclient = new DefaultHttpClient();
-				HttpPost httppost = new HttpPost(
-						"http://180.179.67.76/MobAppS/PbxMobApp.ashx");
-				try {
-					
-					List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-					nameValuePairs.add(new BasicNameValuePair("RN", myHelpz.GetMyLoginMobileNumber()));
-					nameValuePairs.add(new BasicNameValuePair("Service", "BL"));
-					
-					
-					httppost.addHeader("ua", "android");
-					final HttpParams httpParams = httpclient.getParams();
-					HttpConnectionParams.setConnectionTimeout(httpParams, 15000);
-					HttpConnectionParams.setSoTimeout(httpParams, 15000);
-					httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-					HttpResponse response = httpclient.execute(httppost);
-					HttpEntity entity = response.getEntity();
-					responseBody = EntityUtils.toString(entity);
-					check = responseBody;
-//					Double number = Double.valueOf(check);
-//					DecimalFormat df = new DecimalFormat("#.00");
-//					String newtestString = df.format(number);
+				accntbalresponse.setVisibility(View.VISIBLE);
+				accntbalresponse.setText(getResources().getString(R.string.lblBal) + myHelpz.GetRMNAccountBal().toString());
+//				HttpClient httpclient = new DefaultHttpClient();
+//				HttpPost httppost = new HttpPost(
+//						"http://180.179.67.76/MobAppS/PbxMobApp.ashx");
+//				try {
+//					
+//					List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+//					nameValuePairs.add(new BasicNameValuePair("RN", myHelpz.GetMyLoginMobileNumber()));
+//					nameValuePairs.add(new BasicNameValuePair("Service", "BL"));
+//					
+//					
+//					httppost.addHeader("ua", "android");
+//					final HttpParams httpParams = httpclient.getParams();
+//					HttpConnectionParams.setConnectionTimeout(httpParams, 15000);
+//					HttpConnectionParams.setSoTimeout(httpParams, 15000);
+//					httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+//					HttpResponse response = httpclient.execute(httppost);
+//					HttpEntity entity = response.getEntity();
+//					responseBody = EntityUtils.toString(entity);
+//					check = responseBody;
+////					Double number = Double.valueOf(check);
+////					DecimalFormat df = new DecimalFormat("#.00");
+////					String newtestString = df.format(number);
+////
+////					String abc = newtestString;
+//					// error="0";
+//					Log.i("postData", response.getStatusLine().toString());
+//					Log.i("info", responseBody);
 //
-//					String abc = newtestString;
-					// error="0";
-					Log.i("postData", response.getStatusLine().toString());
-					Log.i("info", responseBody);
-
-					accntbalresponse.setVisibility(View.VISIBLE);
-					accntbalresponse.setText("Bal: Rs." + check);
-					
-				} catch (Exception e) {
-					Log.e("log_tag", "Error in http connection " + e.toString());
-					responseBody = "Timeout|Error in Http Connection";
-					// error="1";
-				}
+//					accntbalresponse.setVisibility(View.VISIBLE);
+//					accntbalresponse.setText("Bal: Rs." + check);
+//					
+//				} catch (Exception e) {
+//					Log.e("log_tag", "Error in http connection " + e.toString());
+//					responseBody = "Timeout|Error in Http Connection";
+//					// error="1";
+//				}
 			}
 			else{
 				Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
@@ -302,7 +311,7 @@ public class InfoActivity extends ListActivity {
 			//////////        Toast.makeText(InfoActivity.this, newoutputrecharge, Toast.LENGTH_LONG).show();
 			    
 		            accntbalresponse.setVisibility(View.VISIBLE);
-		            accntbalresponse.setText("Bal: Rs. " + newoutputrecharge);
+		            accntbalresponse.setText(getResources().getString(R.string.lblBal) + newoutputrecharge);
 			         //response.setText("Bal: Rs. 100000000");
 			        
 			           
@@ -319,7 +328,7 @@ public class InfoActivity extends ListActivity {
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		String item = (String) getListAdapter().getItem(position);
 		
-		if(item.equals("Account Balance")){
+	/*	if(item.equals("Account Balance")){
 			
 			
 			rechargePost();
@@ -328,7 +337,7 @@ public class InfoActivity extends ListActivity {
 			this.back.setVisibility(View.VISIBLE);
 			lv.setVisibility(View.GONE);
 			
-		}
+		}*/
 		
 		
 //		if(item.equals("MSwipe")){
@@ -347,7 +356,7 @@ public class InfoActivity extends ListActivity {
 //			
 //
 //		}
-		if(item.equals("Logout")){
+		if(item.equals(getResources().getString(R.string.action_Logout))){
 			
 			
 			
@@ -358,7 +367,7 @@ public class InfoActivity extends ListActivity {
 	
 		}
 		
-		if (item.equals("Change M-Pin")) {
+		if (item.equals(getResources().getString(R.string.action_changeMpin))) {
 
 			mpinintent = new Intent(InfoActivity.this, MPinActivity.class);
 			//mpinintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -367,7 +376,7 @@ public class InfoActivity extends ListActivity {
 
 		}
 		
-		if (item.equals("Change Password")) {
+		if (item.equals(getResources().getString(R.string.action_changepassword))) {
 
 			mpinintent = new Intent(InfoActivity.this, ChangePasswordPBXActivity.class);
 		//	mpinintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -376,7 +385,7 @@ public class InfoActivity extends ListActivity {
 
 		}
 
-		if (item.equals("Change T-Pin")) {
+		if (item.equals(getResources().getString(R.string.action_changeTpin))) {
 
 			tpinintent = new Intent(InfoActivity.this, TPinActivity.class);
 		//	tpinintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

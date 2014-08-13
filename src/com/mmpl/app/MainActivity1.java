@@ -32,12 +32,14 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import com.mmpl.app.R;
 
+
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -58,7 +60,7 @@ public class MainActivity1 extends ListActivity {
 	private String responseBody;
 	private String session_id;
 	private TextView responsetxt;
-    
+	 Helpz myHelpz = new Helpz();
 	Intent myintent = new Intent();
 	Intent myintent1 = new Intent();
 	Intent myintent2 = new Intent();
@@ -91,15 +93,25 @@ public class MainActivity1 extends ListActivity {
 		if(pref.getString("user_sessionMOM", "test").equals("MOM"))
 			
 		{
-		String[] values = new String[] { "Mobile Recharge", "DTH Recharge","Bill Payment","Card Sale","History","Settings"};
+	//	String[] values = new String[] { "Mobile Recharge", "DTH Recharge","Bill Payment","Card Sale","History","Settings"};
+		
 		setContentView(R.layout.activity_main1);
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.row_layout,R.id.label, values);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.row_layout,R.id.label, getResources().getStringArray(R.array.Main_ActivityList_MOM));
+
+		setListAdapter(adapter);
+		}
+		else if(pref.getString("user_sessionMOM", "test").equals("B2C"))
+			
+		{
+	//	String[] values = new String[] { "Mobile Recharge", "DTH Recharge","Bill Payment", "History","Settings"};
+		setContentView(R.layout.activity_main1);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.row_layout,R.id.label, getResources().getStringArray(R.array.Main_ActivityList_B2C));
 		setListAdapter(adapter);
 		}
 		else{
-			String[] values = new String[] { "Mobile Recharge", "DTH Recharge","Bill Payment","Utility Bill Payment","History","Settings"};
+	//		String[] values = new String[] { "Mobile Recharge", "DTH Recharge","Bill Payment","Utility Bill Payment","History","Settings"};
 			setContentView(R.layout.activity_main1);
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.row_layout,R.id.label, values);
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.row_layout,R.id.label, getResources().getStringArray(R.array.Main_ActivityList_PBX));
 			setListAdapter(adapter);
 		}
 		
@@ -111,96 +123,49 @@ public class MainActivity1 extends ListActivity {
 		this.back =(Button) findViewById(R.id.button6);
 		
 		 intentMain =new Intent(this,MainActivity1.class);
-
+		  getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.appsbg)); 	
 		this.responsetxt = (TextView) findViewById(R.id.textView1);
 		SaveSessionData();
-		rechargePost();
+	//	rechargePost();
+		new GetLoginTask().onPostExecute("test");
+		
+		
 	}
-	
-	
-	private void rechargePost(){
-		 Helpz myHelpz = new Helpz();
+	private class GetLoginTask extends AsyncTask<Void, Void, String> {
+
+		@Override
+		protected String doInBackground(Void... params) {
+			
+			
+			return responseBody;
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+		
 SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		
-		if(pref.getString("user_sessionMOM", "test").equals("MOM"))
+		if ((pref.getString("user_sessionMOM", "test").equals("MOM")) || (pref.getString("user_sessionMOM", "test").equals("B2C")))
 			
 			{
-	
-		
-			try {
-			 	 
-				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
-	            nameValuePairs.add(new BasicNameValuePair("OperatorID",myHelpz.GetMyCustomerId()));
-	            nameValuePairs.add(new BasicNameValuePair("CompanyID", myHelpz.GetMyCompanyId()));
-				nameValuePairs.add(new BasicNameValuePair("strAccessID",GlobalVariables.AccessId));
-				HttpClient httpclient = new DefaultHttpClient();
-				HttpPost httppost = new HttpPost("http://msvc.money-on-mobile.net/WebServiceV3Client.asmx/getBalanceByCustomerId");
-				httppost.addHeader("ua", "android");
-				final HttpParams httpParams = httpclient.getParams();
-				HttpConnectionParams.setConnectionTimeout(httpParams, 15000);
-				HttpConnectionParams.setSoTimeout(httpParams, 15000);
-				httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-				HttpResponse response = httpclient.execute(httppost);
-				HttpEntity entity = response.getEntity();
-				responseBody = EntityUtils.toString(entity);
-				 check = responseBody;
-//				error="0";
-				Log.i("postData", response.getStatusLine().toString());
-				Log.i("info", responseBody);
-				
-				InputStream in = new ByteArrayInputStream(responseBody.getBytes("UTF-8"));
-			    new XmlPullParsing(in);	
-			 
-			} catch (Exception e) {
-				Log.e("log_tag", "Error in http connection " + e.toString());
-				responseBody= "Timeout|Error in Http Connection";
-//				error="1";
-			}
+			responsetxt.setVisibility(View.VISIBLE);
+			responsetxt.setText(getResources().getString(R.string.lblBal) + myHelpz.GetRMNAccountBal().toString());
+			Log.i("postDataAccntMOM",myHelpz.GetRMNAccountBal().toString() );
+			
 			}
 		else if(pref.getString("user_sessionMOM", "test").equals("PBX"))
 		{
 			
-			    HttpClient httpclient = new DefaultHttpClient();
-				HttpPost httppost = new HttpPost("http://180.179.67.76/MobAppS/PbxMobApp.ashx");
-			try {
-				
-				
-				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-				nameValuePairs.add(new BasicNameValuePair("RN", myHelpz.GetMyLoginMobileNumber()));
-				nameValuePairs.add(new BasicNameValuePair("Service", "BL"));
-				
-				
-				httppost.addHeader("ua", "android");
-				final HttpParams httpParams = httpclient.getParams();
-				HttpConnectionParams.setConnectionTimeout(httpParams, 15000);
-				HttpConnectionParams.setSoTimeout(httpParams, 15000);
-				httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-				HttpResponse response = httpclient.execute(httppost);
-				HttpEntity entity = response.getEntity();
-				responseBody = EntityUtils.toString(entity);
-				check = responseBody;
-//				Double number = Double.valueOf(check);
-//				DecimalFormat df = new DecimalFormat("#.00");
-//				String newtestString = df.format(number);
-//
-//				String abc = newtestString;
-				// error="0";
-				Log.i("postData", response.getStatusLine().toString());
-				Log.i("info", responseBody);
-
-				this.responsetxt.setVisibility(View.VISIBLE);
-				this.responsetxt.setText("Bal: Rs." + check);
-
-			} catch (Exception e) {
-				Log.e("log_tag", "Error in http connection " + e.toString());
-				responseBody = "Timeout|Error in Http Connection";
-				// error="1";
-			}
+			   
+			responsetxt.setVisibility(View.VISIBLE);
+			responsetxt.setText(getResources().getString(R.string.lblBal)+ myHelpz.GetRMNAccountBal().toString());
+			Log.i("postDataAccntPBX",myHelpz.GetRMNAccountBal().toString() );
 		}
 		
 		else{
 			Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
 		}
+	}
 	}
 	public class XmlPullParsing {
 
@@ -288,10 +253,9 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 			//////////        Toast.makeText(InfoActivity.this, newoutputrecharge, Toast.LENGTH_LONG).show();
 			    
 			         responsetxt.setVisibility(View.VISIBLE);
-			         responsetxt.setText("Bal: Rs. " + newoutputrecharge);
+			         responsetxt.setText(getResources().getString(R.string.lblBal) + newoutputrecharge);
 			         //response.setText("Bal: Rs. 100000000");
-			        
-			           
+			         myHelpz.SetRMNAccountBal(newoutputrecharge);
 			        break;
 		        
 		        }
@@ -304,25 +268,25 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		String item = (String) getListAdapter().getItem(position);	    
 	
-	if(item.equals("Mobile Recharge")){
+	if(item.equals(getResources().getString(R.string.action_mobileRecharge))){
 		myintent = new Intent(MainActivity1.this,HomeActivity.class);
 		myintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(myintent);
 		finish();
 	}
-	if(item.equals("DTH Recharge")){
+	if(item.equals(getResources().getString(R.string.action_dthRecharge))){
 		myintent1 = new Intent(MainActivity1.this,HomeActivity1.class);
 		myintent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(myintent1);
 		finish();
 	}
-	if(item.equals("Bill Payment")){
+	if(item.equals(getResources().getString(R.string.action_billPayment))){
 		myintent2 = new Intent(MainActivity1.this,HomeActivity2.class);
 		myintent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(myintent2);
 		finish();
 	}
-	if(item.equals("Card Sale")){
+	if(item.equals(getResources().getString(R.string.action_cardSale))){
 		
 		swipeintent = new Intent(MainActivity1.this,MSwipeAndroidSDKListActivity1.class);
 		swipeintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -336,14 +300,14 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 		startActivity(swipeintent);		
 		
 	}	*/
-	if(item.equals("Utility Bill Payment")){
+	if(item.equals(getResources().getString(R.string.action_utilityBill))){
 		myintent6 = new Intent(MainActivity1.this,HomeBillActivity_PBX.class);
 		myintent6.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(myintent6);
 		finish();
 	}
 	
-	if(item.equals("History")){
+	if(item.equals(getResources().getString(R.string.action_history))){
 		
 		myintent4 = new Intent(MainActivity1.this,HistoryActivity.class);
 		myintent4.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -352,7 +316,7 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 	}
 
 		
-	if(item.equals("Settings")){
+	if(item.equals(getResources().getString(R.string.action_settings1))){
 		
 		
 		myintent5 = new Intent(MainActivity1.this,InfoActivity.class);
@@ -437,9 +401,9 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 	
 	void showDialog(String the_key){
 		AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity1.this);
-		alertDialog.setMessage("You have pressed the BACK  button. Would you like to exit the app?")
+		alertDialog.setMessage(getResources().getString(R.string.prompt_Message))
               .setCancelable(true)
-               .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+               .setPositiveButton(getResources().getString(R.string.btn_Ok), new DialogInterface.OnClickListener() {
                    public void onClick(DialogInterface dialog, int id) {
                 	   
                        dialog.cancel();
@@ -449,13 +413,13 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
                		    finish();
                    }
                })
-               .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+               .setNegativeButton(getResources().getString(R.string.btn_Cancel), new DialogInterface.OnClickListener() {
                    public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                    }
                });
         AlertDialog alert = alertDialog.create();
-        alert.setTitle("Message");
+        alert.setTitle(getResources().getString(R.string.prompt_Title));
         alert.show();
     }
 	

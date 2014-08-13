@@ -2,6 +2,7 @@ package com.mmpl.app;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Vector;
 
 import org.apache.http.HttpEntity;
@@ -22,6 +23,9 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import com.mmpl.app.R;
 
+import com.mmpl.app.HomeActivity.CustomOnItemSelectedListener;
+import com.mmpl.app.MainActivity1.XmlPullParsing;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,16 +34,23 @@ import java.security.*;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 public class LoginActivity extends Activity implements OnClickListener {
 
@@ -60,7 +71,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 	protected String test;
 	Helpz myHelpez = new Helpz();
 	protected XmlPullParser xmlpullparser;
-
+	private Locale myLocale;
 	Button ok, back, exit;
 	TextView result;
 	SplitOutput splitoutput = new SplitOutput();
@@ -68,6 +79,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 	String newoutput, output;
 	String[] strArrayResponse;
 	
+	Spinner languageSpinner;
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -82,8 +94,9 @@ public class LoginActivity extends Activity implements OnClickListener {
 		tv_user = (TextView) findViewById(R.id.tv_username);
 		tv_pass = (TextView) findViewById(R.id.tv_password);
 		ok = (Button)findViewById(R.id.btn_login);
+		languageSpinner = (Spinner)findViewById(R.id.Operator);
 	    ok.setOnClickListener(this);
-	
+	    getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.appsbg)); 
 		Helpz myHelp = new Helpz();
 	 Boolean booltest = myHelp.GetLogoutVariable();
 
@@ -98,6 +111,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 			this.post.setVisibility(View.VISIBLE);
 			this.response1.setVisibility(View.VISIBLE);
 			this.response2.setVisibility(View.VISIBLE);
+			this.languageSpinner.setVisibility(View.VISIBLE);
 
 	    }
 	  
@@ -114,23 +128,53 @@ public class LoginActivity extends Activity implements OnClickListener {
 			startActivity(myintent);
 			
 	    }
+	   
+	   
+	   
+		 String[] strOperators = new String[] {"Select Language","English", "Hindi", "Marathi" ,"Gujarati", "Tamil" , "Telugu" , "Oriya"};
 		
-	}
-
-	private class GetLoginTask extends AsyncTask<Void, Void, String> {
-
-		@Override
-		protected String doInBackground(Void... params) {
-			// SharedPreferences appSettings =
-			// getSharedPreferences(PREFERENCE_FILENAME, MODE_PRIVATE);
-
-			// postLoginData();
-
-			return responseBody;
-		}
+		 ArrayAdapter<String> dataAdapter = new
+				  ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,
+				  strOperators); 
+		 dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); 
+		 languageSpinner.setAdapter(dataAdapter);
+		 addListenerOnSpinnerItemSelection(); 
 		
 	}
 	
+//	public void loadLocale()
+//    {
+//    	String langPref = "Language";
+//    	SharedPreferences prefs = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
+//    	String language = prefs.getString(langPref, "");
+//    	changeLang(language);
+//    }
+//    
+//    public void saveLocale(String lang)
+//    {
+//    	String langPref = "Language";
+//    	SharedPreferences prefs = getSharedPreferences("CommonPrefs", Activity.MODE_PRIVATE);
+//    	SharedPreferences.Editor editor = prefs.edit();
+//		editor.putString(langPref, lang);
+//		editor.commit();
+//    }
+//
+//	public void changeLang(String lang)
+//    {
+//    	if (lang.equalsIgnoreCase(""))
+//    		return;
+//    	myLocale = new Locale(lang);
+//    	saveLocale(lang);
+//        Locale.setDefault(myLocale);
+//        android.content.res.Configuration config = new android.content.res.Configuration();
+//        config.locale = myLocale;
+//        getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+//        
+//    }
+	
+	
+
+
 
 //	@Override
 //	public void onUserLeaveHint() {
@@ -198,6 +242,66 @@ public void onBackPressed() {
 					this.responseBody.getBytes("UTF-8"));
 
 			new XmlPullParsing(in);
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+	}
+	
+	
+	public void postLoginDataB2C() {
+		
+		 SaveSessionDataB2C();
+
+		try {
+			//Helpz myHelpez = (Helpz) Class.forName("Helpz").newInstance();
+			myHelpez.SetMyLoginMobileNumber(username.getText().toString());
+
+		}
+		catch (Exception ex) {
+		}
+		// Create a new HttpClient and Post Header
+
+		HttpClient httpclient = new DefaultHttpClient();
+
+		/* login.php returns true if username and password is equal to saranga */
+		HttpPost httppost = new HttpPost("http://msvc.money-on-mobile.net/WebServiceV3Client.asmx/getLoggedIn");
+	
+		try {
+			// Add user name and password
+			EditText uname = (EditText) findViewById(R.id.et_un);
+			String username = uname.getText().toString();
+
+			EditText pword = (EditText) findViewById(R.id.et_pw);
+			String password = pword.getText().toString();
+
+			String access = "abc";
+			String Companyid = "2365";
+			
+			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(4);
+			nameValuePairs.add(new BasicNameValuePair("strUserRMN", username));
+			nameValuePairs.add(new BasicNameValuePair("strPassword", password));
+			nameValuePairs.add(new BasicNameValuePair("CompanyID", Companyid.toString()));
+			nameValuePairs.add(new BasicNameValuePair("strAccessId", access));
+			final HttpParams httpParams = httpclient.getParams();
+			HttpConnectionParams.setConnectionTimeout(httpParams, 15000);
+			HttpConnectionParams.setSoTimeout(httpParams, 45000);
+			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+
+			// Execute HTTP Post Request
+
+			HttpResponse response = httpclient.execute(httppost);
+			HttpEntity entity = response.getEntity();
+			this.responseBody = EntityUtils.toString(entity);
+			String check = responseBody;
+			Log.i("postData", response.getStatusLine().toString());
+			Log.i("postData", this.responseBody);
+
+			InputStream in = new ByteArrayInputStream(
+					this.responseBody.getBytes("UTF-8"));
+
+			new XmlPullParsingB2C(in);
 			
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -423,11 +527,17 @@ public void onBackPressed() {
 					break;
 			
 				default:
-					SharedPreferences prefPBX = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-					SharedPreferences.Editor prefEditorPBX = prefPBX.edit();
-					prefEditorPBX.putString("user_sessionMOM", "PBX");  
-					prefEditorPBX.commit();
-					postLoginDataPBX();
+//					SharedPreferences prefPBX = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+//					SharedPreferences.Editor prefEditorPBX = prefPBX.edit();
+//					prefEditorPBX.putString("user_sessionMOM", "PBX");  
+//					prefEditorPBX.commit();
+//					postLoginDataPBX();
+					
+					SharedPreferences prefB2C = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+					SharedPreferences.Editor prefEditorB2C = prefB2C.edit();
+					prefEditorB2C.putString("user_sessionMOM", "B2C");  
+					prefEditorB2C.commit();
+					postLoginDataB2C();
 															
 					break;
 				}
@@ -438,6 +548,127 @@ public void onBackPressed() {
 
 	}
 
+	public class XmlPullParsingB2C {
+
+		protected XmlPullParser xmlpullparser;
+		String output;
+		String TAG = "XmlPullParsing";
+
+		public XmlPullParsingB2C(InputStream is) {
+
+			XmlPullParserFactory factory = null;
+			try {
+				factory = XmlPullParserFactory.newInstance();
+			} catch (XmlPullParserException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			factory.setNamespaceAware(true);
+			try {
+				xmlpullparser = factory.newPullParser();
+			} catch (XmlPullParserException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			try {
+				xmlpullparser.setInput(is, "UTF-8");
+			} catch (XmlPullParserException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			int eventType = 0;
+			try {
+				eventType = xmlpullparser.getEventType();
+			} catch (XmlPullParserException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			while (eventType != XmlPullParser.END_DOCUMENT) {
+
+				parseTag(eventType);
+				try {
+					eventType = xmlpullparser.next();
+				} catch (XmlPullParserException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+		}
+
+		void parseTag(int event) {
+
+			switch (event) {
+
+			case XmlPullParser.START_DOCUMENT:
+				Log.i(TAG, "START_DOCUMENT");
+				break;
+
+			case XmlPullParser.END_DOCUMENT:
+				Log.i(TAG, "END_DOCUMENT");
+				break;
+			case XmlPullParser.START_TAG:
+				Log.i(TAG, "START_TAG" + xmlpullparser.getName());
+				Log.i(TAG,
+						"Attribute Name"
+								+ xmlpullparser.getAttributeValue(null,
+										"category"));
+
+				break;
+
+			case XmlPullParser.END_TAG:
+				Log.i(TAG, "END_TAG" + xmlpullparser.getName());
+
+				break;
+
+			case XmlPullParser.TEXT:
+				Log.i(TAG, "TEXT");
+				output = xmlpullparser.getText();
+				String newoutput = output;
+			//	String[] strArrayResponse = Split(newoutput, "~");
+				String[] strArrayResponse = splitoutput.Split(newoutput, "~");
+				int i = Integer.parseInt(strArrayResponse[0].toString());
+
+				switch (Integer.parseInt(strArrayResponse[0].toString())) {
+				case 101:
+//					SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+//					SharedPreferences.Editor prefEditor = pref.edit();
+//					prefEditor.putString("user_sessionMOM", "MOM");  
+//					prefEditor.commit();
+
+		
+					myintent = new Intent(LoginActivity.this,MainActivity1.class);
+					myintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					startActivity(myintent);
+			        finish();
+					break;
+			
+				default:
+					SharedPreferences prefPBX = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+					SharedPreferences.Editor prefEditorPBX = prefPBX.edit();
+					prefEditorPBX.putString("user_sessionMOM", "PBX");  
+					prefEditorPBX.commit();
+					postLoginDataPBX();
+					
+//					SharedPreferences prefB2C = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+//					SharedPreferences.Editor prefEditorB2C = prefB2C.edit();
+//					prefEditorB2C.putString("user_sessionMOM", "B2C");  
+//					prefEditorB2C.commit();
+//					postLoginDataB2C();
+															
+					break;
+				}
+
+			}
+
+		}
+
+	}
 	
 	
 	
@@ -633,16 +864,79 @@ public void onBackPressed() {
 		}
 
 	}
+	
+	public boolean SaveSessionDataB2C() {
+		try {
+			//Helpz myHelp = new Helpz();
+			postLoginDetailsB2C();
+			
+			return true;
+		} catch (Exception ex) {
+			return false;
+		}
+	}
+	
+	public void postLoginDetailsB2C() {
+
+		// Create a new HttpClient and Post Header
+
+		HttpClient httpclient = new DefaultHttpClient();
+
+		
+		try {
+			// Add user name and password
+			EditText uname = (EditText) findViewById(R.id.et_un);
+			String username = uname.getText().toString();
+
+			HttpPost httppost = new HttpPost(
+					"http://180.179.67.72/nokiaservice/DetailsByUserRMNCompID.aspx?UserRMN="
+							+ username + "&CompanyID=2365");
+
+			// Execute HTTP Post Request
+
+			HttpResponse response = httpclient.execute(httppost);
+			HttpEntity entity = response.getEntity();
+			this.responseBody = EntityUtils.toString(entity);
+			String check = responseBody;
+			Log.i("postData", response.getStatusLine().toString());
+			Log.i("postData", this.responseBody);
+
+//			Helpz myHelp = new Helpz();
+			try {
+
+				String[] strResponse1 = Split(check, "~");
+				myHelpez.SetMyUserId(strResponse1[0]);
+				myHelpez.SetMyCustomerId(strResponse1[1]);
+				myHelpez.SetMyRechargeMobileNumber(strResponse1[2]);
+				myHelpez.SetMyCompanyId(strResponse1[3]);
+				myHelpez.SetMyRoleID(strResponse1[4]);
+				myHelpez.SetMyUserAuthID(strResponse1[5]);
+				myHelpez.SetMyUserWalletID(strResponse1[6]);
+				myHelpez.SetMyUserStatus(strResponse1[7]);
+				myHelpez.SetMyUserFranchID(strResponse1[8]);
+				myHelpez.SetMyUserMastDist(strResponse1[9]);
+				myHelpez.SetMyUserAreaDist(strResponse1[10]);
+				myHelpez.SetMyUserVAS01(strResponse1[11]);
+				myHelpez.SetMyUserVAS02(strResponse1[12]);
+			} catch (Exception ex) {
+
+			}
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+	}
 	private boolean fillPostData() {
 		 if(username.getText().toString().trim().equals("")&& ((password.getText().toString().equals("")))){
-			response1.setText("Missing Params");
+			response1.setText(getResources().getString(R.string.login_missing_params));
 			return false;
 		 }
 		if(username.getText().toString().trim().equals("")){
-			response1.setText("Please enter MobileNumber");
+			response1.setText(getResources().getString(R.string.login_username_required));
 			return false;
 		}else if(password.getText().toString().equals("")){
-			response1.setText("Please enter Password");
+			response1.setText(getResources().getString(R.string.login_pwd_required));
 			return false;
 		}else{
 			nameValuePairs.add(new BasicNameValuePair("user", username.getText().toString()));
@@ -659,10 +953,296 @@ public void onBackPressed() {
 		  if(this.fillPostData()){
 		  ok.setEnabled(false);
 		  postLoginData();
+		  new GetLoginTask().onPostExecute("test");
 		
 	  }
 	  }
 	  
+	  
+	  private class GetLoginTask extends AsyncTask<Void, Void, String> {
+
+			@Override
+			protected String doInBackground(Void... params) {
+				
+				
+				return responseBody;
+			}
+
+			@Override
+			protected void onPostExecute(String result) {
 			
+	SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+			
+			if((pref.getString("user_sessionMOM", "test").equals("MOM")) || (pref.getString("user_sessionMOM", "test").equals("B2C")))
+				
+				{
+		
+			
+				try {
+				 	 
+					List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
+		            nameValuePairs.add(new BasicNameValuePair("OperatorID",myHelpez.GetMyCustomerId()));
+		            nameValuePairs.add(new BasicNameValuePair("CompanyID", myHelpez.GetMyCompanyId()));
+					nameValuePairs.add(new BasicNameValuePair("strAccessID",GlobalVariables.AccessId));
+					HttpClient httpclient = new DefaultHttpClient();
+					HttpPost httppost = new HttpPost("http://msvc.money-on-mobile.net/WebServiceV3Client.asmx/getBalanceByCustomerId");
+					httppost.addHeader("ua", "android");
+					final HttpParams httpParams = httpclient.getParams();
+					HttpConnectionParams.setConnectionTimeout(httpParams, 15000);
+					HttpConnectionParams.setSoTimeout(httpParams, 15000);
+					httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+					HttpResponse response = httpclient.execute(httppost);
+					HttpEntity entity = response.getEntity();
+					responseBody = EntityUtils.toString(entity);
+					 check = responseBody;
+//					error="0";
+					Log.i("postData", response.getStatusLine().toString());
+					Log.i("info", responseBody);
+					
+					InputStream in = new ByteArrayInputStream(responseBody.getBytes("UTF-8"));
+				    new XmlPullParsingAccntBal(in);	
+				 
+				} catch (Exception e) {
+					Log.e("log_tag", "Error in http connection " + e.toString());
+					responseBody= "Timeout|Error in Http Connection";
+//					error="1";
+				}
+				}
+			else if(pref.getString("user_sessionMOM", "test").equals("PBX"))
+			{
+				
+				    HttpClient httpclient = new DefaultHttpClient();
+					HttpPost httppost = new HttpPost("http://180.179.67.76/MobAppS/PbxMobApp.ashx");
+				try {
+					
+					
+					List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+					nameValuePairs.add(new BasicNameValuePair("RN", myHelpez.GetMyLoginMobileNumber()));
+					nameValuePairs.add(new BasicNameValuePair("Service", "BL"));
+					
+					
+					httppost.addHeader("ua", "android");
+					final HttpParams httpParams = httpclient.getParams();
+					HttpConnectionParams.setConnectionTimeout(httpParams, 15000);
+					HttpConnectionParams.setSoTimeout(httpParams, 15000);
+					httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+					HttpResponse response = httpclient.execute(httppost);
+					HttpEntity entity = response.getEntity();
+					responseBody = EntityUtils.toString(entity);
+					check = responseBody;
+//					Double number = Double.valueOf(check);
+//					DecimalFormat df = new DecimalFormat("#.00");
+//					String newtestString = df.format(number);
+	//
+//					String abc = newtestString;
+					// error="0";
+					Log.i("postData", response.getStatusLine().toString());
+					Log.i("info", responseBody);
+
+					
+					myHelpez.SetRMNAccountBal(check);
+				} catch (Exception e) {
+					Log.e("log_tag", "Error in http connection " + e.toString());
+					responseBody = "Timeout|Error in Http Connection";
+					// error="1";
+				}
+			}
+			
+			else{
+				Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
+			}
+		}
+		}
+		public class XmlPullParsingAccntBal {
+
+			  protected XmlPullParser xmlpullparser1;
+			   String output1;
+			  String TAG="XmlPullParsing";
+			    public XmlPullParsingAccntBal(InputStream is) {
+			    	  
+
+			        XmlPullParserFactory factory = null;
+			        try {
+			            factory = XmlPullParserFactory.newInstance();
+			        } catch (XmlPullParserException e) {
+			            // TODO Auto-generated catch block
+			            e.printStackTrace();
+			        }
+			        factory.setNamespaceAware(true);
+			        try {
+			            xmlpullparser1 = factory.newPullParser();
+			        } catch (XmlPullParserException e) {
+			            // TODO Auto-generated catch block
+			            e.printStackTrace();
+			        }
+
+
+			        try {
+			            xmlpullparser1.setInput(is, "UTF-8");
+			        } catch (XmlPullParserException e) {
+			            // TODO Auto-generated catch block
+			            e.printStackTrace();
+			        }
+
+
+			        int eventType = 0;
+			        try {
+			            eventType = xmlpullparser1.getEventType();
+			        } catch (XmlPullParserException e) {
+			            // TODO Auto-generated catch block
+			            e.printStackTrace();
+			        }
+			        while (eventType != XmlPullParser.END_DOCUMENT) {
+
+			            parseTag(eventType);
+			            try {
+			                eventType = xmlpullparser1.next();
+			            } catch (XmlPullParserException e) {
+			                // TODO Auto-generated catch block
+			                e.printStackTrace();
+			            } catch (IOException e) {
+			                // TODO Auto-generated catch block
+			                e.printStackTrace();
+			            }
+			        }
+
+
+			    }
+
+			    void parseTag(int event){
+
+			        switch (event) {
+
+			        case XmlPullParser.START_DOCUMENT:
+			            Log.i(TAG,"START_DOCUMENT");
+			            break;
+
+			        case XmlPullParser.END_DOCUMENT:
+			            Log.i(TAG,"END_DOCUMENT");
+			            break;
+			        case XmlPullParser.START_TAG: 
+			            Log.i(TAG,"START_TAG"+xmlpullparser1.getName());
+			            Log.i(TAG,"Attribute Name"+xmlpullparser1.getAttributeValue(null,"category"));
+
+			            break;
+
+			        case XmlPullParser.END_TAG: 
+			            Log.i(TAG,"END_TAG"+xmlpullparser1.getName());
+
+			            break;
+
+			        case XmlPullParser.TEXT:
+			            Log.i(TAG,"TEXT");
+			            output = xmlpullparser1.getText();
+			            String newoutputrecharge = output;
+			           		                
+				//////////        Toast.makeText(InfoActivity.this, newoutputrecharge, Toast.LENGTH_LONG).show();
+				    
+				       
+				         //response.setText("Bal: Rs. 100000000");
+				         myHelpez.SetRMNAccountBal(newoutputrecharge);
+				        break;
+			        
+			        }
+			        
+
+			    }
+			       
+	    }
+		public void addListenerOnSpinnerItemSelection() {
+
+			languageSpinner
+					.setOnItemSelectedListener(new CustomOnItemSelectedListener());
+		}
+		public class CustomOnItemSelectedListener implements OnItemSelectedListener {
+
+			public void onItemSelected(AdapterView<?> parent, View view, int pos,
+					long id) {
+				
+//				   if (pos == 0) {
+//					   
+//	                    Toast.makeText(parent.getContext(),
+//	                            "Please Select Language", Toast.LENGTH_SHORT)
+//	                            .show();
+//	                   
+//	                } else
+				if (pos == 1) {
+	 
+	                    Toast.makeText(parent.getContext(),
+	                            "You have selected English", Toast.LENGTH_SHORT)
+	                            .show();
+	                    setLocale("en");
+	                } 
+				   else if (pos == 2) {
+	 
+	                    Toast.makeText(parent.getContext(),
+	                            "You have selected Hindi", Toast.LENGTH_SHORT)
+	                            .show();
+	                    setLocale("hi");
+	                } else if (pos == 3) {
+	 
+	                    Toast.makeText(parent.getContext(),
+	                            "You have selected Marathi", Toast.LENGTH_SHORT)
+	                            .show();
+	                    setLocale("en");
+	                }
+	                else if (pos == 4) {
+	               	 
+	                    Toast.makeText(parent.getContext(),
+	                            "You have selected Gujarati", Toast.LENGTH_SHORT)
+	                            .show();
+	                    setLocale("gu");
+	                }
+	                else if (pos == 5) {
+		               	 
+	                    Toast.makeText(parent.getContext(),
+	                            "You have selected tamil", Toast.LENGTH_SHORT)
+	                            .show();
+	                    setLocale("ta");
+	                }
+	                else if (pos == 6) {
+		               	 
+	                    Toast.makeText(parent.getContext(),
+	                            "You have selected Telugu", Toast.LENGTH_SHORT)
+	                            .show();
+	                    setLocale("te");
+	                }
+	                else if (pos == 7) {
+		               	 
+	                    Toast.makeText(parent.getContext(),
+	                            "You have selected Oriya", Toast.LENGTH_SHORT)
+	                            .show();
+	                    setLocale("or");
+	                }
+	                
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+			}
+
+		}
+//		@Override
+//		public void onConfigurationChanged(android.content.res.Configuration newConfig) {
+//			super.onConfigurationChanged(newConfig);
+//			if (myLocale != null){
+//		        newConfig.locale = myLocale;
+//		        Locale.setDefault(myLocale);
+//		        getBaseContext().getResources().updateConfiguration(newConfig, getBaseContext().getResources().getDisplayMetrics());
+//		    }
+//		}
+//		
+		 public void setLocale(String lang) {
+			 
+		        myLocale = new Locale(lang);
+		        Resources res = getResources();
+		        DisplayMetrics dm = res.getDisplayMetrics();
+		        Configuration conf = res.getConfiguration();
+		        conf.locale = myLocale;
+		        res.updateConfiguration(conf, dm);
+		        Intent refresh = new Intent(this, LoginActivity.class);
+		        startActivity(refresh);
+		    }
 		}
 

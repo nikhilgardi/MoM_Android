@@ -17,7 +17,7 @@
         android:textColor="@drawable/textcolor"
         android:textSize="18dp"
         android:textStyle="bold"
-        android:typeface="sans"
+       
         android:shadowColor="@color/text_shadow_white"
        
         android:shadowDx="1"

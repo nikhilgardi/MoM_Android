@@ -82,7 +82,7 @@ public class MPinActivity extends Activity {
 	Intent myintenttest = new Intent();
 
 	String response_status;
-
+	Helpz myHelpz = new Helpz();
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_mpin);
@@ -108,6 +108,7 @@ public class MPinActivity extends Activity {
 		this.backButton = (Button) findViewById(R.id.btn_back);
 
 		this.submitButton = (Button) findViewById(R.id.btn_Submit);
+		  getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.appsbg)); 
 		submitButton.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -124,7 +125,8 @@ public class MPinActivity extends Activity {
 					case 1:
 
 						responseText.setVisibility(View.VISIBLE);
-						responseText.setText("Enter Correct Old MPIN");
+					//	responseText.setText("Enter Correct Old MPIN");
+						responseText.setText(getResources().getString(R.string.error_oldMpin));
 						Old_Password.setText("");
 						New_Password.setText("");
 						Confirm_Password.setText("");
@@ -133,7 +135,8 @@ public class MPinActivity extends Activity {
 					case 2:
 
 						responseText.setVisibility(View.VISIBLE);
-						responseText.setText("Enter Correct Old MPIN");
+					//	responseText.setText("Enter Correct Old MPIN");
+						responseText.setText(getResources().getString(R.string.error_oldMpin));
 						New_Password.setText("");
 						Confirm_Password.setText("");
 
@@ -142,14 +145,16 @@ public class MPinActivity extends Activity {
 					case 3:
 
 						responseText.setVisibility(View.VISIBLE);
-						responseText.setText("The new MPIN should be 8 numeric characters only");
+					//	responseText.setText("The new MPIN should be 8 numeric characters only");
+						responseText.setText(getResources().getString(R.string.error_newMpin));
 						Confirm_Password.setText("");
 						break;
 
 					case 4:
 						
 						responseText.setVisibility(View.VISIBLE);
-						responseText.setText("New MPIN and Confirm Password doesnot match");
+					//	responseText.setText("New MPIN and Confirm Password doesnot match");
+						responseText.setText(getResources().getString(R.string.error_Mpin_matching));
 						New_Password.setText("");
 						Confirm_Password.setText("");
 						break;
@@ -158,7 +163,8 @@ public class MPinActivity extends Activity {
                     case 5:
 						
 						responseText.setVisibility(View.VISIBLE);
-						responseText.setText("Old MPIN and New MPIN cannot be same");
+					//	responseText.setText("Old MPIN and New MPIN cannot be same");
+						responseText.setText(getResources().getString(R.string.validate_oldnewMpin));
 						Old_Password.setText("");
 						New_Password.setText("");
 						Confirm_Password.setText("");
@@ -191,84 +197,96 @@ public class MPinActivity extends Activity {
 
 	private void AccountBalPost() {
 
-		Helpz myHelpz = new Helpz();
+	
 		SharedPreferences pref = PreferenceManager
 				.getDefaultSharedPreferences(getApplicationContext());
 
 		if (pref.getString("user_sessionMOM", "test").equals("MOM"))
 
 		{
-		try {
-
-			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
-			nameValuePairs.add(new BasicNameValuePair("OperatorID", myHelpz
-					.GetMyCustomerId()));
-			nameValuePairs.add(new BasicNameValuePair("CompanyID", myHelpz
-					.GetMyCompanyId()));
-			nameValuePairs.add(new BasicNameValuePair("strAccessID",
-					GlobalVariables.AccessId));
-			HttpClient httpclient = new DefaultHttpClient();
-			HttpPost httppost = new HttpPost(
-					"http://msvc.money-on-mobile.net/WebServiceV3Client.asmx/getBalanceByCustomerId");
-			httppost.addHeader("ua", "android");
-			final HttpParams httpParams = httpclient.getParams();
-			HttpConnectionParams.setConnectionTimeout(httpParams, 15000);
-			HttpConnectionParams.setSoTimeout(httpParams, 15000);
-			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-			HttpResponse response = httpclient.execute(httppost);
-			HttpEntity entity = response.getEntity();
-			responseBody = EntityUtils.toString(entity);
-			check = responseBody;
-			// error="0";
-			Log.i("postData", response.getStatusLine().toString());
-			Log.i("info", responseBody);
-
-			InputStream in = new ByteArrayInputStream(
-					responseBody.getBytes("UTF-8"));
-			new XmlPullParsing(in);
-
-		} catch (Exception e) {
-			Log.e("log_tag", "Error in http connection " + e.toString());
-			responseBody = "Timeout|Error in Http Connection";
-			// error="1";
+			accntbalresponse.setVisibility(View.VISIBLE);
+			accntbalresponse.setText(getResources().getString(R.string.lblBal) + myHelpz.GetRMNAccountBal().toString());
+//		try {
+//
+//			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
+//			nameValuePairs.add(new BasicNameValuePair("OperatorID", myHelpz
+//					.GetMyCustomerId()));
+//			nameValuePairs.add(new BasicNameValuePair("CompanyID", myHelpz
+//					.GetMyCompanyId()));
+//			nameValuePairs.add(new BasicNameValuePair("strAccessID",
+//					GlobalVariables.AccessId));
+//			HttpClient httpclient = new DefaultHttpClient();
+//			HttpPost httppost = new HttpPost(
+//					"http://msvc.money-on-mobile.net/WebServiceV3Client.asmx/getBalanceByCustomerId");
+//			httppost.addHeader("ua", "android");
+//			final HttpParams httpParams = httpclient.getParams();
+//			HttpConnectionParams.setConnectionTimeout(httpParams, 15000);
+//			HttpConnectionParams.setSoTimeout(httpParams, 15000);
+//			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+//			HttpResponse response = httpclient.execute(httppost);
+//			HttpEntity entity = response.getEntity();
+//			responseBody = EntityUtils.toString(entity);
+//			check = responseBody;
+//			// error="0";
+//			Log.i("postData", response.getStatusLine().toString());
+//			Log.i("info", responseBody);
+//
+//			InputStream in = new ByteArrayInputStream(
+//					responseBody.getBytes("UTF-8"));
+//			new XmlPullParsing(in);
+//
+//		} catch (Exception e) {
+//			Log.e("log_tag", "Error in http connection " + e.toString());
+//			responseBody = "Timeout|Error in Http Connection";
+//			// error="1";
+//		}
 		}
-		}
 
+		else if (pref.getString("user_sessionMOM", "test").equals("B2C"))
+		{
+			accntbalresponse.setVisibility(View.VISIBLE);
+			accntbalresponse.setText(getResources().getString(R.string.lblBal)+ myHelpz.GetRMNAccountBal().toString());
+		}
+		
+		
+		
 		else if (pref.getString("user_sessionMOM", "test").equals("PBX"))
 
 		{
+			accntbalresponse.setVisibility(View.VISIBLE);
+			accntbalresponse.setText(getResources().getString(R.string.lblBal)+ myHelpz.GetRMNAccountBal().toString());
 
-			HttpClient httpclient = new DefaultHttpClient();
-			HttpPost httppost = new HttpPost(
-					"http://180.179.67.76/MobAppS/PbxMobApp.ashx");
-			try {
-
-				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-				nameValuePairs.add(new BasicNameValuePair("RN", myHelpz
-						.GetMyLoginMobileNumber()));
-				nameValuePairs.add(new BasicNameValuePair("Service", "BL"));
-
-				httppost.addHeader("ua", "android");
-				final HttpParams httpParams = httpclient.getParams();
-				HttpConnectionParams.setConnectionTimeout(httpParams, 15000);
-				HttpConnectionParams.setSoTimeout(httpParams, 15000);
-				httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-				HttpResponse response = httpclient.execute(httppost);
-				HttpEntity entity = response.getEntity();
-				responseBody = EntityUtils.toString(entity);
-				check = responseBody;
-				
-				Log.i("postData", response.getStatusLine().toString());
-				Log.i("info", responseBody);
-
-				accntbalresponse.setVisibility(View.VISIBLE);
-				accntbalresponse.setText("Bal: Rs." + check);
-
-			} catch (Exception e) {
-				Log.e("log_tag", "Error in http connection " + e.toString());
-				responseBody = "Timeout|Error in Http Connection";
-				// error="1";
-			}
+//			HttpClient httpclient = new DefaultHttpClient();
+//			HttpPost httppost = new HttpPost(
+//					"http://180.179.67.76/MobAppS/PbxMobApp.ashx");
+//			try {
+//
+//				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+//				nameValuePairs.add(new BasicNameValuePair("RN", myHelpz
+//						.GetMyLoginMobileNumber()));
+//				nameValuePairs.add(new BasicNameValuePair("Service", "BL"));
+//
+//				httppost.addHeader("ua", "android");
+//				final HttpParams httpParams = httpclient.getParams();
+//				HttpConnectionParams.setConnectionTimeout(httpParams, 15000);
+//				HttpConnectionParams.setSoTimeout(httpParams, 15000);
+//				httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+//				HttpResponse response = httpclient.execute(httppost);
+//				HttpEntity entity = response.getEntity();
+//				responseBody = EntityUtils.toString(entity);
+//				check = responseBody;
+//				
+//				Log.i("postData", response.getStatusLine().toString());
+//				Log.i("info", responseBody);
+//
+//				accntbalresponse.setVisibility(View.VISIBLE);
+//				accntbalresponse.setText("Bal: Rs." + check);
+//
+//			} catch (Exception e) {
+//				Log.e("log_tag", "Error in http connection " + e.toString());
+//				responseBody = "Timeout|Error in Http Connection";
+//				// error="1";
+//			}
 		} else {
 			Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG)
 					.show();
@@ -362,7 +380,7 @@ public class MPinActivity extends Activity {
 				// Toast.LENGTH_LONG).show();
 
 				accntbalresponse.setVisibility(View.VISIBLE);
-				accntbalresponse.setText("Bal: Rs. " + newoutputrecharge);
+				accntbalresponse.setText(getResources().getString(R.string.lblBal) + newoutputrecharge);
 				// response.setText("Bal: Rs. 100000000");
 
 				break;
@@ -385,7 +403,7 @@ public class MPinActivity extends Activity {
 		SharedPreferences pref = PreferenceManager
 				.getDefaultSharedPreferences(getApplicationContext());
 
-		if (pref.getString("user_sessionMOM", "test").equals("MOM"))
+		if ((pref.getString("user_sessionMOM", "test").equals("MOM"))|| (pref.getString("user_sessionMOM", "test").equals("B2C")))
 
 		{
 
@@ -423,6 +441,7 @@ public class MPinActivity extends Activity {
 
 			Log.i("postData", response.getStatusLine().toString());
 			Log.i("postData", this.responseBody);
+			Log.i("MPiN", myHelpez.GetMyCompanyId());
 
 			InputStream in = new ByteArrayInputStream(
 					this.responseBody.getBytes("UTF-8"));
@@ -641,7 +660,10 @@ public class MPinActivity extends Activity {
 //	}
 
 	public void onBackPressed() {
-
+		myintenttest = new Intent(MPinActivity.this, InfoActivity.class);
+		myintenttest.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		startActivity(myintenttest);
+		this.finish();
 		return;
 	}
 

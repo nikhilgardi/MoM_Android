@@ -2,14 +2,14 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/appsbg"
+   
     android:scrollbars="vertical" >
 
     <RelativeLayout
         android:id="@+id/RelativeLayout1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-       
+      
         android:orientation="vertical" >
         
         <TableLayout
@@ -75,7 +75,7 @@
             android:layout_marginRight="10dip"
             android:layout_marginTop="130dp"
             android:background="@drawable/custom"
-            android:hint="T-Pin"
+            android:hint="@string/tpin1"
             android:imeOptions="actionDone"
             android:inputType="number"
             android:visibility="invisible"
@@ -94,7 +94,7 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/custom_button"
             android:onClick="rechargeLogin"
-            android:text="Submit"
+            android:text="@string/tpin_submit_btn"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:visibility="invisible" />
@@ -110,7 +110,7 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/custom_button"
             android:onClick="backpost"
-            android:text="Back"
+            android:text="@string/tpin_back_btn"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:visibility="invisible" />
@@ -152,9 +152,9 @@
             android:layout_below="@+id/Operator"
             android:layout_marginTop="10dp"
             android:background="@drawable/custom"
-            android:hint="Mobile Number"
+            android:hint="@string/lblYourMobile"
             android:inputType="number"
-            android:maxLength="10"
+            
             android:visibility="gone" >
         </EditText>
 
@@ -167,6 +167,7 @@
             android:layout_marginTop="130dp"
             android:background="@drawable/btn_dropdown"
             android:prompt="@string/feedbacktypeMobileRecharge"
+          
             android:visibility="gone" >
         </Spinner>
 
@@ -179,7 +180,7 @@
             android:layout_below="@+id/number"
             android:layout_marginTop="15dp"
             android:background="@drawable/custom"
-            android:hint="Consumer Number"
+            android:hint="@string/lblConsumerNumber"
             android:inputType="number"
             android:visibility="gone" >
         </EditText>
@@ -193,7 +194,7 @@
             android:layout_below="@+id/consumernumber"
             android:layout_marginTop="15dp"
             android:background="@drawable/custom"
-            android:hint="Enter Amount"
+            android:hint="@string/lblAmount"
             android:inputType="number"
             android:visibility="gone" >
         </EditText>
@@ -211,7 +212,7 @@
                 android:id="@+id/RadioButton01"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Top-Up"
+                android:text="@string/topUp_radio_btn"
                 android:textColor="#992f2f"
                 android:textSize="14dp"
                 android:textStyle="bold"
@@ -222,7 +223,7 @@
                 android:id="@+id/RadioButton02"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Validity"
+                android:text="@string/validity_radio_btn"
                 android:textColor="#992f2f"
                 android:textSize="14dp"
                 android:textStyle="bold"
@@ -233,7 +234,7 @@
                 android:id="@+id/RadioButton03"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Special"
+                android:text="@string/special_radio_btn"
                 android:textColor="#992f2f"
                 android:textSize="14dp"
                 android:textStyle="bold"
@@ -250,7 +251,7 @@
             android:layout_marginLeft="80dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/custom_button"
-            android:text="Recharge"
+            android:text="@string/btnn_recharge"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:visibility="gone" />
@@ -265,7 +266,7 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/custom_button"
             android:onClick="Backpost1"
-            android:text="Back"
+            android:text="@string/btn_secondback"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:visibility="gone" />
@@ -295,7 +296,7 @@
             android:layout_marginTop="5dp"
             android:background="@drawable/custom_button"
             android:onClick="newRecharge"
-            android:text="New Transaction"
+            android:text="@string/btn_newRecharge"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:visibility="gone" />

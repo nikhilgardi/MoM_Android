@@ -27,6 +27,9 @@ import org.xmlpull.v1.XmlPullParserFactory;
 
 import com.mmpl.app.R;
 
+import com.mmpl.app.HomeActivity1.XmlPullParsingAccnt;
+
+
 import android.R.integer;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -93,6 +96,8 @@ public class HomeActivity2 extends Activity implements OnClickListener {
 	int i;
 	Intent myintent3 = new Intent();
 	Helpz myHelpez = new Helpz();
+	
+
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		// //setContentView(R.layout.recharge);
@@ -175,11 +180,11 @@ public class HomeActivity2 extends Activity implements OnClickListener {
 		this.image = (ImageView) findViewById(R.id.img_resp);
 		this.last_responseText = (TextView) findViewById(R.id.last_responseText);
 		this.ResultResponse_responseText = (TextView) findViewById(R.id.ResultResponse_responseText);
-
+		  getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.appsbg)); 
 		AccountBalPost();
 		
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		if(pref.getString("user_sessionMOM", "test").equals("MOM"))
+		if ((pref.getString("user_sessionMOM", "test").equals("MOM")) || (pref.getString("user_sessionMOM", "test").equals("B2C")))
 			
 		{
 			passButton.setVisibility(View.VISIBLE);
@@ -193,34 +198,37 @@ public class HomeActivity2 extends Activity implements OnClickListener {
 		}
 		
 				
-		String[] strOperators = getAllOperators();
-		/*
-		 * String[] actions = new String[] { "Bookmark", "Subscribe", "Share" };
-		 */
-
-		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, strOperators);
-		dataAdapter
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		operatorSpinner.setAdapter(dataAdapter);
-
+		getAllOperators();
+		Get_OperatorID("NORTH BIHAR ELECTRICITY");
+		String op = Get_OperatorID("NORTH BIHAR ELECTRICITY");
+		Log.i("CHECkinh", op);
 	}
 
-	private void AccountBalPost() {
+	private class GetLoginTask extends AsyncTask<Void, Void, String> {
 
-		Helpz myHelpz = new Helpz();
+		@Override
+		protected String doInBackground(Void... params) {
+			
+			
+			return responseBody;
+		}
+	
+	
+	@Override
+	protected void onPostExecute(String result) {
 
+		
 		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		
-		if(pref.getString("user_sessionMOM", "test").equals("MOM"))
+		if ((pref.getString("user_sessionMOM", "test").equals("MOM"))|| (pref.getString("user_sessionMOM", "test").equals("B2C")))
 			
 			{
 		try {
 
 			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
-			nameValuePairs.add(new BasicNameValuePair("OperatorID", myHelpz
+			nameValuePairs.add(new BasicNameValuePair("OperatorID", myHelpez
 					.GetMyCustomerId()));
-			nameValuePairs.add(new BasicNameValuePair("CompanyID", myHelpz
+			nameValuePairs.add(new BasicNameValuePair("CompanyID", myHelpez
 					.GetMyCompanyId()));
 			nameValuePairs.add(new BasicNameValuePair("strAccessID",
 					GlobalVariables.AccessId));
@@ -262,7 +270,7 @@ public class HomeActivity2 extends Activity implements OnClickListener {
 			try {
 				
 				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-				nameValuePairs.add(new BasicNameValuePair("RN", myHelpz.GetMyLoginMobileNumber()));
+				nameValuePairs.add(new BasicNameValuePair("RN", myHelpez.GetMyLoginMobileNumber()));
 				nameValuePairs.add(new BasicNameValuePair("Service", "BL"));
 				
 				
@@ -284,8 +292,9 @@ public class HomeActivity2 extends Activity implements OnClickListener {
 				Log.i("postData", response.getStatusLine().toString());
 				Log.i("info", responseBody);
 
-				accountbal.setVisibility(View.VISIBLE);
-				accountbal.setText("Bal: Rs." + check);
+				    myHelpez.SetRMNAccountBal(check);
+					accountbal.setVisibility(View.VISIBLE);
+					accountbal.setText(getResources().getString(R.string.lblBal) + myHelpez.GetRMNAccountBal());
 
 			} catch (Exception e) {
 				Log.e("log_tag", "Error in http connection " + e.toString());
@@ -297,7 +306,38 @@ public class HomeActivity2 extends Activity implements OnClickListener {
 			Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
 		}
 	}
-
+	}
+	private void AccountBalPost(){
+		 
+		
+		 SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+			
+			if(pref.getString("user_sessionMOM", "test").equals("MOM"))
+				
+				{
+				accountbal.setVisibility(View.VISIBLE);
+				accountbal.setText(getResources().getString(R.string.lblBal) + myHelpez.GetRMNAccountBal().toString());
+				}
+			else if (pref.getString("user_sessionMOM", "test").equals("B2C"))
+			{
+				accountbal.setVisibility(View.VISIBLE);
+				accountbal.setText(getResources().getString(R.string.lblBal)
+						+ myHelpez.GetRMNAccountBal().toString());
+			}
+			else if(pref.getString("user_sessionMOM", "test").equals("PBX"))
+				
+				
+			{
+				accountbal.setVisibility(View.VISIBLE);
+				accountbal.setText(getResources().getString(R.string.lblBal) + myHelpez.GetRMNAccountBal().toString());
+				
+				
+			}
+			else{
+				Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
+			}
+			
+	}
 	public class XmlPullParsingAccnt {
 
 		protected XmlPullParser xmlpullparser1;
@@ -384,8 +424,9 @@ public class HomeActivity2 extends Activity implements OnClickListener {
 				// //////// Toast.makeText(InfoActivity.this, newoutputrecharge,
 				// Toast.LENGTH_LONG).show();
 
-				accountbal.setVisibility(View.VISIBLE);
-				accountbal.setText("Bal: Rs." + newoutputrecharge);
+				    myHelpez.SetRMNAccountBal(newoutputrecharge);
+					accountbal.setVisibility(View.VISIBLE);
+					accountbal.setText(getResources().getString(R.string.lblBal) + myHelpez.GetRMNAccountBal());
 
 				break;
 
@@ -418,30 +459,25 @@ public class HomeActivity2 extends Activity implements OnClickListener {
 		
 SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		
-		if(pref.getString("user_sessionMOM", "test").equals("MOM"))
+		if ((pref.getString("user_sessionMOM", "test").equals("MOM"))|| (pref.getString("user_sessionMOM", "test").equals("B2C")))
 			
 			{
 
-		HttpClient httpclient = new DefaultHttpClient();
-		try {
-
-			HttpPost httppost = new HttpPost(
-					"http://180.179.67.72/nokiaservice/getProductByProductType.aspx?OperatorType=3");
-			HttpResponse response = httpclient.execute(httppost);
-			HttpEntity entity = response.getEntity();
-			this.responseBody = EntityUtils.toString(entity);
-			String strOperators = responseBody;
-			Log.i("postData", response.getStatusLine().toString());
-			Log.i("postData", this.responseBody);
-
-			String[] strArrOperators = Split(strOperators, "~");
-
-			strResponse1 = strArrOperators;
-
-		} catch (Exception ex) {
-			String[] strResponse = { "NO ITEM TO DISPLAY" };
-			strResponse1 = strResponse;
-		}
+	
+			
+			String[] strOperators = new String[] {getResources().getString(R.string.prompt_spinner_select_operator),"AIRCEL BILL" , "AIRTEL BILL", "AIRTEL LAND LINE" ,"BESCOM BANGALURU",
+					"BEST ELECTRICITY BILL" ,"BSES RAJDHANI" ,"BSNL BILL PAY" ,"CELLONE BILL PAY"," CESC LIMITED" ,"CESCOM MYSORE",
+					"DHBVN HARYANA", "IDEA BILL" ,"INDRAPRASTH GAS" , "MAHANAGAR GAS BILL","NORTH BIHAR ELECTRICITY",
+					"RELIANCE BILL GSM" ,"RELIANCE CDMA BILL", "RELIANCE ENERGY BILL", "SOUTH BIHAR ELECTRICITY","TATA BILL",
+					"TATA POWER DELHI", "TIKONA BILL PAYMENT","UHBVN HARYANA","VODAFONE BILL"};
+			
+			 ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+			   			android.R.layout.simple_spinner_item, strOperators);
+			   			dataAdapter
+			   			.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			   			operatorSpinner.setAdapter(dataAdapter);	
+			
+			
 			}
 		else if(pref.getString("user_sessionMOM", "test").equals("PBX"))
 		{
@@ -469,6 +505,12 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 				String[] strArrOperators = Split(strOperators, "|");
 
 				strResponse1 = strArrOperators;
+				
+				 ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+				   			android.R.layout.simple_spinner_item, strResponse1);
+				   			dataAdapter
+				   			.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+				   			operatorSpinner.setAdapter(dataAdapter);	
 
 			} catch (Exception ex) {
 				String[] strResponse = { "NO ITEM TO DISPLAY" };
@@ -485,28 +527,153 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 	private String Get_OperatorID(String strOperatorName) {
 SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		
-		if(pref.getString("user_sessionMOM", "test").equals("MOM"))
+		if ((pref.getString("user_sessionMOM", "test").equals("MOM"))|| (pref.getString("user_sessionMOM", "test").equals("B2C")))
 			
 			{
-		HttpClient httpclient = new DefaultHttpClient();
-		try {
+		
+			
+			
+			if(strOperatorName.equals("AIRCEL BILL"))
+            {
+            	
+            	
+            	return "39";
+            }
+            else  if(strOperatorName.equals("AIRTEL BILL"))
+            {
+            	
+            	return "3";
+            }
+            else  if(strOperatorName.equals("AIRTEL LAND LINE"))
+            {
+            	
+            	return "68";
+            }
+            else  if(strOperatorName.equals("BESCOM BANGALURU"))
+            {
+            
+            	return "61";
+            }
+            else  if(strOperatorName.equals("BEST ELECTRICITY BILL"))
+            {
+            
+            	return "55";
+            }
 
-			HttpPost httppostcheck = new HttpPost(
-					"http://180.179.67.72/nokiaservice/getOperatorIdByOperatorName.aspx?OperatorName="
-							+ urlEncode(strOperatorName.toString()));
-
-			HttpResponse response = httpclient.execute(httppostcheck);
-			HttpEntity entity = response.getEntity();
-			this.responseBody = EntityUtils.toString(entity);
-			String strResponse = responseBody;
-			Log.i("postData", response.getStatusLine().toString());
-			Log.i("postData", this.responseBody);
-
-			return strResponse;
-
-		} catch (Exception ex) {
-			return "0";
-		}
+  
+            else  if(strOperatorName.equals("BSES RAJDHANI"))
+            {
+            
+            	return "58";
+            }
+    
+            else  if(strOperatorName.equals("BSNL BILL PAY"))
+            {
+            	
+            	return "6";
+            }
+            else  if(strOperatorName.equals("CELLONE BILL PAY"))
+            {
+            	
+            	return "56";
+            }
+            else  if(strOperatorName.equals("CESC LIMITED"))
+            {
+            
+            	return "57";
+            }
+            else  if(strOperatorName.equals("CESCOM MYSORE"))
+            {
+            
+            	return "62";
+            }
+            else  if(strOperatorName.equals("DHBVN HARYANA"))
+            {
+            
+            	return "59";
+            }
+      
+       
+         
+       
+            else  if(strOperatorName.equals("IDEA BILL"))
+            {
+            	
+            	return "35";
+            }
+            else  if(strOperatorName.equals("INDRAPRASTH GAS"))
+            {
+            
+            	return "63";
+            }
+            else  if(strOperatorName.equals("MAHANAGAR GAS BILL"))
+            {
+            	
+            	return "45";
+            }
+      
+   
+   
+    
+            else  if(strOperatorName.equals("NORTH BIHAR ELECTRICITY"))
+            {
+            
+            	return "49";
+            }
+     
+     
+            else  if(strOperatorName.equals("RELIANCE BILL GSM"))
+            {
+            	
+            	return "36";
+            }
+            else  if(strOperatorName.equals("RELIANCE CDMA BILL"))
+            {
+            	
+            	return "11";
+            }
+            else  if(strOperatorName.equals("RELIANCE ENERGY BILL"))
+            {
+            	
+                return "51";
+            }
+            else  if(strOperatorName.equals("SOUTH BIHAR ELECTRICITY"))
+            {
+            	
+            	 return "50";
+            }
+     
+            else  if(strOperatorName.equals("TATA BILL"))
+            {
+            	
+            	return "42";
+            }
+            else  if(strOperatorName.equals("TATA POWER DELHI"))
+            {
+            	
+            	return "67";
+            }
+    
+            else  if(strOperatorName.equals("TIKONA BILL PAYMENT"))
+            {
+            	
+            	return "44";
+            }
+            else  if(strOperatorName.equals("UHBVN HARYANA"))
+            {
+            
+            	return "60";
+            }
+            else  if(strOperatorName.equals("VODAFONE BILL"))
+            {
+            	
+            	return "20";
+            }
+            
+            else{
+            	return "0";
+            }
+						
 	}
 		else if(pref.getString("user_sessionMOM", "test").equals("PBX"))
 		{
@@ -605,7 +772,10 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 
 			} else if (numField_bill.getText().toString().length() < 10) {
 				return 2;
-			} else if (amountField.getText().toString().length() == 0) {
+			}else if (numField_bill.getText().toString().length() > 10) {
+				return 2;
+			
+			}else if (amountField.getText().toString().length() == 0) {
 				return 3;
 			} else if (Integer.parseInt(amountField.getText().toString()) < 10) {
 				return 3;
@@ -616,10 +786,101 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 			else {
 				return 0;
 			}
-		} else {
+			
+		} 
+		else if(Operatorid.equals("67"))
+		{
+			if (operatorSpinner.getSelectedItemPosition() < 1) {
+				return 5;
+			} else if (consumernumber.getText().toString().length() == 0) {
+				return 4;
+
+			} else if (numField_bill.getText().toString().length() < 10) {
+				return 2;
+			}else if (numField_bill.getText().toString().length() > 10) {
+				return 2;
+			
+			}else if (amountField.getText().toString().length() == 0) {
+				return 3;
+			} else if (Integer.parseInt(amountField.getText().toString()) < 10) {
+				return 3;
+			} else if (Integer.parseInt(amountField.getText().toString()) > 10000) {
+				return 3;
+			}
+
+			else {
+				return 0;
+			}
+		}
+		else if((Operatorid.equals("3")) || (Operatorid.equals("BAI"))) {
 			if (operatorSpinner.getSelectedItemPosition() < 1) {
 				return 1;
 			} else if (numField_bill.getText().toString().length() < 10) {
+				return 2;
+			} else if (numField_bill.getText().toString().length() > 11) {
+				return 2;
+			} else if (amountField.getText().toString().length() == 0) {
+				return 3;
+			} else if (Integer.parseInt(amountField.getText().toString()) < 50) {
+				return 3;
+			} else if (Integer.parseInt(amountField.getText().toString()) > 10000) {
+				return 3;
+			}
+
+			else {
+				return 0;
+			}
+		}
+		
+		else if ((Operatorid.equals("39")) || (Operatorid.equals("6"))|| (Operatorid.equals("35")) 
+	|| (Operatorid.equals("36"))|| (Operatorid.equals("11"))|| (Operatorid.equals("42")) || (Operatorid.equals("20"))) {
+			if (operatorSpinner.getSelectedItemPosition() < 1) {
+				return 1;
+			} else if (numField_bill.getText().toString().length() < 10) {
+				return 2;
+			}else if (numField_bill.getText().toString().length() > 10) {
+				return 2;
+			} else if (amountField.getText().toString().length() == 0) {
+				return 3;
+			} else if (Integer.parseInt(amountField.getText().toString()) < 50) {
+				return 3;
+			} else if (Integer.parseInt(amountField.getText().toString()) > 10000) {
+				return 3;
+			}
+
+			else {
+				return 0;
+			}
+		}
+		
+		
+		else if ((Operatorid.equals("BAC")) || (Operatorid.equals("BLL"))|| (Operatorid.equals("BID")) 
+				|| (Operatorid.equals("BRG"))|| (Operatorid.equals("BRC"))|| (Operatorid.equals("BTA")) || (Operatorid.equals("BVO"))) {
+						if (operatorSpinner.getSelectedItemPosition() < 1) {
+							return 1;
+						} else if (numField_bill.getText().toString().length() < 10) {
+							return 2;
+						}else if (numField_bill.getText().toString().length() > 10) {
+							return 2;
+						} else if (amountField.getText().toString().length() == 0) {
+							return 3;
+						} else if (Integer.parseInt(amountField.getText().toString()) < 50) {
+							return 3;
+						} else if (Integer.parseInt(amountField.getText().toString()) > 10000) {
+							return 3;
+						}
+
+						else {
+							return 0;
+						}
+					}
+		
+		else {
+			if (operatorSpinner.getSelectedItemPosition() < 1) {
+				return 1;
+			} else if (numField_bill.getText().toString().length() < 10) {
+				return 2;
+			}else if (numField_bill.getText().toString().length() > 10) {
 				return 2;
 			} else if (amountField.getText().toString().length() == 0) {
 				return 3;
@@ -707,7 +968,7 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 		this.image.setVisibility(View.VISIBLE);
 		this.responseText.setVisibility(View.VISIBLE);
 		this.newButton.setVisibility(View.VISIBLE);
-		image.setImageResource(R.drawable.success);
+	
 		this.responseText.setText(this.newoutputrecharge);
 		// /////// Toast.makeText(HomeActivity2.this, this.newoutputrecharge,
 		// Toast.LENGTH_SHORT).show();
@@ -775,7 +1036,7 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 			switch (validate()) {
 			case 1:
 				third_responseText.setVisibility(View.VISIBLE);
-				third_responseText.setText("Select Service Provider");
+				third_responseText.setText(getResources().getString(R.string.prompt_spinner_select_operator));
 				operatorSpinner.setSelection(0);
 				consumernumber.setText("");
 				amountField.setText("");
@@ -783,14 +1044,14 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 				break;
 			case 4:
 				third_responseText.setVisibility(View.VISIBLE);
-				third_responseText.setText("Select Consumer Number");
+				third_responseText.setText(getResources().getString(R.string.prompt_Validity_consumer_number));
 
 				consumernumber.setText("");
 				break;
 
 			case 3:
 				third_responseText.setVisibility(View.VISIBLE);
-				third_responseText.setText("Invalid Amount");
+				third_responseText.setText(getResources().getString(R.string.prompt_Validity_amount));
 				amountField.setText("");
 
 				break;
@@ -862,7 +1123,7 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 		}
 SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		
-		if(pref.getString("user_sessionMOM", "test").equals("MOM"))
+		if ((pref.getString("user_sessionMOM", "test").equals("MOM"))||(pref.getString("user_sessionMOM", "test").equals("B2C")))
 			
 			{
 		try {
@@ -914,7 +1175,12 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 						myHelpez.GetConsumerNumber() + "|"
 								+ myHelpez.GetMyRechargeMobileNumber() + "|"
 								+ myHelpez.GetMyUserId()));
-			} else {
+			}else if (Operatorid.equals("67")) {
+				nameValuePairs.add(new BasicNameValuePair("strCustomerNumber",
+						myHelpez.GetConsumerNumber() + "|"
+								+ myHelpez.GetMyRechargeMobileNumber()));
+			} 
+			else {
 				nameValuePairs.add(new BasicNameValuePair("strCustomerNumber",
 						myHelpez.GetMyRechargeMobileNumber()));
 
@@ -946,7 +1212,8 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 			check = responseBody;
 			Log.i("postData", response.getStatusLine().toString());
 			Log.i("postData", this.responseBody);
-
+			Log.i("oPERATORtEST_bILL", Get_OperatorID(myHelpez.GetMyRechargeOperator()).toString());
+			Log.i("CompanyIDBill", myHelpez.GetMyCompanyId());
 			/*
 			 * this.numField.setVisibility(View.GONE);
 			 * this.postButton.setVisibility(View.GONE);
@@ -1015,7 +1282,7 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 								sb.append("StatusCode : " + strResponse1[0].toString()
 										+ "\n" + "TransId : " + strResponse1[2].toString()
 										+ "\n" + "Message:" + strResponse1[1].toString()
-										 + "\n" + "Amount :" + strResponse1[3].toString());
+										 + "\n" + "Balance:" + strResponse1[3].toString());
 								sb.append("\n");
 								sb.append("\n");
 
@@ -1043,7 +1310,7 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 						
 							responseText1.setVisibility(View.VISIBLE);
 							newButton.setVisibility(View.VISIBLE);
-							image.setImageResource(R.drawable.success);
+						
 							responseText1.setText(a);
 				    	  
 
@@ -1075,7 +1342,7 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 								
 								responseText1.setVisibility(View.VISIBLE);
 								newButton.setVisibility(View.VISIBLE);
-								image.setImageResource(R.drawable.success);
+								
 								responseText1.setText(check);
 						 }
 						 
@@ -1450,7 +1717,7 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 				// ResultResponse_responseText.setVisibility(View.VISIBLE);
 				responseText1.setVisibility(View.VISIBLE);
 				newButton.setVisibility(View.VISIBLE);
-				image.setImageResource(R.drawable.success);
+				
 				responseText1.setText(newoutputrecharge);
 				// ResultResponse_responseText.setText(newoutputrecharge);
 
@@ -1467,7 +1734,7 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 
 		if (passField.getText().toString().trim().equals("")) {
 			this.responseText.setVisibility(View.VISIBLE);
-			responseText.setText("Please enter your Password");
+			responseText.setText(getResources().getString(R.string.login_pwd_required));
 			return false;
 		} else {
 			nameValuePairs.add(new BasicNameValuePair("recharge_key", passField
@@ -1511,6 +1778,9 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 
 	@Override
 	public void onBackPressed() {
+		startActivity(reintent);
+		reintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		this.finish();
 		return;
 	}
 
@@ -1531,33 +1801,42 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 					HomeActivity2.this);
 
 			// Setting Dialog Title
-			alertDialog.setTitle("Confirm Payment...");
+			alertDialog.setTitle(getResources().getString(R.string.AlertDialog_BillPayment));
 
 			// Setting Dialog Message
-			alertDialog.setMessage("ConsumerNumber:" + " "
-					+ consumernumber.getText().toString() + "\n"
-					+ "MobileNumber:" + " "
-					+ numField_bill.getText().toString() + "\n" + "Operator:"
-					+ " " + operatorSpinner.getSelectedItem().toString() + "\n"
-					+ "Amount:" + " " + "Rs." + " "
+			alertDialog.setMessage(getResources().getString(R.string.lblConsumerNumber)
+					+ " "
+					+ consumernumber.getText().toString()
+					+ "\n"
+					+ getResources().getString(R.string.Lbl_MobileNumber)
+					+ " "
+					+ numField_bill.getText().toString()
+					+ "\n"
+					+ getResources().getString(R.string.Lbl_Operator)
+					+ " "
+					+ operatorSpinner.getSelectedItem().toString()
+					+ "\n"
+					+getResources().getString(R.string.Lbl_Amount)
+					+ " "
 					+ amountField.getText().toString());
 
 			// Setting Icon to Dialog
 			// // alertDialog.setIcon(R.drawable.delete);
 
 			// Setting Positive "Yes" Button
-			alertDialog.setPositiveButton("YES",
+			alertDialog.setPositiveButton(getResources().getString(R.string.Dialog_Yes),
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 							((AlertDialog) dialog).getButton(
 									AlertDialog.BUTTON1).setEnabled(false);
 							rechargePost();
+							new GetLoginTask().onPostExecute("test");
 
 						}
 					});
 
 			// Setting Negative "NO" Button
-			alertDialog.setNegativeButton("NO",
+			alertDialog.setNegativeButton(getResources().getString(R.string.Dialog_No),
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 
@@ -1571,40 +1850,112 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 
 			// TODO Auto-generated method stub
 
-		} else if ((validate() == 0) && (Operatorid.equals("55"))) {
+		} 
+		else if ((validate() == 0) && (Operatorid.equals("67"))) {
+
 			secondback_responseText.setText(" ");
 
 			AlertDialog.Builder alertDialog = new AlertDialog.Builder(
 					HomeActivity2.this);
 
 			// Setting Dialog Title
-			alertDialog.setTitle("Confirm Payment1...");
+			alertDialog.setTitle(getResources().getString(
+					R.string.AlertDialog_BillPayment));
 
 			// Setting Dialog Message
-			alertDialog.setMessage("ConsumerNumber:" + " "
-					+ consumernumber.getText().toString() + "\n"
-					+ "MobileNumber:" + " "
-					+ numField_bill.getText().toString() + "\n" + "Operator:"
-					+ " " + operatorSpinner.getSelectedItem().toString() + "\n"
-					+ "Amount:" + " " + "Rs." + " "
+			alertDialog.setMessage(getResources().getString(
+					R.string.lblConsumerNumber)
+					+ " "
+					+ consumernumber.getText().toString()
+					+ "\n"
+					+ getResources().getString(R.string.Lbl_MobileNumber)
+					+ " "
+					+ numField_bill.getText().toString()
+					+ "\n"
+					+ getResources().getString(R.string.Lbl_Operator)
+					+ " "
+					+ operatorSpinner.getSelectedItem().toString()
+					+ "\n"
+					+ getResources().getString(R.string.Lbl_Amount)
+					+ " "
 					+ amountField.getText().toString());
 
 			// Setting Icon to Dialog
 			// // alertDialog.setIcon(R.drawable.delete);
 
 			// Setting Positive "Yes" Button
-			alertDialog.setPositiveButton("YES",
+			alertDialog.setPositiveButton(getResources().getString(R.string.Dialog_Yes),
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 							((AlertDialog) dialog).getButton(
 									AlertDialog.BUTTON1).setEnabled(false);
 							rechargePost();
+							new GetLoginTask().onPostExecute("test");
 
 						}
 					});
 
 			// Setting Negative "NO" Button
-			alertDialog.setNegativeButton("NO",
+			alertDialog.setNegativeButton(getResources().getString(R.string.Dialog_No),
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+
+							dialog.cancel();
+
+						}
+					});
+
+			// Showing Alert Message
+			alertDialog.show();
+
+			// TODO Auto-generated method stub
+
+		} 
+		else if ((validate() == 0) && (Operatorid.equals("55"))) {
+			secondback_responseText.setText(" ");
+
+			AlertDialog.Builder alertDialog = new AlertDialog.Builder(
+					HomeActivity2.this);
+
+			// Setting Dialog Title
+			alertDialog.setTitle(getResources().getString(
+					R.string.AlertDialog_BillPayment));
+
+			// Setting Dialog Message
+			alertDialog.setMessage(getResources().getString(
+					R.string.lblConsumerNumber)
+					+ " "
+					+ consumernumber.getText().toString()
+					+ "\n"
+					+ getResources().getString(R.string.Lbl_MobileNumber)
+					+ " "
+					+ numField_bill.getText().toString()
+					+ "\n"
+					+ getResources().getString(R.string.Lbl_Operator)
+					+ " "
+					+ operatorSpinner.getSelectedItem().toString()
+					+ "\n"
+					+ getResources().getString(R.string.Lbl_Amount)
+					+ " "
+					+ amountField.getText().toString());
+
+			// Setting Icon to Dialog
+			// // alertDialog.setIcon(R.drawable.delete);
+
+			// Setting Positive "Yes" Button
+			alertDialog.setPositiveButton(getResources().getString(R.string.Dialog_Yes),
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							((AlertDialog) dialog).getButton(
+									AlertDialog.BUTTON1).setEnabled(false);
+							rechargePost();
+							new GetLoginTask().onPostExecute("test");
+
+						}
+					});
+
+			// Setting Negative "NO" Button
+			alertDialog.setNegativeButton(getResources().getString(R.string.Dialog_No),
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 
@@ -1624,33 +1975,44 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 					HomeActivity2.this);
 
 			// Setting Dialog Title
-			alertDialog.setTitle("Confirm Payment2...");
+			alertDialog.setTitle(getResources().getString(
+					R.string.AlertDialog_BillPayment));
 
 			// Setting Dialog Message
-			alertDialog.setMessage("ConsumerNumber:" + " "
-					+ consumernumber.getText().toString() + "\n"
-					+ "MobileNumber:" + " "
-					+ numField_bill.getText().toString() + "\n" + "Operator:"
-					+ " " + operatorSpinner.getSelectedItem().toString() + "\n"
-					+ "Amount:" + " " + "Rs." + " "
+			alertDialog.setMessage(getResources().getString(
+					R.string.lblConsumerNumber)
+					+ " "
+					+ consumernumber.getText().toString()
+					+ "\n"
+					+ getResources().getString(R.string.Lbl_MobileNumber)
+					+ " "
+					+ numField_bill.getText().toString()
+					+ "\n"
+					+ getResources().getString(R.string.Lbl_Operator)
+					+ " "
+					+ operatorSpinner.getSelectedItem().toString()
+					+ "\n"
+					+ getResources().getString(R.string.Lbl_Amount)
+					+ " "
 					+ amountField.getText().toString());
 
 			// Setting Icon to Dialog
 			// // alertDialog.setIcon(R.drawable.delete);
 
 			// Setting Positive "Yes" Button
-			alertDialog.setPositiveButton("YES",
+			alertDialog.setPositiveButton(getResources().getString(R.string.Dialog_Yes),
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 							((AlertDialog) dialog).getButton(
 									AlertDialog.BUTTON1).setEnabled(false);
 							rechargePost();
+							new GetLoginTask().onPostExecute("test");
 
 						}
 					});
 
 			// Setting Negative "NO" Button
-			alertDialog.setNegativeButton("NO",
+			alertDialog.setNegativeButton(getResources().getString(R.string.Dialog_No),
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 
@@ -1670,31 +2032,39 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 					HomeActivity2.this);
 
 			// Setting Dialog Title
-			alertDialog.setTitle("Confirm Payment...");
+			alertDialog.setTitle(getResources().getString(
+					R.string.AlertDialog_BillPayment));
 
 			// Setting Dialog Message
-			alertDialog.setMessage("MobileNumber:" + " "
-					+ numField_bill.getText().toString() + "\n" + "Operator:"
-					+ " " + operatorSpinner.getSelectedItem().toString() + "\n"
-					+ "Amount:" + " " + "Rs." + " "
+			alertDialog.setMessage(getResources().getString(
+					R.string.Lbl_MobileNumber)
+					+ " "
+					+ numField_bill.getText().toString()
+					+ "\n"
+					+ getResources().getString(R.string.Lbl_Operator)
+					+ " "
+					+ operatorSpinner.getSelectedItem().toString()
+					+ "\n"
+					+  getResources().getString(R.string.Lbl_Amount)
+					+ " "
 					+ amountField.getText().toString());
 
 			// Setting Icon to Dialog
 			// // alertDialog.setIcon(R.drawable.delete);
 
 			// Setting Positive "Yes" Button
-			alertDialog.setPositiveButton("YES",
+			alertDialog.setPositiveButton(getResources().getString(R.string.Dialog_Yes),
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 							((AlertDialog) dialog).getButton(
 									AlertDialog.BUTTON1).setEnabled(false);
 							rechargePost();
-
+							new GetLoginTask().onPostExecute("test");
 						}
 					});
 
 			// Setting Negative "NO" Button
-			alertDialog.setNegativeButton("NO",
+			alertDialog.setNegativeButton(getResources().getString(R.string.Dialog_No),
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 
@@ -1711,7 +2081,7 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 			switch (validate()) {
 			case 1:
 				secondback_responseText.setVisibility(View.VISIBLE);
-				secondback_responseText.setText("Select Service Provider");
+				secondback_responseText.setText(getResources().getString(R.string.prompt_spinner_select_operator));
 				operatorSpinner.setSelection(0);
 				numField_bill.setText("");
 				amountField.setText("");
@@ -1719,26 +2089,26 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 				break;
 			case 4:
 				secondback_responseText.setVisibility(View.VISIBLE);
-				secondback_responseText.setText("Select Consumer Number");
+				secondback_responseText.setText(getResources().getString(R.string.prompt_Validity_consumer_number));
 
 				consumernumber.setText("");
 				break;
 			case 2:
 				secondback_responseText.setVisibility(View.VISIBLE);
-				secondback_responseText.setText("Invalid MobileNumber");
+				secondback_responseText.setText(getResources().getString(R.string.prompt_Validity_mobile_number));
 				numField_bill.setText("");
 				break;
 
 			case 3:
 				secondback_responseText.setVisibility(View.VISIBLE);
-				secondback_responseText.setText("Invalid Amount");
+				secondback_responseText.setText(getResources().getString(R.string.prompt_Validity_amount));
 				amountField.setText("");
 
 				break;
 
 			case 5:
 				secondback_responseText.setVisibility(View.VISIBLE);
-				secondback_responseText.setText("Select Service Provider");
+				secondback_responseText.setText(getResources().getString(R.string.prompt_spinner_select_operator));
 				operatorSpinner.setSelection(0);
 				consumernumber.setText("");
 				numField_bill.setText("");
@@ -1752,7 +2122,8 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 
 		public void onItemSelected(AdapterView<?> parent, View view, int pos,
 				long id) {
-
+			last_responseText.setText("");
+			secondback_responseText.setText("");
 			try {
 				myHelpez.SetMyRechargeOperator(operatorSpinner
 						.getSelectedItem().toString());
@@ -1800,6 +2171,21 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 				amountField.setVisibility(View.VISIBLE);
 
 			}
+			else if(Operatorid.equals("67")) {
+				numField_bill.setText("");
+				amountField.setText("");
+				consumernumber.setText("");
+				secondback_responseText.setText("");
+				consumernumber.setVisibility(view.VISIBLE);
+				GetBillAmount.setVisibility(view.GONE);
+				testButton.setVisibility(view.GONE);
+				backButton1.setVisibility(view.GONE);
+				numField_bill.setVisibility(View.VISIBLE);
+				postButtonpayment.setVisibility(view.VISIBLE);
+				operatorSpinner.setVisibility(View.VISIBLE);
+				secondback.setVisibility(view.VISIBLE);
+				amountField.setVisibility(View.VISIBLE);
+			}
 
 			else {
 				consumernumber.setText("");
@@ -1839,7 +2225,7 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 			last_name.setText("");
 			mobile_number.setText("");
 			accountnumber.setText("");
-
+			last_responseText.setText("");
 		}
 
 		@Override
@@ -1860,6 +2246,7 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 			last_name.setText("");
 			mobile_number.setText("");
 			accountnumber.setText("");
+			last_responseText.setText("");
 
 		}
 
@@ -1883,26 +2270,37 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 		if ((validatenew() == 0) && (Operatorid.equals("49"))) {
 			AlertDialog.Builder alertDialog = new AlertDialog.Builder(
 					HomeActivity2.this);
-			alertDialog.setTitle("Confirm Payment...");
-			alertDialog.setMessage("ConsumerNumber:" + " "
-					+ myHelpez.GetConsumerNumber() + "\n" + "MobileNumber:"
-					+ " " + mobile_number.getText().toString() + "\n"
-					+ "Operator:" + " "
-					+ spl_OperatorNBE.getSelectedItem().toString() + "\n"
-					+ "Amount:" + " " + "Rs." + " "
+			alertDialog.setTitle(getResources().getString(
+					R.string.AlertDialog_BillPayment));
+			alertDialog.setMessage(getResources().getString(
+					R.string.lblConsumerNumber)
+					+ " "
+					+ myHelpez.GetConsumerNumber()
+					+ "\n"
+					+ getResources().getString(R.string.Lbl_MobileNumber)
+					+ " "
+					+ mobile_number.getText().toString()
+					+ "\n"
+					+ getResources().getString(R.string.Lbl_Operator)
+					+ " "
+					+ spl_OperatorNBE.getSelectedItem().toString()
+					+ "\n"
+					+ getResources().getString(R.string.Lbl_Amount)
+					+ " "
 					+ myHelpez.GetMyRechargeAmount());
-			alertDialog.setPositiveButton("YES",
+			alertDialog.setPositiveButton(getResources().getString(R.string.Dialog_Yes),
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 							((AlertDialog) dialog).getButton(
 									AlertDialog.BUTTON1).setEnabled(false);
 							rechargePost();
+							new GetLoginTask().onPostExecute("test");
 
 						}
 					});
 
 			// Setting Negative "NO" Button
-			alertDialog.setNegativeButton("NO",
+			alertDialog.setNegativeButton(getResources().getString(R.string.Dialog_No),
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 
@@ -1919,26 +2317,37 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 		else if ((validatenew() == 0) && (Operatorid.equals("50"))) {
 			AlertDialog.Builder alertDialog = new AlertDialog.Builder(
 					HomeActivity2.this);
-			alertDialog.setTitle("Confirm Payment...");
-			alertDialog.setMessage("ConsumerNumber:" + " "
-					+ myHelpez.GetConsumerNumber() + "\n" + "MobileNumber:"
-					+ " " + mobile_number.getText().toString() + "\n"
-					+ "Operator:" + " "
-					+ spl_OperatorSBE.getSelectedItem().toString() + "\n"
-					+ "Amount:" + " " + "Rs." + " "
+			alertDialog.setTitle(getResources().getString(
+					R.string.AlertDialog_BillPayment));
+			alertDialog.setMessage(getResources().getString(
+					R.string.lblConsumerNumber)
+					+ " "
+					+ myHelpez.GetConsumerNumber()
+					+ "\n"
+					+ getResources().getString(R.string.Lbl_MobileNumber)
+					+ " "
+					+ mobile_number.getText().toString()
+					+ "\n"
+					+ getResources().getString(R.string.Lbl_Operator)
+					+ " "
+					+ spl_OperatorSBE.getSelectedItem().toString()
+					+ "\n"
+					+ getResources().getString(R.string.Lbl_Amount)
+					+ " "
 					+ myHelpez.GetMyRechargeAmount());
-			alertDialog.setPositiveButton("YES",
+			alertDialog.setPositiveButton(getResources().getString(R.string.Dialog_Yes),
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 							((AlertDialog) dialog).getButton(
 									AlertDialog.BUTTON1).setEnabled(false);
 							rechargePost();
+							new GetLoginTask().onPostExecute("test");
 
 						}
 					});
 
 			// Setting Negative "NO" Button
-			alertDialog.setNegativeButton("NO",
+			alertDialog.setNegativeButton(getResources().getString(R.string.Dialog_No),
 					new DialogInterface.OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
 
@@ -1954,7 +2363,7 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 			switch (validatenew()) {
 			case 1:
 				last_responseText.setVisibility(View.VISIBLE);
-				last_responseText.setText("Select Service Provider");
+				last_responseText.setText(getResources().getString(R.string.prompt_spinner_select_operator));
 				spl_OperatorSBE.setSelection(0);
 				first_name.setText("");
 				last_name.setText("");
@@ -1964,7 +2373,7 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 				break;
 			case 2:
 				last_responseText.setVisibility(View.VISIBLE);
-				last_responseText.setText("Enter First Name");
+				last_responseText.setText(getResources().getString(R.string.lbl_FirstName));
 				first_name.setText("");
 				last_name.setText("");
 				mobile_number.setText("");
@@ -1973,26 +2382,26 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 
 			case 3:
 				last_responseText.setVisibility(View.VISIBLE);
-				last_responseText.setText("Enter Last Name");
+				last_responseText.setText(getResources().getString(R.string.lbl_LastName));
 				last_name.setText("");
 				mobile_number.setText("");
 				accountnumber.setText("");
 				break;
 			case 4:
 				last_responseText.setVisibility(View.VISIBLE);
-				last_responseText.setText("Invalid MobileNumber");
+				last_responseText.setText(getResources().getString(R.string.prompt_Validity_mobile_number));
 				mobile_number.setText("");
 				accountnumber.setText("");
 				break;
 
 			case 5:
 				last_responseText.setVisibility(View.VISIBLE);
-				last_responseText.setText("Invalid Account Number");
+				last_responseText.setText(getResources().getString(R.string.prompt_Validity_accntnumber));
 				accountnumber.setText("");
 				break;
 			case 6:
 				last_responseText.setVisibility(View.VISIBLE);
-				last_responseText.setText("Select NorthService Provider");
+				last_responseText.setText(getResources().getString(R.string.prompt_Validity_north_serviceprovider));
 				spl_OperatorNBE.setSelection(0);
 				first_name.setText("");
 				last_name.setText("");
@@ -2064,10 +2473,20 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 	}
 
 	public void GetbillamountData(View view) {
-		GetbillData();
+		  new GetLoginTaskNew().onPostExecute("test");
 	}
+	 private class GetLoginTaskNew extends AsyncTask<Void, Void, String> {
 
-	private void GetbillData() {
+			@Override
+			protected String doInBackground(Void... params) {
+				
+				
+				return responseBody;
+			}
+
+			@Override
+			protected void onPostExecute(String result) {
+	
 
 		//Helpz myHelpz = new Helpz();
 		String[] strResponse1 = null;
@@ -2103,16 +2522,16 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 				strResponse2 = Split(LastValue[16].toString(), ".");
 				String[] LastValueNew = strResponse2;
 
-				this.amountField.setText(LastValueNew[0].toString());
+				amountField.setText(LastValueNew[0].toString());
 				// String set = LastValue[16].toString();
 				// Integer getlastnode = set.indexOf(".00");
 				// set.substring(0, (set-getlastnode));
 
 				// this.amountField.setText(set);
 
-				Log.i("postData", response.getStatusLine().toString());
-				Log.i("postData", responseBodyhistory);
-				Log.i("postData1", LastValueNew[0].toString());
+				Log.i("postDataBES", response.getStatusLine().toString());
+				Log.i("postDataBES", responseBodyhistory);
+				Log.i("postData1BES", LastValueNew[0].toString());
 				String abc = LastValueNew[0].toString();
 
 			} catch (Exception ex) {
@@ -2125,7 +2544,7 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 
 				HttpPost httppostnew = new HttpPost(
 						"http://180.179.67.72/RelianceEnergy/billEnquiry.ashx?CANumber="
-								+ myHelpez.GetConsumerNumber());
+								+ consumernumber.getText().toString());
 				final HttpParams httpParams = httpclient.getParams();
 				HttpConnectionParams.setConnectionTimeout(httpParams, 15000);
 				HttpConnectionParams.setSoTimeout(httpParams, 15000);
@@ -2145,10 +2564,10 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 				strResponse2 = Split(LastValue[3].toString(), ".");
 				String[] LastValueNew = strResponse2;
 
-				this.amountField.setText(LastValueNew[0].toString());
+				amountField.setText(LastValueNew[0].toString());
 
-				Log.i("postData", response.getStatusLine().toString());
-				Log.i("postData", responseBodyhistory);
+				Log.i("postDataRE", response.getStatusLine().toString());
+				Log.i("postDataRE", responseBodyhistory);
 
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -2162,7 +2581,7 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 
 				HttpPost httppostnew = new HttpPost(
 						"http://180.179.67.72/mgl/billInquiry.aspx?CANumber="
-								+ myHelpez.GetConsumerNumber());
+								+ consumernumber.getText().toString());
 				final HttpParams httpParams = httpclient.getParams();
 				HttpConnectionParams.setConnectionTimeout(httpParams, 15000);
 				HttpConnectionParams.setSoTimeout(httpParams, 15000);
@@ -2182,10 +2601,10 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 				strResponse2 = Split(LastValue[4].toString(), ".");
 				String[] LastValueNew = strResponse2;
 
-				this.amountField.setText(LastValueNew[0].toString());
+				amountField.setText(LastValueNew[0].toString());
 
-				Log.i("postData", response.getStatusLine().toString());
-				Log.i("postData", responseBodyhistory);
+				Log.i("postDataMGL", response.getStatusLine().toString());
+				Log.i("postDataMGL", responseBodyhistory);
 
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -2197,5 +2616,5 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 		}
 
 	}
-
+	 }
 }

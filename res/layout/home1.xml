@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/appsbg"
+    
     android:scrollbars="vertical" >
 
     <RelativeLayout
@@ -72,12 +72,12 @@
             android:layout_marginRight="10dip"
             android:layout_marginTop="130dp"
             android:background="@drawable/custom"
-            android:hint="T-Pin"
+            android:hint="@string/tpin1"
             android:imeOptions="actionDone"
             android:inputType="number"
             android:password="true"
-            android:visibility="visible" 
-            android:textStyle="bold" >
+            android:visibility="invisible" 
+            >
         </EditText>
 
         <Button
@@ -91,10 +91,10 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/custom_button"
             android:onClick="rechargeLogin"
-            android:text="Submit"
+            android:text="@string/tpin_submit_btn"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
-            android:visibility="visible" />
+            android:visibility="invisible" />
           <Button
             android:id="@+id/btn_firstback"
             android:layout_width="100dip"
@@ -106,10 +106,10 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/custom_button"
             android:onClick="backpost"
-            android:text="Back"
+            android:text="@string/tpin_back_btn"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
-            android:visibility="visible" />
+            android:visibility="invisible" />
 
         <TextView
             android:id="@+id/responseText"
@@ -147,9 +147,9 @@
             android:layout_below="@+id/Operator"
             android:layout_marginTop="10dp"
             android:background="@drawable/custom"
-            android:hint="SubscriberID"
+            android:hint="@string/lblSubscriberId"
             android:inputType="number"
-            android:maxLength="12"
+            
             android:visibility="gone" >
         </EditText>
 
@@ -162,6 +162,7 @@
             android:layout_marginTop="130dp"
             android:background="@drawable/btn_dropdown"
             android:prompt="@string/feedbacktypeMobileRecharge"
+           
             android:visibility="gone" >
         </Spinner>
 
@@ -174,7 +175,7 @@
             android:layout_below="@+id/number"
             android:layout_marginTop="15dp"
             android:background="@drawable/custom"
-            android:hint="Enter Amount"
+            android:hint="@string/lblAmount"
             android:inputType="number"
             android:visibility="gone" >
         </EditText>
@@ -188,7 +189,7 @@
             android:layout_below="@+id/amount"
             android:layout_marginTop="15dp"
             android:background="@drawable/custom"
-            android:hint="MobileNumber"
+            android:hint="@string/lblConsumerNumber"
             android:inputType="number"
             android:maxLength="10"
             android:visibility="gone" >
@@ -205,7 +206,7 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/custom_button"
             android:onClick="rechargeData"
-            android:text="Recharge"
+            android:text="@string/btnn_recharge"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:visibility="gone" />
@@ -220,7 +221,7 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/custom_button"
             android:onClick="Backpost1"
-            android:text="Back"
+            android:text="@string/btn_secondback"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:visibility="gone" />
@@ -254,7 +255,7 @@
             android:layout_marginTop="5dp"
             android:background="@drawable/custom_button"
             android:onClick="newRecharge"
-            android:text="New Transaction"
+            android:text="@string/btn_newRecharge"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:visibility="gone" />

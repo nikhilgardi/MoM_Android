@@ -11,7 +11,7 @@
 		    android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:typeface="normal" android:textStyle="bold"
 			android:gravity="center" android:paddingLeft="10dp" android:paddingRight="10dp"
-		    android:text="CardSale" android:textSize="28sp" android:textColor="#464646"
+		    android:text="@string/action_cardSale" android:textSize="28sp" android:textColor="#464646"
 		    
 		    android:layout_alignParentTop="true" android:layout_centerInParent="true"/>
 	</RelativeLayout>
@@ -170,7 +170,7 @@
             android:layout_marginRight="10dip"
             android:layout_marginTop="15dp"
             android:background="@drawable/custom_edittext"
-            android:hint="Card Last\n4 digits"
+            android:hint="@string/cardsale_lastdigits"
             android:imeOptions="actionDone"
             android:inputType="number"
             
@@ -187,7 +187,7 @@
             android:layout_marginRight="10dip"
             android:layout_marginTop="15dp"
             android:background="@drawable/custom"
-            android:hint="Mobile Number"
+            android:hint="@string/lblYourMobile"
             android:imeOptions="actionDone"
             android:inputType="number"
             android:maxLength="10"
@@ -207,7 +207,7 @@
             android:layout_marginRight="10dip"
             android:layout_marginTop="15dp"
             android:background="@drawable/custom"
-            android:hint="Amount"
+            android:hint="@string/lblAmount"
             android:imeOptions="actionDone"
             android:inputType="numberDecimal" 
             android:maxLength="10"
@@ -224,7 +224,7 @@
             android:layout_marginRight="10dip"
             android:layout_marginTop="15dp"
             android:background="@drawable/custom"
-            android:hint="Email"
+            android:hint="@string/lbl_Email"
             android:imeOptions="actionDone"
             android:singleLine="true"	
            >
@@ -240,7 +240,7 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/custom_button"
             android:onClick="rechargeLogin"
-            android:text="Next"
+            android:text="@string/btn_Next"
             android:gravity="center"
            	android:textSize="15dp"
             android:textColor="#FFFFFF"
@@ -259,7 +259,7 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/custom_button"
             android:onClick="backpost"
-            android:text="Back"
+            android:text="@string/btn_back"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:textSize="15dp"
@@ -303,7 +303,7 @@
 							    android:layout_width="100dip" android:layout_height="wrap_content" 
 							    android:layout_centerInParent="true" android:layout_centerVertical="true"
 							    android:layout_below="@+id/creditsale_EDT_swipe_progmsg"
-								android:text="Swipe"  
+								android:text="@string/btn_swipe"  
 								android:textStyle="bold"
 								android:background="@drawable/custom_button"
 								android:gravity="center" android:textColor="#ffffff"
@@ -317,7 +317,7 @@
 							    android:textStyle="bold"
 							    android:visibility="invisible" 
 							    android:textColor="#ffffff"
-								android:text="Stop"  android:gravity="center"
+								android:text="@string/btn_stop"  android:gravity="center"
 								android:typeface="sans"
 								android:textSize="15dp"/>
  				</RelativeLayout>
@@ -337,7 +337,7 @@
 	                	    android:layout_width="wrap_content" android:layout_height="wrap_content"
 			            	android:textSize="17dp" android:textColor="#FFFFFF"
 			            	android:typeface="sans"
-			                android:text="Cardholder"/>
+			                android:text="@string/lbl_Cardholder"/>
 				        <TextView android:id="@+id/creditsale_LBL_CardHolderName"
 				            android:layout_width="270dp" android:layout_height="wrap_content"
 				            android:background="#FFFFFF"
@@ -353,7 +353,7 @@
 	                	    android:layout_width="wrap_content" android:layout_height="wrap_content"
 			            	android:textSize="17dp" android:textColor="#FFFFFF"
 			            	android:typeface="sans"
-			                android:text="Amount"/>
+			                android:text="@string/lblAmount"/>
 					 	<TextView android:id="@+id/creditsale_LBL_AmtRs"				 	    
 				            android:layout_width="270dp" android:layout_height="wrap_content"
 				            android:background="#FFFFFF"
@@ -369,7 +369,7 @@
 	                	    android:layout_width="wrap_content" android:layout_height="wrap_content"
 			            	android:textSize="17dp" android:textColor="#FFFFFF"
 			            	android:typeface="sans"
-			                android:text="Last 4 digits"/>
+			                android:text="@string/lbl_Last4digits"/>
 				        <TextView android:id="@+id/creditsale_LBL_CardNo"
 				            android:layout_width="270dp" android:layout_height="wrap_content"
 				            android:background="#FFFFFF"
@@ -385,7 +385,7 @@
 	                	    android:layout_width="wrap_content" android:layout_height="wrap_content"
 			            	android:textSize="17dp" android:textColor="#FFFFFF"
 			            	android:typeface="sans"
-			                android:text="Expiry Date"/>
+			                android:text="@string/lbl_ExpiryDate"/>
 					 	<TextView android:id="@+id/creditsale_LBL_ExpiryDate"				 	    
 				            android:layout_width="270dp" android:layout_height="wrap_content"
 				            android:background="#FFFFFF"
@@ -407,7 +407,7 @@
 								android:background="@drawable/custom_button"
 							    android:textStyle="bold"
 							    android:typeface="sans"
-								android:text="Submit"  android:gravity="center"
+								android:text="@string/tpin_submit_btn"  android:gravity="center"
 								android:textSize="15dp"/>
 	            	    				    
 					</LinearLayout>
