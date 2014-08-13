@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="r123" parent="android:Theme.Light.NoTitleBar">
+        <item name="android:colorBackground">@color/green</item>
+	</style>
+    <style name="MoMTheme" parent="android:Theme.Holo.Light">
+
+    </style>
+
+    <style name="ButtonAppTheme.buttons">
+        <item name="android:layout_margin">@dimen/small</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="MoMTheme.wrapped">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="MoMTheme.wrapped.header_balanceAmount">
+        <item name="android:textSize">@dimen/text_balance</item>
+        <item name="android:textColor">@color/balance_amount</item>
+        <item name="android:layout_gravity">center_vertical|right</item>
+        <item name="android:gravity">right</item>
+    </style>
+    <style name="MoMTheme.wrapped.vert_layout">
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_marginBottom">@dimen/margin_ultrasmall</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+    <style name="MoMTheme.wrapped.vert_layout.elements">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/inputText</item>
+        <item name="android:background">@drawable/mom_et</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_gravity">center|center_horizontal</item>
+    </style>
+    <style name="MoMTheme.wrapped.vert_layout.elements.phone">
+        <item name="android:maxLength">10</item>
+        <item name="android:inputType">number</item>
+        <item name="android:background">@drawable/mom_et</item>
+    </style>
+    <style name="MoMTheme.wrapped.vert_layout.elements.amount">
+        <item name="android:maxLength">5</item>
+        <item name="android:inputType">number</item>
+    </style>
+    <style name="MoMTheme.btn_container">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal|center</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+    <style name="MoMTheme.action_buttons">
+
+    </style>
+    <style name="MoMTheme.wrapped.gridFullScreen">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">@dimen/margin_ultrasmall</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:textSize">@dimen/text_small</item>
+        <item name="android:stretchMode">columnWidth</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:verticalSpacing">@dimen/small</item>
+    </style>
+    <style name="MoMTheme.wrapped.alertMsg">
+        <item name="android:textColor">@color/red</item>
+        <item name="android:padding">@dimen/small</item>
+        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+
+</resources>

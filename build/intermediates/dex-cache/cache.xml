@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pre-dex-items>
+
+    <item
+        dex="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/MoM_Android1/app/build/intermediates/pre-dexed/debug/classes-3f886caa00df68f758dcf5700b234b95f0093a86.jar"
+        jar="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/MoM_Android1/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="3499ceba05ca1f6037c6a2fad73df8f636224a28"/>
+    <item
+        dex="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/MoM_Android1/app/build/intermediates/pre-dexed/debug/classes-3d047e03a0c97ba1bae2cdbf48a75e3d1546d34f.jar"
+        jar="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/MoM_Android1/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="8694693636ab36910c8100ce527c258ff3ebece0"/>
+    <item
+        dex="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/MoM_Android1/app/build/intermediates/pre-dexed/debug/support-annotations-20.0.0-c87763b8be17c18e69bc474db0d4b383910b73aa.jar"
+        jar="/Users/vaibhavsinha/Documents/Development/Tools/google/adt-bundle-mac-x86_64-20131030/sdk/extras/android/m2repository/com/android/support/support-annotations/20.0.0/support-annotations-20.0.0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="9d9013e9ff35fc3756411e62873c363c70c638fa"/>
+    <item
+        dex="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/MoM_Android1/app/build/intermediates/pre-dexed/debug/internal_impl-20.0.0-e588ff16a70b681e058b04ae9b5e75ad424a8d5d.jar"
+        jar="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/MoM_Android1/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/libs/internal_impl-20.0.0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d"/>
+    <item
+        dex="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/MoM_Android1/app/build/intermediates/pre-dexed/debug/mswiperAPIVer2.0-a8e5595ad38000a6f71bd2cff07c4e64f5ca8f22.jar"
+        jar="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/MoM_Android1/app/libs/mswiperAPIVer2.0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="ed76c549a1b77e93ffc773bbe19631e555e95899"/>
+
+</pre-dex-items>

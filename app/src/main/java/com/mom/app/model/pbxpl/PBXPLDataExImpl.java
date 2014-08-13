@@ -1,0 +1,122 @@
+package com.mom.app.model.pbxpl;
+
+import android.content.Context;
+import android.util.Log;
+
+import com.mom.app.identifier.PinType;
+import com.mom.app.model.AsyncDataEx;
+import com.mom.app.model.AsyncListener;
+import com.mom.app.model.AsyncResult;
+import com.mom.app.model.DataExImpl;
+import com.mom.app.model.xml.PullParser;
+import com.mom.app.utils.AppConstants;
+
+import org.apache.http.NameValuePair;
+
+import java.io.ByteArrayInputStream;
+import java.util.HashMap;
+
+/**
+ * Created by vaibhavsinha on 7/6/14.
+ */
+public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String> {
+
+    public PBXPLDataExImpl(AsyncListener pListener, Context pContext){
+        this._listener              = pListener;
+        this._applicationContext    = pContext;
+        checkConnectivity(pContext);
+    }
+
+    @Override
+    public void onTaskSuccess(String result, Methods callback) {
+        switch (callback){
+            case LOGIN:
+                boolean bSuccess    = loginSuccessful(result);
+                if(_listener != null){
+                    _listener.onTaskSuccess((new Boolean(bSuccess)).toString(), null);
+                }
+                break;
+        }
+    }
+
+    @Override
+    public void onTaskError(AsyncResult pResult, Methods callback) {
+
+    }
+
+    @Override
+    public void verifyTPin(String psTPin) {
+
+    }
+
+    @Override
+    public void rechargeMobile(String psConsumerNumber, double pdAmount, String psOperator, int pnRechargeType) {
+
+    }
+
+    @Override
+    public void rechargeDTH(String psSubscriberId, double pdAmount, String psOperator, String psCustomerMobile) {
+
+    }
+
+    @Override
+    public void getBalance(){
+
+    }
+
+    public void login(NameValuePair...params){
+        String loginUrl				= AppConstants.URL_PBX_PLATFORM;
+        Log.i("PBXPL", "Calling Async login");
+
+        AsyncDataEx dataEx		    = new AsyncDataEx(this, loginUrl, Methods.LOGIN);
+
+        dataEx.execute(params);
+    }
+
+    public boolean loginSuccessful(String psResult){
+        if("".equals(psResult)){
+            return false;
+        }
+
+        try {
+            PullParser parser   = new PullParser(new ByteArrayInputStream(psResult.getBytes()));
+            String response     = parser.getTextResponse();
+
+            Log.i("LoginResult", "Response: " + response);
+            String[] strArrayResponse = response.split("~");
+
+            int i = Integer.parseInt(strArrayResponse[0]);
+
+            if(i == AppConstants.NEW_PL_LOGIN_SUCCESS){
+                Log.i("LoginResult", "Login successful");
+                return true;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    @Override
+    public void payBill(String psSubscriberId, double pdAmount, String psOperatorId, String psCustomerMobile, String psConsumerName, HashMap<String, String> psExtraParamsMap) {
+
+    }
+
+    @Override
+    public void getBillAmount(String psOperatorId, String psSubscriberId) {
+
+    }
+
+    @Override
+    public void getTransactionHistory() {
+
+    }
+
+    @Override
+    public void changePin(PinType pinType, String psOldPin, String psNewPin) {
+
+    }
+
+
+}
