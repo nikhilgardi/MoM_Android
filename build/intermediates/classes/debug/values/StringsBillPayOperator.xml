@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string
+        name="feedbacktypeBillPayOperatorList">Select Operator</string>
+        
+        
+        <string
+        name="feedbacktypeBillPay0">Select Operator</string>
+        <string
+        name="feedbacktypeBillPay1">AIRCEL BILL</string>
+    <string
+        name="feedbacktypeBillPay2">AIRTEL BILL</string>
+        <string
+        name="feedbacktypeBillPay3">AIRTEL LAND LINE</string>
+        <string
+        name="feedbacktypeBillPay4">BESCOM BANGALURU</string>
+        <string
+        name="feedbacktypeBillPay5">BEST ELECTRICITY BILL</string>
+        <string
+        name="feedbacktypeBillPay6">BIG TV ACQ</string>
+        <string
+        name="feedbacktypeBillPay7">BOOK MY CAB</string>
+        <string
+        name="feedbacktypeBillPay8">BSES RAJDHANI</string>
+        <string
+        name="feedbacktypeBillPay9">BSES YAMUNA</string>
+        <string
+        name="feedbacktypeBillPay10">BSNL BILL PAY</string>
+        <string
+        name="feedbacktypeBillPay11">CELLONE BILL PAY</string>
+        <string
+        name="feedbacktypeBillPay12">CESC LIMITED</string>
+        <string
+        name="feedbacktypeBillPay13">CESCOM MYSORE</string>
+        <string
+        name="feedbacktypeBillPay14">DHBVN HARYANA</string>
+        <string
+        name="feedbacktypeBillPay15">DOMESTIC REMITTANCE</string>
+        <string
+        name="feedbacktypeBillPay16">DOMREM</string>
+        <string
+        name="feedbacktypeBillPay17">DONATION</string>
+        <string
+        name="feedbacktypeBillPay18">HEALTH INSURANCE</string>
+        <string
+        name="feedbacktypeBillPay19">IDEA BILL</string>
+        <string
+        name="feedbacktypeBillPay20">INDRAPRASTH GAS</string>
+        <string
+        name="feedbacktypeBillPay21">MAHANAGAR GAS BILL</string>
+        <string
+        name="feedbacktypeBillPay22">MBOX MOBILE CONTENT</string>
+        <string
+        name="feedbacktypeBillPay23">MOBILE MONEY ORDER</string>
+        <string
+        name="feedbacktypeBillPay24">MOM CARD ACTIVATION</string>
+        <string
+        name="feedbacktypeBillPay25">MOVIE TICKET</string>
+        <string
+        name="feedbacktypeBillPay26">NORTH BIHAR ELECTRICITY</string>
+        <string
+        name="feedbacktypeBillPay27">ONE MERCHANDISE SALE</string>
+        <string
+        name="feedbacktypeBillPay28">PAYMENT GATEWAY</string>
+        <string
+        name="feedbacktypeBillPay29">RELIANCE BILL GSM</string>
+        <string
+        name="feedbacktypeBillPay30">RELIANCE CDMA BILL</string>
+        <string
+        name="feedbacktypeBillPay31">RELIANCE ENERGY BILL</string>
+        <string     
+        name="feedbacktypeBillPay32">SOUTH BIHAR ELECTRICITY</string>
+        <string
+        name="feedbacktypeBillPay33">T24</string>
+        <string
+        name="feedbacktypeBillPay34">TATA BILL</string>
+        <string
+        name="feedbacktypeBillPay35">TATA POWER DELHI</string>
+         <string
+        name="feedbacktypeBillPay36">TATA SKY ACQ</string>
+        <string                     
+        name="feedbacktypeBillPay37">TIKONA BILL PAYMENT</string>
+        <string                     
+        name="feedbacktypeBillPay38"> UHBVN HARYANA</string>
+        <string
+        name="feedbacktypeBillPay39">VODAFONE BILL</string>
+        
+        
+</resources>

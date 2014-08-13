@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+     <string-array name="Main_ActivityList_MOM">
+    <item>@string/feedbacktypeMOMList</item> 
+    <item>@string/feedbacktypeMOMList1</item> 
+    <item>@string/feedbacktypeMOMList2</item> 
+    <item>@string/feedbacktypeMOMList3</item> 
+    <item>@string/feedbacktypeMOMList5</item> 
+    <item>@string/feedbacktypeMOMList6</item> 
+     </string-array>
+</resources>

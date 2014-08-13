@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+   <string
+        name="feedbacktypeMobOperatorList">Select Operator</string>
+        
+        
+        <string
+        name="feedbacktypeMob0">Select Operator</string>
+        <string
+        name="feedbacktypeMob1">AIRCEL</string>
+    <string
+        name="feedbacktypeMob2">AIRTEL</string>
+        <string
+        name="feedbacktypeMob3">BSNL</string>
+        <string
+        name="feedbacktypeMob4">DATACOMM</string>
+        <string
+        name="feedbacktypeMob5">IDEA</string>
+        <string
+        name="feedbacktypeMob6">LOOP</string>
+    <string
+        name="feedbacktypeMob7">MOM CARD REFILL</string>
+        <string
+        name="feedbacktypeMob8">MTNL</string>
+        <string
+        name="feedbacktypeMob9">MTS</string>
+        <string
+        name="feedbacktypeMob10">QUE MOBILE</string>
+        <string
+        name="feedbacktypeMob11">RELIANCE CDMA</string>
+    <string
+        name="feedbacktypeMob12">RELIANCE GSM</string>
+        <string
+        name="feedbacktypeMob13">STEL</string>
+        <string
+        name="feedbacktypeMob14">TATA</string>
+        <string
+        name="feedbacktypeMob15">TATA DOCOMO</string>
+        <string
+        name="feedbacktypeMob16">TATA WALKY</string>
+        <string
+        name="feedbacktypeMob17">UNINOR</string>
+        <string
+        name="feedbacktypeMob18">VIRGIN</string>
+        <string
+        name="feedbacktypeMob19">VODAFONE</string>
+   
+</resources>
