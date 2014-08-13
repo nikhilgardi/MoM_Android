@@ -26,7 +26,7 @@ public class EphemeralStorage extends LocalStorage {
         map.clear();
     }
     @Override
-    public void storeLocally(String psKey, boolean pbValue){
+    public void storeBoolean(String psKey, boolean pbValue){
         map.put(psKey, pbValue);
     }
 
@@ -37,7 +37,7 @@ public class EphemeralStorage extends LocalStorage {
     }
 
     @Override
-    public void storeLocally(String psKey, String psValue){
+    public void storeString(String psKey, String psValue){
         map.put(psKey, psValue);
     }
 
@@ -48,7 +48,7 @@ public class EphemeralStorage extends LocalStorage {
     }
 
     @Override
-    public void storeLocally(String psKey, float pValue){
+    public void storeFloat(String psKey, float pValue){
         map.put(psKey, pValue);
     }
 
@@ -56,5 +56,16 @@ public class EphemeralStorage extends LocalStorage {
     public float getFloat(String psKey, float pfDefault){
         Object val = map.get(psKey);
         return val == null ? pfDefault : (Float) val;
+    }
+
+    @Override
+    public int getInt(String psKey, int pnDefault) {
+        Object val = map.get(psKey);
+        return val == null ? pnDefault : (Integer) val;
+    }
+
+    @Override
+    public void storeInt(String psKey, int pnValue) {
+        map.put(psKey, pnValue);
     }
 }

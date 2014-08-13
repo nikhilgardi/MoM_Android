@@ -112,7 +112,7 @@ public abstract class MOMActivityBase extends Activity{
         IDataEx dataEx  = new NewPLDataExImpl(getApplicationContext(), new AsyncListener<Float>() {
             @Override
             public void onTaskSuccess(Float result, DataExImpl.Methods callback) {
-                EphemeralStorage.getInstance(context).storeLocally(AppConstants.USER_BALANCE, result);
+                EphemeralStorage.getInstance(context).storeFloat(AppConstants.USER_BALANCE, result);
                 showBalance(result);
             }
 

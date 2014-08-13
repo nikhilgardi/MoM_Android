@@ -2,6 +2,7 @@ package com.mom.app.activity;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -13,19 +14,25 @@ import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.IDataEx;
 import com.mom.app.model.local.EphemeralStorage;
+import com.mom.app.model.local.PersistentStorage;
 import com.mom.app.model.newpl.NewPLDataExImpl;
 import com.mom.app.model.pbxpl.PBXPLDataExImpl;
+import com.mom.app.ui.LanguageItem;
 import com.mom.app.utils.AppConstants;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 public class LoginActivity extends Activity implements AsyncListener <String>{
@@ -37,23 +44,91 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 	private PlatformIdentifier _currentPlatform;
 	private Button _loginBtn;
 	private TextView _tvMessage;
-
+    private Spinner _languageSpinner;
 	
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+        setDefaultLocale();
         setContentView(R.layout.activity_login);
 
-		_username 	= (EditText) findViewById(R.id.et_un);
-		_password 	= (EditText) findViewById(R.id.et_pw);
+		_username 	        = (EditText) findViewById(R.id.et_un);
+		_password 	        = (EditText) findViewById(R.id.et_pw);
+
+        setupLanguageSelector();
+
 		getProgressBar().setVisibility(View.GONE);
 
 		getWindow().setBackgroundDrawable(
 							getResources().getDrawable(R.drawable.appsbg)
 										);
-
 	}
+
+    public void setupLanguageSelector(){
+        _languageSpinner    = (Spinner) findViewById(R.id.selectLanguage);
+
+        ArrayAdapter<LanguageItem> dataAdapter = new ArrayAdapter<LanguageItem>(this,
+                android.R.layout.simple_spinner_item, LanguageItem.getLanguages(this));
+
+        dataAdapter
+                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        _languageSpinner.setAdapter(dataAdapter);
+
+        _languageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Object objSelection    = adapterView.getItemAtPosition(i);
+                Log.d(_LOG, "getting selection: " + objSelection);
+                LanguageItem selection    = (LanguageItem) objSelection;
+                Log.d(_LOG, "Language: " + selection + ", id: " + selection.resourceId);
+                setLocale(selection);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                setLocale(LanguageItem.getDefault(getApplicationContext()));
+            }
+        });
+
+        LanguageItem item       = getSelectedLanguageItem();
+        if(item != null){
+            _languageSpinner.setSelection(dataAdapter.getPosition(item));
+        }
+    }
+
+    private LanguageItem getSelectedLanguageItem(){
+        int selectedLanguageId  = PersistentStorage.getInstance(getApplicationContext()).getInt(AppConstants.USER_LANGUAGE, -1);
+        if(selectedLanguageId != -1){
+            return LanguageItem.getLanguage(this, selectedLanguageId);
+        }
+        return null;
+    }
+
+    private void setDefaultLocale(){
+        LanguageItem item       = getSelectedLanguageItem();
+        if(item != null){
+            setLocale(item);
+        }
+    }
+
+    private void setLocale(LanguageItem item){
+
+        PersistentStorage.getInstance(getApplicationContext()).storeInt(AppConstants.USER_LANGUAGE, item.resourceId);
+        Log.d(_LOG, "Setting locale to: " + item.code);
+
+        Locale locale           = new Locale(item.code);
+        Locale.setDefault(locale);
+        Configuration config    = new Configuration();
+        config.locale           = locale;
+        getBaseContext().getResources().updateConfiguration(
+                config,
+                getBaseContext().getResources().getDisplayMetrics()
+        );
+
+
+    }
 
     public ProgressBar getProgressBar(){
         if(_pb == null){
@@ -87,9 +162,9 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
                     case PBX:
                         break;
                 }
-                EphemeralStorage.getInstance(this).storeLocally(AppConstants.ACTIVE_PLATFORM, _currentPlatform.toString());
-                EphemeralStorage.getInstance(this).storeLocally(AppConstants.LOGGED_IN_USERNAME, _username.getText().toString());
-                EphemeralStorage.getInstance(this).storeLocally(AppConstants.IS_LOGGED_IN, true);
+                EphemeralStorage.getInstance(this).storeString(AppConstants.ACTIVE_PLATFORM, _currentPlatform.toString());
+                EphemeralStorage.getInstance(this).storeString(AppConstants.LOGGED_IN_USERNAME, _username.getText().toString());
+                EphemeralStorage.getInstance(this).storeBoolean(AppConstants.IS_LOGGED_IN, true);
 
                 navigateToMain();
                 break;
@@ -111,20 +186,20 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
                 }
 
                 Context context     = getApplicationContext();
-                EphemeralStorage.getInstance(this).storeLocally(AppConstants.PARAM_NEW_USER_ID, sArrDetails[0]);
+                EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_USER_ID, sArrDetails[0]);
 
-                EphemeralStorage.getInstance(this).storeLocally(AppConstants.PARAM_NEW_CUSTOMER_ID, sArrDetails[1]);
-                EphemeralStorage.getInstance(this).storeLocally(AppConstants.PARAM_NEW_MOBILE_NUMBER, sArrDetails[2]);
-                EphemeralStorage.getInstance(this).storeLocally(AppConstants.PARAM_NEW_COMPANY_ID, sArrDetails[3]);
-                EphemeralStorage.getInstance(this).storeLocally(AppConstants.PARAM_NEW_ROLE_ID, sArrDetails[4]);
-                EphemeralStorage.getInstance(this).storeLocally(AppConstants.PARAM_NEW_USER_AUTH_ID, sArrDetails[5]);
-                EphemeralStorage.getInstance(this).storeLocally(AppConstants.PARAM_NEW_USER_WALLET_ID, sArrDetails[6]);
-                EphemeralStorage.getInstance(this).storeLocally(AppConstants.PARAM_NEW_USER_STATUS, sArrDetails[7]);
-                EphemeralStorage.getInstance(this).storeLocally(AppConstants.PARAM_NEW_USER_FRANCH_ID, sArrDetails[8]);
-                EphemeralStorage.getInstance(this).storeLocally(AppConstants.PARAM_NEW_USER_MAST_DIST, sArrDetails[9]);
-                EphemeralStorage.getInstance(this).storeLocally(AppConstants.PARAM_NEW_USER_AREA_DIST, sArrDetails[10]);
-                EphemeralStorage.getInstance(this).storeLocally(AppConstants.PARAM_NEW_USER_VAS01, sArrDetails[11]);
-                EphemeralStorage.getInstance(this).storeLocally(AppConstants.PARAM_NEW_USER_VAS02, sArrDetails[12]);
+                EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_CUSTOMER_ID, sArrDetails[1]);
+                EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_MOBILE_NUMBER, sArrDetails[2]);
+                EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_COMPANY_ID, sArrDetails[3]);
+                EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_ROLE_ID, sArrDetails[4]);
+                EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_USER_AUTH_ID, sArrDetails[5]);
+                EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_USER_WALLET_ID, sArrDetails[6]);
+                EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_USER_STATUS, sArrDetails[7]);
+                EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_USER_FRANCH_ID, sArrDetails[8]);
+                EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_USER_MAST_DIST, sArrDetails[9]);
+                EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_USER_AREA_DIST, sArrDetails[10]);
+                EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_USER_VAS01, sArrDetails[11]);
+                EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_USER_VAS02, sArrDetails[12]);
 
 
                 loginToNewPL();

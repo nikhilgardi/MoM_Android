@@ -2,12 +2,16 @@ package com.mom.app.utils;
 
 import java.util.HashMap;
 
+import com.mom.app.R;
+
 public class AppConstants {
 	public static final String APP_PREFERENCES		        = "AppPreferences";
+    public static final String PACKAGE                      = "com.mom.app";
     public static final String LOG_PREFIX                   = "MOMAPP";
     public static final String UTF_8                        = "utf-8";
     public static final String USER_BALANCE                 = "userBalance";
-
+    public static final String USER_LANGUAGE                = "userLanguage";
+    public static final String KEY_LANGUAGE                 = PACKAGE + USER_LANGUAGE;
     public static final String ACTIVE_PLATFORM              = "activePlatform";
 	public static final String URL_NEW_PLATFORM		        = "http://msvc.money-on-mobile.net/WebServiceV3Client.asmx";
 	public static final String URL_NEW_PLATFORM_TXN	        = "http://msvc.money-on-mobile.net/WebServiceV3Trans.asmx";
@@ -23,6 +27,10 @@ public class AppConstants {
 	public static final String URL_NEW_PL_HISTORY	        = "http://180.179.67.72/nokiaservice/Lastfivetransactions.aspx";
 	public static final String URL_PBX_PLATFORM		        = "http://pbx.momappworld.com/MobAppS/PbxMobApp.ashx";
 
+    //START: FONT RELATED
+    public static final String FONT_DEFAULT_TEXT_STYLE      = "regular";
+
+    //END: FONT RELATED
     /*
     Service Methods to call
      */
@@ -103,10 +111,9 @@ public class AppConstants {
     public static final int NEW_PL_LOGIN_SUCCESS            = 101;
     public static final int NEW_PL_TPIN_VERIFIED            = 101;
 
-    public static final String INTENT_MESSAGE               = "com.mom.app.MESSAGE";
-    public static final String INTENT_MESSAGE_DEST          = "com.mom.app.MESSAGE_DEST";
-    public static final String INTENT_MESSAGE_ORIGIN        = "com.mom.app.MESSAGE_ORIGIN";
-
+    public static final String INTENT_MESSAGE               = PACKAGE + "MESSAGE";
+    public static final String INTENT_MESSAGE_DEST          = PACKAGE + "MESSAGE_DEST";
+    public static final String INTENT_MESSAGE_ORIGIN        = PACKAGE + "MESSAGE_ORIGIN";
 
     public static final String OPERATOR_ID_AIRCEL           = "1";
     public static final String OPERATOR_ID_AIRTEL           = "2";

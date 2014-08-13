@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import java.io.Serializable;
+
 /**
  * Created by vaibhavsinha on 7/25/14.
  */
@@ -32,7 +34,7 @@ public class PersistentStorage extends LocalStorage {
     }
 
     @Override
-    public void storeLocally(String psKey, boolean pbValue){
+    public void storeBoolean(String psKey, boolean pbValue){
         _prefEditor.putBoolean(psKey, pbValue);
         _prefEditor.commit();
     }
@@ -43,7 +45,7 @@ public class PersistentStorage extends LocalStorage {
     }
 
     @Override
-    public void storeLocally(String psKey, String psValue){
+    public void storeString(String psKey, String psValue){
         _prefEditor.putString(psKey, psValue);
         _prefEditor.commit();
     }
@@ -54,7 +56,7 @@ public class PersistentStorage extends LocalStorage {
     }
 
     @Override
-    public void storeLocally(String psKey, float pValue){
+    public void storeFloat(String psKey, float pValue){
         _prefEditor.putFloat(psKey, pValue);
         _prefEditor.commit();
     }
@@ -62,5 +64,16 @@ public class PersistentStorage extends LocalStorage {
     @Override
     public float getFloat(String psKey, float pfDefault) {
         return _pref.getFloat(psKey, pfDefault);
+    }
+
+    @Override
+    public int getInt(String psKey, int pnDefault) {
+        return _pref.getInt(psKey, pnDefault);
+    }
+
+    @Override
+    public void storeInt(String psKey, int pnValue) {
+        _prefEditor.putInt(psKey, pnValue);
+        _prefEditor.commit();
     }
 }

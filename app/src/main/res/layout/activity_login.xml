@@ -23,6 +23,8 @@
         android:layout_alignParentBottom="false"
         android:layout_centerVertical="true">
 
+
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -33,10 +35,19 @@
             style="@style/MoMTheme.wrapped.vert_layout"
             android:gravity="center|center_vertical">
 
+            <Spinner
+                android:id="@+id/selectLanguage"
+                style="@style/SpinnerAppTheme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/medium"
+                android:layout_marginTop="@dimen/medium"/>
+
             <TextView
                 android:id="@+id/msgDisplay"
                 style="@style/MoMTheme.wrapped.alertMsg"
                 android:visibility="gone" />
+
 
             <ProgressBar
                 android:id="@+id/progressBar"
@@ -46,7 +57,7 @@
                 android:layout_centerHorizontal="true"
                 android:visibility="gone" />
 
-            <EditText
+            <com.mom.app.ui.CustomEditText
                 android:id="@+id/et_un"
                 style="@style/MoMTheme.wrapped.vert_layout.elements"
                 android:background="@drawable/apptheme_edit_text_holo_light"
@@ -56,7 +67,7 @@
                 android:inputType="number"
                 android:password="true"/>
 
-            <EditText
+            <com.mom.app.ui.CustomEditText
                 android:id="@+id/et_pw"
                 style="@style/MoMTheme.wrapped.vert_layout.elements"
                 android:background="@drawable/apptheme_edit_text_holo_light"
