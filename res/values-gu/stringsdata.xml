@@ -34,7 +34,6 @@
     <string name="action_changeTpin">ટી પિન બદલો</string>
     <string name="action_changepassword">પાસવર્ડ બદલો</string>
     
-    
     <string name="title_activity_transaction_confirmation">Transaction Result</string>
     <string name="error_mobile_required">મોબાઇલ નંબર જરૂરી</string>
     <string name="error_recharge_failed">Error occurred during recharge. Please try again or contact Customer Support for help.</string>
