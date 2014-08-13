@@ -7,7 +7,7 @@
 	    android:layout_width ="fill_parent" android:layout_height ="wrap_content"
 	    android:layout_marginBottom="40dp" android:layout_marginTop="20dp"
 	    android:orientation="vertical" android:gravity="top">
-		<TextView android:id="@+id/topbar_LBL_heading"
+		<com.mom.app.ui.CustomTextView android:id="@+id/topbar_LBL_heading"
 		    android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:typeface="normal" android:textStyle="bold"
 			android:gravity="center" android:paddingLeft="10dp" android:paddingRight="10dp"
@@ -92,7 +92,7 @@
 				android:textSize="15dp" android:textColor="#777777"
 	 	   	 	android:text="Remember me"/>
      	--> 
-     	<EditText
+     	<com.mom.app.ui.CustomEditText
             android:id="@+id/login_TXT_merchantpassword"
             android:layout_width="265dp"
             android:layout_height="40dp"
@@ -106,10 +106,9 @@
             android:imeOptions="actionDone"
             android:inputType="textPassword"
             android:password="true"
-            android:textStyle="bold" >
-        </EditText>
+            android:textStyle="bold" />
 
-        <Button
+        <com.mom.app.ui.CustomButton
             android:id="@+id/login_BTN_signin"
             android:layout_width="100dip"
             android:layout_height="wrap_content"
@@ -127,7 +126,7 @@
             android:textStyle="bold"
             android:visibility="visible" />
 
-        <Button
+        <com.mom.app.ui.CustomButton
             android:id="@+id/login_BTN_back"
             android:layout_width="100dip"
             android:layout_height="wrap_content"
@@ -145,7 +144,7 @@
             android:textStyle="bold"
             android:visibility="visible" />
         
-         <TextView
+         <com.mom.app.ui.CustomTextView
             android:id="@+id/responseText"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -159,7 +158,7 @@
             android:textSize="18dp"
             android:visibility="gone" />
          
-          <TextView
+          <com.mom.app.ui.CustomTextView
             android:id="@+id/responseText1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -173,7 +172,7 @@
             android:textSize="18dp"
             android:visibility="gone" />
           
-           <TextView
+           <com.mom.app.ui.CustomTextView
             android:id="@+id/responseText2"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

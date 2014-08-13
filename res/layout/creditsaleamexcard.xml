@@ -25,13 +25,13 @@
             android:layout_width="fill_parent" android:layout_height="fill_parent"
             android:layout_marginBottom="10dp">
  			<RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent">
-	             <TextView android:id="@+id/creditsale_LBL_lblprogmsg"
+	             <com.mom.app.ui.CustomTextView android:id="@+id/creditsale_LBL_lblprogmsg"
 	                android:layout_width="fill_parent" android:layout_height="wrap_content"
 	                android:gravity="center"
 	 	    		android:textSize="20dp" android:textColor="#000000"
 	                android:text="Please enter the Security Code"/>
 	            
-	            <TextView android:id="@+id/creditsale_LBL_lblrecordpause"
+	            <com.mom.app.ui.CustomTextView android:id="@+id/creditsale_LBL_lblrecordpause"
 	                android:layout_width="fill_parent" android:layout_height="wrap_content"
 	                android:layout_below="@+id/creditsale_LBL_lblprogmsg"
 		 	    	android:textSize="20dp" android:textColor="#000000"
@@ -41,16 +41,15 @@
 				    android:orientation="vertical" android:layout_below="@+id/creditsale_LBL_lblrecordpause"
 				    android:layout_width="fill_parent" android:layout_height="wrap_content"
 				    android:gravity="center_horizontal">
-			     	<EditText android:id="@+id/creditsale_TXT_amexsecuritykey"
+			     	<com.mom.app.ui.CustomEditText android:id="@+id/creditsale_TXT_amexsecuritykey"
 					    android:layout_width="160dip" android:layout_height="wrap_content"
 					    android:gravity="center"
 					    android:background="@drawable/edittext_modified_states"
 					    android:layout_below="@+id/creditsale_LBL_lblrecordpause"
 					    android:typeface="sans" android:textSize="25dp" android:textColor="#000000"
 					    android:password="true"
-					    android:inputType="number" android:maxLength="4">		   
-					</EditText>
-			     	
+					    android:inputType="number" android:maxLength="4"/>
+
 					<ImageView android:id="@+id/topbar_logo"
 	    				android:layout_width="wrap_content" android:layout_height="wrap_content"
 	    				android:src="@drawable/amex"
@@ -63,7 +62,7 @@
 				    android:gravity="center_horizontal"
 				    android:layout_below="@+id/creditsale_LNR_amexcarddetails">
 					
-		            <Button android:id="@+id/creditsale_BTN_creditdetails_next"
+		            <com.mom.app.ui.CustomButton android:id="@+id/creditsale_BTN_creditdetails_next"
 				   	 	android:layout_width="100dp" android:layout_height="44dp"
 				    	android:layout_marginTop="10dp" android:textColor="#ffffff"
 				    	android:typeface="sans"
