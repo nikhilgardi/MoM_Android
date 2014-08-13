@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="2" >
+
+    <dataSet config="main" >
+        <source path="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/android/assets" >
+            <file
+                name="custom_fonts/Lohit-Assamese.ttf"
+                path="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/android/assets/custom_fonts/Lohit-Assamese.ttf" />
+            <file
+                name="custom_fonts/Lohit-Bengali.ttf"
+                path="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/android/assets/custom_fonts/Lohit-Bengali.ttf" />
+            <file
+                name="custom_fonts/Lohit-Devanagari.ttf"
+                path="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/android/assets/custom_fonts/Lohit-Devanagari.ttf" />
+            <file
+                name="custom_fonts/Lohit-Gujarati.ttf"
+                path="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/android/assets/custom_fonts/Lohit-Gujarati.ttf" />
+            <file
+                name="custom_fonts/Lohit-Kannada.ttf"
+                path="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/android/assets/custom_fonts/Lohit-Kannada.ttf" />
+            <file
+                name="custom_fonts/Lohit-Malayalam.ttf"
+                path="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/android/assets/custom_fonts/Lohit-Malayalam.ttf" />
+            <file
+                name="custom_fonts/Lohit-Oriya.ttf"
+                path="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/android/assets/custom_fonts/Lohit-Oriya.ttf" />
+            <file
+                name="custom_fonts/Lohit-Tamil.ttf"
+                path="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/android/assets/custom_fonts/Lohit-Tamil.ttf" />
+            <file
+                name="custom_fonts/Lohit-Telugu.ttf"
+                path="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/android/assets/custom_fonts/Lohit-Telugu.ttf" />
+            <file
+                name="custom_fonts/Roboto-Regular.ttf"
+                path="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/android/assets/custom_fonts/Roboto-Regular.ttf" />
+        </source>
+    </dataSet>
+    <dataSet config="debug" >
+        <source path="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/android/build-types/debug/assets" />
+    </dataSet>
+
+</merger>

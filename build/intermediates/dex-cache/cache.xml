@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pre-dex-items>
+
+    <item
+        dex="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/android/build/intermediates/pre-dexed/debug/mswiperAPIVer2.0-0d69b327e3b7388cff16da1ac4a7412334ad7f84.jar"
+        jar="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/android/libs/mswiperAPIVer2.0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="ed76c549a1b77e93ffc773bbe19631e555e95899"/>
+    <item
+        dex="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/android/build/intermediates/pre-dexed/debug/android-support-v4-4e78f93d5c5d671478c2d2a38c2b0b30cf918139.jar"
+        jar="/Users/vaibhavsinha/Documents/Development/MoneyOnMobile/apps/android/libs/android-support-v4.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="5896b0a4e377ac4242eb2bc785220c1c4fc052f4"/>
+
+</pre-dex-items>
