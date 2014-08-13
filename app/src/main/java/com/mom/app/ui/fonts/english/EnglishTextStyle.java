@@ -1,4 +1,4 @@
-package com.mom.app.ui.fonts;
+package com.mom.app.ui.fonts.english;
 
 import com.mom.app.ui.ITextStyle;
 

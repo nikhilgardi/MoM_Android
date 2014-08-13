@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lblBal">शेष: रु.</string>
+    <string name="Rupee">\u20B9</string>
+    <string name="title_activity_main1">MainActivity</string>
+    <string name="hello_worldtest"></string>
+    <string name="title_activity_aadhar_payment1">AadharPaymentActivity</string>
+    <string name="title_activity_aadhar_list1">AadharListActivity</string>
+    <string name="title_activity_best_fusion1">BestFusionActivity</string>
+    <string name="title_activity_home_bill_activity__pbx1">HomeBillActivity_PBX</string>
+    <string name="title_activity_change_password_pbx1">ChangePasswordPBXActivity</string>
+    <string name="title_activity_dthrecharge">DTH Recharge</string>
+    <string name="login_failed_msg_default">Login Failed. Please check your mobile number and M-Pin</string>
+    <string name="login_username_pwd_required">Please enter your mobile number and password</string>
+    <string name="login_username_required">Please enter your mobile Number</string>
+    <string name="login_pwd_required">कृपया अपना पासवर्ड दर्ज करें</string>
+     <string name="login_missing_params">Missing Params</string>
+    <string name="tpin">T-पिन</string>
+    <string name="mpin">M-पिन</string>
+    <string name="btn_Login">लॉगिन</string>
+    <string name="tpin_incorrect">Incorrect T-Pin</string>
+    <string name="mpin_incorrect">Incorrect M-Pin</string>
+    <string name="title_activity_verify_tpin">VerifyTPinActivity</string>
+    <string name="action_mobileRecharge">मोबाइल रीचार्ज</string>
+    <string name="action_dthRecharge">DTH रीचार्ज</string>
+    <string name="action_billPayment">बिल भुगतान</string>
+    <string name="action_cardSale">कार्ड बिक्री</string>
+    <string name="action_utilityBill">Utility Bill Payment</string>
+    <string name="action_history">इतिहास</string>
+    <string name="action_settings1">सेटिंग्स</string>
+    
+     <string name="action_Logout">लॉगआउट</string>
+    <string name="action_changeMpin">Change M-Pin</string>
+    <string name="action_changeTpin">Change T-Pin</string>
+    <string name="action_changepassword">पासवर्ड बदलें</string>
+    
+    
+    <string name="title_activity_transaction_confirmation">Transaction Result</string>
+    <string name="error_mobile_required">मोबाइल नंबर required</string>
+    <string name="error_recharge_failed">Error occurred during recharge. Please try again or contact Customer Support for help.</string>
+    <string name="error_customer_phone_required">Please enter the customer\'s phone number.</string>
+    <string name="error_phone_length">Phone Number should be of %1$d digits.</string>
+    <string name="error_phone_length_min_max">Phone Number should be between %1$d and %2$d digits.</string>
+    <string name="error_amount_min_max">Amount should be between Rs. %1$d and Rs. %2$d.</string>
+    <string name="error_subscriber_id_length">Subscriber ID should be of %1$d characters.</string>
+    <string name="error_subscriber_id_min_max">Subscriber ID should be between %1$d and %2$d characters.</string>
+    <string name="error_obtaining_bill_amount">Could not obtain the bill amount. Please check the consumer number.</string>
+    <string name="error_no_internet_title">No Internet!</string>
+    <string name="error_no_internet">Your device is not connected to the Internet. Please try this when your Internet connection is back.</string>
+    <string name="error_getting_balance">Error</string>
+    <string name="btn_dashboard">Dashboard</string>
+    <string name="btn_recharge">रीचार्ज</string>
+    <string name="btn_pay">Pay</string>
+    <string name="btn_new_recharge">नया लेन-देन</string>
+    <string name="btn_new_bill_pay">Pay another Bill</string>
+    <string name="btn_back">वापस</string>
+     <string name="btn_Ok">ठीक है</string>
+      <string name="btn_Cancel">Cancel</string>
+    <string name="btn_verifyTpin">Verify T-Pin</string>
+    <string name="btn_login">लॉगिन</string>
+    <string name="btn_getBillAmount">Get Your Bill Amount</string>
+    <string name="prompt_spinner_select_operator">सेवा प्रदाता चुनें</string>
+    <string name="prompt_Validity_mobile_number">अमान्य मोबाइल नंबर</string>
+      <string name="prompt_Validity_consumer_number">Invalid ConsumerNumber</string>
+     <string name="prompt_Validity_subscriberId">अमान्य सबस्क्राइबर ID</string>
+     <string name="prompt_Validity_amount">अमान्य राशि</string>
+      <string name="prompt_Validity_accntnumber">Invalid Account Numberr</string>
+     <string name="prompt_Validity_radio_btn">Select radio button</string>
+     
+    <string name="prompt_enter_tpin">Please enter your T-Pin</string>
+    <string name="prompt_numbers_only_amount">Please only enter numbers in the amount field</string>
+    <string name="prompt_select_operator">Please select the Operator</string>
+    
+     <string name="prompt_Message">You have pressed the BACK  button. Would you like to exit the app?</string>
+      <string name="prompt_Title">Message</string>
+    <string name="lblSubscriberId">सबस्क्राइबर ID</string>
+    <string name="lblRechargeAmount">रीचार्ज राशि</string>
+    <string name="lblAmount">राशि</string>
+    <string name="lblYourMobile">मोबाइल नंबर</string>
+    <string name="lblConsumerNumber">Consumer Number</string>
+    <string name="lblCustomerMobile">Customer\'s Mobile Number</string>
+    <string name="lblCustomerLandlineNumber">Customer\'s Land Line Number</string>
+    <string name="lblAccountNumber">Account Number</string>
+    <string name="tpin_old">Old T-PIN</string>
+    <string name="tpin1">T-PIN</string>
+    <string name="tpin_submit_btn">प्रस्तुत करें</string>
+    <string name="tpin_back_btn">वापस</string>
+    <string name="topUp_radio_btn">टॉप-अप</string>
+    <string name="validity_radio_btn">Validity</string>
+    <string name="special_radio_btn">विशेष</string>
+    <string name="btnn_recharge">रीचार्ज</string>
+    <string name="btn_secondback">वापस</string>
+    <string name="btn_newRecharge">नया लेन-देन</string>
+    <string name="btn_GetbillamountData">Get Your Bill Amount</string>
+    <string name="btn_billpayment">भुगतान</string>
+    <string name="btn_Next">Next</string>
+    <string name="btn_swipe">Swipe</string>
+    <string name="btn_stop">Stop</string>
+    <string name="btn_clear">Clear</string>
+    <string name="lbl_FirstName">Enter First Name</string>
+    <string name="lbl_LastName">Enter Last Name</string>
+    <string name="lbl_AccountNumber">Enter Account Number</string>
+    <string name="lbl_Email">Email</string>
+    <string name="lbl_Cardholder">Cardholder</string>
+    <string name="lbl_Last4digits">Last 4 digits</string>
+    <string name="lbl_ExpiryDate">Expiry Date</string>
+    <string name="lbl_Signature">Signature</string>
+    <string name="lbl_TransactionStatus">Transaction Status</string>
+    <string name="lbl_Status">Status</string>
+    <string name="lbl_TxDate">Tx Date</string>
+    <string name="lbl_AmountRs.">Amount Rs.</string>
+    <string name="lbl_Type">Type</string>
+    <string name="lbl_AuthCode">Auth Code</string>
+    <string name="lbl_RRNo">RR No</string>
+    <string name="lbl_StanId">Stan Id</string>
+    <string name="lbl_Voucher">Voucher</string>
+    <string name="lbl_TxMessage">Tx Message</string>
+    <string name="lbl_Notes">Notes</string>
+    <string name="lbl_Login">लॉगिन</string>
+    <string name="tpin_oldHin">Old T-पिन</string>
+    <string name="changepassword_old">Old Password</string>
+    <string name="changepassword_new">New Password</string>
+    <string name="changepassword_confirm">Confirm Password</string>
+    <string name="password">पासवर्ड</string>
+    <string name="btn_logout">लॉगआउट</string>
+    <string name="cardsale_lastdigits">Card Last\n4 digits</string>
+    <string name="tpin_new">New T-PIN</string>
+    <string name="tpin_new_confirm">Confirm New T-PIN</string>
+    <string name="mpin_old">Old M-PIN</string>
+    <string name="mpin_new">New M-PIN</string>
+    <string name="mpin_new_confirm">Confirm New M-PIN</string>
+    <string name="title_activity_bill_payment">Bill Payment Activity</string>
+    <string name="title_activity_transaction_history">Transaction History</string>
+    <string name="title_activity_transaction_history_count">Last %1$d Transaction(s)</string>
+    <string name="no_transactions_found">No Transactions found</string>
+    <string name="title_activity_change_pin">Change PIN</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    
+    <string name="AlertDialog_MobileRecharge">मोबाइल रीचार्ज की पुष्टि करें</string>
+      <string name="Lbl_MobileNumber">मोबाइल नंबर:</string>
+        <string name="Lbl_Operator">ऑपरेटर:</string>
+          <string name="Lbl_Amount">राशि: रु.</string>
+          <string name="Dialog_Yes">हाँ</string>
+          <string name="Dialog_No">नहीं</string>
+          
+          
+          <string name="AlertDialog_DTHRecharge">DTH रीचार्ज की पुष्टि करें</string>
+      <string name="Lbl_SubscriberID">सबस्क्राइबर ID:</string>
+      
+      <string name="AlertDialog_BillPayment">भुगतान की पुष्टि करें</string>   
+      <string name="prompt_Validity_north_serviceprovider">Select NorthService Provider</string> 
+    
+     <string name="error_oldMpin">Enter Correct Old MPIN</string>
+      <string name="error_newMpin">The new MPIN should be 8 numeric characters only</string>
+      
+      <string name="error_Mpin_matching">New MPIN and Confirm Password doesnot match</string>   
+      <string name="validate_oldnewMpin"> Old MPIN and New MPIN cannot be same</string>    
+    
+      
+       <string name="error_oldTpin">Enter Correct Old TPIN</string>
+      <string name="error_newTpin">The new TPIN should be 8 numeric characters only</string>
+      
+      <string name="error_Tpin_matching">New TPIN and Confirm Password doesnot match</string>   
+      <string name="validate_oldnewTpin"> Old TPIN and New TPIN cannot be same</string>    
+    
+    
+   
+    
+    
+
+     <string
+        name="feedbacktypeMOMList">मोबाइल रीचार्ज</string>
+     <string
+        name="feedbacktypeMOMList1">DTH रीचार्ज</string>
+        <string
+        name="feedbacktypeMOMList2">बिल भुगतान</string>
+    <string
+        name="feedbacktypeMOMList3">कार्ड बिक्री</string>
+     <string
+        name="feedbacktypeMOMList4">Utility Bill Payment</string>
+        <string
+        name="feedbacktypeMOMList5">इतिहास</string>
+        <string
+        name="feedbacktypeMOMList6">सेटिंग्स</string>
+          <string
+        name="feedbacktypeMOMList7">Change M-Pin</string>
+     <string
+        name="feedbacktypeMOMList8">Change T-Pin</string>
+     
+        <string
+        name="feedbacktypeMOMList9">लॉगआउट</string>
+          <string
+        name="feedbacktypeMOMList10">पासवर्ड बदलें</string>
+     
+        
+         
+   
+    
+   
+</resources>
