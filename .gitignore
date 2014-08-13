@@ -1,6 +1,4 @@
-<<<<<<< HEAD
-=======
 .gradle/
 .idea/
->>>>>>> 65278bc44ea6b08234c0a2020c844b3af0108b4f
 build/
+bin/
