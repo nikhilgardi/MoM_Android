@@ -105,7 +105,7 @@ public class HistoryActivity extends Activity {
 				
 				{
 				accntbalresponse.setVisibility(View.VISIBLE);
-				accntbalresponse.setText("Bal: Rs." + myHelpz.GetRMNAccountBal().toString());
+				accntbalresponse.setText(getResources().getString(R.string.lblBal) + myHelpz.GetRMNAccountBal().toString());
 
 				}
 			
@@ -114,7 +114,7 @@ public class HistoryActivity extends Activity {
 				
 			{
 				accntbalresponse.setVisibility(View.VISIBLE);
-				accntbalresponse.setText("Bal: Rs." + myHelpz.GetRMNAccountBal().toString());
+				accntbalresponse.setText(getResources().getString(R.string.lblBal) + myHelpz.GetRMNAccountBal().toString());
 
 			}
 			else{
@@ -196,7 +196,7 @@ public class HistoryActivity extends Activity {
 					Log.i("info", responseBody);
 
 					accntbalresponse.setVisibility(View.VISIBLE);
-					accntbalresponse.setText("Bal: Rs." + check);
+					accntbalresponse.setText(getResources().getString(R.string.lblBal) + check);
 
 				} catch (Exception e) {
 					Log.e("log_tag", "Error in http connection " + e.toString());
@@ -296,7 +296,7 @@ public class HistoryActivity extends Activity {
 			//////////        Toast.makeText(InfoActivity.this, newoutputrecharge, Toast.LENGTH_LONG).show();
 			    
 		            accntbalresponse.setVisibility(View.VISIBLE);
-		            accntbalresponse.setText("Bal: Rs. " + newoutputrecharge);
+		            accntbalresponse.setText(getResources().getString(R.string.lblBal) + newoutputrecharge);
 			         //response.setText("Bal: Rs. 100000000");
 			        
 			           

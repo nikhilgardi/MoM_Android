@@ -17,6 +17,8 @@
     <string name="language_hindi_code">hi</string>
     <string name="language_malayalam">Malayalam</string>
     <string name="language_malayalam_code">ml</string>
+    <string name="language_marathi">Marathi</string>
+    <string name="language_marathi_code">mr</string>
     <string name="language_oriya">Oriya</string>
     <string name="language_oriya_code">or</string>
     <string name="language_tamil">Tamil</string>
@@ -26,19 +28,19 @@
     <!--END: LANGUAGE RELATED -->
 
     <string
-        name="feedbacktypeBillPayOperatorList">Select Operator</string>
+        name="feedbacktypeBillPayOperatorList">ଅପରେଟର୍‌ ଚୟନ</string>
     <string
-        name="feedbacktypeMobileRecharge">Select Service Provider</string>
+        name="feedbacktypeMobileRecharge">ସେବା ପ୍ରଦାନକର୍ତ୍ତା ଚୟନ</string>
 
     <string name="title_activity_best_fusion1">BestFusionActivity</string>
     <string name="title_activity_home_bill_activity__pbx1">HomeBillActivity_PBX</string>
     <string name="title_activity_change_password_pbx1">ChangePasswordPBXActivity</string>
     <string name="title_activity_dthrecharge">DTH Recharge</string>
     <string name="login_failed_msg_default">Login Failed. Please check your mobile number and M-Pin</string>
-    <string name="login_username_pwd_required">Please enter your mobile number and password</string>
-    <string name="login_username_required">Please enter your mobile Number</string>
+    <string name="login_username_pwd_required">ଦୟାକରି ଆପଣଙ୍କର ମୋବାଇଲ୍‌ ନମ୍ବର ଏବଂ ପାସ୍‌ୱାର୍ଡ ପ୍ରବେଶ କରାନ୍ତୁ</string>
+    <string name="login_username_required">ଦୟାକରି ଆପଣଙ୍କର ମୋବାଇଲ୍‌ ନମ୍ବର ପ୍ରବେଶ କରାନ୍ତୁ</string>
     <string name="login_pwd_required">ଦୟାକରି ଆପଣଙ୍କର ପାସ୍‌ୱାର୍ଡ ପ୍ରବେଶ କରାନ୍ତୁ</string>
-     <string name="login_missing_params">Missing Params</string>
+     <string name="login_missing_params">ପରମସ୍‌ ମିଳୁନାହିଁ</string>
     <string name="tpin">Enter T-Pin</string>
     <string name="mpin">Enter M-Pin</string>
     <string name="btn_Login">ଲଗ୍‌ଇନ୍‌</string>
@@ -49,18 +51,18 @@
     <string name="action_dthRecharge">DTH ରିଚାର୍ଜ</string>
     <string name="action_billPayment">ବିଲ୍‌ ପୈଠ</string>
     <string name="action_cardSale">କାର୍ଡ ବିକ୍ରି</string>
-    <string name="action_utilityBill">Utility Bill Payment</string>
+    <string name="action_utilityBill">ଉପଯୋଗୀ ବିଲ୍‌ ପୈଠ</string>
     <string name="action_history">ଇତିହାସ</string>
     <string name="action_settings1">ସେଟିଙ୍ଗ୍ସ୍</string>
     
      <string name="action_Logout">ଲଗ୍‌ଆଉଟ୍‌</string>
-    <string name="action_changeMpin">Change M-Pin</string>
-    <string name="action_changeTpin">Change T-Pin</string>
+    <string name="action_changeMpin">M-Pin ପରିବର୍ତ୍ତନ</string>
+    <string name="action_changeTpin">T-Pin  ପରିବର୍ତ୍ତନ</string>
     <string name="action_changepassword">ପାସ୍‌ୱାର୍ଡ ପରିବର୍ତ୍ତନ</string>
     
     
     <string name="title_activity_transaction_confirmation">Transaction Result</string>
-    <string name="error_mobile_required">Mobile Number required</string>
+    <string name="error_mobile_required">ମୋବାଇଲ୍‌ ନମ୍ବରର ଆବଶ୍ୟକତା ରହିଛି</string>
     <string name="error_recharge_failed">Error occurred during recharge. Please try again or contact Customer Support for help.</string>
     <string name="error_customer_phone_required">Please enter the customer\'s phone number.</string>
     <string name="error_phone_length">Phone Number should be of %1$d digits.</string>
@@ -82,48 +84,48 @@
       <string name="btn_Cancel">Cancel</string>
     <string name="btn_verifyTpin">Verify T-Pin</string>
     <string name="btn_login">ଲଗ୍‌ଇନ୍‌</string>
-    <string name="btn_getBillAmount">Get Your Bill Amount</string>
+    <string name="btn_getBillAmount">ଆପଣଙ୍କର ବିଲ୍‌ର ରାଶି ପାଆନ୍ତୁ</string>
     <string name="prompt_spinner_select_operator">ସେବା ପ୍ରଦାନକର୍ତ୍ତା ଚୟନ</string>
     <string name="prompt_Validity_mobile_number">ଅବୈଧ ମୋବାଇଲ୍‌ ନମ୍ବର୍‌</string>
-      <string name="prompt_Validity_consumer_number">Invalid ConsumerNumber</string>
+      <string name="prompt_Validity_consumer_number">ଅବୈଧ ଉପଭୋକ୍ତା ନମ୍ବର</string>
      <string name="prompt_Validity_subscriberId">ଅବୈଧ ଉପଭୋକ୍ତାଙ୍କ ID</string>
      <string name="prompt_Validity_amount">ଅବୈଧ ରାଶି</string>
-      <string name="prompt_Validity_accntnumber">Invalid Account Numberr</string>
-     <string name="prompt_Validity_radio_btn">Select radio button</string>
+      <string name="prompt_Validity_accntnumber">ଅବୈଧ ଆକାଉଣ୍ଟ୍‌ ନମ୍ବର</string>
+     <string name="prompt_Validity_radio_btn">ରେଡିଓ ବଟନ୍‌ ଚୟନ କରନ୍ତୁ</string>
      
     <string name="prompt_enter_tpin">Please enter your T-Pin</string>
     <string name="prompt_numbers_only_amount">Please only enter numbers in the amount field</string>
     <string name="prompt_select_operator">Please select the Operator</string>
     
-     <string name="prompt_Message">You have pressed the BACK  button. Would you like to exit the app?</string>
+     <string name="prompt_Message">ଆପଣ ବ୍ୟାକ୍‌ ବଟନ୍‌ ଦବାଇଥିଲେ। ଆପଣ ଏହି ଆପ୍‌ ରୁ ବାହାରିବାକୁ ଚାହାନ୍ତି କି?</string>
       <string name="prompt_Title">Message</string>
     <string name="lblSubscriberId">ଉପଭୋକ୍ତାଙ୍କ ID:</string>
     <string name="lblRechargeAmount">Recharge Amount</string>
     <string name="lblAmount">ରାଶି: ଟ. </string>
     <string name="lblYourMobile">ମୋବାଇଲ୍‌ ନମ୍ବର୍‌</string>
-    <string name="lblConsumerNumber">Consumer Number</string>
+    <string name="lblConsumerNumber">ଉପଭୋକ୍ତା ନମ୍ବର</string>
     <string name="lblCustomerMobile">Customer\'s Mobile Number</string>
     <string name="lblCustomerLandlineNumber">Customer\'s Land Line Number</string>
-    <string name="lblAccountNumber">Account Number</string>
+    <string name="lblAccountNumber">ଆକାଉଣ୍ଟ୍‌ ନମ୍ବର</string>
     <string name="tpin_old">Old T-PIN</string>
     <string name="tpin1">T-PIN</string>
     <string name="tpin_submit_btn">ଦାଖଲ</string>
     <string name="tpin_back_btn">ବ୍ୟାକ୍‌</string>
     <string name="topUp_radio_btn">ଟପ୍‌-ଅପ୍‌</string>
-    <string name="validity_radio_btn">Validity</string>
+    <string name="validity_radio_btn">ବୈଧତା</string>
     <string name="special_radio_btn">ସ୍ପେସିଆଲ୍‌</string>
     <string name="btnn_recharge">ରିଚାର୍ଜ</string>
     <string name="btn_secondback">ବ୍ୟାକ୍‌</string>
     <string name="btn_newRecharge">ନୂତନ ଟ୍ରାଞ୍ଜାକ୍‌ସନ୍</string>
-    <string name="btn_GetbillamountData">Get Your Bill Amount</string>
+    <string name="btn_GetbillamountData">ଆପଣଙ୍କର ବିଲ୍‌ର ରାଶି ପାଆନ୍ତୁ</string>
     <string name="btn_billpayment">ପୈଠ</string>
     <string name="btn_Next">Next</string>
     <string name="btn_swipe">Swipe</string>
     <string name="btn_stop">Stop</string>
     <string name="btn_clear">Clear</string>
-    <string name="lbl_FirstName">Enter First Name</string>
-    <string name="lbl_LastName">Enter Last Name</string>
-    <string name="lbl_AccountNumber">Enter Account Number</string>
+    <string name="lbl_FirstName">ପ୍ରଥମ ନାମ ପ୍ରବେଶ କରାନ୍ତୁ</string>
+    <string name="lbl_LastName">ଶେଷ ନାମ ପ୍ରବେଶ କରାନ୍ତୁ</string>
+    <string name="lbl_AccountNumber">ଆକାଉଣ୍ଟ୍‌ ନମ୍ବର ପ୍ରବେଶ କରାନ୍ତୁ</string>
     <string name="lbl_Email">Email</string>
     <string name="lbl_Cardholder">Cardholder</string>
     <string name="lbl_Last4digits">Last 4 digits</string>
@@ -173,20 +175,19 @@
       <string name="Lbl_SubscriberID">ଉପଭୋକ୍ତାଙ୍କ ID:</string>
       
       <string name="AlertDialog_BillPayment">ପୈଠ ସୁନିଶ୍ଚିତ</string>   
-      <string name="prompt_Validity_north_serviceprovider">Select NorthService Provider</string> 
+      <string name="prompt_Validity_north_serviceprovider">ଉତ୍ତରଦିଗର ସେବା ପ୍ରଦାନକର୍ତ୍ତାଙ୍କ ଚୟନ କରନ୍ତୁ</string>
     
-     <string name="error_oldMpin">Enter Correct Old MPIN</string>
-      <string name="error_newMpin">The new MPIN should be 8 numeric characters only</string>
+     <string name="error_oldMpin">ସଠିକ୍‌ ପୁରୁଣା MPIN ପ୍ରବେଶ କରାନ୍ତୁ</string>
+      <string name="error_newMpin">ନୂତନ MPIN କେବଳ 8 ଟି ସଂଖ୍ୟା ବିଶିଷ୍ଟ ଅକ୍ଷର ରହିବା ଆବଶ୍ୟକ</string>
       
-      <string name="error_Mpin_matching">New MPIN and Confirm Password doesnot match</string>   
-      <string name="validate_oldnewMpin"> Old MPIN and New MPIN cannot be same</string>    
-    
+      <string name="error_Mpin_matching">ନୂତନ MPIN ଏବଂ ସୁନିଶ୍ଚିତ କରିଥିବା ପାସ୍‌ୱାର୍ଡ ଟି ମେଳ ଖାଉନାହିଁ</string>
+      <string name="validate_oldnewMpin">ପୁରୁଣା MPIN ଏବଂ ନୂତନ MPIN ଟି ସମାନ ହୋଇପାରିବ ନାହିଁ</string>
       
-       <string name="error_oldTpin">Enter Correct Old TPIN</string>
-      <string name="error_newTpin">The new TPIN should be 8 numeric characters only</string>
+       <string name="error_oldTpin">ସଠିକ୍‌ ପୁରୁଣା TPIN ପ୍ରବେଶ କରାନ୍ତୁ</string>
+      <string name="error_newTpin">ନୂତନ TPIN କେବଳ 8 ଟି ସଂଖ୍ୟା ବିଶିଷ୍ଟ ଅକ୍ଷର ରହିବା ଆବଶ୍ୟକ</string>
       
-      <string name="error_Tpin_matching">New TPIN and Confirm Password doesnot match</string>   
-      <string name="validate_oldnewTpin"> Old TPIN and New TPIN cannot be same</string>    
+      <string name="error_Tpin_matching">ନୂତନ TPIN ଏବଂ ସୁନିଶ୍ଚିତ କରିଥିବା ପାସ୍‌ୱାର୍ଡ ଟି ମେଳ ଖାଉନାହିଁ</string>
+      <string name="validate_oldnewTpin"> ପୁରୁଣା TPIN ଏବଂ ନୂତନ TPIN ଟି ସମାନ ହୋଇପାରିବ ନାହିଁ</string>
     
     
    
@@ -202,15 +203,15 @@
     <string
         name="feedbacktypeMOMList3">କାର୍ଡ ବିକ୍ରି</string>
      <string
-        name="feedbacktypeMOMList4">Utility Bill Payment</string>
+        name="feedbacktypeMOMList4">ଉପଯୋଗୀ ବିଲ୍‌ ପୈଠ</string>
         <string
         name="feedbacktypeMOMList5">ଇତିହାସ</string>
         <string
         name="feedbacktypeMOMList6">ସେଟିଙ୍ଗ୍ସ୍</string>
           <string
-        name="feedbacktypeMOMList7">Change M-Pin</string>
+        name="feedbacktypeMOMList7">M-Pin ପରିବର୍ତ୍ତନ</string>
      <string
-        name="feedbacktypeMOMList8">Change T-Pin</string>
+        name="feedbacktypeMOMList8">T-Pin  ପରିବର୍ତ୍ତନ</string>
      
         <string
         name="feedbacktypeMOMList9">ଲଗ୍‌ଆଉଟ୍‌</string>
