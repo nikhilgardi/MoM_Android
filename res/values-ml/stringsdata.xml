@@ -3,8 +3,7 @@
     <string name="lblBal">ബാലൻസ്: രൂപ</string>
     <string name="Rupee">\u20B9</string>
     <string name="title_activity_main1">MainActivity</string>
-    <string name="Rupee">\u20B9</string>
-    <string name="title_activity_main1">MainActivity</string>
+
 
     <!--START: LANGUAGE RELATED -->
     <string name="language_bengali">Bengali</string>
@@ -17,8 +16,8 @@
     <string name="language_hindi_code">hi</string>
     <string name="language_malayalam">Malayalam</string>
     <string name="language_malayalam_code">ml</string>
-    <string name="language_malayalam">Marathi</string>
-    <string name="language_malayalam_code">mr</string>
+    <string name="language_marathi">Marathi</string>
+    <string name="language_marathi_code">mr</string>
     <string name="language_oriya">Oriya</string>
     <string name="language_oriya_code">or</string>
     <string name="language_tamil">Tamil</string>
@@ -26,6 +25,12 @@
     <string name="language_telugu">Telugu</string>
     <string name="language_telugu_code">te</string>
     <!--END: LANGUAGE RELATED -->
+
+
+    <string
+        name="feedbacktypeBillPayOperatorList">ഓപ്പറേറ്ററെ തിരഞ്ഞെടുക്കുക</string>
+    <string
+        name="feedbacktypeMobileRecharge">സേവന ദാതാവിനെ തിരഞ്ഞെടുക്കുക</string>
 
 
     <string name="title_activity_best_fusion1">BestFusionActivity</string>
@@ -108,7 +113,7 @@
     <string name="tpin_submit_btn">സമർപ്പിക്കുക</string>
     <string name="tpin_back_btn">പിന്നിലേക്ക്</string>
     <string name="topUp_radio_btn">ടോപ്പപ്പ്</string>
-    <string name="validity_radio_btn">Validity</string>
+    <string name="validity_radio_btn">കാലാവധി സമയം</string>
     <string name="special_radio_btn">സ്പെഷ്യൽ</string>
     <string name="btnn_recharge">റീചാർജ്ജുചെയ്യുക</string>
     <string name="btn_secondback">പിന്നിലേക്ക്</string>

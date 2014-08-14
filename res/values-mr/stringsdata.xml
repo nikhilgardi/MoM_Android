@@ -17,6 +17,8 @@
     <string name="language_hindi_code">hi</string>
     <string name="language_malayalam">Malayalam</string>
     <string name="language_malayalam_code">ml</string>
+    <string name="language_marathi">Marathi</string>
+    <string name="language_marathi_code">mr</string>
     <string name="language_oriya">Oriya</string>
     <string name="language_oriya_code">or</string>
     <string name="language_tamil">Tamil</string>
@@ -110,7 +112,7 @@
     <string name="tpin_submit_btn">सादर करा</string>
     <string name="tpin_back_btn">मागे</string>
     <string name="topUp_radio_btn">टॉप-अप</string>
-    <string name="validity_radio_btn">Validity</string>
+    <string name="validity_radio_btn"> वैधता </string>
     <string name="special_radio_btn">विशेष</string>
     <string name="btnn_recharge">रीचार्ज</string>
     <string name="btn_secondback">मागे</string>

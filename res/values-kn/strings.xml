@@ -17,6 +17,8 @@
     <string name="language_hindi_code">hi</string>
     <string name="language_malayalam">Malayalam</string>
     <string name="language_malayalam_code">ml</string>
+    <string name="language_marathi">Marathi</string>
+    <string name="language_marathi_code">mr</string>
     <string name="language_oriya">Oriya</string>
     <string name="language_oriya_code">or</string>
     <string name="language_tamil">Tamil</string>
@@ -26,9 +28,9 @@
     <!--END: LANGUAGE RELATED -->
 
     <string
-        name="feedbacktypeBillPayOperatorList">Select Operator</string>
+        name="feedbacktypeBillPayOperatorList">ಆಪರೇಟರ್ ಆಯ್ಕೆ ಮಾಡಿ </string>
     <string
-        name="feedbacktypeMobileRecharge">Select Service Provider</string>
+        name="feedbacktypeMobileRecharge">ಸೇವೆ ಪೂರೈಕೆದಾರರನ್ನು ಆಯ್ಕೆ ಮಾಡಿ</string>
 
     <string name="title_activity_best_fusion1">BestFusionActivity</string>
     <string name="title_activity_home_bill_activity__pbx1">HomeBillActivity_PBX</string>
@@ -110,7 +112,7 @@
     <string name="tpin_submit_btn">ಸಲ್ಲಿಸಿ </string>
     <string name="tpin_back_btn">ಹಿಂದೆ </string>
     <string name="topUp_radio_btn">ಟಾಪ್ ಅಪ್ </string>
-    <string name="validity_radio_btn">Validity</string>
+    <string name="validity_radio_btn">ವಾಯಿದೆ </string>
     <string name="special_radio_btn">ವಿಶಿಷ್ಟ </string>
     <string name="btnn_recharge">ರಿಚಾರ್ಜ್ </string>
     <string name="btn_secondback">ಹಿಂದೆ </string>
