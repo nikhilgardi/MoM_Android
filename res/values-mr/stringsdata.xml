@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Money-On-Mobile</string>
+    <string name="action_settings">Settings</string>
+    <string name="lblBal">शिल्लक: रु. </string>
+    <string name="Rupee">\u20B9</string>
+    <string name="title_activity_main1">MainActivity</string>
+
+    <!--START: LANGUAGE RELATED -->
+    <string name="language_bengali">Bengali</string>
+    <string name="language_bengali_code">bn</string>
+    <string name="language_english">English</string>
+    <string name="language_english_code">en</string>
+    <string name="language_gujarati">Gujarati</string>
+    <string name="language_gujarati_code">gu</string>
+    <string name="language_hindi">Hindi</string>
+    <string name="language_hindi_code">hi</string>
+    <string name="language_malayalam">Malayalam</string>
+    <string name="language_malayalam_code">ml</string>
+    <string name="language_oriya">Oriya</string>
+    <string name="language_oriya_code">or</string>
+    <string name="language_tamil">Tamil</string>
+    <string name="language_tamil_code">ta</string>
+    <string name="language_telugu">Telugu</string>
+    <string name="language_telugu_code">te</string>
+    <!--END: LANGUAGE RELATED -->
+
+    <string
+        name="feedbacktypeBillPayOperatorList">ऑपरेटर निवडा</string>
+    <string
+        name="feedbacktypeMobileRecharge">सेवा प्रदाता निवडा</string>
+
+    <string name="title_activity_best_fusion1">BestFusionActivity</string>
+    <string name="title_activity_home_bill_activity__pbx1">HomeBillActivity_PBX</string>
+    <string name="title_activity_change_password_pbx1">ChangePasswordPBXActivity</string>
+    <string name="title_activity_dthrecharge">DTH Recharge</string>
+    <string name="login_failed_msg_default">Login Failed. Please check your mobile number and M-Pin</string>
+    <string name="login_username_pwd_required">कृपया तुमचा मोबाईल क्रमांक आणि पासवर्ड प्रविष्ट करा</string>
+    <string name="login_username_required">कृपया तुमचा मोबाईल क्रमांक प्रविष्ट करा</string>
+    <string name="login_pwd_required">कृपया तुमचा पासवर्ड प्रविष्ट करा</string>
+    <string name="login_missing_params">मापदंड अनुपस्थित आहेत</string>
+    <string name="tpin">T-पिन</string>
+    <string name="mpin">M-पिन</string>
+    <string name="btn_Login">लॉगिन</string>
+    <string name="tpin_incorrect">Incorrect T-Pin</string>
+    <string name="mpin_incorrect">Incorrect M-Pin</string>
+    <string name="title_activity_verify_tpin">VerifyTPinActivity</string>
+    <string name="action_mobileRecharge">मोबाइल रीचार्ज</string>
+    <string name="action_dthRecharge">DTH रीचार्ज</string>
+    <string name="action_billPayment">बिल पेमेंट</string>
+    <string name="action_cardSale">कार्ड बिक्री</string>
+    <string name="action_utilityBill">उपयुक्तता बिल प्रदान</string>
+    <string name="action_history">इतिहास</string>
+    <string name="action_settings1">सेटिंग्ज</string>
+
+    <string name="action_Logout">लॉगआऊट</string>
+    <string name="action_changeMpin">M-Pin बदला</string>
+    <string name="action_changeTpin">T-Pin बदला</string>
+    <string name="action_changepassword">पासवर्ड बदला</string>
+
+
+    <string name="title_activity_transaction_confirmation">Transaction Result</string>
+    <string name="error_mobile_required">मोबाईल क्रमांक आवश्यक आहे</string>
+    <string name="error_recharge_failed">Error occurred during recharge. Please try again or contact Customer Support for help.</string>
+    <string name="error_customer_phone_required">Please enter the customer\'s phone number.</string>
+    <string name="error_phone_length">Phone Number should be of %1$d digits.</string>
+    <string name="error_phone_length_min_max">Phone Number should be between %1$d and %2$d digits.</string>
+    <string name="error_amount_min_max">Amount should be between Rs. %1$d and Rs. %2$d.</string>
+    <string name="error_subscriber_id_length">Subscriber ID should be of %1$d characters.</string>
+    <string name="error_subscriber_id_min_max">Subscriber ID should be between %1$d and %2$d characters.</string>
+    <string name="error_obtaining_bill_amount">Could not obtain the bill amount. Please check the consumer number.</string>
+    <string name="error_no_internet_title">No Internet!</string>
+    <string name="error_no_internet">Your device is not connected to the Internet. Please try this when your Internet connection is back.</string>
+    <string name="error_getting_balance">Error</string>
+    <string name="btn_dashboard">Dashboard</string>
+    <string name="btn_recharge">रीचार्ज</string>
+    <string name="btn_pay">Pay</string>
+    <string name="btn_new_recharge">नवीन व्यवहार</string>
+    <string name="btn_new_bill_pay">Pay another Bill</string>
+    <string name="btn_back">मागे</string>
+    <string name="btn_Ok">ठीक</string>
+    <string name="btn_Cancel">Cancel</string>
+    <string name="btn_verifyTpin">Verify T-Pin</string>
+    <string name="btn_login">लॉगिन</string>
+    <string name="btn_getBillAmount">तुमची बिलाची रक्कम मिळवा</string>
+    <string name="prompt_spinner_select_operator">सेवा प्रदाता निवडा</string>
+    <string name="prompt_Validity_mobile_number">अग्राह्य मोबाईल क्रमांक</string>
+    <string name="prompt_Validity_consumer_number">अग्राह्य उपभोक्ता क्रमांक</string>
+    <string name="prompt_Validity_subscriberId">अग्राह्य सभासद Id</string>
+    <string name="prompt_Validity_amount">अग्राह्य रक्कम</string>
+    <string name="prompt_Validity_accntnumber">अग्राह्य खाते क्रमांक</string>
+    <string name="prompt_Validity_radio_btn">रेडिओ बटण निवडा</string>
+
+    <string name="prompt_enter_tpin">Please enter your T-Pin</string>
+    <string name="prompt_numbers_only_amount">Please only enter numbers in the amount field</string>
+    <string name="prompt_select_operator">Please select the Operator</string>
+
+    <string name="prompt_Message">तुम्ही मागे बटण दाबले आहे. तुम्हाला ऍपमधून बाहेर पडायचे आहे का?</string>
+    <string name="prompt_Title">Message</string>
+    <string name="lblSubscriberId">ग्राहक ID</string>
+    <string name="lblRechargeAmount">Recharge Amount</string>
+    <string name="lblAmount">रक्कम </string>
+    <string name="lblYourMobile">मोबाईल क्रमांक</string>
+    <string name="lblConsumerNumber">उपभोक्ता क्रमांक</string>
+    <string name="lblCustomerMobile">Customer\'s Mobile Number</string>
+    <string name="lblCustomerLandlineNumber">Customer\'s Land Line Number</string>
+    <string name="lblAccountNumber">खाते क्रमांक</string>
+    <string name="tpin_old">Old T-PIN</string>
+    <string name="tpin1">T-PIN</string>
+    <string name="tpin_submit_btn">सादर करा</string>
+    <string name="tpin_back_btn">मागे</string>
+    <string name="topUp_radio_btn">टॉप-अप</string>
+    <string name="validity_radio_btn">Validity</string>
+    <string name="special_radio_btn">विशेष</string>
+    <string name="btnn_recharge">रीचार्ज</string>
+    <string name="btn_secondback">मागे</string>
+    <string name="btn_newRecharge">नवीन व्यवहार</string>
+    <string name="btn_GetbillamountData">तुमची बिलाची रक्कम मिळवा</string>
+    <string name="btn_billpayment">पेमेंट</string>
+    <string name="btn_Next">Next</string>
+    <string name="btn_swipe">Swipe</string>
+    <string name="btn_stop">Stop</string>
+    <string name="btn_clear">Clear</string>
+    <string name="lbl_FirstName">प्रथम नाव प्रविष्ट करा</string>
+    <string name="lbl_LastName">आडनाव प्रविष्ट करा</string>
+    <string name="lbl_AccountNumber">खाते क्रमांक प्रविष्ट करा</string>
+    <string name="lbl_Email">Email</string>
+    <string name="lbl_Cardholder">Cardholder</string>
+    <string name="lbl_Last4digits">Last 4 digits</string>
+    <string name="lbl_ExpiryDate">Expiry Date</string>
+    <string name="lbl_Signature">Signature</string>
+    <string name="lbl_TransactionStatus">Transaction Status</string>
+    <string name="lbl_Status">Status</string>
+    <string name="lbl_TxDate">Tx Date</string>
+    <string name="lbl_AmountRs.">रक्कम: रु.</string>
+    <string name="lbl_Type">Type</string>
+    <string name="lbl_AuthCode">Auth Code</string>
+    <string name="lbl_RRNo">RR No</string>
+    <string name="lbl_StanId">Stan Id</string>
+    <string name="lbl_Voucher">Voucher</string>
+    <string name="lbl_TxMessage">Tx Message</string>
+    <string name="lbl_Notes">Notes</string>
+    <string name="lbl_Login">लॉगिन</string>
+    <string name="tpin_oldHin">Old T-पिन</string>
+    <string name="changepassword_old">Old Password</string>
+    <string name="changepassword_new">New Password</string>
+    <string name="changepassword_confirm">Confirm Password</string>
+    <string name="password">पासवर्ड</string>
+    <string name="btn_logout">लॉगआऊट</string>
+    <string name="cardsale_lastdigits">Card Last\n4 digits</string>
+    <string name="tpin_new">New T-PIN</string>
+    <string name="tpin_new_confirm">Confirm New T-PIN</string>
+    <string name="mpin_old">Old M-PIN</string>
+    <string name="mpin_new">New M-PIN</string>
+    <string name="mpin_new_confirm">Confirm New M-PIN</string>
+    <string name="title_activity_bill_payment">Bill Payment Activity</string>
+    <string name="title_activity_transaction_history">Transaction History</string>
+    <string name="title_activity_transaction_history_count">Last %1$d Transaction(s)</string>
+    <string name="no_transactions_found">No Transactions found</string>
+    <string name="title_activity_change_pin">Change PIN</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="AlertDialog_MobileRecharge">मोबाईल रिचार्जची पुष्टी करा</string>
+    <string name="Lbl_MobileNumber">मोबाईल क्रमांक:</string>
+    <string name="Lbl_Operator">ऑपरेटर:</string>
+    <string name="Lbl_Amount">रक्कम: रु. </string>
+    <string name="Dialog_Yes">होय</string>
+    <string name="Dialog_No">नाही</string>
+
+
+    <string name="AlertDialog_DTHRecharge">DTH रिचार्जची पुष्टी करा</string>
+    <string name="Lbl_SubscriberID">ग्राहक ID: </string>
+
+    <string name="AlertDialog_BillPayment">पेमेंटची पुष्टी करा</string>
+    <string name="prompt_Validity_north_serviceprovider">उत्तर सेवा प्रदाता निवडा</string>
+
+    <string name="error_oldMpin">अचूक जुना MPIN प्रविष्ट करा</string>
+    <string name="error_newMpin">नवीन MPIN केवळ 8 आकडी वर्णांचा असावा</string>
+
+    <string name="error_Mpin_matching">नवीन MPIN आणि पासवर्डची पुष्टी करा जुळत नाही</string>
+    <string name="validate_oldnewMpin"> जुना MPIN आणि नवीन MPIN समान असू शकत नाही</string>
+
+
+    <string name="error_oldTpin">अचूक जुना TPIN प्रविष्ट करा</string>
+    <string name="error_newTpin">नवीन TPIN केवळ 8 आकडी वर्णांचा असावा</string>
+
+    <string name="error_Tpin_matching">नवीन TPIN आणि पासवर्डची पुष्टी करा जुळत नाही</string>
+    <string name="validate_oldnewTpin"> जुना TPIN आणि नवीन TPIN समान असू शकत नाही</string>
+
+
+
+
+
+
+    <string
+        name="feedbacktypeMOMList">मोबाइल रीचार्ज</string>
+    <string
+        name="feedbacktypeMOMList1">DTH रीचार्ज</string>
+    <string
+        name="feedbacktypeMOMList2">बिल पेमेंट</string>
+    <string
+        name="feedbacktypeMOMList3">कार्ड बिक्री</string>
+    <string
+        name="feedbacktypeMOMList4">उपयुक्तता बिल प्रदान</string>
+    <string
+        name="feedbacktypeMOMList5">इतिहास</string>
+    <string
+        name="feedbacktypeMOMList6">सेटिंग्ज</string>
+    <string
+        name="feedbacktypeMOMList7">M-Pin बदला</string>
+    <string
+        name="feedbacktypeMOMList8">T-Pin बदला</string>
+
+    <string
+        name="feedbacktypeMOMList9">लॉगआऊट</string>
+    <string
+        name="feedbacktypeMOMList10">पासवर्ड बदला</string>
+
+
+
+
+    <string
+        name="feedbacktype">Select NorthSubDivisionName</string>
+
+
+    <string
+        name="feedbacktype0">Select NorthSubDivisionName</string>
+    <string
+        name="feedbacktype1">Araria</string>
+    <string
+        name="feedbacktype2">Farbisganj</string>
+    <string
+        name="feedbacktype3">Barsoi</string>
+    <string
+        name="feedbacktype4">Katihar (Rural)</string>
+    <string
+        name="feedbacktype5">Katihar (Urban)</string>
+    <string
+        name="feedbacktype6">Bahadurganj</string>
+    <string
+        name="feedbacktype7">Kishanganj</string>
+    <string
+        name="feedbacktype8">Thakurganj</string>
+    <string
+        name="feedbacktype9">Banmankhi</string>
+    <string
+        name="feedbacktype10">Dhamdaha</string>
+    <string
+        name="feedbacktype11">Gulabbagh</string>
+    <string
+        name="feedbacktype12">Purnea (Rural)</string>
+    <string
+        name="feedbacktype13">Purnea (Urban)</string>
+    <string
+        name="feedbacktype14">Gogari</string>
+    <string
+        name="feedbacktype15">Khagaria (Urban)</string>
+    <string
+        name="feedbacktype16">Khagaria (Rural)</string>
+    <string
+        name="feedbacktype17">Madhepur</string>
+    <string
+        name="feedbacktype18">Udakishaganj</string>
+    <string
+        name="feedbacktype19">Saharsa (Urban)</string>
+    <string
+        name="feedbacktype20">Saharsa (Rural)</string>
+    <string
+        name="feedbacktype21">Simri Bakhtiyarpur</string>
+    <string
+        name="feedbacktype22">Birpur</string>
+    <string
+        name="feedbacktype23">Supaul</string>
+    <string
+        name="feedbacktype24">Triveniganj</string>
+    <string
+        name="feedbacktype25">Benipur</string>
+    <string
+        name="feedbacktype26">Biraul</string>
+    <string
+        name="feedbacktype27">Darbhanga (Rural)</string>
+    <string
+        name="feedbacktype28">Sakri</string>
+    <string
+        name="feedbacktype29">Darbhanga (Urban)</string>
+    <string
+        name="feedbacktype30">Laheriasarai</string>
+    <string
+        name="feedbacktype31">Jhanjharpur</string>
+    <string
+        name="feedbacktype32">Nirmali</string>
+    <string
+        name="feedbacktype33">Phulparas</string>
+    <string
+        name="feedbacktype34">Benipatti</string>
+    <string
+        name="feedbacktype35">JaiNagar</string>
+    <string
+        name="feedbacktype36">Madhubani</string>
+    <string
+        name="feedbacktype37">Bachwara</string>
+    <string
+        name="feedbacktype38">Barauni</string>
+    <string
+        name="feedbacktype39">Ballia</string>
+    <string
+        name="feedbacktype40">Begusarai</string>
+    <string
+        name="feedbacktype41">Manjhaul</string>
+    <string
+        name="feedbacktype42">Dalsingsarai</string>
+    <string
+        name="feedbacktype43">Mohaddinagar</string>
+    <string
+        name="feedbacktype44">Sarairanjan</string>
+    <string
+        name="feedbacktype45">Rosera</string>
+    <string
+        name="feedbacktype46">Kalyanpur</string>
+    <string
+        name="feedbacktype47">Pusa</string>
+    <string
+        name="feedbacktype48">Samastipur (Rural)</string>
+    <string
+        name="feedbacktype49">Samastipur (Urban)</string>
+    <string
+        name="feedbacktype50">Marhaurah</string>
+    <string
+        name="feedbacktype51">Sonepur</string>
+    <string
+        name="feedbacktype52">Baniapur</string>
+    <string
+        name="feedbacktype53">Chhapra (Urban)</string>
+    <string
+        name="feedbacktype54">Chhapra (Rural)</string>
+    <string
+        name="feedbacktype55">Barauli</string>
+    <string
+        name="feedbacktype56">Gopalganj</string>
+    <string
+        name="feedbacktype57">Kuchaikot</string>
+    <string
+        name="feedbacktype58">Mirganj</string>
+    <string
+        name="feedbacktype59">Maharajganj</string>
+    <string
+        name="feedbacktype60">Gopalganj</string>
+    <string
+        name="feedbacktype61">Mairwa</string>
+    <string
+        name="feedbacktype62">Siwan (Rural)</string>
+    <string
+        name="feedbacktype63">Siwan (Urban)</string>
+    <string
+        name="feedbacktype64">Bagaha</string>
+    <string
+        name="feedbacktype65">Nbettiah</string>
+    <string
+        name="feedbacktype66">Narkatiyaganj</string>
+    <string
+        name="feedbacktype67">Ramnagar</string>
+    <string
+        name="feedbacktype68">Areraj</string>
+    <string
+        name="feedbacktype69">Chakia</string>
+    <string
+        name="feedbacktype70">Motihari</string>
+    <string
+        name="feedbacktype71">Dhaka</string>
+    <string
+        name="feedbacktype72">Ghorashahan</string>
+    <string
+        name="feedbacktype73">Raxaul</string>
+    <string
+        name="feedbacktype74">Bidupur</string>
+    <string
+        name="feedbacktype75">Hajipur</string>
+    <string
+        name="feedbacktype76">Lalganj</string>
+    <string
+        name="feedbacktype77">Mahnar</string>
+    <string
+        name="feedbacktype78">Mahua</string>
+    <string
+        name="feedbacktype79">Dholi</string>
+    <string
+        name="feedbacktype80">Muzzaffarpur (East)</string>
+    <string
+        name="feedbacktype81">Skmch</string>
+    <string
+        name="feedbacktype82">Kalyani</string>
+    <string
+        name="feedbacktype83">Maripur</string>
+    <string
+        name="feedbacktype84">Saraiyaganj</string>
+    <string
+        name="feedbacktype85">Motipur</string>
+    <string
+        name="feedbacktype86">Muzzafarpur (West)</string>
+    <string
+        name="feedbacktype87">Sraiya</string>
+    <string
+        name="feedbacktype88">Bairgania</string>
+    <string
+        name="feedbacktype89">Pupri</string>
+    <string
+        name="feedbacktype90">Runnisaidpur</string>
+    <string
+        name="feedbacktype91">Sitmarhi</string>
+    <string
+        name="feedbacktype92">Shehohar</string>
+
+    <string name="feedbacktypeSBERecharge">Select SouthSubDivisionName</string>
+    <string name="feedbacktypeSBERecharge0">Select SouthSubDivisionName</string>
+    <string name="feedbacktypeSBERecharge1">Amarpur</string>
+    <string name="feedbacktypeSBERecharge2">Arrah - (R )</string>
+    <string name="feedbacktypeSBERecharge3">Arrah - I</string>
+    <string name="feedbacktypeSBERecharge4">Arrah - II</string>
+    <string name="feedbacktypeSBERecharge5">Arwal</string>
+    <string name="feedbacktypeSBERecharge6">Asthanwan</string>
+    <string name="feedbacktypeSBERecharge7">Aurangabad</string>
+    <string name="feedbacktypeSBERecharge8">Bahadurpur</string>
+    <string name="feedbacktypeSBERecharge9">Baktiyarpur</string>
+    <string name="feedbacktypeSBERecharge10">Banka</string>
+    <string name="feedbacktypeSBERecharge11">Bankipur</string>
+    <string name="feedbacktypeSBERecharge12">Barbigha</string>
+    <string name="feedbacktypeSBERecharge13">Barh</string>
+    <string name="feedbacktypeSBERecharge14">Barhaiya</string>
+    <string name="feedbacktypeSBERecharge15">Barun</string>
+    <string name="feedbacktypeSBERecharge16">Bhabhua</string>
+    <string name="feedbacktypeSBERecharge17">Bhagalpur</string>
+    <string name="feedbacktypeSBERecharge18">Bhagalpur (East)</string>
+    <string name="feedbacktypeSBERecharge19">Bhagalpur (R )</string>
+    <string name="feedbacktypeSBERecharge20">Bhagalpur (West)</string>
+    <string name="feedbacktypeSBERecharge21">Biharsharif  (R )</string>
+    <string name="feedbacktypeSBERecharge22">Biharshariff (U - I)</string>
+    <string name="feedbacktypeSBERecharge23">Biharshariff (U - II)</string>
+    <string name="feedbacktypeSBERecharge24">Bihta</string>
+    <string name="feedbacktypeSBERecharge25">Bikram</string>
+    <string name="feedbacktypeSBERecharge26">Bikramganj</string>
+    <string name="feedbacktypeSBERecharge27">Board Colony</string>
+    <string name="feedbacktypeSBERecharge28">Buxar (R )</string>
+    <string name="feedbacktypeSBERecharge29">Buxar (U )</string>
+    <string name="feedbacktypeSBERecharge30">Chandi</string>
+    <string name="feedbacktypeSBERecharge31">Danapur</string>
+    <string name="feedbacktypeSBERecharge32">Daudnagar</string>
+    <string name="feedbacktypeSBERecharge33">Dehri - I</string>
+    <string name="feedbacktypeSBERecharge34">Dehri - II</string>
+    <string name="feedbacktypeSBERecharge35">Dholi</string>
+    <string name="feedbacktypeSBERecharge36">Didagaon</string>
+    <string name="feedbacktypeSBERecharge37">Digha</string>
+    <string name="feedbacktypeSBERecharge38">Dumraon</string>
+    <string name="feedbacktypeSBERecharge39">Ekangarsarai</string>
+    <string name="feedbacktypeSBERecharge40">Fatika</string>
+    <string name="feedbacktypeSBERecharge41">Gaighat</string>
+    <string name="feedbacktypeSBERecharge42">Gardanibagh</string>
+    <string name="feedbacktypeSBERecharge43">Gaya (R ) (Bhodhgaya)</string>
+    <string name="feedbacktypeSBERecharge44">Goh</string>
+    <string name="feedbacktypeSBERecharge45">Hathidah</string>
+    <string name="feedbacktypeSBERecharge46">Hilsa</string>
+    <string name="feedbacktypeSBERecharge47">Imamganj</string>
+    <string name="feedbacktypeSBERecharge48">Islampur</string>
+    <string name="feedbacktypeSBERecharge49">Jagdishpur</string>
+    <string name="feedbacktypeSBERecharge50">Jakkanpur</string>
+    <string name="feedbacktypeSBERecharge51">Jamalpur</string>
+    <string name="feedbacktypeSBERecharge52">Jamui</string>
+    <string name="feedbacktypeSBERecharge53">Jehanabad</string>
+    <string name="feedbacktypeSBERecharge54">Jhajha</string>
+    <string name="feedbacktypeSBERecharge55">Kadamkuan</string>
+    <string name="feedbacktypeSBERecharge56">Kahalgaon</string>
+    <string name="feedbacktypeSBERecharge57">Kalyani</string>
+    <string name="feedbacktypeSBERecharge58">Kankarbagh</string>
+    <string name="feedbacktypeSBERecharge59">Karbigahiya</string>
+    <string name="feedbacktypeSBERecharge60">Katra</string>
+    <string name="feedbacktypeSBERecharge61">Khagaul</string>
+    <string name="feedbacktypeSBERecharge62">Khajpuera</string>
+    <string name="feedbacktypeSBERecharge63">Kharagpur</string>
+    <string name="feedbacktypeSBERecharge64">Kochas</string>
+    <string name="feedbacktypeSBERecharge65">Kudra</string>
+    <string name="feedbacktypeSBERecharge66">Lakhisarai</string>
+    <string name="feedbacktypeSBERecharge67">Machuatoli</string>
+    <string name="feedbacktypeSBERecharge68">Magarhi</string>
+    <string name="feedbacktypeSBERecharge69">Makhdumpur</string>
+    <string name="feedbacktypeSBERecharge70">Maner</string>
+    <string name="feedbacktypeSBERecharge71">Manour</string>
+    <string name="feedbacktypeSBERecharge72">Maroofganj</string>
+    <string name="feedbacktypeSBERecharge73">Maroofganj</string>
+    <string name="feedbacktypeSBERecharge74">Meena Bazar</string>
+    <string name="feedbacktypeSBERecharge75">Mohania</string>
+    <string name="feedbacktypeSBERecharge76">Mokama</string>
+    <string name="feedbacktypeSBERecharge77">Motipur</string>
+    <string name="feedbacktypeSBERecharge78">Munger</string>
+    <string name="feedbacktypeSBERecharge79">Muzaffarpur (E ) (Bela)</string>
+    <string name="feedbacktypeSBERecharge80">Muzaffarpur (W ) (Turki)</string>
+    <string name="feedbacktypeSBERecharge81">Nabinagar</string>
+    <string name="feedbacktypeSBERecharge82">Nalanda</string>
+    <string name="feedbacktypeSBERecharge83">Nasriganj</string>
+    <string name="feedbacktypeSBERecharge84">Naubatpur</string>
+    <string name="feedbacktypeSBERecharge85">Naugachhia</string>
+    <string name="feedbacktypeSBERecharge86">Nawadah</string>
+    <string name="feedbacktypeSBERecharge87">New Capital</string>
+    <string name="feedbacktypeSBERecharge88">Paliganj</string>
+    <string name="feedbacktypeSBERecharge89">Patliputra</string>
+    <string name="feedbacktypeSBERecharge90">Patna City</string>
+    <string name="feedbacktypeSBERecharge91">Phulwarisharif</string>
+    <string name="feedbacktypeSBERecharge92">Piro</string>
+    <string name="feedbacktypeSBERecharge93">Power House (Maripur)</string>
+    <string name="feedbacktypeSBERecharge94">Rafiganj</string>
+    <string name="feedbacktypeSBERecharge95">Rajauli</string>
+    <string name="feedbacktypeSBERecharg96">Rajendra Nagar</string>
+    <string name="feedbacktypeSBERecharge97">Rajgir</string>
+    <string name="feedbacktypeSBERecharge98">Ramgarh</string>
+    <string name="feedbacktypeSBERecharge99">Runnisaidpur</string>
+    <string name="feedbacktypeSBERecharge100">S. K. Puri</string>
+    <string name="feedbacktypeSBERecharge101">Sadakat Ashram</string>
+    <string name="feedbacktypeSBERecharge102">Saraiya</string>
+    <string name="feedbacktypeSBERecharge103">Saraiyaganj</string>
+    <string name="feedbacktypeSBERecharge104">Sasaram (R ) (Nokha)</string>
+    <string name="feedbacktypeSBERecharge105">Shekhpura</string>
+    <string name="feedbacktypeSBERecharge106">Sherghati</string>
+    <string name="feedbacktypeSBERecharge107">Sikandara</string>
+    <string name="feedbacktypeSBERecharge108">Sitamarhi (U )</string>
+    <string name="feedbacktypeSBERecharge109">SKMCH</string>
+    <string name="feedbacktypeSBERecharge110">Ssaram (U )</string>
+    <string name="feedbacktypeSBERecharge111">Sultanganj</string>
+    <string name="feedbacktypeSBERecharge112">Surajgarha</string>
+    <string name="feedbacktypeSBERecharge113">Tarapur</string>
+    <string name="feedbacktypeSBERecharge114">Tekari</string>
+    <string name="feedbacktypeSBERecharge115">University</string>
+    <string name="feedbacktypeSBERecharge116">Urban - I (Power House)</string>
+    <string name="feedbacktypeSBERecharge117">Urban - II (Golpethar)</string>
+    <string name="feedbacktypeSBERecharge118">Urban - III (Chandchaura)</string>
+    <string name="feedbacktypeSBERecharge119">Warsliganj</string>
+    <string name="feedbacktypeSBERecharge120">Gaya Urban</string>
+
+
+</resources>
