@@ -81,7 +81,7 @@
     <string name="btn_new_bill_pay">Pay another Bill</string>
     <string name="btn_back">ಹಿಂದೆ </string>
      <string name="btn_Ok">ಓಕೆ</string>
-      <string name="btn_Cancel">Cancel</string>
+      <string name="btn_Cancel">ರದ್ದು ಮಾಡಿ</string>
     <string name="btn_verifyTpin">Verify T-Pin</string>
     <string name="btn_login">ಲಾಗಿನ್ </string>
     <string name="btn_getBillAmount">ನಿಮ್ಮ ಬಿಲ್ ಮೊತ್ತವನ್ನು ಪಡೆಯಿರಿ</string>
@@ -98,7 +98,7 @@
     <string name="prompt_select_operator">Please select the Operator</string>
     
      <string name="prompt_Message">ನೀವು ಬ್ಯಾಕ್ ಬಟನ್ ಒತ್ತಿದ್ದೀರಿ. ನೀವು ಆಪ್ ನಿಂದ ನಿರ್ಗಮಿಸಬಯಸುತ್ತೀರೇ?</string>
-      <string name="prompt_Title">Message</string>
+      <string name="prompt_Title">ಸಂದೇಶ </string>
     <string name="lblSubscriberId">ಚಂದಾದಾರ ಐಡಿ</string>
     <string name="lblRechargeAmount">रीचार्ज राशि</string>
     <string name="lblAmount">ಮೊತ್ತ</string>
@@ -107,7 +107,7 @@
     <string name="lblCustomerMobile">Customer\'s Mobile Number</string>
     <string name="lblCustomerLandlineNumber">Customer\'s Land Line Number</string>
     <string name="lblAccountNumber">ಖಾತೆ ಸಂಖ್ಯೆ</string>
-    <string name="tpin_old">Old T-PIN</string>
+    <string name="tpin_old">ಹಳೆಯ T-Pin </string>
     <string name="tpin1">T-PIN</string>
     <string name="tpin_submit_btn">ಸಲ್ಲಿಸಿ </string>
     <string name="tpin_back_btn">ಹಿಂದೆ </string>
@@ -144,17 +144,23 @@
     <string name="lbl_Notes">Notes</string>
     <string name="lbl_Login">ಲಾಗಿನ್ </string>
     <string name="tpin_oldHin">Old T-पिन</string>
-    <string name="changepassword_old">Old Password</string>
-    <string name="changepassword_new">New Password</string>
-    <string name="changepassword_confirm">Confirm Password</string>
+    <string name="changepassword_old">ಹಳೆಯ ಪಾಸ್‌ವರ್ಡ್‌ </string>
+    <string name="changepassword_new">ಹೊಸ ಪಾಸ್‌ವರ್ಡ್‌ </string>
+    <string name="changepassword_confirm">ಪಾಸ್‌ವರ್ಡ್‌ ಖಚಿತಪಡಿಸಿ </string>
     <string name="password">ಪಾಸ್‌ವರ್ಡ್ </string>
     <string name="btn_logout">ಲಾಗ್ಔಟ್ </string>
     <string name="cardsale_lastdigits">Card Last\n4 digits</string>
-    <string name="tpin_new">New T-PIN</string>
-    <string name="tpin_new_confirm">Confirm New T-PIN</string>
-    <string name="mpin_old">Old M-PIN</string>
-    <string name="mpin_new">New M-PIN</string>
-    <string name="mpin_new_confirm">Confirm New M-PIN</string>
+    <string name="tpin_new">ಹೊಸ T-Pin </string>
+    <string name="tpin_new_confirm">ಹೊಸ T-Pin ದೃಢೀಕರಿಸಿ </string>
+    <string name="mpin_old">ಹಳೆಯ M-Pin </string>
+    <string name="mpin_new">ಹೊಸ M-Pin </string>
+    <string name="mpin_new_confirm">ಹೊಸ M-Pin ದೃಢೀಕರಿಸಿ </string>
+    
+     <string name="error_oldPasswordPbx">ಸರಿಯಾದ ಹಳೆಯ ಪಾಸ್ವರ್ಡ್ ನಮೂದಿಸಿ</string>
+      <string name="error_newPasswordPbx">ಹೊಸ ಪಾಸ್ವರ್ಡ್ ಖಾಲಿ ಇರುವಂತಿಲ್ಲ</string>
+      <string name="error_new_confirmPasswordPbx_matching">ಹೊಸ ಪಾಸ್ವರ್ಡ್ ಮತ್ತು ಹೊಂದಿಕೆಯಾಗುವುದಿಲ್ಲ ಗುಪ್ತಪದವನ್ನು ಖಚಿತಪಡಿಸಿ</string>
+      <string name="error_old_newPasswordPbx_matching">ಹಳೆಯ ಪಾಸ್ವರ್ಡ್ ಮತ್ತು ಹೊಸ ಪಾಸ್ವರ್ಡ್ ಇರಲಾಗುವುದಿಲ್ಲ</string>
+    
     <string name="title_activity_bill_payment">Bill Payment Activity</string>
     <string name="title_activity_transaction_history">Transaction History</string>
     <string name="title_activity_transaction_history_count">Last %1$d Transaction(s)</string>

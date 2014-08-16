@@ -82,7 +82,7 @@
     <string name="btn_new_bill_pay">Pay another Bill</string>
     <string name="btn_back">പിന്നിലേക്ക്</string>
      <string name="btn_Ok">ഓകെ</string>
-      <string name="btn_Cancel">Cancel</string>
+      <string name="btn_Cancel">റദ്ദാക്കുക</string>
     <string name="btn_verifyTpin">Verify T-Pin</string>
     <string name="btn_login">ലോഗിൻ ചെയ്യുക</string>
     <string name="btn_getBillAmount">നിങ്ങളുടെ ബിൽ തുക അറിയുക</string>
@@ -99,7 +99,7 @@
     <string name="prompt_select_operator">Please select the Operator</string>
     
      <string name="prompt_Message">നിങ്ങൾ പിന്നിലേക്ക് ബട്ടൺ അമർത്തിയിരിക്കുന്നു. ആപിൽ നിന്ന് പുറത്തുകടക്കാൻ ആഗ്രഹിക്കുന്നുണ്ടോ?</string>
-      <string name="prompt_Title">Message</string>
+      <string name="prompt_Title">സന്ദേശം</string>
     <string name="lblSubscriberId">സബ്സ്ക്രൈബർ ID</string>
     <string name="lblRechargeAmount">Recharge Amount</string>
     <string name="lblAmount">തുക</string>
@@ -108,7 +108,7 @@
     <string name="lblCustomerMobile">Customer\'s Mobile Number</string>
     <string name="lblCustomerLandlineNumber">Customer\'s Land Line Number</string>
     <string name="lblAccountNumber">അക്കൗണ്ട് നമ്പർ </string>
-    <string name="tpin_old">Old T-PIN</string>
+    <string name="tpin_old">പഴയ T-PIN</string>
     <string name="tpin1">T-PIN</string>
     <string name="tpin_submit_btn">സമർപ്പിക്കുക</string>
     <string name="tpin_back_btn">പിന്നിലേക്ക്</string>
@@ -145,17 +145,25 @@
     <string name="lbl_Notes">Notes</string>
     <string name="lbl_Login">ലോഗിൻ ചെയ്യുക</string>
     <string name="tpin_oldHin">Old T-पिन</string>
-    <string name="changepassword_old">Old Password</string>
-    <string name="changepassword_new">New Password</string>
-    <string name="changepassword_confirm">Confirm Password</string>
+    <string name="changepassword_old">പഴയ പാസ്‌വേഡ്</string>
+    <string name="changepassword_new">പുതിയ പാസ്‌വേഡ്</string>
+    <string name="changepassword_confirm">പാസ്‌വേഡ് സ്ഥിരീകരിക്കുക</string>
     <string name="password">പാസ്‌വേഡ്</string>
     <string name="btn_logout">ലോഗൗട്ട്</string>
     <string name="cardsale_lastdigits">Card Last\n4 digits</string>
-    <string name="tpin_new">New T-PIN</string>
-    <string name="tpin_new_confirm">Confirm New T-PIN</string>
-    <string name="mpin_old">Old M-PIN</string>
-    <string name="mpin_new">New M-PIN</string>
-    <string name="mpin_new_confirm">Confirm New M-PIN</string>
+    <string name="tpin_new">പുതിയ T-PIN</string>
+    <string name="tpin_new_confirm">പുതിയ T-PIN സ്ഥിരീകരിക്കുക</string>
+    <string name="mpin_old">പഴയ M-PIN</string>
+    <string name="mpin_new">പുതിയ M-PIN</string>
+    <string name="mpin_new_confirm">പുതിയ M-PIN സ്ഥിരീകരിക്കുക</string>
+    
+    
+     <string name="error_oldPasswordPbx">Enter Correct Old Password</string>
+      <string name="error_newPasswordPbx">The new Password cannot be empty</string>
+      <string name="error_new_confirmPasswordPbx_matching">New Password and Confirm Password doesnot match</string>
+      <string name="error_old_newPasswordPbx_matching">Old Password and New Password cannot be same</string>
+    
+    
     <string name="title_activity_bill_payment">Bill Payment Activity</string>
     <string name="title_activity_transaction_history">Transaction History</string>
     <string name="title_activity_transaction_history_count">Last %1$d Transaction(s)</string>

@@ -81,7 +81,7 @@
     <string name="btn_new_bill_pay">Pay another Bill</string>
     <string name="btn_back">பின்செல்</string>
      <string name="btn_Ok">சரி</string>
-      <string name="btn_Cancel">Cancel</string>
+      <string name="btn_Cancel">ரத்துசெய்க</string>
     <string name="btn_verifyTpin">Verify T-Pin</string>
     <string name="btn_login">உள்நுழைக</string>
     <string name="btn_getBillAmount">உங்கள் பில் தொகையை பெறவும்</string>
@@ -98,7 +98,7 @@
     <string name="prompt_select_operator">Please select the Operator</string>
     
      <string name="prompt_Message">நீங்கள் பின்செல் பொத்தானை அழுத்தி விட்டீர்கள். இந்த பயன்பாட்டிலிருந்து வெளியேற விரும்புகிறீர்களா?</string>
-      <string name="prompt_Title">Message</string>
+      <string name="prompt_Title">செய்தி</string>
     <string name="lblSubscriberId">சந்தாதாரர் ID: </string>
     <string name="lblRechargeAmount">Recharge Amount</string>
     <string name="lblAmount">தொகை:</string>
@@ -107,7 +107,7 @@
     <string name="lblCustomerMobile">Customer\'s Mobile Number</string>
     <string name="lblCustomerLandlineNumber">Customer\'s Land Line Number</string>
     <string name="lblAccountNumber">கணக்கு எண்</string>
-    <string name="tpin_old">Old T-PIN</string>
+    <string name="tpin_old">பழைய T-PIN</string>
     <string name="tpin1">T-PIN</string>
     <string name="tpin_submit_btn">சமர்ப்பி</string>
     <string name="tpin_back_btn">பின்செல்</string>
@@ -144,17 +144,26 @@
     <string name="lbl_Notes">Notes</string>
     <string name="lbl_Login">உள்நுழைக</string>
     <string name="tpin_oldHin">Old T-पिन</string>
-    <string name="changepassword_old">Old Password</string>
-    <string name="changepassword_new">New Password</string>
-    <string name="changepassword_confirm">Confirm Password</string>
+    <string name="changepassword_old">பழைய கடவுச்சொல்</string>
+    <string name="changepassword_new">புதிய கடவுச்சொல்</string>
+    <string name="changepassword_confirm">கடவுச்சொல்லை உறுதிப்படுத்தவும்</string>
     <string name="password">கடவுச்சொல்</string>
     <string name="btn_logout">வெளியேறுக</string>
     <string name="cardsale_lastdigits">Card Last\n4 digits</string>
-    <string name="tpin_new">New T-PIN</string>
-    <string name="tpin_new_confirm">Confirm New T-PIN</string>
-    <string name="mpin_old">Old M-PIN</string>
-    <string name="mpin_new">New M-PIN</string>
-    <string name="mpin_new_confirm">Confirm New M-PIN</string>
+    <string name="tpin_new">புதிய T-PIN</string>
+    <string name="tpin_new_confirm">புதிய T-PIN -ஐ உறுதிப்படுத்தவும்</string>
+    <string name="mpin_old">பழைய M-PIN</string>
+    <string name="mpin_new">புதிய M-PIN</string>
+    <string name="mpin_new_confirm">புதிய M-PIN -ஐ உறுதிப்படுத்தவும்</string>
+    
+    
+    
+     <string name="error_oldPasswordPbx">Enter Correct Old Password</string>
+      <string name="error_newPasswordPbx">The new Password cannot be empty</string>
+      <string name="error_new_confirmPasswordPbx_matching">New Password and Confirm Password doesnot match</string>
+      <string name="error_old_newPasswordPbx_matching">Old Password and New Password cannot be same</string>
+    
+    
     <string name="title_activity_bill_payment">Bill Payment Activity</string>
     <string name="title_activity_transaction_history">Transaction History</string>
     <string name="title_activity_transaction_history_count">Last %1$d Transaction(s)</string>

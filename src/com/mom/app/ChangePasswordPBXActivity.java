@@ -104,7 +104,8 @@ public class ChangePasswordPBXActivity extends Activity {
 					case 1:
 						responseText1.setVisibility(View.GONE);
 						responseText.setVisibility(View.VISIBLE);
-						responseText.setText("Enter Correct Old Password");
+					//	responseText.setText("Enter Correct Old Password");
+						responseText.setText(getResources().getString(R.string.error_oldPasswordPbx));
 						Old_Password.setText("");
 						New_Password.setText("");
 						Confirm_Password.setText("");
@@ -113,7 +114,8 @@ public class ChangePasswordPBXActivity extends Activity {
 					case 2:
 						responseText1.setVisibility(View.GONE);
 						responseText.setVisibility(View.VISIBLE);
-						responseText.setText("The new Password cannot be empty");
+					//	responseText.setText("The new Password cannot be empty");
+						responseText.setText(getResources().getString(R.string.error_newPasswordPbx));
 						New_Password.setText("");
 						Confirm_Password.setText("");
 
@@ -124,7 +126,8 @@ public class ChangePasswordPBXActivity extends Activity {
 					case 4:
 						responseText1.setVisibility(View.GONE);
 						responseText.setVisibility(View.VISIBLE);
-						responseText.setText("New Password and Confirm Password doesnot match");
+					//	responseText.setText("New Password and Confirm Password doesnot match");
+						responseText.setText(getResources().getString(R.string.error_new_confirmPasswordPbx_matching));
 						New_Password.setText("");
 						Confirm_Password.setText("");
 						break;
@@ -133,7 +136,8 @@ public class ChangePasswordPBXActivity extends Activity {
                     case 5:
                     	responseText1.setVisibility(View.GONE);
 						responseText.setVisibility(View.VISIBLE);
-						responseText.setText("Old Password and New Password cannot be same");
+						//responseText.setText("Old Password and New Password cannot be same");
+						responseText.setText(getResources().getString(R.string.error_old_newPasswordPbx_matching));
 						Old_Password.setText("");
 						New_Password.setText("");
 						Confirm_Password.setText("");
@@ -203,7 +207,7 @@ public class ChangePasswordPBXActivity extends Activity {
 //				// error="1";
 //			}
 			accntbalresponse.setVisibility(View.VISIBLE);
-			accntbalresponse.setText("Bal: Rs." + myHelpz.GetRMNAccountBal().toString());
+			accntbalresponse.setText(getResources().getString(R.string.lblBal) + myHelpz.GetRMNAccountBal().toString());
 	}
 
 	public class XmlPullParsing {
@@ -293,7 +297,7 @@ public class ChangePasswordPBXActivity extends Activity {
 				// Toast.LENGTH_LONG).show();
 
 				accntbalresponse.setVisibility(View.VISIBLE);
-				accntbalresponse.setText("Bal: Rs. " + newoutputrecharge);
+				accntbalresponse.setText(getResources().getString(R.string.lblBal) + newoutputrecharge);
 				// response.setText("Bal: Rs. 100000000");
 
 				break;

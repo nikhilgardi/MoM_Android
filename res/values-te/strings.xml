@@ -81,7 +81,7 @@
     <string name="btn_new_bill_pay">Pay another Bill</string>
     <string name="btn_back">వెనక</string>
      <string name="btn_Ok">దయచేసి మొదట లాగిన్ చేయండి</string>
-      <string name="btn_Cancel">Cancel</string>
+      <string name="btn_Cancel">రద్దు చేయి</string>
     <string name="btn_verifyTpin">Verify T-Pin</string>
     <string name="btn_login">లాగిన్</string>
     <string name="btn_getBillAmount">మీ బిల్లు మొత్తం పొందండి</string>
@@ -98,7 +98,7 @@
     <string name="prompt_select_operator">Please select the Operator</string>
     
      <string name="prompt_Message">మీరు బ్యాక్ బటన్ నొక్కారు ఈ యాప్ నుంచి మీరు నిష్క్రమించాలని అనుకుంటున్నారా?</string>
-      <string name="prompt_Title">Message</string>
+      <string name="prompt_Title">సందేశం</string>
     <string name="lblSubscriberId">చందాదారుని ఐడి:</string>
     <string name="lblRechargeAmount">रीचार्ज राशि</string>
     <string name="lblAmount">మొత్తం: రూ. </string>
@@ -144,17 +144,26 @@
     <string name="lbl_Notes">Notes</string>
     <string name="lbl_Login">లాగిన్</string>
     <string name="tpin_oldHin">Old T-पिन</string>
-    <string name="changepassword_old">Old Password</string>
-    <string name="changepassword_new">New Password</string>
-    <string name="changepassword_confirm">Confirm Password</string>
+    <string name="changepassword_old">పాత పాస్‌వర్డ్</string>
+    <string name="changepassword_new">కొత్త పాస్‌వర్డ్</string>
+    <string name="changepassword_confirm">పాస్‌వర్డ్ ధృవీకరించు</string>
     <string name="password">పాస్‌వర్డ్</string>
     <string name="btn_logout">లాగవుట్</string>
     <string name="cardsale_lastdigits">Card Last\n4 digits</string>
-    <string name="tpin_new">New T-PIN</string>
-    <string name="tpin_new_confirm">Confirm New T-PIN</string>
-    <string name="mpin_old">Old M-PIN</string>
-    <string name="mpin_new">New M-PIN</string>
-    <string name="mpin_new_confirm">Confirm New M-PIN</string>
+    <string name="tpin_new">కొత్త T-Pin</string>
+    <string name="tpin_new_confirm">కొత్త T-Pin ధృవీకరించండి</string>
+    <string name="mpin_old">పాత M-PIN</string>
+    <string name="mpin_new">కొత్త M-PIN</string>
+    <string name="mpin_new_confirm">కొత్త M-PIN ధృవీకరించండి</string>
+    
+    
+     <string name="error_oldPasswordPbx">Enter Correct Old Password</string>
+      <string name="error_newPasswordPbx">The new Password cannot be empty</string>
+      <string name="error_new_confirmPasswordPbx_matching">New Password and Confirm Password doesnot match</string>
+      <string name="error_old_newPasswordPbx_matching">Old Password and New Password cannot be same</string>
+    
+    
+    
     <string name="title_activity_bill_payment">Bill Payment Activity</string>
     <string name="title_activity_transaction_history">Transaction History</string>
     <string name="title_activity_transaction_history_count">Last %1$d Transaction(s)</string>

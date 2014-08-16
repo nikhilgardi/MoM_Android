@@ -308,12 +308,16 @@ public final class R {
         public static final int error_getting_balance=0x7f07003f;
         public static final int error_mobile_required=0x7f070034;
         public static final int error_newMpin=0x7f0700a1;
+        public static final int error_newPasswordPbx=0x7f07018c;
         public static final int error_newTpin=0x7f0700a5;
+        public static final int error_new_confirmPasswordPbx_matching=0x7f07018d;
         public static final int error_no_internet=0x7f07003e;
         public static final int error_no_internet_title=0x7f07003d;
         public static final int error_obtaining_bill_amount=0x7f07003c;
         public static final int error_oldMpin=0x7f0700a0;
+        public static final int error_oldPasswordPbx=0x7f07018b;
         public static final int error_oldTpin=0x7f0700a4;
+        public static final int error_old_newPasswordPbx_matching=0x7f07018e;
         public static final int error_phone_length=0x7f070037;
         public static final int error_phone_length_min_max=0x7f070038;
         public static final int error_recharge_failed=0x7f070035;

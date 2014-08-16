@@ -81,7 +81,7 @@
     <string name="btn_new_bill_pay">Pay another Bill</string>
     <string name="btn_back">ফিরে যান</string>
      <string name="btn_Ok">ঠিক আছে</string>
-      <string name="btn_Cancel">Cancel</string>
+      <string name="btn_Cancel">বাতিল করুন</string>
     <string name="btn_verifyTpin">Verify T-Pin</string>
     <string name="btn_login">লগ ইন</string>
     <string name="btn_getBillAmount">বিলের নম্বর দিন</string>
@@ -98,7 +98,7 @@
     <string name="prompt_select_operator">Please select the Operator</string>
     
      <string name="prompt_Message">আপনি পিছনে যাওয়ার বোতামটি টিপেছেন। আপনি কি অ্যাপটি বন্ধ করতে চান?</string>
-      <string name="prompt_Title">Message</string>
+      <string name="prompt_Title">মেসেজ</string>
     <string name="lblSubscriberId">সাবস্ক্রাইবার আইডি</string>
     <string name="lblRechargeAmount">रीचार्ज राशि</string>
     <string name="lblAmount">পরিমাণ</string>
@@ -107,7 +107,7 @@
     <string name="lblCustomerMobile">Customer\'s Mobile Number</string>
     <string name="lblCustomerLandlineNumber">Customer\'s Land Line Number</string>
     <string name="lblAccountNumber">অ্যাকাউন্ট নম্ব</string>
-    <string name="tpin_old">Old T-PIN</string>
+    <string name="tpin_old">পুরানো T-PIN</string>
     <string name="tpin1">T-PIN</string>
     <string name="tpin_submit_btn">জমা দিন</string>
     <string name="tpin_back_btn">ফিরে যান</string>
@@ -144,17 +144,23 @@
     <string name="lbl_Notes">Notes</string>
     <string name="lbl_Login">লগ ইন</string>
     <string name="tpin_oldHin">Old T-पिन</string>
-    <string name="changepassword_old">Old Password</string>
-    <string name="changepassword_new">New Password</string>
-    <string name="changepassword_confirm">Confirm Password</string>
+    <string name="changepassword_old">পুরানো পাসওয়ার্ড</string>
+    <string name="changepassword_new">নতুন পাসওয়ার্ড</string>
+    <string name="changepassword_confirm">পাসওয়ার্ড নিশ্চিত করুন</string>
     <string name="password">পাসওয়ার্ড</string>
     <string name="btn_logout">লগআউট</string>
     <string name="cardsale_lastdigits">Card Last\n4 digits</string>
-    <string name="tpin_new">New T-PIN</string>
-    <string name="tpin_new_confirm">Confirm New T-PIN</string>
-    <string name="mpin_old">Old M-PIN</string>
-    <string name="mpin_new">New M-PIN</string>
-    <string name="mpin_new_confirm">Confirm New M-PIN</string>
+    <string name="tpin_new">নতুন T-PIN</string>
+    <string name="tpin_new_confirm">নতুন T-PIN নিশ্চিত করুন</string>
+    <string name="mpin_old">পুরানো M-PIN</string>
+    <string name="mpin_new">নতুন M-PIN</string>
+    <string name="mpin_new_confirm">নতুন M-PIN নিশ্চিত করুন</string>
+    
+     <string name="error_oldPasswordPbx">Enter Correct Old Password</string>
+      <string name="error_newPasswordPbx">The new Password cannot be empty</string>
+      <string name="error_new_confirmPasswordPbx_matching">New Password and Confirm Password doesnot match</string>
+      <string name="error_old_newPasswordPbx_matching">Old Password and New Password cannot be same</string>
+       
     <string name="title_activity_bill_payment">Bill Payment Activity</string>
     <string name="title_activity_transaction_history">Transaction History</string>
     <string name="title_activity_transaction_history_count">Last %1$d Transaction(s)</string>
