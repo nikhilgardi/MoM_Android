@@ -77,7 +77,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 
     String newoutput, output;
     String[] strArrayResponse;
-
+    boolean _spinnerCalledOnce  = false;
 
     /**
      * Called when the activity is first created.
@@ -85,6 +85,7 @@ public class LoginActivity extends Activity implements OnClickListener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(_LOG, "Resource name: " + getResources().getResourceEntryName(2131165580));
         setDefaultLocale();
         setContentView(R.layout.main);
 
@@ -142,6 +143,7 @@ public class LoginActivity extends Activity implements OnClickListener {
 
         _languageSpinner.setAdapter(dataAdapter);
 
+
         _languageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -150,6 +152,15 @@ public class LoginActivity extends Activity implements OnClickListener {
                 LanguageItem selection = (LanguageItem) objSelection;
                 Log.d(_LOG, "Language: " + selection + ", id: " + selection.resourceId);
                 setLocale(selection);
+
+                if(_spinnerCalledOnce){
+                    Intent intent   = getIntent();
+                    finish();
+                    startActivity(intent);
+                }
+
+                _spinnerCalledOnce  = true;
+
             }
 
             @Override
@@ -159,6 +170,7 @@ public class LoginActivity extends Activity implements OnClickListener {
         });
 
         LanguageItem item = getSelectedLanguageItem();
+
         if (item != null) {
             _languageSpinner.setSelection(dataAdapter.getPosition(item));
         }

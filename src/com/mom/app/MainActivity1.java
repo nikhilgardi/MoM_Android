@@ -63,50 +63,48 @@ public class MainActivity1 extends ListActivity {
 	ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
 	ArrayList<NameValuePair> nameValuePairs1 = new ArrayList<NameValuePair>(2);
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		//String[] values = new String[] { "My Info", "Change Recharge Password", "Change Password", "Recharge Logout","Logout"};
-		SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-		if(pref.getString("user_sessionMOM", "test").equals("MOM"))
-			
-		{
-	//	String[] values = new String[] { "Mobile Recharge", "DTH Recharge","Bill Payment","Card Sale","History","Settings"};
-		
-		setContentView(R.layout.activity_main1);
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.row_layout,R.id.label, getResources().getStringArray(R.array.Main_ActivityList_MOM));
+        super.onCreate(savedInstanceState);
+        //String[] values = new String[] { "My Info", "Change Recharge Password", "Change Password", "Recharge Logout","Logout"};
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        if (pref.getString("user_sessionMOM", "test").equals("MOM"))
 
-		setListAdapter(adapter);
-		}
-		else if(pref.getString("user_sessionMOM", "test").equals("B2C"))
-			
-		{
-	//	String[] values = new String[] { "Mobile Recharge", "DTH Recharge","Bill Payment", "History","Settings"};
-		setContentView(R.layout.activity_main1);
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.row_layout,R.id.label, getResources().getStringArray(R.array.Main_ActivityList_B2C));
-		setListAdapter(adapter);
-		}
-		else{
-	//		String[] values = new String[] { "Mobile Recharge", "DTH Recharge","Bill Payment","Utility Bill Payment","History","Settings"};
-			setContentView(R.layout.activity_main1);
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.row_layout,R.id.label, getResources().getStringArray(R.array.Main_ActivityList_PBX));
-			setListAdapter(adapter);
-		}
-		
-		wv = (WebView) findViewById(R.id.resp);
-		lv = (ListView) findViewById(android.R.id.list);
-		
-		this.res = (TextView) findViewById(R.id.response);
+        {
+            //	String[] values = new String[] { "Mobile Recharge", "DTH Recharge","Bill Payment","Card Sale","History","Settings"};
 
-		this.back =(Button) findViewById(R.id.button6);
-		
-		 intentMain =new Intent(this,MainActivity1.class);
-		  getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.appsbg)); 	
-		this.responsetxt = (TextView) findViewById(R.id.textView1);
-		SaveSessionData();
-	//	rechargePost();
-		new GetLoginTask().onPostExecute("test");
-		
-		
-	}
+            setContentView(R.layout.activity_main1);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.row_layout, R.id.label, getResources().getStringArray(R.array.Main_ActivityList_MOM));
+
+            setListAdapter(adapter);
+        } else if (pref.getString("user_sessionMOM", "test").equals("B2C"))
+
+        {
+            //	String[] values = new String[] { "Mobile Recharge", "DTH Recharge","Bill Payment", "History","Settings"};
+            setContentView(R.layout.activity_main1);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.row_layout, R.id.label, getResources().getStringArray(R.array.Main_ActivityList_B2C));
+            setListAdapter(adapter);
+        } else {
+            //		String[] values = new String[] { "Mobile Recharge", "DTH Recharge","Bill Payment","Utility Bill Payment","History","Settings"};
+            setContentView(R.layout.activity_main1);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.row_layout, R.id.label, getResources().getStringArray(R.array.Main_ActivityList_PBX));
+            setListAdapter(adapter);
+        }
+
+        wv = (WebView) findViewById(R.id.resp);
+        lv = (ListView) findViewById(android.R.id.list);
+
+        this.res = (TextView) findViewById(R.id.response);
+
+        this.back = (Button) findViewById(R.id.button6);
+
+        intentMain = new Intent(this, MainActivity1.class);
+        getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.appsbg));
+        this.responsetxt = (TextView) findViewById(R.id.textView1);
+        SaveSessionData();
+        //	rechargePost();
+        new GetLoginTask().onPostExecute("test");
+
+
+    }
 	private class GetLoginTask extends AsyncTask<Void, Void, String> {
 
 		@Override
@@ -242,69 +240,69 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
     }
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
-		String item = (String) getListAdapter().getItem(position);	    
+		String item = (String) getListAdapter().getItem(position);
 	
-	if(item.equals(getResources().getString(R.string.action_mobileRecharge))){
-		myintent = new Intent(MainActivity1.this,HomeActivity.class);
-		myintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		startActivity(myintent);
-		finish();
-	}
-	if(item.equals(getResources().getString(R.string.action_dthRecharge))){
-		myintent1 = new Intent(MainActivity1.this,HomeActivity1.class);
-		myintent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		startActivity(myintent1);
-		finish();
-	}
-	if(item.equals(getResources().getString(R.string.action_billPayment))){
-		myintent2 = new Intent(MainActivity1.this,HomeActivity2.class);
-		myintent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		startActivity(myintent2);
-		finish();
-	}
-	if(item.equals(getResources().getString(R.string.action_cardSale))){
-		
-		swipeintent = new Intent(MainActivity1.this,MSwipeAndroidSDKListActivity1.class);
-		swipeintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		startActivity(swipeintent);		
-		finish();
-	}	
-	
- /*  if(item.equals("Aadhar")){
-		
-		swipeintent = new Intent(MainActivity1.this,AadharListActivity.class);
-		startActivity(swipeintent);		
-		
-	}	*/
-	if(item.equals(getResources().getString(R.string.action_utilityBill))){
-		myintent6 = new Intent(MainActivity1.this,HomeBillActivity_PBX.class);
-		myintent6.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		startActivity(myintent6);
-		finish();
-	}
-	
-	if(item.equals(getResources().getString(R.string.action_history))){
-		
-		myintent4 = new Intent(MainActivity1.this,HistoryActivity.class);
-		myintent4.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		startActivity(myintent4);
-		finish();
-	}
+        if(item.equals(getResources().getString(R.string.feedbacktypeMOMList))){
+            myintent = new Intent(MainActivity1.this,HomeActivity.class);
+            myintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(myintent);
+            finish();
+        }
+        if(item.equals(getResources().getString(R.string.feedbacktypeMOMList1))){
+            myintent1 = new Intent(MainActivity1.this,HomeActivity1.class);
+            myintent1.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(myintent1);
+            finish();
+        }
+        if(item.equals(getResources().getString(R.string.feedbacktypeMOMList2))){
+            myintent2 = new Intent(MainActivity1.this,HomeActivity2.class);
+            myintent2.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(myintent2);
+            finish();
+        }
+        if(item.equals(getResources().getString(R.string.feedbacktypeMOMList3))){
 
-		
-	if(item.equals(getResources().getString(R.string.action_settings1))){
-		
-		
-		myintent5 = new Intent(MainActivity1.this,InfoActivity.class);
-		myintent5.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		startActivity(myintent5);
-		finish();
-		
-		
-	}
-		
-	
-}
+            swipeintent = new Intent(MainActivity1.this,MSwipeAndroidSDKListActivity1.class);
+            swipeintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(swipeintent);
+            finish();
+        }
+
+     /*  if(item.equals("Aadhar")){
+
+            swipeintent = new Intent(MainActivity1.this,AadharListActivity.class);
+            startActivity(swipeintent);
+
+        }	*/
+        if(item.equals(getResources().getString(R.string.action_utilityBill))){
+            myintent6 = new Intent(MainActivity1.this,HomeBillActivity_PBX.class);
+            myintent6.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(myintent6);
+            finish();
+        }
+
+        if(item.equals(getResources().getString(R.string.action_history))){
+
+            myintent4 = new Intent(MainActivity1.this,HistoryActivity.class);
+            myintent4.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(myintent4);
+            finish();
+        }
+
+
+        if(item.equals(getResources().getString(R.string.action_settings1))){
+
+
+            myintent5 = new Intent(MainActivity1.this,InfoActivity.class);
+            myintent5.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(myintent5);
+            finish();
+
+
+        }
+
+
+    }
 	
 	public boolean SaveSessionData() {
 		try {
@@ -415,5 +413,14 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 		finish();
 	    return;
 	}*/
+
+    class StringItem{
+        public int id;
+        public String title;
+        public StringItem(int id, String title){
+            this.id     = id;
+            this.title  = title;
+        }
+    }
 }
 	
