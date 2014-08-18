@@ -158,10 +158,10 @@
     <string name="mpin_new">নতুন M-PIN</string>
     <string name="mpin_new_confirm">নতুন M-PIN নিশ্চিত করুন</string>
     
-     <string name="error_oldPasswordPbx">Enter Correct Old Password</string>
-      <string name="error_newPasswordPbx">The new Password cannot be empty</string>
-      <string name="error_new_confirmPasswordPbx_matching">New Password and Confirm Password doesnot match</string>
-      <string name="error_old_newPasswordPbx_matching">Old Password and New Password cannot be same</string>
+     <string name="error_oldPasswordPbx">সঠিক পুরনো পাসওয়ার্ড লিখুন</string>
+      <string name="error_newPasswordPbx">নতুন পাসওয়ার্ড খালি রাখা যাবে না।</string>
+      <string name="error_new_confirmPasswordPbx_matching">নতুন পাসওয়ার্ড এবং নিশ্চিত করা পাসওয়ার্ড মিলছে না</string>
+      <string name="error_old_newPasswordPbx_matching">পুরনো পাসওয়ার্ড এবং নতুন পাসওয়ার্ড একই হতে পারবে না</string>
        
     <string name="title_activity_bill_payment">Bill Payment Activity</string>
     <string name="title_activity_transaction_history">Transaction History</string>

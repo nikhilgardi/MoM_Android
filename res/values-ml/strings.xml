@@ -162,10 +162,10 @@
     <string name="mpin_new_confirm">പുതിയ M-PIN സ്ഥിരീകരിക്കുക</string>
     
     
-     <string name="error_oldPasswordPbx">Enter Correct Old Password</string>
-      <string name="error_newPasswordPbx">The new Password cannot be empty</string>
-      <string name="error_new_confirmPasswordPbx_matching">New Password and Confirm Password doesnot match</string>
-      <string name="error_old_newPasswordPbx_matching">Old Password and New Password cannot be same</string>
+     <string name="error_oldPasswordPbx">ശരിയായ പഴയ പാസ്‌വേഡ് നൽകുക</string>
+      <string name="error_newPasswordPbx">പുതിയ പാസ്‌വേഡ് ശൂന്യമായി വിടരുത്</string>
+      <string name="error_new_confirmPasswordPbx_matching">പുതിയ പാസ്‌വേഡ്, പൊരുത്തപ്പെടാത്ത പാസ്‌വേഡ് സ്ഥിരീകരിക്കുക</string>
+      <string name="error_old_newPasswordPbx_matching">പഴയ പാസ്‌വേഡും പുതിയ പാസ്‌വേഡും ഒന്നായിരിക്കരുത്</string>
     
     
     <string name="title_activity_bill_payment">Bill Payment Activity</string>

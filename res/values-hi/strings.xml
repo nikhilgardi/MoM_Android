@@ -159,7 +159,7 @@
     <string name="mpin_new_confirm">नए M-PIN की पुष्टि करें</string>
     
      <string name="error_oldPasswordPbx">सही पुराने पासवर्ड दर्ज करें</string>
-      <string name="error_newPasswordPbx">नया पासवर्ड खाली नहीं हो सकता</string>
+      <string name="error_newPasswordPbx">नया पासवर्ड रिक्‍त नहीं हो सकता</string>
       <string name="error_new_confirmPasswordPbx_matching">नया पासवर्ड और पासवर्ड की पुष्टि मेल नहीं खाते हैं</string>
       <string name="error_old_newPasswordPbx_matching">पुराना पासवर्ड और नया पासवर्ड एकसमान नहीं हो सकते</string>
       

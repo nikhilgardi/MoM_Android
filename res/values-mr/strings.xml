@@ -159,9 +159,9 @@
     <string name="mpin_new_confirm">नवीन M-PIN ची पुष्टी करा</string>
     
     
-     <string name="error_oldPasswordPbx">अचूक जुना पासवर्ड  प्रविष्ट करा</string>
-      <string name="error_newPasswordPbx">नवीन पासवर्ड रिक्त असू शकत नाही</string>
-      <string name="error_new_confirmPasswordPbx_matching">नवीन पासवर्डची आणि पासवर्डची पुष्टी करा जुळत नाही</string>
+     <string name="error_oldPasswordPbx">जुना अचूक पासवर्ड प्रविष्ठ करा</string>
+      <string name="error_newPasswordPbx">नवीन पासवर्ड रिकामा असू शकत नाही</string>
+      <string name="error_new_confirmPasswordPbx_matching">नवीन पासवर्ड आणि पासवर्डची पुष्टी जुळत नाही</string>
       <string name="error_old_newPasswordPbx_matching">जुना पासवर्डची आणि नवीन पासवर्डची समान असू शकत नाही</string>
     
     
