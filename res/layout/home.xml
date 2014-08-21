@@ -78,6 +78,7 @@
             android:hint="@string/tpin1"
             android:imeOptions="actionDone"
             android:inputType="number"
+            android:maxLength="8"
             android:visibility="invisible"
             android:password="true"
            />
@@ -153,7 +154,7 @@
             android:background="@drawable/custom"
             android:hint="@string/lblYourMobile"
             android:inputType="number"
-            
+            android:maxLength="15"
             android:visibility="gone" />
 
         <Spinner
@@ -180,6 +181,7 @@
             android:background="@drawable/custom"
             android:hint="@string/lblConsumerNumber"
             android:inputType="number"
+            android:maxLength="15"
             android:visibility="gone" />
 
         <com.mom.app.ui.CustomEditText
@@ -193,6 +195,7 @@
             android:background="@drawable/custom"
             android:hint="@string/lblAmount"
             android:inputType="number"
+            android:maxLength="6"
             android:visibility="gone" />
 
         <RadioGroup

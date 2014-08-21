@@ -44,6 +44,7 @@ public class MainActivity1 extends ListActivity {
 	Intent myintent4 = new Intent();
 	Intent myintent5 = new Intent();
 	Intent myintent6 = new Intent();
+	Intent myintent7 = new Intent();
 	Intent intentMain = new Intent();
 	Intent swipeintent = new Intent();
 	
@@ -69,12 +70,25 @@ public class MainActivity1 extends ListActivity {
         if (pref.getString("user_sessionMOM", "test").equals("MOM"))
 
         {
+   if((myHelpz.GetMyRoleID().equalsIgnoreCase("5")) || (myHelpz.GetMyRoleID().equalsIgnoreCase("11")) ||(myHelpz.GetMyRoleID().equalsIgnoreCase("3")))
+        	{
+	  // String[] values = new String[] { "Mobile Recharge", "DTH Recharge","Bill Payment","Load Transfer","Card Sale","History","Settings"};	
+	   setContentView(R.layout.activity_main1);
+   ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.row_layout, R.id.label, getResources().getStringArray(R.array.Main_ActivityList_MOMLoadTransfer));
+      
+       setListAdapter(adapter);
+        	}
+        	else {
+        		
+        	
+           
             //	String[] values = new String[] { "Mobile Recharge", "DTH Recharge","Bill Payment","Card Sale","History","Settings"};
 
             setContentView(R.layout.activity_main1);
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.row_layout, R.id.label, getResources().getStringArray(R.array.Main_ActivityList_MOM));
 
             setListAdapter(adapter);
+        	}
         } else if (pref.getString("user_sessionMOM", "test").equals("B2C"))
 
         {
@@ -82,7 +96,16 @@ public class MainActivity1 extends ListActivity {
             setContentView(R.layout.activity_main1);
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.row_layout, R.id.label, getResources().getStringArray(R.array.Main_ActivityList_B2C));
             setListAdapter(adapter);
-        } else {
+        } 
+        else if((myHelpz.GetMyRoleID().equalsIgnoreCase("2")) || (myHelpz.GetMyRoleID().equalsIgnoreCase("4")) ||(myHelpz.GetMyRoleID().equalsIgnoreCase("8")))
+    	{
+  // String[] values = new String[] { "Mobile Recharge", "DTH Recharge","Bill Payment","Load Transfer","Card Sale","History","Settings"};	
+   setContentView(R.layout.activity_main1);
+ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.row_layout, R.id.label, getResources().getStringArray(R.array.Main_ActivityList_PBXLoadTransfer));
+  
+   setListAdapter(adapter);
+    	}
+        else {
             //		String[] values = new String[] { "Mobile Recharge", "DTH Recharge","Bill Payment","Utility Bill Payment","History","Settings"};
             setContentView(R.layout.activity_main1);
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.row_layout, R.id.label, getResources().getStringArray(R.array.Main_ActivityList_PBX));
@@ -260,6 +283,30 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
             startActivity(myintent2);
             finish();
         }
+        
+        
+//        if(item.equals(getResources().getString(R.string.action_LoadTransfer))){
+//
+//
+//            myintent7 = new Intent(MainActivity1.this,LoadTransferActivity.class);
+//            myintent7.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            startActivity(myintent7);
+//            finish();
+//
+//
+//        }
+        if(item.equals(getResources().getString(R.string.feedbacktypeMOMList11))){
+
+
+            myintent7 = new Intent(MainActivity1.this,LoadTransferActivity.class);
+            myintent7.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(myintent7);
+            finish();
+
+
+        }
+        
+        
         if(item.equals(getResources().getString(R.string.feedbacktypeMOMList3))){
 
             swipeintent = new Intent(MainActivity1.this,MSwipeAndroidSDKListActivity1.class);
@@ -300,6 +347,8 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 
 
         }
+        
+      
 
 
     }

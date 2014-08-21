@@ -61,7 +61,7 @@
             android:hint="@string/tpin_old"
             android:inputType="number"
              android:password="true"
-            android:maxLength="10"
+            android:maxLength="8"
             android:visibility="visible" />
 
         <com.mom.app.ui.CustomEditText
