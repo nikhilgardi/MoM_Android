@@ -66,21 +66,9 @@
         </TableLayout>
 
        
-        <com.mom.app.ui.CustomEditText
-            android:id="@+id/OldPassword"
-            android:layout_width="265dp"
-            android:layout_height="40dp"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:layout_below="@+id/Operator"
-            android:layout_marginTop="130dp"
-            android:background="@drawable/custom"
-            android:hint="@string/mpin_old"
-            android:password="true"
-            android:inputType="number"
+       
         
-            android:maxLength="8"
-            android:visibility="visible" />
+       
 
         <com.mom.app.ui.CustomEditText
             android:id="@+id/NewPassword"
@@ -88,12 +76,12 @@
             android:layout_height="40dp"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-            android:layout_below="@+id/OldPassword"
-            android:layout_marginTop="15dp"
+           
+            android:layout_marginTop="130dp"
             android:background="@drawable/custom"
-            android:hint="@string/mpin_new"
-            android:maxLength="8"
-            android:password="true"
+            android:hint="@string/Lbl_MobileNumber"
+            
+            android:maxLength="15"
             android:inputType="number"
             android:visibility="visible" />
 
@@ -106,11 +94,13 @@
             android:layout_below="@+id/NewPassword"
             android:layout_marginTop="15dp"
             android:background="@drawable/custom"
-            android:hint="@string/mpin_new_confirm"
-            android:password="true"
+            android:hint="@string/Lbl_Amount"
+           
             android:inputType="number"
-            android:maxLength="8"
+           android:maxLength="6"
             android:visibility="visible" />
+        
+        
 
 
         <com.mom.app.ui.CustomButton

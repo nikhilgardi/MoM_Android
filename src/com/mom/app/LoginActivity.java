@@ -394,6 +394,7 @@ public class LoginActivity extends Activity implements OnClickListener {
             String[] strArrayResponse = Split(newoutput, "~");
             String[] abc = strArrayResponse;
             int i = Integer.parseInt(strArrayResponse[0].toString());
+            myHelpez.SetMyRoleID(strArrayResponse[2].toString());
 
             switch (Integer.parseInt(strArrayResponse[0].toString())) {
                 case 1:

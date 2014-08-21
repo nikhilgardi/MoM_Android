@@ -63,6 +63,8 @@
     <string name="action_changepassword">पासवर्ड बदला</string>
 
 
+     <string name="action_LoadTransfer">रिटेलर पेमेंट</string>
+    
     <string name="title_activity_transaction_confirmation">Transaction Result</string>
     <string name="error_mobile_required">मोबाईल क्रमांक आवश्यक आहे</string>
     <string name="error_recharge_failed">Error occurred during recharge. Please try again or contact Customer Support for help.</string>
@@ -174,13 +176,15 @@
     <string name="title_activity_settings">Settings</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="AlertDialog_MobileRecharge">मोबाईल रिचार्जची पुष्टी करा</string>
+    
     <string name="Lbl_MobileNumber">मोबाईल क्रमांक:</string>
     <string name="Lbl_Operator">ऑपरेटर:</string>
     <string name="Lbl_Amount">रक्कम: रु. </string>
     <string name="Dialog_Yes">होय</string>
     <string name="Dialog_No">नाही</string>
 
+    
+    <string name="AlertDialog_MobileRecharge">Confirm Retailer Payment</string>
 
     <string name="AlertDialog_DTHRecharge">DTH रिचार्जची पुष्टी करा</string>
     <string name="Lbl_SubscriberID">ग्राहक ID: </string>
@@ -225,6 +229,10 @@
     <string
         name="feedbacktypeMOMList8">T-Pin बदला</string>
 
+    
+    <string 
+               name="feedbacktypeMOMList11">रिटेलर पेमेंट</string>
+    
     <string
         name="feedbacktypeMOMList9">लॉगआऊट</string>
     <string

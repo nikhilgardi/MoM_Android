@@ -63,6 +63,7 @@
             android:hint="@string/tpin1"
             android:imeOptions="actionDone"
             android:inputType="number"
+            android:maxLength="8"
             android:password="true"
             android:visibility="invisible" />
 
@@ -109,7 +110,7 @@
             android:background="@drawable/custom"
             android:hint="@string/lblYourMobile"
             android:inputType="number"
-            
+             android:maxLength="15"
             android:visibility="gone" />
 
         <Spinner
@@ -136,6 +137,7 @@
             android:background="@drawable/custom"
             android:hint="@string/lblConsumerNumber"
             android:inputType="number"
+            android:maxLength="15"
             android:visibility="gone" />
 
         <com.mom.app.ui.CustomButton
@@ -164,6 +166,7 @@
             android:background="@drawable/custom"
             android:hint="@string/lblAmount"
             android:inputType="number"
+            android:maxLength="6"
             android:visibility="gone" />
 
         <com.mom.app.ui.CustomButton
@@ -379,6 +382,7 @@
             android:ems="10"
             android:hint="@string/lbl_FirstName"
             android:inputType="text"
+            android:maxLength="50"
             android:visibility="gone" />
 
         <com.mom.app.ui.CustomEditText
@@ -392,6 +396,7 @@
             android:ems="10"
             android:hint="@string/lbl_LastName"
             android:inputType="text"
+            android:maxLength="50"
             android:visibility="gone" />
 
         <com.mom.app.ui.CustomEditText
@@ -405,10 +410,10 @@
             android:ems="10"
             android:hint="@string/lblYourMobile"
             android:inputType="number"
-            android:maxLength="10"
+            android:maxLength="15"
             android:visibility="gone" />
 
-        <com.mom.app.ui.CustomEditText
+      <com.mom.app.ui.CustomEditText
             android:id="@+id/spl_accountnumber"
             android:layout_width="265dp"
             android:layout_height="40dp"
@@ -419,6 +424,7 @@
             android:ems="10"
             android:hint="@string/lbl_AccountNumber"
             android:inputType="number"
+            android:maxLength="20"
             android:visibility="gone" />
 
         <com.mom.app.ui.CustomButton

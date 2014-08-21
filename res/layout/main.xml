@@ -54,7 +54,7 @@
 
             android:imeOptions="actionNext"
             android:inputType="number"
-            android:maxLength="10"
+            android:maxLength="15"
             android:visibility="invisible"/>
 
         <com.mom.app.ui.CustomTextView
@@ -81,7 +81,7 @@
             android:layout_marginLeft="10dip"
             android:layout_marginRight="10dip"
             android:layout_below="@id/tv_password"
-
+            android:maxLength="8"
             android:inputType="number"
             android:password="true"
             android:visibility="invisible" />
