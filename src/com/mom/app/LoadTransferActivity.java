@@ -489,18 +489,18 @@ public class LoadTransferActivity extends Activity implements OnClickListener {
 					
 					String test = strArrayResponse[1].toString();
 					Log.i("Response", strArrayResponse[1].toString());
-					Toast.makeText(LoadTransferActivity.this,
-							strArrayResponse[1].toString(), Toast.LENGTH_SHORT)
-							.show();
+//					Toast.makeText(LoadTransferActivity.this,
+//							strArrayResponse[1].toString(), Toast.LENGTH_SHORT)
+//							.show();
 
 					break;
 				default:
 					
 					responseText.setVisibility(View.VISIBLE);
 					responseText.setText(strArrayResponse[1].toString());
-					Toast.makeText(LoadTransferActivity.this,
-							strArrayResponse[1].toString(), Toast.LENGTH_SHORT)
-							.show();
+//					Toast.makeText(LoadTransferActivity.this,
+//							strArrayResponse[1].toString(), Toast.LENGTH_SHORT)
+//							.show();
 
 					break;
 				}
@@ -635,5 +635,11 @@ public class LoadTransferActivity extends Activity implements OnClickListener {
 		this.finish();
 
 	}
-
+	@Override
+	public void onBackPressed() {
+		startActivity(reintent);
+		reintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		this.finish();
+		return;
+	}
 }
