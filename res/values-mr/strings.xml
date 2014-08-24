@@ -103,6 +103,8 @@
 
     <string name="prompt_Message">तुम्ही मागे बटण दाबले आहे. तुम्हाला ऍपमधून बाहेर पडायचे आहे का?</string>
     <string name="prompt_Title">संदेश</string>
+    <string name="Lbl_Payer">Payer:</string>
+    <string name="Lbl_Payee">Payee:</string>
     <string name="lblSubscriberId">ग्राहक ID</string>
     <string name="lblRechargeAmount">Recharge Amount</string>
     <string name="lblAmount">रक्कम </string>

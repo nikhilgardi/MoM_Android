@@ -103,6 +103,8 @@
     
      <string name="prompt_Message">आपने वापस  बटन दबाया है। क्या आप एप्प से बाहर निकलना चाहते हैं?</string>
       <string name="prompt_Title">संदेश</string>
+    <string name="Lbl_Payer">Payer:</string>
+    <string name="Lbl_Payee">Payee:</string>
     <string name="lblSubscriberId">सबस्क्राइबर ID</string>
     <string name="lblRechargeAmount">रीचार्ज राशि</string>
     <string name="lblAmount">राशि</string>

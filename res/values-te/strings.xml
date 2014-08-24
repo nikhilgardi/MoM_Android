@@ -103,6 +103,8 @@
     
      <string name="prompt_Message">మీరు బ్యాక్ బటన్ నొక్కారు ఈ యాప్ నుంచి మీరు నిష్క్రమించాలని అనుకుంటున్నారా?</string>
       <string name="prompt_Title">సందేశం</string>
+    <string name="Lbl_Payer">Payer:</string>
+    <string name="Lbl_Payee">Payee:</string>
     <string name="lblSubscriberId">చందాదారుని ఐడి:</string>
     <string name="lblRechargeAmount">रीचार्ज राशि</string>
     <string name="lblAmount">మొత్తం: రూ. </string>

@@ -102,6 +102,8 @@
     
      <string name="prompt_Message">""તમે પાછળ બટન દબાવવામાં આવી છે.તમે એપ્લિકેશન બહાર નીકળવા માંગો છો?"</string>
       <string name="prompt_Title">સંદેશ</string>
+    <string name="Lbl_Payer">Payer:</string>
+    <string name="Lbl_Payee">Payee:</string>
     <string name="lblSubscriberId">ઉપભોક્તા આઈડી</string>
     <string name="lblRechargeAmount">રિચાર્જ રકમ</string>
     <string name="lblAmount">રકમ</string>

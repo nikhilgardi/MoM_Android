@@ -489,9 +489,9 @@ public class LoadTransferActivity extends Activity implements OnClickListener {
 					
 					String test = strArrayResponse[1].toString();
 					Log.i("Response", strArrayResponse[1].toString());
-					Toast.makeText(LoadTransferActivity.this,
-							strArrayResponse[1].toString(), Toast.LENGTH_SHORT)
-							.show();
+//					Toast.makeText(LoadTransferActivity.this,
+//							strArrayResponse[1].toString(), Toast.LENGTH_SHORT)
+//							.show();
 
 					break;
 				default:

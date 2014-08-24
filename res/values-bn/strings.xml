@@ -103,6 +103,8 @@
     
      <string name="prompt_Message">আপনি পিছনে যাওয়ার বোতামটি টিপেছেন। আপনি কি অ্যাপটি বন্ধ করতে চান?</string>
       <string name="prompt_Title">মেসেজ</string>
+    <string name="Lbl_Payer">Payer:</string>
+    <string name="Lbl_Payee">Payee:</string>
     <string name="lblSubscriberId">সাবস্ক্রাইবার আইডি</string>
     <string name="lblRechargeAmount">रीचार्ज राशि</string>
     <string name="lblAmount">পরিমাণ</string>

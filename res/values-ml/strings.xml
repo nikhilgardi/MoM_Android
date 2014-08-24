@@ -106,6 +106,8 @@
     
      <string name="prompt_Message">നിങ്ങൾ പിന്നിലേക്ക് ബട്ടൺ അമർത്തിയിരിക്കുന്നു. ആപിൽ നിന്ന് പുറത്തുകടക്കാൻ ആഗ്രഹിക്കുന്നുണ്ടോ?</string>
       <string name="prompt_Title">സന്ദേശം</string>
+    <string name="Lbl_Payer">Payer:</string>
+    <string name="Lbl_Payee">Payee:</string>
     <string name="lblSubscriberId">സബ്സ്ക്രൈബർ ID</string>
     <string name="lblRechargeAmount">Recharge Amount</string>
     <string name="lblAmount">തുക</string>

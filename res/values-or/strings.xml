@@ -103,6 +103,8 @@
     
      <string name="prompt_Message">ଆପଣ ବ୍ୟାକ୍‌ ବଟନ୍‌ ଦବାଇଥିଲେ। ଆପଣ ଏହି ଆପ୍‌ ରୁ ବାହାରିବାକୁ ଚାହାନ୍ତି କି?</string>
       <string name="prompt_Title">ସନ୍ଦେଶ</string>
+    <string name="Lbl_Payer">Payer:</string>
+    <string name="Lbl_Payee">Payee:</string>
     <string name="lblSubscriberId">ଉପଭୋକ୍ତାଙ୍କ ID:</string>
     <string name="lblRechargeAmount">Recharge Amount</string>
     <string name="lblAmount">ରାଶି: ଟ. </string>
