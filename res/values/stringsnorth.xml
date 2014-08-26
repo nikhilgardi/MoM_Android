@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, RechargeActivity!</string>
+    <string name="app_name">Money-On-Mobile</string>
+    <string name="repass">T-Pin</string>
+   <string
+        name="feedbacktype">Select NorthSubDivisionName</string>
+        
+        
+        <string
+        name="feedbacktype0">Select NorthSubDivisionName</string>
+        <string
+        name="feedbacktype1">Araria</string>
+    <string
+        name="feedbacktype2">Farbisganj</string>
+        <string
+        name="feedbacktype3">Barsoi</string>
+        <string
+        name="feedbacktype4">Katihar (Rural)</string>
+        <string
+        name="feedbacktype5">Katihar (Urban)</string>
+        <string
+        name="feedbacktype6">Bahadurganj</string>
+    <string
+        name="feedbacktype7">Kishanganj</string>
+        <string
+        name="feedbacktype8">Thakurganj</string>
+        <string
+        name="feedbacktype9">Banmankhi</string>
+        <string
+        name="feedbacktype10">Dhamdaha</string>
+        <string
+        name="feedbacktype11">Gulabbagh</string>
+    <string
+        name="feedbacktype12">Purnea (Rural)</string>
+        <string
+        name="feedbacktype13">Purnea (Urban)</string>
+        <string
+        name="feedbacktype14">Gogari</string>
+        <string
+        name="feedbacktype15">Khagaria (Urban)</string>
+        <string
+        name="feedbacktype16">Khagaria (Rural)</string>
+        <string
+        name="feedbacktype17">Madhepur</string>
+        <string
+        name="feedbacktype18">Udakishaganj</string>
+        <string
+        name="feedbacktype19">Saharsa (Urban)</string>
+    <string
+        name="feedbacktype20">Saharsa (Rural)</string>
+        <string
+        name="feedbacktype21">Simri Bakhtiyarpur</string>
+        <string
+        name="feedbacktype22">Birpur</string>
+        <string
+        name="feedbacktype23">Supaul</string>
+        <string
+        name="feedbacktype24">Triveniganj</string>
+    <string
+        name="feedbacktype25">Benipur</string>
+        <string
+        name="feedbacktype26">Biraul</string>
+        <string
+        name="feedbacktype27">Darbhanga (Rural)</string>
+        <string
+        name="feedbacktype28">Sakri</string>
+        <string
+        name="feedbacktype29">Darbhanga (Urban)</string>
+    <string
+        name="feedbacktype30">Laheriasarai</string>
+        <string
+        name="feedbacktype31">Jhanjharpur</string>
+        <string
+        name="feedbacktype32">Nirmali</string>
+        <string
+        name="feedbacktype33">Phulparas</string>
+        <string
+        name="feedbacktype34">Benipatti</string>
+    <string
+        name="feedbacktype35">JaiNagar</string>
+        <string
+        name="feedbacktype36">Madhubani</string>
+        <string
+        name="feedbacktype37">Bachwara</string>
+        <string
+        name="feedbacktype38">Barauni</string>
+        <string
+        name="feedbacktype39">Ballia</string>
+    <string
+        name="feedbacktype40">Begusarai</string>
+        <string
+        name="feedbacktype41">Manjhaul</string>
+        <string
+        name="feedbacktype42">Dalsingsarai</string>
+        <string
+        name="feedbacktype43">Mohaddinagar</string>
+        <string
+        name="feedbacktype44">Sarairanjan</string>
+    <string
+        name="feedbacktype45">Rosera</string>
+        <string
+        name="feedbacktype46">Kalyanpur</string>
+        <string
+        name="feedbacktype47">Pusa</string>
+        <string
+        name="feedbacktype48">Samastipur (Rural)</string>
+        <string
+        name="feedbacktype49">Samastipur (Urban)</string>
+    <string
+        name="feedbacktype50">Marhaurah</string>
+        <string
+        name="feedbacktype51">Sonepur</string>
+        <string
+        name="feedbacktype52">Baniapur</string>
+        <string
+        name="feedbacktype53">Chhapra (Urban)</string>
+        <string
+        name="feedbacktype54">Chhapra (Rural)</string>
+    <string
+        name="feedbacktype55">Barauli</string>
+        <string
+        name="feedbacktype56">Gopalganj</string>
+        <string
+        name="feedbacktype57">Kuchaikot</string>
+        <string
+        name="feedbacktype58">Mirganj</string>
+        <string
+        name="feedbacktype59">Maharajganj</string>
+        <string
+        name="feedbacktype60">Gopalganj</string>
+        <string
+        name="feedbacktype61">Mairwa</string>
+        <string
+        name="feedbacktype62">Siwan (Rural)</string>
+        <string
+        name="feedbacktype63">Siwan (Urban)</string>
+        <string
+        name="feedbacktype64">Bagaha</string>
+        <string
+        name="feedbacktype65">Nbettiah</string>
+        <string
+        name="feedbacktype66">Narkatiyaganj</string>
+        <string
+        name="feedbacktype67">Ramnagar</string>
+        <string
+        name="feedbacktype68">Areraj</string>
+        <string
+        name="feedbacktype69">Chakia</string>
+        <string
+        name="feedbacktype70">Motihari</string>
+        <string
+        name="feedbacktype71">Dhaka</string>
+        <string
+        name="feedbacktype72">Ghorashahan</string>
+        <string
+        name="feedbacktype73">Raxaul</string>
+        <string
+        name="feedbacktype74">Bidupur</string>
+        <string
+        name="feedbacktype75">Hajipur</string>
+        <string
+        name="feedbacktype76">Lalganj</string>
+        <string
+        name="feedbacktype77">Mahnar</string>
+        <string
+        name="feedbacktype78">Mahua</string>
+        <string
+        name="feedbacktype79">Dholi</string>
+        <string
+        name="feedbacktype80">Muzzaffarpur (East)</string>
+        <string
+        name="feedbacktype81">Skmch</string>
+        <string
+        name="feedbacktype82">Kalyani</string>
+        <string
+        name="feedbacktype83">Maripur</string>
+        <string
+        name="feedbacktype84">Saraiyaganj</string>
+        <string
+        name="feedbacktype85">Motipur</string>
+        <string
+        name="feedbacktype86">Muzzafarpur (West)</string>
+        <string
+        name="feedbacktype87">Sraiya</string>
+        <string
+        name="feedbacktype88">Bairgania</string>
+        <string
+        name="feedbacktype89">Pupri</string>
+        <string
+        name="feedbacktype90">Runnisaidpur</string>
+        <string
+        name="feedbacktype91">Sitmarhi</string>
+        <string
+        name="feedbacktype92">Shehohar</string>
+       
+        
+   
+</resources>

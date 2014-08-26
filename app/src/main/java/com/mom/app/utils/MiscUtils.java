@@ -56,8 +56,8 @@ public class MiscUtils {
 
             HttpPost httppost 				= new HttpPost(psUrl);
 			final HttpParams httpParams 	= httppost.getParams();
-			HttpConnectionParams.setConnectionTimeout(httpParams, MOMConstants.TIMEOUT_CONNECTION);
-			HttpConnectionParams.setSoTimeout(httpParams, MOMConstants.TIMEOUT_SOCKET);
+			HttpConnectionParams.setConnectionTimeout(httpParams, AppConstants.TIMEOUT_CONNECTION);
+			HttpConnectionParams.setSoTimeout(httpParams, AppConstants.TIMEOUT_SOCKET);
 
 			httppost.setEntity(new UrlEncodedFormEntity(pParams));
 

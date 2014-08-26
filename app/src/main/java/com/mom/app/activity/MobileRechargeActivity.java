@@ -29,7 +29,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemSelectedListener;
 
@@ -40,11 +39,13 @@ import com.mom.app.identifier.PlatformIdentifier;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
-import com.mom.app.model.local.LocalStorage;
-import com.mom.app.utils.MOMConstants;
+import com.mom.app.model.local.EphemeralStorage;
+import com.mom.app.utils.AppConstants;
 
 public class MobileRechargeActivity extends MOMActivityBase implements AsyncListener<String>{
-	private EditText rechargeTargetPhone;
+    String _LOG         = AppConstants.LOG_PREFIX + "MOBILE";
+
+    private EditText rechargeTargetPhone;
 	private EditText amountField;
 
 	Spinner operatorSpinner;
@@ -76,17 +77,17 @@ public class MobileRechargeActivity extends MOMActivityBase implements AsyncList
 
     @Override
     public void onTaskSuccess(String result, DataExImpl.Methods callback) {
-        Log.d("TASK_C_MAIN", "Called back");
+        Log.d(_LOG, "Called back");
         switch(callback){
             case RECHARGE_MOBILE:
                 if(result == null){
-                    Log.d("TASK_COMPLETE", "Obtained NULL recharge response");
+                    Log.d(_LOG, "Obtained NULL recharge response");
                     showMessage(getResources().getString(R.string.error_recharge_failed));
                     return;
                 }
-                Log.d("TASK_COMPLETE", "Going to get new balance");
+                Log.d(_LOG, "Going to get new balance");
                 getBalanceAsync();
-                Log.d("TASK_COMPLETE", "Starting navigation to TxnMsg Activity");
+                Log.d(_LOG, "Starting navigation to TxnMsg Activity");
                 navigateToTransactionMessageActivity(ActivityIdentifier.MOBILE_RECHARGE, result);
             break;
         }
@@ -186,7 +187,7 @@ public class MobileRechargeActivity extends MOMActivityBase implements AsyncList
 
 		if (_currentPlatform == PlatformIdentifier.NEW)
 		{
-            String id      = MOMConstants.OPERATOR_NEW.get(strOperatorName);
+            String id      = AppConstants.OPERATOR_NEW.get(strOperatorName);
             if(id == null){
                 return "-1";
             }
@@ -252,7 +253,7 @@ public class MobileRechargeActivity extends MOMActivityBase implements AsyncList
         }
 
         if(
-                sOperatorId.equals(MOMConstants.OPERATOR_ID_TATA_WALKY) ||
+                sOperatorId.equals(AppConstants.OPERATOR_ID_TATA_WALKY) ||
                 sOperatorId.equals("TWT")
                 ){
 
@@ -304,7 +305,7 @@ public class MobileRechargeActivity extends MOMActivityBase implements AsyncList
 				nameValuePairs.add(new BasicNameValuePair("CustMobile", sConsumerNumber));
 				nameValuePairs.add(new BasicNameValuePair("Amount", sRechargeAmount));
 				nameValuePairs.add(new BasicNameValuePair("OP", sOperatorID));
-                String sUserMobile  = LocalStorage.getString(getApplicationContext(), MOMConstants.LOGGED_IN_USERNAME);
+                String sUserMobile  = EphemeralStorage.getInstance(this).getString(AppConstants.LOGGED_IN_USERNAME, null);
 				nameValuePairs.add(new BasicNameValuePair("RN", sUserMobile));
 				nameValuePairs.add(new BasicNameValuePair("Service", "RM"));
 
@@ -416,8 +417,8 @@ public class MobileRechargeActivity extends MOMActivityBase implements AsyncList
             String sOperatorId  = getOperatorId(sOperator);
 
             if(
-                sOperatorId.equals(MOMConstants.OPERATOR_ID_BSNL) ||
-                sOperatorId.equals(MOMConstants.OPERATOR_ID_MTNL)
+                sOperatorId.equals(AppConstants.OPERATOR_ID_BSNL) ||
+                sOperatorId.equals(AppConstants.OPERATOR_ID_MTNL)
                 ){
 
                 rbtnTopUp.setVisibility(view.VISIBLE);
@@ -425,8 +426,8 @@ public class MobileRechargeActivity extends MOMActivityBase implements AsyncList
                 rbtnSpecial.setVisibility(view.GONE);
                 rbtnTopUp.setChecked(true);
                 rbtnValidity.setChecked(false);
-            }else if(sOperatorId.equals(MOMConstants.OPERATOR_ID_TATA_DOCOMO) ||
-                    sOperatorId.equals(MOMConstants.OPERATOR_ID_UNINOR)
+            }else if(sOperatorId.equals(AppConstants.OPERATOR_ID_TATA_DOCOMO) ||
+                    sOperatorId.equals(AppConstants.OPERATOR_ID_UNINOR)
                     ){
 
                 rechargeTargetPhone.setText("");

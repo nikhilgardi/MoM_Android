@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <string name="welcome">Welcome</string>
     <string name="Rupee">\u20B9</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="hello_world"></string>
@@ -14,8 +14,10 @@
     <string name="login_username_pwd_required">Please enter your mobile number and password</string>
     <string name="login_username_required">Please enter your mobile Number</string>
     <string name="login_pwd_required">Please enter your password</string>
-    <string name="tpin">T-Pin</string>
+    <string name="tpin">Enter T-Pin</string>
+    <string name="mpin">Enter M-Pin</string>
     <string name="tpin_incorrect">Incorrect T-Pin</string>
+    <string name="mpin_incorrect">Incorrect M-Pin</string>
     <string name="title_activity_verify_tpin">VerifyTPinActivity</string>
     <string name="action_mobileRecharge">Mobile Recharge</string>
     <string name="action_dthRecharge">DTH Recharge</string>
@@ -25,6 +27,7 @@
     <string name="action_history">History</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_transaction_confirmation">Transaction Result</string>
+    <string name="error_mobile_required">Mobile Number required</string>
     <string name="error_recharge_failed">Error occurred during recharge. Please try again or contact Customer Support for help.</string>
     <string name="error_customer_phone_required">Please enter the customer\'s phone number.</string>
     <string name="error_phone_length">Phone Number should be of %1$d digits.</string>
@@ -33,12 +36,17 @@
     <string name="error_subscriber_id_length">Subscriber ID should be of %1$d characters.</string>
     <string name="error_subscriber_id_min_max">Subscriber ID should be between %1$d and %2$d characters.</string>
     <string name="error_obtaining_bill_amount">Could not obtain the bill amount. Please check the consumer number.</string>
+    <string name="error_no_internet_title">No Internet!</string>
+    <string name="error_no_internet">Your device is not connected to the Internet. Please try this when your Internet connection is back.</string>
+    <string name="error_getting_balance">Error</string>
     <string name="btn_dashboard">Dashboard</string>
     <string name="btn_recharge">Recharge</string>
     <string name="btn_pay">Pay</string>
     <string name="btn_new_recharge">New Recharge</string>
     <string name="btn_new_bill_pay">Pay another Bill</string>
     <string name="btn_back">Back</string>
+    <string name="btn_verifyTpin">Verify T-Pin</string>
+    <string name="btn_login">Login</string>
     <string name="btn_getBillAmount">Get Your Bill Amount</string>
     <string name="prompt_spinner_select_operator">Select Operator</string>
     <string name="prompt_enter_tpin">Please enter your T-Pin</string>
@@ -65,5 +73,13 @@
     <string name="title_activity_change_pin">Change PIN</string>
     <string name="title_activity_settings">Settings</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <string name="gujrati">ક્જશદફીઍસ</string>
+    <string name="language_english">English</string>
+    <string name="language_english_code">en</string>
+    <string name="language_hindi">Hindi</string>
+    <string name="language_hindi_code">hi</string>
+    <string name="language_gujarati">Gujarati</string>
+    <string name="language_gujarati_code">gu</string>
+    <string name="language_bengali">Bengali</string>
+    <string name="language_bengali_code">bn</string>
 </resources>

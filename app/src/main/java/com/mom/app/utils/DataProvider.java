@@ -62,4 +62,18 @@ public class DataProvider {
 
         return imageItems;
     }
+
+    public static ArrayList getSettingsIcons(Activity activity) {
+        final ArrayList imageItems = new ArrayList();
+        // retrieve String drawable array
+//        TypedArray imgs = activity.getResources().obtainTypedArray(R.array.mood_images);
+        Bitmap bitmap = BitmapFactory.decodeResource(activity.getResources(), R.drawable.mobile);
+        imageItems.add(new ImageItem(bitmap, "Change M-Pin", false));
+
+        bitmap = BitmapFactory.decodeResource(activity.getResources(), R.drawable.telephone);
+        imageItems.add(new ImageItem(bitmap, "Change T-Pin", false));
+
+        return imageItems;
+    }
+
 }

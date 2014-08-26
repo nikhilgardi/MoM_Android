@@ -9,9 +9,9 @@ import com.mom.app.model.AsyncDataEx;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
-import com.mom.app.model.local.LocalStorage;
+import com.mom.app.model.local.EphemeralStorage;
 import com.mom.app.model.xml.PullParser;
-import com.mom.app.utils.MOMConstants;
+import com.mom.app.utils.AppConstants;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -24,13 +24,15 @@ import java.util.HashMap;
  */
 public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>{
 
-    private String LOG_TAG          = "DATAEX_NEW";
+    private String LOG_TAG          = AppConstants.LOG_PREFIX + "DATAEX_NEW";
     private String _operatorId      = null;
 
     public NewPLDataExImpl(Context pContext, AsyncListener pListener){
         super.SOAP_ADDRESS = "http://msvc.money-on-mobile.net/WebServiceV3Client.asmx";
         this._applicationContext    = pContext;
         this._listener              = pListener;
+
+        checkConnectivity(pContext);
     }
 
 
@@ -39,18 +41,24 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
         Log.d(LOG_TAG, "onTaskSuccess");
         try {
             switch (callback) {
+                case CHECK_PLATFORM_DETAILS:
+                    Log.d(LOG_TAG, "TaskComplete: Check platform, result: " + result);
+                    if (_listener != null) {
+                        _listener.onTaskSuccess(result, callback);
+                    }
+                    break;
                 case LOGIN:
                     Log.d(LOG_TAG, "TaskComplete: Login method, result: " + result);
                     boolean bLoginSuccess = loginSuccessful(result);
                     if (_listener != null) {
-                        _listener.onTaskSuccess((new Boolean(bLoginSuccess)).toString(), null);
+                        _listener.onTaskSuccess((new Boolean(bLoginSuccess)).toString(), callback);
                     }
                     break;
                 case VERIFY_TPIN:
                     Log.d(LOG_TAG, "TaskComplete: verifyTPin method, result: " + result);
                     boolean bTPinSuccess = tpinVerified(result);
                     if (_listener != null) {
-                        _listener.onTaskSuccess((new Boolean(bTPinSuccess)).toString(), null);
+                        _listener.onTaskSuccess((new Boolean(bTPinSuccess)).toString(), callback);
                     }
                     break;
                 case GET_BALANCE:
@@ -60,6 +68,7 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
                     if (_listener != null) {
                         _listener.onTaskSuccess(balance, Methods.GET_BALANCE);
                     }
+
                     break;
                 case RECHARGE_MOBILE:
                     Log.d(LOG_TAG, "TaskComplete: rechargeMobile method, result: " + result);
@@ -120,13 +129,25 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
         }
     }
 
+    public void checkPlatform(NameValuePair...params){
+        if(params == null || params.length < 1){
+            if(_listener != null) {
+                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.LOGIN);
+            }
+        }
+
+        String url                  = AppConstants.URL_NEW_PL_DETAILS;
+        AsyncDataEx dataEx          = new AsyncDataEx(this, url, Methods.CHECK_PLATFORM_DETAILS, AsyncDataEx.HttpMethod.GET);
+        dataEx.execute(params);
+    }
+
     public void login(NameValuePair...params){
         if(params == null || params.length < 1){
             if(_listener != null) {
                 _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.LOGIN);
             }
         }
-        String loginUrl				= MOMConstants.URL_NEW_PLATFORM + MOMConstants.SVC_NEW_METHOD_LOGIN;
+        String loginUrl				= AppConstants.URL_NEW_PLATFORM + AppConstants.SVC_NEW_METHOD_LOGIN;
 
         AsyncDataEx dataEx		    = new AsyncDataEx(this, loginUrl, Methods.LOGIN);
 
@@ -147,7 +168,7 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
 
             int i = Integer.parseInt(strArrayResponse[0]);
 
-            if(i == MOMConstants.NEW_PL_LOGIN_SUCCESS){
+            if(i == AppConstants.NEW_PL_LOGIN_SUCCESS){
                 Log.d(LOG_TAG, "Login successful");
                 return true;
             }
@@ -159,7 +180,7 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
     }
 
     public void getBalance(){
-        String url				= MOMConstants.URL_NEW_PLATFORM + MOMConstants.SVC_NEW_METHOD_GET_BALANCE;
+        String url				= AppConstants.URL_NEW_PLATFORM + AppConstants.SVC_NEW_METHOD_GET_BALANCE;
 
         Log.d(LOG_TAG, "Creating dataEx for getBalance call");
         AsyncDataEx dataEx		    = new AsyncDataEx(this, url, Methods.GET_BALANCE);
@@ -168,15 +189,15 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
 
         dataEx.execute(
                 new BasicNameValuePair(
-                        MOMConstants.PARAM_NEW_OPERATOR_ID,
-                        LocalStorage.getString(_applicationContext, MOMConstants.PARAM_NEW_CUSTOMER_ID)
+                        AppConstants.PARAM_NEW_OPERATOR_ID,
+                        EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_NEW_CUSTOMER_ID, null)
                 ),
                 new BasicNameValuePair(
-                        MOMConstants.PARAM_NEW_COMPANY_ID,
-                        LocalStorage.getString(_applicationContext, MOMConstants.PARAM_NEW_COMPANY_ID)
+                        AppConstants.PARAM_NEW_COMPANY_ID,
+                        EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_NEW_COMPANY_ID, null)
                 ),
                 new BasicNameValuePair(
-                        MOMConstants.PARAM_NEW_STR_ACCESS_ID_SMALL_D,
+                        AppConstants.PARAM_NEW_STR_ACCESS_ID_SMALL_D,
                         "haduiy23d"
                 )
         );
@@ -209,21 +230,21 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
             }
         }
 
-        String url				= MOMConstants.URL_NEW_PLATFORM + MOMConstants.SVC_NEW_METHOD_CHECK_TPIN;
+        String url				= AppConstants.URL_NEW_PLATFORM + AppConstants.SVC_NEW_METHOD_CHECK_TPIN;
 
         AsyncDataEx dataEx		    = new AsyncDataEx(this, url, Methods.VERIFY_TPIN);
 
         dataEx.execute(
-                new BasicNameValuePair(MOMConstants.PARAM_NEW_TPIN, psTPin),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_TPIN, psTPin),
                 new BasicNameValuePair(
-                        MOMConstants.PARAM_NEW_CUSTOMER_ID,
-                        LocalStorage.getString(_applicationContext, MOMConstants.PARAM_NEW_CUSTOMER_ID)
+                        AppConstants.PARAM_NEW_CUSTOMER_ID,
+                        EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_NEW_CUSTOMER_ID, null)
                 ),
                 new BasicNameValuePair(
-                        MOMConstants.PARAM_NEW_COMPANY_ID,
-                        LocalStorage.getString(_applicationContext, MOMConstants.PARAM_NEW_COMPANY_ID)
+                        AppConstants.PARAM_NEW_COMPANY_ID,
+                        EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_NEW_COMPANY_ID, null)
                 ),
-                new BasicNameValuePair(MOMConstants.PARAM_NEW_STR_ACCESS_ID_SMALL_D, "KJHASFD")
+                new BasicNameValuePair(AppConstants.PARAM_NEW_STR_ACCESS_ID_SMALL_D, "KJHASFD")
                 );
     }
 
@@ -241,7 +262,7 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
 
             int i = Integer.parseInt(strArrayResponse[0]);
 
-            if(i == MOMConstants.NEW_PL_TPIN_VERIFIED){
+            if(i == AppConstants.NEW_PL_TPIN_VERIFIED){
                 Log.d(LOG_TAG, "TPin verified");
                 return true;
             }
@@ -268,24 +289,24 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
 
         _operatorId                 = psOperator;
 
-        String url				    = MOMConstants.URL_NEW_PLATFORM_TXN + MOMConstants.SVC_NEW_METHOD_RECHARGE_MOBILE;
+        String url				    = AppConstants.URL_NEW_PLATFORM_TXN + AppConstants.SVC_NEW_METHOD_RECHARGE_MOBILE;
 
         AsyncDataEx dataEx		    = new AsyncDataEx(this, url, Methods.RECHARGE_MOBILE);
 
         dataEx.execute(
                 new BasicNameValuePair(
-                        MOMConstants.PARAM_NEW_INT_CUSTOMER_ID,
-                        LocalStorage.getString(_applicationContext, MOMConstants.PARAM_NEW_CUSTOMER_ID)
+                        AppConstants.PARAM_NEW_INT_CUSTOMER_ID,
+                        EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_NEW_CUSTOMER_ID, null)
                 ),
                 new BasicNameValuePair(
-                        MOMConstants.PARAM_NEW_COMPANY_ID,
-                        LocalStorage.getString(_applicationContext, MOMConstants.PARAM_NEW_COMPANY_ID)
+                        AppConstants.PARAM_NEW_COMPANY_ID,
+                        EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_NEW_COMPANY_ID, null)
                 ),
-                new BasicNameValuePair(MOMConstants.PARAM_NEW_STR_ACCESS_ID, "KJHASFD"),
-                new BasicNameValuePair(MOMConstants.PARAM_NEW_STR_MOBILE_NUMBER, psConsumerNumber),
-                new BasicNameValuePair(MOMConstants.PARAM_NEW_RECHARGE_AMOUNT, Double.valueOf(pdAmount).toString()),
-                new BasicNameValuePair(MOMConstants.PARAM_NEW_OPERATOR, psOperator),
-                new BasicNameValuePair(MOMConstants.PARAM_NEW_INT_RECHARGE_TYPE, Integer.valueOf(pnRechargeType).toString())
+                new BasicNameValuePair(AppConstants.PARAM_NEW_STR_ACCESS_ID, "Test"),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_STR_MOBILE_NUMBER, psConsumerNumber),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_RECHARGE_AMOUNT, Double.valueOf(pdAmount).toString()),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_OPERATOR, psOperator),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_INT_RECHARGE_TYPE, Integer.valueOf(pnRechargeType).toString())
         );
     }
 
@@ -320,24 +341,24 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
 
         _operatorId                 = psOperator;
 
-        String url				    = MOMConstants.URL_NEW_PLATFORM_TXN + MOMConstants.SVC_NEW_METHOD_RECHARGE_DTH;
+        String url				    = AppConstants.URL_NEW_PLATFORM_TXN + AppConstants.SVC_NEW_METHOD_RECHARGE_DTH;
 
         AsyncDataEx dataEx		    = new AsyncDataEx(this, url, Methods.RECHARGE_DTH);
 
         dataEx.execute(
                 new BasicNameValuePair(
-                        MOMConstants.PARAM_NEW_INT_CUSTOMER_ID,
-                        LocalStorage.getString(_applicationContext, MOMConstants.PARAM_NEW_CUSTOMER_ID)
+                        AppConstants.PARAM_NEW_INT_CUSTOMER_ID,
+                        EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_NEW_CUSTOMER_ID, null)
                 ),
                 new BasicNameValuePair(
-                        MOMConstants.PARAM_NEW_COMPANY_ID,
-                        LocalStorage.getString(_applicationContext, MOMConstants.PARAM_NEW_COMPANY_ID)
+                        AppConstants.PARAM_NEW_COMPANY_ID,
+                        EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_NEW_COMPANY_ID, null)
                 ),
-                new BasicNameValuePair(MOMConstants.PARAM_NEW_STR_ACCESS_ID, "Test"),
-                new BasicNameValuePair(MOMConstants.PARAM_NEW_STR_MOBILE_NUMBER, psSubscriberId),
-                new BasicNameValuePair(MOMConstants.PARAM_NEW_RECHARGE_AMOUNT, String.valueOf(pdAmount)),
-                new BasicNameValuePair(MOMConstants.PARAM_NEW_OPERATOR, psOperator),
-                new BasicNameValuePair(MOMConstants.PARAM_NEW_CUSTOMER_NUMBER, psCustomerMobile)
+                new BasicNameValuePair(AppConstants.PARAM_NEW_STR_ACCESS_ID, "Test"),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_STR_MOBILE_NUMBER, psSubscriberId),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_RECHARGE_AMOUNT, String.valueOf(pdAmount)),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_OPERATOR, psOperator),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_CUSTOMER_NUMBER, psCustomerMobile)
         );
     }
 
@@ -352,26 +373,26 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
 
         _operatorId                 = psOperatorId;
 
-        String url				    = MOMConstants.URL_NEW_PLATFORM_TXN + MOMConstants.SVC_NEW_METHOD_BILL_PAYMENT;
+        String url				    = AppConstants.URL_NEW_PLATFORM_TXN + AppConstants.SVC_NEW_METHOD_BILL_PAYMENT;
 
         AsyncDataEx dataEx		    = new AsyncDataEx(this, url, Methods.PAY_BILL);
 
         String strCustomerNumber    = psSubscriberId;
 
-        String sUserId              = LocalStorage.getString(_applicationContext, MOMConstants.PARAM_NEW_USER_ID);
+        String sUserId              = EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_NEW_USER_ID, null);
 
         if (
-                MOMConstants.OPERATOR_ID_BEST_ELECTRICITY.equals(psOperatorId) ||
-                MOMConstants.OPERATOR_ID_RELIANCE_ENERGY.equals(psOperatorId) ||
-                MOMConstants.OPERATOR_ID_MAHANAGAR_GAS.equals(psOperatorId)){
+                AppConstants.OPERATOR_ID_BEST_ELECTRICITY.equals(psOperatorId) ||
+                AppConstants.OPERATOR_ID_RELIANCE_ENERGY.equals(psOperatorId) ||
+                AppConstants.OPERATOR_ID_MAHANAGAR_GAS.equals(psOperatorId)){
 
             strCustomerNumber   = psSubscriberId + "|" + psCustomerMobile
                                 + "|" + sUserId;
 
-        } else if (MOMConstants.OPERATOR_ID_SBE.equals(psOperatorId) && pExtraParamsMap != null) {
+        } else if (AppConstants.OPERATOR_ID_SBE.equals(psOperatorId) && pExtraParamsMap != null) {
             if(
-                    !pExtraParamsMap.containsKey(MOMConstants.PARAM_NEW_RELIANCE_SBE_NBE) ||
-                    !pExtraParamsMap.containsKey(MOMConstants.PARAM_NEW_SPECIAL_OPERATOR)
+                    !pExtraParamsMap.containsKey(AppConstants.PARAM_NEW_RELIANCE_SBE_NBE) ||
+                    !pExtraParamsMap.containsKey(AppConstants.PARAM_NEW_SPECIAL_OPERATOR)
                 ){
 
                 Log.d("NEW_PL_DATA", "Parameters not sent for SBE");
@@ -381,13 +402,13 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
                 return;
             }
             strCustomerNumber   = "SBE|" + psSubscriberId + "|" + psConsumerName + "|"
-                                + "|" + pExtraParamsMap.get(MOMConstants.PARAM_NEW_RELIANCE_SBE_NBE)
-                                + "|" + pExtraParamsMap.get(MOMConstants.PARAM_NEW_SPECIAL_OPERATOR);
+                                + "|" + pExtraParamsMap.get(AppConstants.PARAM_NEW_RELIANCE_SBE_NBE)
+                                + "|" + pExtraParamsMap.get(AppConstants.PARAM_NEW_SPECIAL_OPERATOR);
 
-        } else if (MOMConstants.OPERATOR_ID_NBE.equals(psOperatorId) && pExtraParamsMap != null) {
+        } else if (AppConstants.OPERATOR_ID_NBE.equals(psOperatorId) && pExtraParamsMap != null) {
             if(
-                    !pExtraParamsMap.containsKey(MOMConstants.PARAM_NEW_RELIANCE_SBE_NBE) ||
-                            !pExtraParamsMap.containsKey(MOMConstants.PARAM_NEW_SPECIAL_OPERATOR_NBE)
+                    !pExtraParamsMap.containsKey(AppConstants.PARAM_NEW_RELIANCE_SBE_NBE) ||
+                            !pExtraParamsMap.containsKey(AppConstants.PARAM_NEW_SPECIAL_OPERATOR_NBE)
                 ){
 
                 Log.d("NEW_PL_DATA", "Parameters not sent for NBE");
@@ -400,8 +421,8 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
             }
 
             strCustomerNumber   = "NBE|" + psSubscriberId + "|" + psConsumerName + "|"
-                    + "|" + pExtraParamsMap.get(MOMConstants.PARAM_NEW_RELIANCE_SBE_NBE)
-                    + "|" + pExtraParamsMap.get(MOMConstants.PARAM_NEW_SPECIAL_OPERATOR_NBE);
+                    + "|" + pExtraParamsMap.get(AppConstants.PARAM_NEW_RELIANCE_SBE_NBE)
+                    + "|" + pExtraParamsMap.get(AppConstants.PARAM_NEW_SPECIAL_OPERATOR_NBE);
 
         }
 
@@ -409,17 +430,17 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
 
         dataEx.execute(
                 new BasicNameValuePair(
-                        MOMConstants.PARAM_NEW_INT_CUSTOMER_ID,
-                        LocalStorage.getString(_applicationContext, MOMConstants.PARAM_NEW_CUSTOMER_ID)
+                        AppConstants.PARAM_NEW_INT_CUSTOMER_ID,
+                        EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_NEW_CUSTOMER_ID, null)
                 ),
                 new BasicNameValuePair(
-                        MOMConstants.PARAM_NEW_COMPANY_ID_CAMEL_CASE,
-                        LocalStorage.getString(_applicationContext, MOMConstants.PARAM_NEW_COMPANY_ID)
+                        AppConstants.PARAM_NEW_COMPANY_ID_CAMEL_CASE,
+                        EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_NEW_COMPANY_ID, null)
                 ),
-                new BasicNameValuePair(MOMConstants.PARAM_NEW_STR_ACCESS_ID, "KJHASFD"),
-                new BasicNameValuePair(MOMConstants.PARAM_NEW_STR_CUSTOMER_NUMBER, strCustomerNumber),
-                new BasicNameValuePair(MOMConstants.PARAM_NEW_DEC_BILL_AMOUNT, String.valueOf(pdAmount)),
-                new BasicNameValuePair(MOMConstants.PARAM_NEW_INT_OPERATOR_ID_BILL_PAY, psOperatorId)
+                new BasicNameValuePair(AppConstants.PARAM_NEW_STR_ACCESS_ID, "KJHASFD"),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_STR_CUSTOMER_NUMBER, strCustomerNumber),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_DEC_BILL_AMOUNT, String.valueOf(pdAmount)),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_INT_OPERATOR_ID_BILL_PAY, psOperatorId)
         );
     }
 
@@ -439,17 +460,17 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
 
         Log.d("BILL_AMOUNT", "going to get bill amount for operator: " + psOperatorId + ", subscriber: " + psSubscriberId);
 
-        String url				= MOMConstants.URL_NEW_PLATFORM_GET_BEST_BILL;
+        String url				= AppConstants.URL_NEW_PLATFORM_GET_BEST_BILL;
 
         AsyncDataEx dataEx		= new AsyncDataEx(this, url, Methods.GET_BILL_AMOUNT);
-        String sParameterName   = MOMConstants.PARAM_NEW_CANUMBER;
+        String sParameterName   = AppConstants.PARAM_NEW_CANUMBER;
 
-        if(MOMConstants.OPERATOR_ID_BEST_ELECTRICITY.equals(psOperatorId)){
-            sParameterName      = MOMConstants.PARAM_NEW_ACCOUNT_NUMBER;
-        }else if(MOMConstants.OPERATOR_ID_RELIANCE_ENERGY.equals(psOperatorId)) {
-            url                 = MOMConstants.URL_NEW_PLATFORM_GET_RELIANCE_BILL;
-        }else if(MOMConstants.OPERATOR_ID_MAHANAGAR_GAS.equals(psOperatorId)) {
-            url                 = MOMConstants.URL_NEW_PLATFORM_GET_MGL_BILL;
+        if(AppConstants.OPERATOR_ID_BEST_ELECTRICITY.equals(psOperatorId)){
+            sParameterName      = AppConstants.PARAM_NEW_ACCOUNT_NUMBER;
+        }else if(AppConstants.OPERATOR_ID_RELIANCE_ENERGY.equals(psOperatorId)) {
+            url                 = AppConstants.URL_NEW_PLATFORM_GET_RELIANCE_BILL;
+        }else if(AppConstants.OPERATOR_ID_MAHANAGAR_GAS.equals(psOperatorId)) {
+            url                 = AppConstants.URL_NEW_PLATFORM_GET_MGL_BILL;
         }else{
             Log.e("BILL_AMOUNT", "Bill information cannot be checked for this operator");
             onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.GET_BILL_AMOUNT);
@@ -467,11 +488,11 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
         String[] sArrResponse       = psResult.split("~");
         String sBill                = null;
 
-        if(_operatorId.equals(MOMConstants.OPERATOR_ID_BEST_ELECTRICITY) && sArrResponse.length > 15){
+        if(_operatorId.equals(AppConstants.OPERATOR_ID_BEST_ELECTRICITY) && sArrResponse.length > 15){
             sBill                   = sArrResponse[16];
-        }else if(_operatorId.equals(MOMConstants.OPERATOR_ID_RELIANCE_ENERGY) && sArrResponse.length > 2){
+        }else if(_operatorId.equals(AppConstants.OPERATOR_ID_RELIANCE_ENERGY) && sArrResponse.length > 2){
             sBill                   = sArrResponse[3];
-        }else if(_operatorId.equals(MOMConstants.OPERATOR_ID_MAHANAGAR_GAS) && sArrResponse.length > 3){
+        }else if(_operatorId.equals(AppConstants.OPERATOR_ID_MAHANAGAR_GAS) && sArrResponse.length > 3){
             sBill                   = sArrResponse[4];
         }
 
@@ -486,38 +507,38 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
 
     @Override
     public void getTransactionHistory() {
-        String url				= MOMConstants.URL_NEW_PL_HISTORY;
+        String url				= AppConstants.URL_NEW_PL_HISTORY;
 
         AsyncDataEx dataEx		= new AsyncDataEx(this, url, Methods.TRANSACTION_HISTORY);
-        String sUserId          = LocalStorage.getString(_applicationContext, MOMConstants.PARAM_NEW_USER_ID);
+        String sUserId          = EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_NEW_USER_ID, null);
 
-        dataEx.execute(new BasicNameValuePair(MOMConstants.PARAM_NEW_USER_ID, sUserId));
+        dataEx.execute(new BasicNameValuePair(AppConstants.PARAM_NEW_USER_ID, sUserId));
     }
 
     @Override
     public void changePin(PinType pinType, String psOldPin, String psNewPin) {
 
         String method           = pinType == PinType.M_PIN
-                                    ? MOMConstants.SVC_NEW_METHOD_CHANGE_MPIN
-                                    : MOMConstants.SVC_NEW_METHOD_CHANGE_TPIN;
+                                    ? AppConstants.SVC_NEW_METHOD_CHANGE_MPIN
+                                    : AppConstants.SVC_NEW_METHOD_CHANGE_TPIN;
 
-        String url				= MOMConstants.URL_NEW_PLATFORM + method;
+        String url				= AppConstants.URL_NEW_PLATFORM + method;
 
         AsyncDataEx dataEx		= new AsyncDataEx(this, url, Methods.CHANGE_PIN);
-        String sUserId          = LocalStorage.getString(_applicationContext, MOMConstants.PARAM_NEW_USER_ID);
+        String sUserId          = EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_NEW_USER_ID, null);
 
         dataEx.execute(
                 new BasicNameValuePair(
-                        MOMConstants.PARAM_NEW_CUSTOMER_ID,
-                        LocalStorage.getString(_applicationContext, MOMConstants.PARAM_NEW_CUSTOMER_ID)
+                        AppConstants.PARAM_NEW_CUSTOMER_ID,
+                        EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_NEW_CUSTOMER_ID, null)
                 ),
                 new BasicNameValuePair(
-                        MOMConstants.PARAM_NEW_COMPANY_ID,
-                        LocalStorage.getString(_applicationContext, MOMConstants.PARAM_NEW_COMPANY_ID)
+                        AppConstants.PARAM_NEW_COMPANY_ID,
+                        EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_NEW_COMPANY_ID, null)
                 ),
-                new BasicNameValuePair(MOMConstants.PARAM_NEW_STR_ACCESS_ID, "KJHASFD"),
-                new BasicNameValuePair(MOMConstants.PARAM_NEW_STR_PASSWORD, psOldPin),
-                new BasicNameValuePair(MOMConstants.PARAM_NEW_STR_NEW_PASSWORD, psNewPin)
+                new BasicNameValuePair(AppConstants.PARAM_NEW_STR_ACCESS_ID, "KJHASFD"),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_STR_PASSWORD, psOldPin),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_STR_NEW_PASSWORD, psNewPin)
 
         );
     }

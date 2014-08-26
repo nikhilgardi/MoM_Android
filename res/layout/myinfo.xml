@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+ <RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:background="@drawable/appsbg"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+     
+    <TableLayout
+        android:id="@+id/tableLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       
+      
+        android:shrinkColumns="*"
+        android:stretchColumns="*" >
+
+        <TableRow
+            android:id="@+id/tableRow4"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:background="@drawable/topbarcolor"
+            android:gravity="center_horizontal"
+            android:minHeight="53dp" >
+
+            
+              <TextView
+                android:id="@+id/textViewaccntbal"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                 android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+               
+                android:layout_marginTop="5dp"
+                android:paddingTop="50dp"
+               
+              
+                android:textSize="7pt"
+                android:textColor="#005076" />
+            
+            
+            <ImageView
+                android:id="@+id/logo"
+                 android:layout_width="170dp"
+                    android:layout_height="98dp"
+                  
+                    
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="5dp"
+                  
+                  
+                    
+                    android:src="@drawable/logo_320"/>
+
+          
+        </TableRow>
+    </TableLayout>
+	<ListView
+  		android:id="@+android:id/list"
+  		android:layout_marginTop="110dp"
+  		android:layout_width="fill_parent"
+  		android:layout_height="wrap_content"
+  		android:visibility="visible" >
+		</ListView>
+    <WebView
+        android:id="@+id/resp"
+        android:layout_below="@+android:id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:padding="15dip"
+        android:scrollbars="vertical"
+        android:visibility="gone" />
+
+   
+
+   
+     <Button
+        android:id="@+id/button6"
+        android:background="@drawable/custom_button"
+        android:layout_marginTop="180dp"
+        android:layout_width="100dip"
+        android:layout_height="wrap_content"
+       
+        android:layout_centerHorizontal="true"
+        android:onClick="back"
+        android:text="Back"
+        android:textColor="#FFFFFF"
+        android:visibility="gone" />
+    <TextView
+        android:id="@+id/response"
+        android:layout_width="fill_parent"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button6"
+         android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
+        android:layout_marginLeft="10dp"
+        android:textColor="#333"
+        android:textSize="16dp" />
+    
+    <Button
+        android:id="@+id/buttonSwipe"
+        android:layout_width="150dp"
+        android:background="@drawable/custom_button"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/response"
+        android:layout_marginTop="5dp"
+        android:onClick="MSwipe"
+        android:text="MSwipe"
+        android:textColor="#FFFFFF"
+         android:visibility="gone" />
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="150dp"
+        android:background="@drawable/custom_button"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/buttonSwipe"
+        android:layout_marginTop="5dp"
+        android:onClick="logout"
+        android:text="Logout"
+        android:textColor="#FFFFFF"
+         android:visibility="gone" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="150dp"
+        android:background="@drawable/custom_button"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/button5"
+        android:layout_alignBottom="@+id/button5"
+        android:layout_alignParentLeft="true"
+        android:onClick="rechargeLogout"
+        android:text="Recharge Logout"
+        android:textColor="#FFFFFF"
+        android:visibility="gone" />
+        
+	 
+</RelativeLayout>

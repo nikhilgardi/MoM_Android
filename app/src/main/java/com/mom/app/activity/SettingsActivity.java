@@ -1,24 +1,29 @@
 package com.mom.app.activity;
 
-import android.app.ListActivity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.AdapterView;
+import android.widget.GridView;
 
 import com.mom.app.R;
 import com.mom.app.identifier.IdentifierUtils;
-import com.mom.app.identifier.PinType;
 import com.mom.app.identifier.PlatformIdentifier;
-import com.mom.app.utils.MOMConstants;
+import com.mom.app.utils.AppConstants;
+import com.mom.app.utils.DataProvider;
+import com.mom.app.widget.ImageTextViewAdapter;
+import com.mom.app.widget.holder.ImageItem;
 
-public class SettingsActivity extends ListActivity {
-
+public class SettingsActivity extends MOMActivityBase {
+    String _LOG             = AppConstants.LOG_PREFIX + "SETTINGS";
+    
     private PlatformIdentifier _currentPlatform;
+    GridView gridView;
+    ImageTextViewAdapter gridViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,11 +32,36 @@ public class SettingsActivity extends ListActivity {
 
         _currentPlatform    = IdentifierUtils.getPlatformIdentifier(getApplicationContext());
 
-        String[] values     = new String[]{"Change M-Pin", "Change T-Pin"};
+        gridView            = (GridView) findViewById(R.id.gridView);
+        gridViewAdapter     = new ImageTextViewAdapter(this, R.layout.row_grid, DataProvider.getDashboard(this));
 
-        setContentView(R.layout.activity_settings);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.row_layout, R.id.label, values);
-        setListAdapter(adapter);
+        gridView.setAdapter(gridViewAdapter);
+        gridView.setNumColumns(2);
+
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+
+                Log.d(_LOG, "Clicked " + position);
+                ImageItem item = (ImageItem) gridViewAdapter.getItem(position);
+                if (item == null) {
+                    Log.e(_LOG, "No click target found, returning.");
+                    return;
+                }
+                Log.d(_LOG, "Altering selection to " + !item.getSelected());
+
+                item.setSelected(!item.getSelected());
+
+                if (item.getSelected()) {
+                    v.setBackgroundColor(getResources().getColor(R.color.row_selected));
+                } else {
+                    v.setBackgroundColor(Color.TRANSPARENT);
+                }
+
+                Log.d(_LOG, "Going to selected activity");
+                nextActivity(item.getTitle());
+            }
+        });
     }
 
 
@@ -55,23 +85,26 @@ public class SettingsActivity extends ListActivity {
     }
 
     @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        String item = (String) getListAdapter().getItem(position);
-        Intent intent   = null;
+    protected void showBalance(float pfBalance) {
 
-        Log.d("LIST_CLICKED", "Going to start activity");
+    }
 
-        intent = new Intent(this, ChangePINActivity.class);
-
+    private void nextActivity(String item) {
+        Intent intent = null;
         if (item.equals("Change M-Pin")) {
-            Log.d("LIST_CLICKED", "Starting Change M-Pin");
-            intent.putExtra(MOMConstants.INTENT_MESSAGE, PinType.M_PIN);
-        }else if (item.equals("Change T-Pin")) {
-            Log.d("LIST_CLICKED", "Starting Change T-Pin");
-            intent.putExtra(MOMConstants.INTENT_MESSAGE, PinType.T_PIN);
-        }
+            Log.d(_LOG, "Starting Change M-Pin");
+            intent      = new Intent(this, ChangePINActivity.class);
+            startActivity(intent);
+            Log.d(_LOG, "Started Mobile Recharge");
+            return;
+        } else if (item.equals("Change T-Pin")) {
+            Log.d(_LOG, "Starting Change T_Pin");
+            intent = new Intent(this, ChangePINActivity.class);
 
-        startActivity(intent);
-        Log.d("LIST_CLICKED", "Started Change Pin");
+            startActivity(intent);
+            Log.d(_LOG, "Started DTH Recharge");
+            return;
+
+        }
     }
 }

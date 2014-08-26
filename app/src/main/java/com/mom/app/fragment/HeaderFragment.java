@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mom.app.R;
-import com.mom.app.model.local.LocalStorage;
-import com.mom.app.utils.MOMConstants;
+import com.mom.app.model.local.EphemeralStorage;
+import com.mom.app.utils.AppConstants;
 
 import java.text.DecimalFormat;
 
@@ -44,9 +44,16 @@ public class HeaderFragment extends Fragment {
 
         TextView balanceTv  = (TextView) view.findViewById(R.id.balance);
         if(balanceTv != null){
-            Float balance   = LocalStorage.getFloat(getActivity().getApplicationContext(), MOMConstants.USER_BALANCE);
-            DecimalFormat df   = new DecimalFormat( "#,###,###,##0.00" );
-            String sBal         = df.format(balance);
+            Float balance   = EphemeralStorage.getInstance(getActivity()).getFloat(AppConstants.USER_BALANCE, AppConstants.ERROR_BALANCE);
+            String sBal         = null;
+            if(balance == AppConstants.ERROR_BALANCE){
+                sBal            = getString(R.string.error_getting_balance);
+                return view;
+            }else {
+                DecimalFormat df = new DecimalFormat("#,###,###,##0.00");
+                sBal = df.format(balance);
+            }
+
             balanceTv.setText("Balance: " + getResources().getString(R.string.Rupee) + sBal);
         }
 

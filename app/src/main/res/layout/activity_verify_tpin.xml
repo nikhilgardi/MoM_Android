@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -9,7 +10,8 @@
         android:id="@+id/momHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        class="com.mom.app.fragment.HeaderFragment" />
+        class="com.mom.app.fragment.HeaderFragment"
+        tools:layout="@layout/fragment_header" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,17 +26,12 @@
             android:layout_weight="10"/>
 
         <LinearLayout
-            android:layout_centerInParent="true"
-            android:orientation="vertical"
-            android:layout_width="0dp"
             android:layout_weight="80"
-            android:layout_height="wrap_content">
+            style="@style/MoMTheme.wrapped.vert_layout">
 
             <TextView
                 android:id="@+id/msgDisplay"
-                android:layout_above="@id/momHeader"
                 style="@style/MoMTheme.wrapped.alertMsg"
-                android:textSize="@dimen/medium"
                 android:visibility="gone" />
 
             <ProgressBar
@@ -42,32 +39,21 @@
                 style="@style/ProgressBarAppTheme"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/amount"
                 android:layout_centerHorizontal="true"
                 android:visibility="gone" />
 
             <EditText
                 android:id="@+id/tpinTxt"
-                android:layout_width="265dp"
-                android:layout_height="40dp"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="130dp"
-                android:background="@drawable/custom"
+                style="@style/MoMTheme.wrapped.vert_layout.elements"
+                android:background="@drawable/apptheme_edit_text_holo_light"
                 android:hint="@string/tpin"
+                android:textSize="@dimen/text_medium"
                 android:imeOptions="actionDone"
                 android:inputType="number"
-                android:password="true"
-                >
-            </EditText>
+                android:password="true"/>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|center"
-                android:orientation="horizontal"
+                style="@style/MoMTheme.btn_container"
                 android:weightSum="3">
                 <Button
                     android:id="@+id/btn_recharge"
@@ -76,7 +62,7 @@
                     android:layout_weight="2"
                     style="@style/ButtonAppTheme"
                     android:onClick="verifyTPin"
-                    android:text="Submit"/>
+                    android:text="@string/btn_verifyTpin"/>
 
                 <Button
                     android:id="@+id/btnBack"

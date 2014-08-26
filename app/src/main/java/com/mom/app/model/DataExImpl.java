@@ -1,9 +1,12 @@
 package com.mom.app.model;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
 
 import com.mom.app.identifier.PinType;
+import com.mom.app.utils.ConnectionUtil;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -23,6 +26,7 @@ public abstract class DataExImpl implements IDataEx{
 
     protected Context _applicationContext;
     protected AsyncListener _listener;
+    protected boolean _connected;
 
     public enum Methods{
         LOGIN,
@@ -33,7 +37,15 @@ public abstract class DataExImpl implements IDataEx{
         PAY_BILL,
         GET_BILL_AMOUNT,
         TRANSACTION_HISTORY,
-        CHANGE_PIN;
+        CHANGE_PIN,
+        CHECK_PLATFORM_DETAILS;
+    }
+
+    public void checkConnectivity(Context context){
+        _connected      = ConnectionUtil.checkConnectivity(context);
+        if(!_connected){
+            ConnectionUtil.showConnectionWarning(context);
+        }
     }
 
     public abstract void getBalance();
@@ -66,4 +78,6 @@ public abstract class DataExImpl implements IDataEx{
 
     public abstract void getTransactionHistory();
     public abstract void changePin(PinType pinType, String psOldPin, String psNewPin);
+
+
 }

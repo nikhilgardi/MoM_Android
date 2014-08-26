@@ -1,124 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@drawable/appsbg"
-    android:scrollbars="vertical">
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
 
-    <RelativeLayout
-        android:id="@+id/RelativeLayout1"
+    <fragment
+        android:id="@+id/momHeader"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-
-        android:orientation="vertical">
-
-        <fragment
-            android:id="@+id/momHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            class="com.mom.app.fragment.HeaderFragment" />
+        android:layout_height="wrap_content"
+        class="com.mom.app.fragment.HeaderFragment" />
 
 
-        <EditText
-            android:id="@+id/number"
-            android:layout_width="265dp"
-            android:layout_height="40dp"
-            android:layout_below="@+id/momHeader"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/custom"
-            android:hint="@string/lblCustomerMobile"
-            android:inputType="number"
-            android:maxLength="10"></EditText>
-
-        <Spinner
-            android:id="@+id/Operator"
-            android:layout_width="265dp"
-            android:layout_height="55dp"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="130dp"
-            android:layout_below="@id/number"
-            android:background="@drawable/btn_dropdown"
-            android:prompt="@string/feedbacktypeMobileRecharge"></Spinner>
-
-        <EditText
-            android:id="@+id/subscriberId"
-            android:layout_width="265dp"
-            android:layout_height="40dp"
-            android:layout_below="@+id/Operator"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/custom"
-            android:hint="@string/lblSubscriberId"
-            android:inputType="number"></EditText>
-
-        <EditText
-            android:id="@+id/amount"
-            android:layout_width="265dp"
-            android:layout_height="40dp"
-            android:layout_below="@+id/subscriberId"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/custom"
-            android:hint="@string/lblRechargeAmount"
-            android:inputType="number"></EditText>
-
-
-        <Button
-            android:id="@+id/btn_recharge"
-            android:layout_width="100dip"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/amount"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="80dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/custom_button"
-            android:onClick="validateAndRecharge"
-            android:text="@string/btn_recharge"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/btnBack"
-            android:layout_width="100dip"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/btn_recharge"
-            android:layout_centerHorizontal="true"
-            android:layout_marginRight="21dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/custom_button"
-            android:onClick="goBack"
-            android:text="@string/btn_back"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/momHeader"
+        android:orientation="horizontal"
+        android:weightSum="100">
 
         <TextView
-            android:id="@+id/msgDisplay"
-            android:layout_width="fill_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/btnBack"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:gravity="center_horizontal"
-            android:textColor="#992f2f"
-            android:textSize="18dp"
-            android:visibility="gone" />
+            android:layout_weight="10"/>
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="80"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/msgDisplay"
+                android:layout_above="@id/momHeader"
+                style="@style/MoMTheme.wrapped.alertMsg"
+                android:textSize="@dimen/text_medium"
+                android:visibility="gone" />
+
+            <Spinner
+                android:id="@+id/Operator"
+                style="@style/SpinnerAppTheme"
+                android:prompt="@string/prompt_spinner_select_operator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/medium"></Spinner>
+
+            <EditText
+                android:id="@+id/number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/EditTextAppTheme.phone"
+                android:hint="@string/lblCustomerMobile"
+                android:layout_marginBottom="@dimen/medium"></EditText>
+
+            <EditText
+                android:id="@+id/subscriberId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/EditTextAppTheme.phone"
+                android:hint="@string/lblSubscriberId"
+                android:layout_marginBottom="@dimen/medium"></EditText>
+
+            <EditText
+                android:id="@+id/amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/EditTextAppTheme.money"
+                android:hint="@string/lblRechargeAmount"
+                android:layout_marginBottom="@dimen/medium"></EditText>
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/amount"
+                android:layout_centerHorizontal="true"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:weightSum="3"
+                style="@style/MoMTheme.btn_container">
+                <Button
+                    android:id="@+id/btn_recharge"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    style="@style/ButtonAppTheme"
+                    android:onClick="validateAndRecharge"
+                    android:text="@string/btn_recharge"/>
+
+                <Button
+                    android:id="@+id/btnBack"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    style="@style/ButtonAppTheme"
+                    android:onClick="goBack"
+                    android:text="@string/btn_back"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/amount"
-            android:layout_centerHorizontal="true"
-            android:visibility="gone" />
-
-
-    </RelativeLayout>
-
-</ScrollView>
+            android:layout_weight="10"/>
+    </LinearLayout>
+</RelativeLayout>

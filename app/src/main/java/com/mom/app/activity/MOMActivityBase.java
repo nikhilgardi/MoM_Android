@@ -1,6 +1,7 @@
 package com.mom.app.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,10 +17,10 @@ import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.IDataEx;
-import com.mom.app.model.local.LocalStorage;
+import com.mom.app.model.local.EphemeralStorage;
 import com.mom.app.model.newpl.NewPLDataExImpl;
 import com.mom.app.model.pbxpl.PBXPLDataExImpl;
-import com.mom.app.utils.MOMConstants;
+import com.mom.app.utils.AppConstants;
 
 import java.text.DecimalFormat;
 
@@ -27,7 +28,9 @@ import java.text.DecimalFormat;
  * Created by vaibhavsinha on 7/9/14.
  */
 public abstract class MOMActivityBase extends Activity{
-    PlatformIdentifier _currentPlatform;
+    String _LOG         = AppConstants.LOG_PREFIX + "BASE";
+
+            PlatformIdentifier _currentPlatform;
     IDataEx _dataEx     = null;
     ProgressBar _pb;
     TextView tvMsgDisplay;
@@ -86,22 +89,30 @@ public abstract class MOMActivityBase extends Activity{
     }
 
     protected void showBalance(TextView tv){
-        float balance         = LocalStorage.getFloat(getApplicationContext(), MOMConstants.USER_BALANCE);
+        float balance         = EphemeralStorage.getInstance(this).getFloat(AppConstants.USER_BALANCE, AppConstants.ERROR_BALANCE);
         showBalance(tv, balance);
     }
 
     protected void showBalance(TextView tv, Float balance){
-        DecimalFormat df   = new DecimalFormat( "#,###,###,##0.00" );
-        String sBal         = df.format(balance);
-        tv.setText(sBal);
+        String sBal         = null;
+        if(balance == AppConstants.ERROR_BALANCE){
+            sBal            = getString(R.string.error_getting_balance);
+            return;
+        }else {
+            DecimalFormat df = new DecimalFormat("#,###,###,##0.00");
+            sBal = df.format(balance);
+        }
+
+        tv.setText("Balance: " + getResources().getString(R.string.Rupee) + sBal);
     }
 
     public void getBalanceAsync(){
-        Log.d("MAIN", "Getting Balance");
+        final Context context   = this;
+        Log.d(_LOG, "Getting Balance");
         IDataEx dataEx  = new NewPLDataExImpl(getApplicationContext(), new AsyncListener<Float>() {
             @Override
             public void onTaskSuccess(Float result, DataExImpl.Methods callback) {
-                LocalStorage.storeLocally(getApplicationContext(), MOMConstants.USER_BALANCE, result);
+                EphemeralStorage.getInstance(context).storeFloat(AppConstants.USER_BALANCE, result);
                 showBalance(result);
             }
 
@@ -110,17 +121,17 @@ public abstract class MOMActivityBase extends Activity{
 
             }
         });
-        Log.d("MAIN", "DataEx instance created");
+        Log.d(_LOG, "DataEx instance created");
         dataEx.getBalance();
-        Log.d("MAIN", "getBalance called");
+        Log.d(_LOG, "getBalance called");
     }
 
     public void navigateToTransactionMessageActivity(ActivityIdentifier pSendingActivity, String psMsg){
-        Log.d("NAVIGATE_TO_TXN_MSG", "Going to show response: " + psMsg);
+        Log.d(_LOG, "Going to show response: " + psMsg);
 
         Intent intent   = new Intent(this, TransactionMessageActivity.class);
-        intent.putExtra(MOMConstants.INTENT_MESSAGE, psMsg);
-        intent.putExtra(MOMConstants.INTENT_MESSAGE_ORIGIN, pSendingActivity);
+        intent.putExtra(AppConstants.INTENT_MESSAGE, psMsg);
+        intent.putExtra(AppConstants.INTENT_MESSAGE_ORIGIN, pSendingActivity);
         startActivity(intent);
         finish();
     }

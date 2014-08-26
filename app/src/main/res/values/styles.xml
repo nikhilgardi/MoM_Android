@@ -3,7 +3,7 @@
     <style name="r123" parent="android:Theme.Light.NoTitleBar">
         <item name="android:colorBackground">@color/green</item>
 	</style>
-    <style name="MoMTheme">
+    <style name="MoMTheme" parent="android:Theme.Holo.Light">
 
     </style>
 
@@ -23,26 +23,25 @@
         <item name="android:layout_gravity">center_vertical|right</item>
         <item name="android:gravity">right</item>
     </style>
-    <style name="EditTextAppTheme.vert_layout">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+    <style name="MoMTheme.wrapped.vert_layout">
         <item name="android:layout_centerInParent">true</item>
         <item name="android:layout_marginBottom">@dimen/margin_ultrasmall</item>
+        <item name="android:orientation">vertical</item>
     </style>
-    <style name="EditTextAppTheme.vert_layout.elements">
-        <item name="android:layout_width">wrap_content</item>
+    <style name="MoMTheme.wrapped.vert_layout.elements">
+        <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">@dimen/inputText</item>
         <item name="android:background">@drawable/mom_et</item>
         <item name="android:layout_centerInParent">true</item>
         <item name="android:layout_gravity">center|center_horizontal</item>
     </style>
-    <style name="EditTextAppTheme.vert_layout.elements.phone">
+    <style name="MoMTheme.wrapped.vert_layout.elements.phone">
         <item name="android:maxLength">10</item>
         <item name="android:inputType">number</item>
         <item name="android:background">@drawable/mom_et</item>
     </style>
-    <style name="EditTextAppTheme.vert_layout.elements.amount">
+    <style name="MoMTheme.wrapped.vert_layout.elements.amount">
         <item name="android:maxLength">5</item>
         <item name="android:inputType">number</item>
     </style>
@@ -67,7 +66,7 @@
     <style name="MoMTheme.wrapped.alertMsg">
         <item name="android:textColor">@color/red</item>
         <item name="android:padding">@dimen/small</item>
-        <item name="android:textSize">@dimen/medium</item>
+        <item name="android:textSize">@dimen/text_medium</item>
         <item name="android:layout_centerInParent">true</item>
         <item name="android:layout_gravity">center_horizontal</item>
     </style>
