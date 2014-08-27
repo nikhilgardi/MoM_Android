@@ -1165,9 +1165,7 @@ SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getApplic
 
 			} else if (Operatorid.equals("45")) {
 				nameValuePairs.add(new BasicNameValuePair("strCustomerNumber",
-						myHelpez.GetConsumerNumber() + "|"
-								+ myHelpez.GetMyRechargeMobileNumber() + "|"
-								+ myHelpez.GetMyUserId()));
+						myHelpez.GetConsumerNumber()));
 			}else if (Operatorid.equals("67")) {
 				nameValuePairs.add(new BasicNameValuePair("strCustomerNumber",
 						myHelpez.GetConsumerNumber() + "|"
