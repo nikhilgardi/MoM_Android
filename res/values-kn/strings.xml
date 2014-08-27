@@ -103,6 +103,8 @@
     
      <string name="prompt_Message">ನೀವು ಬ್ಯಾಕ್ ಬಟನ್ ಒತ್ತಿದ್ದೀರಿ. ನೀವು ಆಪ್ ನಿಂದ ನಿರ್ಗಮಿಸಬಯಸುತ್ತೀರೇ?</string>
       <string name="prompt_Title">ಸಂದೇಶ </string>
+    <string name="Lbl_Payer">Payer:</string>
+    <string name="Lbl_Payee">Payee:</string>
     <string name="lblSubscriberId">ಚಂದಾದಾರ ಐಡಿ</string>
     <string name="lblRechargeAmount">रीचार्ज राशि</string>
     <string name="lblAmount">ಮೊತ್ತ</string>

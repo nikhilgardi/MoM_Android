@@ -36,11 +36,8 @@
                 android:layout_gravity="left"
                  android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
-               
                 android:layout_marginTop="5dp"
                 android:paddingTop="50dp"
-               
-              
                 android:textSize="7pt"
                 android:textColor="#005076" />
                 
@@ -48,17 +45,10 @@
                     android:id="@+id/logo"
                     android:layout_width="170dp"
                     android:layout_height="98dp"
-                  
-                    
                     android:layout_marginBottom="5dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="5dp"
-                  
-                  
-                    
                     android:src="@drawable/logo_320"  />
-
-                
             </TableRow>
         </TableLayout>
 

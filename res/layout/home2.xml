@@ -152,7 +152,6 @@
             android:onClick="GetbillamountData"
             android:text="@string/btn_GetbillamountData"
             android:textColor="#FFFFFF"
-            android:textSize="13px"
             android:textStyle="bold"
             android:visibility="gone" />
 

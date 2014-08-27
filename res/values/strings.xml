@@ -414,7 +414,4 @@
     <string name="feedbacktypeSBERecharge118">Urban - III (Chandchaura)</string>
     <string name="feedbacktypeSBERecharge119">Warsliganj</string>
     <string name="feedbacktypeSBERecharge120">Gaya Urban</string>
-    <string name="title_activity_load_transfer">LoadTransferActivity</string>
-    <string name="hello_world">Hello world!</string>
-
 </resources>

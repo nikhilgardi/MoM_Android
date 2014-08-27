@@ -103,6 +103,8 @@
     
      <string name="prompt_Message">நீங்கள் பின்செல் பொத்தானை அழுத்தி விட்டீர்கள். இந்த பயன்பாட்டிலிருந்து வெளியேற விரும்புகிறீர்களா?</string>
       <string name="prompt_Title">செய்தி</string>
+    <string name="Lbl_Payer">Payer:</string>
+    <string name="Lbl_Payee">Payee:</string>
     <string name="lblSubscriberId">சந்தாதாரர் ID: </string>
     <string name="lblRechargeAmount">Recharge Amount</string>
     <string name="lblAmount">தொகை:</string>
