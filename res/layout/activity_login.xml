@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:scrollbars="vertical" 
+  	android:layout_height="match_parent" 
+  	android:background="@drawable/appsbg"
+	android:layout_width="fill_parent">
+<RelativeLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+   
+    android:orientation="vertical" >
+    
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/logo_320" />
+
+    <TextView
+        android:id="@+id/tv_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/logo"
+        android:layout_marginLeft="10dip"
+        android:layout_marginTop="10dip"
+       
+        android:textColor="#333"
+        android:textSize="8pt"
+        android:visibility="invisible" />
+	<EditText
+        android:id="@+id/et_un"
+        android:background="@drawable/custom"
+        android:hint="MobileNumber"
+        android:layout_width="265dp"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_below="@id/tv_username"
+       
+        android:imeOptions="actionNext"
+        android:inputType="number"
+        android:maxLength="10"
+        android:visibility="invisible"/>
+
+    <TextView
+        android:id="@+id/tv_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/et_un"
+        android:layout_marginLeft="10dip"
+        android:layout_marginTop="2dip"
+       
+        android:textColor="#333"
+        android:textSize="8pt"
+        android:visibility="invisible" />
+
+    <EditText
+        android:id="@+id/et_pw"
+        android:background="@drawable/custom"
+        android:hint="M-Pin"
+        android:layout_width="265dp"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dip"
+        android:layout_marginRight="10dip"
+        android:layout_below="@id/tv_password"
+      
+        android:inputType="number"
+        android:password="true"
+        android:visibility="invisible" />
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="100dip"
+        android:background="@drawable/custom_button"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_pw"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:onClick="postData"
+        android:text="Login"
+        android:textColor="#FFFFFF"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/tv_response"
+        android:layout_width="fill_parent"
+        android:layout_height="40dip"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/btn_login"
+        android:layout_marginLeft="10dp"
+        android:gravity="center_horizontal"
+        android:textColor="#992f2f"
+        android:textSize="16dp"
+        android:visibility="invisible"
+         />
+    
+     <TextView
+        android:id="@+id/tv_response1"
+        android:layout_width="fill_parent"
+        android:layout_height="40dip"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tv_response"
+        android:layout_marginLeft="10dp"
+        android:gravity="center_horizontal"
+        android:textColor="#992f2f"
+        android:textSize="16dp"
+        android:visibility="invisible"
+         />
+
+</RelativeLayout>
+</ScrollView>
