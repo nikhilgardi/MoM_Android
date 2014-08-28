@@ -1,7 +1,6 @@
 app/build
-.gradle
-.idea
 .gradle/
 .idea/
 build/
 gen/
+local.properties

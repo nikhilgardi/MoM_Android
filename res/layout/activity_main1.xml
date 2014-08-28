@@ -57,7 +57,7 @@
     </TableLayout>
 
     <ListView
-        android:id="@+android:id/list"
+        android:id="@+id/list"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="110dp"
@@ -71,7 +71,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_below="@+android:id/list"
+        android:layout_below="@+id/list"
         android:padding="15dip"
         android:scrollbars="vertical"
         android:visibility="gone" />

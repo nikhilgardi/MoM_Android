@@ -8,6 +8,7 @@ public class AppConstants {
 	public static final String APP_PREFERENCES		        = "AppPreferences";
     public static final String PACKAGE                      = "com.mom.app";
     public static final String LOG_PREFIX                   = "MOMAPP";
+    public static final String LOG_PREFIXPBX                = "PBXAPP";
     public static final String UTF_8                        = "utf-8";
     public static final String USER_BALANCE                 = "userBalance";
     public static final String USER_LANGUAGE                = "userLanguage";
@@ -26,6 +27,7 @@ public class AppConstants {
 	public static final String URL_NEW_PL_DETAILS	        = "http://180.179.67.72/nokiaservice/DetailsByUserRMNCompID.aspx";
 	public static final String URL_NEW_PL_HISTORY	        = "http://180.179.67.72/nokiaservice/Lastfivetransactions.aspx";
 	public static final String URL_PBX_PLATFORM		        = "http://pbx.momappworld.com/MobAppS/PbxMobApp.ashx";
+    public static final String URL_PBX_PLATFORM_Test		= "http://180.179.67.76/MobAppS/PbxMobApp.ashx";
 
     //START: FONT RELATED
     public static final String FONT_DEFAULT_TEXT_STYLE      = "regular";
@@ -109,6 +111,7 @@ public class AppConstants {
 	
 	public static final String NEW_PL_COMPANY_ID	        = "184";
     public static final int NEW_PL_LOGIN_SUCCESS            = 101;
+    public static final int PBX_PL_LOGIN_SUCCESS            = 1;
     public static final int NEW_PL_TPIN_VERIFIED            = 101;
 
     public static final String INTENT_MESSAGE               = PACKAGE + "MESSAGE";

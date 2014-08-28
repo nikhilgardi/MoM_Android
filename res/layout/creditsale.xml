@@ -349,7 +349,7 @@
 				       	<LinearLayout 
 				    	android:layout_width ="fill_parent" android:layout_height = "wrap_content" android:orientation="vertical"
 				    	android:layout_marginBottom="7dp">
-	                	<TextView android:id="@+id/creditsale_LBL_lblCardHolder"
+	                	<TextView android:id="@id/creditsale_LBL_lblCardHolder"
 	                	    android:layout_width="wrap_content" android:layout_height="wrap_content"
 			            	android:textSize="17dp" android:textColor="#FFFFFF"
 			            	android:typeface="sans"
@@ -365,7 +365,7 @@
 				       	<LinearLayout 
 				    	android:layout_width ="fill_parent" android:layout_height = "wrap_content" android:orientation="vertical"
 				    	android:layout_marginBottom="7dp">
-	                	<TextView android:id="@+id/creditsale_LBL_lblCardHolder"
+	                	<TextView android:id="@id/creditsale_LBL_lblCardHolder"
 	                	    android:layout_width="wrap_content" android:layout_height="wrap_content"
 			            	android:textSize="17dp" android:textColor="#FFFFFF"
 			            	android:typeface="sans"
@@ -381,7 +381,7 @@
 				       	<LinearLayout 
 				    	android:layout_width ="fill_parent" android:layout_height = "wrap_content" android:orientation="vertical"
 				    	android:layout_marginBottom="7dp">
-	                	<TextView android:id="@+id/creditsale_LBL_lblCardHolder"
+	                	<TextView android:id="@id/creditsale_LBL_lblCardHolder"
 	                	    android:layout_width="wrap_content" android:layout_height="wrap_content"
 			            	android:textSize="17dp" android:textColor="#FFFFFF"
 			            	android:typeface="sans"

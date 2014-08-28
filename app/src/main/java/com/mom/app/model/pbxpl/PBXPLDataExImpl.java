@@ -3,6 +3,7 @@ package com.mom.app.model.pbxpl;
 import android.content.Context;
 import android.util.Log;
 
+import com.google.gson.GsonBuilder;
 import com.mom.app.identifier.PinType;
 import com.mom.app.model.AsyncDataEx;
 import com.mom.app.model.AsyncListener;
@@ -10,7 +11,7 @@ import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.xml.PullParser;
 import com.mom.app.utils.AppConstants;
-
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.NameValuePair;
 
 import java.io.ByteArrayInputStream;
@@ -21,7 +22,8 @@ import java.util.HashMap;
  */
 public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String> {
 
-    public PBXPLDataExImpl(AsyncListener pListener, Context pContext){
+    private String LOG_TAG          = AppConstants.LOG_PREFIXPBX + "DATAEX_PBX";
+    public PBXPLDataExImpl(Context pContext, AsyncListener pListener){
         this._listener              = pListener;
         this._applicationContext    = pContext;
         checkConnectivity(pContext);
@@ -33,8 +35,19 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
             case LOGIN:
                 boolean bSuccess    = loginSuccessful(result);
                 if(_listener != null){
-                    _listener.onTaskSuccess((new Boolean(bSuccess)).toString(), null);
+                    _listener.onTaskSuccess((new Boolean(bSuccess)).toString(), callback);
                 }
+                break;
+
+            case GET_BALANCE:
+                Log.d(LOG_TAG, "TaskComplete: getBalance method, result: " + result);
+                //float balance = extractBalance(result);
+                 Balance balance      = extractJsonBalance();
+                Log.d(LOG_TAG, "TaskCompleteNew: resultbal: " + balance);
+                if (_listener != null) {
+                    _listener.onTaskSuccess(balance, Methods.GET_BALANCE);
+                }
+
                 break;
         }
     }
@@ -61,7 +74,29 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
 
     @Override
     public void getBalance(){
+        String url				= AppConstants.URL_PBX_PLATFORM_Test;
 
+        Log.d(LOG_TAG, "Creating dataEx for getBalancePBX call");
+        AsyncDataEx dataEx		    = new AsyncDataEx(this, url, Methods.GET_BALANCE);
+
+        Log.d(LOG_TAG, "Calling web service via async");
+
+        dataEx.execute(
+//                new BasicNameValuePair(
+//                        MOMConstants.PARAM_PBX_LOGIN_MOBILENUMBER,
+//                        LocalStorage.getString(_applicationContext,"8976893713")
+//                ),
+//                new BasicNameValuePair(
+//                        MOMConstants.PARAM_PBX_SERVICE,
+//                        LocalStorage.getString(_applicationContext, "SL")
+                new BasicNameValuePair("RN","8976893713"),
+                new BasicNameValuePair("Service", "SL")
+
+
+
+        );
+        Log.d(LOG_TAG, url);
+        Log.d(LOG_TAG, "Called web service via async");
     }
 
     public void login(NameValuePair...params){
@@ -79,16 +114,17 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
         }
 
         try {
-            PullParser parser   = new PullParser(new ByteArrayInputStream(psResult.getBytes()));
-            String response     = parser.getTextResponse();
+           // PullParser parser   = new PullParser(new ByteArrayInputStream(psResult.getBytes()));
+          //  String response     = parser.getTextResponse();
 
-            Log.i("LoginResult", "Response: " + response);
-            String[] strArrayResponse = response.split("~");
-
+         //   Log.i("LoginResult", "Response: " + response);
+          //  String[] strArrayResponse = response.split("~");
+            Log.i("LoginResult", "Response: " + psResult);
+            String[] strArrayResponse = psResult.split("~");
             int i = Integer.parseInt(strArrayResponse[0]);
 
-            if(i == AppConstants.NEW_PL_LOGIN_SUCCESS){
-                Log.i("LoginResult", "Login successful");
+            if(i == AppConstants.PBX_PL_LOGIN_SUCCESS){
+                Log.i("LoginResult", "Login successful"+ i);
                 return true;
             }
         }catch (Exception e){
@@ -119,4 +155,32 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
     }
 
 
+
+    public float extractBalance(String psResult){
+        if("".equals(psResult)){
+            return 0;
+        }
+
+        try {
+            PullParser parser   = new PullParser(new ByteArrayInputStream(psResult.getBytes()));
+            String response     = parser.getTextResponse();
+
+            Log.d(LOG_TAG, "Response: " + response);
+//            Log.d(LOG_TAG, "Response: " + psResult);
+            return Float.parseFloat(response);
+//            return Float.parseFloat(psResult);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
+
+
+    public Balance extractJsonBalance(){
+        String json = "{balance: 10, status: \"success\"}";
+        return new GsonBuilder().create().fromJson(json, Balance.class);
+
+    }
 }
