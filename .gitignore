@@ -3,3 +3,4 @@ app/build
 .idea/
 build/
 gen/
+local.properties
