@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="drawer">#B9B3B3</color>
 	<color name="transparent">#74ceff</color>
 	<color name="green">#12BD12</color>
     <color name="red">#f26d7d</color>

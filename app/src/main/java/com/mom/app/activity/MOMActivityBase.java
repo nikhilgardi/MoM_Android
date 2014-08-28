@@ -30,7 +30,7 @@ import java.text.DecimalFormat;
 public abstract class MOMActivityBase extends Activity{
     String _LOG         = AppConstants.LOG_PREFIX + "BASE";
 
-            PlatformIdentifier _currentPlatform;
+    PlatformIdentifier _currentPlatform;
     IDataEx _dataEx     = null;
     ProgressBar _pb;
     TextView tvMsgDisplay;

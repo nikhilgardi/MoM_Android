@@ -51,7 +51,7 @@ public class DashboardActivity extends MOMActivityBase{
         }
 
         gridView            = (GridView) findViewById(R.id.gridView);
-        gridViewAdapter     = new ImageTextViewAdapter(this, R.layout.row_grid, DataProvider.getDashboard(this));
+        gridViewAdapter     = new ImageTextViewAdapter(this, R.layout.grid_cell, DataProvider.getScreens(this));
 
         gridView.setAdapter(gridViewAdapter);
         gridView.setNumColumns(2);

@@ -6,7 +6,7 @@ import com.mom.app.ui.ITextStyle;
  * Created by vaibhavsinha on 8/13/14.
  */
 public enum TamilTextStyle implements ITextStyle {
-    NORMAL("tamil_regular", "custom_fonts/Lohit-Tamil.ttf");
+    NORMAL("regular", "custom_fonts/Lohit-Tamil.ttf");
 
     private String mName;
     private String mFontName;

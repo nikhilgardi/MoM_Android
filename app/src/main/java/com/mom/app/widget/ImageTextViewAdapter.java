@@ -9,11 +9,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.mom.app.R;
 
+import com.mom.app.R;
+import com.mom.app.external.ImageLoader;
 import com.mom.app.widget.holder.ImageItem;
 
 import java.util.ArrayList;
+
 
 /**
  * Created by vaibhavsinha on 7/14/14.
@@ -22,6 +24,7 @@ public class ImageTextViewAdapter extends ArrayAdapter{
     private Context context;
     private int layoutResourceId;
     private ArrayList<ImageItem> data;
+    private boolean _isGridView     = true;
 
     public ImageTextViewAdapter(Context context, int layoutResourceId, ArrayList<ImageItem> data) {
 
@@ -29,6 +32,15 @@ public class ImageTextViewAdapter extends ArrayAdapter{
         this.layoutResourceId = layoutResourceId;
         this.context = context;
         this.data = data;
+    }
+
+    public ImageTextViewAdapter(Context context, int layoutResourceId, ArrayList<ImageItem> data, boolean isGridView) {
+
+        super(context, layoutResourceId, data);
+        this.layoutResourceId = layoutResourceId;
+        this.context    = context;
+        this.data       = data;
+        _isGridView     = isGridView;
     }
 
     @Override
@@ -40,24 +52,37 @@ public class ImageTextViewAdapter extends ArrayAdapter{
         if (row == null) {
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
             row                 = inflater.inflate(layoutResourceId, parent, false);
-            row.setBackground(context.getResources().getDrawable(R.drawable.rounded_rect));
-
             holder              = new ViewHolder();
             holder.imageTitle   = (TextView) row.findViewById(R.id.text);
             ImageView imgView   = (ImageView) row.findViewById(R.id.image);
             holder.image        = imgView;
+            holder.selectedImage    = (ImageView) row.findViewById(R.id.imgSelected);
             row.setTag(holder);
         } else {
             holder              = (ViewHolder) row.getTag();
         }
 
-
+        int loader              = R.drawable.failure;
         holder.imageTitle.setText(item.getTitle());
-        holder.image.setImageBitmap(item.getImage());
+
+        if(item.getImageUrl() != null){
+            ImageLoader imageLoader = new ImageLoader(getContext());
+            imageLoader.displayImage(item.getImageUrl(), loader, holder.image);
+        }else{
+            holder.image.setImageResource(item.getDrawableId());
+        }
+
         Log.d("ADAPTER", position + " selected = " + item.getSelected());
+
         if(item.getSelected()) {
-            row.setBackgroundColor(row.getResources().getColor(R.color.row_selected));
-            row.getBackground().setAlpha(128);
+            if(_isGridView){
+                if(holder != null && holder.selectedImage != null) {
+                    holder.selectedImage.setVisibility(View.VISIBLE);
+                }
+            }else {
+                row.setBackgroundColor(row.getResources().getColor(R.color.row_selected));
+                row.getBackground().setAlpha(128);
+            }
         }
         return row;
     }
@@ -65,5 +90,6 @@ public class ImageTextViewAdapter extends ArrayAdapter{
     static class ViewHolder {
         TextView imageTitle;
         ImageView image;
+        ImageView selectedImage;
     }
 }

@@ -6,7 +6,7 @@ import com.mom.app.ui.ITextStyle;
  * Created by vaibhavsinha on 8/13/14.
  */
 public enum EnglishTextStyle implements ITextStyle {
-    NORMAL("english_regular", "custom_fonts/Roboto-Regular.ttf");
+    NORMAL("regular", "custom_fonts/Roboto-Regular.ttf");
 
     private String mName;
     private String mFontName;

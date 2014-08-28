@@ -56,6 +56,10 @@ public class AppConstants {
     public static final String T_PIN                        = "T-Pin";
     //End get bill information
 
+    //START: External Android constants
+    public static String EXTERNAL_TEMP_IMAGES           = "temp_images";
+    //END: External Android constants
+
 	public static final String PARAM_NEW_USER		        = "strUserRMN";
 	public static final String PARAM_NEW_PWD		        = "strPassword";
 	public static final String PARAM_NEW_RMN		        = "UserRMN";

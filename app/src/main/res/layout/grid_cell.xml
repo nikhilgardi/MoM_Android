@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/MoMTheme.wrapped.fullscreenGridCell"
+    android:clickable="false"
+    android:focusable="false"
+    android:orientation="vertical">
+
+    <FrameLayout
+        style="@style/MoMTheme.grid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/image"
+            style="@style/MoMTheme.grid.cellImg"
+            android:focusable="false"
+            android:clickable="false"
+            android:focusableInTouchMode="false">
+        </ImageView>
+        <ImageView
+            android:id="@+id/imgSelected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:focusable="false"
+            android:clickable="false"
+            android:src="@drawable/tick"
+            android:focusableInTouchMode="false"
+            android:visibility="gone">
+        </ImageView>
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/text"
+        style="@style/MoMTheme.grid.cellTxt">
+    </TextView>
+
+
+</FrameLayout>

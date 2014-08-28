@@ -5,7 +5,7 @@ import com.mom.app.ui.ITextStyle;
  * Created by vaibhavsinha on 8/13/14.
  */
 public enum OriyaTextStyle implements ITextStyle {
-    NORMAL("oriya_regular", "custom_fonts/Lohit-Oriya.ttf");
+    NORMAL("regular", "custom_fonts/Lohit-Oriya.ttf");
 
     private String mName;
     private String mFontName;
