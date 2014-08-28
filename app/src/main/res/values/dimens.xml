@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="small">8dp</dimen>
-    <dimen name="medium">16dp</dimen>
-    <dimen name="large">24dp</dimen>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="inputText">28sp</dimen>
@@ -14,5 +11,22 @@
     <dimen name="text_medium">18sp</dimen>
     <dimen name="text_large">24sp</dimen>
     <dimen name="text_balance">18sp</dimen>
-    <dimen name="margin_ultrasmall">6dp</dimen>
+    <dimen name="margin_ultrasmall">8dp</dimen>
+    <dimen name="margin_small">16dp</dimen>
+    <dimen name="margin_medium">36dp</dimen>
+    <dimen name="margin_large">64dp</dimen>
+    <dimen name="padding_small">16dp</dimen>
+    <dimen name="padding_medium">36dp</dimen>
+    <dimen name="padding_large">64dp</dimen>
+    <dimen name="ultra_ultra_small">4dp</dimen>
+    <dimen name="ultra_small">8dp</dimen>
+    <dimen name="small">16dp</dimen>
+    <dimen name="medium">36dp</dimen>
+    <dimen name="large">64dp</dimen>
+    <dimen name="ultra_large">90dp</dimen>
+    <dimen name="drawer_img">32dp</dimen>
+    <dimen name="nav_icon">48dp</dimen>
+    <dimen name="grid_icon">64dp</dimen>
+    <dimen name="grid_text">16sp</dimen>
+    <dimen name="grid_text_margin">5dp</dimen>
 </resources>

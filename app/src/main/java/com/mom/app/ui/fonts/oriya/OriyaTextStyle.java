@@ -1,17 +1,16 @@
-package com.mom.app.ui.fonts;
-
+package com.mom.app.ui.fonts.oriya;
 import com.mom.app.ui.ITextStyle;
 
 /**
  * Created by vaibhavsinha on 8/13/14.
  */
-public enum EnglishTextStyle implements ITextStyle {
-    NORMAL("english_regular", "custom_fonts/Roboto-Regular.ttf");
+public enum OriyaTextStyle implements ITextStyle {
+    NORMAL("regular", "custom_fonts/Lohit-Oriya.ttf");
 
     private String mName;
     private String mFontName;
 
-    EnglishTextStyle(String name, String fontName){
+    private OriyaTextStyle(String name, String fontName){
         mName       = name;
         mFontName   = fontName;
     }

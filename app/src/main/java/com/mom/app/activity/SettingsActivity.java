@@ -33,7 +33,7 @@ public class SettingsActivity extends MOMActivityBase {
         _currentPlatform    = IdentifierUtils.getPlatformIdentifier(getApplicationContext());
 
         gridView            = (GridView) findViewById(R.id.gridView);
-        gridViewAdapter     = new ImageTextViewAdapter(this, R.layout.row_grid, DataProvider.getDashboard(this));
+        gridViewAdapter     = new ImageTextViewAdapter(this, R.layout.row_grid, DataProvider.getScreens(this));
 
         gridView.setAdapter(gridViewAdapter);
         gridView.setNumColumns(2);
