@@ -186,7 +186,7 @@
     <string name="Dialog_No">नाही</string>
 
     
-    <string name="AlertDialog_MobileRecharge">Confirm Retailer Payment</string>
+    <string name="AlertDialog_MobileRecharge">मोबाईल रिचार्जची पुष्टी करा</string>
 
     <string name="AlertDialog_DTHRecharge">DTH रिचार्जची पुष्टी करा</string>
     <string name="Lbl_SubscriberID">ग्राहक ID: </string>

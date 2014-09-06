@@ -164,10 +164,10 @@
     
     
     
-     <string name="error_oldPasswordPbx">Enter Correct Old Password</string>
-      <string name="error_newPasswordPbx">The new Password cannot be empty</string>
-      <string name="error_new_confirmPasswordPbx_matching">New Password and Confirm Password doesnot match</string>
-      <string name="error_old_newPasswordPbx_matching">Old Password and New Password cannot be same</string>
+     <string name="error_oldPasswordPbx">சரியான பழைய கடவுச்சொல்லை உள்ளிடுக</string>
+      <string name="error_newPasswordPbx">புதிய கடவுச்சொல் வெறுமையாக இருக்க முடியாது</string>
+      <string name="error_new_confirmPasswordPbx_matching">புதிய கடவுச்சொல்லும் உறுதிப்படுத்தும் கடவுச்சொல்லும் பொருந்தவில்லை</string>
+      <string name="error_old_newPasswordPbx_matching">பழைய கடவுச்சொல்லும் புதிய கடவுச்சொல்லும் ஒன்றாக இருக்க முடியாது</string>
     
     
     <string name="title_activity_bill_payment">Bill Payment Activity</string>
@@ -186,7 +186,7 @@
           <string name="Dialog_No">இல்லை </string>
        
           
-          <string name="AlertDialog_MobileRecharge">Confirm Retailer Payment</string>
+          <string name="AlertDialog_MobileRecharge">மொபைல் ரீசார்ஜை உறுதிப்படுத்துக</string>
           
           <string name="AlertDialog_DTHRecharge">DTH ரீசார்ஜை உறுதிப்படுத்துக</string>
       <string name="Lbl_SubscriberID">சந்தாதாரர் ID:</string>

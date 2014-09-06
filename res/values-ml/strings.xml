@@ -187,7 +187,7 @@
           <string name="Dialog_Yes">അതെ</string>
           <string name="Dialog_No">ഇല്ല  </string>
           
-          <string name="AlertDialog_MobileRecharge">Confirm Retailer Payment</string>
+          <string name="AlertDialog_MobileRecharge">മൊബൈൽ റീചാർജ്ജ് സ്ഥിരീകരിക്കുക</string>
           
           <string name="AlertDialog_DTHRecharge">DTH റീചാർജ്ജ് സ്ഥിരീകരിക്കുക</string>
       <string name="Lbl_SubscriberID">സബ്സ്ക്രൈബർ ID: </string>

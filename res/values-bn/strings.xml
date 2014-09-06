@@ -182,7 +182,7 @@
           <string name="Dialog_Yes">হ্যাঁ</string>
           <string name="Dialog_No">না </string>
           
-    <string name="AlertDialog_MobileRecharge">Confirm Retailer Payment</string>      
+    <string name="AlertDialog_MobileRecharge">মোবাইল রিচার্জ নিশ্চিত করুন</string>      
           
           <string name="AlertDialog_DTHRecharge">DTH রিচার্জনিশ্চিত করুন</string>
       <string name="Lbl_SubscriberID">সাবস্ক্রাইবার আইডি:</string>

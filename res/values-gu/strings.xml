@@ -181,7 +181,7 @@
           <string name="Dialog_Yes">હા </string>
           <string name="Dialog_No">ના </string>
           
-          <string name="AlertDialog_MobileRecharge">Confirm Retailer Payment</string>
+          <string name="AlertDialog_MobileRecharge">મોબાઇલ રિચાર્જ ની ખાતરી કરો</string>
           
           <string name="AlertDialog_DTHRecharge">ડીટીએચ રિચાર્જ ખાતરી</string>
       <string name="Lbl_SubscriberID">ઉપભોક્તા આઈડી:</string>

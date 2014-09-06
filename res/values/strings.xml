@@ -162,7 +162,7 @@
     <string name="title_activity_settings">Settings</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     
-    <string name="AlertDialog_MobileRecharge">Confirm Retailer Payment</string>
+    <string name="AlertDialog_MobileRecharge">Confirm MobileRecharge</string>
     
     <string name="Lbl_Payer">Payer:</string>
     <string name="Lbl_Payee">Payee:</string>

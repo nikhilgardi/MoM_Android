@@ -63,7 +63,7 @@
     <string name="action_changeMpin">M-Pin ಬದಲಿಸಿ</string>
     <string name="action_changeTpin">T-Pin ಬದಲಿಸಿ</string>
     <string name="action_changepassword">ಪಾಸ್‌ವರ್ಡ್ ಬದಲಾಯಿಸಿ</string>
-    
+ 
     
     <string name="title_activity_transaction_confirmation">Transaction Result</string>
     <string name="error_mobile_required">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ ಬೇಕು</string>
@@ -162,10 +162,10 @@
     <string name="mpin_new">ಹೊಸ M-Pin </string>
     <string name="mpin_new_confirm">ಹೊಸ M-Pin ದೃಢೀಕರಿಸಿ </string>
     
-     <string name="error_oldPasswordPbx">ಸರಿಯಾದ ಹಳೆಯ ಪಾಸ್ವರ್ಡ್ ನಮೂದಿಸಿ</string>
-      <string name="error_newPasswordPbx">ಹೊಸ ಪಾಸ್ವರ್ಡ್ ಖಾಲಿ ಇರುವಂತಿಲ್ಲ</string>
-      <string name="error_new_confirmPasswordPbx_matching">ಹೊಸ ಪಾಸ್ವರ್ಡ್ ಮತ್ತು ಹೊಂದಿಕೆಯಾಗುವುದಿಲ್ಲ ಗುಪ್ತಪದವನ್ನು ಖಚಿತಪಡಿಸಿ</string>
-      <string name="error_old_newPasswordPbx_matching">ಹಳೆಯ ಪಾಸ್ವರ್ಡ್ ಮತ್ತು ಹೊಸ ಪಾಸ್ವರ್ಡ್ ಇರಲಾಗುವುದಿಲ್ಲ</string>
+     <string name="error_oldPasswordPbx">ಸರಿಯಾದ ಹಳೆಯ ಪಾಸ್‌ವರ್ಡ್‌ ಹಾಕಿ</string>
+      <string name="error_newPasswordPbx">ಹೊಸ ಪಾಸ್‌ವರ್ಡ್‌ ಖಾಲಿಯಿರಬಾರದು</string>
+      <string name="error_new_confirmPasswordPbx_matching">ಹೊಸ ಪಾಸ್‌ವರ್ಡ್‌ ಹಾಗೂ ಧೃಢೀಕರಣ ಪಾಸ್‌ವರ್ಡ್‌ ಹೊಂದುತ್ತಿಲ್ಲ</string>
+      <string name="error_old_newPasswordPbx_matching">ಹಳೆಯ ಪಾಸ್‌ವರ್ಡ್‌ ಹಾಗೂ ಹೊಸ ಪಾಸ್‌ವರ್ಡ್‌ ಒಂದೇ ಆಗಿರಬಾರದು</string>
     
     <string name="title_activity_bill_payment">Bill Payment Activity</string>
     <string name="title_activity_transaction_history">Transaction History</string>
@@ -183,7 +183,7 @@
           <string name="Dialog_No">ಇಲ್ಲ </string>
           
           
-          <string name="AlertDialog_MobileRecharge">Confirm Retailer Payment</string>
+          <string name="AlertDialog_MobileRecharge">ಮೊಬೈಲ್ ರೀಚಾರ್ಜ್ ದೃಢೀಕರಿಸಿ</string>
           
           <string name="AlertDialog_DTHRecharge">ಡಿಟಿಎಚ್ ರೀಚಾರ್ಜ್ ದೃಢೀಕರಿಸಿ </string>
       <string name="Lbl_SubscriberID">ಚಂದಾದಾರ ID::</string>
@@ -234,7 +234,7 @@
         <string
         name="feedbacktypeMOMList9">ಲಾಗ್ಔಟ್ </string>
           <string
-        name="feedbacktypeMOMList10">ಪಾಸ್‌ವರ್ಡ್ ಬದಲಿಸಿ </string>
+        name="feedbacktypeMOMList10">ಪಾಸ್‌ವರ್ಡ್ ಬದಲಾಯಿಸಿ </string>
      
         
 

@@ -71,6 +71,12 @@
             android:name="com.mom.app.ChangePasswordPBXActivity"
             android:configChanges="keyboard|keyboardHidden|orientation" >
         </activity>
+        
+        
+         <activity
+            android:name="com.mom.app.LoadTransferActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation">
+        </activity>
 
         <!-- Credit sale -->
         <activity android:name="com.mom.app.MSwipeAndroidSDKListActivity1" >
@@ -137,9 +143,7 @@
             </intent-filter>
         </service>
 
-        <activity
-            android:name="com.mom.app.LoadTransferActivity">
-        </activity>
+       
     </application>
 
 </manifest>

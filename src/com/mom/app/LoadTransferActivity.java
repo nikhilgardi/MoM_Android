@@ -614,6 +614,7 @@ public class LoadTransferActivity extends Activity implements OnClickListener {
 				responseText.setText(getResources().getString(
 						R.string.prompt_Validity_mobile_number));
 				numField_mob.setText("");
+				
 				break;
 
 			case 2:

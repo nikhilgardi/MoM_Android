@@ -342,7 +342,7 @@ public class ChangePasswordPBXActivity extends Activity {
 				check = responseBody;
 				if(check.equals("0")){
 					responseText1.setVisibility(View.VISIBLE);
-					responseText1.setText("Old Password is Incorrect");
+					responseText1.setText("Password doesnot change.Try again Later");
 					responseText.setVisibility(View.GONE);
 					Old_Password.setText("");
 					New_Password.setText("");

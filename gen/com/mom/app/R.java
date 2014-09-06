@@ -572,7 +572,6 @@ END: LANGUAGE RELATED
         public static final int feedbacktypeSBERecharge98=0x7f07017e;
         public static final int feedbacktypeSBERecharge99=0x7f07017f;
         public static final int hello_blank_fragment=0x7f07009c;
-        public static final int hello_world=0x7f070196;
         /**  START: LANGUAGE RELATED 
 START: LANGUAGE RELATED 
 START: LANGUAGE RELATED 
@@ -665,7 +664,6 @@ START: LANGUAGE RELATED
         public static final int title_activity_change_pin=0x7f07009a;
         public static final int title_activity_dthrecharge=0x7f07001e;
         public static final int title_activity_home_bill_activity__pbx1=0x7f07001c;
-        public static final int title_activity_load_transfer=0x7f070195;
         public static final int title_activity_main1=0x7f07001a;
         public static final int title_activity_settings=0x7f07009b;
         public static final int title_activity_transaction_confirmation=0x7f070036;
