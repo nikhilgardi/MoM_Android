@@ -1,24 +1,18 @@
 package com.mom.app.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.mom.app.R;
 import com.mom.app.error.MOMException;
 import com.mom.app.identifier.IdentifierUtils;
-import com.mom.app.identifier.PlatformIdentifier;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
-import com.mom.app.model.IDataEx;
 import com.mom.app.model.MOMTxn;
-import com.mom.app.model.newpl.NewPLDataExImpl;
-import com.mom.app.model.pbxpl.PBXPLDataExImpl;
 import com.mom.app.widget.TextListViewAdapter;
 
 import java.util.ArrayList;

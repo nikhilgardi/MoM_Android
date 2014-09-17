@@ -13,7 +13,7 @@ import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.IDataEx;
-import com.mom.app.model.newpl.NewPLDataExImpl;
+import com.mom.app.model.mompl.MoMPLDataExImpl;
 import com.mom.app.utils.AppConstants;
 
 public class VerifyTPinActivity extends MOMActivityBase implements AsyncListener<String>{
@@ -83,7 +83,7 @@ public class VerifyTPinActivity extends MOMActivityBase implements AsyncListener
             return;
         }
 
-        IDataEx dataEx  = new NewPLDataExImpl(getApplicationContext(), this);
+        IDataEx dataEx  = new MoMPLDataExImpl(getApplicationContext(), this);
         Log.d(_LOG, "DataEx instance created");
 
         dataEx.verifyTPin(sTPin);

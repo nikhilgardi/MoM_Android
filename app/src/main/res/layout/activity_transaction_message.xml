@@ -33,30 +33,22 @@
             <TextView
                 android:id="@+id/confirmationMessage"
                 style="@style/MoMTheme.wrapped.alertMsg"
-                android:textSize="@dimen/medium"
+                android:textSize="@dimen/text_medium"
                 android:layout_marginBottom="@dimen/medium"
                 android:text="Confirmation Message"
                 />
 
             <LinearLayout
-                style="@style/MoMTheme.btn_container"
-                android:weightSum="2"
-                android:layout_below="@id/confirmationMessage">
+                style="@style/MoMTheme.btn_container">
                 <Button
                     android:id="@+id/btnNewRecharge"
-                    android:layout_height="wrap_content"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    style="@style/ButtonAppTheme"
+                    style="@style/MoMTheme.wrapped.customButton"
                     android:onClick="goToRecharge"
                     android:text="@string/btn_new_recharge"/>
 
                 <Button
                     android:id="@+id/btnDashboard"
-                    android:layout_height="wrap_content"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    style="@style/ButtonAppTheme"
+                    style="@style/MoMTheme.wrapped.customButton"
                     android:onClick="goToMain"
                     android:text="@string/btn_dashboard"/>
             </LinearLayout>

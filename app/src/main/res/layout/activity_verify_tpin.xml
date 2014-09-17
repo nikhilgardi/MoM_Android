@@ -36,10 +36,9 @@
 
             <ProgressBar
                 android:id="@+id/progressBar"
-                style="@style/ProgressBarAppTheme"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal|center_vertical"
                 android:visibility="gone" />
 
             <EditText
@@ -53,23 +52,16 @@
                 android:password="true"/>
 
             <LinearLayout
-                style="@style/MoMTheme.btn_container"
-                android:weightSum="3">
+                style="@style/MoMTheme.btn_container">
                 <Button
                     android:id="@+id/btn_recharge"
-                    android:layout_height="wrap_content"
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    style="@style/ButtonAppTheme"
+                    style="@style/MoMTheme.wrapped.customButton"
                     android:onClick="verifyTPin"
                     android:text="@string/btn_verifyTpin"/>
 
-                <Button
+                <com.mom.app.ui.CustomButton
                     android:id="@+id/btnBack"
-                    android:layout_height="wrap_content"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    style="@style/ButtonAppTheme"
+                    style="@style/MoMTheme.wrapped.customButton"
                     android:onClick="goBack"
                     android:text="@string/btn_back"/>
             </LinearLayout>

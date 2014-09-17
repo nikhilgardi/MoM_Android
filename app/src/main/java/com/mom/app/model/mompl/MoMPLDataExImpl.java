@@ -1,6 +1,7 @@
-package com.mom.app.model.newpl;
+package com.mom.app.model.mompl;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.mom.app.error.MOMException;
@@ -15,6 +16,7 @@ import com.mom.app.utils.AppConstants;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.w3c.dom.Text;
 
 import java.io.ByteArrayInputStream;
 import java.util.HashMap;
@@ -22,12 +24,12 @@ import java.util.HashMap;
 /**
  * Created by vaibhavsinha on 7/5/14.
  */
-public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>{
+public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<String>{
 
     private String LOG_TAG          = AppConstants.LOG_PREFIX + "DATAEX_NEW";
     private String _operatorId      = null;
 
-    public NewPLDataExImpl(Context pContext, AsyncListener pListener){
+    public MoMPLDataExImpl(Context pContext, AsyncListener pListener){
         super.SOAP_ADDRESS = "http://msvc.money-on-mobile.net/WebServiceV3Client.asmx";
         this._applicationContext    = pContext;
         this._listener              = pListener;
@@ -141,17 +143,25 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
         dataEx.execute(params);
     }
 
-    public void login(NameValuePair...params){
-        if(params == null || params.length < 1){
+    public void login(String userName, String password){
+        if(TextUtils.isEmpty(userName) || TextUtils.isEmpty(password)){
             if(_listener != null) {
                 _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.LOGIN);
             }
         }
+
         String loginUrl				= AppConstants.URL_NEW_PLATFORM + AppConstants.SVC_NEW_METHOD_LOGIN;
 
         AsyncDataEx dataEx		    = new AsyncDataEx(this, loginUrl, Methods.LOGIN);
 
-        dataEx.execute(params);
+        dataEx.execute(
+                new BasicNameValuePair("user", userName),
+                new BasicNameValuePair("pass", password),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_USER, userName),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_PWD, password),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_COMPANY_ID, AppConstants.NEW_PL_COMPANY_ID),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_STR_ACCESS_ID, "abc")
+        );
     }
 
     public boolean loginSuccessful(String psResult){
@@ -304,7 +314,7 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
                 ),
                 new BasicNameValuePair(AppConstants.PARAM_NEW_STR_ACCESS_ID, "Test"),
                 new BasicNameValuePair(AppConstants.PARAM_NEW_STR_MOBILE_NUMBER, psConsumerNumber),
-                new BasicNameValuePair(AppConstants.PARAM_NEW_RECHARGE_AMOUNT, Double.valueOf(pdAmount).toString()),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_RECHARGE_AMOUNT, String.valueOf(Math.round(pdAmount))),
                 new BasicNameValuePair(AppConstants.PARAM_NEW_OPERATOR, psOperator),
                 new BasicNameValuePair(AppConstants.PARAM_NEW_INT_RECHARGE_TYPE, Integer.valueOf(pnRechargeType).toString())
         );
@@ -356,7 +366,7 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
                 ),
                 new BasicNameValuePair(AppConstants.PARAM_NEW_STR_ACCESS_ID, "Test"),
                 new BasicNameValuePair(AppConstants.PARAM_NEW_STR_MOBILE_NUMBER, psSubscriberId),
-                new BasicNameValuePair(AppConstants.PARAM_NEW_RECHARGE_AMOUNT, String.valueOf(pdAmount)),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_RECHARGE_AMOUNT, String.valueOf(Math.round(pdAmount))),
                 new BasicNameValuePair(AppConstants.PARAM_NEW_OPERATOR, psOperator),
                 new BasicNameValuePair(AppConstants.PARAM_NEW_CUSTOMER_NUMBER, psCustomerMobile)
         );
@@ -439,7 +449,7 @@ public class NewPLDataExImpl extends DataExImpl implements AsyncListener<String>
                 ),
                 new BasicNameValuePair(AppConstants.PARAM_NEW_STR_ACCESS_ID, "KJHASFD"),
                 new BasicNameValuePair(AppConstants.PARAM_NEW_STR_CUSTOMER_NUMBER, strCustomerNumber),
-                new BasicNameValuePair(AppConstants.PARAM_NEW_DEC_BILL_AMOUNT, String.valueOf(pdAmount)),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_DEC_BILL_AMOUNT, String.valueOf(Math.round(pdAmount))),
                 new BasicNameValuePair(AppConstants.PARAM_NEW_INT_OPERATOR_ID_BILL_PAY, psOperatorId)
         );
     }

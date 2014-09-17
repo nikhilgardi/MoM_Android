@@ -13,6 +13,10 @@ public class AppConstants {
     public static final String USER_LANGUAGE                = "userLanguage";
     public static final String KEY_LANGUAGE                 = PACKAGE + USER_LANGUAGE;
     public static final String ACTIVE_PLATFORM              = "activePlatform";
+
+    /*
+    Start: MoM Platform urls
+     */
 	public static final String URL_NEW_PLATFORM		        = "http://msvc.money-on-mobile.net/WebServiceV3Client.asmx";
 	public static final String URL_NEW_PLATFORM_TXN	        = "http://msvc.money-on-mobile.net/WebServiceV3Trans.asmx";
     public static final String URL_NEW_PLATFORM_GET_BEST_BILL
@@ -25,15 +29,11 @@ public class AppConstants {
 
 	public static final String URL_NEW_PL_DETAILS	        = "http://180.179.67.72/nokiaservice/DetailsByUserRMNCompID.aspx";
 	public static final String URL_NEW_PL_HISTORY	        = "http://180.179.67.72/nokiaservice/Lastfivetransactions.aspx";
-	public static final String URL_PBX_PLATFORM		        = "http://pbx.momappworld.com/MobAppS/PbxMobApp.ashx";
 
-    //START: FONT RELATED
-    public static final String FONT_DEFAULT_TEXT_STYLE      = "regular";
 
-    //END: FONT RELATED
-    /*
-    Service Methods to call
-     */
+
+
+    //Start: MoM Platform Methods
 	public static final String SVC_NEW_METHOD_LOGIN	        = "/getLoggedIn";
 	public static final String SVC_NEW_METHOD_CHECK_TPIN    = "/checkVallidTpin";
     public static final String SVC_NEW_METHOD_GET_BALANCE   = "/getBalanceByCustomerId";
@@ -43,13 +43,30 @@ public class AppConstants {
     public static final String SVC_NEW_METHOD_BILL_PAYMENT  = "/doBillPayment";
     public static final String SVC_NEW_METHOD_CHANGE_TPIN   = "/ChangeT_Pin";
     public static final String SVC_NEW_METHOD_CHANGE_MPIN   = "/ChangeM_Pin";
+    //End: MoM Platform Methods
 
-    //Service Methods end
+    //Start: PBX Platform Service
+    public static final String SVC_PBX_CHECK_LOGIN          = "CL";
+    public static final String SVC_PBX_CHANGE_PASSWORD      = "CP";
+    public static final String SVC_PBX_CHECK_BALANCE        = "CB";
+    //End: PBX Platform Service
+
+    //Start: PBX Platform URLs
+    public static final String URL_PBX_PLATFORM_SERVICE     = "http://test.pbx.momappworld.com/momspre/service.ashx";
+    public static final String URL_PBX_PLATFORM_APP         = "http://test.pbx.momappworld.com/momspre/PbxMobApp.ashx";
+
+    //End: PBX Platform URLs
+
+    //Start: PBX Platform Methods
+
+    //End: PBX Platform Methods
+
+    //START: FONT RELATED
+    public static final String FONT_DEFAULT_TEXT_STYLE      = "regular";
+
+    //END: FONT RELATED
 
     public static final float ERROR_BALANCE                 = -1000000;
-    //Get Bill information parameter
-    public static final String PARAM_NEW_ACCOUNT_NUMBER     = "AccountNumber";
-    public static final String PARAM_NEW_CANUMBER           = "CANumber";
 
     //PIN RELATED
     public static final String M_PIN                        = "M-Pin";
@@ -59,6 +76,10 @@ public class AppConstants {
     //START: External Android constants
     public static String EXTERNAL_TEMP_IMAGES           = "temp_images";
     //END: External Android constants
+
+    //Get Bill information parameter
+    public static final String PARAM_NEW_ACCOUNT_NUMBER     = "AccountNumber";
+    public static final String PARAM_NEW_CANUMBER           = "CANumber";
 
 	public static final String PARAM_NEW_USER		        = "strUserRMN";
 	public static final String PARAM_NEW_PWD		        = "strPassword";
@@ -104,6 +125,17 @@ public class AppConstants {
     public static final String PARAM_NEW_STR_PASSWORD       = "strPassword";
     public static final String PARAM_NEW_STR_NEW_PASSWORD   = "strNewPassword";
 
+
+    //Start: PBX Platform Params
+    public static final String PARAM_PBX_SERVICE            = "Service";
+    public static final String PARAM_PBX_USERNAME           = "un";
+    public static final String PARAM_PBX_PASSWORD           = "password";
+    public static final String PARAM_PBX_OP                 = "OP";
+    public static final String PARAM_PBX_NP                 = "NP";
+    public static final String PARAM_PBX_RN                 = "RN";
+    public static final String PARAM_PBX_TOKEN              = "Token";
+
+    //End: PBX Platform Params
 	public static final int TIMEOUT_CONNECTION		        = 15000;
 	public static final int TIMEOUT_SOCKET			        = 45000;
 	public static final int STANDARD_MOBILE_NUMBER_LENGTH   = 10;

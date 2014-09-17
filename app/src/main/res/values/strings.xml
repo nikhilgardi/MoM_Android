@@ -55,6 +55,7 @@
     <string name="prompt_enter_tpin">Please enter your T-Pin</string>
     <string name="prompt_numbers_only_amount">Please only enter numbers in the amount field</string>
     <string name="prompt_select_operator">Please select the Operator</string>
+    <string name="lblBal">Bal: </string>
     <string name="lblSubscriberId">Subscriber ID</string>
     <string name="lblRechargeAmount">Recharge Amount</string>
     <string name="lblAmount">Amount</string>
