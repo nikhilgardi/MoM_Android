@@ -2,17 +2,15 @@ package com.mom.app.widget;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mom.app.R;
-import com.mom.app.model.MOMTxn;
+import com.mom.app.model.Transaction;
 
 import java.util.ArrayList;
 
@@ -22,9 +20,9 @@ import java.util.ArrayList;
 public class TextListViewAdapter extends ArrayAdapter {
     private Context context;
     private int layoutResourceId;
-    private ArrayList<MOMTxn> data;
+    private ArrayList<Transaction> data;
 
-    public TextListViewAdapter(Context context, int layoutResourceId, ArrayList<MOMTxn> data) {
+    public TextListViewAdapter(Context context, int layoutResourceId, ArrayList<Transaction> data) {
 
         super(context, layoutResourceId, data);
         this.layoutResourceId = layoutResourceId;
@@ -38,7 +36,7 @@ public class TextListViewAdapter extends ArrayAdapter {
 
         View row                = convertView;
         ViewHolder holder       = null;
-        final MOMTxn item       = data.get(position);
+        final Transaction item       = data.get(position);
 
         if (row == null) {
             Log.d("LIST_VIEW", "row null");

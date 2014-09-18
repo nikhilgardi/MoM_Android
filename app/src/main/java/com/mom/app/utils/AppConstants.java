@@ -48,7 +48,9 @@ public class AppConstants {
     //Start: PBX Platform Service
     public static final String SVC_PBX_CHECK_LOGIN          = "CL";
     public static final String SVC_PBX_CHANGE_PASSWORD      = "CP";
-    public static final String SVC_PBX_CHECK_BALANCE        = "CB";
+    public static final String SVC_PBX_CHECK_BALANCE        = "BL";
+    public static final String SVC_PBX_TRANSACTION_HISTORY  = "LTH";
+
     //End: PBX Platform Service
 
     //Start: PBX Platform URLs

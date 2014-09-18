@@ -152,6 +152,11 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
             case CHECK_PLATFORM_DETAILS:
                 Log.i(_LOG, "Check result: " + result);
 
+                if(true){
+                    login(PlatformIdentifier.PBX);
+                    return;
+                }
+
                 if(result == null || result.trim().equals("")){
                     Log.i(_LOG, "1. User not of new PL");
                     login(PlatformIdentifier.PBX);

@@ -93,7 +93,7 @@
     <style name="MoMTheme.wrapped.alertMsg">
         <item name="android:textColor">@color/red</item>
         <item name="android:padding">@dimen/small</item>
-        <item name="android:textSize">@dimen/text_medium</item>
+        <item name="android:textSize">@dimen/text_small</item>
         <item name="android:layout_centerInParent">true</item>
         <item name="android:layout_gravity">center_horizontal</item>
     </style>

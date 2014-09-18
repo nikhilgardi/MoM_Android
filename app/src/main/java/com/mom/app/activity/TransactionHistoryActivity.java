@@ -12,12 +12,12 @@ import com.mom.app.identifier.IdentifierUtils;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
-import com.mom.app.model.MOMTxn;
+import com.mom.app.model.Transaction;
 import com.mom.app.widget.TextListViewAdapter;
 
 import java.util.ArrayList;
 
-public class TransactionHistoryActivity extends MOMActivityBase implements AsyncListener<String>{
+public class TransactionHistoryActivity extends MOMActivityBase implements AsyncListener<ArrayList<Transaction>>{
     private TextView _titleView;
     private ListView _listView;
     private TextListViewAdapter _adapter;
@@ -37,28 +37,10 @@ public class TransactionHistoryActivity extends MOMActivityBase implements Async
 
     }
 
-    private void initListView(String result){
-        if(result == null || "".equals(result.trim())){
-            setNoTransactionHistoryMessage();
-            return;
-        }
+    private void initListView(ArrayList<Transaction> list){
+        Log.d("HISTORY", "Obtained result: " + list);
 
-        Log.d("HISTORY", "Obtained result: " + result);
-        String[] sArrTxn        = result.split("\\|");
-        ArrayList<MOMTxn> list  = new ArrayList<MOMTxn>();
-
-        Log.d("HISTORY", "Number of transactions: " + sArrTxn.length);
-
-        try {
-            for (String txt : sArrTxn) {
-                MOMTxn txn = new MOMTxn(txt, "~");
-                list.add(txn);
-            }
-        }catch(MOMException me){
-            me.printStackTrace();
-        }
-
-        if(list.size() < 1) {
+        if(list == null || list.size() < 1) {
             setNoTransactionHistoryMessage();
             return;
         }
@@ -80,15 +62,14 @@ public class TransactionHistoryActivity extends MOMActivityBase implements Async
     }
 
     @Override
-    public void onTaskSuccess(String result, DataExImpl.Methods callback) {
+    public void onTaskSuccess(ArrayList<Transaction> result, DataExImpl.Methods callback) {
         Log.d("HISTORY" , "Result: " + result);
         initListView(result);
-//        initListView("1/2/14~123~9810921333~100~AIRTEL~Success|1/2/14~123~9810921222~100~VODAFONE~Success|1/2/14~123~9810921222~100~IDEA~Success|1/2/14~123~9810921222~100~AIRCEL~Success");
     }
 
     @Override
     public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
-
+        Log.e(_LOG, "Error getting history");
     }
 
 

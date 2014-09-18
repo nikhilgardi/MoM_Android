@@ -10,6 +10,7 @@ import com.mom.app.model.AsyncDataEx;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
+import com.mom.app.model.Transaction;
 import com.mom.app.model.local.EphemeralStorage;
 import com.mom.app.model.xml.PullParser;
 import com.mom.app.utils.AppConstants;
@@ -19,6 +20,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.w3c.dom.Text;
 
 import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -102,7 +104,7 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<String>
                 case TRANSACTION_HISTORY:
                     Log.d(LOG_TAG, "TaskComplete: getTransactionHistory method, result: " + result);
                     if (_listener != null) {
-                        _listener.onTaskSuccess(result, Methods.TRANSACTION_HISTORY);
+                        _listener.onTaskSuccess(extractTransactions(result), Methods.TRANSACTION_HISTORY);
                     }
                     break;
                 case CHANGE_PIN:
@@ -523,6 +525,33 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<String>
         String sUserId          = EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_NEW_USER_ID, null);
 
         dataEx.execute(new BasicNameValuePair(AppConstants.PARAM_NEW_USER_ID, sUserId));
+    }
+
+    public ArrayList<Transaction> extractTransactions(String result) throws MOMException{
+        String[] sArrTxn            = result.split("\\|");
+        ArrayList<Transaction> transactions  = new ArrayList<Transaction>();
+
+        int i                       = 0;
+
+        for(String sTransaction:sArrTxn) {
+            String[] sArr = sTransaction.split("~");
+
+            if (sArr.length < 6) {
+                throw new MOMException();
+            }
+
+            Transaction transaction         = new Transaction();
+            transaction.transactionDate     = sArr[0];
+            transaction.transactionId       = sArr[1];
+            transaction.subscriberId        = sArr[2];
+            transaction.amount              = sArr[3];
+            transaction.operator            = sArr[4];
+            transaction.status              = sArr[5];
+
+            transactions.add(transaction);
+        }
+
+        return transactions;
     }
 
     @Override

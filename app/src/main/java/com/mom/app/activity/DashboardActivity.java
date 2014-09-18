@@ -17,7 +17,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 
-import android.graphics.Color;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -40,15 +39,15 @@ public class DashboardActivity extends MOMActivityBase{
 
         _currentPlatform    = IdentifierUtils.getPlatformIdentifier(getApplicationContext());
 
-        String[] values     = null;
+//        String[] values     = null;
+        getBalance();
 
-        if (_currentPlatform == PlatformIdentifier.NEW)
-        {
-            getBalanceAsync();
-            values = new String[]{"Mobile Recharge", "DTH Recharge", "Bill Payment", "Card Sale", "History", "Settings"};
-        } else {
-            values = new String[]{"Mobile Recharge", "DTH Recharge", "Bill Payment", "Utility Bill Payment", "History", "Settings"};
-        }
+//        if (_currentPlatform == PlatformIdentifier.NEW)
+//        {
+//            values = new String[]{"Mobile Recharge", "DTH Recharge", "Bill Payment", "Card Sale", "History", "Settings"};
+//        } else {
+//            values = new String[]{"Mobile Recharge", "DTH Recharge", "Bill Payment", "Utility Bill Payment", "History", "Settings"};
+//        }
 
         gridView            = (GridView) findViewById(R.id.gridView);
         gridViewAdapter     = new ImageTextViewAdapter(this, R.layout.grid_cell, DataProvider.getScreens(this));
