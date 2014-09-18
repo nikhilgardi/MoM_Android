@@ -23,16 +23,16 @@
             android:name=".activity.LoginActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:label="@string/app_name" >
-
-        </activity>
-        <activity
-            android:name=".activity.DashboardActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.DashboardActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation">
+
         </activity>
         <activity
             android:name=".activity.MobileRechargeActivity"

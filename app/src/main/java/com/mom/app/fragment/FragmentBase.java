@@ -100,7 +100,7 @@ public abstract class FragmentBase extends Fragment {
             if(_currentPlatform == PlatformIdentifier.NEW){
                 _dataEx     = new MoMPLDataExImpl(getActivity().getApplicationContext(), pListener);
             }else{
-                _dataEx     = new PBXPLDataExImpl(pListener, getActivity().getApplicationContext());
+                _dataEx     = new PBXPLDataExImpl(getActivity().getApplicationContext(), pListener);
             }
         }
 

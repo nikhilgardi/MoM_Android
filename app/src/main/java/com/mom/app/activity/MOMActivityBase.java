@@ -106,10 +106,10 @@ public abstract class MOMActivityBase extends Activity{
         tv.setText("Balance: " + getResources().getString(R.string.Rupee) + sBal);
     }
 
-    public void getBalanceAsync(){
+    public void getBalance(){
         final Context context   = this;
         Log.d(_LOG, "Getting Balance");
-        IDataEx dataEx  = new MoMPLDataExImpl(getApplicationContext(), new AsyncListener<Float>() {
+        getDataEx(new AsyncListener<Float>() {
             @Override
             public void onTaskSuccess(Float result, DataExImpl.Methods callback) {
                 EphemeralStorage.getInstance(context).storeFloat(AppConstants.USER_BALANCE, result);
@@ -120,9 +120,7 @@ public abstract class MOMActivityBase extends Activity{
             public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
 
             }
-        });
-        Log.d(_LOG, "DataEx instance created");
-        dataEx.getBalance();
+        }).getBalance();
         Log.d(_LOG, "getBalance called");
     }
 

@@ -86,7 +86,7 @@ public class MobileRechargeActivity extends MOMActivityBase implements AsyncList
                     return;
                 }
                 Log.d(_LOG, "Going to get new balance");
-                getBalanceAsync();
+                getBalance();
                 Log.d(_LOG, "Starting navigation to TxnMsg Activity");
                 navigateToTransactionMessageActivity(ActivityIdentifier.MOBILE_RECHARGE, result);
             break;

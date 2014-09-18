@@ -6,25 +6,31 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+import com.mom.app.error.MOMException;
 import com.mom.app.identifier.PinType;
 import com.mom.app.model.AsyncDataEx;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
+import com.mom.app.model.Transaction;
 import com.mom.app.model.local.EphemeralStorage;
 import com.mom.app.utils.AppConstants;
 
 import org.apache.http.message.BasicNameValuePair;
+import org.w3c.dom.Text;
 
 import java.lang.reflect.Type;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
  * Created by vaibhavsinha on 7/6/14.
  */
 public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String> {
+    static String _LOG              = "PBX_DATA";
 
     private static int _SUCCESS     = 200;
 
@@ -40,32 +46,41 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
             return;
         }
 
-        switch (callback){
-            case LOGIN:
-                boolean bSuccess    = loginSuccessful(result);
-                _listener.onTaskSuccess(bSuccess, null);
-                break;
-            case CHANGE_PIN:
-                ResponseBase responseBase   = changePinResult(result);
-                String message              = null;
+        Log.d(_LOG, "Result: " + result);
+        try {
+            switch (callback) {
+                case LOGIN:
+                    boolean bSuccess = loginSuccessful(result);
+                    _listener.onTaskSuccess(bSuccess, null);
+                    break;
+                case CHANGE_PIN:
+                    ResponseBase responseBase = changePinResult(result);
+                    String message = null;
 
-                if(responseBase != null && responseBase.status != _SUCCESS){
-                    message                 = responseBase.message;
-                }
-                _listener.onTaskSuccess(message, null);
-                break;
-            case GET_BALANCE:
-                try {
-                    float balance = Float.parseFloat(result);
-                    _listener.onTaskSuccess(balance, callback);
-                }catch(NumberFormatException nfe){
-                    onTaskError(new AsyncResult(AsyncResult.CODE.GENERAL_FAILURE), Methods.GET_BALANCE);
-                    nfe.printStackTrace();
-                }
-                break;
-            case GET_OPERATOR_NAMES:
-                _listener.onTaskSuccess(getOperatorNamesResult(result), callback);
-                break;
+                    if (responseBase != null && responseBase.status != _SUCCESS) {
+                        message = responseBase.message;
+                    }
+                    _listener.onTaskSuccess(message, null);
+                    break;
+                case GET_BALANCE:
+                    try {
+                        float balance = parseBalanceResult(result);
+                        _listener.onTaskSuccess(balance, callback);
+                    } catch (NumberFormatException nfe) {
+                        onTaskError(new AsyncResult(AsyncResult.CODE.GENERAL_FAILURE), Methods.GET_BALANCE);
+                        nfe.printStackTrace();
+                    }
+                    break;
+                case GET_OPERATOR_NAMES:
+                    _listener.onTaskSuccess(getOperatorNamesResult(result), callback);
+                    break;
+                case TRANSACTION_HISTORY:
+                    _listener.onTaskSuccess(extractTransactions(result), callback);
+                    break;
+            }
+        }catch(MOMException me){
+            me.printStackTrace();
+            _listener.onTaskError(new AsyncResult(AsyncResult.CODE.GENERAL_FAILURE), callback);
         }
     }
 
@@ -107,10 +122,24 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
         );
     }
 
+    public float parseBalanceResult(String result) throws MOMException{
+        if(TextUtils.isEmpty(result)){
+            throw new MOMException();
+        }
+        try {
+            Gson gson = new GsonBuilder().create();
+            Balance balance = gson.fromJson(result, Balance.class);
+            return balance.balance;
+        }catch(JsonSyntaxException jse){
+            jse.printStackTrace();
+            throw new MOMException();
+        }
+    }
+
     @Override
     public void login(String userName, String password){
-        String loginUrl				= AppConstants.URL_PBX_PLATFORM_SERVICE;
-        Log.i("PBXPL", "Calling Async login");
+        String loginUrl				= AppConstants.URL_PBX_PLATFORM_APP;
+        Log.i(_LOG, "Calling Async login");
 
         AsyncDataEx dataEx		    = new AsyncDataEx(this, loginUrl, Methods.LOGIN);
 
@@ -126,25 +155,32 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
             return false;
         }
 
-        Gson gson = new GsonBuilder().create();
+        boolean success = false;
 
-        Type type   = new TypeToken<ResponseBase<LoginResult>>(){}.getType();
+        try {
+            Gson gson   = new GsonBuilder().create();
 
-        ResponseBase<LoginResult> responseBase  = gson.fromJson(psResult, type);
+            Type type   = new TypeToken<ResponseBase<LoginResult>>() {
+            }.getType();
 
-        boolean success  = (responseBase != null && responseBase.status == 200);
+            ResponseBase<LoginResult> responseBase = gson.fromJson(psResult, type);
 
-        if(success && responseBase.response.Table != null && responseBase.response.Table.length < 1){
-            success     = false;
+            success     = (responseBase != null && responseBase.status == 200);
+
+            if (success && responseBase.response.Table != null && responseBase.response.Table.length < 1) {
+                success = false;
+            }
+
+            if (success) {
+                EphemeralStorage.getInstance(_applicationContext).storeString(
+                        AppConstants.PARAM_PBX_TOKEN,
+                        responseBase.response.Table[0].PartyGUID
+                );
+            }
+        }catch(JsonSyntaxException jse){
+            Log.e(_LOG, jse.getMessage());
+            jse.printStackTrace();
         }
-
-        if(success){
-            EphemeralStorage.getInstance(_applicationContext).storeString(
-                    AppConstants.PARAM_PBX_TOKEN,
-                    responseBase.response.Table[0].PartyGUID
-            );
-        }
-
         return success;
     }
 
@@ -160,14 +196,47 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
 
     @Override
     public void getTransactionHistory() {
+        String userName             = EphemeralStorage.getInstance(_applicationContext).getString(
+                AppConstants.LOGGED_IN_USERNAME, null
+        );
 
+        String token                = EphemeralStorage.getInstance(_applicationContext).getString(
+                AppConstants.PARAM_PBX_TOKEN, null
+        );
+
+        AsyncDataEx dataEx		    = new AsyncDataEx(this, AppConstants.URL_PBX_PLATFORM_APP, Methods.TRANSACTION_HISTORY);
+
+        dataEx.execute(
+                new BasicNameValuePair(AppConstants.PARAM_PBX_SERVICE, AppConstants.SVC_PBX_TRANSACTION_HISTORY),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_USERNAME, userName),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_TOKEN, token)
+        );
+    }
+
+    public ArrayList<Transaction> extractTransactions(String result){
+        Gson gson = new GsonBuilder().create();
+
+        Type type   = new TypeToken<ResponseBase<PBXTransaction>>(){}.getType();
+
+        ResponseBase<PBXTransaction> responseBase  = gson.fromJson(result, type);
+
+        ArrayList<Transaction> list     = new ArrayList<Transaction>();
+        if(responseBase == null || responseBase.response == null || responseBase.response.Table == null){
+            return list;
+        }
+
+        for(PBXTransaction pbxTransaction:responseBase.response.Table){
+            list.add(pbxTransaction.getTransactionObject());
+        }
+
+        return list;
     }
 
     @Override
     public void changePin(PinType pinType, String psOldPin, String psNewPin) {
         String loginUrl				= AppConstants.URL_PBX_PLATFORM_APP;
 
-        Log.i("PBXPL", "Calling Async password");
+        Log.i(_LOG, "Calling Async password");
 
         String userName             = EphemeralStorage.getInstance(_applicationContext).getString(
                 AppConstants.LOGGED_IN_USERNAME, null

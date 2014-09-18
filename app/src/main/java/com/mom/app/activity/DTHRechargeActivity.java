@@ -73,7 +73,7 @@ public class DTHRechargeActivity extends MOMActivityBase implements AsyncListene
                     return;
                 }
                 Log.d(_LOG, "Going to get new balance");
-                getBalanceAsync();
+                getBalance();
                 Log.d(_LOG, "Starting navigation to TxnMsg Activity");
                 navigateToTransactionMessageActivity(ActivityIdentifier.DTH_RECHARGE, result);
                 break;
