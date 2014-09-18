@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface IDataEx {
     public void getBalance();
-    public void login(NameValuePair...params);
+    public void login(String userName, String password);
     public void verifyTPin(String psTPin);
     public void rechargeMobile(String psConsumerNumber, double pdAmount, String psOperator, int pnRechargeType);
     public void rechargeDTH(String psSubscriberId, double pdAmount, String psOperator, String psCustomerMobile);

@@ -38,7 +38,8 @@ public abstract class DataExImpl implements IDataEx{
         GET_BILL_AMOUNT,
         TRANSACTION_HISTORY,
         CHANGE_PIN,
-        CHECK_PLATFORM_DETAILS;
+        CHECK_PLATFORM_DETAILS,
+        GET_OPERATOR_NAMES;
     }
 
     public void checkConnectivity(Context context){
@@ -49,7 +50,7 @@ public abstract class DataExImpl implements IDataEx{
     }
 
     public abstract void getBalance();
-    public abstract void login(NameValuePair...param);
+    public abstract void login(String userName, String password);
     public abstract void verifyTPin(String psTPin);
     public abstract void rechargeMobile(
                                     String psConsumerNumber,
@@ -78,6 +79,4 @@ public abstract class DataExImpl implements IDataEx{
 
     public abstract void getTransactionHistory();
     public abstract void changePin(PinType pinType, String psOldPin, String psNewPin);
-
-
 }

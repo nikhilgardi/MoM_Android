@@ -54,7 +54,7 @@ public class HeaderFragment extends Fragment {
                 sBal = df.format(balance);
             }
 
-            balanceTv.setText("Balance: " + getResources().getString(R.string.Rupee) + sBal);
+            balanceTv.setText(getResources().getString(R.string.lblBal) + getResources().getString(R.string.Rupee) + sBal);
         }
 
         return view;

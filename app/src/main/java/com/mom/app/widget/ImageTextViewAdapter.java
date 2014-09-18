@@ -74,16 +74,17 @@ public class ImageTextViewAdapter extends ArrayAdapter{
 
         Log.d("ADAPTER", position + " selected = " + item.getSelected());
 
-        if(item.getSelected()) {
-            if(_isGridView){
-                if(holder != null && holder.selectedImage != null) {
-                    holder.selectedImage.setVisibility(View.VISIBLE);
-                }
-            }else {
-                row.setBackgroundColor(row.getResources().getColor(R.color.row_selected));
-                row.getBackground().setAlpha(128);
-            }
-        }
+//        if(item.getSelected()) {
+//            if(_isGridView){
+//                if(holder != null && holder.selectedImage != null) {
+//                    holder.selectedImage.setVisibility(View.VISIBLE);
+//                }
+//            }else {
+//                row.setBackgroundColor(row.getResources().getColor(R.color.row_selected));
+//                row.getBackground().setAlpha(128);
+//            }
+//        }
+
         return row;
     }
 

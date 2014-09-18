@@ -66,15 +66,16 @@ public class DashboardActivity extends MOMActivityBase{
                     Log.e(_LOG, "No click target found, returning.");
                     return;
                 }
+
                 Log.d(_LOG, "Altering selection to " + !item.getSelected());
 
                 item.setSelected(!item.getSelected());
 
-                if(item.getSelected()) {
-                    v.setBackgroundColor(getResources().getColor(R.color.row_selected));
-                }else{
-                    v.setBackgroundColor(Color.TRANSPARENT);
-                }
+//                if(item.getSelected()) {
+//                    v.setBackgroundColor(getResources().getColor(R.color.row_selected));
+//                }else{
+//                    v.setBackgroundColor(Color.TRANSPARENT);
+//                }
 
                 Log.d(_LOG, "Going to selected activity");
                 nextActivity(item.getTitle());

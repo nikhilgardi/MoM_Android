@@ -11,7 +11,7 @@
         android:layout_gravity="left|center_vertical"
         android:gravity="left"
         android:padding="5dp"
-        android:src="@drawable/logo_320"/>
+        android:src="@drawable/logo"/>
     <TextView
         android:id="@+id/balance"
         style="@style/MoMTheme.wrapped.header_balanceAmount" />

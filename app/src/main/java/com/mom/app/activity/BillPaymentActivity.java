@@ -40,7 +40,7 @@ import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.IDataEx;
 import com.mom.app.model.local.EphemeralStorage;
-import com.mom.app.model.newpl.NewPLDataExImpl;
+import com.mom.app.model.mompl.MoMPLDataExImpl;
 import com.mom.app.utils.AppConstants;
 
 public class BillPaymentActivity extends MOMActivityBase implements AsyncListener<String>{
@@ -233,7 +233,7 @@ public class BillPaymentActivity extends MOMActivityBase implements AsyncListene
         String sSubscriberId            = _etSubscriberId.getText().toString();
         String sOperatorID              = getOperatorId(operatorSpinner.getSelectedItem().toString());
 
-        IDataEx dataEx  = new NewPLDataExImpl(getApplicationContext(), new AsyncListener<Float>() {
+        IDataEx dataEx  = new MoMPLDataExImpl(getApplicationContext(), new AsyncListener<Float>() {
             @Override
             public void onTaskSuccess(Float result, DataExImpl.Methods callback) {
                 Log.e(_LOG, "Obtainined bill amount: " + result);

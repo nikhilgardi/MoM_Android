@@ -18,7 +18,7 @@ import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.IDataEx;
 import com.mom.app.model.local.EphemeralStorage;
-import com.mom.app.model.newpl.NewPLDataExImpl;
+import com.mom.app.model.mompl.MoMPLDataExImpl;
 import com.mom.app.model.pbxpl.PBXPLDataExImpl;
 import com.mom.app.utils.AppConstants;
 
@@ -50,10 +50,9 @@ public abstract class MOMActivityBase extends Activity{
     public IDataEx getDataEx(AsyncListener pListener){
         if(_dataEx == null){
             if(_currentPlatform == PlatformIdentifier.NEW){
-                _dataEx     = new NewPLDataExImpl(getApplicationContext(), pListener);
+                _dataEx     = new MoMPLDataExImpl(getApplicationContext(), pListener);
             }else{
-               _dataEx     = new PBXPLDataExImpl(getApplicationContext(), pListener);
-               // _dataEx     = new PBXPLDataExImpl(pListener ,getApplicationContext());
+                _dataEx     = new PBXPLDataExImpl(getApplicationContext(), pListener);
             }
         }
 
@@ -110,7 +109,7 @@ public abstract class MOMActivityBase extends Activity{
     public void getBalanceAsync(){
         final Context context   = this;
         Log.d(_LOG, "Getting Balance");
-        IDataEx dataEx  = new NewPLDataExImpl(getApplicationContext(), new AsyncListener<Float>() {
+        IDataEx dataEx  = new MoMPLDataExImpl(getApplicationContext(), new AsyncListener<Float>() {
             @Override
             public void onTaskSuccess(Float result, DataExImpl.Methods callback) {
                 EphemeralStorage.getInstance(context).storeFloat(AppConstants.USER_BALANCE, result);

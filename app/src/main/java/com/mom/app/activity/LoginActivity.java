@@ -15,7 +15,7 @@ import com.mom.app.model.DataExImpl;
 import com.mom.app.model.IDataEx;
 import com.mom.app.model.local.EphemeralStorage;
 import com.mom.app.model.local.PersistentStorage;
-import com.mom.app.model.newpl.NewPLDataExImpl;
+import com.mom.app.model.mompl.MoMPLDataExImpl;
 import com.mom.app.model.pbxpl.PBXPLDataExImpl;
 import com.mom.app.ui.LanguageItem;
 import com.mom.app.utils.AppConstants;
@@ -148,32 +148,13 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
     public void onTaskSuccess(String result, DataExImpl.Methods pMethod) {
         getProgressBar().setVisibility(View.GONE);
         switch (pMethod){
-            case LOGIN:
-                Boolean bSuccess      = Boolean.valueOf(result);
-                if(!bSuccess){
-                    setLoginFailed(getResources().getString(R.string.login_failed_msg_default));
-                    return;
-                }
 
-                switch (_currentPlatform){
-                    case NEW:
-
-                        break;
-                    case PBX:
-                        break;
-                }
-                EphemeralStorage.getInstance(this).storeString(AppConstants.ACTIVE_PLATFORM, _currentPlatform.toString());
-                EphemeralStorage.getInstance(this).storeString(AppConstants.LOGGED_IN_USERNAME, _username.getText().toString());
-                EphemeralStorage.getInstance(this).storeBoolean(AppConstants.IS_LOGGED_IN, true);
-
-                navigateToMain();
-                break;
             case CHECK_PLATFORM_DETAILS:
                 Log.i(_LOG, "Check result: " + result);
 
                 if(result == null || result.trim().equals("")){
                     Log.i(_LOG, "1. User not of new PL");
-                    loginToPBXPL();
+                    login(PlatformIdentifier.PBX);
                     return;
                 }
 
@@ -181,11 +162,10 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 
                 if(sArrDetails.length < 12){
                     Log.i(_LOG, "2. User not of new PL");
-                    loginToPBXPL();
+                    login(PlatformIdentifier.PBX);
                     return;
                 }
 
-                Context context     = getApplicationContext();
                 EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_USER_ID, sArrDetails[0]);
 
                 EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_CUSTOMER_ID, sArrDetails[1]);
@@ -202,7 +182,7 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
                 EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_USER_VAS02, sArrDetails[12]);
 
 
-                loginToNewPL();
+                login(PlatformIdentifier.NEW);
                 break;
         }
 
@@ -268,7 +248,7 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 		list.add(new BasicNameValuePair(AppConstants.PARAM_NEW_RMN, username));
 		list.add(new BasicNameValuePair(AppConstants.PARAM_NEW_COMPANY_ID, AppConstants.NEW_PL_COMPANY_ID));
 
-        NewPLDataExImpl dataEx      = new NewPLDataExImpl(this, this);
+        MoMPLDataExImpl dataEx      = new MoMPLDataExImpl(this, this);
         dataEx.checkPlatform(
                 new BasicNameValuePair(AppConstants.PARAM_NEW_RMN, username),
                 new BasicNameValuePair(AppConstants.PARAM_NEW_COMPANY_ID, AppConstants.NEW_PL_COMPANY_ID)
@@ -276,60 +256,78 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 
 	}
 	
-	public void loginToNewPL() {
-		Log.i(_LOG, "Going to login to New pl");
-        _currentPlatform        = PlatformIdentifier.NEW;
-		try {
-			// Add user name and password
-			EditText uname = (EditText) findViewById(R.id.et_un);
-			String username = uname.getText().toString();
+	public void login(PlatformIdentifier platform) {
+		Log.i(_LOG, "Going to login");
+        _currentPlatform        = platform;
 
-			EditText pword = (EditText) findViewById(R.id.et_pw);
-			String password = pword.getText().toString();
-            Log.i(_LOG, "Firing NEWPL login async");
-            IDataEx dataEx          = new NewPLDataExImpl(getApplicationContext(), this);
+        final Context context   = this;
 
-			dataEx.login(
-                    new BasicNameValuePair("user", _username.getText().toString()),
-                    new BasicNameValuePair("pass", _password.getText().toString()),
-                    new BasicNameValuePair(AppConstants.PARAM_NEW_USER, username),
-                    new BasicNameValuePair(AppConstants.PARAM_NEW_PWD, password),
-                    new BasicNameValuePair(AppConstants.PARAM_NEW_COMPANY_ID, AppConstants.NEW_PL_COMPANY_ID),
-                    new BasicNameValuePair(AppConstants.PARAM_NEW_STR_ACCESS_ID, "abc")
-            );
+        AsyncListener<Boolean> listener = new AsyncListener<Boolean>() {
+            @Override
+            public void onTaskSuccess(Boolean result, DataExImpl.Methods callback) {
+                getProgressBar().setVisibility(View.GONE);
 
-            Log.i(_LOG, "Async login request sent to new pl");
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
+                if(!result){
+                    setLoginFailed(getResources().getString(R.string.login_failed_msg_default));
+                    return;
+                }
+
+                switch (_currentPlatform){
+                    case NEW:
+
+                        break;
+                    case PBX:
+                        break;
+                }
+
+                EphemeralStorage.getInstance(context).storeString(AppConstants.ACTIVE_PLATFORM, _currentPlatform.toString());
+                EphemeralStorage.getInstance(context).storeString(AppConstants.LOGGED_IN_USERNAME, _username.getText().toString());
+                EphemeralStorage.getInstance(context).storeBoolean(AppConstants.IS_LOGGED_IN, true);
+
+                navigateToMain();
+            }
+
+            @Override
+            public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
+                getProgressBar().setVisibility(View.GONE);
+                setLoginFailed(getResources().getString(R.string.login_failed_msg_default));
+            }
+        };
+
+        IDataEx dataEx          = null;
+        if(platform == PlatformIdentifier.NEW) {
+            dataEx              = new MoMPLDataExImpl(getApplicationContext(), listener);
+        }else{
+            dataEx              = new PBXPLDataExImpl(getApplicationContext(), listener);
+        }
+
+        dataEx.login(_username.getText().toString(), _password.getText().toString());
+
+        Log.i(_LOG, "Async login request sent");
+
 	}
-	
-	public void loginToPBXPL() {
-        Log.i(_LOG, "Going to login to PBXPL");
-        _currentPlatform        = PlatformIdentifier.PBX;
-
-		try {
-			EditText uname = (EditText) findViewById(R.id.et_un);
-			String username = uname.getText().toString();
-
-			EditText pword = (EditText) findViewById(R.id.et_pw);
-			String password = pword.getText().toString();
-
-            IDataEx dataEx          = new PBXPLDataExImpl(getApplicationContext(), this);
-
-            Log.i(_LOG, "Calling PBXPL for login");
-
-            dataEx.login(
-                    new BasicNameValuePair("UN", username),
-                    new BasicNameValuePair("Password", password),
-                    new BasicNameValuePair("Service", "CL"),
-                    new BasicNameValuePair("user", _username.getText().toString()),
-                    new BasicNameValuePair("pass", _password.getText().toString())
-            );
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-	}
+//
+//	public void loginToPBXPL() {
+//        Log.i(_LOG, "Going to login to PBXPL");
+//        _currentPlatform        = PlatformIdentifier.PBX;
+//
+//		try {
+//			EditText uname = (EditText) findViewById(R.id.et_un);
+//			String username = uname.getText().toString();
+//
+//			EditText pword = (EditText) findViewById(R.id.et_pw);
+//			String password = pword.getText().toString();
+//
+//            IDataEx dataEx          = new PBXPLDataExImpl(this, getApplicationContext());
+//
+//            Log.i(_LOG, "Calling PBXPL for login");
+//
+//            dataEx.login(username, password);
+//
+//		} catch (Exception ex) {
+//			ex.printStackTrace();
+//		}
+//	}
 
     public TextView getMessageTextView(){
         if(_tvMessage == null){
