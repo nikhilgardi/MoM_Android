@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/appsbg"
+   
     android:orientation="vertical"  >
      <TableLayout
         android:id="@+id/tableLayout1"
@@ -19,7 +19,7 @@
             android:background="@drawable/topbarcolor"
             android:gravity="center_horizontal"
             android:minHeight="83dp" >
-  <TextView
+            <com.mom.app.ui.CustomTextView
                 android:id="@+id/textView1"
                 android:layout_width="160dp"
                 

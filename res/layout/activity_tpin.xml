@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/appsbg"
+  
     android:scrollbars="vertical" >
 
     <RelativeLayout
@@ -26,7 +26,7 @@
                 android:gravity="center_horizontal"
                 android:minHeight="53dp" >
 
-                <TextView
+                <com.mom.app.ui.CustomTextView
                     android:id="@+id/AccountBal"
                     android:layout_width="160dp"
                     android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
             </TableRow>
         </TableLayout>
 
-        <EditText
+        <com.mom.app.ui.CustomEditText
             android:id="@+id/OldPassword"
             android:layout_width="265dp"
             android:layout_height="40dp"
@@ -58,14 +58,13 @@
             android:layout_gravity="center"
             android:layout_marginTop="130dp"
             android:background="@drawable/custom"
-            android:hint="Old TPIN"
+            android:hint="@string/tpin_old"
             android:inputType="number"
              android:password="true"
-            android:maxLength="10"
-            android:visibility="visible" >
-        </EditText>
+            android:maxLength="8"
+            android:visibility="visible" />
 
-        <EditText
+        <com.mom.app.ui.CustomEditText
             android:id="@+id/NewPassword"
             android:layout_width="265dp"
             android:layout_height="40dp"
@@ -74,14 +73,13 @@
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
             android:background="@drawable/custom"
-            android:hint="New TPIN"
+            android:hint="@string/tpin_new"
             android:maxLength="8"
              android:password="true"
             android:inputType="number"
-            android:visibility="visible" >
-        </EditText>
+            android:visibility="visible" />
 
-        <EditText
+        <com.mom.app.ui.CustomEditText
             android:id="@+id/ConfirmPassword"
             android:layout_width="265dp"
             android:layout_height="40dp"
@@ -90,14 +88,13 @@
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
             android:background="@drawable/custom"
-            android:hint="Confirm TPIN"
+            android:hint="@string/tpin_new_confirm"
             android:inputType="number"
              android:password="true"
             android:maxLength="8"
-            android:visibility="visible" >
-        </EditText>
+            android:visibility="visible" />
 
-        <Button
+        <com.mom.app.ui.CustomButton
             android:id="@+id/btn_Submit"
             android:layout_width="100dip"
             android:layout_height="wrap_content"
@@ -106,12 +103,12 @@
             android:layout_marginLeft="80dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/custom_button"
-            android:text="Submit"
+            android:text="@string/tpin_submit_btn"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:visibility="visible" />
 
-        <Button
+        <com.mom.app.ui.CustomButton
             android:id="@+id/btn_back"
             android:layout_width="100dip"
             android:layout_height="wrap_content"
@@ -121,12 +118,12 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/custom_button"
             android:onClick="backpost"
-            android:text="Back"
+            android:text="@string/btn_back"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:visibility="visible" />
 
-        <TextView
+        <com.mom.app.ui.CustomTextView
             android:id="@+id/responseText"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -139,7 +136,7 @@
             android:textColor="#992f2f"
             android:textSize="18dp"
             android:visibility="gone" />
-         <TextView
+         <com.mom.app.ui.CustomTextView
             android:id="@+id/responseText1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

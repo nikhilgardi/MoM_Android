@@ -1,7 +1,5 @@
-app/build
 .gradle/
 .idea/
 build/
-gen/
+bin/
 local.properties
-MoM_Android1.iml

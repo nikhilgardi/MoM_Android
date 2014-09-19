@@ -6,7 +6,7 @@
     android:background="@drawable/background"
     android:orientation="horizontal" >
 
-    <TextView
+    <com.mom.app.ui.CustomTextView
         android:id="@+id/label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,15 +17,14 @@
         android:textColor="@drawable/textcolor"
         android:textSize="18dp"
         android:textStyle="bold"
-        android:typeface="sans"
+       
         android:shadowColor="@color/text_shadow_white"
        
         android:shadowDx="1"
         android:shadowDy="1"
         
-         >
+         />
 <!--   android:typeface="sans" -->
-    </TextView>
 
     <ImageView
         android:id="@+id/icon"

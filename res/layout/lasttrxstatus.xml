@@ -8,11 +8,11 @@
 	    android:layout_marginBottom="20dp" android:layout_marginTop="10dp"
 	    android:orientation="vertical" android:gravity="top">
 	    
-		<TextView android:id="@+id/topbar_LBL_heading"
+		<com.mom.app.ui.CustomTextView android:id="@+id/topbar_LBL_heading"
 		    android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:typeface="normal" 
 			android:gravity="center" android:paddingLeft="10dp" android:paddingRight="10dp"
-		    android:text="Transaction Status" android:textSize="25sp" android:textColor="#464646" android:textStyle="bold"
+		    android:text="@string/lbl_TransactionStatus" android:textSize="25sp" android:textColor="#464646" android:textStyle="bold"
 		   
 		    android:layout_alignParentTop="true" android:layout_centerInParent="true"/>
 	</RelativeLayout>
@@ -28,13 +28,13 @@
 			    android:orientation="vertical">       	    
         	  	<LinearLayout android:layout_width ="fill_parent" android:layout_height = "fill_parent"
                	    android:layout_marginBottom="3dp">
-               	<TextView android:id="@+id/lsttrxstatus_LBL_lblTxStatus"
+               	<com.mom.app.ui.CustomTextView android:id="@+id/lsttrxstatus_LBL_lblTxStatus"
 	            	android:textSize="17dp" android:textColor="#464646"
 	            	android:layout_width="100dp" android:layout_height="wrap_content"
 	            	android:typeface="sans" 
 	            	android:visibility="gone" 
-	                android:text="Status"/>
-		        <TextView android:id="@+id/lsttrxstatus_LBL_TxStatus"
+	                android:text="@string/lbl_Status"/>
+		        <com.mom.app.ui.CustomTextView android:id="@+id/lsttrxstatus_LBL_TxStatus"
 		            android:layout_width="wrap_content" android:layout_height="wrap_content"
 		            android:textColor="#000000"
 		            android:typeface="sans"
@@ -44,12 +44,12 @@
 		        </LinearLayout>
         	    
       	    	<LinearLayout android:layout_width ="fill_parent" android:layout_height = "fill_parent">
-               	<TextView android:id="@+id/lsttrxstatus_LBL_lblTxDateTime"
+               	<com.mom.app.ui.CustomTextView android:id="@+id/lsttrxstatus_LBL_lblTxDateTime"
 	            	android:textSize="17dp" android:textColor="#464646"
 	            	android:layout_width="100dp" android:layout_height="wrap_content"
 	            	android:typeface="sans" 
-	                android:text="Tx Date"/>
-		        <TextView android:id="@+id/lsttrxstatus_LBL_TxDateTime"
+	                android:text="@string/lbl_TxDate"/>
+		        <com.mom.app.ui.CustomTextView android:id="@+id/lsttrxstatus_LBL_TxDateTime"
 		            android:layout_width="wrap_content" android:layout_height="wrap_content"
 		            android:textColor="#000000"
 		            android:typeface="sans"
@@ -58,12 +58,12 @@
 		        </LinearLayout>
 		        
 		        <LinearLayout android:layout_width ="fill_parent" android:layout_height = "fill_parent">
-               	<TextView android:id="@+id/lsttrxstatus_LBL_lblCardholderName"
+               	<com.mom.app.ui.CustomTextView android:id="@+id/lsttrxstatus_LBL_lblCardholderName"
 	            	android:textSize="17dp" android:textColor="#464646"
 	            	android:typeface="sans" 
 	            	android:layout_width="100dp" android:layout_height="wrap_content"
-	                android:text="Cardholder"/>
-		        <TextView android:id="@+id/lsttrxstatus_LBL_CardholderName"
+	                android:text="@string/lbl_Cardholder"/>
+		        <com.mom.app.ui.CustomTextView android:id="@+id/lsttrxstatus_LBL_CardholderName"
 		            android:layout_width="wrap_content" android:layout_height="wrap_content"
 		            android:typeface="sans"
 		            android:textColor="#000000"
@@ -73,13 +73,13 @@
       	    	
       	    	
       	    	<LinearLayout android:layout_width ="fill_parent" android:layout_height = "fill_parent">
-               	<TextView 
+               	<com.mom.app.ui.CustomTextView
 	            	android:textSize="17dp" android:textColor="#464646"
 	            	android:typeface="sans" 
 	            	android:layout_width="100dp" android:layout_height="wrap_content"
-	                android:text="Amount Rs."/>
+	                android:text="@string/lbl_AmountRs."/>
                 		
-		        <TextView android:id="@+id/lsttrxstatus_LBL_AmtRs"
+		        <com.mom.app.ui.CustomTextView android:id="@+id/lsttrxstatus_LBL_AmtRs"
 		            android:layout_width="wrap_content" android:layout_height="wrap_content"
 		            android:textColor="#000000"
 		            android:textSize="22dp"
@@ -88,12 +88,12 @@
       	    	
       	    	
       	    	<LinearLayout android:layout_width ="fill_parent" android:layout_height = "fill_parent">
-               	<TextView android:id="@+id/lsttrxstatus_LBL_lblCreditCardNum"
+               	<com.mom.app.ui.CustomTextView android:id="@+id/lsttrxstatus_LBL_lblCreditCardNum"
 	            	android:textSize="17dp" android:textColor="#464646"
 	            	android:typeface="sans" 
 	            	android:layout_width="100dp" android:layout_height="wrap_content"
-	                android:text="Last 4 digits"/>
-		        <TextView android:id="@+id/lsttrxstatus_LBL_CreditCardNum"
+	                android:text="@string/lbl_Last4digits"/>
+		        <com.mom.app.ui.CustomTextView android:id="@+id/lsttrxstatus_LBL_CreditCardNum"
 		            android:layout_width="wrap_content" android:layout_height="wrap_content"
 		            android:textColor="#000000"
 		            android:textSize="22dp"
@@ -102,12 +102,12 @@
       	    			 		
        	    				    			    
       	    	<LinearLayout android:layout_width ="fill_parent" android:layout_height = "fill_parent">
-               	<TextView android:id="@+id/lsttrxstatus_LBL_lblTypeofTx"
+               	<com.mom.app.ui.CustomTextView android:id="@+id/lsttrxstatus_LBL_lblTypeofTx"
 	            	android:textSize="17dp" android:textColor="#464646"
 	            	android:typeface="sans" 
 	            	android:layout_width="100dp" android:layout_height="wrap_content"
-	                android:text="Type"/>
-		        <TextView android:id="@+id/lsttrxstatus_LBL_TypeofTx"
+	                android:text="@string/lbl_Type"/>
+		        <com.mom.app.ui.CustomTextView android:id="@+id/lsttrxstatus_LBL_TypeofTx"
 		            android:layout_width="wrap_content" android:layout_height="wrap_content"
 		            android:textColor="#000000"
 		            android:textSize="22dp"
@@ -116,13 +116,13 @@
 
        	    		    	
       	    	<LinearLayout android:layout_width ="fill_parent" android:layout_height = "fill_parent">
-               	<TextView android:id="@+id/lsttrxstatus_LBL_lblAuthNo"
+               	<com.mom.app.ui.CustomTextView android:id="@+id/lsttrxstatus_LBL_lblAuthNo"
 	            	android:textSize="17dp" android:textColor="#464646"
 	            	android:typeface="sans" 
 	            	android:layout_width="100dp" android:layout_height="wrap_content"
 	            	android:visibility="gone"
-	                android:text="Auth Code"/>
-		        <TextView android:id="@+id/lsttrxstatus_LBL_AuthNo"
+	                android:text="@string/lbl_AuthCode"/>
+		        <com.mom.app.ui.CustomTextView android:id="@+id/lsttrxstatus_LBL_AuthNo"
 		            android:layout_width="wrap_content" android:layout_height="wrap_content"
 		            android:textColor="#000000"
 		            android:textSize="22dp"
@@ -131,13 +131,13 @@
 		        </LinearLayout>
       	    		    	
       	    	<LinearLayout android:layout_width ="fill_parent" android:layout_height = "fill_parent">
-               	<TextView android:id="@+id/lsttrxstatus_LBL_lblRRNo"
+               	<com.mom.app.ui.CustomTextView android:id="@+id/lsttrxstatus_LBL_lblRRNo"
                	    android:typeface="sans" 
 	            	android:textSize="17dp" android:textColor="#464646"
 	            	android:layout_width="100dp" android:layout_height="wrap_content"
 	            	android:visibility="gone"
-	                android:text="RR No"/>
-		        <TextView android:id="@+id/lsttrxstatus_LBL_RRNo"
+	                android:text="@string/lbl_RRNo"/>
+		        <com.mom.app.ui.CustomTextView android:id="@+id/lsttrxstatus_LBL_RRNo"
 		            android:layout_width="wrap_content" android:layout_height="wrap_content"
 		            android:textColor="#000000"
 		            android:textSize="22dp"
@@ -146,12 +146,12 @@
 		        </LinearLayout>
      
       	    	<LinearLayout android:layout_width ="fill_parent" android:layout_height = "fill_parent">
-               	<TextView android:id="@+id/lsttrxstatus_LBL_lblStanID"
+               	<com.mom.app.ui.CustomTextView android:id="@+id/lsttrxstatus_LBL_lblStanID"
 	            	android:textSize="17dp" android:textColor="#464646"
 	            	android:typeface="sans" 
 	            	android:layout_width="100dp" android:layout_height="wrap_content"
-	                android:text="Stan Id"/>
-		        <TextView android:id="@+id/lsttrxstatus_LBL_StanID"
+	                android:text="@string/lbl_StanId"/>
+		        <com.mom.app.ui.CustomTextView android:id="@+id/lsttrxstatus_LBL_StanID"
 		            android:layout_width="wrap_content" android:layout_height="wrap_content"
 		            android:textColor="#000000"
 		            android:textSize="22dp"
@@ -160,13 +160,13 @@
       	    		    	
       	    		    		   
       	    	<LinearLayout android:layout_width ="fill_parent" android:layout_height = "fill_parent">
-               	<TextView android:id="@+id/lsttrxstatus_LBL_lblVoucher"
+               	<com.mom.app.ui.CustomTextView android:id="@+id/lsttrxstatus_LBL_lblVoucher"
 	            	android:textSize="17dp" android:textColor="#464646"
 	            	android:typeface="sans" 
 	            	android:layout_width="100dp" android:layout_height="wrap_content"
 	            	android:visibility="gone"
-	                android:text="Voucher"/>
-		        <TextView android:id="@+id/lsttrxstatus_LBL_Voucher"
+	                android:text="@string/lbl_Voucher"/>
+		        <com.mom.app.ui.CustomTextView android:id="@+id/lsttrxstatus_LBL_Voucher"
 		            android:layout_width="wrap_content" android:layout_height="wrap_content"
 		            android:textColor="#000000"
 		            android:textSize="22dp"
@@ -175,13 +175,13 @@
 		        </LinearLayout>
       	    			    			 		
       	    	<LinearLayout android:layout_width ="fill_parent" android:layout_height = "fill_parent">
-               	<TextView android:id="@+id/lsttrxstatus_LBL_lblTerminalMessage"
+               	<com.mom.app.ui.CustomTextView android:id="@+id/lsttrxstatus_LBL_lblTerminalMessage"
 	            	android:textSize="17dp" android:textColor="#464646"
 	            	android:typeface="sans" 
 	            	android:layout_width="100dp" android:layout_height="wrap_content"
 	            	android:visibility="gone"
-	                android:text="Tx Message"/>
-		        <TextView android:id="@+id/lsttrxstatus_TXT_TerminalMessage"
+	                android:text="@string/lbl_TxMessage"/>
+		        <com.mom.app.ui.CustomTextView android:id="@+id/lsttrxstatus_TXT_TerminalMessage"
 		            android:layout_width="wrap_content" android:layout_height="wrap_content"
 		            android:textColor="#000000"
 		            android:textSize="22dp"
@@ -191,20 +191,19 @@
       	    				    
       	    	<LinearLayout android:layout_width ="fill_parent" android:layout_height = "fill_parent" android:orientation="vertical"
       	    	    android:layout_marginBottom="10dp">
-               	<TextView android:id="@+id/lsttrxstatus_LBL_lblNotes"
+               	<com.mom.app.ui.CustomTextView android:id="@+id/lsttrxstatus_LBL_lblNotes"
 	            	android:textSize="17dp" android:textColor="#464646"
 	            	android:typeface="sans" 
 	            	android:layout_width="100dp" android:layout_height="wrap_content"
 	            	android:visibility="gone"
-	                android:text="Notes"/>
-		        <EditText android:id="@+id/lsttrxstatus_TXT_Notes"
+	                android:text="@string/lbl_Notes"/>
+		        <com.mom.app.ui.CustomEditText android:id="@+id/lsttrxstatus_TXT_Notes"
 				    android:layout_width="285dip" android:layout_height="120dip"
 					android:layout_below="@+id/lsttrxstatus_LBL_lblNotes"
 					android:background="@drawable/whiterectborderblack"
 					android:visibility="gone"
-				    android:maxLines="5" android:editable="false">		   
-				</EditText>
-		        
+				    android:maxLines="5" android:editable="false"/>
+
 		        </LinearLayout>
     		</LinearLayout>
     	</ScrollView>

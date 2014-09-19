@@ -2,14 +2,14 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/appsbg"
+   
     android:scrollbars="vertical" >
 
     <RelativeLayout
         android:id="@+id/RelativeLayout1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-       
+      
         android:orientation="vertical" >
         
         <TableLayout
@@ -29,7 +29,7 @@
                 android:minHeight="53dp" >
 
               
-              <TextView
+              <com.mom.app.ui.CustomTextView
                     android:id="@+id/AccountBal"
                     android:layout_width="160dp"
                 android:layout_height="wrap_content"
@@ -65,7 +65,7 @@
             </TableRow>
         </TableLayout>
 
-        <EditText
+        <com.mom.app.ui.CustomEditText
             android:id="@+id/repass"
             android:layout_width="265dp"
             android:layout_height="40dp"
@@ -75,15 +75,15 @@
             android:layout_marginRight="10dip"
             android:layout_marginTop="130dp"
             android:background="@drawable/custom"
-            android:hint="T-Pin"
+            android:hint="@string/tpin1"
             android:imeOptions="actionDone"
             android:inputType="number"
+            android:maxLength="8"
             android:visibility="invisible"
             android:password="true"
-           >
-        </EditText>
+           />
 
-        <Button
+        <com.mom.app.ui.CustomButton
             android:id="@+id/btn_reclogin"
             android:layout_width="100dip"
             android:layout_height="wrap_content"
@@ -94,12 +94,12 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/custom_button"
             android:onClick="rechargeLogin"
-            android:text="Submit"
+            android:text="@string/tpin_submit_btn"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:visibility="invisible" />
 
-        <Button
+        <com.mom.app.ui.CustomButton
             android:id="@+id/btn_firstback"
             android:layout_width="100dip"
             android:layout_height="wrap_content"
@@ -110,12 +110,12 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/custom_button"
             android:onClick="backpost"
-            android:text="Back"
+            android:text="@string/tpin_back_btn"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:visibility="invisible" />
 
-        <TextView
+        <com.mom.app.ui.CustomTextView
             android:id="@+id/responseText"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -129,7 +129,7 @@
             android:textSize="18dp"
             android:visibility="gone" />
         
-        <TextView
+        <com.mom.app.ui.CustomTextView
             android:id="@+id/responseText1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -143,7 +143,7 @@
             android:textSize="18dp"
             android:visibility="gone" />
 
-        <EditText
+        <com.mom.app.ui.CustomEditText
             android:id="@+id/number"
             android:layout_width="265dp"
             android:layout_height="40dp"
@@ -152,11 +152,10 @@
             android:layout_below="@+id/Operator"
             android:layout_marginTop="10dp"
             android:background="@drawable/custom"
-            android:hint="Mobile Number"
+            android:hint="@string/lblYourMobile"
             android:inputType="number"
-            android:maxLength="10"
-            android:visibility="gone" >
-        </EditText>
+            android:maxLength="15"
+            android:visibility="gone" />
 
         <Spinner
             android:id="@+id/Operator"
@@ -167,10 +166,11 @@
             android:layout_marginTop="130dp"
             android:background="@drawable/btn_dropdown"
             android:prompt="@string/feedbacktypeMobileRecharge"
+          
             android:visibility="gone" >
         </Spinner>
 
-        <EditText
+        <com.mom.app.ui.CustomEditText
             android:id="@+id/consumernumber"
             android:layout_width="265dp"
             android:layout_height="40dp"
@@ -179,12 +179,12 @@
             android:layout_below="@+id/number"
             android:layout_marginTop="15dp"
             android:background="@drawable/custom"
-            android:hint="Consumer Number"
+            android:hint="@string/lblConsumerNumber"
             android:inputType="number"
-            android:visibility="gone" >
-        </EditText>
+            android:maxLength="15"
+            android:visibility="gone" />
 
-        <EditText
+        <com.mom.app.ui.CustomEditText
             android:id="@+id/amount"
             android:layout_width="265dp"
             android:layout_height="40dp"
@@ -193,10 +193,10 @@
             android:layout_below="@+id/consumernumber"
             android:layout_marginTop="15dp"
             android:background="@drawable/custom"
-            android:hint="Enter Amount"
+            android:hint="@string/lblAmount"
             android:inputType="number"
-            android:visibility="gone" >
-        </EditText>
+            android:maxLength="6"
+            android:visibility="gone" />
 
         <RadioGroup
             android:id="@+id/RadioGroup01"
@@ -211,7 +211,7 @@
                 android:id="@+id/RadioButton01"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Top-Up"
+                android:text="@string/topUp_radio_btn"
                 android:textColor="#992f2f"
                 android:textSize="14dp"
                 android:textStyle="bold"
@@ -222,7 +222,7 @@
                 android:id="@+id/RadioButton02"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Validity"
+                android:text="@string/validity_radio_btn"
                 android:textColor="#992f2f"
                 android:textSize="14dp"
                 android:textStyle="bold"
@@ -233,7 +233,7 @@
                 android:id="@+id/RadioButton03"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Special"
+                android:text="@string/special_radio_btn"
                 android:textColor="#992f2f"
                 android:textSize="14dp"
                 android:textStyle="bold"
@@ -241,7 +241,7 @@
             </RadioButton>
         </RadioGroup>
 
-        <Button
+        <com.mom.app.ui.CustomButton
             android:id="@+id/btn_recharge"
             android:layout_width="100dip"
             android:layout_height="wrap_content"
@@ -250,12 +250,12 @@
             android:layout_marginLeft="80dp"
             android:layout_marginTop="15dp"
             android:background="@drawable/custom_button"
-            android:text="Recharge"
+            android:text="@string/btnn_recharge"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:visibility="gone" />
 
-        <Button
+        <com.mom.app.ui.CustomButton
             android:id="@+id/btn_secondback"
             android:layout_width="100dip"
             android:layout_height="wrap_content"
@@ -265,12 +265,12 @@
             android:layout_marginTop="15dp"
             android:background="@drawable/custom_button"
             android:onClick="Backpost1"
-            android:text="Back"
+            android:text="@string/btn_secondback"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:visibility="gone" />
 
-        <TextView
+        <com.mom.app.ui.CustomTextView
             android:id="@+id/secondresponseText"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -284,7 +284,7 @@
             android:textSize="18dp"
             android:visibility="gone" />
 
-        <Button
+        <com.mom.app.ui.CustomButton
             android:id="@+id/new_recharge"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
@@ -295,7 +295,7 @@
             android:layout_marginTop="5dp"
             android:background="@drawable/custom_button"
             android:onClick="newRecharge"
-            android:text="New Transaction"
+            android:text="@string/btn_newRecharge"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:visibility="gone" />

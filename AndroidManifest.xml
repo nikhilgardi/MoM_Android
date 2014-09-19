@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mmpl.app"
-    android:versionCode="1"
-    android:versionName="1.0" >
+    package="com.mom.app"
+    android:versionCode="8"
+    android:versionName="1.2">
 
-    <uses-sdk android:minSdkVersion="8"/>
+    <uses-sdk android:minSdkVersion="8" />
 
-       <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -16,12 +16,13 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-       android:allowBackup="true"
+        android:name="com.mom.app.MoMApp"
+        android:allowBackup="true"
         android:icon="@drawable/momicon"
         android:label="@string/app_name"
-        android:theme="@style/r123">
+        android:theme="@style/r123" >
         <activity
-            android:name="com.mmpl.app.LoginActivity"
+            android:name="com.mom.app.LoginActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:label="@string/app_name" >
             <intent-filter>
@@ -31,77 +32,76 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.mmpl.app.MainActivity1"
+            android:name="com.mom.app.MainActivity1"
             android:configChanges="keyboard|keyboardHidden|orientation" >
-            
-             </activity>
+        </activity>
         <activity
-            android:name="com.mmpl.app.TabLayoutActivity"
+            android:name="com.mom.app.TabLayoutActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation" >
+        </activity>
+        <activity
+            android:name="com.mom.app.HomeActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation" />
+        <activity
+            android:name="com.mom.app.HomeActivity1"
+            android:configChanges="keyboard|keyboardHidden|orientation" />
+        <activity
+            android:name="com.mom.app.HomeActivity2"
+            android:configChanges="keyboard|keyboardHidden|orientation" />
+        <activity
+            android:name="com.mom.app.HistoryActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation" >
+        </activity>
+        <activity
+            android:name="com.mom.app.InfoActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation" />
+        <activity
+            android:name="com.mom.app.MPinActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation" >
+        </activity>
+        <activity
+            android:name="com.mom.app.TPinActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation" >
+        </activity>
+        <activity
+            android:name="com.mom.app.HomeBillActivity_PBX"
+            android:configChanges="keyboard|keyboardHidden|orientation" >
+        </activity>
+        <activity
+            android:name="com.mom.app.ChangePasswordPBXActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation" >
+        </activity>
+        
+        
+         <activity
+            android:name="com.mom.app.LoadTransferActivity"
             android:configChanges="keyboard|keyboardHidden|orientation">
-            
-             </activity>
-            
-        <activity
-            android:name="com.mmpl.app.HomeActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation" />
-        <activity
-            android:name="com.mmpl.app.HomeActivity1"
-            android:configChanges="keyboard|keyboardHidden|orientation" />
-        <activity
-            android:name="com.mmpl.app.HomeActivity2"
-            android:configChanges="keyboard|keyboardHidden|orientation" />
-        <activity
-            android:name="com.mmpl.app.HistoryActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation" >
-                       </activity>
-        <activity
-            android:name="com.mmpl.app.InfoActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation" />
-        <activity
-            android:name="com.mmpl.app.MPinActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation" >
         </activity>
-        <activity
-            android:name="com.mmpl.app.TPinActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation" >
-        </activity>
-        <activity
-            android:name="com.mmpl.app.HomeBillActivity_PBX"
-            android:configChanges="keyboard|keyboardHidden|orientation" 
-            android:label="@string/title_activity_home_bill_activity__pbx" >
-        </activity>
-        <activity
-            android:name="com.mmpl.app.ChangePasswordPBXActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation" 
-            android:label="@string/title_activity_change_password_pbx" >
-        </activity>
-        
-         <!-- Credit sale -->
-          <activity android:name="com.mmpl.app.MSwipeAndroidSDKListActivity1" >
-              <intent-filter>
+
+        <!-- Credit sale -->
+        <activity android:name="com.mom.app.MSwipeAndroidSDKListActivity1" >
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-            </intent-filter>>
-            
-        </activity> 
-        
-        <activity
-            android:name="com.mmpl.app.LoginView"
-            android:label="@string/app_name"
-            android:configChanges="keyboard|keyboardHidden|orientation" >
-            
+            </intent-filter>
+
+
         </activity>
-        
         <activity
-            android:name="com.mmpl.app.CreditSaleView"
-            android:label="mSwipe"
+            android:name="com.mom.app.LoginView"
             android:configChanges="keyboard|keyboardHidden|orientation"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.mom.app.CreditSaleView"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:label="mSwipe"
             android:windowSoftInputMode="stateVisible|adjustResize" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.mmpl.app.CreditSaleSignatureView"
+            android:name="com.mom.app.CreditSaleSignatureView"
             android:label="mSwipe"
             android:screenOrientation="landscape" >
             <intent-filter>
@@ -109,32 +109,32 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.mmpl.app.CreditSaleViewAmexCard"
-            android:label="mSwipe"
-            android:configChanges="keyboard|keyboardHidden|orientation">
+            android:name="com.mom.app.CreditSaleViewAmexCard"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:label="mSwipe" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.mmpl.app.LastTrxStatus"
-            android:label="mSwipe"
-            android:configChanges="keyboard|keyboardHidden|orientation" >
+            android:name="com.mom.app.LastTrxStatus"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:label="mSwipe" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.mmpl.app.ChangePassword"
-            android:label="mSwipe"
-            android:configChanges="keyboard|keyboardHidden|orientation" >
+            android:name="com.mom.app.ChangePassword"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:label="mSwipe" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
 
         <service
-            android:name="com.mmpl.app.SwiperCallStateService"
+            android:name="com.mom.app.SwiperCallStateService"
             android:enabled="true" >
             <intent-filter>
                 <action android:name="com.bbpos.swiper.CALL_STATE" />
@@ -142,7 +142,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </service>
-        
+
+       
     </application>
 
 </manifest>

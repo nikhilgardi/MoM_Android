@@ -6,11 +6,11 @@
 	<RelativeLayout android:id="@+id/top_bar"
     android:layout_width ="fill_parent" android:layout_height ="wrap_content"
     android:orientation="vertical" android:gravity="top">
-		<TextView android:id="@+id/topbar_LBL_heading"
+		<com.mom.app.ui.CustomTextView android:id="@+id/topbar_LBL_heading"
 		    android:layout_width="wrap_content" android:layout_height="wrap_content"
 			android:typeface="serif" android:textStyle="bold"
 			android:gravity="center" android:paddingLeft="10dp" android:paddingRight="10dp"
-		    android:text="Signature" android:textSize="20sp" android:textColor="#ffffff"
+		    android:text="@string/lbl_Signature" android:textSize="20sp" android:textColor="#ffffff"
 		    android:background="@drawable/headingrect"
 		    android:layout_alignParentTop="true" android:layout_centerInParent="true"/>
 	</RelativeLayout>
@@ -26,28 +26,29 @@
 		        <LinearLayout android:id="@+id/creditsale_LNR_redceiptdetails" android:orientation="horizontal"
 		     	    android:layout_width="fill_parent" android:layout_height="50dp" android:background="#FFFFFF">
 		        </LinearLayout>
-		        <com.mmpl.app.SignatureView android:id="@+id/creditsale_View_signature"
+		        <com.mom.app.SignatureView
+                    android:id="@+id/creditsale_View_signature"
 		     	    android:layout_width="fill_parent" android:layout_height="140dp" android:layout_marginTop="4dp"
 		     	    android:background="#FFFFFF"  
 		     	    android:layout_below="@+id/creditsale_LNR_redceiptdetails">
-		        </com.mmpl.app.SignatureView>
+		        </com.mom.app.SignatureView>
 		          
 		        <LinearLayout      	
 		     	    android:layout_width="fill_parent" android:layout_height="wrap_content"
 		     	    android:layout_gravity="center_horizontal" android:gravity="center_horizontal"
 		     	    android:layout_below="@+id/creditsale_View_signature" 
 		     	    android:layout_marginTop="3dp"  android:background="#FFFFFF"> 
-		   	    	<Button android:id="@+id/creditsale_BTN_clear"
+		   	    	<com.mom.app.ui.CustomButton android:id="@+id/creditsale_BTN_clear"
 				   	 	android:layout_width="100dp" android:layout_height="40dp"
 				    	android:textColor="#ffffff"
 				    	android:typeface="sans"
-						android:background="@drawable/custom_button" android:text="Clear"  android:gravity="center"
+						android:background="@drawable/custom_button" android:text="@string/btn_clear"  android:gravity="center"
 						android:textSize="17dp" android:layout_marginRight="5dp"/>
-				    <Button android:id="@+id/creditsale_BTN_submitsignature"
+				    <com.mom.app.ui.CustomButton android:id="@+id/creditsale_BTN_submitsignature"
 				   	 	android:layout_width="100dp" android:layout_height="40dp"
 				    	android:textColor="#ffffff"
 				    	android:typeface="sans"
-						android:background="@drawable/custom_button" android:text="Submit"  android:gravity="center"
+						android:background="@drawable/custom_button" android:text="@string/tpin_submit_btn"  android:gravity="center"
 						android:textSize="17dp"/> 
 						</LinearLayout> 
 	     	</RelativeLayout> 
