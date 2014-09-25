@@ -1,7 +1,5 @@
 package com.mom.app.identifier;
 
-
-
 /**
  * Created by vaibhavsinha on 7/7/14.
  */
@@ -13,5 +11,5 @@ public enum ActivityIdentifier {
     DTH_RECHARGE,
     BILL_PAYMENT,
     TRANSACTION_HISTORY,
-    RETAILER_PAYMENT;
+    SETTINGS;
 }

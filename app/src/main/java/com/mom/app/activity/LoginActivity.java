@@ -7,7 +7,11 @@ import java.util.Locale;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.mom.app.R;
+import com.mom.app.gcm.GcmUtil;
 import com.mom.app.identifier.PlatformIdentifier;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
@@ -34,18 +38,20 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class LoginActivity extends Activity implements AsyncListener <String>{
     String _LOG         = AppConstants.LOG_PREFIX + "LOGIN";
     
-            EditText _username, _password;
 
+    static final int REQUEST_CODE_RECOVER_PLAY_SERVICES = 1001;
 	private ProgressBar _pb;
 	private PlatformIdentifier _currentPlatform;
 	private Button _loginBtn;
 	private TextView _tvMessage;
     private Spinner _languageSpinner;
-	
+    EditText _username, _password;
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -64,6 +70,36 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 							getResources().getDrawable(R.drawable.appsbg)
 										);
 	}
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if(checkPlayServices()){
+            GcmUtil.getInstance(this).registerDevice();
+        }
+    }
+
+    private boolean checkPlayServices() {
+        int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+        if (status != ConnectionResult.SUCCESS) {
+            if (GooglePlayServicesUtil.isUserRecoverableError(status)) {
+                showErrorDialog(status);
+            } else {
+                Toast.makeText(this, "This device is not supported.",
+                        Toast.LENGTH_LONG).show();
+                finish();
+            }
+            Log.d(_LOG, "Play services not available");
+            return false;
+        }
+        Log.d(_LOG, "Play services available");
+        return true;
+    }
+
+    void showErrorDialog(int code) {
+        GooglePlayServicesUtil.getErrorDialog(code, this, REQUEST_CODE_RECOVER_PLAY_SERVICES).show();
+    }
 
     public void setupLanguageSelector(){
         _languageSpinner    = (Spinner) findViewById(R.id.selectLanguage);
@@ -137,6 +173,14 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
         return _pb;
     }
 
+    public void showProgressBar(){
+        getProgressBar().setVisibility(View.VISIBLE);
+    }
+
+    public void hideProgressBar(){
+        getProgressBar().setVisibility(View.GONE);
+    }
+
     public Button getLoginBtn(){
         if(_loginBtn == null){
             _loginBtn   = (Button)findViewById(R.id.btnLogin);
@@ -146,9 +190,7 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 
     @Override
     public void onTaskSuccess(String result, DataExImpl.Methods pMethod) {
-        getProgressBar().setVisibility(View.GONE);
         switch (pMethod){
-
             case CHECK_PLATFORM_DETAILS:
                 Log.i(_LOG, "Check result: " + result);
 
@@ -225,8 +267,7 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 		getLoginBtn().setEnabled(false);
         Log.d(_LOG, "Disable login button");
         
-		getProgressBar().setVisibility(View.VISIBLE);
-
+		showProgressBar();
 		
 		checkPlatformAndLogin();
 	}
@@ -271,8 +312,7 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
         AsyncListener<Boolean> listener = new AsyncListener<Boolean>() {
             @Override
             public void onTaskSuccess(Boolean result, DataExImpl.Methods callback) {
-                getProgressBar().setVisibility(View.GONE);
-
+                hideProgressBar();
                 if(!result){
                     setLoginFailed(getResources().getString(R.string.login_failed_msg_default));
                     return;
@@ -310,30 +350,7 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
         dataEx.login(_username.getText().toString(), _password.getText().toString());
 
         Log.i(_LOG, "Async login request sent");
-
 	}
-//
-//	public void loginToPBXPL() {
-//        Log.i(_LOG, "Going to login to PBXPL");
-//        _currentPlatform        = PlatformIdentifier.PBX;
-//
-//		try {
-//			EditText uname = (EditText) findViewById(R.id.et_un);
-//			String username = uname.getText().toString();
-//
-//			EditText pword = (EditText) findViewById(R.id.et_pw);
-//			String password = pword.getText().toString();
-//
-//            IDataEx dataEx          = new PBXPLDataExImpl(this, getApplicationContext());
-//
-//            Log.i(_LOG, "Calling PBXPL for login");
-//
-//            dataEx.login(username, password);
-//
-//		} catch (Exception ex) {
-//			ex.printStackTrace();
-//		}
-//	}
 
     public TextView getMessageTextView(){
         if(_tvMessage == null){

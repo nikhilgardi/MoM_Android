@@ -52,7 +52,7 @@ public class PersistentStorage extends LocalStorage {
 
     @Override
     public String getString(String psKey, String psDefault){
-        return _pref.getString(psKey, null);
+        return _pref.getString(psKey, psDefault);
     }
 
     @Override

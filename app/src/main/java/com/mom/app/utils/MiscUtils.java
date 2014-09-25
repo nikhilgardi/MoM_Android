@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.http.HttpEntity;
@@ -14,6 +16,8 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
@@ -21,69 +25,46 @@ import org.apache.http.util.EntityUtils;
 
 import android.util.Log;
 
+import com.mom.app.model.AsyncDataEx;
+
 
 public class MiscUtils {
     static String _LOG  = AppConstants.LOG_PREFIX + "UTILS";
 
-    public static String getHttpGetResponse(String psUrl){
+    public static String callHttpMethod(AsyncDataEx.HttpMethod method, String url, NameValuePair...pParams) {
+        // Create a new HttpClient and Post Header
+        HttpClient httpclient = new DefaultHttpClient();
+
         try {
-            Log.i("MISC-Get", "Getting: " + psUrl);
+            HttpRequestBase httpReq         = null;
+            ArrayList<NameValuePair> list   = new ArrayList<NameValuePair>(Arrays.asList(pParams));
 
-            HttpClient client = new DefaultHttpClient();
-            HttpGet request = new HttpGet(psUrl);
-            HttpResponse response = client.execute(request);
-
-            BufferedReader rd = new BufferedReader
-                    (new InputStreamReader(response.getEntity().getContent()));
-
-            StringBuffer bf = new StringBuffer();
-            String line = "";
-            while ((line = rd.readLine()) != null) {
-                bf.append(line);
+            if(method == AsyncDataEx.HttpMethod.GET){
+                Log.d(_LOG, "Going to make GET request");
+                String params   = URLEncodedUtils.format(list, AppConstants.UTF_8);
+                url            = url + "?" + params;
+                Log.d(_LOG, "Calling: " + url);
+                httpReq         = new HttpGet(url);
+            }else{
+                Log.d(_LOG, "Going to make POST request");
+                httpReq         = new HttpPost(url);
+                ((HttpPost)httpReq).setEntity(new UrlEncodedFormEntity(list));
             }
 
-            return bf.toString();
-        }catch(IOException ioe){
-            ioe.printStackTrace();
-            Log.i("MISC", ioe.getMessage());
+            Log.d(_LOG, "Starting request");
+
+            // Execute HTTP Post Request
+            HttpResponse response = httpclient.execute(httpReq);
+            HttpEntity entity 				= response.getEntity();
+            String sResponse 				= EntityUtils.toString(entity);
+            Log.d("AsyncDataEx", "Response: " + sResponse);
+            return sResponse;
+        }catch (Exception e) {
+            e.printStackTrace();
+            Log.i("Async", e.getMessage());
         }
         return null;
     }
-
-	public static String getHttpPostResponse(String psUrl, List<NameValuePair> pParams){
-		HttpClient httpclient 				= new DefaultHttpClient();
-
-        Log.i("MISC", "Getting: " + psUrl);
-
-		try {
-
-            HttpPost httppost 				= new HttpPost(psUrl);
-			final HttpParams httpParams 	= httppost.getParams();
-			HttpConnectionParams.setConnectionTimeout(httpParams, AppConstants.TIMEOUT_CONNECTION);
-			HttpConnectionParams.setSoTimeout(httpParams, AppConstants.TIMEOUT_SOCKET);
-
-			httppost.setEntity(new UrlEncodedFormEntity(pParams));
-
-            Log.i("Misc", httppost.toString());
-            Log.i("Misc", httppost.getURI().toString());
-
-			// Execute HTTP Post Request
-
-			HttpResponse response 			= httpclient.execute(httppost);
-			HttpEntity entity 				= response.getEntity();
-			String sResponse 				= EntityUtils.toString(entity);
-			
-			Log.i("postData", response.getStatusLine().toString());
-			Log.i("postData", sResponse);
-			
-			return sResponse;
-			
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-		
-		return null;
-	}
 
     public static void copyStream(InputStream is, OutputStream os)
     {

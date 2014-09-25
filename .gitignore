@@ -3,3 +3,8 @@
 build/
 bin/
 local.properties
+<<<<<<< HEAD
+=======
+MoM_Android1.iml
+mmpl-release-key.keystore
+>>>>>>> c6949adbf867670f7883570796c0265920955816
