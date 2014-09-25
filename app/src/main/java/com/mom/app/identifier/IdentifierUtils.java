@@ -8,6 +8,7 @@ import com.mom.app.activity.DTHRechargeActivity;
 import com.mom.app.activity.DashboardActivity;
 import com.mom.app.activity.MobileRechargeActivity;
 import com.mom.app.activity.LoginActivity;
+import com.mom.app.activity.RetailerPaymentActivity;
 import com.mom.app.model.local.EphemeralStorage;
 import com.mom.app.utils.AppConstants;
 
@@ -32,6 +33,8 @@ public class IdentifierUtils {
                 return DTHRechargeActivity.class;
             case BILL_PAYMENT:
                 return BillPaymentActivity.class;
+            case RETAILER_PAYMENT:
+                return RetailerPaymentActivity.class;
             default:
                 return DashboardActivity.class;
         }

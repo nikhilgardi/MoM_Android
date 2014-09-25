@@ -28,7 +28,6 @@
     <string name="action_history">History</string>
     <string name="action_settings">Settings</string>
     <string name="action_logout">Logout</string>
-
     <string name="title_activity_transaction_confirmation">Transaction Result</string>
     <string name="error_mobile_required">Mobile Number required</string>
     <string name="error_recharge_failed">Error occurred during recharge. Please try again or contact Customer Support for help.</string>
@@ -97,7 +96,8 @@
     <string name="language_telugu_code">te</string>
     <!-- END: LANGUAGE RELATED -->
     <string name="title_activity_base">MoneyOnMobile</string>
-
     <string name="drawer_open">Show Navigation</string>
     <string name="drawer_close">Hide Navigation</string>
+    <string name="title_activity_retailer_payment">RetailerPayment</string>
+
 </resources>

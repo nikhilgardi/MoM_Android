@@ -153,7 +153,8 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
                 Log.i(_LOG, "Check result: " + result);
 
                 if(true){
-                    login(PlatformIdentifier.PBX);
+                 //  login(PlatformIdentifier.PBX);
+                   login(PlatformIdentifier.NEW);
                     return;
                 }
 

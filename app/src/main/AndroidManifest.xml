@@ -31,8 +31,7 @@
         </activity>
         <activity
             android:name=".activity.DashboardActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation">
-
+            android:configChanges="keyboard|keyboardHidden|orientation" >
         </activity>
         <activity
             android:name=".activity.MobileRechargeActivity"
@@ -125,7 +124,14 @@
         <activity
             android:name=".activity.BaseActivity"
             android:label="@string/title_activity_base" >
-
+        </activity>
+        <activity
+            android:name=".activity.RetailerPayment"
+            android:label="@string/title_activity_retailer_payment" >
+        </activity>
+        <activity
+            android:name=".activity.RetailerPaymentActivity"
+            android:label="@string/title_activity_retailer_payment" >
         </activity>
     </application>
 

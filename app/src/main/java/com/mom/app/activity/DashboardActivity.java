@@ -125,11 +125,23 @@ public class DashboardActivity extends MOMActivityBase{
 
         }else if (item.equals("Settings")) {
             Log.d(_LOG, "Starting Settings Activity");
-            intent = new Intent(DashboardActivity.this, SettingsActivity.class);
+            Log.d(_LOG, "Starting Retailer Payment Activity");
+           // intent = new Intent(DashboardActivity.this, SettingsActivity.class);
+             intent = new Intent(DashboardActivity.this, RetailerPaymentActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             Log.d(_LOG, "Started Settings Activity");
+            Log.d(_LOG, "Started Retailer Payment Activity");
+            return;
+        }else if (item.equals("Retailer Payment")) {
+            Log.d(_LOG, "Starting Retailer Payment Activity");
+            intent = new Intent(DashboardActivity.this, RetailerPaymentActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            Log.d(_LOG, "Started Retailer Payment Activity");
+            return;
         }
+
     }
 
 

@@ -31,9 +31,10 @@ import java.util.HashMap;
  */
 public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String> {
     static String _LOG              = "PBX_DATA";
-
+    static String LOG_TAG          = AppConstants.LOG_PREFIX + "PBX_DATA";
+    private String _operatorId      = null;
     private static int _SUCCESS     = 200;
-
+  // String jsonStr =    "{\"Table\":[{\"PartyROWID\":92420,\"PartyRMN\":\"9769496026\",\"PartyName\":\"Akshay\",\"PartyGUID\":\"9163b4dd-f23d-41fd-99ab-7c0f57c9c7ed\",\"PartyEnum\":null,\"PartyTypeEnum\":16,\"userName\":\"Software\"}]}" ;
     public PBXPLDataExImpl(Context pContext, AsyncListener pListener){
         this._listener              = pListener;
         this._applicationContext    = pContext;
@@ -51,15 +52,16 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
             switch (callback) {
                 case LOGIN:
                     boolean bSuccess = loginSuccessful(result);
-                    _listener.onTaskSuccess(bSuccess, null);
+                 //   boolean bSuccess = loginSuccessful(jsonStr);
+                     _listener.onTaskSuccess(bSuccess, null);
                     break;
                 case CHANGE_PIN:
                     ResponseBase responseBase = changePinResult(result);
                     String message = null;
 
-                    if (responseBase != null && responseBase.status != _SUCCESS) {
+                 /*   if (responseBase != null && responseBase.status != _SUCCESS) {
                         message = responseBase.message;
-                    }
+                    }*/
                     _listener.onTaskSuccess(message, null);
                     break;
                 case GET_BALANCE:
@@ -72,11 +74,12 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
                     }
                     break;
                 case GET_OPERATOR_NAMES:
-                    _listener.onTaskSuccess(getOperatorNamesResult(result), callback);
+             //       _listener.onTaskSuccess(getOperatorNamesResult(result), callback);
                     break;
                 case TRANSACTION_HISTORY:
-                    _listener.onTaskSuccess(extractTransactions(result), callback);
+               //     _listener.onTaskSuccess(extractTransactions(result), callback);
                     break;
+
             }
         }catch(MOMException me){
             me.printStackTrace();
@@ -100,7 +103,38 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
 
     @Override
     public void rechargeMobile(String psConsumerNumber, double pdAmount, String psOperator, int pnRechargeType) {
+        if(
+                psConsumerNumber == null || "".equals(psConsumerNumber) ||
+                        pdAmount < 1 || psOperator == null || "".equals(psOperator)
+                ){
 
+            if(_listener != null) {
+                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.LOGIN);
+            }
+            return;
+        }
+
+        _operatorId                 = psOperator;
+
+        String url				    = AppConstants.URL_PBX_PLATFORM_APP;
+
+        AsyncDataEx dataEx		    = new AsyncDataEx(this, url, Methods.RECHARGE_MOBILE);
+
+        dataEx.execute(
+                new BasicNameValuePair(
+                        AppConstants.PARAM_NEW_INT_CUSTOMER_ID,
+                        EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_NEW_CUSTOMER_ID, null)
+                ),
+                new BasicNameValuePair(
+                        AppConstants.PARAM_NEW_COMPANY_ID,
+                        EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_NEW_COMPANY_ID, null)
+                ),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_STR_ACCESS_ID, "Test"),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_STR_MOBILE_NUMBER, psConsumerNumber),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_RECHARGE_AMOUNT, String.valueOf(Math.round(pdAmount))),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_OPERATOR, psOperator),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_INT_RECHARGE_TYPE, Integer.valueOf(pnRechargeType).toString())
+        );
     }
 
     @Override
@@ -137,7 +171,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
     }
 
     @Override
-    public void login(String userName, String password){
+    public void login(String username, String password){
         String loginUrl				= AppConstants.URL_PBX_PLATFORM_APP;
         Log.i(_LOG, "Calling Async login");
 
@@ -145,10 +179,11 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
 
         dataEx.execute(
             new BasicNameValuePair(AppConstants.PARAM_PBX_SERVICE, AppConstants.SVC_PBX_CHECK_LOGIN),
-            new BasicNameValuePair(AppConstants.PARAM_PBX_USERNAME, userName),
+            new BasicNameValuePair(AppConstants.PARAM_PBX_USERNAME, username),
             new BasicNameValuePair(AppConstants.PARAM_PBX_PASSWORD, password)
         );
     }
+
 
     public boolean loginSuccessful(String psResult){
         if(TextUtils.isEmpty(psResult)){
@@ -156,7 +191,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
         }
 
         boolean success = false;
-
+Log.i("Tes9t" , psResult);
         try {
             Gson gson   = new GsonBuilder().create();
 
@@ -165,18 +200,40 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
 
             ResponseBase<LoginResult> responseBase = gson.fromJson(psResult, type);
 
-            success     = (responseBase != null && responseBase.status == 200);
+            success     = (responseBase != null && responseBase.code == 0);
 
-            if (success && responseBase.response.Table != null && responseBase.response.Table.length < 1) {
-                success = false;
-            }
+            LoginResult loginResult = new LoginResult();
 
-            if (success) {
+            String name1= loginResult.name.toString();
+            String  rmn1= loginResult.rmn.toString();
+            String token1 =loginResult.token.toString();
+            Log.i("responsejson" , name1+rmn1+token1);
+
+//            if (success && responseBase.response.Table != null && responseBase.response.Table.length < 1) {
+//                success = false;
+//            }
+if(success && responseBase.data != null)
+{
+    success= false;
+
+    //LoginResult loginResult = new LoginResult();
+
+    String name= loginResult.name.toString();
+    String  rmn= loginResult.rmn.toString();
+    String token =loginResult.token.toString();
+    Log.i("responsejson" , name+rmn+token);
+
+
+}
+
+       /*     if (success) {
                 EphemeralStorage.getInstance(_applicationContext).storeString(
                         AppConstants.PARAM_PBX_TOKEN,
                         responseBase.response.Table[0].PartyGUID
+
                 );
-            }
+              }*/
+
         }catch(JsonSyntaxException jse){
             Log.e(_LOG, jse.getMessage());
             jse.printStackTrace();
@@ -213,7 +270,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
         );
     }
 
-    public ArrayList<Transaction> extractTransactions(String result){
+   /* public ArrayList<Transaction> extractTransactions(String result){
         Gson gson = new GsonBuilder().create();
 
         Type type   = new TypeToken<ResponseBase<PBXTransaction>>(){}.getType();
@@ -230,7 +287,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
         }
 
         return list;
-    }
+    }*/
 
     @Override
     public void changePin(PinType pinType, String psOldPin, String psNewPin) {
@@ -274,8 +331,10 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
 
         AsyncDataEx dataEx		    = new AsyncDataEx(this, url, Methods.GET_OPERATOR_NAMES);
     }
+    public void retailerpayment (String psConsumerNumber,double pdAmount ){
 
-    public String[] getOperatorNamesResult(String result){
+    }
+ /*   public String[] getOperatorNamesResult(String result){
         Gson gson = new GsonBuilder().create();
 
         Type type   = new TypeToken<ResponseBase<Party>>(){}.getType();
@@ -294,5 +353,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
         }
 
         return operators;
-    }
+    }*/
+
+
 }

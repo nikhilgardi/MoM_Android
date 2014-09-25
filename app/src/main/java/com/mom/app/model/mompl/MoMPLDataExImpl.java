@@ -55,7 +55,7 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<String>
                     Log.d(LOG_TAG, "TaskComplete: Login method, result: " + result);
                     boolean bLoginSuccess = loginSuccessful(result);
                     if (_listener != null) {
-                        _listener.onTaskSuccess((new Boolean(bLoginSuccess)).toString(), callback);
+                        _listener.onTaskSuccess((new Boolean(bLoginSuccess)), callback);
                     }
                     break;
                 case VERIFY_TPIN:
@@ -93,6 +93,13 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<String>
                         _listener.onTaskSuccess(getRechargeResult(result), Methods.PAY_BILL);
                     }
                     break;
+                case RETAILER_PAYMENT:
+                    Log.d(LOG_TAG, "TaskComplete: retailerpayment method, result: " + result);
+
+                    if (_listener != null) {
+                        _listener.onTaskSuccess(getRechargeResult(result), Methods.RETAILER_PAYMENT);
+                    }
+                    break;
                 case GET_BILL_AMOUNT:
                     Log.d(LOG_TAG, "TaskComplete: getBillAmount method, result: " + result);
                     float billAmount = extractBillAmount(result);
@@ -117,7 +124,8 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<String>
                     }
 
                     break;
-            }
+
+             }
         }catch (Exception e){
             e.printStackTrace();
             if(_listener != null) {
@@ -455,7 +463,36 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<String>
                 new BasicNameValuePair(AppConstants.PARAM_NEW_INT_OPERATOR_ID_BILL_PAY, psOperatorId)
         );
     }
+    public void retailerpayment (String psConsumerNumber,double pdAmount )
+    {
 
+        if(
+                psConsumerNumber == null || "".equals(psConsumerNumber) ||pdAmount < 1 ){
+
+            if(_listener != null) {
+                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.LOGIN);
+            }
+            return;
+        }
+
+
+        String transvaltype = "Refilled";
+        String url				    = AppConstants.URL_NEW_PLATFORM_TXN + AppConstants.SVC_NEW_METHOD_RETAILER_PAYMENT;
+        String sUserId          = EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_NEW_USER_ID, null);
+        AsyncDataEx dataEx		    = new AsyncDataEx(this, url, Methods.RETAILER_PAYMENT);
+
+        dataEx.execute(
+                new BasicNameValuePair(AppConstants.PARAM_NEW_STR_PAYER, sUserId),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_STR_PAYEE, psConsumerNumber),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_STR_TRANSFERAMOUNT, String.valueOf(Math.round(pdAmount))),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_STR_TRANSVALUETPE, AppConstants.PARAM_NEW_STR_TRANSVALUE),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_STR_ACCESS_ID, "Test"),
+        new BasicNameValuePair(
+                AppConstants.PARAM_NEW_COMPANY_ID,
+                EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_NEW_COMPANY_ID, null)
+        )
+        );
+    }
     public void getBillAmount(String psOperatorId, String psSubscriberId){
 
         if(

@@ -84,6 +84,7 @@ public class AsyncDataEx extends AsyncTask<NameValuePair, Integer, String>{
 			HttpEntity entity 				= response.getEntity();
 			String sResponse 				= EntityUtils.toString(entity);
             Log.d("AsyncDataEx", "Response: " + sResponse);
+            Log.d("testparams" , _url);
             return sResponse;
 		}catch (Exception e) {
             e.printStackTrace();
