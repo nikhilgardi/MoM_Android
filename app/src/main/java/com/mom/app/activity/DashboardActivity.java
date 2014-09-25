@@ -70,15 +70,8 @@ public class DashboardActivity extends MOMActivityBase{
 
                 item.setSelected(!item.getSelected());
 
-//                if(item.getSelected()) {
-//                    v.setBackgroundColor(getResources().getColor(R.color.row_selected));
-//                }else{
-//                    v.setBackgroundColor(Color.TRANSPARENT);
-//                }
-
                 Log.d(_LOG, "Going to selected activity");
                 nextActivity(item.getTitle());
-
             }
         });
     }
@@ -88,47 +81,46 @@ public class DashboardActivity extends MOMActivityBase{
 
     }
 
+    private void goToNext(Class nextActivity, ActivityIdentifier ultimateDestination){
+        Intent intent       = new Intent(this, nextActivity);
+        if(ultimateDestination != null){
+            intent.putExtra(AppConstants.INTENT_MESSAGE_DEST, ultimateDestination);
+            intent.putExtra(AppConstants.INTENT_MESSAGE_ORIGIN, ActivityIdentifier.DASHBOARD);
+        }
+        startActivity(intent);
+    }
     private void nextActivity(String item){
-        Intent intent   = null;
+        ActivityIdentifier ultimateDestination      = null;
+        Class nextActivity                          = null;
+
         if (item.equals("Mobile Recharge")) {
             Log.d(_LOG, "Starting Mobile Recharge");
-            intent = new Intent(this, VerifyTPinActivity.class);
-            intent.putExtra(AppConstants.INTENT_MESSAGE_DEST, ActivityIdentifier.MOBILE_RECHARGE);
-            intent.putExtra(AppConstants.INTENT_MESSAGE_ORIGIN, ActivityIdentifier.DASHBOARD);
-            startActivity(intent);
-            Log.d(_LOG, "Started Mobile Recharge");
-            return;
+            ultimateDestination     = ActivityIdentifier.MOBILE_RECHARGE;
+            nextActivity            = VerifyTPinActivity.class;
         }else if (item.equals("DTH Recharge")) {
             Log.d(_LOG, "Starting DTH Recharge");
-            intent = new Intent(this, VerifyTPinActivity.class);
-            intent.putExtra(AppConstants.INTENT_MESSAGE_DEST, ActivityIdentifier.DTH_RECHARGE);
-            intent.putExtra(AppConstants.INTENT_MESSAGE_ORIGIN, ActivityIdentifier.DASHBOARD);
-            startActivity(intent);
-            Log.d(_LOG, "Started DTH Recharge");
-            return;
+            ultimateDestination     = ActivityIdentifier.DTH_RECHARGE;
+            nextActivity            = DTHRechargeActivity.class;
 
         }else if (item.equals("Bill Payment")) {
             Log.d(_LOG, "Starting Bill Payment");
-            intent = new Intent(this, VerifyTPinActivity.class);
-            intent.putExtra(AppConstants.INTENT_MESSAGE_DEST, ActivityIdentifier.BILL_PAYMENT);
-            intent.putExtra(AppConstants.INTENT_MESSAGE_ORIGIN, ActivityIdentifier.DASHBOARD);
-            startActivity(intent);
-            Log.d(_LOG, "Started Bill Payment");
-            return;
+            ultimateDestination     = ActivityIdentifier.BILL_PAYMENT;
+            nextActivity            = BillPaymentActivity.class;
         }else if (item.equals("History")) {
 
             Log.d(_LOG, "Starting Transaction History Activity");
-            intent = new Intent(this, TransactionHistoryActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            Log.d(_LOG, "Started Transaction History Activity");
-
+            ultimateDestination     = ActivityIdentifier.TRANSACTION_HISTORY;
+            nextActivity            = VerifyTPinActivity.class;
         }else if (item.equals("Settings")) {
             Log.d(_LOG, "Starting Settings Activity");
-            intent = new Intent(DashboardActivity.this, SettingsActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            Log.d(_LOG, "Started Settings Activity");
+            ultimateDestination     = ActivityIdentifier.SETTINGS;
+            nextActivity            = SettingsActivity.class;
+        }
+
+        if(_currentPlatform == PlatformIdentifier.PBX){
+            goToNext(nextActivity, null);
+        }else{
+            goToNext(VerifyTPinActivity.class, ultimateDestination);
         }
     }
 
