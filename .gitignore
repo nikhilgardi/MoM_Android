@@ -5,3 +5,4 @@ build/
 gen/
 local.properties
 MoM_Android1.iml
+mmpl-release-key.keystore
