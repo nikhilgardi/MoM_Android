@@ -5,6 +5,7 @@ package com.mom.app.model.pbxpl;
  */
 public class ResponseBase<T> {
     public int code;
-    public String data;
-  //  public ResponseData<T> response;
+   // public String data;
+   // public ResponseData<T> data;
+    public T data;
 }

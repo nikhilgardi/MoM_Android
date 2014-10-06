@@ -18,6 +18,8 @@ import android.widget.ListView;
 import com.mom.app.R;
 import com.mom.app.error.MOMException;
 import com.mom.app.fragment.FragmentBase;
+import com.mom.app.identifier.IdentifierUtils;
+import com.mom.app.identifier.PlatformIdentifier;
 import com.mom.app.ui.IFragmentListener;
 import com.mom.app.ui.flow.MoMScreen;
 import com.mom.app.utils.AppConstants;
@@ -36,6 +38,7 @@ public class BaseActivity extends Activity implements IFragmentListener{
     ArrayList<ImageItem> mMenuItems;
     ImageTextViewAdapter _imageTextAdapter;
     private ActionBarDrawerToggle mDrawerToggle;
+    private PlatformIdentifier _currentPlatform;
 
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
@@ -44,9 +47,10 @@ public class BaseActivity extends Activity implements IFragmentListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
+        _currentPlatform    = IdentifierUtils.getPlatformIdentifier(getApplicationContext());
 
-        mMenuItems      = DataProvider.getScreens(this);
-
+        mMenuItems      = DataProvider.getScreens(this , _currentPlatform);
+       // mMenuItems      = DataProvider.getScreens(this);
         mDrawerLayout   = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList     = (ListView) findViewById(R.id.leftDrawer);
 

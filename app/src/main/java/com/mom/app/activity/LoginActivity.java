@@ -10,6 +10,7 @@ import org.apache.http.message.BasicNameValuePair;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+
 import com.mom.app.R;
 import com.mom.app.gcm.GcmUtil;
 import com.mom.app.identifier.PlatformIdentifier;
@@ -75,9 +76,9 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
     protected void onResume() {
         super.onResume();
 
-        if(checkPlayServices()){
-            GcmUtil.getInstance(this).registerDevice();
-        }
+//        if(checkPlayServices()){
+//            GcmUtil.getInstance(this).registerDevice();
+//        }
     }
 
     private boolean checkPlayServices() {
@@ -195,8 +196,8 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
                 Log.i(_LOG, "Check result: " + result);
 
                 if(true){
-                 //  login(PlatformIdentifier.PBX);
-                   login(PlatformIdentifier.NEW);
+               login(PlatformIdentifier.PBX);
+               //   login(PlatformIdentifier.NEW);
                     return;
                 }
 

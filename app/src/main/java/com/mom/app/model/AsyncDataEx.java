@@ -51,6 +51,7 @@ public class AsyncDataEx extends AsyncTask<NameValuePair, Integer, String>{
 	protected void onPostExecute(String result){
         Log.d(_LOG, "Called onPostExecute of listener, calling listener");
         _callback.onTaskSuccess(result, _callbackData);
+        Log.i("REsultCheck" , result);
         Log.d(_LOG, "Called onTaskSuccess of listener");
 	}
 	

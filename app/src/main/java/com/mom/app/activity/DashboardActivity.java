@@ -41,6 +41,24 @@ public class DashboardActivity extends MOMActivityBase{
 
 //        String[] values     = null;
         getBalance();
+        if (_currentPlatform == PlatformIdentifier.PBX) {
+            String jsonstring1 = EphemeralStorage.getInstance(this).getString(AppConstants.PARAM_PBX_USERID, null);
+            Log.i("ResultLogin1 Dash", jsonstring1);
+            String jsonstring2 = EphemeralStorage.getInstance(this).getString(AppConstants.PARAM_PBX_RMN, null);
+            Log.i("ResultLogin2 Dash", jsonstring2);
+            String jsonstring3 = EphemeralStorage.getInstance(this).getString(AppConstants.PARAM_PBX_NAME, null);
+            Log.i("ResultLogin3 Dash", jsonstring3);
+
+            String jsonstring4 = EphemeralStorage.getInstance(this).getString(AppConstants.PARAM_PBX_TOKEN, null);
+            Log.i("ResultLogin4 Dash", jsonstring4);
+
+            String jsonstring5 = EphemeralStorage.getInstance(this).getString(AppConstants.PARAM_PBX_USERTYPE, null);
+            Log.i("ResultLogin5 Dash", jsonstring5);
+
+            String jsonstring6 = EphemeralStorage.getInstance(this).getString(AppConstants.PARAM_PBX_USERNAMELOGIN, null);
+            Log.i("ResultLogin6 Dash", jsonstring6);
+
+        }
 
 //        if (_currentPlatform == PlatformIdentifier.NEW)
 //        {
@@ -50,7 +68,7 @@ public class DashboardActivity extends MOMActivityBase{
 //        }
 
         gridView            = (GridView) findViewById(R.id.gridView);
-        gridViewAdapter     = new ImageTextViewAdapter(this, R.layout.grid_cell, DataProvider.getScreens(this));
+        gridViewAdapter     = new ImageTextViewAdapter(this, R.layout.grid_cell, DataProvider.getScreens(this, _currentPlatform));
 
         gridView.setAdapter(gridViewAdapter);
         gridView.setNumColumns(2);
@@ -110,7 +128,8 @@ public class DashboardActivity extends MOMActivityBase{
 
             Log.d(_LOG, "Starting Transaction History Activity");
             ultimateDestination     = ActivityIdentifier.TRANSACTION_HISTORY;
-            nextActivity            = VerifyTPinActivity.class;
+            nextActivity            = TransactionHistoryActivity.class;
+           // nextActivity            = VerifyTPinActivity.class;
         }else if (item.equals("Settings")) {
             Log.d(_LOG, "Starting Settings Activity");
             ultimateDestination     = ActivityIdentifier.SETTINGS;
@@ -119,7 +138,9 @@ public class DashboardActivity extends MOMActivityBase{
 
         if(_currentPlatform == PlatformIdentifier.PBX){
             goToNext(nextActivity, null);
-        }else{
+        }
+
+        else{
             goToNext(VerifyTPinActivity.class, ultimateDestination);
         }
     }

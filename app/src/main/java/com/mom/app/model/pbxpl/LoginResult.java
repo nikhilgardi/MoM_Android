@@ -10,4 +10,17 @@ public class LoginResult {
     public String token;
     public String userType;
     public String userName;
+
+
+//    public LoginResult getLoginDetails(){
+//       LoginResult loginresult = new LoginResult();
+//        loginresult.userID        = userID;
+//        loginresult.rmn           = rmn;
+//        loginresult.name          = name;
+//        loginresult.token         = token;
+//        loginresult.userType      = userType;
+//        loginresult.userName      = userName;
+//
+//        return loginresult;
+//    }
 }

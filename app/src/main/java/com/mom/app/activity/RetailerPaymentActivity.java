@@ -39,7 +39,7 @@ import com.mom.app.model.local.EphemeralStorage;
 import com.mom.app.utils.AppConstants;
 
 public class RetailerPaymentActivity extends MOMActivityBase implements AsyncListener<String>{
-    String _LOG         = AppConstants.LOG_PREFIX + "DTH RECHARGE";
+    String _LOG         = AppConstants.LOG_PREFIX + "RETAILER PAYMENT";
 
     private EditText rechargeTargetPhone;
     private EditText amountField;

@@ -23,6 +23,7 @@
     <string name="action_mobileRecharge">Mobile Recharge</string>
     <string name="action_dthRecharge">DTH Recharge</string>
     <string name="action_billPayment">Bill Payment</string>
+    <string name="action_retailerPayment">Retailer Payment</string>
     <string name="action_cardSale">Card Sale</string>
     <string name="action_utilityBill">Utility Bill Payment</string>
     <string name="action_history">History</string>
