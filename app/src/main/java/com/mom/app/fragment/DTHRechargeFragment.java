@@ -1,7 +1,29 @@
-package com.mom.app.activity;
+package com.mom.app.fragment;
 
-import java.util.ArrayList;
-import java.util.List;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
+
+import com.mom.app.R;
+import com.mom.app.activity.DashboardActivity;
+import com.mom.app.identifier.ActivityIdentifier;
+import com.mom.app.identifier.PlatformIdentifier;
+import com.mom.app.model.AsyncListener;
+import com.mom.app.model.AsyncResult;
+import com.mom.app.model.DataExImpl;
+import com.mom.app.model.local.EphemeralStorage;
+import com.mom.app.utils.AppConstants;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -15,32 +37,13 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
+import java.util.ArrayList;
+import java.util.List;
 
-import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.Toast;
-
-import com.mom.app.R;
-import com.mom.app.identifier.ActivityIdentifier;
-import com.mom.app.identifier.PlatformIdentifier;
-import com.mom.app.model.AsyncListener;
-import com.mom.app.model.AsyncResult;
-import com.mom.app.model.DataExImpl;
-import com.mom.app.model.local.EphemeralStorage;
-import com.mom.app.utils.AppConstants;
-
-public class DTHRechargeActivity extends MOMActivityBase implements AsyncListener<String>{
+/**
+ * Created by vaibhavsinha on 10/4/14.
+ */
+public class DTHRechargeFragment extends FragmentBase implements AsyncListener<String> {
     String _LOG         = AppConstants.LOG_PREFIX + "DTH RECHARGE";
 
     private EditText _etSubscriberId;
@@ -54,17 +57,25 @@ public class DTHRechargeActivity extends MOMActivityBase implements AsyncListene
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dth_recharge);
 
-        this.operatorSpinner    = (Spinner) findViewById(R.id.Operator);
-        this._etSubscriberId    = (EditText) findViewById(R.id.subscriberId);
-        this.amountField        = (EditText) findViewById(R.id.amount);
-        this._etCustomerNumber  = (EditText) findViewById(R.id.number);
-        getAllOperators();
-        getProgressBar().setVisibility(View.GONE);
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        Log.d(_LOG, "onCreateView");
+        View view = inflater.inflate(R.layout.activity_dth_recharge, null, false);
 
+        this.operatorSpinner    = (Spinner) view.findViewById(R.id.Operator);
+        this._etSubscriberId    = (EditText) view.findViewById(R.id.subscriberId);
+        this.amountField        = (EditText) view.findViewById(R.id.amount);
+        this._etCustomerNumber  = (EditText) view.findViewById(R.id.number);
+
+        getAllOperators();
+        getProgressBar().setVisibility(View.GONE);
+
+        return view;
+    }
 
     @Override
     public void onTaskSuccess(String result, DataExImpl.Methods callback) {
@@ -77,9 +88,9 @@ public class DTHRechargeActivity extends MOMActivityBase implements AsyncListene
                     return;
                 }
                 Log.d(_LOG, "Going to get new balance");
-                getBalance();
+                getBalanceAsync();
                 Log.d(_LOG, "Starting navigation to TxnMsg Activity");
-                navigateToTransactionMessageActivity(ActivityIdentifier.DTH_RECHARGE, result);
+//                navigateToTransactionMessageActivity(ActivityIdentifier.DTH_RECHARGE, result);
                 break;
         }
 
@@ -99,8 +110,6 @@ public class DTHRechargeActivity extends MOMActivityBase implements AsyncListene
 
     public String[] getAllOperators() {
         String[] strResponse1 = null;
-        SharedPreferences pref = PreferenceManager
-                .getDefaultSharedPreferences(getApplicationContext());
 
         if (_currentPlatform == PlatformIdentifier.NEW)
         {
@@ -111,8 +120,9 @@ public class DTHRechargeActivity extends MOMActivityBase implements AsyncListene
                 };
 
                 ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(
-                        this, android.R.layout.simple_spinner_item,
+                        getActivity(), android.R.layout.simple_spinner_item,
                         strOperators);
+
                 dataAdapter
                         .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 operatorSpinner.setAdapter(dataAdapter);
@@ -149,7 +159,7 @@ public class DTHRechargeActivity extends MOMActivityBase implements AsyncListene
                 strResponse1 = strArrOperators;
 
                 ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(
-                        this, android.R.layout.simple_spinner_item,
+                        getActivity(), android.R.layout.simple_spinner_item,
                         strResponse1);
                 dataAdapter
                         .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -160,7 +170,7 @@ public class DTHRechargeActivity extends MOMActivityBase implements AsyncListene
                 strResponse1 = strResponse;
             }
         } else {
-            Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG)
+            Toast.makeText(getActivity(), "Error", Toast.LENGTH_LONG)
                     .show();
         }
 
@@ -238,9 +248,9 @@ public class DTHRechargeActivity extends MOMActivityBase implements AsyncListene
 
         if(
                 sOperatorId.equals(AppConstants.OPERATOR_ID_DISH) ||
-                sOperatorId.equals(AppConstants.OPERATOR_ID_SUN_DIRECT) ||
-                sOperatorId.equals("DSH") ||
-                sOperatorId.equals("SUN")
+                        sOperatorId.equals(AppConstants.OPERATOR_ID_SUN_DIRECT) ||
+                        sOperatorId.equals("DSH") ||
+                        sOperatorId.equals("SUN")
                 ){
 
             nMinLength      = 11;
@@ -248,7 +258,7 @@ public class DTHRechargeActivity extends MOMActivityBase implements AsyncListene
             nMinAmount      = 10;
         }else if(
                 sOperatorId.equals(AppConstants.OPERATOR_ID_BIG_TV) ||
-                sOperatorId.equals("BIG")
+                        sOperatorId.equals("BIG")
                 ){
 
             nMinLength      = 12;
@@ -256,7 +266,7 @@ public class DTHRechargeActivity extends MOMActivityBase implements AsyncListene
             nMinAmount      = 25;
         }else if(
                 sOperatorId.equals(AppConstants.OPERATOR_ID_VIDEOCON_DTH) ||
-                sOperatorId.equals("D2H")
+                        sOperatorId.equals("D2H")
                 ){
 
             nMinLength      = 1;
@@ -319,7 +329,7 @@ public class DTHRechargeActivity extends MOMActivityBase implements AsyncListene
                 nameValuePairs.add(new BasicNameValuePair("CustMobile", sSubscriberId));
                 nameValuePairs.add(new BasicNameValuePair("Amount", sRechargeAmount));
                 nameValuePairs.add(new BasicNameValuePair("OP", sOperatorID));
-                String sUserMobile  = EphemeralStorage.getInstance(this).getString(AppConstants.LOGGED_IN_USERNAME, "");
+                String sUserMobile  = EphemeralStorage.getInstance(getActivity()).getString(AppConstants.LOGGED_IN_USERNAME, "");
                 nameValuePairs.add(new BasicNameValuePair("RN", sUserMobile));
                 nameValuePairs.add(new BasicNameValuePair("Service", "RM"));
 
@@ -360,7 +370,7 @@ public class DTHRechargeActivity extends MOMActivityBase implements AsyncListene
             }
 
         } else {
-            Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG)
+            Toast.makeText(getActivity(), "Error", Toast.LENGTH_LONG)
                     .show();
         }
 
@@ -369,11 +379,7 @@ public class DTHRechargeActivity extends MOMActivityBase implements AsyncListene
 
 
     public void goBack(View view) {
-        Intent intent = new Intent(this, DashboardActivity.class);
-        startActivity(intent);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        this.finish();
-        return;
+        getFragmentManager().popBackStack();
     }
 
 
@@ -381,8 +387,7 @@ public class DTHRechargeActivity extends MOMActivityBase implements AsyncListene
         getProgressBar().setVisibility(View.VISIBLE);
 
 
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(
-                DTHRechargeActivity.this);
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
 
         // Setting Dialog Title
         alertDialog.setTitle("Confirm DTH Recharge...");
@@ -417,5 +422,4 @@ public class DTHRechargeActivity extends MOMActivityBase implements AsyncListene
 
         alertDialog.show();
     }
-
 }

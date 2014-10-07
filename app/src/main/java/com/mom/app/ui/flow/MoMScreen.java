@@ -14,6 +14,8 @@ public enum MoMScreen implements Serializable{
     RETAILER_PAYMENT(350, R.string.action_retailerPayment, R.drawable.bill),
     HISTORY(400, R.string.action_history, R.drawable.history),
     SETTINGS(500, R.string.action_settings, R.drawable.settings),
+    CHANGE_MPIN(600, R.string.action_changeMpin, R.drawable.phone),
+    CHANGE_TPIN(650, R.string.action_changeTpin, R.drawable.telephone),
     LOGOUT(1100, R.string.action_logout, R.drawable.logout);
 
     public Integer titleResId;

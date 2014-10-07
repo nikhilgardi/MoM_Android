@@ -10,7 +10,6 @@ import org.apache.http.message.BasicNameValuePair;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
-
 import com.mom.app.R;
 import com.mom.app.gcm.GcmUtil;
 import com.mom.app.identifier.PlatformIdentifier;
@@ -76,9 +75,9 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
     protected void onResume() {
         super.onResume();
 
-//        if(checkPlayServices()){
-//            GcmUtil.getInstance(this).registerDevice();
-//        }
+        if(checkPlayServices()){
+            GcmUtil.getInstance(this).registerDevice();
+        }
     }
 
     private boolean checkPlayServices() {
@@ -194,12 +193,11 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
         switch (pMethod){
             case CHECK_PLATFORM_DETAILS:
                 Log.i(_LOG, "Check result: " + result);
-
-                if(true){
-               login(PlatformIdentifier.PBX);
-               //   login(PlatformIdentifier.NEW);
-                    return;
-                }
+//
+//                if(true){
+//                    login(PlatformIdentifier.PBX);
+//                    return;
+//                }
 
                 if(result == null || result.trim().equals("")){
                     Log.i(_LOG, "1. User not of new PL");
@@ -341,7 +339,8 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
             }
         };
 
-        IDataEx dataEx          = null;
+        IDataEx dataEx;
+
         if(platform == PlatformIdentifier.NEW) {
             dataEx              = new MoMPLDataExImpl(getApplicationContext(), listener);
         }else{

@@ -17,5 +17,7 @@ public interface IStorage {
     float getFloat(String psKey, float pfDefault);
     void storeInt(String psKey, int pnValue);
     int getInt(String psKey, int pnDefault);
+    void storeObject(String psKey, Object obj);
+    Object getObject(String psKey, Object pDefault);
     void clear();
 }

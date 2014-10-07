@@ -5,7 +5,9 @@ import android.graphics.Bitmap;
 /**
  * Created by vaibhavsinha on 7/14/14.
  */
-public class ImageItem {
+public class ImageItem<T> {
+    private T item;
+
     private Integer id;
     private Integer drawableId;
     private String imageUrl;
@@ -13,8 +15,9 @@ public class ImageItem {
     private String title;
     private Boolean selected;
 
-    public ImageItem(int id, int imageId, String title, boolean pbSelected) {
+    public ImageItem(T item, int id, int imageId, String title, boolean pbSelected) {
         super();
+        this.item       = item;
         this.id         = id;
         this.drawableId = imageId;
         this.title      = title;
@@ -27,6 +30,10 @@ public class ImageItem {
         this.imageUrl   = imageUrl;
         this.title      = title;
         this.selected   = pbSelected;
+    }
+
+    public T getItem() {
+        return item;
     }
 
     public Integer getId() {

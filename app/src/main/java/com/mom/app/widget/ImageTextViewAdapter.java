@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.mom.app.R;
 import com.mom.app.external.ImageLoader;
+import com.mom.app.utils.AppConstants;
 import com.mom.app.widget.holder.ImageItem;
 
 import java.util.ArrayList;
@@ -20,13 +21,15 @@ import java.util.ArrayList;
 /**
  * Created by vaibhavsinha on 7/14/14.
  */
-public class ImageTextViewAdapter extends ArrayAdapter{
+public class ImageTextViewAdapter<T> extends ArrayAdapter{
+    static String _LOG = AppConstants.LOG_PREFIX + "ITV_ADAPTER";
+
     private Context context;
     private int layoutResourceId;
-    private ArrayList<ImageItem> data;
+    private ArrayList<ImageItem<T>> data;
     private boolean _isGridView     = true;
 
-    public ImageTextViewAdapter(Context context, int layoutResourceId, ArrayList<ImageItem> data) {
+    public ImageTextViewAdapter(Context context, int layoutResourceId, ArrayList<ImageItem<T>> data) {
 
         super(context, layoutResourceId, data);
         this.layoutResourceId = layoutResourceId;
@@ -34,7 +37,7 @@ public class ImageTextViewAdapter extends ArrayAdapter{
         this.data = data;
     }
 
-    public ImageTextViewAdapter(Context context, int layoutResourceId, ArrayList<ImageItem> data, boolean isGridView) {
+    public ImageTextViewAdapter(Context context, int layoutResourceId, ArrayList<ImageItem<T>> data, boolean isGridView) {
 
         super(context, layoutResourceId, data);
         this.layoutResourceId = layoutResourceId;
@@ -48,6 +51,8 @@ public class ImageTextViewAdapter extends ArrayAdapter{
         View row                = convertView;
         ViewHolder holder       = null;
         final ImageItem item          = data.get(position);
+
+        Log.d(_LOG, "Getting drawer view");
 
         if (row == null) {
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
@@ -72,7 +77,7 @@ public class ImageTextViewAdapter extends ArrayAdapter{
             holder.image.setImageResource(item.getDrawableId());
         }
 
-        Log.d("ADAPTER", position + " selected = " + item.getSelected());
+        Log.d(_LOG, position + " selected = " + item.getSelected());
 
 //        if(item.getSelected()) {
 //            if(_isGridView){

@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.mom.app.R;
+import com.mom.app.utils.MiscUtils;
+
 import java.io.Serializable;
 
 /**
@@ -16,7 +19,10 @@ public class PersistentStorage extends LocalStorage {
 
     private PersistentStorage(Context context){
         _context    = context;
-        _pref = PreferenceManager.getDefaultSharedPreferences(_context);
+        _pref       = _context.getSharedPreferences(
+                "com.mom.app.pref",
+                Context.MODE_PRIVATE
+        );
         _prefEditor = _pref.edit();
     }
 
@@ -75,5 +81,21 @@ public class PersistentStorage extends LocalStorage {
     public void storeInt(String psKey, int pnValue) {
         _prefEditor.putInt(psKey, pnValue);
         _prefEditor.commit();
+    }
+
+    @Override
+    public void storeObject(String psKey, Object obj) {
+        storeString(psKey, MiscUtils.toJson(obj));
+    }
+
+    @Override
+    public Object getObject(String psKey, Object pDefault) {
+        String sObj = getString(psKey, null);
+
+        if(sObj == null || pDefault == null){
+            return null;
+        }
+
+        return MiscUtils.fromJson(sObj, pDefault.getClass());
     }
 }

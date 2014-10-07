@@ -13,6 +13,7 @@ import android.widget.GridView;
 import com.mom.app.R;
 import com.mom.app.identifier.IdentifierUtils;
 import com.mom.app.identifier.PlatformIdentifier;
+import com.mom.app.ui.flow.MoMScreen;
 import com.mom.app.utils.AppConstants;
 import com.mom.app.utils.DataProvider;
 import com.mom.app.widget.ImageTextViewAdapter;
@@ -33,7 +34,7 @@ public class SettingsActivity extends MOMActivityBase {
         _currentPlatform    = IdentifierUtils.getPlatformIdentifier(getApplicationContext());
 
         gridView            = (GridView) findViewById(R.id.gridView);
-        gridViewAdapter     = new ImageTextViewAdapter(this, R.layout.row_grid, DataProvider.getScreens(this, _currentPlatform));
+        gridViewAdapter     = new ImageTextViewAdapter<MoMScreen>(this, R.layout.row_grid, DataProvider.getSettingsScreens(this));
 
         gridView.setAdapter(gridViewAdapter);
         gridView.setNumColumns(2);
@@ -43,7 +44,7 @@ public class SettingsActivity extends MOMActivityBase {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 
                 Log.d(_LOG, "Clicked " + position);
-                ImageItem item = (ImageItem) gridViewAdapter.getItem(position);
+                ImageItem<MoMScreen> item = (ImageItem<MoMScreen>) gridViewAdapter.getItem(position);
                 if (item == null) {
                     Log.e(_LOG, "No click target found, returning.");
                     return;
@@ -59,7 +60,7 @@ public class SettingsActivity extends MOMActivityBase {
                 }
 
                 Log.d(_LOG, "Going to selected activity");
-                nextActivity(item.getTitle());
+                nextActivity(item);
             }
         });
     }
@@ -89,22 +90,24 @@ public class SettingsActivity extends MOMActivityBase {
 
     }
 
-    private void nextActivity(String item) {
+    private void nextActivity(ImageItem<MoMScreen> item) {
         Intent intent = null;
-        if (item.equals("Change M-Pin")) {
-            Log.d(_LOG, "Starting Change M-Pin");
-            intent      = new Intent(this, ChangePINActivity.class);
-            startActivity(intent);
-            Log.d(_LOG, "Started Mobile Recharge");
-            return;
-        } else if (item.equals("Change T-Pin")) {
-            Log.d(_LOG, "Starting Change T_Pin");
-            intent = new Intent(this, ChangePINActivity.class);
 
-            startActivity(intent);
-            Log.d(_LOG, "Started DTH Recharge");
-            return;
+        switch (item.getItem()){
+            case CHANGE_MPIN:
+                Log.d(_LOG, "Starting Change M-Pin");
+                intent      = new Intent(this, ChangePINActivity.class);
+                startActivity(intent);
+                Log.d(_LOG, "Started Mobile Recharge");
+                break;
+            case CHANGE_TPIN:
+                Log.d(_LOG, "Starting Change T_Pin");
+                intent = new Intent(this, ChangePINActivity.class);
 
+                startActivity(intent);
+                Log.d(_LOG, "Started DTH Recharge");
+                break;
         }
+
     }
 }

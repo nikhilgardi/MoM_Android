@@ -47,15 +47,20 @@
             android:name=".activity.LoginActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:label="@string/app_name" >
+
+        </activity>
+        <activity
+            android:name=".activity.DashboardActivity"
+<<<<<<< HEAD
+            android:configChanges="keyboard|keyboardHidden|orientation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".activity.DashboardActivity"
+=======
             android:configChanges="keyboard|keyboardHidden|orientation" >
+>>>>>>> 1b7fa3916c6aa4896fa47ae3fb05d5edcddd1b01
         </activity>
         <activity
             android:name=".activity.MobileRechargeActivity"
@@ -73,33 +78,21 @@
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:label="mSwipe"
             android:windowSoftInputMode="stateVisible|adjustResize" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".CreditSaleSignatureView"
             android:label="mSwipe"
             android:screenOrientation="landscape" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".CreditSaleViewAmexCard"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:label="mSwipe" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".LastTrxStatus"
             android:configChanges="keyboard|keyboardHidden|orientation"
             android:label="mSwipe" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".ChangePassword"

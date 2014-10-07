@@ -7,6 +7,7 @@ import com.mom.app.identifier.ActivityIdentifier;
 import com.mom.app.identifier.IdentifierUtils;
 import com.mom.app.identifier.PlatformIdentifier;
 import com.mom.app.model.local.EphemeralStorage;
+import com.mom.app.ui.flow.MoMScreen;
 import com.mom.app.utils.AppConstants;
 import com.mom.app.utils.DataProvider;
 import com.mom.app.widget.ImageTextViewAdapter;
@@ -41,24 +42,6 @@ public class DashboardActivity extends MOMActivityBase{
 
 //        String[] values     = null;
         getBalance();
-        if (_currentPlatform == PlatformIdentifier.PBX) {
-            String jsonstring1 = EphemeralStorage.getInstance(this).getString(AppConstants.PARAM_PBX_USERID, null);
-            Log.i("ResultLogin1 Dash", jsonstring1);
-            String jsonstring2 = EphemeralStorage.getInstance(this).getString(AppConstants.PARAM_PBX_RMN, null);
-            Log.i("ResultLogin2 Dash", jsonstring2);
-            String jsonstring3 = EphemeralStorage.getInstance(this).getString(AppConstants.PARAM_PBX_NAME, null);
-            Log.i("ResultLogin3 Dash", jsonstring3);
-
-            String jsonstring4 = EphemeralStorage.getInstance(this).getString(AppConstants.PARAM_PBX_TOKEN, null);
-            Log.i("ResultLogin4 Dash", jsonstring4);
-
-            String jsonstring5 = EphemeralStorage.getInstance(this).getString(AppConstants.PARAM_PBX_USERTYPE, null);
-            Log.i("ResultLogin5 Dash", jsonstring5);
-
-            String jsonstring6 = EphemeralStorage.getInstance(this).getString(AppConstants.PARAM_PBX_USERNAMELOGIN, null);
-            Log.i("ResultLogin6 Dash", jsonstring6);
-
-        }
 
 //        if (_currentPlatform == PlatformIdentifier.NEW)
 //        {
@@ -68,7 +51,7 @@ public class DashboardActivity extends MOMActivityBase{
 //        }
 
         gridView            = (GridView) findViewById(R.id.gridView);
-        gridViewAdapter     = new ImageTextViewAdapter(this, R.layout.grid_cell, DataProvider.getScreens(this, _currentPlatform));
+        gridViewAdapter     = new ImageTextViewAdapter<MoMScreen>(this, R.layout.grid_cell, DataProvider.getScreens(this));
 
         gridView.setAdapter(gridViewAdapter);
         gridView.setNumColumns(2);
@@ -89,7 +72,7 @@ public class DashboardActivity extends MOMActivityBase{
                 item.setSelected(!item.getSelected());
 
                 Log.d(_LOG, "Going to selected activity");
-                nextActivity(item.getTitle());
+                nextActivity(item);
             }
         });
     }
@@ -101,53 +84,64 @@ public class DashboardActivity extends MOMActivityBase{
 
     private void goToNext(Class nextActivity, ActivityIdentifier ultimateDestination){
         Intent intent       = new Intent(this, nextActivity);
+
         if(ultimateDestination != null){
             intent.putExtra(AppConstants.INTENT_MESSAGE_DEST, ultimateDestination);
             intent.putExtra(AppConstants.INTENT_MESSAGE_ORIGIN, ActivityIdentifier.DASHBOARD);
         }
+
         startActivity(intent);
     }
-    private void nextActivity(String item){
+    private void nextActivity(ImageItem<MoMScreen> item){
         ActivityIdentifier ultimateDestination      = null;
         Class nextActivity                          = null;
+        boolean isVerificationNeeded                = true;
 
-        if (item.equals("Mobile Recharge")) {
-            Log.d(_LOG, "Starting Mobile Recharge");
-            ultimateDestination     = ActivityIdentifier.MOBILE_RECHARGE;
-            nextActivity            = VerifyTPinActivity.class;
-        }else if (item.equals("DTH Recharge")) {
-            Log.d(_LOG, "Starting DTH Recharge");
-            ultimateDestination     = ActivityIdentifier.DTH_RECHARGE;
-            nextActivity            = DTHRechargeActivity.class;
-
-        }else if (item.equals("Bill Payment")) {
-            Log.d(_LOG, "Starting Bill Payment");
-            ultimateDestination     = ActivityIdentifier.BILL_PAYMENT;
-            nextActivity            = BillPaymentActivity.class;
-        }else if (item.equals("History")) {
-
-            Log.d(_LOG, "Starting Transaction History Activity");
-            ultimateDestination     = ActivityIdentifier.TRANSACTION_HISTORY;
-            nextActivity            = TransactionHistoryActivity.class;
-           // nextActivity            = VerifyTPinActivity.class;
-        }else if (item.equals("Settings")) {
-            Log.d(_LOG, "Starting Settings Activity");
-            ultimateDestination     = ActivityIdentifier.SETTINGS;
-            nextActivity            = SettingsActivity.class;
+        switch (item.getItem()){
+            case MOBILE_RECHARGE:
+                Log.d(_LOG, "Starting Mobile Recharge");
+                ultimateDestination     = ActivityIdentifier.MOBILE_RECHARGE;
+                nextActivity            = MobileRechargeActivity.class;
+                break;
+            case DTH_RECHARGE:
+                Log.d(_LOG, "Starting DTH Recharge");
+                ultimateDestination     = ActivityIdentifier.DTH_RECHARGE;
+                nextActivity            = DTHRechargeActivity.class;
+                break;
+            case BILL_PAYMENT:
+                Log.d(_LOG, "Starting Bill Payment");
+                ultimateDestination     = ActivityIdentifier.BILL_PAYMENT;
+                nextActivity            = BillPaymentActivity.class;
+                break;
+            case HISTORY:
+                Log.d(_LOG, "Starting Transaction History Activity");
+                ultimateDestination     = ActivityIdentifier.TRANSACTION_HISTORY;
+                nextActivity            = TransactionHistoryActivity.class;
+                isVerificationNeeded    = false;
+                break;
+            case SETTINGS:
+                Log.d(_LOG, "Starting Settings Activity");
+                ultimateDestination     = ActivityIdentifier.SETTINGS;
+                nextActivity            = SettingsActivity.class;
+                isVerificationNeeded    = false;
+                break;
+            case LOGOUT:
+                Log.d(_LOG, "Logout called");
+                logout();
+                break;
         }
+
+        goToNext(nextActivity, null);
 
         if(_currentPlatform == PlatformIdentifier.PBX){
             goToNext(nextActivity, null);
+        }else{
+            if(isVerificationNeeded) {
+                goToNext(VerifyTPinActivity.class, ultimateDestination);
+            }else{
+                goToNext(nextActivity, null);
+            }
         }
-
-        else{
-            goToNext(VerifyTPinActivity.class, ultimateDestination);
-        }
-    }
-
-
-    public void logout(View v) {
-        logout();
     }
 
     public void logout(){

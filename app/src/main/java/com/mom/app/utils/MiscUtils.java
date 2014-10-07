@@ -25,6 +25,8 @@ import org.apache.http.util.EntityUtils;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.mom.app.model.AsyncDataEx;
 
 
@@ -86,5 +88,15 @@ public class MiscUtils {
         }catch(Exception ex){
             Log.e(_LOG, "Error copying stream", ex);
         }
+    }
+
+    public static String toJson(Object obj){
+        Gson gson       = new GsonBuilder().create();
+        return gson.toJson(obj);
+    }
+
+    public static Object fromJson(String json, Class pClass){
+        Gson gson       = new GsonBuilder().create();
+        return gson.fromJson(json, pClass);
     }
 }

@@ -3,8 +3,39 @@
     <style name="r123" parent="android:Theme.Light.NoTitleBar">
         <item name="android:colorBackground">@color/green</item>
 	</style>
-    <style name="MoMTheme" parent="android:Theme.Holo.Light">
+    <style name="MoMTheme" parent="@style/Theme.AppCompat.Light">
+        <item name="android:colorForeground">@color/app.primary</item>
+        <item name="android:colorBackground">@color/app.secondary</item>
+        <item name="android:textColorPrimary">@color/gray</item>
+        <item name="android:textColorSecondary">@color/app.primary</item>
+        <item name="android:actionBarStyle">@style/AppActionBar</item>
+        <item name="android:actionBarTabTextStyle">@style/TabTextStyle</item>
+        <item name="android:actionMenuTextColor">@color/actionbar_text</item>
+        <!-- Support library compatibility -->
+        <item name="actionBarStyle">@style/AppActionBar</item>
+        <item name="actionBarTabTextStyle">@style/TabTextStyle</item>
+        <item name="actionMenuTextColor">@color/actionbar_text</item>
+    </style>
 
+    <!-- general styles for the action bar -->
+    <style name="AppActionBar" parent="@style/Widget.AppCompat.ActionBar">
+        <item name="android:titleTextStyle">@style/TitleTextStyle</item>
+        <item name="android:background">@color/app.primary</item>
+        <!-- Support library compatibility -->
+        <item name="titleTextStyle">@style/TitleTextStyle</item>
+        <item name="background">@color/app.primary</item>
+    </style>
+
+    <!-- action bar title text -->
+    <style name="TitleTextStyle"
+        parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/actionbar_text</item>
+    </style>
+
+    <!-- action bar tab text -->
+    <style name="TabTextStyle"
+        parent="@style/Widget.AppCompat.ActionBar.TabText">
+        <item name="android:textColor">@color/actionbar_text</item>
     </style>
 
     <style name="ButtonAppTheme.buttons">
