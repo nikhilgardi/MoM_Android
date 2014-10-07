@@ -193,11 +193,11 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
         switch (pMethod){
             case CHECK_PLATFORM_DETAILS:
                 Log.i(_LOG, "Check result: " + result);
-
-                if(true){
-                    login(PlatformIdentifier.PBX);
-                    return;
-                }
+//
+//                if(true){
+//                    login(PlatformIdentifier.PBX);
+//                    return;
+//                }
 
                 if(result == null || result.trim().equals("")){
                     Log.i(_LOG, "1. User not of new PL");
@@ -339,7 +339,8 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
             }
         };
 
-        IDataEx dataEx          = null;
+        IDataEx dataEx;
+
         if(platform == PlatformIdentifier.NEW) {
             dataEx              = new MoMPLDataExImpl(getApplicationContext(), listener);
         }else{

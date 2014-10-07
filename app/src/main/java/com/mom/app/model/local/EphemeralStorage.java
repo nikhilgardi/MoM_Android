@@ -21,6 +21,7 @@ public class EphemeralStorage extends LocalStorage {
 
         return _instance;
     }
+
     @Override
     public void clear(){
         map.clear();
@@ -67,5 +68,16 @@ public class EphemeralStorage extends LocalStorage {
     @Override
     public void storeInt(String psKey, int pnValue) {
         map.put(psKey, pnValue);
+    }
+
+    @Override
+    public void storeObject(String psKey, Object obj) {
+        map.put(psKey, obj);
+    }
+
+    @Override
+    public Object getObject(String psKey, Object pDefault) {
+        Object val = map.get(psKey);
+        return val == null ? pDefault : (Integer) val;
     }
 }

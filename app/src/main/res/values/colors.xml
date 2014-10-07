@@ -4,6 +4,7 @@
 	<color name="transparent">#74ceff</color>
     <color name="app.primary">#ff387cff</color>
     <color name="app.secondary">#ff69d1ff</color>
+    <color name="gray">#FF414042</color>
 	<color name="green">#12BD12</color>
     <color name="red">#f26d7d</color>
     <color name="white">#ffffff</color>
@@ -16,4 +17,5 @@
     <color name="mom_blue">#6dcff6</color>
     <color name="disabled">#ffe6e6e6</color>
     <color name="balance_amount">#ffff6e37</color>
+    <color name="actionbar_text">#FFFFFF</color>
 </resources>

@@ -6,8 +6,8 @@ android {
 
     defaultConfig {
         applicationId "com.mom.app"
-        minSdkVersion 11
-        targetSdkVersion 11
+        minSdkVersion 14
+        targetSdkVersion 14
     }
 
     buildTypes {

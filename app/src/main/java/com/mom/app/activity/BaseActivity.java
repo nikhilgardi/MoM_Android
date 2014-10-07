@@ -18,6 +18,7 @@ import android.widget.ListView;
 import com.mom.app.R;
 import com.mom.app.error.MOMException;
 import com.mom.app.fragment.FragmentBase;
+import com.mom.app.fragment.MobileRechargeFragment;
 import com.mom.app.ui.IFragmentListener;
 import com.mom.app.ui.flow.MoMScreen;
 import com.mom.app.utils.AppConstants;
@@ -27,13 +28,13 @@ import com.mom.app.widget.holder.ImageItem;
 
 import java.util.ArrayList;
 
-public class BaseActivity extends Activity implements IFragmentListener{
+public class BaseActivity extends ActionBarActivity implements IFragmentListener{
 
     String _LOG = AppConstants.LOG_PREFIX + "BASE ACT";
 
     DrawerLayout mDrawerLayout;
     ListView mDrawerList;
-    ArrayList<ImageItem> mMenuItems;
+    ArrayList<ImageItem<MoMScreen>> mMenuItems;
     ImageTextViewAdapter _imageTextAdapter;
     private ActionBarDrawerToggle mDrawerToggle;
 
@@ -51,6 +52,11 @@ public class BaseActivity extends Activity implements IFragmentListener{
         mDrawerList     = (ListView) findViewById(R.id.leftDrawer);
 
         _imageTextAdapter   = new ImageTextViewAdapter(this, R.layout.drawer_list_item, mMenuItems);
+
+        // Set the adapter for the list view
+        mDrawerList.setAdapter(_imageTextAdapter);
+        // Set the list's click listener
+        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         Log.d(_LOG, "ActionBar set");
         // ActionBarDrawerToggle ties together the the proper interactions
@@ -79,11 +85,25 @@ public class BaseActivity extends Activity implements IFragmentListener{
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
+        setupActionBar();
+
         if (savedInstanceState == null) {
             selectItem(0);
         }
     }
 
+    private void setupActionBar(){
+        if(getActionBar() == null){
+            return;
+        }
+
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setHomeButtonEnabled(true);
+        getActionBar().setDisplayShowTitleEnabled(true);
+        getActionBar().setTitle(R.string.money_on_mobile);
+        getActionBar().setDisplayUseLogoEnabled(false);
+        getActionBar().setIcon(R.color.transparent);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -102,6 +122,12 @@ public class BaseActivity extends Activity implements IFragmentListener{
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected boolean onPrepareOptionsPanel(View view, Menu menu) {
+        Log.d(_LOG, "onPrepareOptionsPanel");
+        return super.onPrepareOptionsPanel(view, menu);
     }
 
     @Override
@@ -138,6 +164,10 @@ public class BaseActivity extends Activity implements IFragmentListener{
             selectItem(position);
 
         }
+    }
+
+    public void showFragment(Fragment fragment){
+        showFragment(fragment, R.id.contentFrame);
     }
 
     public void showFragment(Fragment fragment, int containerResourceId){
@@ -193,7 +223,7 @@ public class BaseActivity extends Activity implements IFragmentListener{
     }
 
     private void showMobileRecharge(){
-
+        showFragment(MobileRechargeFragment.newInstance());
     }
 
     private void showDTHRecharge(){

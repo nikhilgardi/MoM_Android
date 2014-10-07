@@ -7,7 +7,7 @@ import com.mom.app.R;
 public class AppConstants {
 	public static final String APP_PREFERENCES		        = "AppPreferences";
     public static final String PACKAGE                      = "com.mom.app";
-    public static final String LOG_PREFIX                   = "MOMAPP";
+    public static final String LOG_PREFIX                   = "MOMAPP: ";
     public static final String UTF_8                        = "utf-8";
     public static final String USER_BALANCE                 = "userBalance";
     public static final String USER_LANGUAGE                = "userLanguage";
