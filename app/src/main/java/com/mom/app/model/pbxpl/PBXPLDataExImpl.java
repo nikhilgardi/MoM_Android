@@ -201,7 +201,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
             ResponseBase<LoginResult> responseBase = gson.fromJson(psResult, type);
             LoginResult loginResult = new LoginResult();
             loginResult = responseBase.data;
-String jsonstring = loginResult.token;
+            String jsonstring = loginResult.token;
             Log.i("ResultLogin" , jsonstring);
             success     = (responseBase != null && responseBase.code == 0);
 
@@ -286,7 +286,7 @@ String jsonstring = loginResult.token;
         Type type   = new TypeToken<ResponseBase<PBXTransaction>>(){}.getType();
 
         ResponseBase<PBXTransaction> responseBase  = gson.fromJson(result, type);
-        PBXTransaction pbxTransaction = new PBXTransaction();
+       // PBXTransaction pbxTransaction = new PBXTransaction();
         ArrayList<Transaction> list     = new ArrayList<Transaction>();
         //if(responseBase == null || responseBase.response == null || responseBase.response.Table == null){
             if(responseBase == null || responseBase.code != 0){
@@ -296,10 +296,10 @@ String jsonstring = loginResult.token;
 //        for(PBXTransaction pbxTransaction:list.){
 //            list.add(pbxTransaction.getTransactionObject());
 //        }
-        for(int i=0; i<list.size(); i++){
-            list.add(pbxTransaction.getTransactionObject());
-            System.out.println(list.get(i));
-        }
+//        for(int i=0; i<list.size(); i++){
+//            list.add(pbxTransaction.getTransactionObject());
+//            System.out.println(list.get(i));
+//        }
         return list;
     }
 
