@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import com.mom.app.R;
+import com.mom.app.identifier.PlatformIdentifier;
 import com.mom.app.ui.flow.MoMScreen;
 import com.mom.app.widget.holder.ImageItem;
 
@@ -13,8 +14,13 @@ import java.util.ArrayList;
  * Created by vaibhavsinha on 7/21/14.
  */
 public class DataProvider {
+<<<<<<< HEAD
     public static ArrayList<ImageItem<MoMScreen>> getScreens(Activity activity) {
         final ArrayList<ImageItem<MoMScreen>> imageItems = new ArrayList<ImageItem<MoMScreen>>();
+=======
+    public static ArrayList getScreens(Activity activity, PlatformIdentifier platform) {
+        final ArrayList imageItems = new ArrayList();
+>>>>>>> 1b7fa3916c6aa4896fa47ae3fb05d5edcddd1b01
 
         imageItems.add(
                 new ImageItem<MoMScreen>(
@@ -45,6 +51,17 @@ public class DataProvider {
                         false
                 )
         );
+
+        if(platform == PlatformIdentifier.NEW){
+            imageItems.add(
+                    new ImageItem(
+                            MoMScreen.RETAILER_PAYMENT.id,
+                            MoMScreen.RETAILER_PAYMENT.drawableId,
+                            activity.getResources().getString(MoMScreen.RETAILER_PAYMENT.titleResId),
+                            false
+                    )
+            );
+        }
 
         imageItems.add(
                 new ImageItem<MoMScreen>(

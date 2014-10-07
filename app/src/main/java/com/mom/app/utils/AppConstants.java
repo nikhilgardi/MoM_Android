@@ -41,6 +41,7 @@ public class AppConstants {
                                                             = "/DoMobRecharge";
     public static final String SVC_NEW_METHOD_RECHARGE_DTH  = "/DoDTHRechargeV2";
     public static final String SVC_NEW_METHOD_BILL_PAYMENT  = "/doBillPayment";
+    public static final String SVC_NEW_METHOD_RETAILER_PAYMENT ="/doBalanceTransfer";
     public static final String SVC_NEW_METHOD_CHANGE_TPIN   = "/ChangeT_Pin";
     public static final String SVC_NEW_METHOD_CHANGE_MPIN   = "/ChangeM_Pin";
     //End: MoM Platform Methods
@@ -55,7 +56,8 @@ public class AppConstants {
 
     //Start: PBX Platform URLs
     public static final String URL_PBX_PLATFORM_SERVICE     = "http://test.pbx.momappworld.com/momspre/service.ashx";
-    public static final String URL_PBX_PLATFORM_APP         = "http://test.pbx.momappworld.com/momspre/PbxMobApp.ashx";
+  //  public static final String URL_PBX_PLATFORM_APP         = "http://test.pbx.momappworld.com/momspre/PbxMobApp.ashx";
+    public static final String URL_PBX_PLATFORM_APP         =  "http://172.16.1.102/MobAppS/PbxMobApp.ashx";
 
     //End: PBX Platform URLs
 
@@ -107,6 +109,11 @@ public class AppConstants {
                                                             = "strCustomerNumber";
     public static final String PARAM_NEW_COMPANY_ID_CAMEL_CASE
                                                             = "companyId";
+    public static final String PARAM_NEW_STR_PAYER              = "payer";
+    public static final String PARAM_NEW_STR_PAYEE              = "Payee";
+    public static final String PARAM_NEW_STR_TRANSFERAMOUNT     = "TransferAmount";
+    public static final String PARAM_NEW_STR_TRANSVALUETPE      = "Transvaltype";
+    public static final String PARAM_NEW_STR_TRANSVALUE      = "Refilled";
 
     public static final String PARAM_NEW_ROLE_ID            = "RoleID";
     public static final String PARAM_NEW_USER_AUTH_ID       = "UserAuthID";
@@ -130,12 +137,17 @@ public class AppConstants {
 
     //Start: PBX Platform Params
     public static final String PARAM_PBX_SERVICE            = "Service";
-    public static final String PARAM_PBX_USERNAME           = "un";
+    public static final String PARAM_PBX_USERNAME           = "username";
     public static final String PARAM_PBX_PASSWORD           = "password";
     public static final String PARAM_PBX_OP                 = "OP";
     public static final String PARAM_PBX_NP                 = "NP";
     public static final String PARAM_PBX_RN                 = "RN";
-    public static final String PARAM_PBX_TOKEN              = "Token";
+    public static final String PARAM_PBX_USERID             = "userID";
+    public static final String PARAM_PBX_RMN                = "rmn";
+    public static final String PARAM_PBX_NAME               = "name";
+    public static final String PARAM_PBX_TOKEN              = "token";
+    public static final String PARAM_PBX_USERTYPE           = "userType";
+    public static final String PARAM_PBX_USERNAMELOGIN      = "userName";
 
     //End: PBX Platform Params
 	public static final int TIMEOUT_CONNECTION		        = 15000;

@@ -51,6 +51,7 @@ public class AsyncDataEx extends AsyncTask<NameValuePair, Integer, String>{
 	protected void onPostExecute(String result){
         Log.d(_LOG, "Called onPostExecute of listener, calling listener");
         _callback.onTaskSuccess(result, _callbackData);
+        Log.i("REsultCheck" , result);
         Log.d(_LOG, "Called onTaskSuccess of listener");
 	}
 	
@@ -84,6 +85,7 @@ public class AsyncDataEx extends AsyncTask<NameValuePair, Integer, String>{
 			HttpEntity entity 				= response.getEntity();
 			String sResponse 				= EntityUtils.toString(entity);
             Log.d("AsyncDataEx", "Response: " + sResponse);
+            Log.d("testparams" , _url);
             return sResponse;
 		}catch (Exception e) {
             e.printStackTrace();

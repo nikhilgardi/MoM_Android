@@ -5,6 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
+import com.mom.app.activity.RetailerPaymentActivity;
 import com.mom.app.identifier.PinType;
 import com.mom.app.utils.ConnectionUtil;
 
@@ -39,7 +40,9 @@ public abstract class DataExImpl implements IDataEx{
         TRANSACTION_HISTORY,
         CHANGE_PIN,
         CHECK_PLATFORM_DETAILS,
-        GET_OPERATOR_NAMES;
+        GET_OPERATOR_NAMES,
+        RETAILER_PAYMENT;
+
     }
 
     public void checkConnectivity(Context context){
@@ -79,4 +82,7 @@ public abstract class DataExImpl implements IDataEx{
 
     public abstract void getTransactionHistory();
     public abstract void changePin(PinType pinType, String psOldPin, String psNewPin);
+
+    public abstract void retailerpayment( String psConsumerNumber,double pdAmount );
+
 }

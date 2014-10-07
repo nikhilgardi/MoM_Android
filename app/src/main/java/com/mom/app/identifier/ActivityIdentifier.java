@@ -11,5 +11,6 @@ public enum ActivityIdentifier {
     DTH_RECHARGE,
     BILL_PAYMENT,
     TRANSACTION_HISTORY,
-    SETTINGS;
+    SETTINGS,
+    RETAILER_PAYMENT;
 }

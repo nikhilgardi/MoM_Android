@@ -12,10 +12,15 @@ import java.util.List;
  */
 public interface IDataEx {
     public void getBalance();
+
     public void login(String userName, String password);
+
     public void verifyTPin(String psTPin);
+
     public void rechargeMobile(String psConsumerNumber, double pdAmount, String psOperator, int pnRechargeType);
+
     public void rechargeDTH(String psSubscriberId, double pdAmount, String psOperator, String psCustomerMobile);
+
     public void payBill(
             String psSubscriberId,
             double pdAmount,
@@ -26,6 +31,10 @@ public interface IDataEx {
     );
 
     public void getBillAmount(String psOperatorId, String psSubscriberId);
+
     public void getTransactionHistory();
+
     public void changePin(PinType pinType, String psOldPin, String psNewPin);
+
+    public abstract void retailerpayment(String psConsumerNumber, double pdAmount);
 }
