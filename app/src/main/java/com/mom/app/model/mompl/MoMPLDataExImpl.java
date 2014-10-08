@@ -17,7 +17,6 @@ import com.mom.app.utils.AppConstants;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.w3c.dom.Text;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
@@ -93,11 +92,11 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<String>
                         _listener.onTaskSuccess(getRechargeResult(result), Methods.PAY_BILL);
                     }
                     break;
-                case RETAILER_PAYMENT:
+                case BALANCE_TRANSFER:
                     Log.d(LOG_TAG, "TaskComplete: retailerpayment method, result: " + result);
 
                     if (_listener != null) {
-                        _listener.onTaskSuccess(getRechargeResult(result), Methods.RETAILER_PAYMENT);
+                        _listener.onTaskSuccess(getRechargeResult(result), Methods.BALANCE_TRANSFER);
                     }
                     break;
                 case GET_BILL_AMOUNT:
@@ -479,7 +478,7 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<String>
         String transvaltype = "Refilled";
         String url				    = AppConstants.URL_NEW_PLATFORM_TXN + AppConstants.SVC_NEW_METHOD_RETAILER_PAYMENT;
         String sUserId          = EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_NEW_USER_ID, null);
-        AsyncDataEx dataEx		    = new AsyncDataEx(this, url, Methods.RETAILER_PAYMENT);
+        AsyncDataEx dataEx		    = new AsyncDataEx(this, url, Methods.BALANCE_TRANSFER);
 
         dataEx.execute(
                 new BasicNameValuePair(AppConstants.PARAM_NEW_STR_PAYER, sUserId),

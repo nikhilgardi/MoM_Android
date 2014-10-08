@@ -1,75 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical" >
 
-    <fragment
-        android:id="@+id/momHeader"
-        android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center_horizontal|center_vertical"
+    android:layout_marginTop="@dimen/margin_medium">
+
+    <TextView
+        android:id="@+id/msgDisplay"
+        style="@style/MoMTheme.wrapped.alertMsg"
+        android:visibility="gone" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        class="com.mom.app.fragment.HeaderFragment"
-        tools:layout="@layout/fragment_header" />
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:visibility="gone" />
+
+    <EditText
+        android:id="@+id/tpinTxt"
+        style="@style/MoMTheme.wrapped.vert_layout.elements"
+        android:background="@drawable/apptheme_edit_text_holo_light"
+        android:hint="@string/tpin"
+        android:textSize="@dimen/text_medium"
+        android:imeOptions="actionDone"
+        android:inputType="number"
+        android:password="true"/>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/momHeader"
-        android:orientation="horizontal"
-        android:weightSum="100">
+        style="@style/MoMTheme.btn_container">
+        <Button
+            android:id="@+id/btn_recharge"
+            style="@style/MoMTheme.wrapped.customButton"
+            android:onClick="verifyTPin"
+            android:text="@string/btn_verifyTpin"/>
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="10"/>
-
-        <LinearLayout
-            android:layout_weight="80"
-            style="@style/MoMTheme.wrapped.vert_layout">
-
-            <TextView
-                android:id="@+id/msgDisplay"
-                style="@style/MoMTheme.wrapped.alertMsg"
-                android:visibility="gone" />
-
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|center_vertical"
-                android:visibility="gone" />
-
-            <EditText
-                android:id="@+id/tpinTxt"
-                style="@style/MoMTheme.wrapped.vert_layout.elements"
-                android:background="@drawable/apptheme_edit_text_holo_light"
-                android:hint="@string/tpin"
-                android:textSize="@dimen/text_medium"
-                android:imeOptions="actionDone"
-                android:inputType="number"
-                android:password="true"/>
-
-            <LinearLayout
-                style="@style/MoMTheme.btn_container">
-                <Button
-                    android:id="@+id/btn_recharge"
-                    style="@style/MoMTheme.wrapped.customButton"
-                    android:onClick="verifyTPin"
-                    android:text="@string/btn_verifyTpin"/>
-
-                <com.mom.app.ui.CustomButton
-                    android:id="@+id/btnBack"
-                    style="@style/MoMTheme.wrapped.customButton"
-                    android:onClick="goBack"
-                    android:text="@string/btn_back"/>
-            </LinearLayout>
-        </LinearLayout>
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="10"/>
+        <com.mom.app.ui.CustomButton
+            android:id="@+id/btnBack"
+            style="@style/MoMTheme.wrapped.customButton"
+            android:onClick="goBack"
+            android:text="@string/btn_back"/>
     </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>

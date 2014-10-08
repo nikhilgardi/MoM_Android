@@ -1,18 +1,11 @@
 package com.mom.app.model;
 
 import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.util.Log;
 
-import com.mom.app.activity.RetailerPaymentActivity;
 import com.mom.app.identifier.PinType;
 import com.mom.app.utils.ConnectionUtil;
 
-import java.io.InputStream;
 import java.util.HashMap;
-
-import org.apache.http.NameValuePair;
 
 public abstract class DataExImpl implements IDataEx{
 
@@ -41,7 +34,7 @@ public abstract class DataExImpl implements IDataEx{
         CHANGE_PIN,
         CHECK_PLATFORM_DETAILS,
         GET_OPERATOR_NAMES,
-        RETAILER_PAYMENT;
+        BALANCE_TRANSFER;
 
     }
 

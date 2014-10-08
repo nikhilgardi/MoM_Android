@@ -5,16 +5,9 @@
     android:background="@color/white"
     android:orientation="vertical" >
 
-    <fragment
-        android:id="@+id/momHeader"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        class="com.mom.app.fragment.HeaderFragment" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/momHeader"
         android:orientation="horizontal"
         android:weightSum="100">
 
@@ -24,26 +17,25 @@
             android:layout_weight="10"/>
 
         <LinearLayout
-            android:layout_centerInParent="true"
             android:orientation="vertical"
+            android:layout_gravity="center_horizontal|center_vertical"
             android:layout_width="0dp"
             android:layout_weight="80"
             android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/msgDisplay"
-                android:layout_above="@id/momHeader"
                 style="@style/MoMTheme.wrapped.alertMsg"
                 android:textSize="@dimen/text_medium"
                 android:visibility="gone" />
 
             <EditText
-                android:id="@+id/rechargeTargetPhone"
+                android:id="@+id/payTo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/EditTextAppTheme.phone"
                 android:hint="Mobile Number"
-                android:layout_marginBottom="@dimen/medium"></EditText>
+                android:layout_marginBottom="@dimen/medium"/>
 
 
             <EditText
@@ -51,40 +43,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/EditTextAppTheme.money"
-                android:hint="Enter Amount"
-                android:layout_marginBottom="@dimen/medium"></EditText>
+                android:hint="@string/lblAmount"/>
 
             <ProgressBar
                 android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyleLarge"
+                android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/amount"
-                android:layout_centerHorizontal="true"
                 android:visibility="gone" />
 
             <LinearLayout
-                android:id="@+id/LinLayout"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_below="@+id/amount"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-
-            </LinearLayout>
-
-            <LinearLayout
                 android:weightSum="3"
+                android:orientation="horizontal"
                 style="@style/MoMTheme.btn_container">
                 <Button
-                    android:id="@+id/btn_recharge"
+                    android:id="@+id/btnPay"
                     android:layout_height="wrap_content"
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     style="@style/ButtonAppTheme"
-                    android:onClick="validateAndRecharge"
-                    android:text="@string/btn_recharge"/>
+                    android:onClick="validateAndTransfer"
+                    android:text="@string/btn_transfer"/>
 
                 <Button
                     android:id="@+id/btnBack"

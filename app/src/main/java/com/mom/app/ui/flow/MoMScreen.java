@@ -11,7 +11,7 @@ public enum MoMScreen implements Serializable{
     MOBILE_RECHARGE(100, R.string.action_mobileRecharge, R.drawable.phone),
     DTH_RECHARGE(200, R.string.action_dthRecharge, R.drawable.dth),
     BILL_PAYMENT(300, R.string.action_billPayment, R.drawable.bill),
-    RETAILER_PAYMENT(350, R.string.action_retailerPayment, R.drawable.bill),
+    BALANCE_TRANSFER(350, R.string.action_balanceTransfer, R.drawable.balance_transfer),
     HISTORY(400, R.string.action_history, R.drawable.history),
     SETTINGS(500, R.string.action_settings, R.drawable.settings),
     CHANGE_MPIN(600, R.string.action_changeMpin, R.drawable.phone),

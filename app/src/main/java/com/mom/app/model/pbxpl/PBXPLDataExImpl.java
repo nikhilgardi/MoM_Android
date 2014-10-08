@@ -9,6 +9,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.mom.app.error.MOMException;
+import com.mom.app.gcm.GcmUtil;
 import com.mom.app.identifier.PinType;
 import com.mom.app.model.AsyncDataEx;
 import com.mom.app.model.AsyncListener;
@@ -16,6 +17,7 @@ import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.Transaction;
 import com.mom.app.model.local.EphemeralStorage;
+import com.mom.app.model.local.PersistentStorage;
 import com.mom.app.utils.AppConstants;
 
 import org.apache.http.message.BasicNameValuePair;
@@ -34,11 +36,14 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
     static String LOG_TAG          = AppConstants.LOG_PREFIX + "PBX_DATA";
     private String _operatorId      = null;
     private static int _SUCCESS     = 200;
+    String _deviceRegId             = null;
+
     // String jsonStr =    "{\"Table\":[{\"PartyROWID\":92420,\"PartyRMN\":\"9769496026\",\"PartyName\":\"Akshay\",\"PartyGUID\":\"9163b4dd-f23d-41fd-99ab-7c0f57c9c7ed\",\"PartyEnum\":null,\"PartyTypeEnum\":16,\"userName\":\"Software\"}]}" ;
     public PBXPLDataExImpl(Context pContext, AsyncListener pListener){
         this._listener              = pListener;
         this._applicationContext    = pContext;
         checkConnectivity(pContext);
+        _deviceRegId                = PersistentStorage.getInstance(pContext).getString(GcmUtil.PROPERTY_REG_ID, "");
     }
 
     @Override
