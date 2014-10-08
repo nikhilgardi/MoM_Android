@@ -25,6 +25,7 @@
     <string name="action_billPayment">Bill Payment</string>
     <string name="action_cardSale">Card Sale</string>
     <string name="action_utilityBill">Utility Bill Payment</string>
+    <string name="action_retailerPayment">Retailer Payment</string>
     <string name="action_history">History</string>
     <string name="action_settings">Settings</string>
     <string name="action_logout">Logout</string>
@@ -73,6 +74,7 @@
     <string name="mpin_new_confirm">Confirm New M-PIN</string>
     <string name="title_activity_bill_payment">Bill Payment Activity</string>
     <string name="title_activity_transaction_history">Transaction History</string>
+    <string name="title_activity_retailer_payment">RetailerPayment</string>
     <string name="title_activity_transaction_history_count">Last %1$d Transaction(s)</string>
     <string name="no_transactions_found">No Transactions found</string>
     <string name="title_activity_change_pin">Change PIN</string>

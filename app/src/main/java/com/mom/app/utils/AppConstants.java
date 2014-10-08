@@ -148,6 +148,11 @@ public class AppConstants {
     public static final String PARAM_PBX_TOKEN              = "token";
     public static final String PARAM_PBX_USERTYPE           = "userType";
     public static final String PARAM_PBX_USERNAMELOGIN      = "userName";
+    public static final String PARAM_PBX_IDENTIFIER         = "Identifier";
+    public static final String PARAM_PBX_ORIGINID           = "originId";
+    public static final String PARAM_PBX_CLIENTTOKEN        = "clientToken";
+
+
 
     //End: PBX Platform Params
 	public static final int TIMEOUT_CONNECTION		        = 15000;

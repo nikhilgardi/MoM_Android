@@ -641,4 +641,16 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<String>
 
             return "";
     }
+
+    public  void rechargeMobilePBX(
+            String Service,
+            String psConsumerNumber,
+            String customerNumber,
+            String psOperator,
+            double pdAmount
+
+    )
+    {
+
+    }
 }

@@ -75,9 +75,9 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
     protected void onResume() {
         super.onResume();
 
-        if(checkPlayServices()){
-            GcmUtil.getInstance(this).registerDevice();
-        }
+//        if(checkPlayServices()){
+//            GcmUtil.getInstance(this).registerDevice();
+//        }
     }
 
     private boolean checkPlayServices() {

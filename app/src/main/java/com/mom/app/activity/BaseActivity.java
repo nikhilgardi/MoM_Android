@@ -25,7 +25,8 @@ import com.mom.app.utils.AppConstants;
 import com.mom.app.utils.DataProvider;
 import com.mom.app.widget.ImageTextViewAdapter;
 import com.mom.app.widget.holder.ImageItem;
-
+import com.mom.app.identifier.IdentifierUtils;
+import com.mom.app.identifier.PlatformIdentifier;
 import java.util.ArrayList;
 
 public class BaseActivity extends ActionBarActivity implements IFragmentListener{
@@ -40,13 +41,14 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
 
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
+    private PlatformIdentifier _currentPlatform;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
-
-        mMenuItems      = DataProvider.getScreens(this);
+        _currentPlatform    = IdentifierUtils.getPlatformIdentifier(getApplicationContext());
+        mMenuItems      = DataProvider.getScreens(this , _currentPlatform);
 
         mDrawerLayout   = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList     = (ListView) findViewById(R.id.leftDrawer);

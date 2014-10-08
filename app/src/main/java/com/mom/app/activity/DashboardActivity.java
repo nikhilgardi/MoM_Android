@@ -43,6 +43,7 @@ public class DashboardActivity extends MOMActivityBase{
 //        String[] values     = null;
         getBalance();
 
+
 //        if (_currentPlatform == PlatformIdentifier.NEW)
 //        {
 //            values = new String[]{"Mobile Recharge", "DTH Recharge", "Bill Payment", "Card Sale", "History", "Settings"};
@@ -51,7 +52,7 @@ public class DashboardActivity extends MOMActivityBase{
 //        }
 
         gridView            = (GridView) findViewById(R.id.gridView);
-        gridViewAdapter     = new ImageTextViewAdapter<MoMScreen>(this, R.layout.grid_cell, DataProvider.getScreens(this));
+        gridViewAdapter     = new ImageTextViewAdapter<MoMScreen>(this, R.layout.grid_cell, DataProvider.getScreens(this , _currentPlatform));
 
         gridView.setAdapter(gridViewAdapter);
         gridView.setNumColumns(2);

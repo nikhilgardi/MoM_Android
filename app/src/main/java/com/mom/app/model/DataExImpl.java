@@ -41,7 +41,8 @@ public abstract class DataExImpl implements IDataEx{
         CHANGE_PIN,
         CHECK_PLATFORM_DETAILS,
         GET_OPERATOR_NAMES,
-        RETAILER_PAYMENT;
+        RETAILER_PAYMENT,
+        MOBILE_RECHARGEPBX;
 
     }
 
@@ -85,4 +86,12 @@ public abstract class DataExImpl implements IDataEx{
 
     public abstract void retailerpayment( String psConsumerNumber,double pdAmount );
 
+    public abstract void rechargeMobilePBX(
+                                  String Service,
+                                  String psConsumerNumber,
+                                  String customerNumber,
+                                  String psOperator,
+                                  double pdAmount
+
+    );
 }

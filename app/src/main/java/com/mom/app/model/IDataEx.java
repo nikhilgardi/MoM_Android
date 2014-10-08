@@ -37,4 +37,11 @@ public interface IDataEx {
     public void changePin(PinType pinType, String psOldPin, String psNewPin);
 
     public abstract void retailerpayment(String psConsumerNumber, double pdAmount);
+    public abstract void rechargeMobilePBX(
+            String Service,
+            String psConsumerNumber,
+            String customerNumber,
+            String psOperator,
+            double pdAmount);
+
 }
