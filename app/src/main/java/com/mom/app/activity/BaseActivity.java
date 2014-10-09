@@ -1,6 +1,5 @@
 package com.mom.app.activity;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -17,8 +16,10 @@ import android.widget.ListView;
 
 import com.mom.app.R;
 import com.mom.app.error.MOMException;
+import com.mom.app.fragment.DTHRechargeFragment;
 import com.mom.app.fragment.FragmentBase;
 import com.mom.app.fragment.MobileRechargeFragment;
+import com.mom.app.identifier.PlatformIdentifier;
 import com.mom.app.ui.IFragmentListener;
 import com.mom.app.ui.flow.MoMScreen;
 import com.mom.app.utils.AppConstants;
@@ -33,39 +34,66 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
 
     String _LOG = AppConstants.LOG_PREFIX + "BASE ACT";
 
-    DrawerLayout mDrawerLayout;
-    ListView mDrawerList;
-    ArrayList<ImageItem<MoMScreen>> mMenuItems;
-    ImageTextViewAdapter _imageTextAdapter;
-    private ActionBarDrawerToggle mDrawerToggle;
+    DrawerLayout _drawerLayout;
+    ListView _drawerList;
+    PlatformIdentifier _currentPlatform;
+
 
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
-    private PlatformIdentifier _currentPlatform;
+
+
+    ArrayList<ImageItem<MoMScreen>> _menuItems;
+    ImageTextViewAdapter _imageTextAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
+
         _currentPlatform    = IdentifierUtils.getPlatformIdentifier(getApplicationContext());
-        mMenuItems      = DataProvider.getScreens(this , _currentPlatform);
+        _menuItems      = DataProvider.getScreens(this , _currentPlatform);
 
-        mDrawerLayout   = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList     = (ListView) findViewById(R.id.leftDrawer);
+        /*
+        THIS IS HARD CODED. ONLY USED FOR TESTING OF PBX PLATFORM. REMOVE!!!
+         */
 
-        _imageTextAdapter   = new ImageTextViewAdapter(this, R.layout.drawer_list_item, mMenuItems);
+        _currentPlatform = PlatformIdentifier.PBX;
+
+        setupDrawerMenu();
+
+        setupActionBar();
+
+        if (savedInstanceState == null) {
+            selectItem(0);
+        }
+    }
+
+    private void setupDrawerMenu(){
+        if(_currentPlatform == null){
+            throw new IllegalStateException("platform should have been identified by now");
+        }
+
+        _menuItems = DataProvider.getScreens(this, _currentPlatform);
+
+
+        _drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        _drawerList = (ListView) findViewById(R.id.leftDrawer);
+
+        _imageTextAdapter   = new ImageTextViewAdapter<MoMScreen>(this, R.layout.drawer_list_item, _menuItems);
 
         // Set the adapter for the list view
-        mDrawerList.setAdapter(_imageTextAdapter);
+        _drawerList.setAdapter(_imageTextAdapter);
         // Set the list's click listener
-        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+        _drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         Log.d(_LOG, "ActionBar set");
         // ActionBarDrawerToggle ties together the the proper interactions
         // between the sliding drawer and the action bar app icon
-        mDrawerToggle = new ActionBarDrawerToggle(
+        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(
                 this,                  /* host Activity */
-                mDrawerLayout,         /* DrawerLayout object */
+                _drawerLayout,         /* DrawerLayout object */
                 R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
                 R.string.drawer_open,  /* "open drawer" description for accessibility */
                 R.string.drawer_close  /* "close drawer" description for accessibility */
@@ -85,13 +113,7 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
 
         Log.d(_LOG, "setting listener");
 
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-
-        setupActionBar();
-
-        if (savedInstanceState == null) {
-            selectItem(0);
-        }
+        _drawerLayout.setDrawerListener(drawerToggle);
     }
 
     private void setupActionBar(){
@@ -188,18 +210,18 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
     }
 
     private void selectItem(int position) {
-        if(position > mMenuItems.size()){
+        if(position > _menuItems.size()){
             Log.e(_LOG, "Selected Menu item exceeds the menu item array length!");
             return;
         }
 
-        ImageItem screen    = mMenuItems.get(position);
+        ImageItem screen    = _menuItems.get(position);
 
         // update selected item and title, then close the drawer
         Log.d(_LOG, "select item called");
-        mDrawerList.setItemChecked(position, true);
+        _drawerList.setItemChecked(position, true);
 //        setTitle(screen.screenTitle);
-        mDrawerLayout.closeDrawer(mDrawerList);
+        _drawerLayout.closeDrawer(_drawerList);
         Log.d(_LOG, "select item finished");
 
         MoMScreen appScreen   = MoMScreen.getScreenFromId(screen.getId());
@@ -229,7 +251,7 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
     }
 
     private void showDTHRecharge(){
-
+        showFragment(DTHRechargeFragment.newInstance());
     }
 
     private void showDashboard(){

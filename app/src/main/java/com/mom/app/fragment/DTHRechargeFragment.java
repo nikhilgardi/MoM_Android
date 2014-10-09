@@ -54,6 +54,10 @@ public class DTHRechargeFragment extends FragmentBase implements AsyncListener<S
 
     String responseBody;
 
+    public static DTHRechargeFragment newInstance(){
+        DTHRechargeFragment fragment    = new DTHRechargeFragment();
+        return fragment;
+    }
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

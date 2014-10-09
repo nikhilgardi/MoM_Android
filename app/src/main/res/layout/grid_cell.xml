@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/MoMTheme.wrapped.fullscreenGridCell"
     android:clickable="false"
     android:focusable="false"
@@ -30,10 +30,9 @@
         </ImageView>
     </FrameLayout>
 
-    <TextView
+    <com.mom.app.ui.CustomTextView
         android:id="@+id/text"
-        style="@style/MoMTheme.grid.cellTxt">
-    </TextView>
+        style="@style/MoMTheme.grid.cellTxt"/>
 
 
-</FrameLayout>
+</LinearLayout>

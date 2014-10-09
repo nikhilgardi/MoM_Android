@@ -90,6 +90,18 @@ public class MobileRechargeActivity extends MOMActivityBase implements AsyncList
                 Log.d(_LOG, "Starting navigation to TxnMsg Activity");
                 navigateToTransactionMessageActivity(ActivityIdentifier.MOBILE_RECHARGE, result);
             break;
+
+            case MOBILE_RECHARGEPBX:
+                if(result == null){
+                    Log.d(_LOG, "Obtained NULL recharge response");
+                    showMessage(getResources().getString(R.string.error_recharge_failed));
+                    return;
+                }
+                Log.d(_LOG, "Going to get new balance");
+                getBalance();
+                Log.d(_LOG, "Starting navigation to TxnMsg Activity");
+                navigateToTransactionMessageActivity(ActivityIdentifier.MOBILE_RECHARGEPBX , result);
+                break;
         }
 
         getProgressBar().setVisibility(View.GONE);
@@ -313,11 +325,9 @@ public class MobileRechargeActivity extends MOMActivityBase implements AsyncList
 
         } else if (_currentPlatform == PlatformIdentifier.PBX){
 
-            String PBXService = "Service";
-            String RMN= "9769496026";
             String psoperator = "AIR";
 
-            getDataEx(this).rechargeMobilePBX(PBXService, RMN,sConsumerNumber, psoperator , Double.parseDouble(sRechargeAmount));
+            getDataEx(this).rechargeMobilePBX(sConsumerNumber, psoperator , Double.parseDouble(sRechargeAmount));
 
 			/*HttpClient httpclient = new DefaultHttpClient();
 			HttpPost httppost = new HttpPost(

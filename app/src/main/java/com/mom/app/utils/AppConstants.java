@@ -146,6 +146,9 @@ public class AppConstants {
     public static final String PARAM_PBX_RMN                = "rmn";
     public static final String PARAM_PBX_NAME               = "name";
     public static final String PARAM_PBX_TOKEN              = "token";
+    public static final String PARAM_PBX_CUSTOMERNUMBER     = "customerNumber";
+    public static final String PARAM_PBX_OPERTAORSHORTCODE  = "operatorShortCode";
+    public static final String PARAM_PBX_AMOUNT             = "amount";
     public static final String PARAM_PBX_USERTYPE           = "userType";
     public static final String PARAM_PBX_USERNAMELOGIN      = "userName";
     public static final String PARAM_PBX_IDENTIFIER         = "Identifier";

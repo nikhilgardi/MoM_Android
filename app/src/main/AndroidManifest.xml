@@ -46,6 +46,7 @@
         <activity
             android:name=".activity.LoginActivity"
             android:configChanges="keyboard|keyboardHidden|orientation"
+
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -54,6 +55,17 @@
             </intent-filter>
 
         </activity>
+        <!--<activity-->
+            <!--android:name=".activity.DashboardActivity"-->
+            <!--android:configChanges="keyboard|keyboardHidden|orientation">-->
+
+            <!--android:label="@string/app_name" >-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
         <activity
             android:name=".activity.DashboardActivity"
             android:configChanges="keyboard|keyboardHidden|orientation">
@@ -143,8 +155,7 @@
             <!--android:label="@string/title_activity_retailer_payment" >-->
         <!--</activity>-->
         <activity
-            android:name=".activity.RetailerPaymentActivity"
-            android:label="@string/title_activity_retailer_payment" >
+            android:name=".activity.BalanceTransferActivity">
         </activity>
     </application>
 

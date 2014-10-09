@@ -256,87 +256,88 @@ public class BillPaymentActivity extends MOMActivityBase implements AsyncListene
 
 
     public void validateAndPay(View view) {
-        if (operatorSpinner.getSelectedItemPosition() < 1){
-            showMessage(getResources().getString(R.string.prompt_select_operator));
-            return;
-        }
-
-        String sOperator        = operatorSpinner.getSelectedItem().toString();
-        String sOperatorId      = getOperatorId(sOperator);
-
-        int nMinAmount          = 10;
-        int nMaxAmount          = 10000;
-        int nMinLength          = 10;
-        int nMaxLength          = 10;
-
-        int nCustomerNumberLength
-                                = _etCustomerNumber.getText().toString().trim().length();
-        int nAmount             = 0;
-
-        try {
-            nAmount             = Integer.parseInt(amountField.getText().toString().trim());
-        }catch (NumberFormatException nfe){
-            nfe.printStackTrace();
-            showMessage(getResources().getString(R.string.prompt_numbers_only_amount));
-            return;
-        }
-
-        if(
-                sOperatorId.equals(AppConstants.OPERATOR_ID_AIRTEL_BILL) ||
-                        sOperatorId.equals("BAI")
-                ){
-
-            nMinAmount      = 50;
-            nMinLength      = 10;
-            nMaxLength      = 11;
-        }else if(
-                sOperatorId.equals(AppConstants.OPERATOR_ID_AIRCEL_BILL) ||
-                sOperatorId.equals(AppConstants.OPERATOR_ID_BSNL_BILL_PAY) ||
-                sOperatorId.equals(AppConstants.OPERATOR_ID_IDEA_BILL) ||
-                sOperatorId.equals(AppConstants.OPERATOR_ID_RELIANCE_BILL_GSM) ||
-                sOperatorId.equals(AppConstants.OPERATOR_ID_RELIANCE_BILL_CDMA) ||
-                sOperatorId.equals(AppConstants.OPERATOR_ID_TATA_BILL) ||
-                sOperatorId.equals(AppConstants.OPERATOR_ID_VODAFONE_BILL) ||
-                sOperatorId.equals("BAC") ||
-                sOperatorId.equals("BLL") ||
-                sOperatorId.equals("BID") ||
-                sOperatorId.equals("BRG") ||
-                sOperatorId.equals("BRC") ||
-                sOperatorId.equals("BTA") ||
-                sOperatorId.equals("BVO") ||
-                sOperatorId.equals("BRC")
-                ){
-
-            nMinAmount      = 50;
-        }
-
-        if(nCustomerNumberLength < nMinLength || nCustomerNumberLength > nMaxLength){
-            if(nMinLength == nMaxLength){
-                showMessage(String.format(getResources().getString(R.string.error_phone_length), nMinLength));
-            }else{
-                showMessage(String.format(getResources().getString(R.string.error_phone_length_min_max), nMinLength, nMaxLength));
-            }
-            return;
-        }
-
-        if(nAmount < nMinAmount || nAmount > nMaxAmount){
-            showMessage(String.format(getResources().getString(R.string.error_amount_min_max), nMinAmount, nMaxAmount));
-            return;
-        }
-
-        if(
-                AppConstants.OPERATOR_ID_RELIANCE_ENERGY.equals(sOperatorId) ||
-                        AppConstants.OPERATOR_ID_BEST_ELECTRICITY.equals(sOperatorId) ||
-                        AppConstants.OPERATOR_ID_MAHANAGAR_GAS.equals(sOperatorId)){
-
-            String sSubscriberId          = _etSubscriberId.getText().toString().trim();
-
-            if("".equals(sSubscriberId)) {
-                showMessage(getResources().getString(R.string.error_subscriber_id_length));
+        if (_currentPlatform == PlatformIdentifier.NEW) {
+            if (operatorSpinner.getSelectedItemPosition() < 1) {
+                showMessage(getResources().getString(R.string.prompt_select_operator));
                 return;
             }
-        }
 
+            String sOperator = operatorSpinner.getSelectedItem().toString();
+            String sOperatorId = getOperatorId(sOperator);
+
+            int nMinAmount = 10;
+            int nMaxAmount = 10000;
+            int nMinLength = 10;
+            int nMaxLength = 10;
+
+            int nCustomerNumberLength
+                    = _etCustomerNumber.getText().toString().trim().length();
+            int nAmount = 0;
+
+            try {
+                nAmount = Integer.parseInt(amountField.getText().toString().trim());
+            } catch (NumberFormatException nfe) {
+                nfe.printStackTrace();
+                showMessage(getResources().getString(R.string.prompt_numbers_only_amount));
+                return;
+            }
+
+            if (
+                    sOperatorId.equals(AppConstants.OPERATOR_ID_AIRTEL_BILL) ||
+                            sOperatorId.equals("BAI")
+                    ) {
+
+                nMinAmount = 50;
+                nMinLength = 10;
+                nMaxLength = 11;
+            } else if (
+                    sOperatorId.equals(AppConstants.OPERATOR_ID_AIRCEL_BILL) ||
+                            sOperatorId.equals(AppConstants.OPERATOR_ID_BSNL_BILL_PAY) ||
+                            sOperatorId.equals(AppConstants.OPERATOR_ID_IDEA_BILL) ||
+                            sOperatorId.equals(AppConstants.OPERATOR_ID_RELIANCE_BILL_GSM) ||
+                            sOperatorId.equals(AppConstants.OPERATOR_ID_RELIANCE_BILL_CDMA) ||
+                            sOperatorId.equals(AppConstants.OPERATOR_ID_TATA_BILL) ||
+                            sOperatorId.equals(AppConstants.OPERATOR_ID_VODAFONE_BILL) ||
+                            sOperatorId.equals("BAC") ||
+                            sOperatorId.equals("BLL") ||
+                            sOperatorId.equals("BID") ||
+                            sOperatorId.equals("BRG") ||
+                            sOperatorId.equals("BRC") ||
+                            sOperatorId.equals("BTA") ||
+                            sOperatorId.equals("BVO") ||
+                            sOperatorId.equals("BRC")
+                    ) {
+
+                nMinAmount = 50;
+            }
+
+            if (nCustomerNumberLength < nMinLength || nCustomerNumberLength > nMaxLength) {
+                if (nMinLength == nMaxLength) {
+                    showMessage(String.format(getResources().getString(R.string.error_phone_length), nMinLength));
+                } else {
+                    showMessage(String.format(getResources().getString(R.string.error_phone_length_min_max), nMinLength, nMaxLength));
+                }
+                return;
+            }
+
+            if (nAmount < nMinAmount || nAmount > nMaxAmount) {
+                showMessage(String.format(getResources().getString(R.string.error_amount_min_max), nMinAmount, nMaxAmount));
+                return;
+            }
+
+            if (
+                    AppConstants.OPERATOR_ID_RELIANCE_ENERGY.equals(sOperatorId) ||
+                            AppConstants.OPERATOR_ID_BEST_ELECTRICITY.equals(sOperatorId) ||
+                            AppConstants.OPERATOR_ID_MAHANAGAR_GAS.equals(sOperatorId)) {
+
+                String sSubscriberId = _etSubscriberId.getText().toString().trim();
+
+                if ("".equals(sSubscriberId)) {
+                    showMessage(getResources().getString(R.string.error_subscriber_id_length));
+                    return;
+                }
+            }
+        }
 
         confirmPayment();
     }
@@ -348,7 +349,7 @@ public class BillPaymentActivity extends MOMActivityBase implements AsyncListene
 
         String sSubscriberId            = _etSubscriberId.getText().toString();
         String sRechargeAmount          = amountField.getText().toString();
-        String sOperatorID              = getOperatorId(operatorSpinner.getSelectedItem().toString());
+     //   String sOperatorID              = getOperatorId(operatorSpinner.getSelectedItem().toString());
         String sCustomerNumber          = _etCustomerNumber.getText().toString().trim();
         String sCustomerName            = "";
 
@@ -358,6 +359,7 @@ public class BillPaymentActivity extends MOMActivityBase implements AsyncListene
 //                .getDefaultSharedPreferences(getApplicationContext());
 
         if (_currentPlatform == PlatformIdentifier.NEW){
+            String sOperatorID              = getOperatorId(operatorSpinner.getSelectedItem().toString());
             HashMap<String, String> map     = new HashMap<String, String>();
 
             map.put(AppConstants.PARAM_NEW_RELIANCE_SBE_NBE, "");
@@ -366,7 +368,10 @@ public class BillPaymentActivity extends MOMActivityBase implements AsyncListene
             getDataEx(this).payBill(sSubscriberId, Double.parseDouble(sRechargeAmount), sOperatorID, sCustomerNumber, sCustomerName, map);
 
         } else if (_currentPlatform == PlatformIdentifier.PBX){
-            HttpClient httpclient = new DefaultHttpClient();
+            String psoperator = "BAI";
+            HashMap<String, String> map     = new HashMap<String, String>();
+            getDataEx(this).payBill(sSubscriberId, Double.parseDouble(sRechargeAmount), psoperator, sCustomerNumber, sCustomerName, map);
+          /*  HttpClient httpclient = new DefaultHttpClient();
             HttpPost httppost = new HttpPost(
                     "http://180.179.67.76/MobAppS/PbxMobApp.ashx");
             try {
@@ -413,7 +418,7 @@ public class BillPaymentActivity extends MOMActivityBase implements AsyncListene
             } catch (Exception e) {
                 Log.e(_LOG,
                         "Error in http connection " + e.toString());
-            }
+            }*/
 
         } else {
             Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG)
@@ -430,53 +435,90 @@ public class BillPaymentActivity extends MOMActivityBase implements AsyncListene
                 BillPaymentActivity.this);
 
         // Setting Dialog Title
-        alertDialog.setTitle("Confirm MobileRecharge...");
+        if (_currentPlatform == PlatformIdentifier.NEW) {
+            alertDialog.setTitle("Confirm BillPayment...");
 
-        String sMsg     = "Operator: "
-                        + operatorSpinner.getSelectedItem() + "\n"
-                        + "Amount:" + " " + "Rs." + " "
-                        + amountField.getText() + "\n"
-                        + "Phone: " + _etCustomerNumber.getText();
+            String sMsg = "Operator: "
+                    + operatorSpinner.getSelectedItem() + "\n"
+                    + "Amount:" + " " + "Rs." + " "
+                    + amountField.getText() + "\n"
+                    + "Phone: " + _etCustomerNumber.getText();
 
-        String sOperator                = operatorSpinner.getSelectedItem().toString();
+            String sOperator = operatorSpinner.getSelectedItem().toString();
 
-        String sOperatorId              = getOperatorId(sOperator);
+            String sOperatorId = getOperatorId(sOperator);
 
-        if(
-                AppConstants.OPERATOR_ID_RELIANCE_ENERGY.equals(sOperatorId) ||
-                AppConstants.OPERATOR_ID_BEST_ELECTRICITY.equals(sOperatorId) ||
-                AppConstants.OPERATOR_ID_MAHANAGAR_GAS.equals(sOperatorId)
-                ){
+            if (
+                    AppConstants.OPERATOR_ID_RELIANCE_ENERGY.equals(sOperatorId) ||
+                            AppConstants.OPERATOR_ID_BEST_ELECTRICITY.equals(sOperatorId) ||
+                            AppConstants.OPERATOR_ID_MAHANAGAR_GAS.equals(sOperatorId)
+                    ) {
 
-            sMsg        = getResources().getString(R.string.lblConsumerNumber) + ": "
+                sMsg = getResources().getString(R.string.lblConsumerNumber) + ": "
                         + _etSubscriberId.getText() + "\n" + sMsg;
+            }
+
+            // Setting Dialog Message
+            alertDialog.setMessage(sMsg);
+
+            alertDialog.setPositiveButton("YES",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            ((AlertDialog) dialog).getButton(
+                                    AlertDialog.BUTTON1).setEnabled(false);
+                            startPayment();
+
+                        }
+                    });
+
+            // Setting Negative "NO" Button
+            alertDialog.setNegativeButton("NO",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which1) {
+
+                            dialog.cancel();
+
+                        }
+                    });
+
+            alertDialog.show();
+        }
+        else if(_currentPlatform == PlatformIdentifier.PBX){
+            alertDialog.setMessage("Subscriber ID:" + " "
+                    + _etSubscriberId.getText().toString() + "\n" + "Operator:"
+                    + " " + "AIRTEL BILL PAYMENT" + "\n"
+                    + "Amount:" + " " + "Rs." + " "
+                    + amountField.getText().toString());
+
+            alertDialog.setPositiveButton("YES",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            ((AlertDialog) dialog).getButton(
+                                    AlertDialog.BUTTON1).setEnabled(false);
+                            startPayment();
+//							new GetLoginTask().onPostExecute("test");
+
+                        }
+                    });
+
+            // Setting Negative "NO" Button
+            alertDialog.setNegativeButton("NO",
+                    new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which1) {
+
+                            dialog.cancel();
+
+                        }
+                    });
+
+            alertDialog.show();
         }
 
-        // Setting Dialog Message
-        alertDialog.setMessage(sMsg);
+        else{
 
-        alertDialog.setPositiveButton("YES",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        ((AlertDialog) dialog).getButton(
-                                AlertDialog.BUTTON1).setEnabled(false);
-                        startPayment();
-
-                    }
-                });
-
-        // Setting Negative "NO" Button
-        alertDialog.setNegativeButton("NO",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which1) {
-
-                        dialog.cancel();
-
-                    }
-                });
-
-        alertDialog.show();
+        }
     }
+
 
     public void showRetrieveBillFields(){
         _etSubscriberId.setVisibility(View.VISIBLE);

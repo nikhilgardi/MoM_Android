@@ -9,6 +9,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.mom.app.error.MOMException;
+import com.mom.app.gcm.GcmUtil;
 import com.mom.app.identifier.PinType;
 import com.mom.app.model.AsyncDataEx;
 import com.mom.app.model.AsyncListener;
@@ -16,7 +17,11 @@ import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.Transaction;
 import com.mom.app.model.local.EphemeralStorage;
+
 import com.mom.app.model.Last5Transactions;
+
+import com.mom.app.model.local.PersistentStorage;
+
 import com.mom.app.utils.AppConstants;
 
 import org.apache.http.message.BasicNameValuePair;
@@ -33,11 +38,14 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
     static String LOG_TAG          = AppConstants.LOG_PREFIX + "PBX_DATA";
     private String _operatorId      = null;
     private static int _SUCCESS     = 200;
+    String _deviceRegId             = null;
+
     // String jsonStr =    "{\"Table\":[{\"PartyROWID\":92420,\"PartyRMN\":\"9769496026\",\"PartyName\":\"Akshay\",\"PartyGUID\":\"9163b4dd-f23d-41fd-99ab-7c0f57c9c7ed\",\"PartyEnum\":null,\"PartyTypeEnum\":16,\"userName\":\"Software\"}]}" ;
     public PBXPLDataExImpl(Context pContext, AsyncListener pListener){
         this._listener              = pListener;
         this._applicationContext    = pContext;
         checkConnectivity(pContext);
+        _deviceRegId                = PersistentStorage.getInstance(pContext).getString(GcmUtil.PROPERTY_REG_ID, "");
     }
 
     @Override
@@ -88,6 +96,21 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
                     }
                     break;
 
+                case RECHARGE_DTH:
+                    Log.d(LOG_TAG, "TaskComplete: rechargeMobile method, result: " + result);
+                    Log.i(LOG_TAG, "TaskComplete: rechargeDTH method, result: " + result);
+                    if (_listener != null) {
+                        _listener.onTaskSuccess(getRechargeResult(result), Methods.RECHARGE_DTH);
+                    }
+                    break;
+                case PAY_BILL:
+                    Log.d(LOG_TAG, "TaskComplete: payBill method, result: " + result);
+                    Log.i(LOG_TAG, "TaskComplete: payBill method, result: " + result);
+                    if (_listener != null) {
+                        _listener.onTaskSuccess(getRechargeResult(result), Methods.PAY_BILL);
+                    }
+                    break;
+
             }
         }catch(MOMException me){
             me.printStackTrace();
@@ -110,9 +133,8 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
     }
 
     @Override
-    public void rechargeMobilePBX( String Service,
+    public void rechargeMobilePBX(
                                    String psConsumerNumber,
-                                   String customerNumber,
                                    String psOperator,
                                    double pdAmount) {
 
@@ -137,17 +159,82 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
 
                 new BasicNameValuePair(AppConstants.PARAM_PBX_SERVICE, "RECHARGEMOBILE"),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_RMN, "9769496026"),
-                new BasicNameValuePair("customerNumber" ,customerNumber),
+                new BasicNameValuePair("customerNumber" ,psConsumerNumber),
                 new BasicNameValuePair("operatorShortCode" , "AIR"),
-                new BasicNameValuePair("amount", String.valueOf(Math.round(pdAmount)))
+                new BasicNameValuePair("amount", String.valueOf(Math.round(pdAmount))),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_IDENTIFIER   , "1234"),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_ORIGINID , "5555"),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_CLIENTTOKEN , "4")
 
 
         );
     }
 
     @Override
-    public void rechargeDTH(String psSubscriberId, double pdAmount, String psOperator, String psCustomerMobile) {
+    public void rechargeDTH(String psSubscriberId, double pdAmount, String psOperator, String psCustomerMobile){
+        if(
+                psSubscriberId == null || "".equals(psSubscriberId)
+                       // || pdAmount < 1 || psOperator == null || "".equals(psOperator)
+                ){
 
+            if(_listener != null) {
+                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.LOGIN);
+            }
+        }
+
+        _operatorId                 = psOperator;
+
+        String url				    = AppConstants.URL_PBX_PLATFORM_APP;
+
+        AsyncDataEx dataEx		    = new AsyncDataEx(this, url, Methods.RECHARGE_DTH);
+
+        dataEx.execute(
+                new BasicNameValuePair(AppConstants.PARAM_PBX_SERVICE, "DTH"),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_RMN, "9769496026"),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_CUSTOMERNUMBER, psSubscriberId),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_AMOUNT, String.valueOf(Math.round(pdAmount))),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_OPERTAORSHORTCODE , "TSK"),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_IDENTIFIER   , "1234"),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_ORIGINID , "5555"),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_CLIENTTOKEN , "4")
+
+
+
+        );
+    }
+
+    public void payBill(
+            String psSubscriberId,
+            double pdAmount,
+            String psOperatorId,
+            String psCustomerMobile,
+            String psConsumerName,
+            HashMap<String, String> pExtraParamsMap
+    ){
+
+        _operatorId                 = psOperatorId;
+
+        String url				    = AppConstants.URL_PBX_PLATFORM_APP ;
+
+        AsyncDataEx dataEx		    = new AsyncDataEx(this, url, Methods.PAY_BILL);
+
+        String strCustomerNumber    = psSubscriberId;
+
+
+
+        Log.d("NEW_PL_DATA", "Going to pay bill for strCustomerNumber: " + strCustomerNumber);
+
+        dataEx.execute(
+
+                new BasicNameValuePair(AppConstants.PARAM_PBX_SERVICE, "BILLPAY"),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_RMN, "9769496026"),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_CUSTOMERNUMBER, strCustomerNumber),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_AMOUNT, String.valueOf(Math.round(pdAmount))),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_OPERTAORSHORTCODE , "BAI"),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_IDENTIFIER   , "1234"),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_ORIGINID , "5555"),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_CLIENTTOKEN , "4")
+        );
     }
 
     @Override
@@ -274,12 +361,13 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
             rechargeResponse = responseBase.data;
 
 
-            String response   = rechargeResponse.transactionId;
-            Log.d(LOG_TAG, "Response: " + response);
-            String response1   = Double.toString(rechargeResponse.amount);
-            Log.d(LOG_TAG, "Response1: " + response1);
-            String response2   = Double.toString(rechargeResponse.Balance);
-            Log.d(LOG_TAG, "Response2: " + response2);
+            String response1   = rechargeResponse.transactionId;
+            Log.d(LOG_TAG, "Response: " + response1);
+            String response2   = Double.toString(rechargeResponse.amount);
+            Log.d(LOG_TAG, "Response1: " + response2);
+            String response3   = Double.toString(rechargeResponse.Balance);
+            Log.d(LOG_TAG, "Response2: " + response3);
+            String response = "Transaction Id: " + response1 + " " + "Amount" + response2 + " " + "Balance" + " " + response3;
             return response;
         }catch (Exception e){
             e.printStackTrace();
@@ -287,10 +375,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
 
         return null;
     }
-    @Override
-    public void payBill(String psSubscriberId, double pdAmount, String psOperatorId, String psCustomerMobile, String psConsumerName, HashMap<String, String> psExtraParamsMap) {
 
-    }
 
     @Override
     public void getBillAmount(String psOperatorId, String psSubscriberId) {

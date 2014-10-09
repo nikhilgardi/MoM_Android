@@ -52,10 +52,14 @@ public class DashboardActivity extends MOMActivityBase{
 //        }
 
         gridView            = (GridView) findViewById(R.id.gridView);
-        gridViewAdapter     = new ImageTextViewAdapter<MoMScreen>(this, R.layout.grid_cell, DataProvider.getScreens(this , _currentPlatform));
+
+     //   gridViewAdapter     = new ImageTextViewAdapter<MoMScreen>(this, R.layout.grid_cell, DataProvider.getScreens(this , _currentPlatform));
+
+        gridViewAdapter     = new ImageTextViewAdapter<MoMScreen>(this, R.layout.grid_cell, DataProvider.getScreens(this, _currentPlatform));
+
 
         gridView.setAdapter(gridViewAdapter);
-        gridView.setNumColumns(2);
+//        gridView.setNumColumns(2);
 
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -113,6 +117,11 @@ public class DashboardActivity extends MOMActivityBase{
                 Log.d(_LOG, "Starting Bill Payment");
                 ultimateDestination     = ActivityIdentifier.BILL_PAYMENT;
                 nextActivity            = BillPaymentActivity.class;
+                break;
+            case BALANCE_TRANSFER:
+                Log.d(_LOG, "Starting Balance Transfer Payment");
+                ultimateDestination     = ActivityIdentifier.BALANCE_TRANSFER;
+                nextActivity            = BalanceTransferActivity.class;
                 break;
             case HISTORY:
                 Log.d(_LOG, "Starting Transaction History Activity");

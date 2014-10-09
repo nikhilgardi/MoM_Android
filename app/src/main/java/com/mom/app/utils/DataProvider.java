@@ -1,9 +1,7 @@
 package com.mom.app.utils;
 
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import com.mom.app.R;
+
 import com.mom.app.identifier.PlatformIdentifier;
 import com.mom.app.ui.flow.MoMScreen;
 import com.mom.app.widget.holder.ImageItem;
@@ -15,8 +13,13 @@ import java.util.ArrayList;
  */
 public class DataProvider {
 
-        public static ArrayList getScreens(Activity activity, PlatformIdentifier platform) {
-        final ArrayList imageItems = new ArrayList();
+
+//        public static ArrayList getScreens(Activity activity, PlatformIdentifier platform) {
+//        final ArrayList imageItems = new ArrayList();
+
+
+    public static ArrayList<ImageItem<MoMScreen>> getScreens(Activity activity, PlatformIdentifier platform) {
+        final ArrayList<ImageItem<MoMScreen>> imageItems = new ArrayList<ImageItem<MoMScreen>>();
 
 
         imageItems.add(
@@ -52,10 +55,17 @@ public class DataProvider {
         if(platform == PlatformIdentifier.NEW){
             imageItems.add(
                     new ImageItem<MoMScreen>(
-                            MoMScreen.RETAILER_PAYMENT,
-                            MoMScreen.RETAILER_PAYMENT.id,
-                            MoMScreen.RETAILER_PAYMENT.drawableId,
-                            activity.getResources().getString(MoMScreen.RETAILER_PAYMENT.titleResId),
+
+//                            MoMScreen.RETAILER_PAYMENT,
+//                            MoMScreen.RETAILER_PAYMENT.id,
+//                            MoMScreen.RETAILER_PAYMENT.drawableId,
+//                            activity.getResources().getString(MoMScreen.RETAILER_PAYMENT.titleResId),
+
+                            MoMScreen.BALANCE_TRANSFER,
+                            MoMScreen.BALANCE_TRANSFER.id,
+                            MoMScreen.BALANCE_TRANSFER.drawableId,
+                            activity.getResources().getString(MoMScreen.BALANCE_TRANSFER.titleResId),
+
                             false
                     )
             );
