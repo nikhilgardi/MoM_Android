@@ -34,10 +34,16 @@ public class SettingsActivity extends MOMActivityBase {
         _currentPlatform    = IdentifierUtils.getPlatformIdentifier(getApplicationContext());
 
         gridView            = (GridView) findViewById(R.id.gridView);
-        gridViewAdapter     = new ImageTextViewAdapter<MoMScreen>(this, R.layout.grid_cell, DataProvider.getSettingsScreens(this));
+        if (_currentPlatform == PlatformIdentifier.NEW) {
+            gridViewAdapter = new ImageTextViewAdapter<MoMScreen>(this, R.layout.grid_cell, DataProvider.getSettingsScreens(this));
 
-        gridView.setAdapter(gridViewAdapter);
-        gridView.setNumColumns(2);
+            gridView.setAdapter(gridViewAdapter);
+            gridView.setNumColumns(2);
+        }else if (_currentPlatform == PlatformIdentifier.PBX) {
+            gridViewAdapter = new ImageTextViewAdapter<MoMScreen>(this, R.layout.grid_cell, DataProvider.getPBXSettingsScreens(this));
+            gridView.setAdapter(gridViewAdapter);
+
+        }
 
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -98,15 +104,22 @@ public class SettingsActivity extends MOMActivityBase {
                 Log.d(_LOG, "Starting Change M-Pin");
                 intent      = new Intent(this, ChangePINActivity.class);
                 startActivity(intent);
-                Log.d(_LOG, "Started Mobile Recharge");
+                Log.d(_LOG, "Started Change M-Pin");
                 break;
             case CHANGE_TPIN:
                 Log.d(_LOG, "Starting Change T_Pin");
                 intent = new Intent(this, ChangePINActivity.class);
 
                 startActivity(intent);
-                Log.d(_LOG, "Started DTH Recharge");
+                Log.d(_LOG, "Started Change T-Pin");
                 break;
+            case CHANGE_PASSWORD:
+                Log.d(_LOG, "Starting Change Password");
+                intent      = new Intent(this, ChangePBXPasswordActivity.class);
+                startActivity(intent);
+                Log.d(_LOG, "Started Change Password");
+                break;
+
         }
 
     }

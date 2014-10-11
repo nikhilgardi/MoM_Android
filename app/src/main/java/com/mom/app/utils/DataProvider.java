@@ -52,25 +52,35 @@ public class DataProvider {
                 )
         );
 
-        if(platform == PlatformIdentifier.NEW){
-            imageItems.add(
-                    new ImageItem<MoMScreen>(
+//        if(platform == PlatformIdentifier.NEW){
+//            imageItems.add(
+//                    new ImageItem<MoMScreen>(
+//
+////                            MoMScreen.RETAILER_PAYMENT,
+////                            MoMScreen.RETAILER_PAYMENT.id,
+////                            MoMScreen.RETAILER_PAYMENT.drawableId,
+////                            activity.getResources().getString(MoMScreen.RETAILER_PAYMENT.titleResId),
+//
+//                            MoMScreen.BALANCE_TRANSFER,
+//                            MoMScreen.BALANCE_TRANSFER.id,
+//                            MoMScreen.BALANCE_TRANSFER.drawableId,
+//                            activity.getResources().getString(MoMScreen.BALANCE_TRANSFER.titleResId),
+//
+//                            false
+//                    )
+//            );
+//        }
+        imageItems.add(
+                new ImageItem<MoMScreen>(
 
-//                            MoMScreen.RETAILER_PAYMENT,
-//                            MoMScreen.RETAILER_PAYMENT.id,
-//                            MoMScreen.RETAILER_PAYMENT.drawableId,
-//                            activity.getResources().getString(MoMScreen.RETAILER_PAYMENT.titleResId),
+                        MoMScreen.BALANCE_TRANSFER,
+                        MoMScreen.BALANCE_TRANSFER.id,
+                        MoMScreen.BALANCE_TRANSFER.drawableId,
+                        activity.getResources().getString(MoMScreen.BALANCE_TRANSFER.titleResId),
 
-                            MoMScreen.BALANCE_TRANSFER,
-                            MoMScreen.BALANCE_TRANSFER.id,
-                            MoMScreen.BALANCE_TRANSFER.drawableId,
-                            activity.getResources().getString(MoMScreen.BALANCE_TRANSFER.titleResId),
-
-                            false
-                    )
-            );
-        }
-
+                        false
+                )
+        );
         imageItems.add(
                 new ImageItem<MoMScreen>(
                         MoMScreen.HISTORY,
@@ -124,6 +134,23 @@ public class DataProvider {
                         false
                 )
         );
+
+        return imageItems;
+    }
+
+    public static ArrayList<ImageItem<MoMScreen>> getPBXSettingsScreens(Activity activity) {
+        final ArrayList<ImageItem<MoMScreen>> imageItems = new ArrayList<ImageItem<MoMScreen>>();
+
+        imageItems.add(
+                new ImageItem<MoMScreen>(
+                        MoMScreen.CHANGE_PASSWORD,
+                        MoMScreen.CHANGE_PASSWORD.id,
+                        MoMScreen.CHANGE_PASSWORD.drawableId,
+                        activity.getResources().getString(MoMScreen.CHANGE_PASSWORD.titleResId),
+                        false
+                )
+        );
+
 
         return imageItems;
     }

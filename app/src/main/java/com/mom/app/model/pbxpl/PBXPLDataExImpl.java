@@ -1,6 +1,7 @@
 package com.mom.app.model.pbxpl;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -28,7 +29,11 @@ import org.apache.http.message.BasicNameValuePair;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 /**
  * Created by vaibhavsinha on 7/6/14.
@@ -81,7 +86,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
                     }
                     break;
                 case GET_OPERATOR_NAMES:
-                  //  _listener.onTaskSuccess(getOperatorNamesResult(result), callback);
+                    _listener.onTaskSuccess(getOperatorNamesResult(result), callback);
                     break;
                 case TRANSACTION_HISTORY:
                   //  _listener.onTaskSuccess(extractTransactions(result), callback);
@@ -109,6 +114,25 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
                     if (_listener != null) {
                         _listener.onTaskSuccess(getRechargeResult(result), Methods.PAY_BILL);
                     }
+                    break;
+                case BALANCE_TRANSFER:
+                    Log.d(LOG_TAG, "TaskComplete: retailerpayment method, result: " + result);
+                    Log.i(LOG_TAG, "TaskComplete: retailerpayment method, result: " + result);
+
+                    if (_listener != null) {
+                        _listener.onTaskSuccess(getInternalBalTransfer(result), Methods.BALANCE_TRANSFER);
+                    }
+                    break;
+
+                case CHANGE_PASSWORD:
+                    Log.d(LOG_TAG, "TaskComplete: changeMPin method, result: " + result);
+
+                    result              = getchangePasswordResult(result);
+
+                    if (_listener != null) {
+                        _listener.onTaskSuccess(result, Methods.CHANGE_PASSWORD);
+                    }
+
                     break;
 
             }
@@ -296,7 +320,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
             LoginResult loginResult = new LoginResult();
             loginResult = responseBase.data;
             String jsonstring = loginResult.token;
-            Log.i("ResultLogin" , jsonstring);
+      //      Log.i("ResultLogin" , jsonstring);
             success     = (responseBase != null && responseBase.code == 0);
 
             if (success && responseBase.data != null ) {
@@ -345,6 +369,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
         return success;
     }
     public String getRechargeResult(String psResult){
+        String response = null;
         if(TextUtils.isEmpty(psResult)){
             return null;
         }
@@ -367,13 +392,39 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
             Log.d(LOG_TAG, "Response1: " + response2);
             String response3   = Double.toString(rechargeResponse.Balance);
             Log.d(LOG_TAG, "Response2: " + response3);
-            String response = "Transaction Id: " + response1 + " " + "Amount" + response2 + " " + "Balance" + " " + response3;
+             response = "Transaction Id: " + response1 + " " + "Amount" + response2 + " " + "Balance" + " " + response3;
             return response;
         }catch (Exception e){
             e.printStackTrace();
         }
 
-        return null;
+        return response;
+    }
+    public String getInternalBalTransfer(String psResult){
+        String intenalbal = null;
+        if(TextUtils.isEmpty(psResult)){
+            return null;
+        }
+
+
+        Log.i("Tes5t" , psResult);
+        try {
+            Gson gson   = new GsonBuilder().create();
+
+            Type type   = new TypeToken<ResponseBase>() {
+            }.getType();
+            ResponseBase responseBase = gson.fromJson(psResult, type);
+
+            intenalbal= responseBase.data.toString();
+            Log.d(LOG_TAG, "ResponseInternalBal: " + intenalbal);
+            Log.i(LOG_TAG, "ResponseInternalBal: " + intenalbal);
+
+            return intenalbal;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return intenalbal;
     }
 
 
@@ -454,7 +505,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
         return list;
     }
     @Override
-    public void changePin(PinType pinType, String psOldPin, String psNewPin) {
+    public  void changePassword( String psOldPin, String psNewPin){
         String loginUrl				= AppConstants.URL_PBX_PLATFORM_APP;
 
         Log.i(_LOG, "Calling Async password");
@@ -467,20 +518,58 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
                 AppConstants.PARAM_PBX_TOKEN, null
         );
 
-        AsyncDataEx dataEx		    = new AsyncDataEx(this, loginUrl, Methods.CHANGE_PIN);
+        AsyncDataEx dataEx		    = new AsyncDataEx(this, loginUrl, Methods.CHANGE_PASSWORD);
 
         dataEx.execute(
                 new BasicNameValuePair(AppConstants.PARAM_PBX_SERVICE, AppConstants.SVC_PBX_CHANGE_PASSWORD),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_NP, psNewPin),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_OP, psOldPin),
-                new BasicNameValuePair(AppConstants.PARAM_PBX_RN, userName),
-                new BasicNameValuePair(AppConstants.PARAM_PBX_TOKEN, token)
+                new BasicNameValuePair(AppConstants.PARAM_PBX_TOKEN, token),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_RMN, userName),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_IDENTIFIER, "1234"),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_ORIGINID, "5555"),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_CLIENTTOKEN, "4")
         );
     }
 
-    public ResponseBase changePinResult(String psResult){
-        Gson gson = new GsonBuilder().create();
-        return gson.fromJson(psResult, ResponseBase.class);
+    public String getchangePasswordResult(String psResult){
+        String changepwd = null;
+
+        if(TextUtils.isEmpty(psResult)){
+            return null;
+        }
+
+
+        Log.i("Tes5t" , psResult);
+        try {
+            Gson gson   = new GsonBuilder().create();
+
+            Type type   = new TypeToken<ResponseBase<ChangePBXPassword>>() {
+            }.getType();
+            ResponseBase<ChangePBXPassword> responseBase = gson.fromJson(psResult, type);
+            ChangePBXPassword changepassword = new ChangePBXPassword();
+            changepassword= responseBase.data;
+
+            String response1   = Double.toString(changepassword.status);
+            Log.d(LOG_TAG, "Response: " + response1);
+            Log.i(LOG_TAG, "Response: " + response1);
+
+            String response2   = changepassword.message;
+            Log.d(LOG_TAG, "Response1: " + response2);
+            Log.i(LOG_TAG, "Response1: " + response2);
+
+
+            changepwd = "Status: " + response1 + " " + "Message" + response2;
+            Log.i(LOG_TAG, "Response: " + changepwd);
+            return changepwd;
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return changepwd;
+       // Gson gson = new GsonBuilder().create();
+       // return gson.fromJson(psResult, ResponseBase.class);
     }
 
     public void getOperatorNames(){
@@ -494,31 +583,96 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
         );
 
         AsyncDataEx dataEx		    = new AsyncDataEx(this, url, Methods.GET_OPERATOR_NAMES);
+        dataEx.execute(
+                new BasicNameValuePair(AppConstants.PARAM_PBX_SERVICE, AppConstants.SVC_PBX_OPERATOR_NAMES),
+                new BasicNameValuePair(AppConstants.PARAM_OPERATOR_TYPE, "1"),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_RMN, userName),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_TOKEN, token),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_IDENTIFIER, "1234"),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_ORIGINID, "5555"),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_CLIENTTOKEN, "4")
+        );
     }
 
-//    public String[] getOperatorNamesResult(String result){
+//    public List getOperatorNamesResult(String result){
 //        Gson gson = new GsonBuilder().create();
 //
 //        Type type   = new TypeToken<ResponseBase<Party>>(){}.getType();
 //
 //        ResponseBase<Party> responseBase  = gson.fromJson(result, type);
+//       ArrayList <PartyName> partyname = new ArrayList<PartyName>();
 //
-////        if(responseBase == null || responseBase.response == null || responseBase.response.Table == null){
-////            return new String[0];
+//
+//
+//
+//        if(responseBase == null || responseBase.data == null){
+//            return list ;
+//        }
+//Party.OperatorList party = new Gson().fromJson(result , Party.OperatorList.class);
+//        party = responseBase.data;
+//        String test= party.toString();
+//        Log.i("OperatorTest" , test);
+////        Party[] parties     = responseBas;
+//      List operators  = null;
+////
+////        for(int i=0; i<parties.length; i++){
+////            operators[i]    = parties[i].PartyName;
 ////        }
 //
+//        return operators;
+//    }
+        public List getOperatorNamesResult(String result){
+        Gson gson = new GsonBuilder().create();
+
+        Type type   = new TypeToken<ResponseBase<Party>>(){}.getType();
+
+        ResponseBase<Party> responseBase  = gson.fromJson(result, type);
+
+          //  Party<Party.OperatorList> myParty=new Party<Party.operatorList>();
+            Party party = new Gson().fromJson(result,Party.class);
+
+            Log.i("TEstOPerator" , responseBase.data.toString());
+        if(responseBase == null || responseBase.data == null){
+            return null;
+        }
+
 //        Party[] parties     = responseBase.response.Table;
 //        String[] operators  = new String[parties.length];
 //
 //        for(int i=0; i<parties.length; i++){
 //            operators[i]    = parties[i].PartyName;
 //        }
-//
-//        return operators;
-//    }
 
-    public void retailerpayment (String psConsumerNumber,double pdAmount ){
+        return null;
+    }
+    public void retailerpayment (String psConsumerNumber,double pdAmount )
+    {
 
+        if(
+                psConsumerNumber == null || "".equals(psConsumerNumber) ||pdAmount < 1 ){
+
+            if(_listener != null) {
+                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.LOGIN);
+            }
+            return;
+        }
+        String userName             = EphemeralStorage.getInstance(_applicationContext).getString(
+                AppConstants.PARAM_PBX_RMN, null
+        );
+
+
+        String url				    = AppConstants.URL_PBX_PLATFORM_APP;
+        AsyncDataEx dataEx		    = new AsyncDataEx(this, url, Methods.BALANCE_TRANSFER);
+
+        dataEx.execute(
+                new BasicNameValuePair(AppConstants.PARAM_PBX_SERVICE, AppConstants.SVC_PBX_INTERNAL_BAL_TRANSFER),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_PARENT_RMN, userName),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_CHILD_RMN, psConsumerNumber),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_AMOUNT, String.valueOf(Math.round(pdAmount))),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_IDENTIFIER, "1234"),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_ORIGINID, "5555"),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_CLIENTTOKEN, "4")
+        );
     }
     public void rechargeMobile(
             String psConsumerNumber,
@@ -528,4 +682,10 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
     ){
 
     }
+
+    public  void changePin(PinType pinType, String psOldPin, String psNewPin){
+
+    }
+
+
 }

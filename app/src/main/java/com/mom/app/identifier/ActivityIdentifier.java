@@ -13,5 +13,6 @@ public enum ActivityIdentifier {
     BILL_PAYMENT,
     TRANSACTION_HISTORY,
     SETTINGS,
+    CHANGE_PASSWORD,
     BALANCE_TRANSFER;
 }

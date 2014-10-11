@@ -47,10 +47,12 @@ public class AppConstants {
     //End: MoM Platform Methods
 
     //Start: PBX Platform Service
-    public static final String SVC_PBX_CHECK_LOGIN          = "CL";
-    public static final String SVC_PBX_CHANGE_PASSWORD      = "CP";
-    public static final String SVC_PBX_CHECK_BALANCE        = "BL";
-    public static final String SVC_PBX_TRANSACTION_HISTORY  = "LTH";
+    public static final String SVC_PBX_CHECK_LOGIN           = "CL";
+    public static final String SVC_PBX_CHANGE_PASSWORD       = "CP";
+    public static final String SVC_PBX_CHECK_BALANCE         = "BL";
+    public static final String SVC_PBX_TRANSACTION_HISTORY   = "LTH";
+    public static final String SVC_PBX_OPERATOR_NAMES        = "GO";
+    public static final String SVC_PBX_INTERNAL_BAL_TRANSFER = "IBT";
 
     //End: PBX Platform Service
 
@@ -139,11 +141,12 @@ public class AppConstants {
     public static final String PARAM_PBX_SERVICE            = "Service";
     public static final String PARAM_PBX_USERNAME           = "username";
     public static final String PARAM_PBX_PASSWORD           = "password";
-    public static final String PARAM_PBX_OP                 = "OP";
-    public static final String PARAM_PBX_NP                 = "NP";
+    public static final String PARAM_PBX_OP                 = "oldPassword";
+    public static final String PARAM_PBX_NP                 = "newPassword";
     public static final String PARAM_PBX_RN                 = "RN";
     public static final String PARAM_PBX_USERID             = "userID";
     public static final String PARAM_PBX_RMN                = "rmn";
+    public static final String PARAM_OPERATOR_TYPE          = "ot";
     public static final String PARAM_PBX_NAME               = "name";
     public static final String PARAM_PBX_TOKEN              = "token";
     public static final String PARAM_PBX_CUSTOMERNUMBER     = "customerNumber";
@@ -154,6 +157,8 @@ public class AppConstants {
     public static final String PARAM_PBX_IDENTIFIER         = "Identifier";
     public static final String PARAM_PBX_ORIGINID           = "originId";
     public static final String PARAM_PBX_CLIENTTOKEN        = "clientToken";
+    public static final String PARAM_PBX_PARENT_RMN         = "ParentRmn";
+    public static final String PARAM_PBX_CHILD_RMN          = "childRmn";
 
 
 

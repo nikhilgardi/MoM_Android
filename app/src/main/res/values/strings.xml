@@ -32,6 +32,7 @@
     <string name="action_logout">Logout</string>
     <string name="action_changeMpin">Change M-PIN</string>
     <string name="action_changeTpin">Change T-PIN</string>
+    <string name="action_changePassword">Change Password</string>
     <string name="title_activity_transaction_confirmation">Transaction Result</string>
     <string name="error_mobile_required">Mobile Number required</string>
     <string name="error_transfer_failed">Error occurred during transfer. Please try again or contact Customer Support for help.</string>
@@ -76,6 +77,9 @@
     <string name="mpin_old">Old M-PIN</string>
     <string name="mpin_new">New M-PIN</string>
     <string name="mpin_new_confirm">Confirm New M-PIN</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_password">Confirm Password</string>
     <string name="confirm_balance_transfer">Confirm Transfer</string>
     <string name="transfer">transfer</string>
     <string name="title_activity_bill_payment">Bill Payment Activity</string>

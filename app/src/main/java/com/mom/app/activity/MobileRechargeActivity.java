@@ -326,7 +326,7 @@ public class MobileRechargeActivity extends MOMActivityBase implements AsyncList
         } else if (_currentPlatform == PlatformIdentifier.PBX){
 
             String psoperator = "AIR";
-
+        //    getDataEx(this).getOperatorNames();
             getDataEx(this).rechargeMobilePBX(sConsumerNumber, psoperator , Double.parseDouble(sRechargeAmount));
 
 			/*HttpClient httpclient = new DefaultHttpClient();

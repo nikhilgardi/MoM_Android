@@ -644,10 +644,15 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<String>
     public  void rechargeMobilePBX(
             String customerNumber,
             String psOperator,
-            double pdAmount
-
-    )
+            double pdAmount)
     {
+
+    }
+    public void getOperatorNames(){
+
+    }
+
+    public  void changePassword( String psOldPin, String psNewPin){
 
     }
 }
