@@ -78,6 +78,6 @@ public class EphemeralStorage extends LocalStorage {
     @Override
     public Object getObject(String psKey, Object pDefault) {
         Object val = map.get(psKey);
-        return val == null ? pDefault : (Integer) val;
+        return val == null ? pDefault : val;
     }
 }

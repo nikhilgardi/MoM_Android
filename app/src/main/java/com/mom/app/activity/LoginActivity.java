@@ -29,6 +29,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -193,14 +194,9 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
         switch (pMethod){
             case CHECK_PLATFORM_DETAILS:
                 Log.i(_LOG, "Check result: " + result);
-//
-//                if(true){
-//                    login(PlatformIdentifier.PBX);
-//                    return;
-//                }
 
-                if(result == null || result.trim().equals("")){
-                    Log.i(_LOG, "1. User not of new PL");
+                if(TextUtils.isEmpty(result)){
+                    Log.i(_LOG, "User not of new PL");
                     login(PlatformIdentifier.PBX);
                     return;
                 }
@@ -228,11 +224,9 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
                 EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_USER_VAS01, sArrDetails[11]);
                 EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_USER_VAS02, sArrDetails[12]);
 
-
                 login(PlatformIdentifier.NEW);
                 break;
         }
-
     }
 
     @Override
