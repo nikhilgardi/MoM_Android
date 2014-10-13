@@ -1,6 +1,7 @@
 package com.mom.app.utils;
 
 import android.app.Activity;
+import android.content.Context;
 
 import com.mom.app.identifier.PlatformIdentifier;
 import com.mom.app.ui.flow.MoMScreen;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
  */
 public class DataProvider {
 
-    public static ArrayList<ImageItem<MoMScreen>> getScreens(Activity activity, PlatformIdentifier platform) {
+    public static ArrayList<ImageItem<MoMScreen>> getScreens(Context context, PlatformIdentifier platform) {
         final ArrayList<ImageItem<MoMScreen>> imageItems = new ArrayList<ImageItem<MoMScreen>>();
 
         imageItems.add(
@@ -21,7 +22,7 @@ public class DataProvider {
                         MoMScreen.MOBILE_RECHARGE,
                         MoMScreen.MOBILE_RECHARGE.id,
                         MoMScreen.MOBILE_RECHARGE.drawableId,
-                        activity.getResources().getString(MoMScreen.MOBILE_RECHARGE.titleResId),
+                        context.getResources().getString(MoMScreen.MOBILE_RECHARGE.titleResId),
                         false
                 )
         );
@@ -31,7 +32,7 @@ public class DataProvider {
                         MoMScreen.DTH_RECHARGE,
                         MoMScreen.DTH_RECHARGE.id,
                         MoMScreen.DTH_RECHARGE.drawableId,
-                        activity.getResources().getString(MoMScreen.DTH_RECHARGE.titleResId),
+                        context.getResources().getString(MoMScreen.DTH_RECHARGE.titleResId),
                         false
                 )
         );
@@ -41,7 +42,7 @@ public class DataProvider {
                         MoMScreen.BILL_PAYMENT,
                         MoMScreen.BILL_PAYMENT.id,
                         MoMScreen.BILL_PAYMENT.drawableId,
-                        activity.getResources().getString(MoMScreen.BILL_PAYMENT.titleResId),
+                        context.getResources().getString(MoMScreen.BILL_PAYMENT.titleResId),
                         false
                 )
         );
@@ -52,7 +53,7 @@ public class DataProvider {
                             MoMScreen.BALANCE_TRANSFER,
                             MoMScreen.BALANCE_TRANSFER.id,
                             MoMScreen.BALANCE_TRANSFER.drawableId,
-                            activity.getResources().getString(MoMScreen.BALANCE_TRANSFER.titleResId),
+                            context.getResources().getString(MoMScreen.BALANCE_TRANSFER.titleResId),
                             false
                     )
             );
@@ -63,7 +64,7 @@ public class DataProvider {
                         MoMScreen.HISTORY,
                         MoMScreen.HISTORY.id,
                         MoMScreen.HISTORY.drawableId,
-                        activity.getResources().getString(MoMScreen.HISTORY.titleResId),
+                        context.getResources().getString(MoMScreen.HISTORY.titleResId),
                         false
                 )
         );
@@ -72,7 +73,7 @@ public class DataProvider {
                         MoMScreen.SETTINGS,
                         MoMScreen.SETTINGS.id,
                         MoMScreen.SETTINGS.drawableId,
-                        activity.getResources().getString(MoMScreen.SETTINGS.titleResId),
+                        context.getResources().getString(MoMScreen.SETTINGS.titleResId),
                         false
                 )
         );
@@ -81,7 +82,7 @@ public class DataProvider {
                         MoMScreen.LOGOUT,
                         MoMScreen.LOGOUT.id,
                         MoMScreen.LOGOUT.drawableId,
-                        activity.getResources().getString(MoMScreen.LOGOUT.titleResId),
+                        context.getResources().getString(MoMScreen.LOGOUT.titleResId),
                         false
                 )
         );

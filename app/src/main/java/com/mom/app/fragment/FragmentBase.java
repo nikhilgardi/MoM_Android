@@ -21,6 +21,7 @@ import com.mom.app.model.IDataEx;
 import com.mom.app.model.local.EphemeralStorage;
 import com.mom.app.model.mompl.MoMPLDataExImpl;
 import com.mom.app.model.pbxpl.PBXPLDataExImpl;
+import com.mom.app.ui.IFragmentListener;
 import com.mom.app.utils.AppConstants;
 
 import java.text.DecimalFormat;
@@ -31,10 +32,11 @@ import java.text.DecimalFormat;
 public abstract class FragmentBase extends Fragment {
     String _LOG     = AppConstants.LOG_PREFIX + "BASE FRAG";
 
-    PlatformIdentifier _currentPlatform;
+    protected PlatformIdentifier _currentPlatform;
     IDataEx _dataEx     = null;
     ProgressBar _pb;
     TextView tvMsgDisplay;
+    IFragmentListener _callbackListener;
 
     protected abstract void showBalance(float pfBalance);
 
@@ -65,7 +67,14 @@ public abstract class FragmentBase extends Fragment {
 
     @Override
     public void onAttach(Activity activity) {
+        Log.d(_LOG, "onAttach");
         super.onAttach(activity);
+        try {
+            _callbackListener = (IFragmentListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement IFragmentListener");
+        }
     }
 
     @Override

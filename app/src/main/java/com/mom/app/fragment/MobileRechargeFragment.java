@@ -54,7 +54,6 @@ import java.util.List;
  *
  */
 public class MobileRechargeFragment extends FragmentBase implements AsyncListener<String>{
-    IFragmentListener _callbackListener;
     static final String NAV_BUTTONS_TAG     = "momNavButtonsTag";
 
     String _LOG     = AppConstants.LOG_PREFIX + "CREATE FRAG";
@@ -71,9 +70,11 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
         // Required empty public constructor
     }
 
-    public static MobileRechargeFragment newInstance(){
+    public static MobileRechargeFragment newInstance(PlatformIdentifier currentPlatform){
         MobileRechargeFragment fragment   = new MobileRechargeFragment();
-
+        Bundle bundle                       = new Bundle();
+        bundle.putSerializable(AppConstants.ACTIVE_PLATFORM, currentPlatform);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
@@ -81,7 +82,7 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(_LOG, "onCreate");
-
+        _currentPlatform        = (PlatformIdentifier) getArguments().getSerializable(AppConstants.ACTIVE_PLATFORM);
         Log.d(_LOG, "Returning from onCreate");
     }
 
@@ -109,29 +110,6 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
         return view;
     }
 
-    @Override
-    public void onAttach(Activity activity) {
-        Log.d(_LOG, "onAttach");
-        super.onAttach(activity);
-        try {
-            _callbackListener = (IFragmentListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement IFragmentListener");
-        }
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        Log.d(_LOG, "onStart");
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d(_LOG, "onResume");
-    }
 
     @Override
     public void onTaskSuccess(String result, DataExImpl.Methods callback) {

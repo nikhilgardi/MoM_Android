@@ -46,6 +46,8 @@
     <string name="error_no_internet_title">No Internet!</string>
     <string name="error_no_internet">Your device is not connected to the Internet. Please try this when your Internet connection is back.</string>
     <string name="error_getting_balance">Error</string>
+
+    <string name="confirm_logout">Do you want to logout and exit the app?</string>
     <string name="btn_dashboard">Dashboard</string>
     <string name="btn_recharge">Recharge</string>
     <string name="btn_pay">Pay</string>

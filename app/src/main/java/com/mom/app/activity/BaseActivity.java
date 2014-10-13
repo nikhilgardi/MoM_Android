@@ -1,9 +1,16 @@
 package com.mom.app.activity;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -17,9 +24,12 @@ import android.widget.ListView;
 import com.mom.app.R;
 import com.mom.app.error.MOMException;
 import com.mom.app.fragment.DTHRechargeFragment;
+import com.mom.app.fragment.DashboardFragment;
 import com.mom.app.fragment.FragmentBase;
 import com.mom.app.fragment.MobileRechargeFragment;
+import com.mom.app.identifier.IdentifierUtils;
 import com.mom.app.identifier.PlatformIdentifier;
+import com.mom.app.model.local.EphemeralStorage;
 import com.mom.app.ui.IFragmentListener;
 import com.mom.app.ui.flow.MoMScreen;
 import com.mom.app.utils.AppConstants;
@@ -35,6 +45,8 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
 
     DrawerLayout _drawerLayout;
     ListView _drawerList;
+    ListView _asyncStatusList;
+
     PlatformIdentifier _currentPlatform;
 
     ArrayList<ImageItem<MoMScreen>> _menuItems;
@@ -44,20 +56,30 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
-        /*
-        THIS IS HARD CODED. ONLY USED FOR TESTING OF PBX PLATFORM. REMOVE!!!
-         */
 
-        _currentPlatform = PlatformIdentifier.PBX;
+        _asyncStatusList    = (ListView) findViewById(R.id.asyncStatusList);
+
+        _currentPlatform = IdentifierUtils.getPlatformIdentifier(this);
 
         setupDrawerMenu();
 
         setupActionBar();
 
         if (savedInstanceState == null) {
-            selectItem(0);
+            showDashboard();
         }
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(
+                messageReceiver, new IntentFilter(AppConstants.GCM_INTENT)
+        );
     }
+
+    private BroadcastReceiver messageReceiver = new BroadcastReceiver() {
+        public void onReceive(Context context, Intent intent) {
+
+        }
+    };
+
 
     private void setupDrawerMenu(){
         if(_currentPlatform == null){
@@ -145,6 +167,7 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
     @Override
     public void processMessage(Bundle bundle) {
         FragmentBase fragmentBase = (FragmentBase) getFragmentManager().findFragmentById(R.id.contentFrame);
+
         if(fragmentBase == null){
             Log.d(_LOG, "No fragment found to pass the message");
             return;
@@ -165,6 +188,37 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
     }
 
     private boolean messageIntercepted(Bundle bundle){
+        MoMScreen nextScreen            = (MoMScreen) bundle.getSerializable(AppConstants.BUNDLE_NEXT_SCREEN);
+        if(nextScreen == null){
+            return false;
+        }
+
+
+        return showScreen(nextScreen);
+    }
+
+    private boolean showScreen(MoMScreen screen){
+        switch (screen){
+            case MOBILE_RECHARGE:
+                Log.d(_LOG, "mobile recharge selected");
+                showMobileRecharge();
+                break;
+            case DTH_RECHARGE:
+                Log.d(_LOG, "show dth recharge selected");
+                showDTHRecharge();
+                break;
+            case BILL_PAYMENT:
+                break;
+            case BALANCE_TRANSFER:
+                break;
+            case HISTORY:
+                break;
+            case SETTINGS:
+                break;
+            case LOGOUT:
+                break;
+        }
+
         return false;
     }
 
@@ -214,35 +268,43 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
 
         MoMScreen appScreen   = MoMScreen.getScreenFromId(screen.getId());
 
-        /*
-        Hard coded position 'case' needs to change.
-         */
-        switch (appScreen){
-            case MOBILE_RECHARGE:
-                Log.d(_LOG, "mobile recharge selected");
-                showMobileRecharge();
-                break;
-            case DTH_RECHARGE:
-                Log.d(_LOG, "show dth recharge selected");
-                showDTHRecharge();
-                break;
-            default:
-                Log.d(_LOG, "No selection. Showing dashboard");
-                showDashboard();
-        }
+        showScreen(appScreen);
 
         Log.d(_LOG, "exiting selectItem");
     }
 
     private void showMobileRecharge(){
-        showFragment(MobileRechargeFragment.newInstance());
+        showFragment(MobileRechargeFragment.newInstance(_currentPlatform));
     }
 
     private void showDTHRecharge(){
-        showFragment(DTHRechargeFragment.newInstance());
+        showFragment(DTHRechargeFragment.newInstance(_currentPlatform));
     }
 
     private void showDashboard(){
+        showFragment(DashboardFragment.newInstance(_currentPlatform));
+    }
 
+    void confirmLogout(){
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        final Context context     = this;
+
+        alertDialog.setMessage(R.string.confirm_logout)
+                .setCancelable(true)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                        EphemeralStorage.getInstance(context).clear();
+                        finish();
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = alertDialog.create();
+        alert.setTitle("Message");
+        alert.show();
     }
 }

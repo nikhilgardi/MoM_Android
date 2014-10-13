@@ -61,6 +61,9 @@ public class AppConstants {
 
     //End: PBX Platform URLs
 
+    //Start: Bundle Messages
+    public static final String BUNDLE_NEXT_SCREEN           = PACKAGE + "NextScreen";
+    //End: Bundle Messages
     //Start: PBX Platform Methods
 
     //End: PBX Platform Methods
@@ -164,6 +167,7 @@ public class AppConstants {
     public static final String INTENT_MESSAGE               = PACKAGE + "MESSAGE";
     public static final String INTENT_MESSAGE_DEST          = PACKAGE + "MESSAGE_DEST";
     public static final String INTENT_MESSAGE_ORIGIN        = PACKAGE + "MESSAGE_ORIGIN";
+    public static final String GCM_INTENT                   = PACKAGE + "gcmIntent";
 
     public static final String OPERATOR_ID_AIRCEL           = "1";
     public static final String OPERATOR_ID_AIRTEL           = "2";

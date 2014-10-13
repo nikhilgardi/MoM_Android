@@ -9,6 +9,10 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+    <ListView
+        android:id="@+id/asyncStatusList"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/async_status_list"/>
     <!-- The navigation drawer -->
     <ListView android:id="@+id/leftDrawer"
         android:layout_width="240dp"

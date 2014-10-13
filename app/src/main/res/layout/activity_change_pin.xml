@@ -6,12 +6,6 @@
     android:orientation="vertical"
     android:background="@drawable/appsbg">
 
-    <fragment
-        android:id="@+id/momHeader"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        class="com.mom.app.fragment.HeaderFragment" />
-
     <EditText
         android:id="@+id/oldPin"
         android:layout_width="265dp"

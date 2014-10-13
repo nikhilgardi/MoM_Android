@@ -1,5 +1,6 @@
 package com.mom.app.fragment;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,11 +19,13 @@ import android.widget.Toast;
 import com.mom.app.R;
 import com.mom.app.activity.DashboardActivity;
 import com.mom.app.identifier.ActivityIdentifier;
+import com.mom.app.identifier.IdentifierUtils;
 import com.mom.app.identifier.PlatformIdentifier;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.local.EphemeralStorage;
+import com.mom.app.ui.IFragmentListener;
 import com.mom.app.utils.AppConstants;
 
 import org.apache.http.HttpEntity;
@@ -54,14 +57,17 @@ public class DTHRechargeFragment extends FragmentBase implements AsyncListener<S
 
     String responseBody;
 
-    public static DTHRechargeFragment newInstance(){
+    public static DTHRechargeFragment newInstance(PlatformIdentifier currentPlatform){
         DTHRechargeFragment fragment    = new DTHRechargeFragment();
+        Bundle bundle                   = new Bundle();
+        bundle.putSerializable(AppConstants.ACTIVE_PLATFORM, currentPlatform);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        _currentPlatform        = (PlatformIdentifier) getArguments().getSerializable(AppConstants.ACTIVE_PLATFORM);
     }
 
     @Override
@@ -80,6 +86,8 @@ public class DTHRechargeFragment extends FragmentBase implements AsyncListener<S
 
         return view;
     }
+
+
 
     @Override
     public void onTaskSuccess(String result, DataExImpl.Methods callback) {

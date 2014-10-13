@@ -114,6 +114,9 @@ public class DashboardActivity extends MOMActivityBase{
                 nextActivity            = BillPaymentActivity.class;
                 break;
             case BALANCE_TRANSFER:
+                Log.d(_LOG, "Starting Balance Transfer");
+                ultimateDestination     = ActivityIdentifier.BILL_PAYMENT;
+                nextActivity            = BillPaymentActivity.class;
 
                 break;
             case HISTORY:

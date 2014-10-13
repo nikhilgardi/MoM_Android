@@ -246,8 +246,7 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 
 	public void navigateToMain(){
         Log.i(_LOG, "Going to MainActivity");
-		Intent intent 						= new Intent(LoginActivity.this, DashboardActivity.class);
-		
+		Intent intent 						= new Intent(LoginActivity.this, BaseActivity.class);
         Log.i(_LOG, "Finishing LoginActivity");
 
 		startActivity(intent);
@@ -325,7 +324,7 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
                         break;
                 }
 
-                EphemeralStorage.getInstance(context).storeString(AppConstants.ACTIVE_PLATFORM, _currentPlatform.toString());
+                EphemeralStorage.getInstance(context).storeObject(AppConstants.ACTIVE_PLATFORM, _currentPlatform);
                 EphemeralStorage.getInstance(context).storeString(AppConstants.LOGGED_IN_USERNAME, _username.getText().toString());
                 EphemeralStorage.getInstance(context).storeBoolean(AppConstants.IS_LOGGED_IN, true);
 

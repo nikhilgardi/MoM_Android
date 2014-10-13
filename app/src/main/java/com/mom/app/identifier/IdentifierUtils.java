@@ -41,11 +41,10 @@ public class IdentifierUtils {
     }
 
     public static PlatformIdentifier getPlatformIdentifier(Context context){
-        String sPlatform        = EphemeralStorage.getInstance(context).getString(AppConstants.ACTIVE_PLATFORM, null);
-        if(PlatformIdentifier.PBX.toString().equals(sPlatform)){
-            return PlatformIdentifier.PBX;
-        }
+        PlatformIdentifier platform = (PlatformIdentifier) EphemeralStorage.getInstance(context).getObject(
+                AppConstants.ACTIVE_PLATFORM, null
+        );
 
-        return PlatformIdentifier.NEW;
+        return platform;
     }
 }

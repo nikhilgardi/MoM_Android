@@ -5,16 +5,9 @@
     android:background="@color/white"
     android:orientation="vertical" >
 
-    <fragment
-        android:id="@+id/momHeader"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        class="com.mom.app.fragment.HeaderFragment" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/momHeader"
         android:orientation="horizontal"
         android:weightSum="100">
 
@@ -43,7 +36,7 @@
                 android:prompt="@string/prompt_spinner_select_operator"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/medium"></Spinner>
+                android:layout_marginBottom="@dimen/medium"/>
 
             <EditText
                 android:id="@+id/rechargeTargetPhone"
@@ -51,7 +44,7 @@
                 android:layout_height="wrap_content"
                 style="@style/EditTextAppTheme.phone"
                 android:hint="Mobile Number"
-                android:layout_marginBottom="@dimen/medium"></EditText>
+                android:layout_marginBottom="@dimen/medium"/>
 
 
             <EditText
@@ -60,7 +53,7 @@
                 android:layout_height="wrap_content"
                 style="@style/EditTextAppTheme.money"
                 android:hint="Enter Amount"
-                android:layout_marginBottom="@dimen/medium"></EditText>
+                android:layout_marginBottom="@dimen/medium"/>
 
             <ProgressBar
                 android:id="@+id/progressBar"
@@ -120,7 +113,7 @@
                     android:layout_height="wrap_content"
                     android:layout_width="0dp"
                     android:layout_weight="2"
-                    style="@style/ButtonAppTheme"
+                    style="@style/MoMTheme.wrapped.customButton"
                     android:onClick="validateAndRecharge"
                     android:text="@string/btn_recharge"/>
 
@@ -129,7 +122,7 @@
                     android:layout_height="wrap_content"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    style="@style/ButtonAppTheme"
+                    style="@style/MoMTheme.wrapped.customButton"
                     android:onClick="goBack"
                     android:text="@string/btn_back"/>
             </LinearLayout>

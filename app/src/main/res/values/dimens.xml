@@ -29,4 +29,5 @@
     <dimen name="grid_icon">64dp</dimen>
     <dimen name="grid_text">10sp</dimen>
     <dimen name="grid_text_margin">5dp</dimen>
+    <dimen name="async_status_list">100dp</dimen>
 </resources>
