@@ -90,6 +90,18 @@ public class MobileRechargeActivity extends MOMActivityBase implements AsyncList
                 Log.d(_LOG, "Starting navigation to TxnMsg Activity");
                 navigateToTransactionMessageActivity(ActivityIdentifier.MOBILE_RECHARGE, result);
             break;
+
+            case MOBILE_RECHARGEPBX:
+                if(result == null){
+                    Log.d(_LOG, "Obtained NULL recharge response");
+                    showMessage(getResources().getString(R.string.error_recharge_failed));
+                    return;
+                }
+                Log.d(_LOG, "Going to get new balance");
+                getBalance();
+                Log.d(_LOG, "Starting navigation to TxnMsg Activity");
+                navigateToTransactionMessageActivity(ActivityIdentifier.MOBILE_RECHARGEPBX , result);
+                break;
         }
 
         getProgressBar().setVisibility(View.GONE);
@@ -227,75 +239,97 @@ public class MobileRechargeActivity extends MOMActivityBase implements AsyncList
 
 
 	public void validateAndRecharge(View view) {
-        if (operatorSpinner.getSelectedItemPosition() < 1){
-            showMessage(getResources().getString(R.string.prompt_select_operator));
-            return;
-        }
-
-        String sOperator        = operatorSpinner.getSelectedItem().toString();
-        String sOperatorId      = getOperatorId(sOperator);
-
-        int nMinAmount          = 10;
-        int nMaxAmount          = 10000;
-        int nMinPhoneLength     = 10;
-        int nMaxPhoneLength     = 10;
-        int nExactPhoneLength   = 10;
-
-        int nPhoneLength        = rechargeTargetPhone.getText().toString().length();
-        int nAmount             = 0;
-
-        try {
-            nAmount             = Integer.parseInt(amountField.getText().toString());
-        }catch (NumberFormatException nfe){
-            nfe.printStackTrace();
-            showMessage(getResources().getString(R.string.prompt_numbers_only_amount));
-            return;
-        }
-
-        if(
-                sOperatorId.equals(AppConstants.OPERATOR_ID_TATA_WALKY) ||
-                sOperatorId.equals("TWT")
-                ){
-
-            nMinPhoneLength     = 1;
-            nMaxPhoneLength     = 12;
-        }
-
-        if(nPhoneLength < nMinPhoneLength || nPhoneLength > nMaxPhoneLength){
-            if(nMinPhoneLength == nMaxPhoneLength) {
-                showMessage(String.format(getResources().getString(R.string.error_phone_length), nMinPhoneLength));
-            }else{
-                showMessage(String.format(getResources().getString(R.string.error_phone_length_min_max), nMinPhoneLength, nMaxPhoneLength));
+        if (_currentPlatform == PlatformIdentifier.NEW) {
+            if (operatorSpinner.getSelectedItemPosition() < 1) {
+                showMessage(getResources().getString(R.string.prompt_select_operator));
+                return;
             }
-            return;
+
+            String sOperator = operatorSpinner.getSelectedItem().toString();
+            String sOperatorId = getOperatorId(sOperator);
+
+            int nMinAmount = 10;
+            int nMaxAmount = 10000;
+            int nMinPhoneLength = 10;
+            int nMaxPhoneLength = 10;
+            int nExactPhoneLength = 10;
+
+            int nPhoneLength = rechargeTargetPhone.getText().toString().length();
+            int nAmount = 0;
+
+            try {
+                nAmount = Integer.parseInt(amountField.getText().toString());
+            } catch (NumberFormatException nfe) {
+                nfe.printStackTrace();
+                showMessage(getResources().getString(R.string.prompt_numbers_only_amount));
+                return;
+            }
+
+            if (
+                    sOperatorId.equals(AppConstants.OPERATOR_ID_TATA_WALKY) ||
+                            sOperatorId.equals("TWT")
+                    ) {
+
+                nMinPhoneLength = 1;
+                nMaxPhoneLength = 12;
+            }
+
+            if (nPhoneLength < nMinPhoneLength || nPhoneLength > nMaxPhoneLength) {
+                if (nMinPhoneLength == nMaxPhoneLength) {
+                    showMessage(String.format(getResources().getString(R.string.error_phone_length), nMinPhoneLength));
+                } else {
+                    showMessage(String.format(getResources().getString(R.string.error_phone_length_min_max), nMinPhoneLength, nMaxPhoneLength));
+                }
+                return;
+            }
+
+            if (nAmount < nMinAmount || nAmount > nMaxAmount) {
+                showMessage(String.format(getResources().getString(R.string.error_amount_min_max), nMinAmount, nMaxAmount));
+                return;
+            }
         }
 
-        if(nAmount < nMinAmount || nAmount > nMaxAmount){
-            showMessage(String.format(getResources().getString(R.string.error_amount_min_max), nMinAmount, nMaxAmount));
-            return;
-        }
-
-        confirmRecharge();
+       confirmRecharge();
 	}
 
 	private void startRecharge() {
-		String[] strResponse1 = null;
+	/*	String[] strResponse1 = null;
 
         String sConsumerNumber          = rechargeTargetPhone.getText().toString();
         String sRechargeAmount          = amountField.getText().toString();
         String sOperatorID              = getOperatorId(operatorSpinner.getSelectedItem().toString());
         int nRechargeType               = 0;
 
+
         if (rbtnValidity.isChecked()) {
             nRechargeType               = 1;
         } else if (rbtnSpecial.isChecked()) {
             nRechargeType               = 2;
-        }
+        }*/
+
+        String sConsumerNumber          = rechargeTargetPhone.getText().toString();
+        String sRechargeAmount          = amountField.getText().toString();
 
 		if (_currentPlatform == PlatformIdentifier.NEW){
-            getDataEx(this).rechargeMobile(sConsumerNumber, Double.parseDouble(sRechargeAmount), sOperatorID, nRechargeType);
+            String[] strResponse1 = null;
+
+
+            String sOperatorID              = getOperatorId(operatorSpinner.getSelectedItem().toString());
+            int nRechargeType               = 0;
+            if (rbtnValidity.isChecked()) {
+                nRechargeType               = 1;
+            } else if (rbtnSpecial.isChecked()) {
+                nRechargeType = 2;
+            }
+           getDataEx(this).rechargeMobile(sConsumerNumber, Double.parseDouble(sRechargeAmount), sOperatorID, nRechargeType);
+
         } else if (_currentPlatform == PlatformIdentifier.PBX){
-			HttpClient httpclient = new DefaultHttpClient();
+
+            String psoperator = "AIR";
+        //    getDataEx(this).getOperatorNames();
+            getDataEx(this).rechargeMobilePBX(sConsumerNumber, psoperator , Double.parseDouble(sRechargeAmount));
+
+			/*HttpClient httpclient = new DefaultHttpClient();
 			HttpPost httppost = new HttpPost(
 					"http://180.179.67.76/MobAppS/PbxMobApp.ashx");
 			try {
@@ -343,7 +377,7 @@ public class MobileRechargeActivity extends MOMActivityBase implements AsyncList
 				Log.e("log_tagTESTabcd",
 						"Error in http connection " + e.toString());
 
-			}
+			}*/
 
 		} else {
 			Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG)
@@ -374,11 +408,17 @@ public class MobileRechargeActivity extends MOMActivityBase implements AsyncList
 			alertDialog.setTitle("Confirm MobileRecharge...");
 
 			// Setting Dialog Message
-			alertDialog.setMessage("Mobile Number:" + " "
+		/*	alertDialog.setMessage("Mobile Number:" + " "
 					+ rechargeTargetPhone.getText().toString() + "\n" + "Operator:"
 					+ " " + operatorSpinner.getSelectedItem().toString() + "\n"
 					+ "Amount:" + " " + "Rs." + " "
-					+ amountField.getText().toString());
+					+ amountField.getText().toString());*/
+
+        alertDialog.setMessage("Mobile Number:" + " "
+                + rechargeTargetPhone.getText().toString() + "\n" + "Operator:"
+                + " "+ "AIRTEL" + "\n"
+                + "Amount:" + " " + "Rs." + " "
+                + amountField.getText().toString());
 
 			alertDialog.setPositiveButton("YES",
 					new DialogInterface.OnClickListener() {

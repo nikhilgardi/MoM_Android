@@ -115,4 +115,21 @@ public class DataProvider {
 
         return imageItems;
     }
+
+    public static ArrayList<ImageItem<MoMScreen>> getPBXSettingsScreens(Activity activity) {
+        final ArrayList<ImageItem<MoMScreen>> imageItems = new ArrayList<ImageItem<MoMScreen>>();
+
+        imageItems.add(
+                new ImageItem<MoMScreen>(
+                        MoMScreen.CHANGE_PASSWORD,
+                        MoMScreen.CHANGE_PASSWORD.id,
+                        MoMScreen.CHANGE_PASSWORD.drawableId,
+                        activity.getResources().getString(MoMScreen.CHANGE_PASSWORD.titleResId),
+                        false
+                )
+        );
+
+
+        return imageItems;
+    }
 }

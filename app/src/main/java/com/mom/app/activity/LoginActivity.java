@@ -12,6 +12,7 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.mom.app.R;
 import com.mom.app.gcm.GcmUtil;
+import com.mom.app.identifier.IdentifierUtils;
 import com.mom.app.identifier.PlatformIdentifier;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
@@ -76,9 +77,9 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
     protected void onResume() {
         super.onResume();
 
-        if(checkPlayServices()){
-            GcmUtil.getInstance(this).registerDevice();
-        }
+//        if(checkPlayServices()){
+//            GcmUtil.getInstance(this).registerDevice();
+//        }
     }
 
     private boolean checkPlayServices() {
@@ -319,6 +320,7 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
                 }
 
                 EphemeralStorage.getInstance(context).storeObject(AppConstants.ACTIVE_PLATFORM, _currentPlatform);
+                PlatformIdentifier test = IdentifierUtils.getPlatformIdentifier(context);
                 EphemeralStorage.getInstance(context).storeString(AppConstants.LOGGED_IN_USERNAME, _username.getText().toString());
                 EphemeralStorage.getInstance(context).storeBoolean(AppConstants.IS_LOGGED_IN, true);
 

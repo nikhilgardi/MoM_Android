@@ -212,82 +212,83 @@ public class DTHRechargeActivity extends MOMActivityBase implements AsyncListene
 
 
     public void validateAndRecharge(View view) {
-        if (operatorSpinner.getSelectedItemPosition() < 1){
-            showMessage(getResources().getString(R.string.prompt_select_operator));
-            return;
-        }
-
-        String sOperator        = operatorSpinner.getSelectedItem().toString();
-        String sOperatorId      = getOperatorId(sOperator);
-
-        int nMinAmount          = 100;
-        int nMaxAmount          = 15000;
-        int nMinLength          = 10;
-        int nMaxLength          = 10;
-
-        int nSubscriberLength   = _etSubscriberId.getText().toString().length();
-        int nAmount             = 0;
-
-        try {
-            nAmount             = Integer.parseInt(amountField.getText().toString());
-        }catch (NumberFormatException nfe){
-            nfe.printStackTrace();
-            showMessage(getResources().getString(R.string.prompt_numbers_only_amount));
-            return;
-        }
-
-        if(
-                sOperatorId.equals(AppConstants.OPERATOR_ID_DISH) ||
-                sOperatorId.equals(AppConstants.OPERATOR_ID_SUN_DIRECT) ||
-                sOperatorId.equals("DSH") ||
-                sOperatorId.equals("SUN")
-                ){
-
-            nMinLength      = 11;
-            nMaxLength      = 11;
-            nMinAmount      = 10;
-        }else if(
-                sOperatorId.equals(AppConstants.OPERATOR_ID_BIG_TV) ||
-                sOperatorId.equals("BIG")
-                ){
-
-            nMinLength      = 12;
-            nMaxLength      = 12;
-            nMinAmount      = 25;
-        }else if(
-                sOperatorId.equals(AppConstants.OPERATOR_ID_VIDEOCON_DTH) ||
-                sOperatorId.equals("D2H")
-                ){
-
-            nMinLength      = 1;
-            nMaxLength      = 10;
-            nMinAmount      = 150;
-        }
-
-        if(nSubscriberLength < nMinLength || nSubscriberLength > nMaxLength){
-            if(nMinLength == nMaxLength){
-                showMessage(String.format(getResources().getString(R.string.error_subscriber_id_length), nMinLength));
-            }else{
-                showMessage(String.format(getResources().getString(R.string.error_subscriber_id_min_max), nMinLength, nMaxLength));
+        if (_currentPlatform == PlatformIdentifier.NEW) {
+            if (operatorSpinner.getSelectedItemPosition() < 1) {
+                showMessage(getResources().getString(R.string.prompt_select_operator));
+                return;
             }
-            return;
+
+            String sOperator = operatorSpinner.getSelectedItem().toString();
+            String sOperatorId = getOperatorId(sOperator);
+
+            int nMinAmount = 100;
+            int nMaxAmount = 15000;
+            int nMinLength = 10;
+            int nMaxLength = 10;
+
+            int nSubscriberLength = _etSubscriberId.getText().toString().length();
+            int nAmount = 0;
+
+            try {
+                nAmount = Integer.parseInt(amountField.getText().toString());
+            } catch (NumberFormatException nfe) {
+                nfe.printStackTrace();
+                showMessage(getResources().getString(R.string.prompt_numbers_only_amount));
+                return;
+            }
+
+            if (
+                    sOperatorId.equals(AppConstants.OPERATOR_ID_DISH) ||
+                            sOperatorId.equals(AppConstants.OPERATOR_ID_SUN_DIRECT) ||
+                            sOperatorId.equals("DSH") ||
+                            sOperatorId.equals("SUN")
+                    ) {
+
+                nMinLength = 11;
+                nMaxLength = 11;
+                nMinAmount = 10;
+            } else if (
+                    sOperatorId.equals(AppConstants.OPERATOR_ID_BIG_TV) ||
+                            sOperatorId.equals("BIG")
+                    ) {
+
+                nMinLength = 12;
+                nMaxLength = 12;
+                nMinAmount = 25;
+            } else if (
+                    sOperatorId.equals(AppConstants.OPERATOR_ID_VIDEOCON_DTH) ||
+                            sOperatorId.equals("D2H")
+                    ) {
+
+                nMinLength = 1;
+                nMaxLength = 10;
+                nMinAmount = 150;
+            }
+
+            if (nSubscriberLength < nMinLength || nSubscriberLength > nMaxLength) {
+                if (nMinLength == nMaxLength) {
+                    showMessage(String.format(getResources().getString(R.string.error_subscriber_id_length), nMinLength));
+                } else {
+                    showMessage(String.format(getResources().getString(R.string.error_subscriber_id_min_max), nMinLength, nMaxLength));
+                }
+                return;
+            }
+
+            if (nAmount < nMinAmount || nAmount > nMaxAmount) {
+                showMessage(String.format(getResources().getString(R.string.error_amount_min_max), nMinAmount, nMaxAmount));
+                return;
+            }
+
+            String sCustomerNumber = _etCustomerNumber.getText().toString().trim();
+
+            if ("".equals(sCustomerNumber)) {
+                showMessage(getResources().getString(R.string.error_customer_phone_required));
+                return;
+            } else if (sCustomerNumber.length() != AppConstants.STANDARD_MOBILE_NUMBER_LENGTH) {
+                showMessage(String.format(getResources().getString(R.string.error_phone_length), AppConstants.STANDARD_MOBILE_NUMBER_LENGTH));
+                return;
+            }
         }
-
-        if(nAmount < nMinAmount || nAmount > nMaxAmount){
-            showMessage(String.format(getResources().getString(R.string.error_amount_min_max), nMinAmount, nMaxAmount));
-            return;
-        }
-
-        String sCustomerNumber          = _etCustomerNumber.getText().toString().trim();
-
-        if("".equals(sCustomerNumber)) {
-            showMessage(getResources().getString(R.string.error_customer_phone_required));
-            return;
-        }else if(sCustomerNumber.length() != AppConstants.STANDARD_MOBILE_NUMBER_LENGTH){
-            showMessage(String.format(getResources().getString(R.string.error_phone_length), AppConstants.STANDARD_MOBILE_NUMBER_LENGTH));
-            return;
-        }
-
         confirmRecharge();
     }
 
@@ -296,7 +297,7 @@ public class DTHRechargeActivity extends MOMActivityBase implements AsyncListene
 
         String sSubscriberId            = _etSubscriberId.getText().toString();
         String sRechargeAmount          = amountField.getText().toString();
-        String sOperatorID              = getOperatorId(operatorSpinner.getSelectedItem().toString());
+       // String sOperatorID              = getOperatorId(operatorSpinner.getSelectedItem().toString());
         String sCustomerNumber          = _etCustomerNumber.getText().toString().trim();
 
         int nRechargeType               = 0;
@@ -306,10 +307,14 @@ public class DTHRechargeActivity extends MOMActivityBase implements AsyncListene
 
         if (_currentPlatform == PlatformIdentifier.NEW){
 
+            String sOperatorID              = getOperatorId(operatorSpinner.getSelectedItem().toString());
             getDataEx(this).rechargeDTH(sSubscriberId, Double.parseDouble(sRechargeAmount), sOperatorID, sCustomerNumber);
 
         } else if (_currentPlatform == PlatformIdentifier.PBX){
-            HttpClient httpclient = new DefaultHttpClient();
+            String psoperator = "TSK";
+            getDataEx(this).rechargeDTH(sSubscriberId, Double.parseDouble(sRechargeAmount), psoperator, sCustomerNumber);
+
+            /*HttpClient httpclient = new DefaultHttpClient();
             HttpPost httppost = new HttpPost(
                     "http://180.179.67.76/MobAppS/PbxMobApp.ashx");
             try {
@@ -357,7 +362,7 @@ public class DTHRechargeActivity extends MOMActivityBase implements AsyncListene
                 Log.e("log_tagTESTabcd",
                         "Error in http connection " + e.toString());
 
-            }
+            }*/
 
         } else {
             Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG)
@@ -388,9 +393,14 @@ public class DTHRechargeActivity extends MOMActivityBase implements AsyncListene
         alertDialog.setTitle("Confirm DTH Recharge...");
 
         // Setting Dialog Message
-        alertDialog.setMessage("Subscriber ID:" + " "
+        /*alertDialog.setMessage("Subscriber ID:" + " "
                 + _etSubscriberId.getText().toString() + "\n" + "Operator:"
                 + " " + operatorSpinner.getSelectedItem().toString() + "\n"
+                + "Amount:" + " " + "Rs." + " "
+                + amountField.getText().toString());*/
+        alertDialog.setMessage("Subscriber ID:" + " "
+                + _etSubscriberId.getText().toString() + "\n" + "Operator:"
+                + " " + "TATASKY" + "\n"
                 + "Amount:" + " " + "Rs." + " "
                 + amountField.getText().toString());
 
