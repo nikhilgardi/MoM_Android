@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -621,29 +622,29 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
 //
 //        return operators;
 //    }
-        public List getOperatorNamesResult(String result){
+        public String[] getOperatorNamesResult(String result){
+
         Gson gson = new GsonBuilder().create();
 
-        Type type   = new TypeToken<ResponseBase<Party>>(){}.getType();
+        Type type   = new TypeToken<ResponseBase<Party[]>>(){}.getType();
 
-        ResponseBase<Party> responseBase  = gson.fromJson(result, type);
+        ResponseBase<Party[]> responseBase  = gson.fromJson(result, type);
 
-          //  Party<Party.OperatorList> myParty=new Party<Party.operatorList>();
-            Party party = new Gson().fromJson(result,Party.class);
 
-            Log.i("TEstOPerator" , responseBase.data.toString());
         if(responseBase == null || responseBase.data == null){
             return null;
         }
 
-//        Party[] parties     = responseBase.response.Table;
-//        String[] operators  = new String[parties.length];
-//
-//        for(int i=0; i<parties.length; i++){
-//            operators[i]    = parties[i].PartyName;
-//        }
+       Party[] parties     = responseBase.data;
+        String[] operators  = new String[parties.length];
 
-        return null;
+            for(int i=0; i<parties.length; i++){
+                operators[i]    = parties[i].name;
+                       }
+
+
+        return operators;
+
     }
     public void retailerpayment (String psConsumerNumber,double pdAmount )
     {
