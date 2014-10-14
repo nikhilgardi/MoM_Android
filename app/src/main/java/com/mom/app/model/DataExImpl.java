@@ -14,12 +14,11 @@ public abstract class DataExImpl implements IDataEx{
     of the respective platform implementations.
      */
 
-    protected static String WSDL_TARGET_NAMESPACE = "http://localhost:4471/";
-
-    protected static String SOAP_ADDRESS = "http://msvc.money-on-mobile.net/WebServiceV3Client.asmx";
+    protected static String SOAP_ADDRESS        = "http://msvc.money-on-mobile.net/WebServiceV3Client.asmx";
 
     protected Context _applicationContext;
     protected AsyncListener _listener;
+    protected AsyncDataEx _dataEx               = null;
     protected boolean _connected;
 
     public enum Methods{
@@ -83,7 +82,7 @@ public abstract class DataExImpl implements IDataEx{
     public abstract void changePin(PinType pinType, String psOldPin, String psNewPin);
     public abstract void changePassword( String psOldPin, String psNewPin);
 
-    public abstract void retailerpayment( String psConsumerNumber,double pdAmount );
+    public abstract void balanceTransfer(String psConsumerNumber, double pdAmount);
 
     public abstract void rechargeMobilePBX(
                                   String psConsumerNumber,
@@ -92,4 +91,4 @@ public abstract class DataExImpl implements IDataEx{
 
     );
 
-    }
+}

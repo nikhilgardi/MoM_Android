@@ -16,6 +16,7 @@ public class PersistentStorage extends LocalStorage {
 
     SharedPreferences _pref             = null;
     SharedPreferences.Editor _prefEditor = null;
+    static PersistentStorage _instance;
 
     private PersistentStorage(Context context){
         _context    = context;

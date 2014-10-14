@@ -59,7 +59,7 @@ public class AppConstants {
     //Start: PBX Platform URLs
     public static final String URL_PBX_PLATFORM_SERVICE     = "http://test.pbx.momappworld.com/momspre/service.ashx";
   //  public static final String URL_PBX_PLATFORM_APP         = "http://test.pbx.momappworld.com/momspre/PbxMobApp.ashx";
-    public static final String URL_PBX_PLATFORM_APP         =  "http://172.16.1.102/MobAppS/PbxMobApp.ashx";
+    public static final String URL_PBX_PLATFORM_APP         =  "http://61.16.219.3/MobAppS/PbxMobApp.ashx";
 
     //End: PBX Platform URLs
 

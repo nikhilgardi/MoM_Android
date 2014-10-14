@@ -10,27 +10,22 @@ public class ImageItem<T> {
 
     private Integer id;
     private Integer drawableId;
+    private Integer transparentDrawableId;
     private String imageUrl;
 
     private String title;
     private Boolean selected;
 
-    public ImageItem(T item, int id, int imageId, String title, boolean pbSelected) {
+    public ImageItem(T item, int id, int imageId, int transparentDrawableId, String title, boolean pbSelected) {
         super();
         this.item       = item;
         this.id         = id;
         this.drawableId = imageId;
+        this.transparentDrawableId = transparentDrawableId;
         this.title      = title;
         this.selected   = pbSelected;
     }
 
-    public ImageItem(int id, String imageUrl, String title, boolean pbSelected){
-        super();
-        this.id         = id;
-        this.imageUrl   = imageUrl;
-        this.title      = title;
-        this.selected   = pbSelected;
-    }
 
     public T getItem() {
         return item;
@@ -46,6 +41,10 @@ public class ImageItem<T> {
 
     public Integer getDrawableId() {
         return drawableId;
+    }
+
+    public Integer getTransparentDrawableId() {
+        return transparentDrawableId;
     }
 
     public void setDrawableId(Integer drawableId) {

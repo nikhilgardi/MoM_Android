@@ -13,6 +13,7 @@ import com.mom.app.R;
 import com.mom.app.identifier.ActivityIdentifier;
 import com.mom.app.identifier.IdentifierUtils;
 import com.mom.app.identifier.PlatformIdentifier;
+import com.mom.app.model.AsyncDataEx;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;

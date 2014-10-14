@@ -13,8 +13,9 @@ public class EphemeralStorage extends LocalStorage {
     private EphemeralStorage(Context context){
         _context    = context;
     }
+    private static EphemeralStorage _instance;
 
-    public static IStorage getInstance(Context context){
+    public static EphemeralStorage getInstance(Context context){
         if(_instance == null){
             _instance       = new EphemeralStorage(context);
         }

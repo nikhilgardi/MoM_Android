@@ -10,7 +10,7 @@ import com.mom.app.model.local.EphemeralStorage;
 import com.mom.app.ui.flow.MoMScreen;
 import com.mom.app.utils.AppConstants;
 import com.mom.app.utils.DataProvider;
-import com.mom.app.widget.ImageTextViewAdapter;
+import com.mom.app.adapter.ImageTextViewAdapter;
 import com.mom.app.widget.holder.ImageItem;
 
 
@@ -51,7 +51,7 @@ public class DashboardActivity extends MOMActivityBase{
 //        }
 
         gridView            = (GridView) findViewById(R.id.gridView);
-        gridViewAdapter     = new ImageTextViewAdapter<MoMScreen>(this, R.layout.grid_cell, DataProvider.getScreens(this, _currentPlatform));
+        gridViewAdapter     = new ImageTextViewAdapter<MoMScreen>(this, R.layout.grid_cell, DataProvider.getScreens(this, _currentPlatform, true));
 
         gridView.setAdapter(gridViewAdapter);
 //        gridView.setNumColumns(2);

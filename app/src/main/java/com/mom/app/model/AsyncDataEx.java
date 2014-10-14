@@ -27,7 +27,14 @@ public class AsyncDataEx extends AsyncTask<NameValuePair, Integer, String>{
     HttpMethod _httpMethod;
 	AsyncListener _callback;
 	String _url;
-	DataExImpl.Methods _callbackData;
+	protected DataExImpl.Methods _callbackData;
+
+    public AsyncDataEx(){
+
+    }
+    public AsyncDataEx(AsyncListener pListener){
+        _callback           = pListener;
+    }
 
     public AsyncDataEx(AsyncListener pListener, String psUrl, DataExImpl.Methods pCallbackData, HttpMethod method){
         this._url			= psUrl;
@@ -42,7 +49,19 @@ public class AsyncDataEx extends AsyncTask<NameValuePair, Integer, String>{
         _callbackData  = pCallbackData;
         _httpMethod    = HttpMethod.POST;
 	}
-	
+
+    public void setListener(AsyncListener listener){
+        _callback   = listener;
+    }
+
+    public void setUrl(String url){
+        _url            = url;
+    }
+
+    public void setCallerMethod(DataExImpl.Methods method){
+        _callbackData   = method;
+    }
+
 	@Override
 	protected String doInBackground(NameValuePair...pList) {
 		return postData(Arrays.asList(pList));

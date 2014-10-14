@@ -22,11 +22,16 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.mom.app.R;
+import com.mom.app.adapter.DrawerAdapter;
 import com.mom.app.error.MOMException;
+import com.mom.app.fragment.BalanceTransferFragment;
+import com.mom.app.fragment.BillPaymentFragment;
 import com.mom.app.fragment.DTHRechargeFragment;
 import com.mom.app.fragment.DashboardFragment;
 import com.mom.app.fragment.FragmentBase;
 import com.mom.app.fragment.MobileRechargeFragment;
+import com.mom.app.fragment.SettingsFragment;
+import com.mom.app.fragment.TransactionHistoryFragment;
 import com.mom.app.identifier.IdentifierUtils;
 import com.mom.app.identifier.PlatformIdentifier;
 import com.mom.app.model.local.EphemeralStorage;
@@ -34,7 +39,7 @@ import com.mom.app.ui.IFragmentListener;
 import com.mom.app.ui.flow.MoMScreen;
 import com.mom.app.utils.AppConstants;
 import com.mom.app.utils.DataProvider;
-import com.mom.app.widget.ImageTextViewAdapter;
+import com.mom.app.adapter.ImageTextViewAdapter;
 import com.mom.app.widget.holder.ImageItem;
 
 import java.util.ArrayList;
@@ -46,11 +51,11 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
     DrawerLayout _drawerLayout;
     ListView _drawerList;
     ListView _asyncStatusList;
+    ActionBarDrawerToggle _drawerToggle;
 
     PlatformIdentifier _currentPlatform;
 
     ArrayList<ImageItem<MoMScreen>> _menuItems;
-    ImageTextViewAdapter _imageTextAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,12 +66,22 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
 
         _currentPlatform = IdentifierUtils.getPlatformIdentifier(this);
 
+        /**
+         * REMOVE THIS!
+         */
+        if(_currentPlatform == null){
+//            _currentPlatform    = PlatformIdentifier.PBX;
+            _currentPlatform    = PlatformIdentifier.NEW;
+            EphemeralStorage.getInstance(this).storeObject(AppConstants.ACTIVE_PLATFORM, _currentPlatform);
+        }
+
         setupDrawerMenu();
 
         setupActionBar();
 
         if (savedInstanceState == null) {
-            showDashboard();
+            showMobileRecharge();
+//            showDashboard();
         }
 
         LocalBroadcastManager.getInstance(this).registerReceiver(
@@ -86,22 +101,22 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
             throw new IllegalStateException("platform should have been identified by now");
         }
 
-        _menuItems = DataProvider.getScreens(this, _currentPlatform);
+        _menuItems = DataProvider.getScreens(this, _currentPlatform, false);
 
         _drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         _drawerList = (ListView) findViewById(R.id.leftDrawer);
 
-        _imageTextAdapter   = new ImageTextViewAdapter<MoMScreen>(this, R.layout.drawer_list_item, _menuItems);
+        DrawerAdapter<MoMScreen> adapter   = new DrawerAdapter<MoMScreen>(this, R.layout.drawer_list_item, _menuItems);
 
         // Set the adapter for the list view
-        _drawerList.setAdapter(_imageTextAdapter);
+        _drawerList.setAdapter(adapter);
         // Set the list's click listener
         _drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         Log.d(_LOG, "ActionBar set");
         // ActionBarDrawerToggle ties together the the proper interactions
         // between the sliding drawer and the action bar app icon
-        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(
+        _drawerToggle = new ActionBarDrawerToggle(
                 this,                  /* host Activity */
                 _drawerLayout,         /* DrawerLayout object */
                 R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
@@ -123,7 +138,7 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
 
         Log.d(_LOG, "setting listener");
 
-        _drawerLayout.setDrawerListener(drawerToggle);
+        _drawerLayout.setDrawerListener(_drawerToggle);
     }
 
     private void setupActionBar(){
@@ -135,15 +150,14 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
         getActionBar().setHomeButtonEnabled(true);
         getActionBar().setDisplayShowTitleEnabled(true);
         getActionBar().setTitle(R.string.money_on_mobile);
-        getActionBar().setDisplayUseLogoEnabled(false);
-        getActionBar().setIcon(R.color.transparent);
+        getActionBar().setDisplayUseLogoEnabled(true);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.base, menu);
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -151,6 +165,11 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+        if (_drawerToggle.onOptionsItemSelected(item)) {
+            Log.d(_LOG, "click handled by drawer, returning...");
+            return true;
+        }
+
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
@@ -199,23 +218,31 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
 
     private boolean showScreen(MoMScreen screen){
         switch (screen){
+            case DASHBOARD:
+                showFragment(DashboardFragment.newInstance(_currentPlatform));
+                break;
             case MOBILE_RECHARGE:
                 Log.d(_LOG, "mobile recharge selected");
-                showMobileRecharge();
+                showFragment(MobileRechargeFragment.newInstance(_currentPlatform));
                 break;
             case DTH_RECHARGE:
                 Log.d(_LOG, "show dth recharge selected");
-                showDTHRecharge();
+                showFragment(DTHRechargeFragment.newInstance(_currentPlatform));
                 break;
             case BILL_PAYMENT:
+                showFragment(BillPaymentFragment.newInstance(_currentPlatform));
                 break;
             case BALANCE_TRANSFER:
+                showFragment(BalanceTransferFragment.newInstance(_currentPlatform));
                 break;
             case HISTORY:
+                showFragment(TransactionHistoryFragment.newInstance(_currentPlatform));
                 break;
             case SETTINGS:
+                showFragment(SettingsFragment.newInstance(_currentPlatform));
                 break;
             case LOGOUT:
+                confirmLogout();
                 break;
         }
 
@@ -247,7 +274,7 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
         Log.d(_LOG, "Adding fragment");
         transaction.replace(containerResourceId, fragment);
         Log.d(_LOG, "Fragment added");
-        transaction.addToBackStack(null);
+//        transaction.addToBackStack(null);
         transaction.commit();
     }
 
@@ -277,13 +304,6 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
         showFragment(MobileRechargeFragment.newInstance(_currentPlatform));
     }
 
-    private void showDTHRecharge(){
-        showFragment(DTHRechargeFragment.newInstance(_currentPlatform));
-    }
-
-    private void showDashboard(){
-        showFragment(DashboardFragment.newInstance(_currentPlatform));
-    }
 
     void confirmLogout(){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);

@@ -8,11 +8,13 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.mom.app.R;
 import com.mom.app.error.MOMException;
+import com.mom.app.identifier.IdentifierUtils;
 import com.mom.app.identifier.PlatformIdentifier;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
@@ -37,8 +39,14 @@ public abstract class FragmentBase extends Fragment {
     ProgressBar _pb;
     TextView tvMsgDisplay;
     IFragmentListener _callbackListener;
+    Button _backBtn;
+
 
     protected abstract void showBalance(float pfBalance);
+
+    protected void setCurrentPlatform() {
+        _currentPlatform    = IdentifierUtils.getPlatformIdentifier(getActivity());
+    }
 
     public TextView getMessageTextView(){
         if(tvMsgDisplay == null){
@@ -47,9 +55,9 @@ public abstract class FragmentBase extends Fragment {
         return tvMsgDisplay;
     }
 
-    public ProgressBar getProgressBar(){
+    public ProgressBar getProgressBar(View view){
         if(_pb == null){
-            _pb			= (ProgressBar)getActivity().findViewById(R.id.progressBar);
+            _pb			= (ProgressBar)view.findViewById(R.id.progressBar);
         }
         return _pb;
     }
@@ -81,6 +89,7 @@ public abstract class FragmentBase extends Fragment {
     public void onDetach() {
         super.onDetach();
     }
+
 
     protected boolean focusAndShowSoftInput(View view){
         if(view.requestFocus()) {
@@ -155,5 +164,22 @@ public abstract class FragmentBase extends Fragment {
         Log.d(_LOG, "DataEx instance created");
         dataEx.getBalance();
         Log.d(_LOG, "getBalance called");
+    }
+
+    protected void setupBackListener(){
+        if(_backBtn == null){
+            return;
+        }
+
+        _backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goBack();
+            }
+        });
+    }
+
+    protected void goBack(){
+        getFragmentManager().popBackStack();
     }
 }

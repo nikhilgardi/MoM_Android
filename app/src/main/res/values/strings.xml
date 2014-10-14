@@ -20,6 +20,7 @@
     <string name="mpin_incorrect">Incorrect M-Pin</string>
     <string name="title_activity_verify_tpin">VerifyTPinActivity</string>
 
+    <string name="action_dashboard">Dashboard</string>
     <string name="action_mobileRecharge">Mobile Recharge</string>
     <string name="action_dthRecharge">DTH Recharge</string>
     <string name="action_billPayment">Bill Payment</string>
@@ -71,6 +72,7 @@
     <string name="lblYourMobile">Your Mobile Number</string>
     <string name="lblConsumerNumber">Consumer Number</string>
     <string name="lblCustomerMobile">Customer\'s Mobile Number</string>
+    <string name="lblMobileNumber">Mobile Number</string>
     <string name="lblCustomerLandlineNumber">Customer\'s Land Line Number</string>
     <string name="lblAccountNumber">Account Number</string>
     <string name="tpin_old">Old T-PIN</string>

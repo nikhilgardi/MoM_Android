@@ -8,7 +8,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/momHeader"
         android:orientation="horizontal"
         android:weightSum="100">
 
@@ -18,7 +17,6 @@
             android:layout_weight="10"/>
 
         <LinearLayout
-            android:layout_centerInParent="true"
             android:orientation="vertical"
             android:layout_width="0dp"
             android:layout_weight="80"
@@ -26,7 +24,6 @@
 
             <TextView
                 android:id="@+id/msgDisplay"
-                android:layout_above="@id/momHeader"
                 style="@style/MoMTheme.wrapped.alertMsg"
                 android:textSize="@dimen/text_medium"
                 android:visibility="gone" />
@@ -38,6 +35,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/ultra_small"/>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:visibility="invisible" />
 
             <EditText
                 android:id="@+id/number"
@@ -62,12 +67,7 @@
                 style="@style/EditTextAppTheme.money"
                 android:hint="@string/lblRechargeAmount"
                 android:layout_marginBottom="@dimen/ultra_small"/>
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
 
-                android:visibility="gone" />
 
             <LinearLayout
                 style="@style/MoMTheme.btn_container">

@@ -93,7 +93,7 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<String>
                     }
                     break;
                 case BALANCE_TRANSFER:
-                    Log.d(LOG_TAG, "TaskComplete: retailerpayment method, result: " + result);
+                    Log.d(LOG_TAG, "TaskComplete: balanceTransfer method, result: " + result);
 
                     if (_listener != null) {
                         _listener.onTaskSuccess(getRechargeResult(result), Methods.BALANCE_TRANSFER);
@@ -462,7 +462,7 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<String>
                 new BasicNameValuePair(AppConstants.PARAM_NEW_INT_OPERATOR_ID_BILL_PAY, psOperatorId)
         );
     }
-    public void retailerpayment (String psConsumerNumber,double pdAmount )
+    public void balanceTransfer(String psConsumerNumber, double pdAmount)
     {
 
         if(

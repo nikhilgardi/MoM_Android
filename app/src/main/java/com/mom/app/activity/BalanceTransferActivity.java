@@ -106,9 +106,9 @@ public class BalanceTransferActivity extends MOMActivityBase implements AsyncLis
 
 
         if (_currentPlatform == PlatformIdentifier.NEW){
-            getDataEx(this).retailerpayment(sPayTo,Double.parseDouble(sAmount));
+            getDataEx(this).balanceTransfer(sPayTo, Double.parseDouble(sAmount));
         }else {
-            getDataEx(this).retailerpayment(sPayTo,Double.parseDouble(sAmount));
+            getDataEx(this).balanceTransfer(sPayTo, Double.parseDouble(sAmount));
             Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG)
                     .show();
         }

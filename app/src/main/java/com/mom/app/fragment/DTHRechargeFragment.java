@@ -24,9 +24,11 @@ import com.mom.app.identifier.PlatformIdentifier;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
+import com.mom.app.model.Operator;
 import com.mom.app.model.local.EphemeralStorage;
 import com.mom.app.ui.IFragmentListener;
 import com.mom.app.utils.AppConstants;
+import com.mom.app.utils.DataProvider;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -82,7 +84,6 @@ public class DTHRechargeFragment extends FragmentBase implements AsyncListener<S
         this._etCustomerNumber  = (EditText) view.findViewById(R.id.number);
 
         getAllOperators();
-        getProgressBar().setVisibility(View.GONE);
 
         return view;
     }
@@ -106,7 +107,7 @@ public class DTHRechargeFragment extends FragmentBase implements AsyncListener<S
                 break;
         }
 
-        getProgressBar().setVisibility(View.GONE);
+        _pb.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -119,76 +120,32 @@ public class DTHRechargeFragment extends FragmentBase implements AsyncListener<S
     }
 
 
+    public void getAllOperators() {
+        List<Operator> operatorList = null;
 
-    public String[] getAllOperators() {
-        String[] strResponse1 = null;
-
-        if (_currentPlatform == PlatformIdentifier.NEW)
-        {
-            try {
-                String[] strOperators = new String[] {
-                        "Select Service Provider",
-                        "AIRTEL DIGITAL" , "BIG TV" , "DISH" ,"SUN DIRECT" ,"TATA SKY", "VIDEOCON DTH"
-                };
-
-                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(
-                        getActivity(), android.R.layout.simple_spinner_item,
-                        strOperators);
-
-                dataAdapter
-                        .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                operatorSpinner.setAdapter(dataAdapter);
-
-            } catch (Exception ex) {
-                String[] strResponse = { "NO ITEM TO DISPLAY" };
-                strResponse1 = strResponse;
-            }
-
+        if (_currentPlatform == PlatformIdentifier.NEW){
+            operatorList    = DataProvider.getMoMPlatformDTHOperators();
         } else if (_currentPlatform == PlatformIdentifier.PBX) {
-            HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost(
-                    "http://180.179.67.76/MobAppS/PbxMobApp.ashx");
-            try {
 
-                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(
-                        2);
-                nameValuePairs.add(new BasicNameValuePair("OT", "2"));
-                nameValuePairs.add(new BasicNameValuePair("Service", "ON"));
-
-                httppost.addHeader("ua", "android");
-                final HttpParams httpParams = httpclient.getParams();
-                HttpConnectionParams.setConnectionTimeout(httpParams, 15000);
-                HttpConnectionParams.setSoTimeout(httpParams, 15000);
-                httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-                HttpResponse response = httpclient.execute(httppost);
-                HttpEntity entity = response.getEntity();
-                responseBody = EntityUtils.toString(entity);
-                String strOperators = responseBody;
-                Log.i(_LOG, response.getStatusLine().toString());
-                Log.i(_LOG, this.responseBody);
-                String[] strArrOperators = strOperators.split("\\|");
-
-                strResponse1 = strArrOperators;
-
-                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(
-                        getActivity(), android.R.layout.simple_spinner_item,
-                        strResponse1);
-                dataAdapter
-                        .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                operatorSpinner.setAdapter(dataAdapter);
-
-            } catch (Exception ex) {
-                String[] strResponse = { "NO ITEM TO DISPLAY" };
-                strResponse1 = strResponse;
-            }
         } else {
-            Toast.makeText(getActivity(), "Error", Toast.LENGTH_LONG)
+            Toast.makeText(getActivity().getApplicationContext(), "Error", Toast.LENGTH_LONG)
                     .show();
         }
 
-        return strResponse1;
+        if(operatorList == null){
+            Log.e(_LOG, "No operators!");
+            return;
+        }
 
+        ArrayAdapter<Operator> dataAdapter = new ArrayAdapter<Operator>(
+                getActivity(), android.R.layout.simple_spinner_item,
+                operatorList
+        );
+
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        operatorSpinner.setAdapter(dataAdapter);
     }
+
 
     private String getOperatorId(String strOperatorName) {
 
@@ -396,7 +353,7 @@ public class DTHRechargeFragment extends FragmentBase implements AsyncListener<S
 
 
     public void confirmRecharge() {
-        getProgressBar().setVisibility(View.VISIBLE);
+        _pb.setVisibility(View.VISIBLE);
 
 
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());

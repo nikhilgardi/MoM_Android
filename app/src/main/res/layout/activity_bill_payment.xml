@@ -18,67 +18,68 @@
             android:layout_weight="10"/>
 
         <LinearLayout
-            android:layout_centerInParent="true"
             android:orientation="vertical"
             android:layout_width="0dp"
             android:layout_weight="80"
             android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/msgDisplay"
-            style="@style/MoMTheme.wrapped.alertMsg"
-            android:textSize="@dimen/text_medium"
-            android:visibility="gone" />
+            <TextView
+                android:id="@+id/msgDisplay"
+                style="@style/MoMTheme.wrapped.alertMsg"
+                android:textSize="@dimen/text_medium"
+                android:visibility="gone" />
 
-        <Spinner
-            android:id="@+id/Operator"
-            style="@style/SpinnerAppTheme"
-            android:prompt="@string/prompt_spinner_select_operator"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/medium"/>
+            <Spinner
+                android:id="@+id/Operator"
+                style="@style/SpinnerAppTheme"
+                android:prompt="@string/prompt_spinner_select_operator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small"
+                android:layout_marginBottom="@dimen/small"/>
 
-        <EditText
-            android:id="@+id/subscriberId"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/EditTextAppTheme.phone"
-            android:hint="@string/lblConsumerNumber"
-            android:layout_marginBottom="@dimen/medium"/>
-
-        <Button
-            android:id="@+id/btn_GetBillAmount"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            style="@style/ButtonAppTheme"
-            android:onClick="getBillAmount"
-            android:text="@string/btn_getBillAmount"
-            android:visibility="gone"/>
-
-
-        <EditText
-            android:id="@+id/number"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/EditTextAppTheme.phone"
-            android:hint="@string/lblCustomerMobile"
-            android:layout_marginBottom="@dimen/medium"></EditText>
-
-        <EditText
-            android:id="@+id/amount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/EditTextAppTheme.money"
-            android:hint="@string/lblAmount"
-            android:layout_marginBottom="@dimen/medium"></EditText>
             <ProgressBar
                 android:id="@+id/progressBar"
                 style="?android:attr/progressBarStyleLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/amount"
-                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
                 android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/subscriberId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/EditTextAppTheme.phone"
+                android:hint="@string/lblConsumerNumber"
+                android:layout_marginBottom="@dimen/medium"/>
+
+            <Button
+                android:id="@+id/btnGetBillAmount"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                style="@style/MoMTheme.wrapped.customButton"
+                android:onClick="getBillAmount"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/btn_getBillAmount"
+                android:visibility="gone"/>
+
+
+            <EditText
+                android:id="@+id/number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/EditTextAppTheme.phone"
+                android:hint="@string/lblCustomerMobile"
+                android:layout_marginBottom="@dimen/small"/>
+
+            <EditText
+                android:id="@+id/amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/EditTextAppTheme.money"
+                android:hint="@string/lblAmount"
+                android:layout_marginBottom="@dimen/small"/>
 
             <LinearLayout
                 android:weightSum="3"
@@ -88,8 +89,7 @@
                     android:layout_height="wrap_content"
                     android:layout_width="0dp"
                     android:layout_weight="2"
-                    style="@style/ButtonAppTheme"
-                    android:onClick="validateAndPay"
+                    style="@style/MoMTheme.wrapped.customButton"
                     android:text="@string/btn_recharge"/>
 
                 <Button
@@ -97,8 +97,7 @@
                     android:layout_height="wrap_content"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    style="@style/ButtonAppTheme"
-                    android:onClick="goBack"
+                    style="@style/MoMTheme.wrapped.customButton"
                     android:text="@string/btn_back"/>
             </LinearLayout>
         </LinearLayout>

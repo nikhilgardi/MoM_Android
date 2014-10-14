@@ -12,7 +12,8 @@
     <ListView
         android:id="@+id/asyncStatusList"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/async_status_list"/>
+        android:layout_height="@dimen/async_status_list"
+        android:visibility="gone"/>
     <!-- The navigation drawer -->
     <ListView android:id="@+id/leftDrawer"
         android:layout_width="240dp"

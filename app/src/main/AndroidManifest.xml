@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mom.app"
-    android:versionCode="11"
+    android:versionCode="13"
     android:versionName="2.0" >
 
     <uses-sdk android:minSdkVersion="11" />
@@ -44,13 +44,19 @@
         <service android:name=".gcm.GcmIntentService" />
 
         <activity
-            android:name=".activity.LoginActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation">
+            android:name=".activity.BaseActivity"
+            android:label="@string/title_activity_base" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".activity.LoginActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation">
+
         </activity>
         <activity
             android:name=".activity.DashboardActivity"
@@ -133,10 +139,7 @@
             android:name=".activity.SettingsActivity"
             android:label="@string/title_activity_settings" >
         </activity>
-        <activity
-            android:name=".activity.BaseActivity"
-            android:label="@string/title_activity_base" >
-        </activity>
+
         <!--<activity-->
             <!--android:name=".activity.RetailerPayment"-->
             <!--android:label="@string/title_activity_retailer_payment" >-->

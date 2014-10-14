@@ -25,9 +25,11 @@ import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.IDataEx;
+import com.mom.app.model.Operator;
 import com.mom.app.model.local.EphemeralStorage;
 import com.mom.app.model.mompl.MoMPLDataExImpl;
 import com.mom.app.utils.AppConstants;
+import com.mom.app.utils.DataProvider;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -60,7 +62,7 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<S
 
     Spinner operatorSpinner;
 
-    public BillPaymentFragment newInstance(PlatformIdentifier currentPlatform){
+    public static BillPaymentFragment newInstance(PlatformIdentifier currentPlatform){
         BillPaymentFragment fragment        = new BillPaymentFragment();
         Bundle bundle                       = new Bundle();
         bundle.putSerializable(AppConstants.ACTIVE_PLATFORM, currentPlatform);
@@ -79,7 +81,7 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<S
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_bill_payment, null, false);
 
-        _getBillAmount          = (Button) view.findViewById(R.id.btn_GetBillAmount);
+        _getBillAmount          = (Button) view.findViewById(R.id.btnGetBillAmount);
         _billMsgDisplay         = (TextView) view.findViewById(R.id.msgDisplay);
         this.operatorSpinner    = (Spinner) view.findViewById(R.id.Operator);
         this.operatorSpinner.setOnItemSelectedListener(new OperatorSelectedListener());
@@ -88,9 +90,16 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<S
         this.amountField        = (EditText) view.findViewById(R.id.amount);
         this._etCustomerNumber  = (EditText) view.findViewById(R.id.number);
 
+        _getBillAmount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getBillAmount(view);
+            }
+        });
+
         getAllOperators();
 
-        getProgressBar().setVisibility(View.GONE);
+        getProgressBar(view).setVisibility(View.GONE);
 
         return view;
     }
@@ -112,7 +121,7 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<S
                 break;
         }
 
-        getProgressBar().setVisibility(View.GONE);
+        _pb.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -126,38 +135,33 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<S
     }
 
 
+    public void getAllOperators() {
+        List<Operator> operatorList = null;
 
-    public String[] getAllOperators() {
-        String[] strResponse1 = null;
-
-        if (_currentPlatform == PlatformIdentifier.NEW)
-        {
-            try {
-                String[] strOperators = new String[] {"Select Service Provider","AIRCEL BILL" , "AIRTEL BILL", "AIRTEL LAND LINE" ,"BESCOM BANGALURU",
-                        "BEST ELECTRICITY BILL" ,"BSES RAJDHANI" ,"BSNL BILL PAY" ,"CELLONE BILL PAY"," CESC LIMITED" ,"CESCOM MYSORE",
-                        "DHBVN HARYANA", "IDEA BILL" ,"INDRAPRASTH GAS" , "MAHANAGAR GAS BILL","NORTH BIHAR ELECTRICITY",
-                        "RELIANCE BILL GSM" ,"RELIANCE CDMA BILL", "RELIANCE ENERGY BILL", "SOUTH BIHAR ELECTRICITY","TATA BILL",
-                        "TATA POWER DELHI", "TIKONA BILL PAYMENT","UHBVN HARYANA","VODAFONE BILL"};
-
-                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(
-                        getActivity(), android.R.layout.simple_spinner_item,
-                        strOperators);
-                dataAdapter
-                        .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                operatorSpinner.setAdapter(dataAdapter);
-
-            } catch (Exception ex) {
-                String[] strResponse = { "NO ITEM TO DISPLAY" };
-                strResponse1 = strResponse;
-            }
-
+        if (_currentPlatform == PlatformIdentifier.NEW){
+            operatorList    = DataProvider.getMoMPlatformBillPayOperators();
         } else if (_currentPlatform == PlatformIdentifier.PBX) {
 
+        } else {
+            Toast.makeText(getActivity().getApplicationContext(), "Error", Toast.LENGTH_LONG)
+                    .show();
         }
 
-        return strResponse1;
+        if(operatorList == null){
+            Log.e(_LOG, "No operators!");
+            return;
+        }
 
+        ArrayAdapter<Operator> dataAdapter = new ArrayAdapter<Operator>(
+                getActivity(), android.R.layout.simple_spinner_item,
+                operatorList
+        );
+
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        operatorSpinner.setAdapter(dataAdapter);
     }
+
+
 
     private String getOperatorId(String strOperatorName) {
 
@@ -295,9 +299,8 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<S
     }
 
     private void startPayment() {
-        getProgressBar().setVisibility(View.VISIBLE);
+        _pb.setVisibility(View.VISIBLE);
 
-        String[] strResponse1           = null;
 
         String sSubscriberId            = _etSubscriberId.getText().toString();
         String sRechargeAmount          = amountField.getText().toString();

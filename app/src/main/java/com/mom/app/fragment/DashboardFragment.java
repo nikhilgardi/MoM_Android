@@ -15,7 +15,7 @@ import com.mom.app.identifier.PlatformIdentifier;
 import com.mom.app.ui.flow.MoMScreen;
 import com.mom.app.utils.AppConstants;
 import com.mom.app.utils.DataProvider;
-import com.mom.app.widget.ImageTextViewAdapter;
+import com.mom.app.adapter.ImageTextViewAdapter;
 import com.mom.app.widget.holder.ImageItem;
 
 /**
@@ -45,7 +45,7 @@ public class DashboardFragment extends FragmentBase {
         gridViewAdapter     = new ImageTextViewAdapter<MoMScreen>(
                 getActivity(),
                 R.layout.grid_cell,
-                DataProvider.getScreens(getActivity(), _currentPlatform)
+                DataProvider.getScreens(getActivity(), _currentPlatform, true)
         );
 
         gridView.setAdapter(gridViewAdapter);

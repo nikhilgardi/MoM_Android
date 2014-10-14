@@ -14,6 +14,7 @@ import com.mom.app.R;
 import com.mom.app.gcm.GcmUtil;
 import com.mom.app.identifier.IdentifierUtils;
 import com.mom.app.identifier.PlatformIdentifier;
+import com.mom.app.model.AsyncDataEx;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
@@ -196,6 +197,10 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
             case CHECK_PLATFORM_DETAILS:
                 Log.i(_LOG, "Check result: " + result);
 
+//                //TESTING
+//                result = null;
+//                //TESTING
+//
                 if(TextUtils.isEmpty(result)){
                     Log.i(_LOG, "User not of new PL");
                     login(PlatformIdentifier.PBX);
@@ -320,7 +325,6 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
                 }
 
                 EphemeralStorage.getInstance(context).storeObject(AppConstants.ACTIVE_PLATFORM, _currentPlatform);
-                PlatformIdentifier test = IdentifierUtils.getPlatformIdentifier(context);
                 EphemeralStorage.getInstance(context).storeString(AppConstants.LOGGED_IN_USERNAME, _username.getText().toString());
                 EphemeralStorage.getInstance(context).storeBoolean(AppConstants.IS_LOGGED_IN, true);
 

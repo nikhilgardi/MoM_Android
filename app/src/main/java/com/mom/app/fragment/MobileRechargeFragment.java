@@ -1,52 +1,33 @@
 package com.mom.app.fragment;
 
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mom.app.R;
 import com.mom.app.error.MOMException;
-import com.mom.app.identifier.ActivityIdentifier;
-import com.mom.app.identifier.IdentifierUtils;
 import com.mom.app.identifier.PlatformIdentifier;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
-import com.mom.app.model.local.EphemeralStorage;
-import com.mom.app.ui.IFragmentListener;
+import com.mom.app.model.Operator;
 import com.mom.app.utils.AppConstants;
+import com.mom.app.utils.DataProvider;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
-import org.apache.http.util.EntityUtils;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -54,17 +35,16 @@ import java.util.List;
  *
  */
 public class MobileRechargeFragment extends FragmentBase implements AsyncListener<String>{
-    static final String NAV_BUTTONS_TAG     = "momNavButtonsTag";
 
-    String _LOG     = AppConstants.LOG_PREFIX + "CREATE FRAG";
+    String _LOG     = AppConstants.LOG_PREFIX + "MOB_RECHARGE";
 
     private EditText rechargeTargetPhone;
     private EditText amountField;
 
     Spinner operatorSpinner;
     RadioButton rbtnTopUp, rbtnValidity, rbtnSpecial;
+    Button _rechargeBtn;
 
-    String responseBody;
 
     public MobileRechargeFragment() {
         // Required empty public constructor
@@ -92,7 +72,7 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
         Log.d(_LOG, "onCreateView");
         View view                   = inflater.inflate(R.layout.activity_mobile_recharge, null, false);
 
-        _currentPlatform        = IdentifierUtils.getPlatformIdentifier(getActivity().getApplicationContext());
+        setCurrentPlatform();
 
         this.operatorSpinner    = (Spinner) view.findViewById(R.id.Operator);
         this.rechargeTargetPhone
@@ -102,6 +82,17 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
         this.rbtnTopUp          = (RadioButton) view.findViewById(R.id.rbtnTopUp);
         this.rbtnValidity       = (RadioButton) view.findViewById(R.id.rbtnValidity);
         this.rbtnSpecial        = (RadioButton) view.findViewById(R.id.rbtnSpecial);
+        _rechargeBtn            = (Button) view.findViewById(R.id.btnRecharge);
+
+        _rechargeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                validateAndRecharge(view);
+            }
+        });
+
+        _backBtn                = (Button) view.findViewById(R.id.btnBack);
+        setupBackListener();
 
         getAllOperators();
 
@@ -128,7 +119,7 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
                 break;
         }
 
-        getProgressBar().setVisibility(View.GONE);
+        _pb.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -159,34 +150,29 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
     }
 
     public void getAllOperators() {
+        List<Operator> operatorList = null;
 
-        if (_currentPlatform == PlatformIdentifier.NEW)
-        {
-            try {
-                String[] strOperators = new String[] {
-                        "Select Service Provider", "AIRCEL", "AIRTEL",
-                        "BSNL", "DATACOMM", "IDEA", "LOOP", "MOM CARD REFILL",
-                        "MTNL", "MTS", "QUE MOBILE", "RELIANCE CDMA",
-                        "RELIANCE GSM", "STEL", "TATA", "TATA DOCOMO",
-                        "TATA WALKY", "UNINOR", "VIRGIN", "VODAFONE" };
-
-                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(
-                        getActivity(), android.R.layout.simple_spinner_item,
-                        strOperators);
-                dataAdapter
-                        .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                operatorSpinner.setAdapter(dataAdapter);
-
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-
+        if (_currentPlatform == PlatformIdentifier.NEW){
+            operatorList    = DataProvider.getMoMPlatformMobileOperators();
         } else if (_currentPlatform == PlatformIdentifier.PBX) {
 
         } else {
             Toast.makeText(getActivity().getApplicationContext(), "Error", Toast.LENGTH_LONG)
                     .show();
         }
+
+        if(operatorList == null){
+            Log.e(_LOG, "No operators!");
+            return;
+        }
+
+        ArrayAdapter<Operator> dataAdapter = new ArrayAdapter<Operator>(
+                getActivity(), android.R.layout.simple_spinner_item,
+                operatorList
+        );
+
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        operatorSpinner.setAdapter(dataAdapter);
     }
 
 
@@ -298,11 +284,11 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
     }
 
     private void startRecharge() {
-        String[] strResponse1 = null;
 
         String sConsumerNumber          = rechargeTargetPhone.getText().toString();
         String sRechargeAmount          = amountField.getText().toString();
-        String sOperatorID              = getOperatorId(operatorSpinner.getSelectedItem().toString());
+        Operator operator               = (Operator) operatorSpinner.getSelectedItem();
+        String sOperatorID              = getOperatorId(operator.code);
         int nRechargeType               = 0;
 
         if (rbtnValidity.isChecked()) {
