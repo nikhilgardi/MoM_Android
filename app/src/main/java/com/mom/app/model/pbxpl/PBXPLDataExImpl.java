@@ -3,7 +3,6 @@ package com.mom.app.model.pbxpl;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -17,7 +16,6 @@ import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.Operator;
-import com.mom.app.model.Transaction;
 import com.mom.app.model.local.EphemeralStorage;
 
 import com.mom.app.model.local.PersistentStorage;
@@ -459,53 +457,32 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
         );
     }
 
-    public ArrayList<Transaction> extractTransactions(String result){
+    public ArrayList<com.mom.app.model.Transaction> extractTransactions(String result){
         Gson gson = new GsonBuilder().create();
 
         Type type   = new TypeToken<ResponseBase<PBXTransaction>>(){}.getType();
 
         ResponseBase<PBXTransaction> responseBase  = gson.fromJson(result, type);
 
-        ArrayList<Transaction> list     = new ArrayList<Transaction>();
-        //if(responseBase == null || responseBase.response == null || responseBase.response.Table == null){
-            if(responseBase == null || responseBase.code != 0){
-            return list;
-        }
-
-//        for(PBXTransaction pbxTransaction:responseBase){
-//            list.add(pbxTransaction.getTransactionObject());
-//        }
-//        for(int i=0; i<list.size(); i++){
-//            list.add(pbxTransaction.getTransactionObject());
-//            System.out.println(list.get(i));
-//            Log.i("test" , list.get(i).toString());
-//        }
-        return list;
-    }
-    public ArrayList<PBXLast5Transactions> extractTransactionshistory(String result){
-        Gson gson = new GsonBuilder().create();
-
-        Type type   = new TypeToken<ResponseBase<PBXLast5Transactions[]>>(){}.getType();
-
-        ResponseBase<PBXLast5Transactions> responseBase  = gson.fromJson(result, type);
-        PBXLast5Transactions last5Transactions = new PBXLast5Transactions();
-        PBXLast5Transactions[] p = gson.fromJson(responseBase.data.toString(), type);
-
-        ArrayList<PBXLast5Transactions> list     = new ArrayList<PBXLast5Transactions>();
-        //if(responseBase == null || responseBase.response == null || responseBase.response.Table == null){
+        ArrayList<com.mom.app.model.Transaction> list     = new ArrayList<com.mom.app.model.Transaction>();
         if(responseBase == null || responseBase.code != 0){
             return list;
         }
 
-//        for(PBXLast5Transactions pbxTransactionlast:last5Transaction){
-//
-//            //list.add(pbxTransactionlast.getTransactionHistory());
-//        }
-//        for(int i=0; i<list.size(); i++){
-//            list.add(pbxTransactionlast.getTransactionHistory());
-//            System.out.println(list.get(i));
-//            Log.i("test" , list.get(i).toString());
-//        }
+        return list;
+    }
+    public ArrayList<Transaction> extractTransactionshistory(String result){
+        Gson gson = new GsonBuilder().create();
+
+        Type type   = new TypeToken<ResponseBase<Transaction[]>>(){}.getType();
+
+        ResponseBase<Transaction> responseBase  = gson.fromJson(result, type);
+
+        ArrayList<Transaction> list     = new ArrayList<Transaction>();
+        if(responseBase == null || responseBase.code != 0){
+            return list;
+        }
+
         return list;
     }
     @Override
