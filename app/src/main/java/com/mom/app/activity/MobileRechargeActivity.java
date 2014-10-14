@@ -40,6 +40,7 @@ import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.local.EphemeralStorage;
+import com.mom.app.model.pbxpl.PBXPLDataExImpl;
 import com.mom.app.utils.AppConstants;
 
 public class MobileRechargeActivity extends MOMActivityBase implements AsyncListener<String>{
@@ -102,6 +103,29 @@ public class MobileRechargeActivity extends MOMActivityBase implements AsyncList
                 Log.d(_LOG, "Starting navigation to TxnMsg Activity");
                 navigateToTransactionMessageActivity(ActivityIdentifier.MOBILE_RECHARGEPBX , result);
                 break;
+
+
+            case GET_OPERATOR_NAMES:
+                if(result == null){
+                    Log.d(_LOG, "Obtained NULL recharge response");
+                    showMessage(getResources().getString(R.string.error_recharge_failed));
+                    return;
+                }
+                Log.d(_LOG, "Going to get new balance");
+                getBalance();
+                Log.d(_LOG, "Starting navigation to TxnMsg Activity");
+
+                String[] strOperators = new String[] {
+                        getResources().getString(R.string.prompt_spinner_select_operator), result};
+
+                ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(
+                        this, android.R.layout.simple_spinner_item,
+                        strOperators);
+                dataAdapter
+                        .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                operatorSpinner.setAdapter(dataAdapter);
+
+                break;
         }
 
         getProgressBar().setVisibility(View.GONE);
@@ -150,12 +174,17 @@ public class MobileRechargeActivity extends MOMActivityBase implements AsyncList
 			}
 
 		} else if (_currentPlatform == PlatformIdentifier.PBX) {
-			HttpClient httpclient = new DefaultHttpClient();
-			HttpPost httppost = new HttpPost(
-					"http://180.179.67.76/MobAppS/PbxMobApp.ashx");
-			try {
 
-				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(
+
+//			HttpClient httpclient = new DefaultHttpClient();
+//			HttpPost httppost = new HttpPost(
+//					"http://180.179.67.76/MobAppS/PbxMobApp.ashx");
+			try {
+                getDataEx(this).getOperatorNames();
+
+
+
+				/*List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(
 						2);
 				nameValuePairs.add(new BasicNameValuePair("OT", "1"));
 				nameValuePairs.add(new BasicNameValuePair("Service", "ON"));
@@ -173,14 +202,9 @@ public class MobileRechargeActivity extends MOMActivityBase implements AsyncList
 				Log.i("postData", this.responseBody);
 				String[] strArrOperators = strOperators.split("\\|");
 
-				strResponse1 = strArrOperators;
+				strResponse1 = strArrOperators;*/
 
-				ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(
-						this, android.R.layout.simple_spinner_item,
-						strResponse1);
-				dataAdapter
-						.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-				operatorSpinner.setAdapter(dataAdapter);
+
 
 			} catch (Exception ex) {
 				String[] strResponse = { "NO ITEM TO DISPLAY" };
@@ -197,21 +221,19 @@ public class MobileRechargeActivity extends MOMActivityBase implements AsyncList
 
 	private String getOperatorId(String strOperatorName) {
 
-		if (_currentPlatform == PlatformIdentifier.NEW)
-		{
-            String id      = AppConstants.OPERATOR_NEW.get(strOperatorName);
-            if(id == null){
+        if (_currentPlatform == PlatformIdentifier.NEW) {
+            String id = AppConstants.OPERATOR_NEW.get(strOperatorName);
+            if (id == null) {
                 return "-1";
             }
 
             return id;
 
-		} else if (_currentPlatform == PlatformIdentifier.PBX) {
-			HttpClient httpclient = new DefaultHttpClient();
-			HttpPost httppost = new HttpPost(
-					"http://180.179.67.76/MobAppS/PbxMobApp.ashx");
-			try {
-
+        } else if (_currentPlatform == PlatformIdentifier.PBX) {
+            	HttpClient httpclient = new DefaultHttpClient();
+            	HttpPost httppost = new HttpPost("http://180.179.67.76/MobAppS/PbxMobApp.ashx");
+            try {
+               // getDataEx(this).getOperatorNames();
 				List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(
 						3);
 				nameValuePairs.add(new BasicNameValuePair("SN", strOperatorName));
@@ -229,13 +251,15 @@ public class MobileRechargeActivity extends MOMActivityBase implements AsyncList
 				responseBody = EntityUtils.toString(entity);
 
                 return responseBody;
-			} catch (Exception ex) {
-				return "-1";
-			}
-		} else {
-			return "-1";
-		}
-	}
+            } catch (Exception ex) {
+                return "-1";
+            }
+        } else {
+            return "-1";
+        }
+    }
+
+
 
 
 	public void validateAndRecharge(View view) {
@@ -293,7 +317,7 @@ public class MobileRechargeActivity extends MOMActivityBase implements AsyncList
 	}
 
 	private void startRecharge() {
-	/*	String[] strResponse1 = null;
+		String[] strResponse1 = null;
 
         String sConsumerNumber          = rechargeTargetPhone.getText().toString();
         String sRechargeAmount          = amountField.getText().toString();
@@ -305,17 +329,17 @@ public class MobileRechargeActivity extends MOMActivityBase implements AsyncList
             nRechargeType               = 1;
         } else if (rbtnSpecial.isChecked()) {
             nRechargeType               = 2;
-        }*/
+        }
 
-        String sConsumerNumber          = rechargeTargetPhone.getText().toString();
-        String sRechargeAmount          = amountField.getText().toString();
+       // String sConsumerNumber          = rechargeTargetPhone.getText().toString();
+       // String sRechargeAmount          = amountField.getText().toString();
 
 		if (_currentPlatform == PlatformIdentifier.NEW){
-            String[] strResponse1 = null;
+          //  String[] strResponse1 = null;
 
 
-            String sOperatorID              = getOperatorId(operatorSpinner.getSelectedItem().toString());
-            int nRechargeType               = 0;
+          //  String sOperatorID              = getOperatorId(operatorSpinner.getSelectedItem().toString());
+          //  int nRechargeType               = 0;
             if (rbtnValidity.isChecked()) {
                 nRechargeType               = 1;
             } else if (rbtnSpecial.isChecked()) {
@@ -326,7 +350,6 @@ public class MobileRechargeActivity extends MOMActivityBase implements AsyncList
         } else if (_currentPlatform == PlatformIdentifier.PBX){
 
             String psoperator = "AIR";
-        //    getDataEx(this).getOperatorNames();
             getDataEx(this).rechargeMobilePBX(sConsumerNumber, psoperator , Double.parseDouble(sRechargeAmount));
 
 			/*HttpClient httpclient = new DefaultHttpClient();

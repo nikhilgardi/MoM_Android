@@ -33,7 +33,7 @@ public interface IDataEx {
     public void getBillAmount(String psOperatorId, String psSubscriberId);
 
     public void getTransactionHistory();
-    public abstract void getOperatorNames();
+    public  void getOperatorNames();
     public void changePin(PinType pinType, String psOldPin, String psNewPin);
     public void changePassword(String psOldPin, String psNewPin);
 

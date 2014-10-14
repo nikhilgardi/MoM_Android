@@ -6,19 +6,18 @@ import java.util.List;
  * Created by vaibhavsinha on 9/17/14.
  */
 public class Party {
-    public Data mydata;
-    public String codedata;
+//    public Data mydata;
+//    public String codedata;
+//
+//   // public List<OperatorList> operatorList;
+//
+//
+//    public static class Data {
+//        private List<OperatorList> operatorList;
+//
+//    }
 
-   // public List<OperatorList> operatorList;
-
-
-    public static class Data {
-        private List<OperatorList> operatorList;
-
-    }
-    public static class OperatorList{
         public String code;
         public String name;
 
     }
-}

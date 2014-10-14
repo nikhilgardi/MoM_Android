@@ -14,5 +14,6 @@ public enum ActivityIdentifier {
     TRANSACTION_HISTORY,
     SETTINGS,
     CHANGE_PASSWORD,
+    GET_OPERATOR_NAMES,
     BALANCE_TRANSFER;
 }

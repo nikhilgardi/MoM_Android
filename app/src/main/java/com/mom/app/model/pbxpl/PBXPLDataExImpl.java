@@ -3,6 +3,7 @@ package com.mom.app.model.pbxpl;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -27,6 +28,7 @@ import org.apache.http.message.BasicNameValuePair;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -597,49 +599,20 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<String>
         );
     }
 
-//    public List getOperatorNamesResult(String result){
-//        Gson gson = new GsonBuilder().create();
-//
-//        Type type   = new TypeToken<ResponseBase<Party>>(){}.getType();
-//
-//        ResponseBase<Party> responseBase  = gson.fromJson(result, type);
-//       ArrayList <PartyName> partyname = new ArrayList<PartyName>();
-//
-//
-//
-//
-//        if(responseBase == null || responseBase.data == null){
-//            return list ;
-//        }
-//Party.OperatorList party = new Gson().fromJson(result , Party.OperatorList.class);
-//        party = responseBase.data;
-//        String test= party.toString();
-//        Log.i("OperatorTest" , test);
-////        Party[] parties     = responseBas;
-//      List operators  = null;
-////
-////        for(int i=0; i<parties.length; i++){
-////            operators[i]    = parties[i].PartyName;
-////        }
-//
-//        return operators;
-//    }
-
-    public List getOperatorNamesResult(String result){
+    public List<Operator> getOperatorNamesResult(String result){
         Gson gson = new GsonBuilder().create();
 
         Type type   = new TypeToken<ResponseBase<Operator[]>>(){}.getType();
 
         ResponseBase<Operator[]> responseBase  = gson.fromJson(result, type);
 
-            Log.i("TEstOPerator" , responseBase.data.toString());
         if(responseBase == null || responseBase.data == null){
             return null;
         }
 
-
-        return null;
+        return Arrays.asList(responseBase.data);
     }
+
     public void balanceTransfer(String psConsumerNumber, double pdAmount)
     {
 
