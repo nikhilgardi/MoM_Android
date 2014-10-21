@@ -9,12 +9,8 @@ import org.apache.http.message.BasicNameValuePair;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.mom.app.R;
-import com.mom.app.gcm.GcmUtil;
-import com.mom.app.identifier.IdentifierUtils;
 import com.mom.app.identifier.PlatformIdentifier;
-import com.mom.app.model.AsyncDataEx;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
@@ -68,10 +64,10 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
         setupLanguageSelector();
 
 		getProgressBar().setVisibility(View.GONE);
-
-		getWindow().setBackgroundDrawable(
-							getResources().getDrawable(R.drawable.appsbg)
-										);
+//
+//		getWindow().setBackgroundDrawable(
+//							getResources().getDrawable(R.drawable.appsbg)
+//										);
 	}
 
     @Override
@@ -230,7 +226,7 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
                 EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_USER_VAS01, sArrDetails[11]);
                 EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_USER_VAS02, sArrDetails[12]);
 
-                login(PlatformIdentifier.NEW);
+                login(PlatformIdentifier.MOM);
                 break;
         }
     }
@@ -317,7 +313,7 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
                 }
 
                 switch (_currentPlatform){
-                    case NEW:
+                    case MOM:
 
                         break;
                     case PBX:
@@ -340,7 +336,7 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 
         IDataEx dataEx;
 
-        if(platform == PlatformIdentifier.NEW) {
+        if(platform == PlatformIdentifier.MOM) {
             dataEx              = new MoMPLDataExImpl(getApplicationContext(), listener);
         }else{
             dataEx              = new PBXPLDataExImpl(getApplicationContext(), listener);

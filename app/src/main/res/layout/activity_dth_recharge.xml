@@ -36,14 +36,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/ultra_small"/>
 
-            <ProgressBar
-                android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyleLarge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:visibility="invisible" />
-
             <EditText
                 android:id="@+id/number"
                 android:layout_width="match_parent"
@@ -72,9 +64,8 @@
             <LinearLayout
                 style="@style/MoMTheme.btn_container">
                 <Button
-                    android:id="@+id/btn_recharge"
+                    android:id="@+id/btnRecharge"
                     style="@style/MoMTheme.wrapped.customButton"
-                    android:onClick="validateAndRecharge"
                     android:text="@string/btn_recharge"/>
 
                 <Button

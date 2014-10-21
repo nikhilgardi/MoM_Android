@@ -18,6 +18,7 @@ import org.apache.http.util.EntityUtils;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.mom.app.ui.TransactionRequest;
 import com.mom.app.utils.AppConstants;
 
 
@@ -25,27 +26,39 @@ public class AsyncDataEx extends AsyncTask<NameValuePair, Integer, String>{
     String _LOG             = AppConstants.LOG_PREFIX + "ASYNC_DATAEX";
     public static enum HttpMethod{GET, POST};
     HttpMethod _httpMethod;
-	AsyncListener _callback;
+	AsyncListener<TransactionRequest> _callback;
 	String _url;
+    TransactionRequest _request;
 	protected DataExImpl.Methods _callbackData;
 
-    public AsyncDataEx(){
 
-    }
-    public AsyncDataEx(AsyncListener pListener){
+    public AsyncDataEx(AsyncListener<TransactionRequest> pListener){
         _callback           = pListener;
     }
 
-    public AsyncDataEx(AsyncListener pListener, String psUrl, DataExImpl.Methods pCallbackData, HttpMethod method){
+    public AsyncDataEx(
+            AsyncListener<TransactionRequest> pListener,
+            TransactionRequest request,
+            String psUrl,
+            DataExImpl.Methods pCallbackData,
+            HttpMethod method
+    ){
         this._url			= psUrl;
+        _request            = request;
         this._callback		= pListener;
         this._callbackData  = pCallbackData;
         this._httpMethod    = method;
     }
 
-	public AsyncDataEx(AsyncListener pListener, String psUrl, DataExImpl.Methods pCallbackData){
+	public AsyncDataEx(
+            AsyncListener<TransactionRequest> pListener,
+            TransactionRequest request,
+            String psUrl,
+            DataExImpl.Methods pCallbackData
+    ){
 		_url			= psUrl;
 		_callback		= pListener;
+        _request        = request;
         _callbackData  = pCallbackData;
         _httpMethod    = HttpMethod.POST;
 	}
@@ -69,8 +82,11 @@ public class AsyncDataEx extends AsyncTask<NameValuePair, Integer, String>{
 
 	protected void onPostExecute(String result){
         Log.d(_LOG, "Called onPostExecute of listener, calling listener");
-        _callback.onTaskSuccess(result, _callbackData);
-        Log.i("REsultCheck" , result);
+        if(_request != null) {
+            _request.setRemoteResponse(result);
+        }
+        _callback.onTaskSuccess(_request, _callbackData);
+        Log.i("ResultCheck" , result);
         Log.d(_LOG, "Called onTaskSuccess of listener");
 	}
 	

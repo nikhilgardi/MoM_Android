@@ -65,6 +65,8 @@ public class AppConstants {
 
     //Start: Bundle Messages
     public static final String BUNDLE_NEXT_SCREEN           = PACKAGE + "NextScreen";
+    public static final String BUNDLE_TRANSACTION_REQUEST   = PACKAGE + "Transaction";
+    public static final String BUNDLE_PROGRESS              = PACKAGE + "Progress";
     //End: Bundle Messages
     //Start: PBX Platform Methods
 
@@ -76,6 +78,7 @@ public class AppConstants {
     //END: FONT RELATED
 
     public static final float ERROR_BALANCE                 = -1000000;
+    public static final int DEFAULT_INT                     = Integer.MIN_VALUE;
 
     //PIN RELATED
     public static final String M_PIN                        = "M-Pin";
@@ -181,6 +184,7 @@ public class AppConstants {
     public static final String INTENT_MESSAGE_DEST          = PACKAGE + "MESSAGE_DEST";
     public static final String INTENT_MESSAGE_ORIGIN        = PACKAGE + "MESSAGE_ORIGIN";
     public static final String GCM_INTENT                   = PACKAGE + "gcmIntent";
+
 
     public static final String OPERATOR_ID_AIRCEL           = "1";
     public static final String OPERATOR_ID_AIRTEL           = "2";

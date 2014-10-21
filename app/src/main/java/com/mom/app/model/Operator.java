@@ -7,6 +7,12 @@ public class Operator {
     public String code;
     public String name;
 
+    public Operator(){}
+    public Operator(String code, String name){
+        this.code   = code;
+        this.name   = name;
+    }
+
     public String toString(){
         return name;
     }

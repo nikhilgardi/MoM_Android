@@ -16,9 +16,9 @@ import java.util.List;
  */
 public class DataProvider {
 
-    public static ArrayList<ImageItem<MoMScreen>> getScreens(Context context, PlatformIdentifier platform, boolean hideDashboard) {
+    public static ArrayList<ImageItem<MoMScreen>> getScreens(Context context, PlatformIdentifier platform, boolean showingDashboard) {
         final ArrayList<ImageItem<MoMScreen>> imageItems = new ArrayList<ImageItem<MoMScreen>>();
-        if(!hideDashboard) {
+        if(!showingDashboard) {
             imageItems.add(
                     new ImageItem<MoMScreen>(
                             MoMScreen.DASHBOARD,
@@ -63,7 +63,7 @@ public class DataProvider {
                 )
         );
 
-        if(platform == PlatformIdentifier.NEW){
+        if(platform == PlatformIdentifier.MOM){
             imageItems.add(
                     new ImageItem<MoMScreen>(
                             MoMScreen.BALANCE_TRANSFER,
@@ -86,16 +86,20 @@ public class DataProvider {
                         false
                 )
         );
-        imageItems.add(
-                new ImageItem<MoMScreen>(
-                        MoMScreen.SETTINGS,
-                        MoMScreen.SETTINGS.id,
-                        MoMScreen.SETTINGS.drawableId,
-                        MoMScreen.SETTINGS.drawableTransparentId,
-                        context.getResources().getString(MoMScreen.SETTINGS.titleResId),
-                        false
-                )
-        );
+
+        if(!showingDashboard || platform == PlatformIdentifier.PBX) {
+            imageItems.add(
+                    new ImageItem<MoMScreen>(
+                            MoMScreen.SETTINGS,
+                            MoMScreen.SETTINGS.id,
+                            MoMScreen.SETTINGS.drawableId,
+                            MoMScreen.SETTINGS.drawableTransparentId,
+                            context.getResources().getString(MoMScreen.SETTINGS.titleResId),
+                            false
+                    )
+            );
+        }
+
         imageItems.add(
                 new ImageItem<MoMScreen>(
                         MoMScreen.LOGOUT,

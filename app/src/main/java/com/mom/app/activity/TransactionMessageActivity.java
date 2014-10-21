@@ -66,8 +66,8 @@ public class TransactionMessageActivity extends Activity {
     }
 
     public void goToMain(View view){
-        Intent intent   = new Intent(this, DashboardActivity.class);
-        startActivity(intent);
-        finish();
+//        Intent intent   = new Intent(this, DashboardActivity.class);
+//        startActivity(intent);
+//        finish();
     }
 }

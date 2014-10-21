@@ -2,9 +2,7 @@ package com.mom.app.fragment;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,48 +17,35 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mom.app.R;
-import com.mom.app.identifier.ActivityIdentifier;
 import com.mom.app.identifier.PlatformIdentifier;
+import com.mom.app.identifier.TransactionType;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.IDataEx;
 import com.mom.app.model.Operator;
-import com.mom.app.model.local.EphemeralStorage;
-import com.mom.app.model.mompl.MoMPLDataExImpl;
+import com.mom.app.ui.TransactionRequest;
 import com.mom.app.utils.AppConstants;
 import com.mom.app.utils.DataProvider;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
-import org.apache.http.util.EntityUtils;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 /**
  * Created by vaibhavsinha on 10/8/14.
  */
-public class BillPaymentFragment extends FragmentBase implements AsyncListener<String> {
+public class BillPaymentFragment extends FragmentBase implements AsyncListener<TransactionRequest> {
 
     private String _LOG = AppConstants.LOG_PREFIX + "BILL PAY";
 
-    Button _getBillAmount;
+    Button _btnGetBillAmount;
     private EditText _etSubscriberId;
-    private EditText amountField;
+    private EditText _etAmount;
     private EditText _etCustomerNumber;
     private TextView _billMsgDisplay;
+    private Button _btnPay;
 
-    Spinner operatorSpinner;
+    Spinner _spOperator;
 
     public static BillPaymentFragment newInstance(PlatformIdentifier currentPlatform){
         BillPaymentFragment fragment        = new BillPaymentFragment();
@@ -81,16 +66,24 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<S
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_bill_payment, null, false);
 
-        _getBillAmount          = (Button) view.findViewById(R.id.btnGetBillAmount);
-        _billMsgDisplay         = (TextView) view.findViewById(R.id.msgDisplay);
-        this.operatorSpinner    = (Spinner) view.findViewById(R.id.Operator);
-        this.operatorSpinner.setOnItemSelectedListener(new OperatorSelectedListener());
+        _btnGetBillAmount   = (Button) view.findViewById(R.id.btnGetBillAmount);
+        _billMsgDisplay     = (TextView) view.findViewById(R.id.msgDisplay);
+        _spOperator         = (Spinner) view.findViewById(R.id.Operator);
+        _spOperator.setOnItemSelectedListener(new OperatorSelectedListener());
 
-        this._etSubscriberId    = (EditText) view.findViewById(R.id.subscriberId);
-        this.amountField        = (EditText) view.findViewById(R.id.amount);
-        this._etCustomerNumber  = (EditText) view.findViewById(R.id.number);
+        _etSubscriberId     = (EditText) view.findViewById(R.id.subscriberId);
+        _etAmount           = (EditText) view.findViewById(R.id.amount);
+        _etCustomerNumber   = (EditText) view.findViewById(R.id.number);
+        _btnPay             = (Button) view.findViewById(R.id.btnPay);
 
-        _getBillAmount.setOnClickListener(new View.OnClickListener() {
+        _btnPay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                validateAndPay(view);
+            }
+        });
+
+        _btnGetBillAmount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getBillAmount(view);
@@ -99,13 +92,11 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<S
 
         getAllOperators();
 
-        getProgressBar(view).setVisibility(View.GONE);
-
         return view;
     }
 
     @Override
-    public void onTaskSuccess(String result, DataExImpl.Methods callback) {
+    public void onTaskSuccess(TransactionRequest result, DataExImpl.Methods callback) {
         Log.d(_LOG, "Called back");
         switch(callback){
             case PAY_BILL:
@@ -121,7 +112,7 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<S
                 break;
         }
 
-        _pb.setVisibility(View.INVISIBLE);
+        taskCompleted(result);
     }
 
     @Override
@@ -138,7 +129,7 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<S
     public void getAllOperators() {
         List<Operator> operatorList = null;
 
-        if (_currentPlatform == PlatformIdentifier.NEW){
+        if (_currentPlatform == PlatformIdentifier.MOM){
             operatorList    = DataProvider.getMoMPlatformBillPayOperators();
         } else if (_currentPlatform == PlatformIdentifier.PBX) {
 
@@ -152,20 +143,21 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<S
             return;
         }
 
+        operatorList.add(0, new Operator("", getActivity().getString(R.string.prompt_spinner_select_operator)));
         ArrayAdapter<Operator> dataAdapter = new ArrayAdapter<Operator>(
                 getActivity(), android.R.layout.simple_spinner_item,
                 operatorList
         );
 
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        operatorSpinner.setAdapter(dataAdapter);
+        _spOperator.setAdapter(dataAdapter);
     }
 
 
 
     private String getOperatorId(String strOperatorName) {
 
-        if (_currentPlatform == PlatformIdentifier.NEW)
+        if (_currentPlatform == PlatformIdentifier.MOM)
         {
             String id      = AppConstants.OPERATOR_NEW.get(strOperatorName);
             if(id == null){
@@ -188,37 +180,40 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<S
     public void getBillAmount(View view){
         Log.d(_LOG, "Get Bill Amount called");
         String sSubscriberId            = _etSubscriberId.getText().toString();
-        String sOperatorID              = getOperatorId(operatorSpinner.getSelectedItem().toString());
+        Operator operator               = (Operator) _spOperator.getSelectedItem();
 
         IDataEx dataEx                  = getDataEx(new AsyncListener<Float>() {
             @Override
             public void onTaskSuccess(Float result, DataExImpl.Methods callback) {
                 Log.e(_LOG, "Obtainined bill amount: " + result);
                 int bill                = Math.round(result);
-                amountField.setText(String.valueOf(bill));
-                amountField.setBackgroundColor(getResources().getColor(R.color.green));
+                _etAmount.setText(String.valueOf(bill));
+//                _etAmount.setBackgroundColor(getResources().getColor(R.color.green));
             }
 
             @Override
             public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
                 Log.e(_LOG, "Error obtaining bill amount");
-                amountField.setBackgroundColor(getResources().getColor(R.color.red));
+//                _etAmount.setBackgroundColor(getResources().getColor(R.color.red));
                 showBillMessage(getResources().getString(R.string.error_obtaining_bill_amount));
             }
         });
 
-        dataEx.getBillAmount(sOperatorID, sSubscriberId);
+        TransactionRequest request  = new TransactionRequest();
+        request.setOperator(operator);
+        request.setConsumerId(sSubscriberId);
+        dataEx.getBillAmount(request);
         Log.d(_LOG, "Get Bill Amount finished");
     }
 
 
     public void validateAndPay(View view) {
-        if (operatorSpinner.getSelectedItemPosition() < 1){
+        if (_spOperator.getSelectedItemPosition() < 1){
             showMessage(getResources().getString(R.string.prompt_select_operator));
             return;
         }
 
-        String sOperator        = operatorSpinner.getSelectedItem().toString();
+        String sOperator        = _spOperator.getSelectedItem().toString();
         String sOperatorId      = getOperatorId(sOperator);
 
         int nMinAmount          = 10;
@@ -231,7 +226,7 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<S
         int nAmount             = 0;
 
         try {
-            nAmount             = Integer.parseInt(amountField.getText().toString().trim());
+            nAmount             = Integer.parseInt(_etAmount.getText().toString().trim());
         }catch (NumberFormatException nfe){
             nfe.printStackTrace();
             showMessage(getResources().getString(R.string.prompt_numbers_only_amount));
@@ -299,12 +294,10 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<S
     }
 
     private void startPayment() {
-        _pb.setVisibility(View.VISIBLE);
-
-
+        showMessage(null);
         String sSubscriberId            = _etSubscriberId.getText().toString();
-        String sRechargeAmount          = amountField.getText().toString();
-        String sOperatorID              = getOperatorId(operatorSpinner.getSelectedItem().toString());
+        String sAmount                  = _etAmount.getText().toString();
+        Operator operator               = (Operator) _spOperator.getSelectedItem();
         String sCustomerNumber          = _etCustomerNumber.getText().toString().trim();
         String sCustomerName            = "";
 
@@ -312,20 +305,30 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<S
 
 //        SharedPreferences pref = PreferenceManager
 //                .getDefaultSharedPreferences(getApplicationContext());
+        HashMap<String, String> map     = new HashMap<String, String>();
 
-        if (_currentPlatform == PlatformIdentifier.NEW){
-            HashMap<String, String> map     = new HashMap<String, String>();
-
+        if (_currentPlatform == PlatformIdentifier.MOM){
             map.put(AppConstants.PARAM_NEW_RELIANCE_SBE_NBE, "");
             map.put(AppConstants.PARAM_NEW_SPECIAL_OPERATOR_NBE, "");
-
-            getDataEx(this).payBill(sSubscriberId, Double.parseDouble(sRechargeAmount), sOperatorID, sCustomerNumber, sCustomerName, map);
-
         } else if (_currentPlatform == PlatformIdentifier.PBX){
-
 
         }
 
+        TransactionRequest request  = new TransactionRequest(
+                getActivity().getString(TransactionType.BILL_PAYMENT.transactionTypeStringId),
+                sSubscriberId,
+                sCustomerNumber,
+                Float.parseFloat(sAmount),
+                operator
+        );
+
+        getDataEx(this).payBill(request, sCustomerName, map);
+
+        _etAmount.setText(null);
+        _etSubscriberId.setText(null);
+        _etCustomerNumber.setText(null);
+        _spOperator.setSelection(0);
+        showProgress(true);
     }
 
 
@@ -338,12 +341,12 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<S
         alertDialog.setTitle("Confirm MobileRecharge...");
 
         String sMsg     = "Operator: "
-                + operatorSpinner.getSelectedItem() + "\n"
+                + _spOperator.getSelectedItem() + "\n"
                 + "Amount:" + " " + "Rs." + " "
-                + amountField.getText() + "\n"
+                + _etAmount.getText() + "\n"
                 + "Phone: " + _etCustomerNumber.getText();
 
-        String sOperator                = operatorSpinner.getSelectedItem().toString();
+        String sOperator                = _spOperator.getSelectedItem().toString();
 
         String sOperatorId              = getOperatorId(sOperator);
 
@@ -385,14 +388,14 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<S
 
     public void showRetrieveBillFields(){
         _etSubscriberId.setVisibility(View.VISIBLE);
-        _getBillAmount.setVisibility(View.VISIBLE);
+        _btnGetBillAmount.setVisibility(View.VISIBLE);
     }
 
     public void hideRetrieveBillFields(){
-        amountField.setBackgroundColor(getResources().getColor(R.color.white));
+//        _etAmount.setBackgroundColor(getResources().getColor(R.color.white));
         _etSubscriberId.setText("");
         _etSubscriberId.setVisibility(View.GONE);
-        _getBillAmount.setVisibility(View.GONE);
+        _btnGetBillAmount.setVisibility(View.GONE);
     }
 
     public class OperatorSelectedListener implements AdapterView.OnItemSelectedListener{
@@ -411,7 +414,7 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<S
 
             showBillMessage("");
 
-            String sOperator                = operatorSpinner.getSelectedItem().toString();
+            String sOperator                = _spOperator.getSelectedItem().toString();
 
             Log.d(_LOG, "Operator selected: " + sOperator);
             String sOperatorId              = getOperatorId(sOperator);

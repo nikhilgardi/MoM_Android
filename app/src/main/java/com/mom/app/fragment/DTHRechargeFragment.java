@@ -1,32 +1,26 @@
 package com.mom.app.fragment;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.mom.app.R;
-import com.mom.app.activity.DashboardActivity;
-import com.mom.app.identifier.ActivityIdentifier;
-import com.mom.app.identifier.IdentifierUtils;
 import com.mom.app.identifier.PlatformIdentifier;
+import com.mom.app.identifier.TransactionType;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.Operator;
-import com.mom.app.model.local.EphemeralStorage;
-import com.mom.app.ui.IFragmentListener;
+import com.mom.app.ui.TransactionRequest;
 import com.mom.app.utils.AppConstants;
 import com.mom.app.utils.DataProvider;
 
@@ -48,16 +42,17 @@ import java.util.List;
 /**
  * Created by vaibhavsinha on 10/4/14.
  */
-public class DTHRechargeFragment extends FragmentBase implements AsyncListener<String> {
+public class DTHRechargeFragment extends FragmentBase implements AsyncListener<TransactionRequest> {
     String _LOG         = AppConstants.LOG_PREFIX + "DTH RECHARGE";
 
     private EditText _etSubscriberId;
-    private EditText amountField;
+    private EditText _etAmount;
     private EditText _etCustomerNumber;
 
-    Spinner operatorSpinner;
+    Spinner _spOperator;
 
-    String responseBody;
+//    String responseBody;
+    Button _rechargeButton;
 
     public static DTHRechargeFragment newInstance(PlatformIdentifier currentPlatform){
         DTHRechargeFragment fragment    = new DTHRechargeFragment();
@@ -78,20 +73,27 @@ public class DTHRechargeFragment extends FragmentBase implements AsyncListener<S
         Log.d(_LOG, "onCreateView");
         View view = inflater.inflate(R.layout.activity_dth_recharge, null, false);
 
-        this.operatorSpinner    = (Spinner) view.findViewById(R.id.Operator);
-        this._etSubscriberId    = (EditText) view.findViewById(R.id.subscriberId);
-        this.amountField        = (EditText) view.findViewById(R.id.amount);
-        this._etCustomerNumber  = (EditText) view.findViewById(R.id.number);
+        _spOperator = (Spinner) view.findViewById(R.id.Operator);
+        _etSubscriberId    = (EditText) view.findViewById(R.id.subscriberId);
+        _etAmount = (EditText) view.findViewById(R.id.amount);
+        _etCustomerNumber  = (EditText) view.findViewById(R.id.number);
+        _rechargeButton     = (Button) view.findViewById(R.id.btnRecharge);
+
+        _rechargeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                validateAndRecharge(view);
+            }
+        });
 
         getAllOperators();
-
         return view;
     }
 
 
 
     @Override
-    public void onTaskSuccess(String result, DataExImpl.Methods callback) {
+    public void onTaskSuccess(TransactionRequest result, DataExImpl.Methods callback) {
         Log.d(_LOG, "Called back");
         switch(callback){
             case RECHARGE_DTH:
@@ -103,11 +105,11 @@ public class DTHRechargeFragment extends FragmentBase implements AsyncListener<S
                 Log.d(_LOG, "Going to get new balance");
                 getBalanceAsync();
                 Log.d(_LOG, "Starting navigation to TxnMsg Activity");
-//                navigateToTransactionMessageActivity(ActivityIdentifier.DTH_RECHARGE, result);
+
                 break;
         }
 
-        _pb.setVisibility(View.INVISIBLE);
+        taskCompleted(result);
     }
 
     @Override
@@ -123,7 +125,7 @@ public class DTHRechargeFragment extends FragmentBase implements AsyncListener<S
     public void getAllOperators() {
         List<Operator> operatorList = null;
 
-        if (_currentPlatform == PlatformIdentifier.NEW){
+        if (_currentPlatform == PlatformIdentifier.MOM){
             operatorList    = DataProvider.getMoMPlatformDTHOperators();
         } else if (_currentPlatform == PlatformIdentifier.PBX) {
 
@@ -142,62 +144,63 @@ public class DTHRechargeFragment extends FragmentBase implements AsyncListener<S
                 operatorList
         );
 
+        operatorList.add(0, new Operator("", getActivity().getString(R.string.prompt_spinner_select_operator)));
+
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        operatorSpinner.setAdapter(dataAdapter);
+        _spOperator.setAdapter(dataAdapter);
     }
 
 
-    private String getOperatorId(String strOperatorName) {
-
-        if (_currentPlatform == PlatformIdentifier.NEW)
-        {
-            String id      = AppConstants.OPERATOR_NEW.get(strOperatorName);
-            if(id == null){
-                return "-1";
-            }
-
-            return id;
-
-        } else if (_currentPlatform == PlatformIdentifier.PBX) {
-            HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost(
-                    "http://180.179.67.76/MobAppS/PbxMobApp.ashx");
-            try {
-
-                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(
-                        3);
-                nameValuePairs.add(new BasicNameValuePair("SN", strOperatorName));
-                nameValuePairs.add(new BasicNameValuePair("Service", "OSN"));
-                nameValuePairs.add(new BasicNameValuePair("OT", "1"));
-
-                httppost.addHeader("ua", "android");
-
-                final HttpParams httpParams = httpclient.getParams();
-                HttpConnectionParams.setConnectionTimeout(httpParams, 15000);
-                HttpConnectionParams.setSoTimeout(httpParams, 15000);
-                httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-                HttpResponse response = httpclient.execute(httppost);
-                HttpEntity entity = response.getEntity();
-                responseBody = EntityUtils.toString(entity);
-
-                return responseBody;
-            } catch (Exception ex) {
-                return "-1";
-            }
-        } else {
-            return "-1";
-        }
-    }
+//    private String getOperatorId(String strOperatorName) {
+//
+//        if (_currentPlatform == PlatformIdentifier.MOM)
+//        {
+//            String id      = AppConstants.OPERATOR_NEW.get(strOperatorName);
+//            if(id == null){
+//                return "-1";
+//            }
+//
+//            return id;
+//
+//        } else if (_currentPlatform == PlatformIdentifier.PBX) {
+//            HttpClient httpclient = new DefaultHttpClient();
+//            HttpPost httppost = new HttpPost(
+//                    "http://180.179.67.76/MobAppS/PbxMobApp.ashx");
+//            try {
+//
+//                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(
+//                        3);
+//                nameValuePairs.add(new BasicNameValuePair("SN", strOperatorName));
+//                nameValuePairs.add(new BasicNameValuePair("Service", "OSN"));
+//                nameValuePairs.add(new BasicNameValuePair("OT", "1"));
+//
+//                httppost.addHeader("ua", "android");
+//
+//                final HttpParams httpParams = httpclient.getParams();
+//                HttpConnectionParams.setConnectionTimeout(httpParams, 15000);
+//                HttpConnectionParams.setSoTimeout(httpParams, 15000);
+//                httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+//                HttpResponse response = httpclient.execute(httppost);
+//                HttpEntity entity = response.getEntity();
+//                responseBody = EntityUtils.toString(entity);
+//
+//                return responseBody;
+//            } catch (Exception ex) {
+//                return "-1";
+//            }
+//        } else {
+//            return "-1";
+//        }
+//    }
 
 
     public void validateAndRecharge(View view) {
-        if (operatorSpinner.getSelectedItemPosition() < 1){
+        if (_spOperator.getSelectedItemPosition() < 1){
             showMessage(getResources().getString(R.string.prompt_select_operator));
             return;
         }
 
-        String sOperator        = operatorSpinner.getSelectedItem().toString();
-        String sOperatorId      = getOperatorId(sOperator);
+        Operator operator       = (Operator) _spOperator.getSelectedItem();
 
         int nMinAmount          = 100;
         int nMaxAmount          = 15000;
@@ -208,7 +211,7 @@ public class DTHRechargeFragment extends FragmentBase implements AsyncListener<S
         int nAmount             = 0;
 
         try {
-            nAmount             = Integer.parseInt(amountField.getText().toString());
+            nAmount             = Integer.parseInt(_etAmount.getText().toString());
         }catch (NumberFormatException nfe){
             nfe.printStackTrace();
             showMessage(getResources().getString(R.string.prompt_numbers_only_amount));
@@ -216,26 +219,26 @@ public class DTHRechargeFragment extends FragmentBase implements AsyncListener<S
         }
 
         if(
-                sOperatorId.equals(AppConstants.OPERATOR_ID_DISH) ||
-                        sOperatorId.equals(AppConstants.OPERATOR_ID_SUN_DIRECT) ||
-                        sOperatorId.equals("DSH") ||
-                        sOperatorId.equals("SUN")
+                operator.code.equals(AppConstants.OPERATOR_ID_DISH) ||
+                        operator.code.equals(AppConstants.OPERATOR_ID_SUN_DIRECT) ||
+                        operator.code.equals("DSH") ||
+                        operator.code.equals("SUN")
                 ){
 
             nMinLength      = 11;
             nMaxLength      = 11;
             nMinAmount      = 10;
         }else if(
-                sOperatorId.equals(AppConstants.OPERATOR_ID_BIG_TV) ||
-                        sOperatorId.equals("BIG")
+                operator.code.equals(AppConstants.OPERATOR_ID_BIG_TV) ||
+                        operator.code.equals("BIG")
                 ){
 
             nMinLength      = 12;
             nMaxLength      = 12;
             nMinAmount      = 25;
         }else if(
-                sOperatorId.equals(AppConstants.OPERATOR_ID_VIDEOCON_DTH) ||
-                        sOperatorId.equals("D2H")
+                operator.code.equals(AppConstants.OPERATOR_ID_VIDEOCON_DTH) ||
+                operator.code.equals("D2H")
                 ){
 
             nMinLength      = 1;
@@ -271,78 +274,35 @@ public class DTHRechargeFragment extends FragmentBase implements AsyncListener<S
     }
 
     private void startRecharge() {
-        String[] strResponse1           = null;
-
+        showMessage(null);
         String sSubscriberId            = _etSubscriberId.getText().toString();
-        String sRechargeAmount          = amountField.getText().toString();
-        String sOperatorID              = getOperatorId(operatorSpinner.getSelectedItem().toString());
+        String sRechargeAmount          = _etAmount.getText().toString();
+        Operator operator               = (Operator) _spOperator.getSelectedItem();
         String sCustomerNumber          = _etCustomerNumber.getText().toString().trim();
 
-        int nRechargeType               = 0;
+        TransactionRequest request      = new TransactionRequest(
+                getActivity().getString(TransactionType.DTH.transactionTypeStringId),
+                sSubscriberId,
+                sCustomerNumber,
+                Float.parseFloat(sRechargeAmount),
+                operator
+        );
 
-//        SharedPreferences pref = PreferenceManager
-//                .getDefaultSharedPreferences(getApplicationContext());
+        if (_currentPlatform == PlatformIdentifier.MOM){
 
-        if (_currentPlatform == PlatformIdentifier.NEW){
-
-            getDataEx(this).rechargeDTH(sSubscriberId, Double.parseDouble(sRechargeAmount), sOperatorID, sCustomerNumber);
+            getDataEx(this).rechargeDTH(request);
 
         } else if (_currentPlatform == PlatformIdentifier.PBX){
-            HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost(
-                    "http://180.179.67.76/MobAppS/PbxMobApp.ashx");
-            try {
 
-                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(
-                        5);
-                nameValuePairs.add(new BasicNameValuePair("CustMobile", sSubscriberId));
-                nameValuePairs.add(new BasicNameValuePair("Amount", sRechargeAmount));
-                nameValuePairs.add(new BasicNameValuePair("OP", sOperatorID));
-                String sUserMobile  = EphemeralStorage.getInstance(getActivity()).getString(AppConstants.LOGGED_IN_USERNAME, "");
-                nameValuePairs.add(new BasicNameValuePair("RN", sUserMobile));
-                nameValuePairs.add(new BasicNameValuePair("Service", "RM"));
-
-                final HttpParams httpParams = httpclient.getParams();
-                // HttpConnectionParams.setConnectionTimeout(httpParams, 15000);
-                // HttpConnectionParams.setSoTimeout(httpParams, 15000);
-                httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-                HttpResponse response = httpclient.execute(httppost);
-                HttpEntity entity = response.getEntity();
-                responseBody = EntityUtils.toString(entity);
-
-
-                if (responseBody.contains("~")) {
-                    strResponse1 = responseBody.split("~");
-
-                    StringBuilder sb = new StringBuilder();
-                    sb.append("StatusCode : " + strResponse1[0].toString()
-                            + "\n" + "TransId : " + strResponse1[2].toString()
-                            + "\n" + "Message:" + strResponse1[1].toString()
-                            + "\n" + "Balance:" + strResponse1[3].toString());
-
-                    sb.append("\n");
-                    sb.append("\n");
-
-                    String a = sb.toString();
-
-                    showMessage(a);
-
-                    Log.i("postData~", response.getStatusLine().toString());
-                    Log.i("info", a);
-                }else {
-                    showMessage(responseBody);
-                }
-            } catch (Exception e) {
-                Log.e("log_tagTESTabcd",
-                        "Error in http connection " + e.toString());
-
-            }
-
-        } else {
-            Toast.makeText(getActivity(), "Error", Toast.LENGTH_LONG)
-                    .show();
         }
 
+        _etSubscriberId.setText(null);
+        _etAmount.setText(null);
+        _etCustomerNumber.setText(null);
+        _spOperator.setSelection(0);
+
+        showProgress(true);
+        updateAsyncQueue(request);
     }
 
 
@@ -353,9 +313,6 @@ public class DTHRechargeFragment extends FragmentBase implements AsyncListener<S
 
 
     public void confirmRecharge() {
-        _pb.setVisibility(View.VISIBLE);
-
-
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
 
         // Setting Dialog Title
@@ -364,9 +321,9 @@ public class DTHRechargeFragment extends FragmentBase implements AsyncListener<S
         // Setting Dialog Message
         alertDialog.setMessage("Subscriber ID:" + " "
                 + _etSubscriberId.getText().toString() + "\n" + "Operator:"
-                + " " + operatorSpinner.getSelectedItem().toString() + "\n"
+                + " " + _spOperator.getSelectedItem().toString() + "\n"
                 + "Amount:" + " " + "Rs." + " "
-                + amountField.getText().toString());
+                + _etAmount.getText().toString());
 
         alertDialog.setPositiveButton("YES",
                 new DialogInterface.OnClickListener() {

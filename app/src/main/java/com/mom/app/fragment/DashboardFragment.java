@@ -69,7 +69,6 @@ public class DashboardFragment extends FragmentBase {
                 showScreen(item);
             }
         });
-
         return view;
     }
 

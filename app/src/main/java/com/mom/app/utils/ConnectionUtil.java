@@ -8,7 +8,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 import com.mom.app.R;
-import com.mom.app.activity.DashboardActivity;
 import com.mom.app.activity.LoginActivity;
 
 /**

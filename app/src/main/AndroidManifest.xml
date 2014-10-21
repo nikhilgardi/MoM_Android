@@ -46,26 +46,18 @@
         <activity
             android:name=".activity.BaseActivity"
             android:label="@string/title_activity_base" >
+
+        </activity>
+
+        <activity
+            android:name=".activity.LoginActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".activity.LoginActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation">
-
-        </activity>
-        <activity
-            android:name=".activity.DashboardActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation">
-
-        </activity>
-        <activity
-            android:name=".activity.MobileRechargeActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation" />
 
         <!-- Credit sale -->
         <activity android:name=".MSwipeAndroidSDKListActivity1" >
@@ -119,34 +111,12 @@
             android:name=".activity.TransactionMessageActivity"
             android:label="@string/title_activity_transaction_confirmation" >
         </activity>
-        <activity
-            android:name=".activity.DTHRechargeActivity"
-            android:label="@string/title_activity_dthrecharge" >
-        </activity>
-        <activity
-            android:name=".activity.BillPaymentActivity"
-            android:label="@string/title_activity_bill_payment" >
-        </activity>
-        <activity
-            android:name=".activity.TransactionHistoryActivity"
-            android:label="@string/title_activity_transaction_history" >
-        </activity>
+
         <activity
             android:name=".activity.ChangePINActivity"
             android:label="@string/title_activity_change_pin" >
         </activity>
-        <activity
-            android:name=".activity.SettingsActivity"
-            android:label="@string/title_activity_settings" >
-        </activity>
 
-        <!--<activity-->
-            <!--android:name=".activity.RetailerPayment"-->
-            <!--android:label="@string/title_activity_retailer_payment" >-->
-        <!--</activity>-->
-        <activity
-            android:name=".activity.BalanceTransferActivity">
-        </activity>
     </application>
 
     <!--

@@ -1,8 +1,10 @@
 package com.mom.app.fragment;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mom.app.R;
 import com.mom.app.error.MOMException;
@@ -20,10 +23,12 @@ import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.IDataEx;
+import com.mom.app.model.Transaction;
 import com.mom.app.model.local.EphemeralStorage;
 import com.mom.app.model.mompl.MoMPLDataExImpl;
 import com.mom.app.model.pbxpl.PBXPLDataExImpl;
 import com.mom.app.ui.IFragmentListener;
+import com.mom.app.ui.TransactionRequest;
 import com.mom.app.utils.AppConstants;
 
 import java.text.DecimalFormat;
@@ -36,7 +41,6 @@ public abstract class FragmentBase extends Fragment {
 
     protected PlatformIdentifier _currentPlatform;
     IDataEx _dataEx     = null;
-    ProgressBar _pb;
     TextView tvMsgDisplay;
     IFragmentListener _callbackListener;
     Button _backBtn;
@@ -48,6 +52,19 @@ public abstract class FragmentBase extends Fragment {
         _currentPlatform    = IdentifierUtils.getPlatformIdentifier(getActivity());
     }
 
+    protected void showProgress(boolean show){
+        Bundle bundle   = new Bundle();
+        if(show) {
+            bundle.putInt(AppConstants.BUNDLE_PROGRESS, 1);
+        }else{
+            bundle.putInt(AppConstants.BUNDLE_PROGRESS, 0);
+        }
+
+        if(_callbackListener != null){
+            _callbackListener.processMessage(bundle);
+        }
+    }
+
     public TextView getMessageTextView(){
         if(tvMsgDisplay == null){
             tvMsgDisplay    = (TextView) getActivity().findViewById(R.id.msgDisplay);
@@ -55,12 +72,6 @@ public abstract class FragmentBase extends Fragment {
         return tvMsgDisplay;
     }
 
-    public ProgressBar getProgressBar(View view){
-        if(_pb == null){
-            _pb			= (ProgressBar)view.findViewById(R.id.progressBar);
-        }
-        return _pb;
-    }
 
     public void showMessage(String psMsg){
         TextView response	= getMessageTextView();
@@ -115,7 +126,7 @@ public abstract class FragmentBase extends Fragment {
 
     public IDataEx getDataEx(AsyncListener pListener){
         if(_dataEx == null){
-            if(_currentPlatform == PlatformIdentifier.NEW){
+            if(_currentPlatform == PlatformIdentifier.MOM){
                 _dataEx     = new MoMPLDataExImpl(getActivity().getApplicationContext(), pListener);
             }else{
                 _dataEx     = new PBXPLDataExImpl(getActivity().getApplicationContext(), pListener);
@@ -181,5 +192,48 @@ public abstract class FragmentBase extends Fragment {
 
     protected void goBack(){
         getFragmentManager().popBackStack();
+    }
+
+    protected void taskCompleted(TransactionRequest result){
+        showProgress(false);
+        result.setSuccessful(false);
+        result.setCompleted(true);
+        updateAsyncQueue(result);
+    }
+
+    protected void updateAsyncQueue(TransactionRequest request){
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(AppConstants.BUNDLE_TRANSACTION_REQUEST, request);
+        Toast.makeText(getActivity().getApplicationContext(), R.string.added_to_queue, Toast.LENGTH_LONG)
+                .show();
+
+        _callbackListener.processMessage(bundle);
+    }
+
+    public void showDialog(
+            String title,
+            String message,
+            String yes,
+            DialogInterface.OnClickListener yesListener,
+            String no,
+            DialogInterface.OnClickListener noListener
+    ) {
+
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+
+        // Setting Dialog Title
+        alertDialog.setTitle(title);
+
+        // Setting Dialog Message
+        alertDialog.setMessage(message);
+
+        alertDialog.setPositiveButton(yes, yesListener);
+
+        if(noListener != null) {
+            // Setting Negative "NO" Button
+            alertDialog.setNegativeButton(no, noListener);
+        }
+
+        alertDialog.show();
     }
 }

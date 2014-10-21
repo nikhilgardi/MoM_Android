@@ -34,7 +34,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.mom.app.activity.DashboardActivity;
+import com.mom.app.activity.BaseActivity;
 import com.mom.app.activity.LoginActivity;
 
 
@@ -453,7 +453,7 @@ public class MSwipeAndroidSDKListActivity1 extends Activity {
 		
 		public void onBackPressed() {
 			intentMSwipe.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			myintenttest = new Intent(MSwipeAndroidSDKListActivity1.this, DashboardActivity.class);
+			myintenttest = new Intent(MSwipeAndroidSDKListActivity1.this, BaseActivity.class);
 			
 		//	myintenttest.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(myintenttest);

@@ -7,8 +7,9 @@
         <item name="android:colorForeground">@color/app.primary</item>
         <item name="android:colorBackground">@color/app.secondary</item>
 
-        <item name="android:textColorPrimary">@color/gray</item>
-        <item name="android:textColorSecondary">@color/app.primary</item>
+
+        <item name="android:textColorPrimary">@color/app.primary.text</item>
+        <item name="android:textColorSecondary">@color/app.primary.text</item>
         <item name="android:actionBarStyle">@style/AppActionBar</item>
         <item name="android:actionBarTabTextStyle">@style/TabTextStyle</item>
         <item name="android:actionMenuTextColor">@color/actionbar_text</item>

@@ -82,6 +82,7 @@ public class TransactionHistoryFragment extends FragmentBase implements AsyncLis
     public void onTaskSuccess(ArrayList<Transaction> result, DataExImpl.Methods callback) {
         Log.d("HISTORY" , "Result: " + result);
         initListView(result);
+        showProgress(false);
     }
 
     @Override
@@ -97,6 +98,7 @@ public class TransactionHistoryFragment extends FragmentBase implements AsyncLis
 
     public void getHistory(){
         getDataEx(this).getTransactionHistory();
+        showProgress(true);
     }
 
 }

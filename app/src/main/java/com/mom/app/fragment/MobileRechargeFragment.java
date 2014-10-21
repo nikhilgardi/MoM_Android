@@ -21,10 +21,12 @@ import android.widget.Toast;
 import com.mom.app.R;
 import com.mom.app.error.MOMException;
 import com.mom.app.identifier.PlatformIdentifier;
+import com.mom.app.identifier.TransactionType;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.Operator;
+import com.mom.app.ui.TransactionRequest;
 import com.mom.app.utils.AppConstants;
 import com.mom.app.utils.DataProvider;
 
@@ -34,15 +36,15 @@ import java.util.List;
  * A simple {@link android.app.Fragment} subclass.
  *
  */
-public class MobileRechargeFragment extends FragmentBase implements AsyncListener<String>{
+public class MobileRechargeFragment extends FragmentBase implements AsyncListener<TransactionRequest>{
 
     String _LOG     = AppConstants.LOG_PREFIX + "MOB_RECHARGE";
 
-    private EditText rechargeTargetPhone;
-    private EditText amountField;
+    private EditText _etTargetPhone;
+    private EditText _etAmount;
 
-    Spinner operatorSpinner;
-    RadioButton rbtnTopUp, rbtnValidity, rbtnSpecial;
+    Spinner _spOperator;
+    RadioButton _rbtnTopUp, _rbtnValidity, _rbtnSpecial;
     Button _rechargeBtn;
 
 
@@ -74,14 +76,14 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
 
         setCurrentPlatform();
 
-        this.operatorSpinner    = (Spinner) view.findViewById(R.id.Operator);
-        this.rechargeTargetPhone
+        this._spOperator = (Spinner) view.findViewById(R.id.Operator);
+        this._etTargetPhone
                 = (EditText) view.findViewById(R.id.rechargeTargetPhone);
 
-        this.amountField        = (EditText) view.findViewById(R.id.amount);
-        this.rbtnTopUp          = (RadioButton) view.findViewById(R.id.rbtnTopUp);
-        this.rbtnValidity       = (RadioButton) view.findViewById(R.id.rbtnValidity);
-        this.rbtnSpecial        = (RadioButton) view.findViewById(R.id.rbtnSpecial);
+        this._etAmount = (EditText) view.findViewById(R.id.amount);
+        this._rbtnTopUp = (RadioButton) view.findViewById(R.id.rbtnTopUp);
+        this._rbtnValidity = (RadioButton) view.findViewById(R.id.rbtnValidity);
+        this._rbtnSpecial = (RadioButton) view.findViewById(R.id.rbtnSpecial);
         _rechargeBtn            = (Button) view.findViewById(R.id.btnRecharge);
 
         _rechargeBtn.setOnClickListener(new View.OnClickListener() {
@@ -97,14 +99,18 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
         getAllOperators();
 
         addListenerOnSpinnerItemSelection();
-
         return view;
     }
 
 
     @Override
-    public void onTaskSuccess(String result, DataExImpl.Methods callback) {
-        Log.d(_LOG, "Called back");
+    public void onTaskSuccess(TransactionRequest result, DataExImpl.Methods callback) {
+        Log.d(_LOG, "Called back: " + result);
+        if(result == null){
+            Log.e(_LOG, "Seomthing wrong. Received null TransactionRequest object");
+            return;
+        }
+
         switch(callback){
             case RECHARGE_MOBILE:
                 if(result == null){
@@ -115,11 +121,24 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
                 Log.d(_LOG, "Going to get new balance");
                 getBalanceAsync();
                 Log.d(_LOG, "Starting navigation to TxnMsg Activity");
-//                navigateToTransactionMessageActivity(ActivityIdentifier.MOBILE_RECHARGE, result);
+
+//                if(_currentPlatform == PlatformIdentifier.MOM){
+//                    showDialog(
+//                            "Transaction Completed",
+//                            result.getRemoteResponse(),
+//                            "OK",
+//                            new DialogInterface.OnClickListener(){
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    dialog.dismiss();
+//                                }
+//                            },
+//                            null,
+//                            null
+//                    );
+//                }
+                taskCompleted(result);
                 break;
         }
-
-        _pb.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -145,14 +164,14 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
     }
 
     public void addListenerOnSpinnerItemSelection() {
-        operatorSpinner
+        _spOperator
                 .setOnItemSelectedListener(new CustomOnItemSelectedListener());
     }
 
     public void getAllOperators() {
         List<Operator> operatorList = null;
 
-        if (_currentPlatform == PlatformIdentifier.NEW){
+        if (_currentPlatform == PlatformIdentifier.MOM){
             operatorList    = DataProvider.getMoMPlatformMobileOperators();
         } else if (_currentPlatform == PlatformIdentifier.PBX) {
 
@@ -166,42 +185,25 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
             return;
         }
 
+        operatorList.add(0, new Operator("", getActivity().getString(R.string.prompt_spinner_select_operator)));
+
         ArrayAdapter<Operator> dataAdapter = new ArrayAdapter<Operator>(
                 getActivity(), android.R.layout.simple_spinner_item,
                 operatorList
         );
 
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        operatorSpinner.setAdapter(dataAdapter);
+        _spOperator.setAdapter(dataAdapter);
     }
 
-
-    private String getOperatorId(String strOperatorName) {
-
-        if (_currentPlatform == PlatformIdentifier.NEW)
-        {
-            String id      = AppConstants.OPERATOR_NEW.get(strOperatorName);
-            if(id == null){
-                return "-1";
-            }
-
-            return id;
-
-        } else if (_currentPlatform == PlatformIdentifier.PBX) {
-
-        }
-
-        return "";
-    }
 
     public void validateAndRecharge(View view) {
-        if (operatorSpinner.getSelectedItemPosition() < 1){
+        if (_spOperator.getSelectedItemPosition() < 1){
             showMessage(getResources().getString(R.string.prompt_select_operator));
             return;
         }
 
-        String sOperator        = operatorSpinner.getSelectedItem().toString();
-        String sOperatorId      = getOperatorId(sOperator);
+        Operator operator               = (Operator) _spOperator.getSelectedItem();
 
         int nMinAmount          = 10;
         int nMaxAmount          = 10000;
@@ -209,11 +211,11 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
         int nMaxPhoneLength     = 10;
         int nExactPhoneLength   = 10;
 
-        int nPhoneLength        = rechargeTargetPhone.getText().toString().length();
+        int nPhoneLength        = _etTargetPhone.getText().toString().length();
         int nAmount             = 0;
 
         try {
-            nAmount             = Integer.parseInt(amountField.getText().toString());
+            nAmount             = Integer.parseInt(_etAmount.getText().toString());
         }catch (NumberFormatException nfe){
             nfe.printStackTrace();
             showMessage(getResources().getString(R.string.prompt_numbers_only_amount));
@@ -221,8 +223,8 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
         }
 
         if(
-                sOperatorId.equals(AppConstants.OPERATOR_ID_TATA_WALKY) ||
-                        sOperatorId.equals("TWT")
+                operator.code.equals(AppConstants.OPERATOR_ID_TATA_WALKY) ||
+                        operator.code.equals("TWT")
                 ){
 
             nMinPhoneLength     = 1;
@@ -246,20 +248,16 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
         confirmRecharge();
     }
 
+
     public void confirmRecharge() {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-
-        // Setting Dialog Title
-        alertDialog.setTitle("Confirm MobileRecharge...");
-
-        // Setting Dialog Message
-        alertDialog.setMessage("Mobile Number:" + " "
-                + rechargeTargetPhone.getText().toString() + "\n" + "Operator:"
-                + " " + operatorSpinner.getSelectedItem().toString() + "\n"
-                + "Amount:" + " " + "Rs." + " "
-                + amountField.getText().toString());
-
-        alertDialog.setPositiveButton("YES",
+        showDialog(
+                "Confirm Mobile Recharge",
+                "Mobile Number:" + " "
+                        + _etTargetPhone.getText().toString() + "\n" + "Operator:"
+                        + " " + _spOperator.getSelectedItem().toString() + "\n"
+                        + "Amount:" + " " + "Rs." + " "
+                        + _etAmount.getText().toString(),
+                "YES",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         ((AlertDialog) dialog).getButton(
@@ -268,80 +266,83 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
 //							new GetLoginTask().onPostExecute("test");
 
                     }
-                });
-
-        // Setting Negative "NO" Button
-        alertDialog.setNegativeButton("NO",
+                },
+                "NO",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which1) {
-
                         dialog.cancel();
-
                     }
-                });
-
-        alertDialog.show();
+                }
+        );
     }
 
     private void startRecharge() {
+        showMessage(null);
+        String sConsumerNumber          = _etTargetPhone.getText().toString();
+        String sRechargeAmount          = _etAmount.getText().toString();
+        Operator operator               = (Operator) _spOperator.getSelectedItem();
 
-        String sConsumerNumber          = rechargeTargetPhone.getText().toString();
-        String sRechargeAmount          = amountField.getText().toString();
-        Operator operator               = (Operator) operatorSpinner.getSelectedItem();
-        String sOperatorID              = getOperatorId(operator.code);
         int nRechargeType               = 0;
 
-        if (rbtnValidity.isChecked()) {
+        if (_rbtnValidity.isChecked()) {
             nRechargeType               = 1;
-        } else if (rbtnSpecial.isChecked()) {
+        } else if (_rbtnSpecial.isChecked()) {
             nRechargeType               = 2;
         }
 
-        if (_currentPlatform == PlatformIdentifier.NEW){
-            getDataEx(this).rechargeMobile(sConsumerNumber, Double.parseDouble(sRechargeAmount), sOperatorID, nRechargeType);
-        } else if (_currentPlatform == PlatformIdentifier.PBX){
+        TransactionRequest request = new TransactionRequest(
+                getActivity().getResources().getString(TransactionType.MOBILE.transactionTypeStringId),
+                sConsumerNumber,
+                sConsumerNumber,
+                Integer.parseInt(sRechargeAmount),
+                operator
+        );
+
+        getDataEx(this).rechargeMobile(request, nRechargeType);
 
 
-        } else {
-            Toast.makeText(getActivity().getApplicationContext(), "Error", Toast.LENGTH_LONG)
-                    .show();
-        }
+        showProgress(true);
 
+        updateAsyncQueue(request);
+        _etTargetPhone.setText(null);
+        _etAmount.setText(null);
+        _spOperator.setSelection(0);
     }
+
 
     public class CustomOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
         public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
 
-            rechargeTargetPhone.setText("");
-            amountField.setText("");
+            _etTargetPhone.setText("");
+            _etAmount.setText("");
 
-            rbtnTopUp.setChecked(false);
-            rbtnValidity.setChecked(false);
+            _rbtnTopUp.setChecked(false);
+            _rbtnValidity.setChecked(false);
 
-            String sOperator = operatorSpinner.getSelectedItem().toString();
-            String sOperatorId = getOperatorId(sOperator);
+            Operator operator   = (Operator) _spOperator.getSelectedItem();
+            String sOperatorId  = operator.code;
 
             if (
                     sOperatorId.equals(AppConstants.OPERATOR_ID_BSNL) ||
                             sOperatorId.equals(AppConstants.OPERATOR_ID_MTNL)
                     ) {
 
-                rbtnTopUp.setVisibility(view.VISIBLE);
-                rbtnValidity.setVisibility(view.VISIBLE);
-                rbtnSpecial.setVisibility(view.GONE);
-                rbtnTopUp.setChecked(true);
-                rbtnValidity.setChecked(false);
+                _rbtnTopUp.setVisibility(view.VISIBLE);
+                _rbtnValidity.setVisibility(view.VISIBLE);
+                _rbtnSpecial.setVisibility(view.GONE);
+                _rbtnTopUp.setChecked(true);
+                _rbtnValidity.setChecked(false);
             } else if (sOperatorId.equals(AppConstants.OPERATOR_ID_TATA_DOCOMO) ||
                     sOperatorId.equals(AppConstants.OPERATOR_ID_UNINOR)
                     ) {
 
-                rechargeTargetPhone.setText("");
-                amountField.setText("");
-                rbtnTopUp.setVisibility(view.VISIBLE);
-                rbtnValidity.setVisibility(view.GONE);
-                rbtnSpecial.setVisibility(view.VISIBLE);
-                rbtnTopUp.setChecked(true);
-                rbtnValidity.setChecked(false);
+                _etTargetPhone.setText("");
+                _etAmount.setText("");
+                _rbtnTopUp.setVisibility(view.VISIBLE);
+                _rbtnValidity.setVisibility(view.GONE);
+                _rbtnSpecial.setVisibility(view.VISIBLE);
+                _rbtnTopUp.setChecked(true);
+                _rbtnValidity.setChecked(false);
             }
         }
 

@@ -1,22 +1,17 @@
 package com.mom.app.fragment;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.mom.app.R;
-import com.mom.app.activity.ChangePBXPasswordActivity;
-import com.mom.app.activity.ChangePINActivity;
 import com.mom.app.adapter.ImageTextViewAdapter;
 import com.mom.app.identifier.IdentifierUtils;
 import com.mom.app.identifier.PlatformIdentifier;
@@ -34,9 +29,8 @@ import com.mom.app.widget.holder.ImageItem;
 public class SettingsFragment  extends FragmentBase implements AsyncListener<String> {
     String _LOG             = AppConstants.LOG_PREFIX + "SETTINGS";
 
-    private PlatformIdentifier _currentPlatform;
-    GridView gridView;
-    ImageTextViewAdapter gridViewAdapter;
+    GridView _gridView;
+    ImageTextViewAdapter _gridViewAdapter;
 
     public static SettingsFragment newInstance(PlatformIdentifier currentPlatform){
         SettingsFragment fragment   = new SettingsFragment();
@@ -53,32 +47,32 @@ public class SettingsFragment  extends FragmentBase implements AsyncListener<Str
 
         _currentPlatform    = IdentifierUtils.getPlatformIdentifier(getActivity());
 
-        gridView            = (GridView) view.findViewById(R.id.gridView);
-        if (_currentPlatform == PlatformIdentifier.NEW) {
-            gridViewAdapter = new ImageTextViewAdapter<MoMScreen>(
+        _gridView = (GridView) view.findViewById(R.id.gridView);
+        if (_currentPlatform == PlatformIdentifier.MOM) {
+            _gridViewAdapter = new ImageTextViewAdapter<MoMScreen>(
                     getActivity(),
                     R.layout.grid_cell,
                     DataProvider.getSettingsScreens(getActivity())
             );
 
-            gridView.setAdapter(gridViewAdapter);
-            gridView.setNumColumns(2);
+            _gridView.setAdapter(_gridViewAdapter);
+            _gridView.setNumColumns(2);
         }else if (_currentPlatform == PlatformIdentifier.PBX) {
-            gridViewAdapter = new ImageTextViewAdapter<MoMScreen>(
+            _gridViewAdapter = new ImageTextViewAdapter<MoMScreen>(
                     getActivity(),
                     R.layout.grid_cell,
                     DataProvider.getPBXSettingsScreens(getActivity())
             );
-            gridView.setAdapter(gridViewAdapter);
+            _gridView.setAdapter(_gridViewAdapter);
 
         }
 
 
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        _gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 
                 Log.d(_LOG, "Clicked " + position);
-                ImageItem<MoMScreen> item = (ImageItem<MoMScreen>) gridViewAdapter.getItem(position);
+                ImageItem<MoMScreen> item = (ImageItem<MoMScreen>) _gridViewAdapter.getItem(position);
                 if (item == null) {
                     Log.e(_LOG, "No click target found, returning.");
                     return;
@@ -97,7 +91,6 @@ public class SettingsFragment  extends FragmentBase implements AsyncListener<Str
                 nextActivity(item);
             }
         });
-
         return view;
     }
 

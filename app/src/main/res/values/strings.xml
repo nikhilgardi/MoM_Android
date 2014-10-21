@@ -118,4 +118,8 @@
 
     <string name="drawer_open">Show Navigation</string>
     <string name="drawer_close">Hide Navigation</string>
+
+    <!-- Start: Transaction Queue related -->
+    <string name="added_to_queue">Request added to queue. You can start another transaction now.</string>
+    <!-- End: Transaction Queue related -->
 </resources>

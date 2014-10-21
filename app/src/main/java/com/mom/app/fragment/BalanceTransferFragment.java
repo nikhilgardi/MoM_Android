@@ -7,20 +7,23 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.mom.app.R;
 
 import com.mom.app.identifier.PlatformIdentifier;
+import com.mom.app.identifier.TransactionType;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
+import com.mom.app.ui.TransactionRequest;
 import com.mom.app.utils.AppConstants;
 
 /**
  * Created by vaibhavsinha on 10/14/14.
  */
-public class BalanceTransferFragment extends FragmentBase implements AsyncListener<String> {
+public class BalanceTransferFragment extends FragmentBase implements AsyncListener<TransactionRequest> {
     String _LOG         = AppConstants.LOG_PREFIX + "BALANCE_TRANSFER";
 
     private EditText _etPayTo;
@@ -40,7 +43,14 @@ public class BalanceTransferFragment extends FragmentBase implements AsyncListen
 
         _etPayTo            = (EditText) view.findViewById(R.id.payTo);
         _etAmount           = (EditText) view.findViewById(R.id.amount);
-        getProgressBar(view).setVisibility(View.GONE);
+        Button btnPay       = (Button) view.findViewById(R.id.btnPay);
+
+        btnPay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                validateAndTransfer();
+            }
+        });
 
         return view;
     }
@@ -52,7 +62,7 @@ public class BalanceTransferFragment extends FragmentBase implements AsyncListen
     }
 
     @Override
-    public void onTaskSuccess(String result, DataExImpl.Methods callback) {
+    public void onTaskSuccess(TransactionRequest result, DataExImpl.Methods callback) {
         Log.d(_LOG, "Called back");
         switch(callback){
             case BALANCE_TRANSFER:
@@ -67,7 +77,7 @@ public class BalanceTransferFragment extends FragmentBase implements AsyncListen
                 break;
         }
 
-        _pb.setVisibility(View.GONE);
+        taskCompleted(result);
     }
 
     @Override
@@ -79,7 +89,7 @@ public class BalanceTransferFragment extends FragmentBase implements AsyncListen
     protected void showBalance(float pfBalance) {
     }
 
-    public void validateAndTransfer(View view) {
+    public void validateAndTransfer() {
         int nMinAmount          = 10;
 
         int nMinPhoneLength     = 10;
@@ -116,15 +126,25 @@ public class BalanceTransferFragment extends FragmentBase implements AsyncListen
     }
 
     private void startTransfer() {
+        showMessage(null);
         String sPayTo           = _etPayTo.getText().toString();
         String sAmount          = _etAmount.getText().toString();
-        getDataEx(this).balanceTransfer(sPayTo, Double.parseDouble(sAmount));
+
+        TransactionRequest request  = new TransactionRequest(
+                getActivity().getString(TransactionType.BALANCE_TRANSFER.transactionTypeStringId),
+                sPayTo,
+                Float.parseFloat(sAmount)
+        );
+
+        getDataEx(this).balanceTransfer(request, sPayTo);
+        _etAmount.setText(null);
+        _etPayTo.setText(null);
+        showProgress(true);
+        updateAsyncQueue(request);
     }
 
 
     public void confirmTransfer() {
-        _pb.setVisibility(View.VISIBLE);
-
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
 
         // Setting Dialog Title

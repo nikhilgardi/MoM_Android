@@ -18,7 +18,6 @@ public abstract class DataExImpl implements IDataEx{
 
     protected Context _applicationContext;
     protected AsyncListener _listener;
-    protected AsyncDataEx _dataEx               = null;
     protected boolean _connected;
 
     public enum Methods{
@@ -34,12 +33,7 @@ public abstract class DataExImpl implements IDataEx{
         CHECK_PLATFORM_DETAILS,
         GET_OPERATOR_NAMES,
         CHANGE_PASSWORD,
-        BALANCE_TRANSFER,
-        MOBILE_RECHARGEPBX;
-
-
-
-
+        BALANCE_TRANSFER;
     }
 
     public void checkConnectivity(Context context){
@@ -48,47 +42,5 @@ public abstract class DataExImpl implements IDataEx{
             ConnectionUtil.showConnectionWarning(context);
         }
     }
-
-    public abstract void getBalance();
-    public abstract void login(String userName, String password);
-    public abstract void verifyTPin(String psTPin);
-    public abstract void rechargeMobile(
-                                    String psConsumerNumber,
-                                    double pdAmount,
-                                    String psOperator,
-                                    int pnRechargeType
-    );
-
-    public abstract void rechargeDTH(
-                                    String psSubscriberId,
-                                    double pdAmount,
-                                    String psOperator,
-                                    String psCustomerMobile
-    );
-
-    public abstract void payBill(
-                                String psSubscriberId,
-                                double pdAmount,
-                                String psOperatorId,
-                                String psCustomerMobile,
-                                String psConsumerName,
-                                HashMap<String, String> psExtraParamsMap
-    );
-
-    public abstract void getBillAmount(String psOperatorId, String psSubscriberId);
-
-    public abstract void getTransactionHistory();
-    public abstract void getOperatorNames();
-    public abstract void changePin(PinType pinType, String psOldPin, String psNewPin);
-    public abstract void changePassword( String psOldPin, String psNewPin);
-
-    public abstract void balanceTransfer(String psConsumerNumber, double pdAmount);
-
-    public abstract void rechargeMobilePBX(
-                                  String psConsumerNumber,
-                                  String psOperator,
-                                  double pdAmount
-
-    );
 
 }

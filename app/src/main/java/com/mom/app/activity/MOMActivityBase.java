@@ -13,7 +13,6 @@ import com.mom.app.R;
 import com.mom.app.identifier.ActivityIdentifier;
 import com.mom.app.identifier.IdentifierUtils;
 import com.mom.app.identifier.PlatformIdentifier;
-import com.mom.app.model.AsyncDataEx;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
@@ -50,7 +49,7 @@ public abstract class MOMActivityBase extends Activity{
 
     public IDataEx getDataEx(AsyncListener pListener){
         if(_dataEx == null){
-            if(_currentPlatform == PlatformIdentifier.NEW){
+            if(_currentPlatform == PlatformIdentifier.MOM){
                 _dataEx     = new MoMPLDataExImpl(getApplicationContext(), pListener);
             }else{
                 _dataEx     = new PBXPLDataExImpl(getApplicationContext(), pListener);
@@ -82,11 +81,11 @@ public abstract class MOMActivityBase extends Activity{
     }
 
     public void goBack(View view) {
-        Intent intent = new Intent(this, DashboardActivity.class);
-        startActivity(intent);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        this.finish();
-        return;
+//        Intent intent = new Intent(this, DashboardActivity.class);
+//        startActivity(intent);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        this.finish();
+//        return;
     }
 
     protected void showBalance(TextView tv){

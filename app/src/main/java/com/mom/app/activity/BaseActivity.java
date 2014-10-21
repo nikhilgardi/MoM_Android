@@ -1,5 +1,8 @@
 package com.mom.app.activity;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -9,19 +12,24 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.LongSparseArray;
+import android.util.SparseArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.mom.app.R;
+import com.mom.app.adapter.AsyncStatusListAdapter;
 import com.mom.app.adapter.DrawerAdapter;
 import com.mom.app.error.MOMException;
 import com.mom.app.fragment.BalanceTransferFragment;
@@ -34,23 +42,28 @@ import com.mom.app.fragment.SettingsFragment;
 import com.mom.app.fragment.TransactionHistoryFragment;
 import com.mom.app.identifier.IdentifierUtils;
 import com.mom.app.identifier.PlatformIdentifier;
+import com.mom.app.model.Operator;
 import com.mom.app.model.local.EphemeralStorage;
+import com.mom.app.ui.TransactionRequest;
 import com.mom.app.ui.IFragmentListener;
 import com.mom.app.ui.flow.MoMScreen;
 import com.mom.app.utils.AppConstants;
 import com.mom.app.utils.DataProvider;
-import com.mom.app.adapter.ImageTextViewAdapter;
 import com.mom.app.widget.holder.ImageItem;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class BaseActivity extends ActionBarActivity implements IFragmentListener{
 
     String _LOG = AppConstants.LOG_PREFIX + "BASE ACT";
 
     DrawerLayout _drawerLayout;
+    ProgressBar _progressBar;
     ListView _drawerList;
     ListView _asyncStatusList;
+    AsyncStatusListAdapter _asyncAdapter;
+
     ActionBarDrawerToggle _drawerToggle;
 
     PlatformIdentifier _currentPlatform;
@@ -63,25 +76,25 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
         setContentView(R.layout.activity_base);
 
         _asyncStatusList    = (ListView) findViewById(R.id.asyncStatusList);
-
-        _currentPlatform = IdentifierUtils.getPlatformIdentifier(this);
+        _progressBar        = (ProgressBar) findViewById(R.id.progressBarActivityBase);
+        _currentPlatform    = IdentifierUtils.getPlatformIdentifier(this);
 
         /**
          * REMOVE THIS!
          */
         if(_currentPlatform == null){
 //            _currentPlatform    = PlatformIdentifier.PBX;
-            _currentPlatform    = PlatformIdentifier.NEW;
+            _currentPlatform    = PlatformIdentifier.MOM;
             EphemeralStorage.getInstance(this).storeObject(AppConstants.ACTIVE_PLATFORM, _currentPlatform);
         }
 
         setupDrawerMenu();
-
         setupActionBar();
+        setupAsyncProgressList();
 
         if (savedInstanceState == null) {
-            showMobileRecharge();
-//            showDashboard();
+//            showMobileRecharge();
+            showDashboard();
         }
 
         LocalBroadcastManager.getInstance(this).registerReceiver(
@@ -153,6 +166,48 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
         getActionBar().setDisplayUseLogoEnabled(true);
     }
 
+    private void setupAsyncProgressList(){
+        if(_asyncAdapter == null){
+            _asyncAdapter       = new AsyncStatusListAdapter(
+                    this,
+                    R.layout.async_progress_item,
+                    new LongSparseArray<TransactionRequest>()
+            );
+        }
+
+        _asyncStatusList.setAdapter(_asyncAdapter);
+//        addToAsyncList(new TransactionRequest("Recharge", "9810012345", "398923", 20f, new Operator("ab", "airtel")));
+    }
+
+    private void addToAsyncList(TransactionRequest transactionRequest){
+        if(!_asyncAdapter.contains(transactionRequest)) {
+            _asyncAdapter.add(transactionRequest);
+        }else{
+            _asyncAdapter.remove(transactionRequest);
+            _asyncAdapter.add(transactionRequest);
+        }
+
+        _asyncAdapter.addTransaction(transactionRequest);
+        _asyncAdapter.notifyDataSetChanged();
+        _asyncStatusList.setVisibility(View.VISIBLE);
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+    private void showProgress(final boolean show){
+        _progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+            _progressBar.animate().setDuration(shortAnimTime).alpha(
+                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    _progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+                }
+            });
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -185,6 +240,17 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
 
     @Override
     public void processMessage(Bundle bundle) {
+        int showProgressBarCode        = bundle.getInt(AppConstants.BUNDLE_PROGRESS, AppConstants.DEFAULT_INT);
+        if(showProgressBarCode != AppConstants.DEFAULT_INT){
+            if(showProgressBarCode == 0){
+                showProgress(false);
+            }else{
+                showProgress(true);
+            }
+            Log.d(_LOG, "Showing progress bar: " + showProgressBarCode);
+            return;
+        }
+
         FragmentBase fragmentBase = (FragmentBase) getFragmentManager().findFragmentById(R.id.contentFrame);
 
         if(fragmentBase == null){
@@ -207,13 +273,38 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
     }
 
     private boolean messageIntercepted(Bundle bundle){
-        MoMScreen nextScreen            = (MoMScreen) bundle.getSerializable(AppConstants.BUNDLE_NEXT_SCREEN);
-        if(nextScreen == null){
+        MoMScreen nextScreen            = (MoMScreen) bundle.getSerializable(
+                AppConstants.BUNDLE_NEXT_SCREEN
+        );
+
+        if(nextScreen != null){
+            return showScreen(nextScreen);
+        }
+
+        return processTransactionMessage(bundle);
+
+    }
+
+    private boolean processTransactionMessage(Bundle bundle){
+        TransactionRequest transaction  = (TransactionRequest) bundle.getSerializable(
+                AppConstants.BUNDLE_TRANSACTION_REQUEST
+        );
+
+        if(transaction == null){
             return false;
         }
 
+        /**
+         * If we're here, the transaction was probably sent via GCM to update the asynclist
+         * or this is a new transaction. In either case, the view needs to be updated and
+         * the new object should be added or the old one replaced with this new one (GCM case).
+         */
 
-        return showScreen(nextScreen);
+        addToAsyncList(transaction);
+        transaction.setCompleted(true);
+
+        addToAsyncList(transaction);
+        return true;
     }
 
     private boolean showScreen(MoMScreen screen){
@@ -304,6 +395,9 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
         showFragment(MobileRechargeFragment.newInstance(_currentPlatform));
     }
 
+    private void showDashboard(){
+        showFragment(DashboardFragment.newInstance(_currentPlatform));
+    }
 
     void confirmLogout(){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);

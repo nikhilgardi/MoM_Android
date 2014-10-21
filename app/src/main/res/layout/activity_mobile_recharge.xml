@@ -35,13 +35,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/small"
-                android:layout_marginBottom="@dimen/small"/>
+                android:layout_marginBottom="@dimen/ultra_small"/>
 
             <ProgressBar
                 android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyleLarge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="@dimen/small"
+                android:layout_height="@dimen/small"
                 android:layout_gravity="center_horizontal"
                 android:visibility="invisible" />
 

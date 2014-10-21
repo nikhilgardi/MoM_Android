@@ -61,7 +61,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     style="@style/MoMTheme.wrapped.customButton"
-                    android:text="@string/btn_recharge"/>
+                    android:text="@string/btn_transfer"/>
 
                 <Button
                     android:id="@+id/btnBack"

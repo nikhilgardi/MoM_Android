@@ -1,6 +1,7 @@
 package com.mom.app.model;
 
 import com.mom.app.identifier.PinType;
+import com.mom.app.ui.TransactionRequest;
 
 import org.apache.http.NameValuePair;
 
@@ -17,30 +18,22 @@ public interface IDataEx {
 
     public void verifyTPin(String psTPin);
 
-    public void rechargeMobile(String psConsumerNumber, double pdAmount, String psOperator, int pnRechargeType);
+    public void rechargeMobile(TransactionRequest request, int pnRechargeType);
 
-    public void rechargeDTH(String psSubscriberId, double pdAmount, String psOperator, String psCustomerMobile);
+    public void rechargeDTH(TransactionRequest request);
 
     public void payBill(
-            String psSubscriberId,
-            double pdAmount,
-            String psOperatorId,
-            String psCustomerMobile,
+            TransactionRequest request,
             String psConsumerName,
             HashMap<String, String> psExtraParamsMap
     );
 
-    public void getBillAmount(String psOperatorId, String psSubscriberId);
+    public void getBillAmount(TransactionRequest request);
 
     public void getTransactionHistory();
     public  void getOperatorNames();
     public void changePin(PinType pinType, String psOldPin, String psNewPin);
     public void changePassword(String psOldPin, String psNewPin);
 
-    public abstract void balanceTransfer(String psConsumerNumber, double pdAmount);
-    public abstract void rechargeMobilePBX(
-            String customerNumber,
-            String psOperator,
-            double pdAmount);
-
+    public abstract void balanceTransfer(TransactionRequest request, String payTo);
 }
