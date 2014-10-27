@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+        <string name="money_on_mobile">MoneyOnMobile</string>
+
+    <string name="welcome">স্বাগতম</string>
+   
+    <string name="login_failed_msg_default">লগিন ব্যর্থ হয়েছে। দয়া করে আপনার মোবাইল নম্বর এবং M-Pin চেক করুন</string>
+   
+    <string name="title_activity_verify_tpin">TPinঅ্যাক্টিভিটি যাচাই করুন</string>
+
+    <string name="action_dashboard">ড্যাশবোর্ড</string>
+    
+    <string name="action_balanceTransfer">ব্যালেন্স ট্রান্সফার</string>
+    
+    <string name="title_activity_transaction_confirmation">ট্র্যানস্যাকশনের ফলাফল</string>
+
+    <string name="error_mobile_required">মোবাইল নম্বর আবশ্যক</string>
+
+    <string name="error_transfer_failed">ট্রান্সফার করার সময় ত্রুটি হয়েছে। দয়া করে আবার চেষ্টা করুন বা সহায়তার জন্য গ্রাহক সহায়তায় যোগাযোগ করুন।</string>
+
+    <string name="error_recharge_failed">রিচার্জ করার সময় ত্রুটি হয়েছে। দয়া করে আবার চেষ্টা করুন বা সহায়তার জন্য গ্রাহক সহায়তায় যোগাযোগ করুন।</string>
+
+    <string name="error_customer_phone_required">দয়া করে গ্রাহকের ফোন নম্বর লিখুন।</string>
+
+    <string name="error_phone_length">ফোন নম্বর %1$d অক্ষরের হতে হবে।</string>
+
+    <string name="error_phone_length_min_max">ফোন নম্বর %1$d এবং %2$d অক্ষরের মধ্যে হতে হবে।</string>
+
+    <string name="error_amount_min_max">রাশির পরিমাণ %1$d টাকা এবং %2$d।</string>
+
+    <string name="error_amount_min">পরিমাণ এর কম হলে চলবে না %1$d টাকা।</string>
+
+    <string name="error_subscriber_id_length">সাবস্ক্রাইবার আইডি %1$d অক্ষরের হতে হবে</string>
+
+    <string name="error_subscriber_id_min_max">সাবস্ক্রাইবার আইডি %1$d এবং %2$d অক্ষরের মধ্যে হতে হবে</string>
+
+    <string name="error_obtaining_bill_amount">বিলের রাশি প্রাপ্ত করা যায়নি। দয়া করে উপভোক্তা নম্বর চেক করুন।</string>
+
+    <string name="error_no_internet_title">ইন্টারনেট নেই!</string>
+
+    <string name="error_no_internet">আপনার ডিভাইস ইন্টারনেটের সঙ্গে সংযুক্ত নয়। আপনার ইন্টারনেট সংযোগ এলে দয়া করে এটি চেষ্টা করুন।</string>
+
+    <string name="error_getting_balance">ত্রুটি</string>
+  
+    <string name="btn_pay">পে করুন</string>
+
+    <string name="btn_new_recharge">নতুন রিচার্জ</string>
+
+    <string name="btn_new_bill_pay">আরেকটি বিলের অর্থপ্রদান করুন</string>
+  
+    <string name="btn_verifyTpin">T-Pin যাচাই করুন</string>
+ 
+    <string name="btn_transfer">ট্রান্সফার</string>
+ 
+    <string name="prompt_numbers_only_amount">দয়া করে রাশির ফিল্ডে কেবল সংখ্যা লিখুন</string>
+
+    <string name="prompt_select_operator">দয়া করে অপারেটর নির্বাচন করুন</string>
+   
+    <string name="lblCustomerMobile">গ্রাহকের মোবাইল নম্বর</string>
+  
+    <string name="lblCustomerLandlineNumber">গ্রাহকের ল্যান্ডলাইন নম্বর</string>
+
+    <string name="confirm_balance_transfer">ট্রান্সফার নিশ্চিত করুন</string>
+
+    <string name="transfer">ট্রান্সফার</string>
+
+    <string name="title_activity_bill_payment">বিল পেমেন্ট অ্যাক্টিভিটি</string>
+
+    <string name="title_activity_transaction_history">ট্রানস্যাকশনের ইতিহাস</string>
+
+    <string name="title_activity_transaction_history_count">শেষ %1$d টি ট্রানস্যাকশন</string>
+
+    <string name="no_transactions_found">কোনো ট্রানস্যাকশন পাওয়া যায়নি</string>
+
+    <string name="hello_blank_fragment">হ্যালো ফাঁকা ফ্র্যাগমেন্ট</string>
+     
+    <string name="drawer_open">নেভিগেশন দেখান</string>
+
+    <string name="drawer_close">নেভিগেশন লুকান</string>
+   
+</resources>
