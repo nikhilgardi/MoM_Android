@@ -82,7 +82,7 @@ public class GcmUtil {
      * @return registration ID, or empty string if there is no existing
      *         registration ID.
      */
-    private String getRegistrationId() {
+    public String getRegistrationId() {
         String registrationId = PersistentStorage.getInstance(_context).getString(
                 PROPERTY_REG_ID, ""
         );

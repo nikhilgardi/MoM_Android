@@ -102,13 +102,11 @@ public class DTHRechargeFragment extends FragmentBase implements AsyncListener<T
                     showMessage(getResources().getString(R.string.error_recharge_failed));
                     return;
                 }
-                Log.d(_LOG, "Going to get new balance");
-                getBalanceAsync();
                 Log.d(_LOG, "Starting navigation to TxnMsg Activity");
 
                 break;
         }
-
+        
         taskCompleted(result);
     }
 

@@ -10,6 +10,8 @@ import org.apache.http.message.BasicNameValuePair;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.mom.app.R;
+import com.mom.app.error.MOMException;
+import com.mom.app.gcm.GcmUtil;
 import com.mom.app.identifier.PlatformIdentifier;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
@@ -23,6 +25,7 @@ import com.mom.app.ui.LanguageItem;
 import com.mom.app.utils.AppConstants;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -74,9 +77,9 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
     protected void onResume() {
         super.onResume();
 
-//        if(checkPlayServices()){
-//            GcmUtil.getInstance(this).registerDevice();
-//        }
+        if(checkPlayServices()){
+            GcmUtil.getInstance(this).registerDevice();
+        }
     }
 
     private boolean checkPlayServices() {
@@ -193,10 +196,10 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
             case CHECK_PLATFORM_DETAILS:
                 Log.i(_LOG, "Check result: " + result);
 
-//                //TESTING
-//                result = null;
-//                //TESTING
-//
+                //TESTING
+                result = null;
+                //TESTING
+
                 if(TextUtils.isEmpty(result)){
                     Log.i(_LOG, "User not of new PL");
                     login(PlatformIdentifier.PBX);
@@ -289,7 +292,8 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 		list.add(new BasicNameValuePair(AppConstants.PARAM_NEW_RMN, username));
 		list.add(new BasicNameValuePair(AppConstants.PARAM_NEW_COMPANY_ID, AppConstants.NEW_PL_COMPANY_ID));
 
-        MoMPLDataExImpl dataEx      = new MoMPLDataExImpl(this, this);
+        MoMPLDataExImpl dataEx      = MoMPLDataExImpl.getInstance(this, this);
+
         dataEx.checkPlatform(
                 new BasicNameValuePair(AppConstants.PARAM_NEW_RMN, username),
                 new BasicNameValuePair(AppConstants.PARAM_NEW_COMPANY_ID, AppConstants.NEW_PL_COMPANY_ID)
@@ -308,7 +312,7 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
             public void onTaskSuccess(Boolean result, DataExImpl.Methods callback) {
                 hideProgressBar();
                 if(!result){
-                    setLoginFailed(getResources().getString(R.string.login_failed_msg_default));
+                    setLoginFailed(R.string.login_failed_msg_default);
                     return;
                 }
 
@@ -330,19 +334,24 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
             @Override
             public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
                 getProgressBar().setVisibility(View.GONE);
-                setLoginFailed(getResources().getString(R.string.login_failed_msg_default));
+                setLoginFailed(R.string.login_failed_msg_default);
             }
         };
 
         IDataEx dataEx;
 
-        if(platform == PlatformIdentifier.MOM) {
-            dataEx              = new MoMPLDataExImpl(getApplicationContext(), listener);
-        }else{
-            dataEx              = new PBXPLDataExImpl(getApplicationContext(), listener);
-        }
+        try {
+            if (platform == PlatformIdentifier.MOM) {
+                dataEx = MoMPLDataExImpl.getInstance(getApplicationContext(), listener);
+            } else {
+                dataEx = PBXPLDataExImpl.getInstance(getApplicationContext(), listener, DataExImpl.Methods.LOGIN);
+            }
 
-        dataEx.login(_username.getText().toString(), _password.getText().toString());
+            dataEx.login(_username.getText().toString(), _password.getText().toString());
+        }catch(MOMException me){
+            Log.e(_LOG, "Error getting dataex", me);
+            showMessage(R.string.error_init_app);
+        }
 
         Log.i(_LOG, "Async login request sent");
 	}
@@ -354,15 +363,15 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
         return _tvMessage;
     }
 
-	public void showMessage(String psMsg){
+	public void showMessage(int id){
 		TextView response	= getMessageTextView();
 		
 		response.setVisibility(View.VISIBLE);
-		response.setText(psMsg);
+		response.setText(getString(id));
 	}
 	
-	public void setLoginFailed(String psMsg){
-		showMessage(psMsg);
+	public void setLoginFailed(int id){
+		showMessage(id);
 		
         _username.setText("");
         _password.setText("");

@@ -43,6 +43,10 @@
         </receiver>
         <service android:name=".gcm.GcmIntentService" />
 
+
+
+
+
         <activity
             android:name=".activity.BaseActivity"
             android:label="@string/title_activity_base" >

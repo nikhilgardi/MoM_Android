@@ -35,6 +35,7 @@
     <string name="action_changeTpin">Change T-PIN</string>
     <string name="action_changePassword">Change Password</string>
     <string name="title_activity_transaction_confirmation">Transaction Result</string>
+    <string name="error_init_app">Error initializing the app. Please try again later or contact customer support if the problem persists</string>
     <string name="error_mobile_required">Mobile Number required</string>
     <string name="error_transfer_failed">Error occurred during transfer. Please try again or contact Customer Support for help.</string>
     <string name="error_recharge_failed">Error occurred during recharge. Please try again or contact Customer Support for help.</string>

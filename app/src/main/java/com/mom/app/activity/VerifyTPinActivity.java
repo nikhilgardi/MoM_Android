@@ -83,7 +83,7 @@ public class VerifyTPinActivity extends MOMActivityBase implements AsyncListener
             return;
         }
 
-        IDataEx dataEx  = new MoMPLDataExImpl(getApplicationContext(), this);
+        IDataEx dataEx  = MoMPLDataExImpl.getInstance(getApplicationContext(), this);
         Log.d(_LOG, "DataEx instance created");
 
         dataEx.verifyTPin(sTPin);

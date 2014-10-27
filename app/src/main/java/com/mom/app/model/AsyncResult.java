@@ -5,7 +5,8 @@ package com.mom.app.model;
  */
 public class AsyncResult {
     public enum CODE{
-        SUCCESS, GENERAL_FAILURE, INVALID_PARAMETERS;
+        SUCCESS, GENERAL_FAILURE, INVALID_PARAMETERS,
+        NOT_LOGGED_IN;
     }
 
     public CODE code;

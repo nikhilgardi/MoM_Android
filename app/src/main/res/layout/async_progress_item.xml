@@ -4,7 +4,8 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:background="@color/white"
     android:padding="@dimen/ultra_ultra_small"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:weightSum="100">
 
     <com.mom.app.ui.CustomTextView
         android:id="@+id/dateStarted"
@@ -13,7 +14,8 @@
         android:layout_gravity="start|center_vertical"
         android:paddingStart="@dimen/ultra_ultra_small"
         android:paddingLeft="@dimen/ultra_ultra_small"
-        android:textSize="@dimen/text_super_small"/>
+        android:textSize="@dimen/text_super_small"
+        android:layout_weight="10"/>
 
     <com.mom.app.ui.CustomTextView
         android:id="@+id/asyncTaskDescription"
@@ -22,7 +24,8 @@
         android:layout_gravity="start|center_vertical"
         android:paddingLeft="@dimen/ultra_ultra_small"
         android:paddingRight="@dimen/ultra_ultra_small"
-        android:textSize="@dimen/text_super_small"/>
+        android:textSize="@dimen/text_super_small"
+        android:layout_weight="60"/>
 
     <com.mom.app.ui.CustomTextView
         android:id="@+id/amount"
@@ -31,7 +34,8 @@
         android:layout_gravity="start|center_vertical"
         android:paddingRight="@dimen/ultra_ultra_small"
         android:paddingEnd="@dimen/ultra_ultra_small"
-        android:textSize="@dimen/text_super_small"/>
+        android:textSize="@dimen/text_super_small"
+        android:layout_weight="10"/>
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -41,7 +45,8 @@
         android:layout_gravity="end|center_vertical"
         android:layout_marginEnd="@dimen/ultra_ultra_small"
         android:layout_marginRight="@dimen/ultra_ultra_small"
-        android:indeterminate="true"/>
+        android:indeterminate="true"
+        android:layout_weight="20"/>
     <ImageView
         android:id="@+id/doneIndicator"
         android:layout_width="@dimen/small"
@@ -50,5 +55,6 @@
         android:layout_marginEnd="@dimen/ultra_ultra_small"
         android:layout_marginRight="@dimen/ultra_ultra_small"
         android:src="@drawable/tick"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:layout_weight="20"/>
 </LinearLayout>

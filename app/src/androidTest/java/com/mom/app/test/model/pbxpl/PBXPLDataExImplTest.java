@@ -2,6 +2,7 @@ package com.mom.app.test.model.pbxpl;
 
 import android.test.mock.MockContext;
 
+import com.mom.app.error.MOMException;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
@@ -28,8 +29,8 @@ public class PBXPLDataExImplTest extends TestCase implements AsyncListener{
 
     }
 
-    public void testGetAllOperatorNames(){
-        PBXPLDataExImpl dataEx = new PBXPLDataExImpl(new MockContext(), this, new PBXMockAsyncDataEx(), false);
+    public void testGetAllOperatorNames() throws MOMException{
+        PBXPLDataExImpl dataEx = PBXPLDataExImpl.getInstance(new MockContext(), this, DataExImpl.Methods.GET_OPERATOR_NAMES);
         dataEx.getOperatorNames();
     }
 }

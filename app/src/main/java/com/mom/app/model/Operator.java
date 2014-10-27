@@ -13,6 +13,14 @@ public class Operator {
         this.name   = name;
     }
 
+    public String getCode() {
+        return code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     public String toString(){
         return name;
     }

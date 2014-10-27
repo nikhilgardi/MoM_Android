@@ -95,6 +95,12 @@ public class SettingsFragment  extends FragmentBase implements AsyncListener<Str
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        _currentPlatform        = (PlatformIdentifier) getArguments().getSerializable(AppConstants.ACTIVE_PLATFORM);
+    }
+
+    @Override
     protected void showBalance(float pfBalance) {
 
     }

@@ -118,8 +118,7 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
                     showMessage(getResources().getString(R.string.error_recharge_failed));
                     return;
                 }
-                Log.d(_LOG, "Going to get new balance");
-                getBalanceAsync();
+
                 Log.d(_LOG, "Starting navigation to TxnMsg Activity");
 
 //                if(_currentPlatform == PlatformIdentifier.MOM){

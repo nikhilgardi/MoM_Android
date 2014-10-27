@@ -7,6 +7,7 @@ import android.text.format.DateUtils;
 import com.mom.app.R;
 import com.mom.app.identifier.TransactionType;
 import com.mom.app.model.Operator;
+import com.mom.app.utils.MiscUtils;
 
 import java.io.Serializable;
 import java.text.DateFormat;
@@ -28,6 +29,7 @@ public class TransactionRequest implements Serializable{
     Date dateCompleted;
     boolean isSuccessful;
     boolean isCompleted;
+    int responseCode;
 
     String remoteResponse;
 
@@ -45,14 +47,14 @@ public class TransactionRequest implements Serializable{
      */
     public TransactionRequest(String type, String consumerId, float amount){
         _type               = type;
-        this.id             = new Random().nextLong();
+        this.id             = MiscUtils.getRandomLong();
         this.consumerId     = consumerId;
         this.amount         = amount;
         this.dateStarted    = new Date();
     }
 
     public TransactionRequest(String type, String consumerId, String customerMobile, float amount, Operator operator){
-        this.id             = new Random().nextLong();
+        this.id             = MiscUtils.getRandomLong();
         _type               = type;
         this.consumerId     = consumerId;
         this.customerMobile = customerMobile;
@@ -133,5 +135,13 @@ public class TransactionRequest implements Serializable{
 
     public void setRemoteResponse(String remoteResponse) {
         this.remoteResponse = remoteResponse;
+    }
+
+    public int getResponseCode() {
+        return responseCode;
+    }
+
+    public void setResponseCode(int responseCode) {
+        this.responseCode = responseCode;
     }
 }

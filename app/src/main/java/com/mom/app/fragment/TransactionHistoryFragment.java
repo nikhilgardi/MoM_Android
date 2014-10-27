@@ -50,6 +50,12 @@ public class TransactionHistoryFragment extends FragmentBase implements AsyncLis
         return view;
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        _currentPlatform        = (PlatformIdentifier) getArguments().getSerializable(AppConstants.ACTIVE_PLATFORM);
+    }
+
     private void initListView(ArrayList<Transaction> list){
         Log.d("HISTORY", "Obtained result: " + list);
 

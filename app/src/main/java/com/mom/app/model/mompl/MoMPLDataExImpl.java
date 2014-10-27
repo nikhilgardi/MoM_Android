@@ -30,15 +30,24 @@ import java.util.HashMap;
 public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<TransactionRequest>{
 
     private String _LOG = AppConstants.LOG_PREFIX + "DATAEX_NEW";
+    private static MoMPLDataExImpl _instance;
+
     private String _operatorId      = null;
 
-    public MoMPLDataExImpl(Context pContext, AsyncListener pListener){
+    private MoMPLDataExImpl(Context pContext, AsyncListener pListener){
         this._applicationContext    = pContext;
         this._listener              = pListener;
 
         checkConnectivity(pContext);
     }
 
+    public static MoMPLDataExImpl getInstance(Context context, AsyncListener pListener){
+        if(_instance == null){
+            _instance               = new MoMPLDataExImpl(context, pListener);
+        }
+
+        return _instance;
+    }
 
     @Override
     public void onTaskSuccess(TransactionRequest result, Methods callback) {

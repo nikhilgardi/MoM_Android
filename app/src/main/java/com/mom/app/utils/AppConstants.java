@@ -47,19 +47,23 @@ public class AppConstants {
     //End: MoM Platform Methods
 
     //Start: PBX Platform Service
-    public static final String SVC_PBX_CHECK_LOGIN           = "CL";
-    public static final String SVC_PBX_CHANGE_PASSWORD       = "CP";
-    public static final String SVC_PBX_CHECK_BALANCE         = "BL";
-    public static final String SVC_PBX_TRANSACTION_HISTORY   = "LTH";
-    public static final String SVC_PBX_OPERATOR_NAMES        = "GO";
-    public static final String SVC_PBX_INTERNAL_BAL_TRANSFER = "IBT";
+    public static final String SVC_PBX_CHECK_LOGIN              = "CL";
+    public static final String SVC_PBX_CHANGE_PASSWORD          = "CP";
+    public static final String SVC_PBX_CHECK_BALANCE            = "BL";
+    public static final String SVC_PBX_TRANSACTION_HISTORY      = "LTH";
+    public static final String SVC_PBX_OPERATOR_NAMES           = "GO";
+    public static final String SVC_PBX_INTERNAL_BAL_TRANSFER    = "IBT";
+    public static final String SVC_PBX_RECHARGE_MOBILE          = "RECHARGEMOBILE";
+    public static final String SVC_PBX_RECHARGE_DTH             = "DTH";
+    public static final String SVC_PBX_BILL_PAY                 = "BILLPAY";
 
     //End: PBX Platform Service
 
+    public static final String PBX_OPERATOR_TYPE_DEFAULT    = "1";
     //Start: PBX Platform URLs
     public static final String URL_PBX_PLATFORM_SERVICE     = "http://test.pbx.momappworld.com/momspre/service.ashx";
   //  public static final String URL_PBX_PLATFORM_APP         = "http://test.pbx.momappworld.com/momspre/PbxMobApp.ashx";
-    public static final String URL_PBX_PLATFORM_APP         =  "http://61.16.219.3/MobAppS/PbxMobApp.ashx";
+    public static final String URL_PBX_PLATFORM_APP         =  "http://api.pbx.momappworld.com/mobapps1/pbxmobapp.ashx";
 
     //End: PBX Platform URLs
 
@@ -144,9 +148,13 @@ public class AppConstants {
 
 
     //Start: PBX Platform Params
-    public static final String PARAM_PBX_SERVICE            = "Service";
+    public static final String PARAM_PBX_SERVICE            = "service";
     public static final String PARAM_PBX_USERNAME           = "username";
     public static final String PARAM_PBX_PASSWORD           = "password";
+    public static final String PARAM_PBX_IDENTIFIER         = "identifier";
+    public static final String PARAM_PBX_ORIGIN_ID          = "originId";
+    public static final String PARAM_PBX_CLIENT_TOKEN       = "clientToken";
+
     public static final String PARAM_PBX_OP                 = "oldPassword";
     public static final String PARAM_PBX_NP                 = "newPassword";
     public static final String PARAM_PBX_RN                 = "RN";
@@ -155,14 +163,14 @@ public class AppConstants {
     public static final String PARAM_OPERATOR_TYPE          = "ot";
     public static final String PARAM_PBX_NAME               = "name";
     public static final String PARAM_PBX_TOKEN              = "token";
-    public static final String PARAM_PBX_CUSTOMERNUMBER     = "customerNumber";
+    public static final String PARAM_PBX_CUSTOMER_NUMBER    = "customerNumber";
     public static final String PARAM_PBX_OPERTAORSHORTCODE  = "operatorShortCode";
     public static final String PARAM_PBX_AMOUNT             = "amount";
     public static final String PARAM_PBX_USERTYPE           = "userType";
     public static final String PARAM_PBX_USERNAMELOGIN      = "userName";
-    public static final String PARAM_PBX_IDENTIFIER         = "Identifier";
-    public static final String PARAM_PBX_ORIGINID           = "originId";
-    public static final String PARAM_PBX_CLIENTTOKEN        = "clientToken";
+
+
+
     public static final String PARAM_PBX_PARENT_RMN         = "ParentRmn";
     public static final String PARAM_PBX_CHILD_RMN          = "childRmn";
 

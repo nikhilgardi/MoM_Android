@@ -12,6 +12,7 @@ import java.util.List;
  * Created by vaibhavsinha on 7/5/14.
  */
 public interface IDataEx {
+    
     public void getBalance();
 
     public void login(String userName, String password);

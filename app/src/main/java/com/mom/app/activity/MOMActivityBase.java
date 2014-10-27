@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.mom.app.R;
+import com.mom.app.error.MOMException;
 import com.mom.app.identifier.ActivityIdentifier;
 import com.mom.app.identifier.IdentifierUtils;
 import com.mom.app.identifier.PlatformIdentifier;
@@ -48,15 +49,29 @@ public abstract class MOMActivityBase extends Activity{
     }
 
     public IDataEx getDataEx(AsyncListener pListener){
-        if(_dataEx == null){
-            if(_currentPlatform == PlatformIdentifier.MOM){
-                _dataEx     = new MoMPLDataExImpl(getApplicationContext(), pListener);
-            }else{
-                _dataEx     = new PBXPLDataExImpl(getApplicationContext(), pListener);
+        try {
+            if (_dataEx == null) {
+                if (_currentPlatform == PlatformIdentifier.MOM) {
+                    _dataEx = MoMPLDataExImpl.getInstance(getApplicationContext(), pListener);
+                } else {
+                    _dataEx = PBXPLDataExImpl.getInstance(getApplicationContext(), pListener);
+                }
             }
+        }catch(MOMException me){
+            if(me.getCode() == AsyncResult.CODE.NOT_LOGGED_IN){
+                goToLogin();
+            }
+
+            Log.e(_LOG, "Error in getting dataex object", me);
         }
 
         return _dataEx;
+    }
+
+    public void goToLogin(){
+        Intent intent           = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
     public void showMessage(String psMsg){

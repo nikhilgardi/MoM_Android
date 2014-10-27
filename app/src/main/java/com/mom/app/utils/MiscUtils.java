@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -98,5 +99,15 @@ public class MiscUtils {
     public static Object fromJson(String json, Class pClass){
         Gson gson       = new GsonBuilder().create();
         return gson.fromJson(json, pClass);
+    }
+
+    public static Long getRandomLong(){
+        return (new Random()).nextLong();
+    }
+
+    public static String getRandomLongAsString(){
+        Long random = getRandomLong();
+
+        return String.valueOf(random);
     }
 }

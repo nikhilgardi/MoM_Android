@@ -14,11 +14,11 @@ public abstract class DataExImpl implements IDataEx{
     of the respective platform implementations.
      */
 
-    protected static String SOAP_ADDRESS        = "http://msvc.money-on-mobile.net/WebServiceV3Client.asmx";
 
     protected Context _applicationContext;
     protected AsyncListener _listener;
     protected boolean _connected;
+
 
     public enum Methods{
         LOGIN,
@@ -43,4 +43,7 @@ public abstract class DataExImpl implements IDataEx{
         }
     }
 
+    protected AsyncListener getCallbackListener(){
+        return _listener;
+    }
 }

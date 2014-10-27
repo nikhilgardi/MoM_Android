@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import com.mom.app.model.AsyncDataEx;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.DataExImpl;
+import com.mom.app.ui.TransactionRequest;
 
 import org.apache.http.NameValuePair;
 
@@ -13,8 +14,8 @@ import org.apache.http.NameValuePair;
  */
 public abstract class MockAsyncDataEx  extends AsyncDataEx{
 
-    public MockAsyncDataEx(){
-        super();
+    public MockAsyncDataEx(AsyncListener<TransactionRequest> listener){
+        super(listener);
     }
 
     public abstract String getAllOperatorNames();

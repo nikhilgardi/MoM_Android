@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mom.app.R;
+import com.mom.app.activity.LoginActivity;
 import com.mom.app.error.MOMException;
 import com.mom.app.identifier.IdentifierUtils;
 import com.mom.app.identifier.PlatformIdentifier;
@@ -125,15 +127,25 @@ public abstract class FragmentBase extends Fragment {
     }
 
     public IDataEx getDataEx(AsyncListener pListener){
-        if(_dataEx == null){
-            if(_currentPlatform == PlatformIdentifier.MOM){
-                _dataEx     = new MoMPLDataExImpl(getActivity().getApplicationContext(), pListener);
-            }else{
-                _dataEx     = new PBXPLDataExImpl(getActivity().getApplicationContext(), pListener);
+        try {
+            if (_dataEx == null) {
+                if (_currentPlatform == PlatformIdentifier.MOM) {
+                    _dataEx = MoMPLDataExImpl.getInstance(getActivity(), pListener);
+                } else {
+                    _dataEx = PBXPLDataExImpl.getInstance(getActivity(), pListener);
+                }
             }
+        }catch(MOMException me){
+            Log.w(_LOG, "Logged out", me);
+            goToLogin();
+            return null;
         }
-
         return _dataEx;
+    }
+
+    public void goToLogin(){
+        Intent intent           = new Intent(getActivity(), LoginActivity.class);
+        startActivity(intent);
     }
 
     protected void showBalance(TextView tv){
@@ -157,25 +169,6 @@ public abstract class FragmentBase extends Fragment {
         tv.setText("Balance: " + getResources().getString(R.string.Rupee) + sBal);
     }
 
-    public void getBalanceAsync(){
-        final Context context   = getActivity();
-        Log.d(_LOG, "Getting Balance");
-        IDataEx dataEx  = new MoMPLDataExImpl(getActivity().getApplicationContext(), new AsyncListener<Float>() {
-            @Override
-            public void onTaskSuccess(Float result, DataExImpl.Methods callback) {
-                EphemeralStorage.getInstance(context).storeFloat(AppConstants.USER_BALANCE, result);
-                showBalance(result);
-            }
-
-            @Override
-            public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
-
-            }
-        });
-        Log.d(_LOG, "DataEx instance created");
-        dataEx.getBalance();
-        Log.d(_LOG, "getBalance called");
-    }
 
     protected void setupBackListener(){
         if(_backBtn == null){
