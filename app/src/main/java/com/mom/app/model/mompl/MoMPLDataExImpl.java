@@ -34,18 +34,18 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
     private String _operatorId      = null;
 
-    private MoMPLDataExImpl(Context pContext, AsyncListener pListener){
+    private MoMPLDataExImpl(Context pContext){
         this._applicationContext    = pContext;
-        this._listener              = pListener;
 
         checkConnectivity(pContext);
     }
 
     public static MoMPLDataExImpl getInstance(Context context, AsyncListener pListener){
         if(_instance == null){
-            _instance               = new MoMPLDataExImpl(context, pListener);
+            _instance               = new MoMPLDataExImpl(context);
         }
 
+        _instance.setListener(pListener);
         return _instance;
     }
 
@@ -65,9 +65,8 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                     break;
                 case LOGIN:
                     Log.d(_LOG, "TaskComplete: Login method, result: " + result);
-                    boolean bLoginSuccess = loginSuccessful(result);
                     if (_listener != null) {
-                        _listener.onTaskSuccess((new Boolean(bLoginSuccess)), callback);
+                        _listener.onTaskSuccess(loginSuccessful(result), callback);
                     }
                     break;
                 case VERIFY_TPIN:
@@ -208,7 +207,7 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
             int i = Integer.parseInt(strArrayResponse[0]);
 
-            if(i == AppConstants.NEW_PL_LOGIN_SUCCESS){
+            if(i == AppConstants.NEW_PL_LOGIN_SUCCESS) {
                 Log.d(_LOG, "Login successful");
                 return true;
             }

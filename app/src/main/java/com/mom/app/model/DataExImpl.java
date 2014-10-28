@@ -46,4 +46,8 @@ public abstract class DataExImpl implements IDataEx{
     protected AsyncListener getCallbackListener(){
         return _listener;
     }
+
+    public void setListener(AsyncListener listener){
+        _listener   = listener;
+    }
 }
