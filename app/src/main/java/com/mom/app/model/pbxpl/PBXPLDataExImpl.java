@@ -47,9 +47,8 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
     // String jsonStr =    "{\"Table\":[{\"PartyROWID\":92420,\"PartyRMN\":\"9769496026\",\"PartyName\":\"Akshay\",\"PartyGUID\":\"9163b4dd-f23d-41fd-99ab-7c0f57c9c7ed\",\"PartyEnum\":null,\"PartyTypeEnum\":16,\"userName\":\"Software\"}]}" ;
 
-    private PBXPLDataExImpl(Context pContext, AsyncListener pListener){
+    private PBXPLDataExImpl(Context pContext){
         checkConnectivity(pContext);
-        _listener                   = pListener;
         _applicationContext         = pContext;
 
         _deviceRegId                = GcmUtil.getInstance(pContext).getRegistrationId();
@@ -63,11 +62,10 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         }
     }
 
-    private PBXPLDataExImpl(Context pContext, AsyncListener pListener, AsyncDataEx dataEx, boolean checkConnectivity){
+    private PBXPLDataExImpl(Context pContext, AsyncDataEx dataEx, boolean checkConnectivity){
         if(checkConnectivity) {
             checkConnectivity(pContext);
         }
-        _listener                   = pListener;
         _applicationContext         = pContext;
         _deviceRegId                = GcmUtil.getInstance(pContext).getRegistrationId();
         _token                      = EphemeralStorage.getInstance(_applicationContext).getString(
@@ -92,8 +90,10 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
     public static PBXPLDataExImpl getInstance(Context context, AsyncListener pListener, Methods method) throws MOMException{
         if(_instance == null){
-            _instance               = new PBXPLDataExImpl(context, pListener);
+            _instance               = new PBXPLDataExImpl(context);
         }
+
+        _instance.setListener(pListener);
 
         if(!_instance.setToken() && method != Methods.LOGIN){
             throw new MOMException(AsyncResult.CODE.NOT_LOGGED_IN);

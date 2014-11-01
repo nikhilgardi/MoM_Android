@@ -100,6 +100,7 @@ public class GcmUtil {
         );
 
         int currentVersion = getAppVersion(_context);
+
         if (registeredVersion != currentVersion) {
             Log.i(_LOG, "App version changed.");
             return "";
