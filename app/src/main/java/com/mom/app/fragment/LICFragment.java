@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.mom.app.R;
 import com.mom.app.error.MOMException;
@@ -27,7 +28,7 @@ public class LICFragment extends FragmentBase implements AsyncListener<Transacti
     String _LOG         = AppConstants.LOG_PREFIX + "LIC";
 
     private EditText _etLIC;
-
+    private TextView _tvPremiumAmount;
 
     public static LICFragment newInstance(PlatformIdentifier currentPlatform){
         LICFragment fragment        = new LICFragment();
@@ -42,6 +43,9 @@ public class LICFragment extends FragmentBase implements AsyncListener<Transacti
         View view = inflater.inflate(R.layout.activity_lic, null, false);
 
         _etLIC                  = (EditText) view.findViewById(R.id.lic);
+        _tvPremiumAmount        = (TextView) view.findViewById(R.id.premiumAmount);
+
+        _etLIC.setText("806000021");
 
         Button btnregister      = (Button) view.findViewById(R.id.btnRegister);
 
@@ -64,20 +68,20 @@ public class LICFragment extends FragmentBase implements AsyncListener<Transacti
     @Override
     public void onTaskSuccess(TransactionRequest result, DataExImpl.Methods callback) {
         Log.d(_LOG, "Called back");
+        showProgress(false);
+
         switch(callback){
             case LIC:
                 if(result == null){
                     Log.d(_LOG, "Obtained NULL  response");
-                    showMessage(getResources().getString(R.string.error_transfer_failed));
+                    showMessage(getResources().getString(R.string.error_invalid_policy_number));
                     return;
                 }
-                Log.d(_LOG, "Going to get new balance");
-                Log.d(_LOG, "Starting navigation to TxnMsg Activity");
-//                navigateToTransactionMessageActivity(ActivityIdentifier.BALANCE_TRANSFER, result);
+
+                Log.d(_LOG, "Obtained: " + result);
+                _tvPremiumAmount.setText(String.valueOf(result.getAmount()));
                 break;
         }
-
-        taskCompleted(result);
     }
 
     @Override
@@ -87,6 +91,10 @@ public class LICFragment extends FragmentBase implements AsyncListener<Transacti
 
     @Override
     protected void showBalance(float pfBalance) {
+    }
+
+    private void showPolicy(){
+
     }
 
     public void validateAndGetAmount() {

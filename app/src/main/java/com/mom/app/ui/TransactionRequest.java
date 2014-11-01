@@ -17,7 +17,7 @@ import java.util.Random;
 /**
  * Created by vaibhavsinha on 10/9/14.
  */
-public class TransactionRequest implements Serializable{
+public class TransactionRequest<T> implements Serializable{
     public static enum RequestStatus{
         SUCCESSFUL (0), FAILED (-1), PENDING (-2);
         public int code;
@@ -52,6 +52,8 @@ public class TransactionRequest implements Serializable{
     int responseCode;
 
     String remoteResponse;
+
+    T custom;
 
     /**
      * This is only used in methods which are not operator or transactionType specific.
@@ -174,5 +176,17 @@ public class TransactionRequest implements Serializable{
 
     public void setResponseCode(int responseCode) {
         this.responseCode = responseCode;
+    }
+
+    public void setAmount(float amount) {
+        this.amount = amount;
+    }
+
+    public T getCustom() {
+        return custom;
+    }
+
+    public void setCustom(T custom) {
+        this.custom = custom;
     }
 }

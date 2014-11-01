@@ -23,11 +23,36 @@
             android:layout_weight="80"
             android:layout_height="wrap_content">
 
-            <TextView
+            <com.mom.app.ui.CustomTextView
                 android:id="@+id/msgDisplay"
                 style="@style/MoMTheme.wrapped.alertMsg"
                 android:textSize="@dimen/text_medium"
                 android:visibility="gone" />
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TableRow>
+                    <com.mom.app.ui.CustomTextView
+                        android:textSize="@dimen/text_medium"
+                        android:text="Policy Holder"/>
+
+                    <com.mom.app.ui.CustomTextView
+                        android:id="@+id/policyHolder"
+                        style="@style/MoMTheme.wrapped.alertMsg"
+                        android:textSize="@dimen/text_medium"/>
+                </TableRow>
+                <TableRow>
+                    <com.mom.app.ui.CustomTextView
+                        android:textSize="@dimen/text_medium"
+                        android:text="Premium Due"/>
+
+                    <com.mom.app.ui.CustomTextView
+                        android:id="@+id/premiumAmount"
+                        style="@style/MoMTheme.wrapped.alertMsg"
+                        android:textSize="@dimen/text_medium"/>
+                </TableRow>
+            </TableLayout>
 
             <EditText
                 android:id="@+id/lic"
@@ -38,15 +63,6 @@
                 android:layout_marginBottom="@dimen/small"/>
 
 
-
-
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_gravity="center_horizontal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
-
             <LinearLayout
                 android:weightSum="3"
                 style="@style/MoMTheme.btn_container">
@@ -56,7 +72,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     style="@style/MoMTheme.wrapped.customButton"
-                    android:text="@string/btn_register"/>
+                    android:text="@string/btn_getPremium"/>
 
                 <Button
                     android:id="@+id/btnBack"
