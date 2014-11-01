@@ -197,7 +197,7 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
                 Log.i(_LOG, "Check result: " + result);
 
                 //TESTING
-//                result = null;
+                result = null;
                 //TESTING
 
                 if(TextUtils.isEmpty(result)){

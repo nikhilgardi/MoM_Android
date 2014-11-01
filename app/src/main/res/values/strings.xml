@@ -126,4 +126,8 @@
     <!-- Start: Transaction Queue related -->
     <string name="added_to_queue">Request added to queue. You can start another transaction now.</string>
     <!-- End: Transaction Queue related -->
+
+    <!-- Start: LIC related -->
+    <string name="error_invalid_policy_number">Invalid policy number!</string>
+    <!-- End: LIC related -->
 </resources>

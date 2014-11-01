@@ -3,7 +3,6 @@ package com.mom.app.model.pbxpl;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
-import android.util.Xml;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -17,7 +16,6 @@ import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.Operator;
-import com.mom.app.model.TXLifeResponse;
 import com.mom.app.model.local.EphemeralStorage;
 
 import com.mom.app.ui.TransactionRequest;
@@ -25,7 +23,6 @@ import com.mom.app.utils.AppConstants;
 import com.mom.app.utils.MiscUtils;
 
 import org.apache.http.message.BasicNameValuePair;
-import org.xmlpull.v1.XmlPullParser;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -56,10 +53,6 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 AppConstants.PARAM_PBX_RMN, null
         );
 
-        if(_token == null){
-            _listener.onTaskError(new AsyncResult(AsyncResult.CODE.NOT_LOGGED_IN), Methods.CHANGE_PASSWORD);
-            return;
-        }
     }
 
     private PBXPLDataExImpl(Context pContext, AsyncDataEx dataEx, boolean checkConnectivity){
@@ -160,7 +153,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                     Log.d(_LOG, "TaskComplete: lic method, result: " + result);
 
                     if (_listener != null) {
-                        _listener.onTaskSuccess(getLIC(result), Methods.LIC);
+                        _listener.onTaskSuccess(getPremiumAmount(result), Methods.LIC);
                     }
 
                     break;
@@ -381,57 +374,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         return success;
     }
 
-    public String getLIC(TransactionRequest pResult){
-        String response = null;
-        Log.i("Lic" , pResult.getRemoteResponse());
-        if(TextUtils.isEmpty(pResult.getRemoteResponse())){
-            return null;
-        }
 
-
-        try {
-           /* Gson gson   = new GsonBuilder().create();
-
-            Type type   = new TypeToken<ResponseBase>() {
-            }.getType();
-            ResponseBase responseBase = gson.fromJson(pResult.getRemoteResponse(), type);
-                String value=responseBase.data.toString();
-            ResponseBase<TXLife> responseBase1=gson.fromJson(value,type);
-
-            Type type   = new TypeToken<ResponseBase<Lic>>() {
-            }.getType();
-
-            ResponseBase<Lic> responseBase = gson.fromJson(pResult.getRemoteResponse(), type);
-
-
-            TXLife txlife = responseBase1.data;*/
-
-            Gson gson   = new GsonBuilder().create();
-
-            Type type   = new TypeToken<ResponseBase<TXLife>>() {
-            }.getType();
-
-            ResponseBase<TXLife> responseBase = gson.fromJson(pResult.getRemoteResponse(), type);
-
-            TXLife txLife = responseBase.data;
-
-
-            String response2   = Double.toString(responseBase.data.response.TransInvAmount);
-
-
-
-            Log.d(_LOG, "Response2: " + response2);
-
-            response = "Amount" + response2 ;
-
-            return response;
-
-        }catch(JsonSyntaxException jse){
-            Log.e(_LOG, jse.getMessage());
-            jse.printStackTrace();
-        }
-        return response;
-    }
 
     public String getRechargeResult(TransactionRequest request){
         String response = null;
@@ -563,7 +506,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
     private TransactionRequest getChangePasswordResult(TransactionRequest request){
 
         if(TextUtils.isEmpty(request.getRemoteResponse())){
-            request.setSuccessful(false);
+            request.setStatus(TransactionRequest.RequestStatus.FAILED);
             return request;
         }
 
@@ -655,20 +598,54 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
     public  void changePin(PinType pinType, String psOldPin, String psNewPin){
 
     }
-    public  void lic(String lic){
-//
-//        if(
-//                TextUtils.isEmpty(lic) || request.getAmount() < 1 ){
-//
-//            if(_listener != null) {
-//                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.LIC);
-//            }
-//            return;
-//        }
+
+
+    public Float getPremiumAmount(TransactionRequest pResult){
+        return getPremiumAmount(pResult.getRemoteResponse());
+    }
+    public Float getPremiumAmount(String response){
+        Log.i("Lic" , response);
+
+        if(TextUtils.isEmpty(response)){
+            return null;
+        }
+
+        try {
+            Gson gson   = new GsonBuilder().create();
+
+            Type type   = new TypeToken<ResponseBase<LicResponse>>() {
+            }.getType();
+
+            ResponseBase<LicResponse> responseBase = gson.fromJson(response, type);
+
+            LicResponse licResponse = responseBase.data;
+            LicLife txLife           = licResponse.TXLife;
+
+
+            return txLife.getTXLifeResponse().getTransInvAmount();
+
+        }catch(JsonSyntaxException jse){
+            Log.e(_LOG, jse.getMessage());
+        }
+
+        return null;
+    }
+
+    public  void lic(String policyNumber){
+
+        if(
+                TextUtils.isEmpty(policyNumber)){
+
+            if(_listener != null) {
+                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.LIC);
+            }
+            return;
+        }
 
         String licrefno             = EphemeralStorage.getInstance(_applicationContext).getString(
                 AppConstants.PARAM_PBX_LICREFNO, null
         );
+
 
         AsyncDataEx dataEx		    = new AsyncDataEx(
                 this,

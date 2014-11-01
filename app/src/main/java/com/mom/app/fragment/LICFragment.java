@@ -1,8 +1,7 @@
 package com.mom.app.fragment;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +10,13 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.mom.app.R;
+import com.mom.app.error.MOMException;
 import com.mom.app.identifier.PlatformIdentifier;
 import com.mom.app.identifier.TransactionType;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
+import com.mom.app.model.pbxpl.PBXPLDataExImpl;
 import com.mom.app.ui.TransactionRequest;
 import com.mom.app.utils.AppConstants;
 
@@ -40,14 +41,14 @@ public class LICFragment extends FragmentBase implements AsyncListener<Transacti
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_lic, null, false);
 
-        _etLIC            = (EditText) view.findViewById(R.id.lic);
+        _etLIC                  = (EditText) view.findViewById(R.id.lic);
 
-        Button btnregister       = (Button) view.findViewById(R.id.btnRegister);
+        Button btnregister      = (Button) view.findViewById(R.id.btnRegister);
 
         btnregister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                validateAndTransfer();
+                validateAndGetAmount();
             }
         });
 
@@ -88,81 +89,21 @@ public class LICFragment extends FragmentBase implements AsyncListener<Transacti
     protected void showBalance(float pfBalance) {
     }
 
-    public void validateAndTransfer() {
-//        int nMinAmount          = 10;
-//
-//        int nMinPhoneLength     = 10;
-//        int nMaxPhoneLength     = 10;
+    public void validateAndGetAmount() {
+        String policyNumber           = _etLIC.getText().toString();
+        if(TextUtils.isEmpty(policyNumber)){
+            showMessage(getActivity().getResources().getString(R.string.error_invalid_policy_number));
+            return;
+        }
 
-        int nPhoneLength        = _etLIC.getText().toString().length();
-
-
-
-
-//        if(nPhoneLength < nMinPhoneLength || nPhoneLength > nMaxPhoneLength){
-//            if(nMinPhoneLength == nMaxPhoneLength) {
-//                showMessage(String.format(getResources().getString(R.string.error_phone_length), nMinPhoneLength));
-//            }else{
-//                showMessage(String.format(getResources().getString(R.string.error_phone_length_min_max), nMinPhoneLength, nMaxPhoneLength));
-//            }
-//            return;
-//        }
-
-
-
-        confirmTransfer();
+        getPremiumAmount(policyNumber);
     }
 
-    private void startTransfer() {
+    private void getPremiumAmount(String policyNumber) {
         showMessage(null);
-        String slic           = _etLIC.getText().toString();
-
-
-        TransactionRequest request  = new TransactionRequest(
-                getActivity().getString(TransactionType.LIC.transactionTypeStringId),
-                slic );
-
-        getDataEx(this).lic( slic);
-
         _etLIC.setText(null);
 
+        getDataEx(this).lic(policyNumber);
         showProgress(true);
-       // updateAsyncQueue(request);
-    }
-
-
-    public void confirmTransfer() {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
-
-        // Setting Dialog Title
-        alertDialog.setTitle(R.string.confirm_balance_transfer);
-
-        // Setting Dialog Message
-        alertDialog.setMessage(getResources().getString(R.string.transfer) +
-                 " : " +  _etLIC.getText().toString());
-
-
-        alertDialog.setPositiveButton(R.string.yes,
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        ((AlertDialog) dialog).getButton(
-                                AlertDialog.BUTTON1).setEnabled(false);
-                        startTransfer();
-//							new GetLoginTask().onPostExecute("test");
-
-                    }
-                });
-
-        // Setting Negative "NO" Button
-        alertDialog.setNegativeButton(R.string.no,
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which1) {
-
-                        dialog.cancel();
-
-                    }
-                });
-
-        alertDialog.show();
     }
 }
