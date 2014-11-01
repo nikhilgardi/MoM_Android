@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="money_on_mobile">MoneyOnMobile</string>
+
+    <string name="welcome">স্বাগতম</string>
+
+    <string name="login_failed_msg_default">লগিন ব্যর্থ হয়েছে। দয়া করে আপনার মোবাইল নম্বর এবং M-Pin চেক করুন</string>
+
+    <string name="title_activity_verify_tpin">TPinঅ্যাক্টিভিটি যাচাই করুন</string>
+
+    <string name="action_dashboard">ড্যাশবোর্ড</string>
+
+    <string name="action_balanceTransfer">ব্যালেন্স ট্রান্সফার</string>
+
+    <string name="title_activity_transaction_confirmation">ট্র্যানস্যাকশনের ফলাফল</string>
+
+    <string name="error_mobile_required">মোবাইল নম্বর আবশ্যক</string>
+
+    <string name="error_transfer_failed">ট্রান্সফার করার সময় ত্রুটি হয়েছে। দয়া করে আবার চেষ্টা করুন বা সহায়তার জন্য গ্রাহক সহায়তায় যোগাযোগ করুন।</string>
+
+    <string name="error_recharge_failed">রিচার্জ করার সময় ত্রুটি হয়েছে। দয়া করে আবার চেষ্টা করুন বা সহায়তার জন্য গ্রাহক সহায়তায় যোগাযোগ করুন।</string>
+
+    <string name="error_customer_phone_required">দয়া করে গ্রাহকের ফোন নম্বর লিখুন।</string>
+
+    <string name="error_phone_length">ফোন নম্বর %1$d অক্ষরের হতে হবে।</string>
+
+    <string name="error_phone_length_min_max">ফোন নম্বর %1$d এবং %2$d অক্ষরের মধ্যে হতে হবে।</string>
+
+    <string name="error_amount_min_max">রাশির পরিমাণ %1$d টাকা এবং %2$d।</string>
+
+    <string name="error_amount_min">পরিমাণ এর কম হলে চলবে না %1$d টাকা।</string>
+
+    <string name="error_subscriber_id_length">সাবস্ক্রাইবার আইডি %1$d অক্ষরের হতে হবে</string>
+
+    <string name="error_subscriber_id_min_max">সাবস্ক্রাইবার আইডি %1$d এবং %2$d অক্ষরের মধ্যে হতে হবে</string>
+
+    <string name="error_obtaining_bill_amount">বিলের রাশি প্রাপ্ত করা যায়নি। দয়া করে উপভোক্তা নম্বর চেক করুন।</string>
+
+    <string name="error_no_internet_title">ইন্টারনেট নেই!</string>
+
+    <string name="error_no_internet">আপনার ডিভাইস ইন্টারনেটের সঙ্গে সংযুক্ত নয়। আপনার ইন্টারনেট সংযোগ এলে দয়া করে এটি চেষ্টা করুন।</string>
+
+    <string name="error_getting_balance">ত্রুটি</string>
+
+    <string name="btn_pay">পে করুন</string>
+
+    <string name="btn_new_recharge">নতুন রিচার্জ</string>
+
+    <string name="btn_new_bill_pay">আরেকটি বিলের অর্থপ্রদান করুন</string>
+
+    <string name="btn_verifyTpin">T-Pin যাচাই করুন</string>
+
+    <string name="btn_transfer">ট্রান্সফার</string>
+
+    <string name="prompt_numbers_only_amount">দয়া করে রাশির ফিল্ডে কেবল সংখ্যা লিখুন</string>
+
+    <string name="prompt_select_operator">দয়া করে অপারেটর নির্বাচন করুন</string>
+
+    <string name="lblCustomerMobile">গ্রাহকের মোবাইল নম্বর</string>
+
+    <string name="lblCustomerLandlineNumber">গ্রাহকের ল্যান্ডলাইন নম্বর</string>
+
+    <string name="confirm_balance_transfer">ট্রান্সফার নিশ্চিত করুন</string>
+
+    <string name="transfer">ট্রান্সফার</string>
+
+    <string name="title_activity_bill_payment">বিল পেমেন্ট অ্যাক্টিভিটি</string>
+
+    <string name="title_activity_transaction_history">ট্রানস্যাকশনের ইতিহাস</string>
+
+    <string name="title_activity_transaction_history_count">শেষ %1$d টি ট্রানস্যাকশন</string>
+
+    <string name="no_transactions_found">কোনো ট্রানস্যাকশন পাওয়া যায়নি</string>
+
+    <string name="hello_blank_fragment">হ্যালো ফাঁকা ফ্র্যাগমেন্ট</string>
+
+    <string name="drawer_open">নেভিগেশন দেখান</string>
+
+    <string name="drawer_close">নেভিগেশন লুকান</string>
+
+
+
+
+
+    <string name="Rupee">\u20B9</string>
+    <string name="title_activity_main">মেন অ্যাক্টিভিটি</string>
+
+    <string name="title_activity_home_bill_activity__pbx">হোম বিল অ্যাক্টিভিটি_PBX</string>
+    <string name="title_activity_change_password_pbx">পাসওয়ার্ড PBX অ্যাক্টিভিটি পরিবর্তন করুন</string>
+    <string name="title_activity_dthrecharge">DTH রিচার্জ</string>
+
+    <string name="login_username_pwd_required">দয়া করে আপনার মোবাইল নম্বর এবং পাসওয়ার্ড লিখুন</string>
+    <string name="login_username_required">দয়া করে আপনার মোবাইল নম্বর লিখুন</string>
+    <string name="login_pwd_required">দয়া করে আপনার পাসওয়ার্ড লিখুন</string>
+    <string name="tpin">T-Pin লিখুন</string>
+    <string name="mpin">M-Pin লিখুন</string>
+    <string name="tpin_incorrect">ভুল T-Pin</string>
+    <string name="mpin_incorrect">ভুল M-Pin</string>
+
+
+
+    <string name="action_mobileRecharge">মোবাইল রিচার্জ</string>
+    <string name="action_dthRecharge">DTH রিচার্জ</string>
+    <string name="action_billPayment">বিল পেমেন্ট</string>
+    <string name="action_cardSale">কার্ড সেল</string>
+
+    <string name="action_utilityBill">Utility Bill Payment</string>
+    <string name="action_retailerPayment">Retailer Payment</string>
+    <string name="action_history">ইতিহাস</string>
+    <string name="action_settings">সেটিংস</string>
+    <string name="action_logout">লগআউট</string>
+    <string name="action_changeMpin">M-Pin পরিবর্তন করুন</string>
+    <string name="action_changeTpin">T-Pin পরিবর্তন করুন</string>
+    <string name="action_changePassword">পাসওয়ার্ড পরিবর্তন করুন</string>
+
+    <string name="error_init_app">Error initializing the app. Please try again later or contact customer support if the problem persists</string>
+
+
+    <string name="confirm_logout">Do you want to logout and exit the app?</string>
+    <string name="btn_dashboard">Dashboard</string>
+    <string name="btn_recharge">রিচার্জ</string>
+
+    <string name="btn_back">ফিরে যান</string>
+
+    <string name="btn_login">লগ ইন</string>
+    <string name="btn_getBillAmount">বিলের নম্বর দিন</string>
+
+    <string name="prompt_spinner_select_operator">অপারেটর নির্বাচন করুন</string>
+    <string name="prompt_enter_tpin">দয়া করে আপনার T-Pin লিখুন</string>
+
+    <string name="lblBal">Bal: </string>
+    <string name="lblSubscriberId">সাবস্ক্রাইবার আইডি</string>
+    <string name="lblRechargeAmount">রিচার্জ পরিমাণ</string>
+    <string name="lblAmount">পরিমাণ</string>
+    <string name="lblYourMobile">মোবাইল নম্বর</string>
+    <string name="lblConsumerNumber">উপভোক্তা নম্বর</string>
+
+    <string name="lblMobileNumber">মোবাইল নম্বর</string>
+
+    <string name="lblAccountNumber">অ্যাকাউন্ট নম্বর</string>
+    <string name="tpin_old">পুরানো T-PIN</string>
+    <string name="tpin_new">নতুন T-PIN</string>
+    <string name="tpin_new_confirm">নতুন T-PIN নিশ্চিত করুন</string>
+    <string name="mpin_old">পুরানো M-PIN</string>
+    <string name="mpin_new">নতুন M-PIN</string>
+    <string name="mpin_new_confirm">নতুন M-PIN নিশ্চিত করুন</string>
+    <string name="old_password">পুরানো পাসওয়ার্ড</string>
+    <string name="new_password">নতুন পাসওয়ার্ড</string>
+    <string name="confirm_password">পাসওয়ার্ড নিশ্চিত করুন</string>
+
+
+
+    <string name="title_activity_retailer_payment">RetailerPayment</string>
+
+    <string name="title_activity_change_pin">পিন পরিবর্তন করুন</string>
+    <string name="title_activity_settings">সেটিংস</string>
+
+    <string name="yes">হ্যাঁ</string>
+    <string name="no">না</string>
+    <!-- START: LANGUAGE RELATED -->
+    <string name="language_bengali">Bengali</string>
+    <string name="language_bengali_code">bn</string>
+    <string name="language_english">English</string>
+    <string name="language_english_code">en</string>
+    <string name="language_gujarati">Gujarati</string>
+    <string name="language_gujarati_code">gu</string>
+    <string name="language_hindi">Hindi</string>
+    <string name="language_hindi_code">hi</string>
+    <string name="language_malayalam">Malayalam</string>
+    <string name="language_malayalam_code">ml</string>
+    <string name="language_oriya">Oriya</string>
+    <string name="language_oriya_code">or</string>
+    <string name="language_tamil">Tamil</string>
+    <string name="language_tamil_code">ta</string>
+    <string name="language_telugu">Telugu</string>
+    <string name="language_telugu_code">te</string>
+    <!-- END: LANGUAGE RELATED -->
+    <string name="title_activity_base">MoneyOnMobile</string>
+
+
+
+    <!-- Start: Transaction Queue related -->
+    <string name="added_to_queue">Request added to queue. You can start another transaction now.</string>
+    <!-- End: Transaction Queue related -->
+
+
+</resources>

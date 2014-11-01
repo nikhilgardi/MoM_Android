@@ -2,6 +2,7 @@ package com.mom.app.model;
 
 import android.content.Context;
 
+import com.mom.app.fragment.LICFragment;
 import com.mom.app.identifier.PinType;
 import com.mom.app.utils.ConnectionUtil;
 
@@ -33,7 +34,8 @@ public abstract class DataExImpl implements IDataEx{
         CHECK_PLATFORM_DETAILS,
         GET_OPERATOR_NAMES,
         CHANGE_PASSWORD,
-        BALANCE_TRANSFER;
+        BALANCE_TRANSFER,
+        LIC;
     }
 
     public void checkConnectivity(Context context){

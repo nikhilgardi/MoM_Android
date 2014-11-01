@@ -678,4 +678,8 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
     public  void changePassword( String psOldPin, String psNewPin){
 
     }
+
+    public  void lic(String lic){
+
+    }
 }

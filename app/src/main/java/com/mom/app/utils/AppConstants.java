@@ -56,6 +56,7 @@ public class AppConstants {
     public static final String SVC_PBX_RECHARGE_MOBILE          = "RECHARGEMOBILE";
     public static final String SVC_PBX_RECHARGE_DTH             = "DTH";
     public static final String SVC_PBX_BILL_PAY                 = "BILLPAY";
+    public static final String SVC_PBX_LIC                      = "LICENQ";
 
     //End: PBX Platform Service
 
@@ -63,7 +64,8 @@ public class AppConstants {
     //Start: PBX Platform URLs
     public static final String URL_PBX_PLATFORM_SERVICE     = "http://test.pbx.momappworld.com/momspre/service.ashx";
   //  public static final String URL_PBX_PLATFORM_APP         = "http://test.pbx.momappworld.com/momspre/PbxMobApp.ashx";
-    public static final String URL_PBX_PLATFORM_APP         =  "http://api.pbx.momappworld.com/mobapps1/pbxmobapp.ashx";
+   // public static final String URL_PBX_PLATFORM_APP         =  "http://api.pbx.momappworld.com/mobapps1/pbxmobapp.ashx";
+    public static final String URL_PBX_PLATFORM_APP         = "http://172.16.1.102/MobAppS/PbxMobApp.ashx";
 
     //End: PBX Platform URLs
 
@@ -173,6 +175,7 @@ public class AppConstants {
 
     public static final String PARAM_PBX_PARENT_RMN         = "ParentRmn";
     public static final String PARAM_PBX_CHILD_RMN          = "childRmn";
+    public static final String PARAM_PBX_LICREFNO           = "licRefNo";
 
 
 

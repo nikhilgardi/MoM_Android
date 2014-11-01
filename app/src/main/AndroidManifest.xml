@@ -10,18 +10,18 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
-    <permission android:name="com.mom.app.permission.C2D_MESSAGE"
+    <permission
+        android:name="com.mom.app.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
+
     <uses-permission android:name="com.example.gcm.permission.C2D_MESSAGE" />
 
     <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-
 
     <application
         android:name=".MoMApp"
@@ -29,8 +29,8 @@
         android:icon="@drawable/momicon"
         android:label="@string/app_name"
         android:theme="@style/MoMTheme" >
-
-        <meta-data android:name="com.google.android.gms.version"
+        <meta-data
+            android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
         <receiver
@@ -38,24 +38,22 @@
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
                 <category android:name="com.mom.app" />
             </intent-filter>
         </receiver>
+
         <service android:name=".gcm.GcmIntentService" />
-
-
-
-
 
         <activity
             android:name=".activity.BaseActivity"
             android:label="@string/title_activity_base" >
 
-        </activity>
 
+        </activity>
         <activity
             android:name=".activity.LoginActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation">
+            android:configChanges="keyboard|keyboardHidden|orientation" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -115,12 +113,10 @@
             android:name=".activity.TransactionMessageActivity"
             android:label="@string/title_activity_transaction_confirmation" >
         </activity>
-
         <activity
             android:name=".activity.ChangePINActivity"
             android:label="@string/title_activity_change_pin" >
         </activity>
-
     </application>
 
     <!--

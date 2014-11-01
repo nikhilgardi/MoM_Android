@@ -102,6 +102,17 @@ public class DataProvider {
 
         imageItems.add(
                 new ImageItem<MoMScreen>(
+                        MoMScreen.LIC,
+                        MoMScreen.LIC.id,
+                        MoMScreen.LIC.drawableId,
+                        MoMScreen.LIC.drawableTransparentId,
+                        context.getResources().getString(MoMScreen.LIC.titleResId),
+                        false
+                )
+        );
+
+        imageItems.add(
+                new ImageItem<MoMScreen>(
                         MoMScreen.LOGOUT,
                         MoMScreen.LOGOUT.id,
                         MoMScreen.LOGOUT.drawableId,

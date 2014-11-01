@@ -1,81 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-        <string name="money_on_mobile">???????????</string>
+    <string name="money_on_mobile">મનીઓનમોબાઇલ</string>
 
-    <string name="welcome">??????????!</string>
-   
-    <string name="login_failed_msg_default">????? ??????. ????? ?????? ???? ??? M-Pin ???? ??? ?????</string>
-   
+    <string name="welcome">સુસ્વાગતમ્!</string>
+
+    <string name="login_failed_msg_default">લોગીન નિષ્ફળ. તમારો મોબાઇલ નંબર અને M-Pin કૃપા કરી તપાસો</string>
+
     <string name="title_activity_verify_tpin">VerifyTPinActivity</string>
 
-    <string name="action_dashboard">????????</string>
-    
-    <string name="action_balanceTransfer">??????? ?????????</string>
-    
-    <string name="title_activity_transaction_confirmation">???????????? ??????</string>
+    <string name="action_dashboard">ડેશબોર્ડ</string>
 
-    <string name="error_mobile_required">?????? ?????? ???????? ??</string>
+    <string name="action_balanceTransfer">બેલેન્સ ટ્રાન્સફર</string>
 
-    <string name="error_transfer_failed">????????? ??????? ??? ??. ???? ??? ??? ?????? ??? ???? ??? ???? ?????? ????? ?????? ???.</string>
+    <string name="title_activity_transaction_confirmation">ટ્રાન્ઝેક્શન પરિણામ</string>
 
-    <string name="error_recharge_failed">??????? ??????? ??? ??. ???? ??? ??? ?????? ??? ???? ??? ???? ?????? ????? ?????? ???.</string>
+    <string name="error_mobile_required">મોબાઇલ નંબરની આવશ્યકતા છે</string>
 
-    <string name="error_customer_phone_required">???? ??? ???????? ???? ???? ???.</string>
+    <string name="error_transfer_failed">ટ્રાન્સફર દરમિયાન ભૂલ થઇ. કૃપા કરી ફરી પ્રયાસ કરો અથવા મદદ માટે કસ્ટમર કેરનો સંપર્ક કરો.</string>
 
-    <string name="error_phone_length">??? ???? %1$d ?????? ???? ????.</string>
+    <string name="error_recharge_failed">રીચાર્જ દરમિયાન ભૂલ થઇ. કૃપા કરી ફરી પ્રયાસ કરો અથવા મદદ માટે કસ્ટમર કેરનો સંપર્ક કરો.</string>
 
-    <string name="error_phone_length_min_max">??? ???? %1$d ??? %2$d ???? ??????? ???? ????.</string>
+    <string name="error_customer_phone_required">કૃપા કરી ગ્રાહકનો નંબર દાખલ કરો.</string>
 
-    <string name="error_amount_min_max">??? ? ????? ???? ???? ???. %1$d ??? ???. %2$d ????? ???? ????.</string>
+    <string name="error_phone_length">ફોન નંબર %1$d અંકોનો હોવો જોઇએ.</string>
 
-    <string name="error_amount_min">??? ???. %1$d ?? ??? ???? ???? ????.</string>
+    <string name="error_phone_length_min_max">ફોન નંબર %1$d અને %2$d અંકો વચ્ચેનો હોવો જોઇએ.</string>
 
-    <string name="error_subscriber_id_length">??????????? ???? %1$d ???????? ????? ????.</string>
+    <string name="error_amount_min_max">રકમ આ વચ્ચે હોવી જોઇએ રૂા. %1$d અને રૂા. %2$d વચ્ચે હોવી જોઇએ.</string>
 
-    <string name="error_subscriber_id_min_max">??? ???? %1$d ??? %2$d ???? ??????? ???? ????.</string>
+    <string name="error_amount_min">રકમ રૂા. %1$d થી ઓછી હોવી જોઇએ નહીં.</string>
 
-    <string name="error_obtaining_bill_amount">????? ??? ??????? ?? ??? ???. ???? ??? ????? ?????? ???? ?????.</string>
+    <string name="error_subscriber_id_length">સબસ્ક્રાઇબર આઇડી %1$d વર્ણોનું હોવું જોઇએ.</string>
 
-    <string name="error_no_internet_title">??? ???????? ???!</string>
+    <string name="error_subscriber_id_min_max">ફોન નંબર %1$d અને %2$d અંકો વચ્ચેનો હોવો જોઇએ.</string>
 
-    <string name="error_no_internet">?????? ????? ???????? ???? ??????? ???. ?????? ???????? ????? ??? ??? ??? ?????? ? ???? ???? ??? ?????? ???.</string>
+    <string name="error_obtaining_bill_amount">બિલની રકમ પ્રાપ્ત થઇ શકી નથી. કૃપા કરી તમારો ગ્રાહક નંબર તપાસો.</string>
 
-    <string name="error_getting_balance">???</string>
-  
-    <string name="btn_pay">?????.</string>
+    <string name="error_no_internet_title">કોઇ ઇન્ટરનેટ નથી!</string>
 
-    <string name="btn_new_recharge">???? ???????</string>
+    <string name="error_no_internet">તમારું ઉપકરણ ઇન્ટરનેટ સાથે જોડાયેલ નથી. તમારું ઇન્ટરનેટ જોડાણ ફરી શરૂ થાય ત્યારે આ માટે કૃપા કરી પ્રયાસ કરો.</string>
 
-    <string name="btn_new_bill_pay">???? ??? ?????</string>
-  
-    <string name="btn_verifyTpin">T-Pin ?????</string>
- 
-    <string name="btn_transfer">?????????</string>
- 
-    <string name="prompt_numbers_only_amount">??? ??????? ???? ??? ????? ?????? ???? ???</string>
+    <string name="error_getting_balance">ભૂલ</string>
 
-    <string name="prompt_select_operator">???? ??? ?????? ???? ???</string>
-   
-    <string name="lblCustomerMobile">???????? ?????? ????</string>
-  
-    <string name="lblCustomerLandlineNumber">???????? ????????? ????</string>
+    <string name="btn_pay">ચૂકવો.</string>
 
-    <string name="confirm_balance_transfer">????????? ??????? ???</string>
+    <string name="btn_new_recharge">નવું રીચાર્જ</string>
 
-    <string name="transfer">?????????</string>
+    <string name="btn_new_bill_pay">અન્ય બીલ ચૂકવો</string>
 
-    <string name="title_activity_bill_payment">??? ?????? ?????????</string>
+    <string name="btn_verifyTpin">T-Pin ચકાસો</string>
 
-    <string name="title_activity_transaction_history">???????????? ??????</string>
+    <string name="btn_transfer">ટ્રાન્સફર</string>
 
-    <string name="title_activity_transaction_history_count">??????? %1$d ???????(??)</string>
+    <string name="prompt_numbers_only_amount">રકમ ખાનામાં કૃપા કરી માત્ર સંખ્યા દાખલ કરો</string>
 
-    <string name="no_transactions_found">??? ?????????????? ?????? ???.</string>
+    <string name="prompt_select_operator">કૃપા કરી ઓપરેટર પસંદ કરો</string>
 
-    <string name="hello_blank_fragment">?????? ??????? ???????????</string>
-     
-    <string name="drawer_open">?????? ???????</string>
+    <string name="lblCustomerMobile">ગ્રાહકનો મોબાઇલ નંબર</string>
 
-    <string name="drawer_close">?????? ??????</string>
-   
+    <string name="lblCustomerLandlineNumber">ગ્રાહકનો લેન્ડલાઇન નંબર</string>
+
+    <string name="confirm_balance_transfer">ટ્રાન્સફર કન્ફર્મ કરો</string>
+
+    <string name="transfer">ટ્રાન્સફર</string>
+
+    <string name="title_activity_bill_payment">બીલ ચૂકવણી પ્રવૃત્તિ</string>
+
+    <string name="title_activity_transaction_history">ટ્રાન્ઝેક્શન ઇતિહાસ</string>
+
+    <string name="title_activity_transaction_history_count">છેલ્લાં %1$d વ્યવહાર(રો)</string>
+
+    <string name="no_transactions_found">કોઇ ટ્રાન્ઝેક્શન્સ મળ્યાં નથી.</string>
+
+    <string name="hello_blank_fragment">હેલ્લો બ્લેન્ક ફ્રેગ્મેન્ટ</string>
+
+    <string name="drawer_open">સંચાલન દર્શાવો</string>
+
+    <string name="drawer_close">સંચાલન છુપાવો</string>
+
+    <string name="Rupee">\u20B9</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_aadhar_payment">AadharPaymentActivity</string>
+    <string name="title_activity_aadhar_list">AadharListActivity</string>
+    <string name="title_activity_best_fusion">BestFusionActivity</string>
+    <string name="title_activity_home_bill_activity__pbx">HomeBillActivity_PBX</string>
+    <string name="title_activity_change_password_pbx">ChangePasswordPBXActivity</string>
+    <string name="title_activity_dthrecharge">DTH Recharge</string>
+
+    <string name="login_username_pwd_required">Please enter your mobile number and password</string>
+    <string name="login_username_required">Please enter your mobile Number</string>
+    <string name="login_pwd_required">Please enter your password</string>
+    <string name="tpin">Enter T-Pin</string>
+    <string name="mpin">Enter M-Pin</string>
+    <string name="tpin_incorrect">Incorrect T-Pin</string>
+    <string name="mpin_incorrect">Incorrect M-Pin</string>
+
+
+
+    <string name="action_mobileRecharge">Mobile Recharge</string>
+    <string name="action_dthRecharge">DTH Recharge</string>
+    <string name="action_billPayment">Bill Payment</string>
+    <string name="action_cardSale">Card Sale</string>
+
+    <string name="action_utilityBill">Utility Bill Payment</string>
+    <string name="action_retailerPayment">Retailer Payment</string>
+    <string name="action_history">History</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_logout">Logout</string>
+    <string name="action_changeMpin">Change M-PIN</string>
+    <string name="action_changeTpin">Change T-PIN</string>
+    <string name="action_changePassword">Change Password</string>
+
+    <string name="error_init_app">Error initializing the app. Please try again later or contact customer support if the problem persists</string>
+
+
+    <string name="confirm_logout">Do you want to logout and exit the app?</string>
+    <string name="btn_dashboard">Dashboard</string>
+    <string name="btn_recharge">Recharge</string>
+
+    <string name="btn_back">Back</string>
+
+    <string name="btn_login">Login</string>
+    <string name="btn_getBillAmount">Get Your Bill Amount</string>
+
+    <string name="prompt_spinner_select_operator">Select Operator</string>
+    <string name="prompt_enter_tpin">Please enter your T-Pin</string>
+
+    <string name="lblBal">Bal: </string>
+    <string name="lblSubscriberId">Subscriber ID</string>
+    <string name="lblRechargeAmount">Recharge Amount</string>
+    <string name="lblAmount">Amount</string>
+    <string name="lblYourMobile">Your Mobile Number</string>
+    <string name="lblConsumerNumber">Consumer Number</string>
+
+    <string name="lblMobileNumber">Mobile Number</string>
+
+    <string name="lblAccountNumber">Account Number</string>
+    <string name="tpin_old">Old T-PIN</string>
+    <string name="tpin_new">New T-PIN</string>
+    <string name="tpin_new_confirm">Confirm New T-PIN</string>
+    <string name="mpin_old">Old M-PIN</string>
+    <string name="mpin_new">New M-PIN</string>
+    <string name="mpin_new_confirm">Confirm New M-PIN</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_password">Confirm Password</string>
+
+
+
+    <string name="title_activity_retailer_payment">RetailerPayment</string>
+
+    <string name="title_activity_change_pin">Change PIN</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <!-- START: LANGUAGE RELATED -->
+    <string name="language_bengali">Bengali</string>
+    <string name="language_bengali_code">bn</string>
+    <string name="language_english">English</string>
+    <string name="language_english_code">en</string>
+    <string name="language_gujarati">Gujarati</string>
+    <string name="language_gujarati_code">gu</string>
+    <string name="language_hindi">Hindi</string>
+    <string name="language_hindi_code">hi</string>
+    <string name="language_malayalam">Malayalam</string>
+    <string name="language_malayalam_code">ml</string>
+    <string name="language_oriya">Oriya</string>
+    <string name="language_oriya_code">or</string>
+    <string name="language_tamil">Tamil</string>
+    <string name="language_tamil_code">ta</string>
+    <string name="language_telugu">Telugu</string>
+    <string name="language_telugu_code">te</string>
+    <!-- END: LANGUAGE RELATED -->
+    <string name="title_activity_base">MoneyOnMobile</string>
+
+
+
+    <!-- Start: Transaction Queue related -->
+    <string name="added_to_queue">Request added to queue. You can start another transaction now.</string>
+    <!-- End: Transaction Queue related -->
+
 </resources>
