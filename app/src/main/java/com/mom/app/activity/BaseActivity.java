@@ -39,6 +39,7 @@ import com.mom.app.fragment.BillPaymentFragment;
 import com.mom.app.fragment.DTHRechargeFragment;
 import com.mom.app.fragment.DashboardFragment;
 import com.mom.app.fragment.FragmentBase;
+import com.mom.app.fragment.LICFragment;
 import com.mom.app.fragment.MobileRechargeFragment;
 import com.mom.app.fragment.SettingsFragment;
 import com.mom.app.fragment.TransactionHistoryFragment;
@@ -342,6 +343,10 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
                 break;
             case BILL_PAYMENT:
                 showFragment(BillPaymentFragment.newInstance(_currentPlatform));
+                break;
+            case LIC:
+                Log.d(_LOG, "lic selected");
+                showFragment(LICFragment.newInstance(_currentPlatform));
                 break;
             case BALANCE_TRANSFER:
                 showFragment(BalanceTransferFragment.newInstance(_currentPlatform));

@@ -37,4 +37,6 @@ public interface IDataEx {
     public void changePassword(String psOldPin, String psNewPin);
 
     public abstract void balanceTransfer(TransactionRequest request, String payTo);
+
+    public  void lic(String lic);
 }

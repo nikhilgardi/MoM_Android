@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="money_on_mobile">MoneyOnMobile</string>
+
+    <string name="welcome">வருக</string>
+
+    <string name="login_failed_msg_default">உள்நுழைவு தோல்வி. உங்கள் மொபைல் எண் மற்றும் M-Pin-ஐச் சரிபார்க்கவும்</string>
+
+    <string name="title_activity_verify_tpin">VerifyTPinActivity</string>
+
+    <string name="action_dashboard">டாஷ்போர்டு</string>
+
+    <string name="action_balanceTransfer">இருப்பு இடமாற்றம்</string>
+
+    <string name="title_activity_transaction_confirmation">பரிவர்த்தனை முடிவு</string>
+
+    <string name="error_mobile_required">மொபைல் எண் தேவை</string>
+
+    <string name="error_transfer_failed">இடமாற்றும்போது பிழை ஏற்பட்டது. மீண்டும் முயற்சிக்கவும் அல்லது உதவிக்கு வாடிக்கையாளர் ஆதரவைத் தொடர்பு கொள்ளவும்.</string>
+
+    <string name="error_recharge_failed">ரீசார்ஜ் செய்யும்போது பிழை ஏற்பட்டது. மீண்டும் முயற்சிக்கவும் அல்லது உதவிக்கு வாடிக்கையாளர் ஆதரவைத் தொடர்பு கொள்ளவும்.</string>
+
+    <string name="error_customer_phone_required">வாடிக்கையாளர் தொலைபேசி எண்ணை உள்ளிடவும்.</string>
+
+    <string name="error_phone_length">தொலைபேசி எண் %1$d இலக்கங்களில் இருக்க வேண்டும்.</string>
+
+    <string name="error_phone_length_min_max">தொலைபேசி எண் %1$d மற்றும் %2$d இலக்கங்களுக்கு இடையில் இருக்க வேண்டும்.</string>
+
+    <string name="error_amount_min_max">தொகை இவற்றுக்கு இடையில் இருக்க வேண்டும், ரூ. %1$d மற்றும் ரூ. %2$d.</string>
+
+    <string name="error_amount_min">தொகை ரூ.%1$d -ஐ விடக் குறைவாக இருக்கக் கூடாது.</string>
+
+    <string name="error_subscriber_id_length">சந்தாதாரர் ID-இல் %1$d எழுத்துக்குறிகள் இருக்க வேண்டும்.</string>
+
+    <string name="error_subscriber_id_min_max">சந்தாதாரர் ID %1$d மற்றும் %2$d எழுத்துக்குறிகளுக்கு இடையில் இருக்க வேண்டும்.</string>
+
+    <string name="error_obtaining_bill_amount">பில் தொகையைப் பெற முடியவில்லை. தயவுசெய்து, வாடிக்கையாளர் எண்ணைச் சரிபார்க்கவும்.</string>
+
+    <string name="error_no_internet_title">இணையம் இல்லை!</string>
+
+    <string name="error_no_internet">உங்கள் சாதனம் இணையத்துடன் இணைக்கப்படவில்லை. இணைய இணைப்பு கிடைத்ததும் இதை முயற்சிக்கவும்.</string>
+
+    <string name="error_getting_balance">பிழை</string>
+
+    <string name="btn_pay">பணம் செலுத்துக</string>
+
+    <string name="btn_new_recharge">புதிய ரீசார்ஜ்</string>
+
+    <string name="btn_new_bill_pay">வேறொரு பில்லுக்கு பணம் செலுத்துக</string>
+
+    <string name="btn_verifyTpin">T-Pin-ஐ சரிபார்க்கவும்</string>
+
+    <string name="btn_transfer">இடமாற்றுக</string>
+
+    <string name="prompt_numbers_only_amount">தயவுசெய்து, தொகை புலத்தில் எண்களை மட்டும் உள்ளிடுக</string>
+
+    <string name="prompt_select_operator">ஆபரேட்டரைத் தேர்ந்தெடுக்கவும்</string>
+
+    <string name="lblCustomerMobile">வாடிக்கையாளர் மொபைல் எண்</string>
+
+    <string name="lblCustomerLandlineNumber">வாடிக்கையாளர் லேண்ட் லைன் எண்</string>
+
+    <string name="confirm_balance_transfer">இடமாற்றத்தை உறுதிப்படுத்துக</string>
+
+    <string name="transfer">இடமாற்றுக</string>
+
+    <string name="title_activity_bill_payment">பில் பணம் செலுத்தல் செயற்பாடு</string>
+
+    <string name="title_activity_transaction_history">பரிவர்த்தனை வரலாறு</string>
+
+    <string name="title_activity_transaction_history_count">கடைசி %1$d பரிவர்த்தனை(கள்)</string>
+
+    <string name="no_transactions_found">பரிவர்த்தனைகள் எதுவும் காணப்படவில்லை</string>
+
+    <string name="hello_blank_fragment">ஹலோ காலியான துண்டு</string>
+
+    <string name="drawer_open">வழிசெலுத்தலைக் காண்பி</string>
+
+    <string name="drawer_close">வழிசெலுத்தலை மறை</string>
+
+
+
+
+
+
+    <string name="Rupee">\u20B9</string>
+    <string name="title_activity_main">பிரதான செயற்பாடு</string>
+
+    <string name="title_activity_home_bill_activity__pbx">வீட்டு பில் செயற்பாடு_PBX</string>
+    <string name="title_activity_change_password_pbx">கடவுச்சொல்லை மாற்றவும் PBX செயற்பாடு</string>
+    <string name="title_activity_dthrecharge">DTH ரீசார்ஜ்</string>
+
+    <string name="login_username_pwd_required">தயவுசெய்து உங்கள் மொபைல் எண் மற்றும் கடவுச்சொல்லை உள்ளிடவும்</string>
+    <string name="login_username_required">தயவுசெய்து உங்கள் மொபைல் எண்ணை உள்ளிடவும்</string>
+    <string name="login_pwd_required">தயவுசெய்து உங்கள் கடவுச்சொல்லை உள்ளிடவும்</string>
+    <string name="tpin">T-Pin -ஐ உள்ளிடவும்</string>
+    <string name="mpin">M-Pin -ஐ உள்ளிடவும்</string>
+    <string name="tpin_incorrect">தவறான T-Pin</string>
+    <string name="mpin_incorrect">தவறான M-Pin</string>
+
+
+
+    <string name="action_mobileRecharge">மொபைல் ரீசார்ஜ்</string>
+    <string name="action_dthRecharge">DTH ரீசார்ஜ்</string>
+    <string name="action_billPayment">பில் பணம் செலுத்தல்</string>
+    <string name="action_cardSale">அட்டை விற்பனை</string>
+
+    <string name="action_utilityBill">Utility Bill Payment</string>
+    <string name="action_retailerPayment">Retailer Payment</string>
+    <string name="action_history">வரலாறு</string>
+    <string name="action_settings">அமைப்புகள்</string>
+    <string name="action_logout">வெளியேறுக</string>
+    <string name="action_changeMpin">MPIN -ஐ மாற்றவும்</string>
+    <string name="action_changeTpin">T-Pin -ஐ மாற்றவும்</string>
+    <string name="action_changePassword">கடவுச்சொல்லை மாற்றுக</string>
+
+    <string name="error_init_app">Error initializing the app. Please try again later or contact customer support if the problem persists</string>
+
+
+    <string name="confirm_logout">இந்த பயன்பாட்டிலிருந்து வெளியேற விரும்புகிறீர்களா?</string>
+    <string name="btn_dashboard">டேஷ்போர்ட்</string>
+    <string name="btn_recharge">ரீசார்ஜ் செய்க</string>
+
+    <string name="btn_back">பின்செல்</string>
+
+    <string name="btn_login">உள்நுழைக</string>
+    <string name="btn_getBillAmount">உங்கள் பில் தொகையை பெறவும்</string>
+
+    <string name="prompt_spinner_select_operator">ஆபரேட்டரைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="prompt_enter_tpin">தயவுசெய்து உங்கள் T-Pin -ஐ உள்ளிடவும்</string>
+
+    <string name="lblBal">Bal: </string>
+    <string name="lblSubscriberId">சந்தாதாரர் ID</string>
+    <string name="lblRechargeAmount">ரீசார்ஜ் செய்க தொகை</string>
+    <string name="lblAmount">தொகை</string>
+    <string name="lblYourMobile">மொபைல் எண்</string>
+    <string name="lblConsumerNumber">வாடிக்கையாளர் எண்</string>
+
+    <string name="lblMobileNumber">மொபைல் எண்</string>
+
+    <string name="lblAccountNumber">கணக்கு எண்</string>
+    <string name="tpin_old">பழைய T-PIN</string>
+    <string name="tpin_new">புதிய T-PIN</string>
+    <string name="tpin_new_confirm">புதிய T-PIN -ஐ உறுதிப்படுத்தவும்</string>
+    <string name="mpin_old">பழைய M-PIN</string>
+    <string name="mpin_new">புதிய M-PIN</string>
+    <string name="mpin_new_confirm">புதிய M-PIN -ஐ உறுதிப்படுத்தவும்</string>
+    <string name="old_password">பழைய கடவுச்சொல்</string>
+    <string name="new_password">புதிய கடவுச்சொல்</string>
+    <string name="confirm_password">கடவுச்சொல்லை உறுதிப்படுத்தவும்</string>
+
+
+
+    <string name="title_activity_retailer_payment">RetailerPayment</string>
+
+    <string name="title_activity_change_pin">PIN -ஐ மாற்றவும்</string>
+    <string name="title_activity_settings">அமைப்புகள்</string>
+
+    <string name="yes">ஆம்</string>
+    <string name="no">இல்லை</string>
+    <!-- START: LANGUAGE RELATED -->
+    <string name="language_bengali">Bengali</string>
+    <string name="language_bengali_code">bn</string>
+    <string name="language_english">English</string>
+    <string name="language_english_code">en</string>
+    <string name="language_gujarati">Gujarati</string>
+    <string name="language_gujarati_code">gu</string>
+    <string name="language_hindi">Hindi</string>
+    <string name="language_hindi_code">hi</string>
+    <string name="language_malayalam">Malayalam</string>
+    <string name="language_malayalam_code">ml</string>
+    <string name="language_oriya">Oriya</string>
+    <string name="language_oriya_code">or</string>
+    <string name="language_tamil">Tamil</string>
+    <string name="language_tamil_code">ta</string>
+    <string name="language_telugu">Telugu</string>
+    <string name="language_telugu_code">te</string>
+    <!-- END: LANGUAGE RELATED -->
+    <string name="title_activity_base">MoneyOnMobile</string>
+
+
+
+    <!-- Start: Transaction Queue related -->
+    <string name="added_to_queue">Request added to queue. You can start another transaction now.</string>
+    <!-- End: Transaction Queue related -->
+
+</resources>

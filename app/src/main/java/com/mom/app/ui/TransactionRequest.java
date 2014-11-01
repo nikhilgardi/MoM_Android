@@ -73,6 +73,13 @@ public class TransactionRequest implements Serializable{
         this.dateStarted    = new Date();
     }
 
+    public TransactionRequest(String type, String consumerId){
+        _type               = type;
+        this.id             = MiscUtils.getRandomLong();
+        this.consumerId     = consumerId;
+        this.dateStarted    = new Date();
+    }
+
     public TransactionRequest(String type, String consumerId, String customerMobile, float amount, Operator operator){
         this.id             = MiscUtils.getRandomLong();
         _type               = type;
@@ -82,7 +89,11 @@ public class TransactionRequest implements Serializable{
         this.operator       = operator;
         this.dateStarted    = new Date();
     }
+    public TransactionRequest(String consumerId){
 
+        this.consumerId     = consumerId;
+        this.dateStarted    = new Date();
+    }
     public String getDescription(){
         StringBuilder sb    = new StringBuilder(_type);
 

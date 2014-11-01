@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="money_on_mobile">MoneyOnMobile</string>
+
+    <string name="welcome">സ്വാഗതം</string>
+
+    <string name="login_failed_msg_default">ലോഗിൻ പരാജയം. നിങ്ങളുടെ മൊബൈൽ നമ്പറും M-Pin-ഉം പരിശോധിക്കുക</string>
+
+    <string name="title_activity_verify_tpin">TPin പ്രവർത്തനം സ്ഥിരീകരിക്കുക</string>
+
+    <string name="action_dashboard">ഡാഷ്‌ബോർഡ്</string>
+
+    <string name="action_balanceTransfer">ബാലൻസ് ട്രാൻസ്‌ഫർ</string>
+
+    <string name="title_activity_transaction_confirmation">ട്രാൻസാക്ഷൻ ഫലം</string>
+
+    <string name="error_mobile_required">മൊബൈൽ നമ്പർ ആവശ്യമാണ്</string>
+
+    <string name="error_transfer_failed">ട്രാൻസ്ഫർ വേളയിൽ പിശക് സംഭവിച്ചു. വീണ്ടും ശ്രമിക്കുക അല്ലെങ്കിൽ സഹായത്തിനായി കസ്റ്റമർ പിന്തുണയുമായി ബന്ധപ്പെടുക.</string>
+
+    <string name="error_recharge_failed">റീചാർജ് വേളയിൽ പിശക് സംഭവിച്ചു. വീണ്ടും ശ്രമിക്കുക അല്ലെങ്കിൽ സഹായത്തിനായി കസ്റ്റമർ പിന്തുണയുമായി ബന്ധപ്പെടുക.</string>
+
+    <string name="error_customer_phone_required">നിങ്ങളുടെ കസ്റ്റമറുടെ ഫോൺ നമ്പർ നൽകുക.</string>
+
+    <string name="error_phone_length">ഫോൺ നമ്പറിൽ %1$d അക്കങ്ങളേ പാടുകയുള്ളൂ.</string>
+
+    <string name="error_phone_length_min_max">ഫോൺ നമ്പർ %1$d - %2$d അക്കങ്ങൾക്ക് ഇടയിൽ ആയിരിക്കണം.</string>
+
+    <string name="error_amount_min_max">തുക %1$d എന്നതിനും രൂ. %2$d എന്നതിനും ഇടയിൽ ആയിരിക്കണം.</string>
+
+    <string name="error_amount_min">തുക, രൂ. %1$d-ലും കുറവ് ആയിരിക്കരുത്.</string>
+
+    <string name="error_subscriber_id_length">സബ്‌സ്‌ക്രൈബർ ID-യിൽ %1$d അക്കങ്ങളേ പാടുകയുള്ളൂ.</string>
+
+    <string name="error_subscriber_id_min_max">സബ്‌സ്‌ക്രൈബർ ID %1$d - %2$d അക്കങ്ങൾക്ക് ഇടയിൽ ആയിരിക്കണം.</string>
+
+    <string name="error_obtaining_bill_amount">ബിൽ തുക അറിയാൻ കഴിഞ്ഞില്ല.	 ഉപഭോക്തൃ നമ്പർ പരിശോധിക്കുക.</string>
+
+    <string name="error_no_internet_title">ഇന്റർനെറ്റില്ല!</string>
+
+    <string name="error_no_internet">നിങ്ങളുടെ ഉപകരണം ഇന്റർനെറ്റുമായി ബന്ധിപ്പിച്ചിട്ടില്ല. ഇന്റർനെറ്റ് കണക്ഷൻ തിരിച്ചുവരുമ്പോൾ ഇത് വീണ്ടും ശ്രമിക്കുക.</string>
+
+    <string name="error_getting_balance">പിശക്</string>
+
+    <string name="btn_pay">പണം അടയ്ക്കുക</string>
+
+    <string name="btn_new_recharge">പുതിയ റീചാർജ്</string>
+
+    <string name="btn_new_bill_pay">മറ്റൊരു ബിൽ അടയ്ക്കുക</string>
+
+    <string name="btn_verifyTpin">T-Pin സ്ഥിരീകരിക്കുക</string>
+
+    <string name="btn_transfer">ട്രാൻസ്ഫർ</string>
+
+    <string name="prompt_numbers_only_amount">അമൗണ്ട് ഫീൽഡിലുള്ള നമ്പറുകൾ മാത്രം നൽകുക</string>
+
+    <string name="prompt_select_operator">ഓപ്പറേറ്ററെ തിരഞ്ഞെടുക്കുക</string>
+
+    <string name="lblCustomerMobile">കസ്റ്റമറുടെ മൊബൈൽ നമ്പർ	</string>
+
+    <string name="lblCustomerLandlineNumber">കസ്റ്റമറുടെ ലാൻഡ് ലൈൻ നമ്പർ</string>
+
+    <string name="confirm_balance_transfer">ട്രാൻസ്ഫർ സ്ഥിരീകരിക്കുക</string>
+
+    <string name="transfer">ട്രാൻസ്ഫർ</string>
+
+    <string name="title_activity_bill_payment">ബിൽ പെയ്‌മെന്റ് പ്രവർത്തനം</string>
+
+    <string name="title_activity_transaction_history">ട്രാൻസാക്ഷൻ ചരിത്രം</string>
+
+    <string name="title_activity_transaction_history_count">അവസാന %1$d ട്രാൻസാക്ഷൻ(കൾ)</string>
+
+    <string name="no_transactions_found">ട്രാൻസാക്ഷനൊന്നും കണ്ടെത്തിയില്ല</string>
+
+    <string name="hello_blank_fragment">ഹല്ലോ ബ്ലാങ്ക് ഫ്രാഗ്‌മെന്റ്</string>
+
+    <string name="drawer_open">നാവിഗേഷൻ കാണിക്കുക</string>
+
+    <string name="drawer_close">നാവിഗേഷൻ മറയ്ക്കുക</string>
+
+
+
+
+
+
+
+    <string name="Rupee">\u20B9</string>
+    <string name="title_activity_main">പ്രധാന പ്രവർത്തനം</string>
+
+    <string name="title_activity_home_bill_activity__pbx">ഹോം ബിൽ പ്രവർത്തനം_PBX</string>
+    <string name="title_activity_change_password_pbx">പാസ്‌വേഡ് PBX പ്രവർത്തനം മാറ്റുക</string>
+    <string name="title_activity_dthrecharge">DTH റീചാർജ്ജ്</string>
+
+    <string name="login_username_pwd_required">നിങ്ങളുടെ മൊബൈൽ നമ്പറും പാസ്വേഡും നൽകുക</string>
+    <string name="login_username_required">നിങ്ങളുടെ മൊബൈൽ നമ്പർ നൽകുക</string>
+    <string name="login_pwd_required">നിങ്ങളുടെ പാസ്വേഡ് നൽകുക</string>
+    <string name="tpin">T-Pin നൽകുക</string>
+    <string name="mpin">M-Pin നൽകുക</string>
+    <string name="tpin_incorrect">തെറ്റായ T-Pin</string>
+    <string name="mpin_incorrect">തെറ്റായ M-Pin</string>
+
+
+
+    <string name="action_mobileRecharge">മൊബൈൽ റീചാർജ്ജ്</string>
+    <string name="action_dthRecharge">DTH റീചാർജ്ജ്</string>
+    <string name="action_billPayment">ബിൽ പെയ്മെന്റ്</string>
+    <string name="action_cardSale">കാർഡ് വിൽപ്പന</string>
+
+    <string name="action_utilityBill">Utility Bill Payment</string>
+    <string name="action_retailerPayment">Retailer Payment</string>
+    <string name="action_history">ചരിത്രം</string>
+    <string name="action_settings">ക്രമീകരണങ്ങൾ</string>
+    <string name="action_logout">ലോഗൗട്ട്</string>
+    <string name="action_changeMpin">M-Pin മാറ്റുക</string>
+    <string name="action_changeTpin">T-Pin മാറ്റുക</string>
+    <string name="action_changePassword">പാസ്‌വേഡ് മാറ്റുക</string>
+
+    <string name="error_init_app">Error initializing the app. Please try again later or contact customer support if the problem persists</string>
+
+
+    <string name="confirm_logout">Do you want to logout and exit the app?</string>
+    <string name="btn_dashboard">Dashboard</string>
+    <string name="btn_recharge">Recharge</string>
+
+    <string name="btn_back">പിന്നിലേക്ക്</string>
+
+    <string name="btn_login">ലോഗിൻ ചെയ്യുക</string>
+    <string name="btn_getBillAmount">നിങ്ങളുടെ ബിൽ തുക അറിയുക</string>
+
+    <string name="prompt_spinner_select_operator">ഓപ്പറേറ്ററെ തിരഞ്ഞെടുക്കുക</string>
+    <string name="prompt_enter_tpin">നിങ്ങളുടെ T-Pin നൽകുക</string>
+
+    <string name="lblBal">Bal: </string>
+    <string name="lblSubscriberId">സബ്സ്ക്രൈബർ ID</string>
+    <string name="lblRechargeAmount">റീചാർജ്ജുചെയ്യുക തുക</string>
+    <string name="lblAmount">തുക</string>
+    <string name="lblYourMobile">മൊബൈൽ നമ്പർ</string>
+    <string name="lblConsumerNumber">കൺസ്യൂമർ നമ്പർ</string>
+
+    <string name="lblMobileNumber">മൊബൈൽ നമ്പർ</string>
+
+    <string name="lblAccountNumber">Account Number</string>
+    <string name="tpin_old">പഴയ T-PIN</string>
+    <string name="tpin_new">പുതിയ T-PIN</string>
+    <string name="tpin_new_confirm">പുതിയ T-PIN സ്ഥിരീകരിക്കുക</string>
+    <string name="mpin_old">പഴയ M-PIN</string>
+    <string name="mpin_new">പുതിയ M-PIN</string>
+    <string name="mpin_new_confirm">പുതിയ M-PIN സ്ഥിരീകരിക്കുക</string>
+    <string name="old_password">പഴയ പാസ്‌വേഡ്</string>
+    <string name="new_password">പുതിയ പാസ്‌വേഡ്</string>
+    <string name="confirm_password">പാസ്‌വേഡ് സ്ഥിരീകരിക്കുക</string>
+
+
+
+    <string name="title_activity_retailer_payment">RetailerPayment</string>
+
+    <string name="title_activity_change_pin">PIN മാറ്റുക</string>
+    <string name="title_activity_settings">ക്രമീകരണങ്ങൾ</string>
+
+    <string name="yes">അതെ</string>
+    <string name="no">ഇല്ല</string>
+    <!-- START: LANGUAGE RELATED -->
+    <string name="language_bengali">Bengali</string>
+    <string name="language_bengali_code">bn</string>
+    <string name="language_english">English</string>
+    <string name="language_english_code">en</string>
+    <string name="language_gujarati">Gujarati</string>
+    <string name="language_gujarati_code">gu</string>
+    <string name="language_hindi">Hindi</string>
+    <string name="language_hindi_code">hi</string>
+    <string name="language_malayalam">Malayalam</string>
+    <string name="language_malayalam_code">ml</string>
+    <string name="language_oriya">Oriya</string>
+    <string name="language_oriya_code">or</string>
+    <string name="language_tamil">Tamil</string>
+    <string name="language_tamil_code">ta</string>
+    <string name="language_telugu">Telugu</string>
+    <string name="language_telugu_code">te</string>
+    <!-- END: LANGUAGE RELATED -->
+    <string name="title_activity_base">MoneyOnMobile</string>
+
+
+
+    <!-- Start: Transaction Queue related -->
+    <string name="added_to_queue">Request added to queue. You can start another transaction now.</string>
+    <!-- End: Transaction Queue related -->
+
+</resources>
