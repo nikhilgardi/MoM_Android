@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
@@ -58,7 +59,8 @@ public class GcmIntentService extends IntentService {
 
                 Log.i(_LOG, "Completed work @ " + SystemClock.elapsedRealtime());
                 // Post notification of received message.
-                sendNotification("Received: " + extras.toString());
+//                sendNotification("Received: " + extras.toString());
+                handleGcmMessage(extras);
                 Log.i(_LOG, "Received: " + extras.toString());
             }
         }
@@ -72,7 +74,16 @@ public class GcmIntentService extends IntentService {
             return;
         }
 
+        String jsonReceived = extras.getString(AppConstants.PARAM_GCM_PAYLOAD);
+
+        if(TextUtils.isEmpty(jsonReceived)){
+            Log.w(_LOG, "No payload received. Can't do anything!");
+            return;
+        }
+
         Intent intent = new Intent(AppConstants.GCM_INTENT);
+        intent.putExtra(AppConstants.PARAM_GCM_PAYLOAD, jsonReceived);
+
         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
     }
 

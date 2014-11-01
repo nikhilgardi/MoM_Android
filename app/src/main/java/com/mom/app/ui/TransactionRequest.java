@@ -18,6 +18,26 @@ import java.util.Random;
  * Created by vaibhavsinha on 10/9/14.
  */
 public class TransactionRequest implements Serializable{
+    public static enum RequestStatus{
+        SUCCESSFUL (0), FAILED (-1), PENDING (-2);
+        public int code;
+        private RequestStatus(int code){
+            this.code   = code;
+        }
+
+        public static RequestStatus getStatus(int code){
+            switch (code){
+                case 0:
+                    return SUCCESSFUL;
+                case -1:
+                    return FAILED;
+                case -2:
+                    return PENDING;
+            }
+
+            return null;
+        }
+    }
 
     public Long id;
     String _type;
@@ -27,7 +47,7 @@ public class TransactionRequest implements Serializable{
     Operator operator;
     Date dateStarted;
     Date dateCompleted;
-    boolean isSuccessful;
+    RequestStatus status;
     boolean isCompleted;
     int responseCode;
 
@@ -113,12 +133,12 @@ public class TransactionRequest implements Serializable{
         this.dateCompleted = dateCompleted;
     }
 
-    public boolean isSuccessful() {
-        return isSuccessful;
+    public RequestStatus getStatus() {
+        return status;
     }
 
-    public void setSuccessful(boolean isSuccessful) {
-        this.isSuccessful = isSuccessful;
+    public void setStatus(RequestStatus status) {
+        this.status = status;
     }
 
     public boolean isCompleted() {

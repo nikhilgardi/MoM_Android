@@ -18,6 +18,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.LongSparseArray;
 import android.util.SparseArray;
@@ -28,6 +29,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
+import com.google.gson.Gson;
 import com.mom.app.R;
 import com.mom.app.adapter.AsyncStatusListAdapter;
 import com.mom.app.adapter.DrawerAdapter;
@@ -42,6 +44,7 @@ import com.mom.app.fragment.SettingsFragment;
 import com.mom.app.fragment.TransactionHistoryFragment;
 import com.mom.app.identifier.IdentifierUtils;
 import com.mom.app.identifier.PlatformIdentifier;
+import com.mom.app.model.GcmTransactionMessage;
 import com.mom.app.model.Operator;
 import com.mom.app.model.local.EphemeralStorage;
 import com.mom.app.ui.TransactionRequest;
@@ -104,6 +107,23 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
 
     private BroadcastReceiver messageReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
+            String jsonReceived     = intent.getStringExtra(AppConstants.PARAM_GCM_PAYLOAD);
+            if(TextUtils.isEmpty(jsonReceived)){
+                Log.w(_LOG, "Did not receive any json payload");
+                return;
+            }
+            try{
+                Gson gson                       = new Gson();
+                GcmTransactionMessage message   = gson.fromJson(
+                        jsonReceived, GcmTransactionMessage.class
+                );
+
+                if(!TextUtils.isEmpty(message.getOriginTxnId())){
+
+                }
+            }catch(Exception e){
+                Log.e(_LOG, "Error parsing json", e);
+            }
 
         }
     };
@@ -180,6 +200,9 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
     }
 
     private void addToAsyncList(TransactionRequest transactionRequest){
+        /**
+         * For some reason, notifyDataset has no effect unless add/remove methods are called.
+         */
         if(!_asyncAdapter.contains(transactionRequest)) {
             _asyncAdapter.add(transactionRequest);
         }else{
@@ -299,9 +322,6 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
          * or this is a new transaction. In either case, the view needs to be updated and
          * the new object should be added or the old one replaced with this new one (GCM case).
          */
-
-        addToAsyncList(transaction);
-        transaction.setCompleted(true);
 
         addToAsyncList(transaction);
         return true;

@@ -28,7 +28,7 @@
         android:allowBackup="true"
         android:icon="@drawable/momicon"
         android:label="@string/app_name"
-        android:theme="@style/MoMTheme" >
+        android:theme="@style/MoMTheme">
 
         <meta-data android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -41,10 +41,8 @@
                 <category android:name="com.mom.app" />
             </intent-filter>
         </receiver>
+
         <service android:name=".gcm.GcmIntentService" />
-
-
-
 
 
         <activity

@@ -174,9 +174,9 @@ public class AppConstants {
     public static final String PARAM_PBX_PARENT_RMN         = "ParentRmn";
     public static final String PARAM_PBX_CHILD_RMN          = "childRmn";
 
-
-
     //End: PBX Platform Params
+
+    public static final String PARAM_GCM_PAYLOAD            = "payload";
 	public static final int TIMEOUT_CONNECTION		        = 15000;
 	public static final int TIMEOUT_SOCKET			        = 45000;
 	public static final int STANDARD_MOBILE_NUMBER_LENGTH   = 10;
