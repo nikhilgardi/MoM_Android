@@ -604,6 +604,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         return getPremiumAmount(pResult.getRemoteResponse());
     }
     public Float getPremiumAmount(String response){
+
         Log.i("Lic" , response);
 
         if(TextUtils.isEmpty(response)){
@@ -622,7 +623,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
             LicLife txLife           = licResponse.TXLife;
 
 
-            return txLife.getTXLifeResponse().getTransInvAmount();
+            return Float.parseFloat(txLife.getTXLifeResponse().getTransInvAmount().toString());
 
         }catch(JsonSyntaxException jse){
             Log.e(_LOG, jse.getMessage());
