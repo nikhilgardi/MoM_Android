@@ -64,6 +64,7 @@
     <string name="btn_getBillAmount">Get Your Bill Amount</string>
     <string name="btn_transfer">Transfer</string>
     <string name="btn_register">Register</string>
+    <string name="btn_getPremium">Get Premium</string>
     <string name="prompt_spinner_select_operator">Select Operator</string>
     <string name="prompt_enter_tpin">Please enter your T-Pin</string>
     <string name="prompt_numbers_only_amount">Please only enter numbers in the amount field</string>

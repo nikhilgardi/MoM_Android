@@ -18,6 +18,8 @@ import com.mom.app.model.DataExImpl;
 import com.mom.app.model.Operator;
 import com.mom.app.model.local.EphemeralStorage;
 
+import com.mom.app.model.pbxpl.lic.LicLife;
+import com.mom.app.model.pbxpl.lic.LicResponse;
 import com.mom.app.ui.TransactionRequest;
 import com.mom.app.utils.AppConstants;
 import com.mom.app.utils.MiscUtils;
@@ -153,6 +155,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                     Log.d(_LOG, "TaskComplete: lic method, result: " + result);
 
                     if (_listener != null) {
+
                         _listener.onTaskSuccess(getPremiumAmount(result), Methods.LIC);
                     }
 
@@ -600,9 +603,14 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
     }
 
 
-    public Float getPremiumAmount(TransactionRequest pResult){
-        return getPremiumAmount(pResult.getRemoteResponse());
+    public TransactionRequest getPremiumAmount(TransactionRequest pResult){
+
+        Float amount    = getPremiumAmount(pResult.getRemoteResponse());
+        pResult.setAmount(amount);
+
+        return pResult;
     }
+
     public Float getPremiumAmount(String response){
 
         Log.i("Lic" , response);
@@ -657,7 +665,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
         dataEx.execute(
                 new BasicNameValuePair(AppConstants.PARAM_PBX_SERVICE, AppConstants.SVC_PBX_LIC),
-                new BasicNameValuePair(AppConstants.PARAM_PBX_LICREFNO, "806000021")
+                new BasicNameValuePair(AppConstants.PARAM_PBX_LICREFNO, policyNumber)
 
         );
 

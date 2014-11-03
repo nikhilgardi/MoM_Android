@@ -1,4 +1,4 @@
-package com.mom.app.model.pbxpl;
+package com.mom.app.model.pbxpl.lic;
 
 import com.mom.app.model.LicLifeResponse;
 
