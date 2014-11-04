@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+import com.mom.app.R;
 import com.mom.app.error.MOMException;
 import com.mom.app.gcm.GcmUtil;
 import com.mom.app.identifier.PinType;
@@ -19,6 +20,11 @@ import com.mom.app.model.Operator;
 import com.mom.app.model.local.EphemeralStorage;
 
 import com.mom.app.model.pbxpl.lic.LicLife;
+import com.mom.app.model.pbxpl.lic.LicLifeResponse;
+import com.mom.app.model.pbxpl.lic.LicLifeResponsePayment;
+import com.mom.app.model.pbxpl.lic.LicOLife;
+import com.mom.app.model.pbxpl.lic.LicParty;
+import com.mom.app.model.pbxpl.lic.LicPayResponse;
 import com.mom.app.model.pbxpl.lic.LicResponse;
 import com.mom.app.ui.TransactionRequest;
 import com.mom.app.utils.AppConstants;
@@ -156,7 +162,17 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
                     if (_listener != null) {
 
-                        _listener.onTaskSuccess(getPremiumAmount(result), Methods.LIC);
+                       _listener.onTaskSuccess(getPremiumAmount(result), Methods.LIC);
+                     }
+
+                     break;
+
+                case PAY_LIC:
+                    Log.d(_LOG, "TaskComplete: lic method, result: " + result);
+
+                    if (_listener != null) {
+
+                        _listener.onTaskSuccess(getLic(result), Methods.PAY_LIC);
                     }
 
                     break;
@@ -603,15 +619,88 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
     }
 
 
-    public TransactionRequest getPremiumAmount(TransactionRequest pResult){
+    public TransactionRequest<LicLifeResponse> getPremiumAmount(TransactionRequest<LicLifeResponse> response) throws MOMException{
 
-        Float amount    = getPremiumAmount(pResult.getRemoteResponse());
-        pResult.setAmount(amount);
+        if(TextUtils.isEmpty(response.getRemoteResponse())){
+            throw new MOMException();
+        }
 
-        return pResult;
+        try {
+            Gson gson   = new GsonBuilder().create();
+
+            Type type   = new TypeToken<ResponseBase<LicResponse>>() {
+            }.getType();
+
+            ResponseBase<LicResponse> responseBase = gson.fromJson(response.getRemoteResponse(), type);
+
+
+            if(
+                    responseBase == null ||
+                    responseBase.data == null ||
+                    responseBase.data.TXLife == null ||
+                    responseBase.data.TXLife.getTXLifeResponse() == null ||
+                    responseBase.data.TXLife.getTXLifeResponse().getOLife() == null
+                    ){
+                throw new MOMException();
+            }
+
+            LicResponse licResponse = responseBase.data;
+            LicLife txLife           = licResponse.TXLife;
+
+            Log.i("Premium Amount" ,(txLife.getTXLifeResponse().getTransInvAmount().toString()));
+            Log.i("Full Name" ,(txLife.getTXLifeResponse().getOLife().getParty().getFullName().toString()));
+
+            response.setCustom(txLife.getTXLifeResponse());
+
+
+
+            return response;
+
+        }catch(JsonSyntaxException jse){
+            Log.e(_LOG, jse.getMessage());
+        }
+
+        return null;
+    }
+    public TransactionRequest<LicLifeResponse> getLic(TransactionRequest<LicLifeResponse> response) throws MOMException{
+
+        if(TextUtils.isEmpty(response.getRemoteResponse())){
+            throw new MOMException();
+        }
+
+        try {
+            Gson gson   = new GsonBuilder().create();
+
+            Type type   = new TypeToken<ResponseBase<LicResponse>>() {
+            }.getType();
+
+            ResponseBase<LicResponse> responseBase = gson.fromJson(response.getRemoteResponse(), type);
+
+
+            if(
+                    responseBase == null ||
+                            responseBase.data == null ||
+                            responseBase.data.TXLife == null ||
+                            responseBase.data.TXLife.getTXLifeResponse() == null
+                    ){
+                throw new MOMException();
+            }
+
+            LicResponse licResponse = responseBase.data;
+            LicLife txLife           = licResponse.TXLife;
+
+            response.setCustom(txLife.getTXLifeResponse());
+
+            return response;
+
+        }catch(JsonSyntaxException jse){
+            Log.e(_LOG, jse.getMessage());
+        }
+
+        return null;
     }
 
-    public Float getPremiumAmount(String response){
+    public String getPlaceHolder(String response){
 
         Log.i("Lic" , response);
 
@@ -631,15 +720,15 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
             LicLife txLife           = licResponse.TXLife;
 
 
-            return Float.parseFloat(txLife.getTXLifeResponse().getTransInvAmount().toString());
+            Log.i("PlaceHolder" , txLife.getTXLifeResponse().getOLife().getParty().getFullName().toString());
+            return (txLife.getTXLifeResponse().getOLife().getParty().getFullName().toString());
 
         }catch(JsonSyntaxException jse){
             Log.e(_LOG, jse.getMessage());
-        }
+                    }
 
         return null;
     }
-
     public  void lic(String policyNumber){
 
         if(
@@ -658,7 +747,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
         AsyncDataEx dataEx		    = new AsyncDataEx(
                 this,
-                new TransactionRequest(),
+                new TransactionRequest<LicLifeResponse>(),
                 AppConstants.URL_PBX_PLATFORM_APP,
                 Methods.LIC
         );
@@ -666,6 +755,40 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         dataEx.execute(
                 new BasicNameValuePair(AppConstants.PARAM_PBX_SERVICE, AppConstants.SVC_PBX_LIC),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_LICREFNO, policyNumber)
+
+        );
+
+    }
+
+    public  void licPayment(TransactionRequest<LicLifeResponse> request){
+
+        if(
+                TextUtils.isEmpty(request.getRemoteResponse())){
+
+            if(_listener != null) {
+                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.PAY_LIC);
+            }
+            return;
+        }
+
+        String licrefno             = EphemeralStorage.getInstance(_applicationContext).getString(
+                AppConstants.PARAM_PBX_LICREFNO, null
+        );
+
+
+        AsyncDataEx dataEx		    = new AsyncDataEx(
+                this,
+                new TransactionRequest<LicLifeResponse>(),
+                AppConstants.URL_PBX_PLATFORM_APP,
+                Methods.PAY_LIC
+        );
+
+        dataEx.execute(
+                new BasicNameValuePair("Service", "LICPAY"),
+                new BasicNameValuePair("transRefGuid" , request.getCustom().getTransRefGUID()),
+                new BasicNameValuePair("transInvGuid" , request.getCustom().getTransInvGUID()),
+                new BasicNameValuePair("policyAmount" , Double.toString(request.getCustom().getTransInvAmount()))
+
 
         );
 

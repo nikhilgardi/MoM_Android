@@ -22,6 +22,11 @@
             android:layout_width="0dp"
             android:layout_weight="80"
             android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/lic_logo"
+                android:src="@drawable/liclogo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
             <com.mom.app.ui.CustomTextView
                 android:id="@+id/msgDisplay"
@@ -30,28 +35,54 @@
                 android:visibility="gone" />
 
             <TableLayout
+                android:id="@+id/tableLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                style="@style/MoMTheme.wrapped.tbl"
+                android:visibility="gone">
                 <TableRow>
                     <com.mom.app.ui.CustomTextView
-                        android:textSize="@dimen/text_medium"
+                        style="@style/MoMTheme.wrapped.tbl.colHdr"
                         android:text="Policy Holder"/>
 
                     <com.mom.app.ui.CustomTextView
                         android:id="@+id/policyHolder"
-                        style="@style/MoMTheme.wrapped.alertMsg"
-                        android:textSize="@dimen/text_medium"/>
+                        android:singleLine="true"
+                        android:ellipsize="end"
+                        style="@style/MoMTheme.wrapped.tbl.colData"/>
                 </TableRow>
                 <TableRow>
                     <com.mom.app.ui.CustomTextView
-                        android:textSize="@dimen/text_medium"
-                        android:text="Premium Due"/>
+                       style="@style/MoMTheme.wrapped.tbl.colHdr"
+                       android:text="Premium Due"/>
 
                     <com.mom.app.ui.CustomTextView
-                        android:id="@+id/premiumAmount"
-                        style="@style/MoMTheme.wrapped.alertMsg"
-                        android:textSize="@dimen/text_medium"/>
+                       android:id="@+id/premiumAmount"
+                       style="@style/MoMTheme.wrapped.tbl.colData"/>
                 </TableRow>
+
+                <TableRow
+                    android:id="@+id/tableRowStatus">
+                    <com.mom.app.ui.CustomTextView
+                       style="@style/MoMTheme.wrapped.tbl.colHdr"
+                       android:text="Status"/>
+
+                    <com.mom.app.ui.CustomTextView
+                      android:id="@+id/status"
+                      style="@style/MoMTheme.wrapped.tbl.colData"/>
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tableRowReceipt">
+                    <com.mom.app.ui.CustomTextView
+                      style="@style/MoMTheme.wrapped.tbl.colHdr"
+                      android:text="Receipt No." />
+
+                    <com.mom.app.ui.CustomTextView
+                      android:id="@+id/receiptNo"
+                      style="@style/MoMTheme.wrapped.tbl.colData"/>
+                </TableRow>
+
+
             </TableLayout>
 
             <EditText
@@ -75,12 +106,22 @@
                     android:text="@string/btn_getPremium"/>
 
                 <Button
-                    android:id="@+id/btnBack"
+                    android:id="@+id/btnPay"
                     android:layout_height="wrap_content"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     style="@style/MoMTheme.wrapped.customButton"
-                    android:text="@string/btn_back"/>
+                    android:text="@string/btn_pay"
+                    android:visibility="gone"/>
+
+                <Button
+                    android:id="@+id/btnGetAnotherPremium"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    style="@style/MoMTheme.wrapped.customButton"
+                    android:text="@string/btn_btnGetAnotherPremium"
+                    android:visibility="gone"/>
             </LinearLayout>
         </LinearLayout>
 

@@ -218,7 +218,7 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private void showProgress(final boolean show){
-        _progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+        _progressBar.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
             int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
@@ -226,7 +226,7 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
                     show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    _progressBar.setVisibility(show ? View.VISIBLE : View.GONE);
+                    _progressBar.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
                 }
             });
         }

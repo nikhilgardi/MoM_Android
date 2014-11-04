@@ -12,6 +12,7 @@ import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.Transaction;
 import com.mom.app.model.local.EphemeralStorage;
+import com.mom.app.model.pbxpl.lic.LicLifeResponse;
 import com.mom.app.model.xml.PullParser;
 import com.mom.app.ui.TransactionRequest;
 import com.mom.app.utils.AppConstants;
@@ -679,6 +680,10 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
     }
 
     public  void lic(String lic){
+
+    }
+
+    public void licPayment(TransactionRequest<LicLifeResponse> request){
 
     }
 }

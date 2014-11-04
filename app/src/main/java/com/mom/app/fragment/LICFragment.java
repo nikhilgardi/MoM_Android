@@ -8,7 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mom.app.R;
 import com.mom.app.error.MOMException;
@@ -18,17 +22,32 @@ import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.pbxpl.PBXPLDataExImpl;
+import com.mom.app.model.pbxpl.lic.LicLifeResponse;
 import com.mom.app.ui.TransactionRequest;
 import com.mom.app.utils.AppConstants;
 
 /**
  * Created by vaibhavsinha on 10/14/14.
  */
-public class LICFragment extends FragmentBase implements AsyncListener<TransactionRequest> {
+public class LICFragment extends FragmentBase implements AsyncListener<TransactionRequest<LicLifeResponse>> {
     String _LOG         = AppConstants.LOG_PREFIX + "LIC";
+    TableLayout _tableLayout , _tableLayout1;
+    Button _btnRegister , _btnPay , _btnGetAnotherPremium;
 
     private EditText _etLIC;
-    private TextView _tvPremiumAmount;
+    private TextView _tvPremiumAmount , _tvPlaceHolder, _tvStatus , _tvReceiptid;
+    private TransactionRequest<LicLifeResponse> _lastRequest;
+
+    public static final String PymtTrsfrStatusSuccessCode = "S" ;
+    public static final String PymtTrsfrStatusErrorCode3  = "E3" ;
+    public static final String PymtTrsfrStatusErrorCode4  = "E4" ;
+    public static final String PymtTrsfrStatusErrorCode5  = "E5" ;
+    public static final String PymtTrsfrStatusErrorCode6  = "E6" ;
+    public static final String PymtTrsfrStatusErrorCode7  = "E7" ;
+    public static final String PymtTrsfrStatusErrorCode8  = "E8" ;
+    public static final String PymtTrsfrStatusErrorCode9  = "E9" ;
+    public static final String PymtTrsfrStatusErrorCode10 = "E10" ;
+    public static final String PymtTrsfrStatusErrorCode11 = "E11" ;
 
     public static LICFragment newInstance(PlatformIdentifier currentPlatform){
         LICFragment fragment        = new LICFragment();
@@ -44,15 +63,49 @@ public class LICFragment extends FragmentBase implements AsyncListener<Transacti
 
         _etLIC                  = (EditText) view.findViewById(R.id.lic);
         _tvPremiumAmount        = (TextView) view.findViewById(R.id.premiumAmount);
+        _tvPlaceHolder          = (TextView) view.findViewById(R.id.policyHolder);
+        _tvStatus               = (TextView) view.findViewById(R.id.status);
+        _tvReceiptid            = (TextView) view.findViewById(R.id.receiptNo);
+        _tableLayout            = (TableLayout) view.findViewById(R.id.tableLayout);
+        _tableLayout1           = (TableLayout) view.findViewById(R.id.tableLayout1);
 
         _etLIC.setText("806000021");
 
-        Button btnregister      = (Button) view.findViewById(R.id.btnRegister);
+        _btnRegister            = (Button) view.findViewById(R.id.btnRegister);
+        _btnPay                 = (Button) view.findViewById(R.id.btnPay);
+        _btnGetAnotherPremium   = (Button) view.findViewById(R.id.btnGetAnotherPremium);
 
-        btnregister.setOnClickListener(new View.OnClickListener() {
+        _btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 validateAndGetAmount();
+
+            }
+        });
+
+        _btnPay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            _btnPay.setEnabled(false);
+            getLicPayment(_lastRequest) ;
+
+            }
+        });
+
+
+        _btnGetAnotherPremium.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                _tableLayout.setVisibility(View.GONE);
+                _tableLayout.findViewById(R.id.tableRowStatus).setVisibility(View.GONE);
+                _tableLayout.findViewById(R.id.tableRowReceipt).setVisibility(View.GONE);
+                _btnGetAnotherPremium.setVisibility(View.GONE);
+                _etLIC.setVisibility(View.VISIBLE);
+                _etLIC.setText("806000021");
+                _btnRegister.setVisibility(View.VISIBLE);
+                _btnPay.setEnabled(true);
+
             }
         });
 
@@ -66,7 +119,7 @@ public class LICFragment extends FragmentBase implements AsyncListener<Transacti
     }
 
     @Override
-    public void onTaskSuccess(TransactionRequest result, DataExImpl.Methods callback) {
+    public void onTaskSuccess(TransactionRequest<LicLifeResponse> result, DataExImpl.Methods callback) {
         Log.d(_LOG, "Called back");
         showProgress(false);
 
@@ -77,15 +130,70 @@ public class LICFragment extends FragmentBase implements AsyncListener<Transacti
                     showMessage(getResources().getString(R.string.error_invalid_policy_number));
                     return;
                 }
-
                 Log.d(_LOG, "Obtained: " + result);
-                _tvPremiumAmount.setText(String.valueOf(result.getAmount()));
+                _etLIC.setVisibility(View.GONE);
+                _btnRegister.setVisibility(View.GONE);
+                _btnGetAnotherPremium.setVisibility(View.GONE);
+                _tableLayout.setVisibility(View.VISIBLE);
+                _tableLayout.findViewById(R.id.tableRowStatus).setVisibility(View.INVISIBLE);
+                _tableLayout.findViewById(R.id.tableRowReceipt).setVisibility(View.INVISIBLE);
+                _btnPay.setVisibility(View.VISIBLE);
+                _tvPremiumAmount.setText(String.valueOf(result.getCustom().getTransInvAmount()));
+                _tvPlaceHolder.setText(result.getCustom().getOLife().getParty().getFullName());
+                _lastRequest    = result;
+
+                break;
+
+                case PAY_LIC:
+                    if(result == null){
+                        Log.d(_LOG, "Obtained NULL  response");
+                        showMessage(getResources().getString(R.string.error_invalid_policy_number));
+                        return;
+                    }
+
+                    if(result.getCustom().getPymtTrsfrStatus().equals(PymtTrsfrStatusSuccessCode)) {
+                        _btnPay.setVisibility(View.GONE);
+                        _tableLayout.setVisibility(View.VISIBLE);
+                        _tableLayout.findViewById(R.id.tableRowStatus).setVisibility(View.VISIBLE);
+                        _tableLayout.findViewById(R.id.tableRowReceipt).setVisibility(View.VISIBLE);
+                        _btnGetAnotherPremium.setVisibility(View.VISIBLE);
+                        _tvStatus.setText(R.string.lic_success_msg_default);
+                        _tvStatus.setTextColor(getActivity().getResources().getColor(R.color.green));
+                        _tvReceiptid.setText(result.getCustom().getTransReceiptID());
+                    }
+                       else if(result.getCustom().getPymtTrsfrStatus().equals(PymtTrsfrStatusErrorCode3)
+                            || result.getCustom().getPymtTrsfrStatus().equals(PymtTrsfrStatusErrorCode4)
+                            || result.getCustom().getPymtTrsfrStatus().equals(PymtTrsfrStatusErrorCode5)
+                            || result.getCustom().getPymtTrsfrStatus().equals(PymtTrsfrStatusErrorCode6)
+                            || result.getCustom().getPymtTrsfrStatus().equals(PymtTrsfrStatusErrorCode7)
+                            || result.getCustom().getPymtTrsfrStatus().equals(PymtTrsfrStatusErrorCode8)
+                            || result.getCustom().getPymtTrsfrStatus().equals(PymtTrsfrStatusErrorCode9)
+                            || result.getCustom().getPymtTrsfrStatus().equals(PymtTrsfrStatusErrorCode10)
+                            || result.getCustom().getPymtTrsfrStatus().equals(PymtTrsfrStatusErrorCode11))
+                    {
+                        _btnPay.setVisibility(View.GONE);
+                        _btnGetAnotherPremium.setVisibility(View.VISIBLE);
+                        _tableLayout.findViewById(R.id.tableRowStatus).setVisibility(View.VISIBLE);
+                        _tableLayout.findViewById(R.id.tableRowReceipt).setVisibility(View.VISIBLE);
+                        _tvStatus.setText(R.string.lic_failed_msg_default);
+                        _tvStatus.setTextColor(getActivity().getResources().getColor(R.color.red));
+                        _tvReceiptid.setText(result.getCustom().getTransReceiptID());
+                        }
+                        else{
+
+                        }
+
+
                 break;
         }
     }
 
     @Override
     public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
+        showMessage(getResources().getString(R.string.error_invalid_policy_number));
+        _etLIC.setVisibility(View.GONE);
+        _btnRegister.setVisibility(View.GONE);
+        showProgress(false);
 
     }
 
@@ -108,10 +216,18 @@ public class LICFragment extends FragmentBase implements AsyncListener<Transacti
     }
 
     private void getPremiumAmount(String policyNumber) {
-        showMessage(null);
+        hideMessage();
         _etLIC.setText(null);
-
+        _lastRequest    = null;
         getDataEx(this).lic(policyNumber);
         showProgress(true);
     }
+    private void getLicPayment(TransactionRequest<LicLifeResponse>  _lastRequest) {
+        hideMessage();
+        _etLIC.setText(null);
+
+        getDataEx(this).licPayment(_lastRequest);
+        showProgress(true);
+    }
+
 }

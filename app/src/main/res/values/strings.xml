@@ -36,7 +36,9 @@
     <string name="action_changePassword">Change Password</string>
     <string name="action_lIC">LIC</string>
     <string name="title_activity_transaction_confirmation">Transaction Result</string>
-  //  <string name="error_init_app">Error initializing the app. Please try again later or contact customer support if the problem persists</string>
+    <string name="lic_success_msg_default">Payment Successful.</string>
+    <string name="lic_failed_msg_default">Payment Failed</string>
+    <string name="error_init_app">Error initializing the app. Please try again later or contact customer support if the problem persists</string>
     <string name="error_mobile_required">Mobile Number required</string>
     <string name="error_transfer_failed">Error occurred during transfer. Please try again or contact Customer Support for help.</string>
     <string name="error_recharge_failed">Error occurred during recharge. Please try again or contact Customer Support for help.</string>
@@ -56,6 +58,7 @@
     <string name="btn_dashboard">Dashboard</string>
     <string name="btn_recharge">Recharge</string>
     <string name="btn_pay">Pay</string>
+    <string name="btn_btnGetAnotherPremium">Get Another Premium</string>
     <string name="btn_new_recharge">New Recharge</string>
     <string name="btn_new_bill_pay">Pay another Bill</string>
     <string name="btn_back">Back</string>

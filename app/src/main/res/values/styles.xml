@@ -132,5 +132,17 @@
         <item name="android:layout_centerInParent">true</item>
         <item name="android:layout_gravity">center_horizontal</item>
     </style>
+    <style name="MoMTheme.wrapped.tbl">
+        <item name="android:padding">@dimen/ultra_ultra_small</item>
+        <item name="android:textSize">@dimen/text_super_small</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_gravity">start</item>
+        <item name="android:textColor">@color/app.primary.text</item>
+    </style>
+    <style name="MoMTheme.wrapped.tbl.colHdr">
 
+    </style>
+    <style name="MoMTheme.wrapped.tbl.colData">
+        <item name="android:textColor">@color/green</item>
+    </style>
 </resources>

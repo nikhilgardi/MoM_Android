@@ -13,7 +13,7 @@ public enum MoMScreen implements Serializable{
     DTH_RECHARGE(200, R.string.action_dthRecharge, R.drawable.dth, R.drawable.dth_transparent),
     BILL_PAYMENT(300, R.string.action_billPayment, R.drawable.bill, R.drawable.bill_transparent),
     BALANCE_TRANSFER(350, R.string.action_balanceTransfer, R.drawable.balance_transfer, R.drawable.balance_transfer_transparent),
-    LIC(400, R.string.action_lIC,R.drawable.lic ,R.drawable.lic_large),
+    LIC(400, R.string.action_lIC,R.drawable.lic_large ,R.drawable.lic_large),
     HISTORY(450, R.string.action_history, R.drawable.history, R.drawable.history_transparent),
     SETTINGS(500, R.string.action_settings, R.drawable.settings, R.drawable.settings_transparent),
     CHANGE_MPIN(600, R.string.action_changeMpin, R.drawable.mobile, R.drawable.mobile_transparent),

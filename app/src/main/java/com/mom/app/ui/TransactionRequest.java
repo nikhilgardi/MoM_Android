@@ -42,6 +42,7 @@ public class TransactionRequest<T> implements Serializable{
     public Long id;
     String _type;
     float amount;
+    String placeholder;
     String consumerId;
     String customerMobile;
     Operator operator;
@@ -113,6 +114,10 @@ public class TransactionRequest<T> implements Serializable{
     public float getAmount() {
         return amount;
     }
+    public String getPlaceHolder()
+    {
+        return placeholder;
+    }
 
     public void setConsumerId(String consumerId) {
         this.consumerId = consumerId;
@@ -180,6 +185,9 @@ public class TransactionRequest<T> implements Serializable{
 
     public void setAmount(float amount) {
         this.amount = amount;
+    }
+    public void setPlaceHolder(String placeholder) {
+        this.placeholder = placeholder;
     }
 
     public T getCustom() {

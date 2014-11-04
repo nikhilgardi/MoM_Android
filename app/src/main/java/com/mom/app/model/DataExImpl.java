@@ -35,7 +35,8 @@ public abstract class DataExImpl implements IDataEx{
         GET_OPERATOR_NAMES,
         CHANGE_PASSWORD,
         BALANCE_TRANSFER,
-        LIC;
+        LIC,
+        PAY_LIC;
     }
 
     public void checkConnectivity(Context context){

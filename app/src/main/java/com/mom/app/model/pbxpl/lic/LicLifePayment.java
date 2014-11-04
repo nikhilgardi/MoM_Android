@@ -3,11 +3,11 @@ package com.mom.app.model.pbxpl.lic;
 /**
  * Created by vaibhavsinha on 9/16/14.
  */
-public class LicLife {
+public class LicLifePayment {
     LicLifeResponse TXLifeResponse;
 
 
-    public LicLife() {
+    public LicLifePayment() {
 
     }
 

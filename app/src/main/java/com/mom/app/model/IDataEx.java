@@ -1,6 +1,7 @@
 package com.mom.app.model;
 
 import com.mom.app.identifier.PinType;
+import com.mom.app.model.pbxpl.lic.LicLifeResponse;
 import com.mom.app.ui.TransactionRequest;
 
 import org.apache.http.NameValuePair;
@@ -39,4 +40,5 @@ public interface IDataEx {
     public abstract void balanceTransfer(TransactionRequest request, String payTo);
 
     public  void lic(String lic);
+    public void licPayment(TransactionRequest<LicLifeResponse> request);
 }

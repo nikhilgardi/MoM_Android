@@ -82,6 +82,10 @@ public abstract class FragmentBase extends Fragment {
         response.setText(psMsg);
     }
 
+    public void hideMessage(){
+        getMessageTextView().setVisibility(View.GONE);
+    }
+
     public void receiveMessage(Bundle bundle) throws MOMException{
 
     }

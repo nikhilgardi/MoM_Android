@@ -5,4 +5,20 @@ package com.mom.app.model.pbxpl.lic;
  */
 public class LicParty {
     public String FullName;
+
+
+
+    public String getFullName() {
+        return FullName;
+    }
+
+    public void setFullName(String fullName) {
+        FullName = fullName;
+    }
+
+
+
+    public String toString(){
+        return  (FullName) ;
+    }
 }
