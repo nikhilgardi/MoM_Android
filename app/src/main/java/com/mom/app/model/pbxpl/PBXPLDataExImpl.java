@@ -21,10 +21,10 @@ import com.mom.app.model.local.EphemeralStorage;
 
 import com.mom.app.model.pbxpl.lic.LicLife;
 import com.mom.app.model.pbxpl.lic.LicLifeResponse;
-import com.mom.app.model.pbxpl.lic.LicLifeResponsePayment;
+
 import com.mom.app.model.pbxpl.lic.LicOLife;
 import com.mom.app.model.pbxpl.lic.LicParty;
-import com.mom.app.model.pbxpl.lic.LicPayResponse;
+
 import com.mom.app.model.pbxpl.lic.LicResponse;
 import com.mom.app.ui.TransactionRequest;
 import com.mom.app.utils.AppConstants;
