@@ -648,7 +648,9 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
             LicLife txLife           = licResponse.TXLife;
 
             Log.i("Premium Amount" ,(txLife.getTXLifeResponse().getTransInvAmount().toString()));
-            Log.i("Full Name" ,(txLife.getTXLifeResponse().getOLife().getParty().getFullName().toString()));
+            Log.i("Full Name" ,(txLife.getTXLifeResponse().getOLife().getParty().getFullName()));
+            Log.i("From Unpaid" ,(txLife.getTXLifeResponse().getOLife().getPolicy().getFrUnpaidPremiumDate().toString()));
+            Log.i("To Unpaid" ,(txLife.getTXLifeResponse().getOLife().getPolicy().getToUnpaidPremiumDate().toString()));
 
             response.setCustom(txLife.getTXLifeResponse());
 
@@ -760,7 +762,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
     }
 
-    public  void licPayment(TransactionRequest<LicLifeResponse> request){
+    public  void licPayment(TransactionRequest<LicLifeResponse> request , String CustomerMobNo , String PolicyNo){
 
         if(
                 TextUtils.isEmpty(request.getRemoteResponse())){
@@ -785,6 +787,8 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
         dataEx.execute(
                 new BasicNameValuePair("Service", "LICPAY"),
+                new BasicNameValuePair("CustMobNo", CustomerMobNo),
+                new BasicNameValuePair("PolicyNo", PolicyNo),
                 new BasicNameValuePair("transRefGuid" , request.getCustom().getTransRefGUID()),
                 new BasicNameValuePair("transInvGuid" , request.getCustom().getTransInvGUID()),
                 new BasicNameValuePair("policyAmount" , Double.toString(request.getCustom().getTransInvAmount()))

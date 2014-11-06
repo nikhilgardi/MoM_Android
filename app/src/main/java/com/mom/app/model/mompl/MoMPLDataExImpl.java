@@ -683,7 +683,7 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
     }
 
-    public void licPayment(TransactionRequest<LicLifeResponse> request){
+    public void licPayment(TransactionRequest<LicLifeResponse> request , String CustomerMobNo , String PolicyNo){
 
     }
 }

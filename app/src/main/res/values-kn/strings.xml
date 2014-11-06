@@ -88,7 +88,7 @@
     <string name="Rupee">\u20B9</string>
     <string name="title_activity_main">ಮುಖ್ಯ ಚಟುವಟಿಕೆ </string>
 
-    <string name="title_activity_home_bill_activity__pbx">HomeBillActivity_PBX</string>
+    <string name="title_activity_home_bill_activity__pbx">ಹೋಂ ಬಿಲ್ ಚಟುವಟಿಕೆ_PBX</string>
     <string name="title_activity_change_password_pbx">ChangePasswordPBXActivity</string>
     <string name="title_activity_dthrecharge">DTH Recharge</string>
 

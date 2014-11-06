@@ -17,7 +17,15 @@ public class LicOLife {
         return Party;
     }
 
-    public void setParty(LicParty Party) {
-        this.Party = Party;
+    public void setParty(LicParty party) {
+        Party = party;
+    }
+
+    public LicPolicy getPolicy() {
+        return Policy;
+    }
+
+    public void setPolicy(LicPolicy policy) {
+        Policy = policy;
     }
 }
