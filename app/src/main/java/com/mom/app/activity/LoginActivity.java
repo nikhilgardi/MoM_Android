@@ -373,8 +373,7 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 	public void setLoginFailed(int id){
 		showMessage(id);
 		
-        _username.setText("");
-        _password.setText("");
+        _password.setText(null);
 		
 		getLoginBtn().setEnabled(true);
 	}

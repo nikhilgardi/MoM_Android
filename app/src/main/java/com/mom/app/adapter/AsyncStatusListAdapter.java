@@ -2,6 +2,7 @@ package com.mom.app.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.util.LongSparseArray;
@@ -110,6 +111,26 @@ public class AsyncStatusListAdapter extends ArrayAdapter<TransactionRequest> {
         }
 
         return false;
+    }
+
+    public TransactionRequest getTransactionRequest(String txnId){
+        if(_idAsyncMap == null){
+            throw new IllegalStateException("This map can't be null here");
+        }
+
+        if(TextUtils.isEmpty(txnId)){
+            return null;
+        }
+        Long id         = null;
+
+        try{
+            id          = Long.valueOf(txnId);
+        }catch(NumberFormatException nfe){
+            Log.e(_LOG, "Error parsing id", nfe);
+            return null;
+        }
+
+        return _idAsyncMap.get(id);
     }
 
     public void addTransaction(TransactionRequest request){

@@ -19,7 +19,10 @@ import java.util.Random;
  */
 public class TransactionRequest<T> implements Serializable{
     public static enum RequestStatus{
-        SUCCESSFUL (0), FAILED (-1), PENDING (-2);
+        PENDING (1), SUCCESSFUL (0), FAILED (-1), REPEAT_RECHARGE(-2),
+        INVALID_NUMBER(-3), INVALID_AMOUNT(-4), INVALID_SYNTAX(-5),
+        NOT_AUTHORIZED(-6), NOT_REGISTERED(-7);
+
         public int code;
         private RequestStatus(int code){
             this.code   = code;
@@ -27,12 +30,22 @@ public class TransactionRequest<T> implements Serializable{
 
         public static RequestStatus getStatus(int code){
             switch (code){
+                case 1:
+                    return PENDING;
                 case 0:
                     return SUCCESSFUL;
                 case -1:
                     return FAILED;
                 case -2:
-                    return PENDING;
+                    return REPEAT_RECHARGE;
+                case -3:
+                    return INVALID_NUMBER;
+                case -4:
+                    return INVALID_SYNTAX;
+                case -6:
+                    return NOT_AUTHORIZED;
+                case -7:
+                    return NOT_REGISTERED;
             }
 
             return null;
@@ -157,6 +170,15 @@ public class TransactionRequest<T> implements Serializable{
 
     public void setStatus(RequestStatus status) {
         this.status = status;
+    }
+
+    public boolean setStatus(int code){
+        RequestStatus statusFromCode    = RequestStatus.getStatus(code);
+        if(statusFromCode != null){
+            setStatus(statusFromCode);
+            return true;
+        }
+        return false;
     }
 
     public boolean isCompleted() {
