@@ -40,7 +40,8 @@
                 android:layout_height="wrap_content"
                 style="@style/MoMTheme.wrapped.tbl"
                 android:visibility="gone">
-                <TableRow>
+                <TableRow
+                    android:id="@+id/tableRowPolicyHolder">
                     <com.mom.app.ui.CustomTextView
                         style="@style/MoMTheme.wrapped.tbl.colHdr"
                         android:text="Policy Holder"/>
@@ -51,7 +52,8 @@
                         android:ellipsize="end"
                         style="@style/MoMTheme.wrapped.tbl.colData"/>
                 </TableRow>
-                <TableRow>
+                <TableRow
+                    android:id="@+id/tableRowPremiumAmount">
                     <com.mom.app.ui.CustomTextView
                        style="@style/MoMTheme.wrapped.tbl.colHdr"
                        android:text="Premium Due"/>
@@ -62,28 +64,57 @@
                 </TableRow>
 
                 <TableRow
-                    android:id="@+id/tableRowStatus">
+                    android:id="@+id/tableRowFromDate">
                     <com.mom.app.ui.CustomTextView
                        style="@style/MoMTheme.wrapped.tbl.colHdr"
-                       android:text="Status"/>
+                       android:text="From:"/>
 
                     <com.mom.app.ui.CustomTextView
-                      android:id="@+id/status"
+                      android:id="@+id/fromDate"
                       style="@style/MoMTheme.wrapped.tbl.colData"/>
+                </TableRow>
+                <TableRow
+                    android:id="@+id/tableRowToDate">
+                    <com.mom.app.ui.CustomTextView
+                      style="@style/MoMTheme.wrapped.tbl.colHdr"
+                      android:text="To:" />
+
+                    <com.mom.app.ui.CustomTextView
+                      android:id="@+id/toDate"
+                      style="@style/MoMTheme.wrapped.tbl.colData"/>
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tableRowStatus">
+                    <com.mom.app.ui.CustomTextView
+                        style="@style/MoMTheme.wrapped.tbl.colHdr"
+                        android:text="Status"/>
+
+                    <com.mom.app.ui.CustomTextView
+                        android:id="@+id/status"
+                        style="@style/MoMTheme.wrapped.tbl.colData"/>
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRowReceipt">
                     <com.mom.app.ui.CustomTextView
-                      style="@style/MoMTheme.wrapped.tbl.colHdr"
-                      android:text="Receipt No." />
+                        style="@style/MoMTheme.wrapped.tbl.colHdr"
+                        android:text="Receipt No." />
 
                     <com.mom.app.ui.CustomTextView
-                      android:id="@+id/receiptNo"
-                      style="@style/MoMTheme.wrapped.tbl.colData"/>
+                        android:id="@+id/receiptNo"
+                        style="@style/MoMTheme.wrapped.tbl.colData"/>
                 </TableRow>
 
 
             </TableLayout>
+            <EditText
+                android:id="@+id/CustomerNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/EditTextAppTheme.phone"
+                android:hint="@string/lblCustomerMobile"
+                android:layout_marginBottom="@dimen/small"/>
+
 
             <EditText
                 android:id="@+id/lic"
@@ -112,6 +143,14 @@
                     android:layout_weight="1"
                     style="@style/MoMTheme.wrapped.customButton"
                     android:text="@string/btn_pay"
+                    android:visibility="gone"/>
+                <Button
+                    android:id="@+id/btnCancel"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    style="@style/MoMTheme.wrapped.customButton"
+                    android:text="@string/btn_cancel"
                     android:visibility="gone"/>
 
                 <Button

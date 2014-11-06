@@ -62,6 +62,7 @@
     <string name="btn_new_recharge">New Recharge</string>
     <string name="btn_new_bill_pay">Pay another Bill</string>
     <string name="btn_back">Back</string>
+    <string name="btn_cancel">Cancel</string>
     <string name="btn_verifyTpin">Verify T-Pin</string>
     <string name="btn_login">Login</string>
     <string name="btn_getBillAmount">Get Your Bill Amount</string>
