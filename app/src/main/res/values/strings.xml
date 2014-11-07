@@ -137,6 +137,7 @@
 
     <!-- Start: LIC related -->
     <string name="error_invalid_policy_number">Invalid policy number!</string>
+    <string name="error_could_not_pay">Error sending payment confirmation. Please try again later.</string>
     <!-- End: LIC related -->
 
     <!--Start: Aadhar Related -->
