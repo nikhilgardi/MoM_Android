@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="money_on_mobile">MoneyOnMobile</string>
-
+    <string name="app_name">Money On Mobile</string>
     <string name="welcome">வருக</string>
 
     <string name="login_failed_msg_default">உள்நுழைவு தோல்வி. உங்கள் மொபைல் எண் மற்றும் M-Pin-ஐச் சரிபார்க்கவும்</string>
@@ -9,7 +9,9 @@
     <string name="title_activity_verify_tpin">VerifyTPinActivity</string>
 
     <string name="action_dashboard">டாஷ்போர்டு</string>
-
+    <string name="title_activity_aadhar_payment">AadharPaymentActivity</string>
+    <string name="title_activity_aadhar_list">AadharListActivity</string>
+    <string name="title_activity_best_fusion">BestFusionActivity</string>
     <string name="action_balanceTransfer">இருப்பு இடமாற்றம்</string>
 
     <string name="title_activity_transaction_confirmation">பரிவர்த்தனை முடிவு</string>

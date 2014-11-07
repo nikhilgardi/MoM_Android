@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="money_on_mobile">MoneyOnMobile</string>
+    <string name="app_name">Money On Mobile</string>
+    <string name="welcome">Welcome</string>
     <string name="Rupee">\u20B9</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_aadhar_payment">AadharPaymentActivity</string>
@@ -8,7 +11,10 @@
     <string name="title_activity_home_bill_activity__pbx">HomeBillActivity_PBX</string>
     <string name="title_activity_change_password_pbx">ChangePasswordPBXActivity</string>
     <string name="title_activity_dthrecharge">DTH Recharge</string>
-
+    <string name="login_failed_msg_default">Login Failed. Please check your mobile number and M-Pin</string>
+    <string name="title_activity_verify_tpin">VerifyTPinActivity</string>
+    <string name="action_dashboard">Dashboard</string>
+    <string name="action_balanceTransfer">Balance Transfer</string>
     <string name="login_username_pwd_required">Please enter your mobile number and password</string>
     <string name="login_username_required">Please enter your mobile Number</string>
     <string name="login_pwd_required">Please enter your password</string>

@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="money_on_mobile">ಮೊಬೈಲಿನಲ್ಲಿ ಹಣ</string>
+    <string name="app_name">ಮೊಬೈಲಿನಲ್ಲಿ ಹಣ</string>
 
     <string name="welcome">ಸ್ವಾಗತ</string>
 
     <string name="login_failed_msg_default">ಲಾಗಿನ್ ವಿಫಲ. ನಿಮ್ಮ ಮೊಬೈಲ್ ಸಂಖ್ಯೆ ಹಾಗೂ ಎಂ-ಪಿನ್ ಪರೀಕ್ಷಿಸಿ</string>
 
     <string name="title_activity_verify_tpin">ಟಿಪಿನ್‌ಚಟುವಟಿಕೆ ಪರೀಕ್ಷಿಸಿ</string>
-
+    <string name="title_activity_aadhar_payment">AadharPaymentActivity</string>
+    <string name="title_activity_aadhar_list">AadharListActivity</string>
+    <string name="title_activity_best_fusion">BestFusionActivity</string>
     <string name="action_dashboard">ಡ್ಯಾಷ್‌ಬೋರ್ಡ್</string>
 
     <string name="action_balanceTransfer">ಬಾಕಿ ವರ್ಗಾವಣೆ</string>
@@ -186,4 +189,22 @@
     <string name="added_to_queue">Request added to queue. You can start another transaction now.</string>
     <!-- End: Transaction Queue related -->
 
+    <!--Start: Aadhar Related -->
+    <string name="Aadhar">Hello World, RechargeActivity!</string>
+    <string name="app_nameAadhar">Money-On-Mobile</string>
+    <string name="repassaadhar">T-Pin</string>
+    <string name="feedbacktypeAadharPayment">Select Position Hint</string>
+
+    <string name="feedbacktypeAadhar0">Select Position Hint</string>
+    <string name="feedbacktypeAadhar1">RIGHT_THUMB</string>
+    <string name="feedbacktypeAadhar2">RIGHT_INDEX FINGER</string>
+    <string name="feedbacktypeAadhar3">RIGHT_MIDDLE FINGER</string>
+    <string name="feedbacktypeAadhar4">RIGHT_RING FINGER</string>
+    <string name="feedbacktypeAadhar5">RIGHT_LITTLE FINGER</string>
+    <string name="feedbacktypeAadhar6">LEFT_THUMB</string>
+    <string name="feedbacktypeAadhar7">LEFT_INDEX FINGER</string>
+    <string name="feedbacktypeAadhar8">LEFT_MIDDLEFINGER</string>
+    <string name="feedbacktypeAadhar9">LEFT_RING FINGER</string>
+    <string name="feedbacktypeAadhar10">LEFT_LITTLE FINGER</string>
+    <!--End: Aadhar Related -->
 </resources>
