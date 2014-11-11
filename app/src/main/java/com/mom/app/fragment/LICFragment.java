@@ -289,8 +289,8 @@ public class LICFragment extends FragmentBase implements AsyncListener<Transacti
 
     private void getPremiumAmount(String policyNumber) {
         hideMessage();
-        _etLIC.setText(null);
-        _etCustMobileNumber.setText(null);
+       // _etLIC.setText(null);
+       // _etCustMobileNumber.setText(null);
         _lastRequest    = null;
         getDataEx(this).lic(policyNumber);
         showProgress(true);
