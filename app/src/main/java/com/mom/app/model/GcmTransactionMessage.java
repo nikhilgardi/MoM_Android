@@ -6,7 +6,8 @@ package com.mom.app.model;
 public class GcmTransactionMessage {
     String identifier;
     String originTxnId;
-    String payload;
+    Integer status;
+    String responseMessage;
 
     public GcmTransactionMessage(){
 
@@ -20,8 +21,8 @@ public class GcmTransactionMessage {
         return originTxnId;
     }
 
-    public String getPayload() {
-        return payload;
+    public String getResponseMessage() {
+        return responseMessage;
     }
 
     public void setIdentifier(String identifier) {
@@ -32,7 +33,11 @@ public class GcmTransactionMessage {
         this.originTxnId = originTxnId;
     }
 
-    public void setPayload(String payload) {
-        this.payload = payload;
+    public void setResponseMessage(String responseMessage) {
+        this.responseMessage = responseMessage;
+    }
+
+    public Integer getStatus() {
+        return status;
     }
 }

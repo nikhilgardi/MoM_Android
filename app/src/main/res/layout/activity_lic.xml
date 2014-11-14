@@ -3,7 +3,8 @@
     android:layout_width="fill_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:animateLayoutChanges="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,17 +32,19 @@
             <com.mom.app.ui.CustomTextView
                 android:id="@+id/msgDisplay"
                 style="@style/MoMTheme.wrapped.alertMsg"
-                android:textSize="@dimen/text_medium"
+                android:textSize="@dimen/text_small"
                 android:visibility="gone" />
 
             <TableLayout
-                android:id="@+id/tableLayout"
+                android:id="@+id/policyDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/MoMTheme.wrapped.tbl"
                 android:visibility="gone">
+
                 <TableRow
                     android:id="@+id/tableRowPolicyHolder">
+
                     <com.mom.app.ui.CustomTextView
                         style="@style/MoMTheme.wrapped.tbl.colHdr"
                         android:text="Policy Holder"/>
@@ -83,7 +86,13 @@
                       android:id="@+id/toDate"
                       style="@style/MoMTheme.wrapped.tbl.colData"/>
                 </TableRow>
+            </TableLayout>
 
+            <TableLayout
+                android:id="@+id/paymentConfirmation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible">
                 <TableRow
                     android:id="@+id/tableRowStatus">
                     <com.mom.app.ui.CustomTextView
@@ -104,9 +113,8 @@
                         android:id="@+id/receiptNo"
                         style="@style/MoMTheme.wrapped.tbl.colData"/>
                 </TableRow>
-
-
             </TableLayout>
+
             <EditText
                 android:id="@+id/CustomerNumber"
                 android:layout_width="match_parent"

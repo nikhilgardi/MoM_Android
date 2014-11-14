@@ -21,7 +21,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.LongSparseArray;
-import android.util.SparseArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -46,7 +45,6 @@ import com.mom.app.fragment.TransactionHistoryFragment;
 import com.mom.app.identifier.IdentifierUtils;
 import com.mom.app.identifier.PlatformIdentifier;
 import com.mom.app.model.GcmTransactionMessage;
-import com.mom.app.model.Operator;
 import com.mom.app.model.local.EphemeralStorage;
 import com.mom.app.ui.TransactionRequest;
 import com.mom.app.ui.IFragmentListener;
@@ -56,7 +54,6 @@ import com.mom.app.utils.DataProvider;
 import com.mom.app.widget.holder.ImageItem;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class BaseActivity extends ActionBarActivity implements IFragmentListener{
 
@@ -120,7 +117,16 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
                 );
 
                 if(!TextUtils.isEmpty(message.getOriginTxnId())){
+                    TransactionRequest request  = _asyncAdapter.getTransactionRequest(message.getOriginTxnId());
+                    if(request == null){
+                        Log.w(_LOG, "Did not find a transaction with tihs id: " + message.getOriginTxnId());
+                        return;
+                    }
 
+                    if(request.setStatus(message.getStatus())){
+                        Log.d(_LOG, "Found status, setting to: " + request.getStatus());
+                        addToAsyncList(request);
+                    }
                 }
             }catch(Exception e){
                 Log.e(_LOG, "Error parsing json", e);
