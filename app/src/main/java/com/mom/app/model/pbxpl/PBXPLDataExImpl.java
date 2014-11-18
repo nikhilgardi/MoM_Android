@@ -8,7 +8,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
-import com.mom.app.R;
 import com.mom.app.error.MOMException;
 import com.mom.app.gcm.GcmUtil;
 import com.mom.app.identifier.PinType;
@@ -17,13 +16,11 @@ import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.Operator;
+import com.mom.app.model.Transaction;
 import com.mom.app.model.local.EphemeralStorage;
 
 import com.mom.app.model.pbxpl.lic.LicLife;
 import com.mom.app.model.pbxpl.lic.LicLifeResponse;
-
-import com.mom.app.model.pbxpl.lic.LicOLife;
-import com.mom.app.model.pbxpl.lic.LicParty;
 
 import com.mom.app.model.pbxpl.lic.LicResponse;
 import com.mom.app.ui.TransactionRequest;
@@ -107,6 +104,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         return getInstance(context, pListener, Methods.LOGIN);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void onTaskSuccess(TransactionRequest result, Methods callback) {
         if(_listener == null){
@@ -118,7 +116,6 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
             switch (callback) {
                 case LOGIN:
                     boolean bSuccess = loginSuccessful(result);
-                    //   boolean bSuccess = loginSuccessful(jsonStr);
                     _listener.onTaskSuccess(bSuccess, callback);
                     break;
                 case GET_BALANCE:
@@ -134,26 +131,25 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                     _listener.onTaskSuccess(getOperatorNamesResult(result), callback);
                     break;
                 case TRANSACTION_HISTORY:
-                  //  _listener.onTaskSuccess(extractTransactions(result), callback);
                     _listener.onTaskSuccess(extractTransactionshistory(result), callback);
                     break;
                 case RECHARGE_MOBILE:
                     Log.i(_LOG, "TaskComplete: rechargeMobile method, result: " + result);
                     if (_listener != null) {
-                        _listener.onTaskSuccess(getRechargeResult(result), Methods.RECHARGE_MOBILE);
+                        _listener.onTaskSuccess(getPaymentTransactionResult(result), Methods.RECHARGE_MOBILE);
                     }
                     break;
 
                 case RECHARGE_DTH:
                     Log.i(_LOG, "TaskComplete: rechargeDTH method, result: " + result);
                     if (_listener != null) {
-                        _listener.onTaskSuccess(getRechargeResult(result), Methods.RECHARGE_DTH);
+                        _listener.onTaskSuccess(getPaymentTransactionResult(result), Methods.RECHARGE_DTH);
                     }
                     break;
                 case PAY_BILL:
                     Log.i(_LOG, "TaskComplete: payBill method, result: " + result);
                     if (_listener != null) {
-                        _listener.onTaskSuccess(getRechargeResult(result), Methods.PAY_BILL);
+                        _listener.onTaskSuccess(getPaymentTransactionResult(result), Methods.PAY_BILL);
                     }
                     break;
 
@@ -215,12 +211,12 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
     }
 
     @Override
-    public void rechargeMobile(TransactionRequest request, int rechargeType) {
+    public void rechargeMobile(TransactionRequest<PaymentResponse> request, int rechargeType) {
 
         if(TextUtils.isEmpty(request.getConsumerId())){
 
             if(_listener != null) {
-                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.LOGIN);
+                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.RECHARGE_MOBILE);
             }
             return;
         }
@@ -241,12 +237,14 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         );
     }
 
+
+
     @Override
-    public void rechargeDTH(TransactionRequest request){
+    public void rechargeDTH(TransactionRequest<PaymentResponse> request){
         if(TextUtils.isEmpty(request.getConsumerId())){
 
             if(_listener != null) {
-                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.LOGIN);
+                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.RECHARGE_DTH);
             }
         }
 
@@ -265,8 +263,10 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         );
     }
 
+
+
     public void payBill(
-            TransactionRequest request,
+            TransactionRequest<PaymentResponse> request,
             String psConsumerName,
             HashMap<String, String> pExtraParamsMap
     ){
@@ -283,6 +283,37 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 new BasicNameValuePair(AppConstants.PARAM_PBX_ORIGIN_ID, _deviceRegId),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_CLIENT_TOKEN, _token)
         );
+    }
+
+    public TransactionRequest getPaymentTransactionResult(TransactionRequest<PaymentResponse> request){
+
+        if(TextUtils.isEmpty(request.getRemoteResponse())){
+            Log.e(_LOG, "Null remote response received");
+            return null;
+        }
+
+        try {
+            Gson gson   = new GsonBuilder().create();
+
+            Type type   = new TypeToken<ResponseBase<PaymentResponse>>() {
+            }.getType();
+            ResponseBase<PaymentResponse> responseBase = gson.fromJson(request.getRemoteResponse(), type);
+
+            if(responseBase == null){
+                Log.w(_LOG, "Null response?");
+                return null;
+            }
+
+            Log.d(_LOG, "Response: " + responseBase.data);
+
+            request.setCustom(responseBase.data);
+
+            return request;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return request;
     }
 
     @Override
@@ -395,36 +426,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
 
 
-    public String getRechargeResult(TransactionRequest request){
-        String response = null;
 
-        if(TextUtils.isEmpty(request.getRemoteResponse())){
-            return null;
-        }
-
-
-        try {
-            Gson gson   = new GsonBuilder().create();
-
-            Type type   = new TypeToken<ResponseBase<RechargeResponse>>() {
-            }.getType();
-            ResponseBase<RechargeResponse> responseBase = gson.fromJson(request.getRemoteResponse(), type);
-            RechargeResponse rechargeResponse = responseBase.data;
-
-            String response1   = rechargeResponse.transactionId;
-            Log.d(_LOG, "Response: " + response1);
-            String response2   = Double.toString(rechargeResponse.amount);
-            Log.d(_LOG, "Response1: " + response2);
-            String response3   = Double.toString(rechargeResponse.Balance);
-            Log.d(_LOG, "Response2: " + response3);
-             response = "Transaction Id: " + response1 + " " + "Amount" + response2 + " " + "Balance" + " " + response3;
-            return response;
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-        return response;
-    }
 
     public String getInternalBalTransfer(TransactionRequest request){
         String intenalbal = null;
@@ -468,7 +470,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 this,
                 new TransactionRequest(),
                 AppConstants.URL_PBX_PLATFORM_APP,
-                Methods.RECHARGE_MOBILE
+                Methods.TRANSACTION_HISTORY
         );
 
         dataEx.execute(
@@ -480,20 +482,26 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         );
     }
 
-    public ArrayList<PBXTransaction> extractTransactionshistory(TransactionRequest request){
+    public ArrayList<Transaction> extractTransactionshistory(TransactionRequest request){
         Gson gson = new GsonBuilder().create();
 
         Type type   = new TypeToken<ResponseBase<PBXTransaction[]>>(){}.getType();
 
-        ResponseBase<PBXTransaction> responseBase  = gson.fromJson(request.getRemoteResponse(), type);
+        ResponseBase<PBXTransaction[]> responseBase  = gson.fromJson(request.getRemoteResponse(), type);
 
-        ArrayList<PBXTransaction> list     = new ArrayList<PBXTransaction>();
-        if(responseBase == null || responseBase.code != 0){
+        ArrayList<Transaction> list     = new ArrayList<Transaction>();
+
+        if(responseBase == null || responseBase.code != 0 || responseBase.data == null){
             return list;
+        }
+
+        for(PBXTransaction transaction:responseBase.data){
+            list.add(transaction.getTransaction());
         }
 
         return list;
     }
+
     @Override
     public  void changePassword( String psOldPin, String psNewPin){
         Log.i(_LOG, "Calling Async password");

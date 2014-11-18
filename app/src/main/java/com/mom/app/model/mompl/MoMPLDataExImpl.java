@@ -12,6 +12,7 @@ import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.Transaction;
 import com.mom.app.model.local.EphemeralStorage;
+import com.mom.app.model.pbxpl.PaymentResponse;
 import com.mom.app.model.pbxpl.lic.LicLifeResponse;
 import com.mom.app.model.xml.PullParser;
 import com.mom.app.ui.TransactionRequest;
@@ -50,9 +51,15 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         return _instance;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void onTaskSuccess(TransactionRequest result, Methods callback) {
         Log.d(_LOG, "onTaskSuccess");
+        if(_listener == null){
+            Log.e(_LOG, "No listener!");
+            return;
+        }
+
         try {
             result.setCompleted(true);
             result.setDateCompleted(new Date());
@@ -89,27 +96,27 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 case RECHARGE_MOBILE:
                     Log.d(_LOG, "TaskComplete: rechargeMobile method, result: " + result);
                     if (_listener != null) {
-                        _listener.onTaskSuccess(getRechargeResult(result), Methods.RECHARGE_MOBILE);
+                        _listener.onTaskSuccess(getPaymentResult(result), Methods.RECHARGE_MOBILE);
                     }
                     break;
                 case RECHARGE_DTH:
                     Log.d(_LOG, "TaskComplete: rechargeDTH method, result: " + result);
                     if (_listener != null) {
-                        _listener.onTaskSuccess(getRechargeResult(result), Methods.RECHARGE_DTH);
+                        _listener.onTaskSuccess(getPaymentResult(result), Methods.RECHARGE_DTH);
                     }
                     break;
                 case PAY_BILL:
                     Log.d(_LOG, "TaskComplete: payBill method, result: " + result);
 
                     if (_listener != null) {
-                        _listener.onTaskSuccess(getRechargeResult(result), Methods.PAY_BILL);
+                        _listener.onTaskSuccess(getPaymentResult(result), Methods.PAY_BILL);
                     }
                     break;
                 case BALANCE_TRANSFER:
                     Log.d(_LOG, "TaskComplete: balanceTransfer method, result: " + result);
 
                     if (_listener != null) {
-                        _listener.onTaskSuccess(getRechargeResult(result), Methods.BALANCE_TRANSFER);
+                        _listener.onTaskSuccess(getPaymentResult(result), Methods.BALANCE_TRANSFER);
                     }
                     break;
                 case GET_BILL_AMOUNT:
@@ -267,7 +274,7 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
     public void verifyTPin(String psTPin){
         if(psTPin == null || "".equals(psTPin)){
             if(_listener != null) {
-                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.LOGIN);
+                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.VERIFY_TPIN);
             }
         }
 
@@ -315,7 +322,7 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
     }
 
 
-    public void rechargeMobile(TransactionRequest request, int pnRechargeType){
+    public void rechargeMobile(TransactionRequest<PaymentResponse> request, int pnRechargeType){
 
         if(
             request == null || TextUtils.isEmpty(request.getConsumerId()) ||
@@ -323,7 +330,7 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
             ){
 
             if(_listener != null) {
-                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.LOGIN);
+                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.RECHARGE_MOBILE);
             }
             return;
         }
@@ -349,7 +356,10 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         );
     }
 
-    public TransactionRequest getRechargeResult(TransactionRequest pResult) throws MOMException{
+    public TransactionRequest<PaymentResponse> getPaymentResult(
+            TransactionRequest<PaymentResponse> pResult
+    ) throws MOMException{
+
         if(pResult == null || "".equals(pResult.getRemoteResponse().trim())){
             throw new MOMException();
         }
@@ -368,14 +378,14 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         return null;
     }
 
-    public void rechargeDTH(TransactionRequest request){
+    public void rechargeDTH(TransactionRequest<PaymentResponse> request){
         if(
                 TextUtils.isEmpty(request.getConsumerId()) ||
                 request.getAmount() < 1 || request.getOperator() == null
                 ){
 
             if(_listener != null) {
-                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.LOGIN);
+                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.RECHARGE_DTH);
             }
         }
 
@@ -402,7 +412,7 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
     }
 
     public void payBill(
-                        TransactionRequest request,
+                        TransactionRequest<PaymentResponse> request,
                         String psConsumerName,
                         HashMap<String, String> pExtraParamsMap
                     ){
@@ -518,7 +528,7 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 ){
 
             if(_listener != null) {
-                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.LOGIN);
+                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.GET_BILL_AMOUNT);
             }
         }
 

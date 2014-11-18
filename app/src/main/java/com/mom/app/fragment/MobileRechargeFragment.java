@@ -2,8 +2,6 @@ package com.mom.app.fragment;
 
 
 import android.app.AlertDialog;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +24,7 @@ import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.Operator;
+import com.mom.app.model.pbxpl.PaymentResponse;
 import com.mom.app.ui.TransactionRequest;
 import com.mom.app.utils.AppConstants;
 import com.mom.app.utils.DataProvider;
@@ -36,7 +35,7 @@ import java.util.List;
  * A simple {@link android.app.Fragment} subclass.
  *
  */
-public class MobileRechargeFragment extends FragmentBase implements AsyncListener<TransactionRequest>{
+public class MobileRechargeFragment extends FragmentBase implements AsyncListener<TransactionRequest<PaymentResponse>>{
 
     String _LOG     = AppConstants.LOG_PREFIX + "MOB_RECHARGE";
 
@@ -104,37 +103,18 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
 
 
     @Override
-    public void onTaskSuccess(TransactionRequest result, DataExImpl.Methods callback) {
+    public void onTaskSuccess(TransactionRequest<PaymentResponse> result, DataExImpl.Methods callback) {
+        showProgress(false);
         Log.d(_LOG, "Called back: " + result);
+
         if(result == null){
             Log.e(_LOG, "Seomthing wrong. Received null TransactionRequest object");
+            showMessage(getResources().getString(R.string.error_recharge_failed));
             return;
         }
 
         switch(callback){
             case RECHARGE_MOBILE:
-                if(result == null){
-                    Log.d(_LOG, "Obtained NULL recharge response");
-                    showMessage(getResources().getString(R.string.error_recharge_failed));
-                    return;
-                }
-
-                Log.d(_LOG, "Starting navigation to TxnMsg Activity");
-
-//                if(_currentPlatform == PlatformIdentifier.MOM){
-//                    showDialog(
-//                            "Transaction Completed",
-//                            result.getRemoteResponse(),
-//                            "OK",
-//                            new DialogInterface.OnClickListener(){
-//                                public void onClick(DialogInterface dialog, int which) {
-//                                    dialog.dismiss();
-//                                }
-//                            },
-//                            null,
-//                            null
-//                    );
-//                }
                 taskCompleted(result);
                 break;
         }
@@ -142,7 +122,8 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
 
     @Override
     public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
-
+        Log.e(_LOG, "Error in recharging");
+        showMessage(getResources().getString(R.string.error_recharge_failed));
     }
 
     @Override
@@ -153,13 +134,6 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
 
     @Override
     protected void showBalance(float pfBalance) {
-    }
-
-    public Fragment getAttachedFragment(int containerResId){
-        FragmentManager manager     = getFragmentManager();
-        Fragment attachedFragment   = manager.findFragmentById(containerResId);
-
-        return attachedFragment;
     }
 
     public void addListenerOnSpinnerItemSelection() {
@@ -289,7 +263,7 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
             nRechargeType               = 2;
         }
 
-        TransactionRequest request = new TransactionRequest(
+        TransactionRequest<PaymentResponse> request = new TransactionRequest<PaymentResponse>(
                 getActivity().getResources().getString(TransactionType.MOBILE.transactionTypeStringId),
                 sConsumerNumber,
                 sConsumerNumber,

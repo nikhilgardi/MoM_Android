@@ -110,6 +110,11 @@ public class TransactionRequest<T> implements Serializable{
         this.consumerId     = consumerId;
         this.dateStarted    = new Date();
     }
+
+    public Long getId() {
+        return id;
+    }
+
     public String getDescription(){
         StringBuilder sb    = new StringBuilder(_type);
 
