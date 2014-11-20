@@ -2,7 +2,7 @@
 <resources>
 
     <string name="money_on_mobile">MoneyOnMobile</string>
-
+    <string name="app_name">Money On Mobile</string>
     <string name="welcome">வருக</string>
 
     <string name="login_failed_msg_default">உள்நுழைவு தோல்வி. உங்கள் மொபைல் எண் மற்றும் M-Pin-ஐச் சரிபார்க்கவும்</string>
@@ -153,6 +153,10 @@
 
     <string name="yes">ஆம்</string>
     <string name="no">இல்லை</string>
+
+    <string name="title_activity_aadhar_payment">AadharPaymentActivity</string>
+    <string name="title_activity_aadhar_list">AadharListActivity</string>
+    <string name="title_activity_best_fusion">BestFusionActivity</string>
     <!-- START: LANGUAGE RELATED -->
     <string name="language_bengali">Bengali</string>
     <string name="language_bengali_code">bn</string>

@@ -20,9 +20,7 @@ import com.mom.app.model.DataExImpl;
 import com.mom.app.ui.TransactionRequest;
 import com.mom.app.utils.AppConstants;
 
-/**
- * Created by vaibhavsinha on 10/14/14.
- */
+
 public class BalanceTransferFragment extends FragmentBase implements AsyncListener<TransactionRequest> {
     String _LOG         = AppConstants.LOG_PREFIX + "BALANCE_TRANSFER";
 

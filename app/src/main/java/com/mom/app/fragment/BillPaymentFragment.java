@@ -241,7 +241,7 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
             nMinLength      = 10;
             nMaxLength      = 11;
         }else if(
-                sOperatorId.equals(AppConstants.OPERATOR_ID_AIRCEL_BILL) ||
+                        sOperatorId.equals(AppConstants.OPERATOR_ID_AIRCEL_BILL) ||
                         sOperatorId.equals(AppConstants.OPERATOR_ID_BSNL_BILL_PAY) ||
                         sOperatorId.equals(AppConstants.OPERATOR_ID_IDEA_BILL) ||
                         sOperatorId.equals(AppConstants.OPERATOR_ID_RELIANCE_BILL_GSM) ||
