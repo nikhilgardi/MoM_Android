@@ -42,7 +42,6 @@
                 android:id="@+id/subscriberId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/EditTextAppTheme.phone"
                 android:hint="@string/lblConsumerNumber"
                 android:layout_marginBottom="@dimen/medium"/>
 

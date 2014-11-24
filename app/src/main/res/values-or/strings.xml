@@ -114,19 +114,13 @@
     <string name="action_changeTpin">T-Pin  ପରିବର୍ତ୍ତନ</string>
     <string name="action_changePassword">ପାସ୍‌ୱାର୍ଡ ପରିବର୍ତ୍ତନ</string>
 
-    <string name="action_lIC">LIC</string>
-    <string name="lic_success_msg_default">Payment Successful.</string>
-    <string name="lic_failed_msg_default">Payment Failed</string>
-    <string name="error_field_required">This field is mandatory</string>
-    <string name="error_pin_confirm_mismatch">Both PINs should be same</string>
-    <string name="error_init_app">Error initializing the app. Please try again later or contact customer support if the problem persists</string>
 
 
-    <string name="confirm_logout">Do you want to logout and exit the app?</string>
+
     <string name="btn_dashboard">ଦାସ୍‌ବୋର୍ଡ</string>
     <string name="btn_recharge"> ରିଚାର୍ଜ</string>
 
-    <string name="btn_btnGetAnotherPremium">Get Another Premium</string>
+
 
     <string name="btn_back">ବ୍ୟାକ୍‌</string>
     <string name="btn_cancel">କ୍ୟାନ୍‌ସଲ୍‌</string>
@@ -134,8 +128,7 @@
     <string name="btn_login">ଲଗ୍‌ଇନ୍‌</string>
     <string name="btn_getBillAmount">ଆପଣଙ୍କର ବିଲ୍‌ର ରାଶି ପାଆନ୍ତୁ</string>
 
-    <string name="btn_register">Register</string>
-    <string name="btn_getPremium">Get Premium</string>
+
     <string name="prompt_spinner_select_operator">ଅପରେଟର୍‌ ଚୟନ</string>
     <string name="prompt_enter_tpin">ଦୟାକରି ଆପଣଙ୍କର T-Pin ପ୍ରବେଶ କରାନ୍ତୁ </string>
 
@@ -147,7 +140,7 @@
     <string name="lblConsumerNumber">ଉପଭୋକ୍ତା ନମ୍ବର</string>
 
     <string name="lblMobileNumber">ମୋବାଇଲ୍‌ ନମ୍ବର୍‌</string>
-    <string name="lblPolicyNumber">Policy Number</string>
+
 
     <string name="lblAccountNumber">ଆକାଉଣ୍ଟ୍‌ ନମ୍ବର</string>
     <string name="tpin_old">ପୁଋଣା T-Pin</string>
@@ -160,7 +153,7 @@
     <string name="new_password">ନୂତନ ପାସ୍‌ୱାର୍ଡ</string>
     <string name="confirm_password">ସୁନିଶ୍ଚିତ ପାସ୍‌ୱାର୍ଡ</string>
 
-    <string name="title_activity_retailer_payment">RetailerPayment</string>
+
 
     <string name="title_activity_change_pin">PIN ପରିବର୍ତ୍ତନ</string>
     <string name="title_activity_settings">ସେଟିଂ</string>
@@ -188,12 +181,29 @@
     <string name="title_activity_base">MoneyOnMobile</string>
 
 
+    <string name="action_lIC">LIC</string>
+    <string name="lic_success_msg_default">ପୈଠ ସଫଳ</string>
+    <string name="lic_failed_msg_default">ପୈଠ ବିଫଳ</string>
+    <string name="error_field_required">ଏହି କ୍ଷେତ୍ର ମାଣ୍ଡାଟୋରୀ</string>
+    <string name="error_pin_confirm_mismatch">ଉଭୟ PINs ସମାନ ଅଟେ</string>
+    <string name="error_init_app">ଏହି ଆପ୍ଲିକେସନ୍‌ ଆରମ୍ଭରେ ତ୍ରୁଟି। ଦୟାକରି ପରେ ଚେଷ୍ଟା କରନ୍ତୁ କିମ୍ବା ଯଦି ଅସୁବିଧା ଜାରିରହୁଛି ଗ୍ରାହକ ସମର୍ଥନକୁ ସମ୍ପର୍କ କରନ୍ତୁ </string>
+    <string name="confirm_logout">ଆପନ ଏହି ଆପ୍ଲିକେସନ୍‌କୁ ଲଗ୍‌ ଆଉଟ୍‌ କିମ୍ବା ବାହାରିବାକୁ ଚାହାନ୍ତି କି?</string>
+    <string name="btn_btnGetAnotherPremium">ଆଉଏକ ପ୍ରିମିୟମ୍‌ ପାଅନ୍ତୁ</string>
+    <string name="btn_register">ପଞ୍ଜୀକରଣ</string>
+    <string name="btn_getPremium">ପ୍ରିମିୟମ୍‌ ପାଅନ୍ତୁ</string>
+    <string name="lblPolicyNumber">ପଲିସି ନମ୍ବର</string>
+    <string name="title_activity_retailer_payment">ରିଟେଲର୍‌ ପୈଠ</string>
+
+
+
+
+
     <!-- Start: Transaction Queue related -->
-    <string name="added_to_queue">Request added to queue. You can start another transaction now.</string>
+    <string name="added_to_queue">ଏକ ଧାଡିରେ ରହିବାକୁ ଅନୁରୋଧ ଆପଣ ବର୍ତ୍ତମାନ ଆଉଏକ ଟ୍ରାଞ୍ଜାକ୍‌ସନ୍‌ ଆରମ୍ଭ କରିପାରିବେ।</string>
     <!-- End: Transaction Queue related -->
 
     <!-- Start: LIC related -->
-    <string name="error_invalid_policy_number">Invalid policy number!</string>
+    <string name="error_invalid_policy_number">ଅବୈଧ ପଲିସି ନମ୍ବର!</string>
     <!-- End: LIC related -->
 
     <!--Start: Aadhar Related -->
@@ -435,6 +445,6 @@
     <string name="feedbacktypeSBERecharge120">Gaya Urban</string>
     <!--End: NBE/SBE related-->
     <!-- Start: LIC related -->
-    <string name="error_could_not_pay">Error sending payment confirmation. Please try again later.</string>
+    <string name="error_could_not_pay">ପ୍ରେରଣ କରାଯାଇଥିବା ପୈଠ ସୁନିଶ୍ଚିତତାରେ ତ୍ରୁଟି ଦୟାକରିପରେ ପୁନଃଚେଷ୍ଟା କରନ୍ତୁ।</string>
     <!-- End: LIC related -->
 </resources>

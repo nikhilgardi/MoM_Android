@@ -104,19 +104,15 @@
     <string name="action_changeTpin">T-Pin બદલો</string>
     <string name="action_changePassword">પાસવર્ડ બદલો</string>
 
-    <string name="action_lIC">LIC</string>
-    <string name="lic_success_msg_default">Payment Successful.</string>
-    <string name="lic_failed_msg_default">Payment Failed</string>
-    <string name="error_field_required">This field is mandatory</string>
-    <string name="error_pin_confirm_mismatch">Both PINs should be same</string>
-    <string name="error_init_app">Error initializing the app. Please try again later or contact customer support if the problem persists</string>
-    <string name="confirm_logout">Do you want to logout and exit the app?</string>
+
+
 
     <string name="btn_dashboard">ડેશબોર્ડ</string>
     <string name="btn_recharge">રીચાર્જ</string>
 
 
-    <string name="btn_btnGetAnotherPremium">Get Another Premium</string>
+
+
 
 
     <string name="btn_back">પાછળની બાજુ</string>
@@ -127,8 +123,10 @@
     <string name="btn_getBillAmount">તમારી બિલની રકમ મેળવો</string>
 
 
-    <string name="btn_register">Register</string>
-    <string name="btn_getPremium">Get Premium</string>
+
+
+
+
     <string name="prompt_spinner_select_operator">સંચાલન પસંદ કરો</string>
     <string name="prompt_enter_tpin">કૃપા કરી તમારો T-Pin દાખલ કરો</string>
 
@@ -140,7 +138,8 @@
     <string name="lblConsumerNumber">ગ્રાહક નંબર </string>
     <string name="lblMobileNumber">મોબાઇલ નંબર</string>
 
-    <string name="lblPolicyNumber">Policy Number</string>
+
+
 
 
     <string name="lblAccountNumber">ખાતાં નંબર </string>
@@ -155,7 +154,8 @@
     <string name="confirm_password">પાસવર્ડ પુષ્ટિ કરો</string>
 
 
-    <string name="title_activity_retailer_payment">RetailerPayment</string>
+
+
 
 
     <string name="title_activity_change_pin">PIN બદલાવો</string>
@@ -186,15 +186,29 @@
 
     <string name="drawer_open">સંચાલન દર્શાવો</string>
     <string name="drawer_close">સંચાલન છુપાવો</string>
+    <string name="action_lIC">LIC</string>
+    <string name="lic_success_msg_default">ચૂકવણી સફળ</string>
+    <string name="lic_failed_msg_default">ચૂકવણી નિષ્ફળ</string>
+    <string name="error_field_required">આ ફિલ્ડ ફરજિયાત છે</string>
+    <string name="error_pin_confirm_mismatch">બંને PINs સરખાં હોવા જોઇએ</string>
+    <string name="error_init_app">એપ શરૂ કરવામાં ભૂલ કૃપા કરી ફરીથી પ્રયાસ કરો અથવા જો સમસ્યા ચાલુ રહે તો કસ્ટમર કેરનો સંપર્ક કરો</string>
+    <string name="confirm_logout">એપમાંથી તમે બહાર નીકળવા માગો છો?</string>
+    <string name="btn_btnGetAnotherPremium">અન્ય પ્રિમીયમ મેળવો</string>
+    <string name="btn_register">નોંધણી કરો</string>
+    <string name="btn_getPremium">પ્રિમીયમ મેળવો</string>
+    <string name="lblPolicyNumber">પોલીસી નંબર</string>
+    <string name="title_activity_retailer_payment">રીટેલરપેમેન્ટ</string>
+
+
 
 
     <!-- Start: Transaction Queue related -->
-    <string name="added_to_queue">Request added to queue. You can start another transaction now.</string>
+    <string name="added_to_queue">લાઇનમાં વિનંતી ઉમેરાઇ. તમે હમણાં નવો વ્યવહાર શરૂ કરી શકશો. </string>
     <!-- End: Transaction Queue related -->
 
     <!-- Start: LIC related -->
-    <string name="error_invalid_policy_number">Invalid policy number!</string>
-    <string name="error_could_not_pay">Error sending payment confirmation. Please try again later.</string>
+    <string name="error_invalid_policy_number">અમાન્ય પોલીસી નંબર!</string>
+    <string name="error_could_not_pay">ચૂકવણી પુષ્ટિ મોકલવામાં ભૂલ કૃપા કરી બાદમાં પ્રયાસ કરો.</string>
     <!-- End: LIC related -->
 
     <!--Start: Aadhar Related -->

@@ -110,10 +110,10 @@
     <string name="action_changeTpin">T-Pin -ஐ மாற்றவும்</string>
     <string name="action_changePassword">கடவுச்சொல்லை மாற்றுக</string>
 
-    <string name="error_init_app">Error initializing the app. Please try again later or contact customer support if the problem persists</string>
 
 
-    <string name="confirm_logout">இந்த பயன்பாட்டிலிருந்து வெளியேற விரும்புகிறீர்களா?</string>
+
+  <!--  <string name="confirm_logout">இந்த பயன்பாட்டிலிருந்து வெளியேற விரும்புகிறீர்களா?</string>-->
     <string name="btn_dashboard">டேஷ்போர்ட்</string>
     <string name="btn_recharge">ரீசார்ஜ் செய்க</string>
 
@@ -146,7 +146,7 @@
     <string name="confirm_password">கடவுச்சொல்லை உறுதிப்படுத்தவும்</string>
 
 
-    <string name="title_activity_retailer_payment">RetailerPayment</string>
+
 
     <string name="title_activity_change_pin">PIN -ஐ மாற்றவும்</string>
     <string name="title_activity_settings">அமைப்புகள்</string>
@@ -177,33 +177,34 @@
     <!-- END: LANGUAGE RELATED -->
     <string name="title_activity_base">MoneyOnMobile</string>
 
+    <string name="action_lIC">LIC</string>
+    <string name="lic_success_msg_default">கட்டணம் செலுத்தல் வெற்றியடைந்த்து.</string>
+    <string name="lic_failed_msg_default">கட்டணம் செலுத்தல் தோல்வியுற்றது</string>
+    <string name="error_field_required">இந்தப் புலம் கட்டாயம்.</string>
+    <string name="error_pin_confirm_mismatch">இரண்டு PINகளும் ஒன்றாக இருக்க வேண்டும்</string>
+    <string name="error_init_app">பயன்பாட்டைத் தொடங்குவதில் பிழை. தயவுசெய்து, பின்னர் மீண்டும் முயற்சிக்கவும் அல்லது சிக்கல் தொடர்ந்தால் வாடிக்கையாளர் ஆதரவைத் தொடர்புகொள்க</string>
+    <string name="confirm_logout">நீங்கள் வெளியேறி, பயன்பாட்டை வெளியேற்ற விரும்புகிறீர்களா?</string>
+    <string name="btn_btnGetAnotherPremium">மற்றொரு பிரீமியத்தைப் பெறுக</string>
+    <string name="btn_register">பதிவுசெய்க</string>
+    <string name="btn_getPremium">பிரீமியத்தைப் பெறுக</string>
+    <string name="lblPolicyNumber">காப்பீட்டு எண்</string>
+    <string name="title_activity_retailer_payment">சிறுவியாபாரி கட்டணம்</string>
+
 
     <!-- Start: Transaction Queue related -->
-    <string name="added_to_queue">Request added to queue. You can start another transaction now.</string>
+    <string name="added_to_queue">கோரிக்கை வரிசையில் சேர்க்கப்பட்டது. நீங்கள் இப்போது மற்றொரு பரிவர்த்தனையைத் தொடங்கலாம்.</string>
     <!-- End: Transaction Queue related -->
 
 
-    <string name="action_lIC">LIC</string>
 
-    <string name="lic_success_msg_default">Payment Successful.</string>
-    <string name="lic_failed_msg_default">Payment Failed</string>
-    <string name="error_field_required">This field is mandatory</string>
-    <string name="error_pin_confirm_mismatch">Both PINs should be same</string>
-
-
-    <string name="btn_btnGetAnotherPremium">Get Another Premium</string>
 
     <string name="btn_cancel">ரத்துசெய்க</string>
 
-    <string name="btn_register">Register</string>
-    <string name="btn_getPremium">Get Premium</string>
-
-    <string name="lblPolicyNumber">Policy Number</string>
 
 
     <!-- Start: LIC related -->
-    <string name="error_invalid_policy_number">Invalid policy number!</string>
-    <string name="error_could_not_pay">Error sending payment confirmation. Please try again later.</string>
+    <string name="error_invalid_policy_number">தவறான காப்பீட்டு எண்!</string>
+    <string name="error_could_not_pay">கட்டணம் செலுத்தல் உறுதிசெய்தலை அனுப்புவதில் பிழை. தயவுசெய்து, பின்னர் மீண்டும் முயற்சிக்கவும்.</string>
     <!-- End: LIC related -->
 
     <!--Start: Aadhar Related -->

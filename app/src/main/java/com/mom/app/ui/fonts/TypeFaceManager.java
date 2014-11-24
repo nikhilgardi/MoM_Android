@@ -108,7 +108,7 @@ public class TypeFaceManager {
 
     public Typeface getTypefaceForCurrentLocale(Context context){
         if(_currentTypeface != null){
-            Log.d(_LOG, "Found typeface, returning: " + _currentTypeface);
+//            Log.d(_LOG, "Found typeface, returning: " + _currentTypeface);
             return _currentTypeface;
         }
 

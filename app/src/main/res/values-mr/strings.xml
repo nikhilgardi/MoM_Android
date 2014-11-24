@@ -114,18 +114,12 @@
     <string name="action_changeTpin">T-Pin बदला</string>
     <string name="action_changePassword">पासवर्ड बदला</string>
 
-    <string name="action_lIC">LIC</string>
-    <string name="lic_success_msg_default">Payment Successful.</string>
-    <string name="lic_failed_msg_default">Payment Failed</string>
-    <string name="error_field_required">This field is mandatory</string>
-    <string name="error_pin_confirm_mismatch">Both PINs should be same</string>
-    <string name="error_init_app">Error initializing the app. Please try again later or contact customer support if the problem persists</string>
-    <string name="confirm_logout">Do you want to logout and exit the app?</string>
+
 
     <string name="btn_dashboard">डॅशबोर्ड </string>
     <string name="btn_recharge">रीचार्ज</string>
 
-    <string name="btn_btnGetAnotherPremium">Get Another Premium</string>
+
 
     <string name="btn_back">मागे</string>
     <string name="btn_cancel">रद्द करा</string>
@@ -133,8 +127,7 @@
     <string name="btn_login">लॉगिन</string>
     <string name="btn_getBillAmount">तुमची बिलाची रक्कम मिळवा</string>
 
-    <string name="btn_register">Register</string>
-    <string name="btn_getPremium">Get Premium</string>
+
     <string name="prompt_spinner_select_operator">ऑपरेटर निवडा</string>
     <string name="prompt_enter_tpin">कृपया तुमचा T- Pin प्रविष्ट करा</string>
 
@@ -146,7 +139,7 @@
     <string name="lblConsumerNumber">उपभोक्ता क्रमांक</string>
 
     <string name="lblMobileNumber">मोबाईल क्रमांक</string>
-    <string name="lblPolicyNumber">Policy Number</string>
+
 
     <string name="lblAccountNumber">खाते क्रमांक</string>
     <string name="tpin_old">जुना T- Pin</string>
@@ -160,7 +153,7 @@
     <string name="confirm_password">पासवर्डची पुष्टी करा</string>
 
 
-    <string name="title_activity_retailer_payment">RetailerPayment</string>
+
 
     <string name="title_activity_change_pin">PIN बदला</string>
     <string name="title_activity_settings">सेटिंग्ज</string>
@@ -188,12 +181,31 @@
     <string name="title_activity_base">MoneyOnMobile</string>
 
 
+
+    <string name="action_lIC">LIC</string>
+    <string name="lic_success_msg_default">भूकतान यशस्वी.</string>
+    <string name="lic_failed_msg_default">भूकतान अयशस्वी</string>
+    <string name="error_field_required">हे क्षत्र आवश्यक आहे</string>
+    <string name="error_pin_confirm_mismatch">दोन्ही PIN एकसमान असले पाहिजेत.</string>
+    <string name="error_init_app">अनुप्रयोग सुरु करण्यात त्रुटी. कृपया नंतर पुन्हा प्रयत्न करा किंवा समस्या होत राहिली तर ग्राहक सहायतेशी संपर्क साधा</string>
+    <string name="confirm_logout">आपण लॉग आउट करू आणि अनुप्रयोगाच्या बाहेर पडू इच्छिता का?</string>
+    <string name="btn_btnGetAnotherPremium">दुसरा प्रीमियम मिळावा</string>
+    <string name="btn_register">नोंदीकरण करा</string>
+    <string name="btn_getPremium">प्रीमियम मिळावा</string>
+    <string name="lblPolicyNumber">पॉलिसी क्रमांक</string>
+    <string name="title_activity_retailer_payment">रिटेलर भूकतान</string>
+
+
+
+
+
+
     <!-- Start: Transaction Queue related -->
-    <string name="added_to_queue">Request added to queue. You can start another transaction now.</string>
+    <string name="added_to_queue">विनंती रांगेत जोडली गेली आहे. आपण आता दुसरा व्यवहार सुरु करू शकता.</string>
     <!-- End: Transaction Queue related -->
 
     <!-- Start: LIC related -->
-    <string name="error_invalid_policy_number">Invalid policy number!</string>
+    <string name="error_invalid_policy_number">अवैध पॉलिसी क्रमांक</string>
     <!-- End: LIC related -->
 
     <!--Start: Aadhar Related -->
@@ -435,7 +447,7 @@
     <string name="feedbacktypeSBERecharge120">Gaya Urban</string>
     <!--End: NBE/SBE related-->
     <!-- Start: LIC related -->
-    <string name="error_could_not_pay">Error sending payment confirmation. Please try again later.</string>
+    <string name="error_could_not_pay">भूकतान पृष्टी पाठवण्यात त्रुटी. कृपया नंतर पुन्हा प्रयत्न करा.</string>
     <!-- End: LIC related -->
 </resources>
 

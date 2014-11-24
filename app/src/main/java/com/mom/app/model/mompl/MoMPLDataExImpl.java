@@ -12,6 +12,7 @@ import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.Transaction;
 import com.mom.app.model.local.EphemeralStorage;
+import com.mom.app.model.pbxpl.PaymentResponse;
 import com.mom.app.model.pbxpl.lic.LicLifeResponse;
 import com.mom.app.model.xml.PullParser;
 import com.mom.app.ui.TransactionRequest;
@@ -50,9 +51,15 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         return _instance;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void onTaskSuccess(TransactionRequest result, Methods callback) {
         Log.d(_LOG, "onTaskSuccess");
+        if(_listener == null){
+            Log.e(_LOG, "No listener!");
+            return;
+        }
+
         try {
             result.setCompleted(true);
             result.setDateCompleted(new Date());
@@ -89,32 +96,33 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 case RECHARGE_MOBILE:
                     Log.d(_LOG, "TaskComplete: rechargeMobile method, result: " + result);
                     if (_listener != null) {
-                        _listener.onTaskSuccess(getRechargeResult(result), Methods.RECHARGE_MOBILE);
+                        _listener.onTaskSuccess(getPaymentResult(result), Methods.RECHARGE_MOBILE);
                     }
                     break;
                 case RECHARGE_DTH:
                     Log.d(_LOG, "TaskComplete: rechargeDTH method, result: " + result);
                     if (_listener != null) {
-                        _listener.onTaskSuccess(getRechargeResult(result), Methods.RECHARGE_DTH);
+                        _listener.onTaskSuccess(getPaymentResult(result), Methods.RECHARGE_DTH);
                     }
                     break;
                 case PAY_BILL:
                     Log.d(_LOG, "TaskComplete: payBill method, result: " + result);
 
                     if (_listener != null) {
-                        _listener.onTaskSuccess(getRechargeResult(result), Methods.PAY_BILL);
+                        _listener.onTaskSuccess(getPaymentResult(result), Methods.PAY_BILL);
                     }
                     break;
                 case BALANCE_TRANSFER:
                     Log.d(_LOG, "TaskComplete: balanceTransfer method, result: " + result);
 
                     if (_listener != null) {
-                        _listener.onTaskSuccess(getRechargeResult(result), Methods.BALANCE_TRANSFER);
+                        _listener.onTaskSuccess(getPaymentResult(result), Methods.BALANCE_TRANSFER);
                     }
                     break;
                 case GET_BILL_AMOUNT:
                     Log.d(_LOG, "TaskComplete: getBillAmount method, result: " + result);
-                    float billAmount = extractBillAmount(result.getRemoteResponse());
+                    float billAmount = extractBillAmount(result.getRemoteResponse() , result.getOperator().code);
+                    Log.i(_LOG, "TaskComplete: getBillAmount method1, result1: " + billAmount);
 
                     if (_listener != null) {
                         _listener.onTaskSuccess(billAmount, Methods.GET_BILL_AMOUNT);
@@ -267,7 +275,7 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
     public void verifyTPin(String psTPin){
         if(psTPin == null || "".equals(psTPin)){
             if(_listener != null) {
-                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.LOGIN);
+                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.VERIFY_TPIN);
             }
         }
 
@@ -315,7 +323,7 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
     }
 
 
-    public void rechargeMobile(TransactionRequest request, int pnRechargeType){
+    public void rechargeMobile(TransactionRequest<PaymentResponse> request, int pnRechargeType){
 
         if(
             request == null || TextUtils.isEmpty(request.getConsumerId()) ||
@@ -323,7 +331,7 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
             ){
 
             if(_listener != null) {
-                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.LOGIN);
+                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.RECHARGE_MOBILE);
             }
             return;
         }
@@ -341,6 +349,14 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                         AppConstants.PARAM_NEW_COMPANY_ID,
                         EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_NEW_COMPANY_ID, null)
                 ),
+//                new BasicNameValuePair(
+//                        AppConstants.PARAM_NEW_INT_CUSTOMER_ID,"10787246"
+//
+//                ),
+//                new BasicNameValuePair(
+//                        AppConstants.PARAM_NEW_COMPANY_ID,
+//                        "184"
+//                ),
                 new BasicNameValuePair(AppConstants.PARAM_NEW_STR_ACCESS_ID, "Test"),
                 new BasicNameValuePair(AppConstants.PARAM_NEW_STR_MOBILE_NUMBER, request.getConsumerId()),
                 new BasicNameValuePair(AppConstants.PARAM_NEW_RECHARGE_AMOUNT, String.valueOf(Math.round(request.getAmount()))),
@@ -349,7 +365,10 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         );
     }
 
-    public TransactionRequest getRechargeResult(TransactionRequest pResult) throws MOMException{
+    public TransactionRequest<PaymentResponse> getPaymentResult(
+            TransactionRequest<PaymentResponse> pResult
+    ) throws MOMException{
+
         if(pResult == null || "".equals(pResult.getRemoteResponse().trim())){
             throw new MOMException();
         }
@@ -368,14 +387,14 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         return null;
     }
 
-    public void rechargeDTH(TransactionRequest request){
+    public void rechargeDTH(TransactionRequest<PaymentResponse> request){
         if(
                 TextUtils.isEmpty(request.getConsumerId()) ||
                 request.getAmount() < 1 || request.getOperator() == null
                 ){
 
             if(_listener != null) {
-                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.LOGIN);
+                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.RECHARGE_DTH);
             }
         }
 
@@ -402,7 +421,7 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
     }
 
     public void payBill(
-                        TransactionRequest request,
+                        TransactionRequest<PaymentResponse> request,
                         String psConsumerName,
                         HashMap<String, String> pExtraParamsMap
                     ){
@@ -415,7 +434,8 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         String sUserId              = EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_NEW_USER_ID, null);
 
         String operatorCode         = request.getOperator().code;
-        String strCustomerNumber    = request.getConsumerId();
+        String strCustomerNumber    = request.getCustomerMobile();
+
 
         if (
                 AppConstants.OPERATOR_ID_BEST_ELECTRICITY.equals(operatorCode) ||
@@ -518,7 +538,7 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 ){
 
             if(_listener != null) {
-                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.LOGIN);
+                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.GET_BILL_AMOUNT);
             }
         }
 
@@ -526,27 +546,34 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
         Log.d("BILL_AMOUNT", "going to get bill amount for operator: " + operatorId + ", subscriber: " + request.getConsumerId());
 
-        String url				= AppConstants.URL_NEW_PLATFORM_GET_BEST_BILL;
+        String url;
 
-        AsyncDataEx dataEx		= new AsyncDataEx(this, request, url, Methods.GET_BILL_AMOUNT);
+
         String sParameterName   = AppConstants.PARAM_NEW_CANUMBER;
 
+
         if(AppConstants.OPERATOR_ID_BEST_ELECTRICITY.equals(operatorId)){
+            url				= AppConstants.URL_NEW_PLATFORM_GET_BEST_BILL;
+
             sParameterName      = AppConstants.PARAM_NEW_ACCOUNT_NUMBER;
         }else if(AppConstants.OPERATOR_ID_RELIANCE_ENERGY.equals(operatorId)) {
             url                 = AppConstants.URL_NEW_PLATFORM_GET_RELIANCE_BILL;
+
         }else if(AppConstants.OPERATOR_ID_MAHANAGAR_GAS.equals(operatorId)) {
             url                 = AppConstants.URL_NEW_PLATFORM_GET_MGL_BILL;
+
         }else{
             Log.e("BILL_AMOUNT", "Bill information cannot be checked for this operator");
             onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.GET_BILL_AMOUNT);
             return;
         }
-
+        Log.i("Params" , sParameterName+ request.getConsumerId().toString());
+        AsyncDataEx dataEx		= new AsyncDataEx(this, request, url, Methods.GET_BILL_AMOUNT ,AsyncDataEx.HttpMethod.GET);
         dataEx.execute(new BasicNameValuePair(sParameterName, request.getConsumerId()));
     }
 
-    public float extractBillAmount(String psResult) throws MOMException{
+    public float extractBillAmount(String psResult , String _operatorId) throws MOMException{
+        Log.i("AMount" , psResult);
         if(psResult == null || "".equals(psResult.trim()) || _operatorId == null){
             throw new MOMException();
         }
@@ -555,7 +582,8 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         String sBill                = null;
 
         if(_operatorId.equals(AppConstants.OPERATOR_ID_BEST_ELECTRICITY) && sArrResponse.length > 15){
-            sBill                   = sArrResponse[16];
+            sBill                   = sArrResponse[22];
+            Log.i("BESTAmount" , sBill);
         }else if(_operatorId.equals(AppConstants.OPERATOR_ID_RELIANCE_ENERGY) && sArrResponse.length > 2){
             sBill                   = sArrResponse[3];
         }else if(_operatorId.equals(AppConstants.OPERATOR_ID_MAHANAGAR_GAS) && sArrResponse.length > 3){
@@ -575,7 +603,7 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
     public void getTransactionHistory() {
         String url				= AppConstants.URL_NEW_PL_HISTORY;
 
-        AsyncDataEx dataEx		= new AsyncDataEx(this, new TransactionRequest(), url, Methods.TRANSACTION_HISTORY);
+        AsyncDataEx dataEx		= new AsyncDataEx(this, new TransactionRequest(), url, Methods.TRANSACTION_HISTORY , AsyncDataEx.HttpMethod.GET);
         String sUserId          = EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_NEW_USER_ID, null);
 
         dataEx.execute(new BasicNameValuePair(AppConstants.PARAM_NEW_USER_ID, sUserId));

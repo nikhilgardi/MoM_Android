@@ -8,23 +8,15 @@
     <string name="title_activity_best_fusion">BestFusionActivity</string>
 
 
-    <string name="action_lIC">LIC</string>
-
-    <string name="lic_success_msg_default">Payment Successful.</string>
-    <string name="lic_failed_msg_default">Payment Failed</string>
-    <string name="error_field_required">This field is mandatory</string>
-    <string name="error_pin_confirm_mismatch">Both PINs should be same</string>
 
 
-    <string name="btn_btnGetAnotherPremium">Get Another Premium</string>
+
+
 
 
     <string name="btn_cancel">Cancel</string>
 
-    <string name="btn_register">Register</string>
-    <string name="btn_getPremium">Get Premium</string>
 
-    <string name="lblPolicyNumber">Policy Number</string>
 
 
     <string name="welcome">स्वागतम्</string>
@@ -130,10 +122,8 @@
     <string name="action_changeTpin">T-Pin बदलें</string>
     <string name="action_changePassword">पासवर्ड बदलें</string>
 
-    <string name="error_init_app">Error initializing the app. Please try again later or contact customer support if the problem persists</string>
 
 
-    <string name="confirm_logout">Do you want to logout and exit the app?</string>
     <string name="btn_dashboard">डैशबोर्ड</string>
     <string name="btn_recharge">रीचार्ज</string>
 
@@ -166,13 +156,33 @@
     <string name="confirm_password">पासवर्ड की पुष्टि करें</string>
 
 
-    <string name="title_activity_retailer_payment">RetailerPayment</string>
+
 
     <string name="title_activity_change_pin">PIN बदलें</string>
     <string name="title_activity_settings">सेटिंग</string>
 
     <string name="yes">हाँ</string>
     <string name="no">नहीं</string>
+
+
+    <string name="action_lIC">LIC</string>
+    <string name="lic_success_msg_default">भुगतान सफल हुआ।</string>
+    <string name="lic_failed_msg_default">भुगतान असफल हुआ।</string>
+    <string name="error_field_required">यह फील्‍ड अनिवार्य है।</string>
+    <string name="error_pin_confirm_mismatch">दोनों पिन समान होने चाहिए।</string>
+    <string name="error_init_app">एप्‍प प्रारंभ करने में त्रुटि। कृपया बाद में पुन: प्रयास करें अथवा समस्‍या के बने रहने पर ग्राहक सहायता से संपर्क करें</string>
+    <string name="confirm_logout">क्‍या आप एप्‍प से लॉगआऊट और बाहर निकलना चाहते हैं?</string>
+    <string name="btn_btnGetAnotherPremium">दूसरा प्रीमियम प्राप्‍त करें</string>
+    <string name="btn_register">पंजीकरण करें</string>
+    <string name="btn_getPremium">प्रीमियम प्राप्‍त करें</string>
+    <string name="lblPolicyNumber">पॉलिसी क्रमांक</string>
+    <string name="title_activity_retailer_payment">रिटेलर भुगतान</string>
+
+
+
+
+
+
 
     <!-- START: LANGUAGE RELATED -->
     <string name="language_bengali">Bengali</string>
@@ -198,12 +208,12 @@
     <string name="drawer_close">नेविगेशन छिपायें</string>
 
     <!-- Start: Transaction Queue related -->
-    <string name="added_to_queue">Request added to queue. You can start another transaction now.</string>
+    <string name="added_to_queue">अनुरोध कतार में शामिल किया गया है। अब आप दूसरा व्‍यवहार आरंभ कर सकते हैं।</string>
     <!-- End: Transaction Queue related -->
 
     <!-- Start: LIC related -->
-    <string name="error_invalid_policy_number">Invalid policy number!</string>
-    <string name="error_could_not_pay">Error sending payment confirmation. Please try again later.</string>
+    <string name="error_invalid_policy_number">अवैध पॉलिसी क्रमांक!</string>
+    <string name="error_could_not_pay">भुगतान की पुष्टि भेजने में त्रुटि। बाद में पुन: प्रयास करें।</string>
     <!-- End: LIC related -->
 
     <!--Start: Aadhar Related -->

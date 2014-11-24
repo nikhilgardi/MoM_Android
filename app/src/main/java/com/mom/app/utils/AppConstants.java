@@ -21,7 +21,8 @@ public class AppConstants {
 	public static final String URL_NEW_PLATFORM_TXN	        = "http://msvc.money-on-mobile.net/WebServiceV3Trans.asmx";
     public static final String URL_NEW_PLATFORM_GET_BEST_BILL
                                                             = "http://180.179.67.72/bestpayments/billInquiry.ashx";
-
+//    public static final String URL_NEW_PLATFORM_GET_BEST_BILL
+//            = "http://180.179.67.72/bestpayments/billInquiry.ashx?AccountNumber=";
     public static final String URL_NEW_PLATFORM_GET_RELIANCE_BILL
                                                             = "http://180.179.67.72/RelianceEnergy/billEnquiry.ashx";
     public static final String URL_NEW_PLATFORM_GET_MGL_BILL

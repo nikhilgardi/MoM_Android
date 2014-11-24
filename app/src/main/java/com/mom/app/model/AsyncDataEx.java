@@ -86,8 +86,7 @@ public class AsyncDataEx extends AsyncTask<NameValuePair, Integer, String>{
             _request.setRemoteResponse(result);
         }
         _callback.onTaskSuccess(_request, _callbackData);
-        Log.i("ResultCheck" , result);
-        Log.d(_LOG, "Called onTaskSuccess of listener");
+        Log.d(_LOG, "Called onTaskSuccess of listener: " + result);
 	}
 	
 	protected void onProgressUpdate(Integer... progress){
@@ -119,9 +118,15 @@ public class AsyncDataEx extends AsyncTask<NameValuePair, Integer, String>{
 			HttpResponse response = httpclient.execute(httpReq);
 			HttpEntity entity 				= response.getEntity();
 			String sResponse 				= EntityUtils.toString(entity);
-            Log.d("AsyncDataEx", "Response: " + sResponse);
-            Log.d("testparams" , _url);
-            Log.d("testparams1" , pParams.toString());
+            Log.d(_LOG, "Response: " + sResponse);
+            Log.d(_LOG , _url);
+            if(_request != null){
+                Log.d(_LOG, "TransactionRequest.id: " + _request.getId());
+            }else{
+                Log.w(_LOG, "TransactionRequest is null");
+            }
+
+            Log.d(_LOG , pParams.toString());
             return sResponse;
 		}catch (Exception e) {
             e.printStackTrace();

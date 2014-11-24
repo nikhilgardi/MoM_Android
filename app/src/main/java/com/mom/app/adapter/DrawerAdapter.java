@@ -54,7 +54,7 @@ public class DrawerAdapter<T> extends ArrayAdapter {
         ViewHolder holder       = null;
         final ImageItem item          = data.get(position);
 
-        Log.d(_LOG, "Getting drawer view");
+//        Log.d(_LOG, "Getting drawer view");
 
         if (row == null) {
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
@@ -74,7 +74,7 @@ public class DrawerAdapter<T> extends ArrayAdapter {
 
         holder.image.setImageResource(item.getTransparentDrawableId());
 
-        Log.d(_LOG, position + " selected = " + item.getSelected());
+//        Log.d(_LOG, position + " selected = " + item.getSelected());
 
         return row;
     }

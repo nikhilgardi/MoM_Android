@@ -124,6 +124,7 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
                     }
 
                     if(request.setStatus(message.getStatus())){
+                        request.setCompleted(true);
                         Log.d(_LOG, "Found status, setting to: " + request.getStatus());
                         addToAsyncList(request);
                     }

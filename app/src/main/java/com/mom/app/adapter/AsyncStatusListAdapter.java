@@ -48,6 +48,8 @@ public class AsyncStatusListAdapter extends ArrayAdapter<TransactionRequest> {
         ViewHolder holder;
         final TransactionRequest asyncTask         = getItem(position);
 
+        Log.d(_LOG, "Getting view for transaction: " + asyncTask.getId() + ", status: " + asyncTask.getStatus());
+
         if(row == null){
             LayoutInflater inflater = ((Activity) getContext()).getLayoutInflater();
             row                     = inflater.inflate(R.layout.async_progress_item, parent, false);
@@ -78,24 +80,34 @@ public class AsyncStatusListAdapter extends ArrayAdapter<TransactionRequest> {
         holder.tvAmount.setText(getContext().getResources().getString(R.string.Rupee) + amount);
 
         if(asyncTask.isCompleted()){
+            Log.d(_LOG, "Transaction: " + asyncTask.getId() + " completed");
             holder.progressBar.setVisibility(View.GONE);
 
             switch (asyncTask.getStatus()){
                 case SUCCESSFUL:
+                    Log.d(_LOG, "Setting icon as successful");
                     holder.tvDescription.setTextColor(getContext().getResources().getColor(R.color.green));
                     holder.doneIndicator.setImageResource(R.drawable.tick);
                     break;
                 case FAILED:
+                    Log.d(_LOG, "Setting icon as failed");
                     holder.tvDescription.setTextColor(getContext().getResources().getColor(R.color.red));
                     holder.doneIndicator.setImageResource(R.drawable.cross);
                     break;
                 case PENDING:
+                    Log.d(_LOG, "Setting icon as pending");
                     holder.tvDescription.setTextColor(getContext().getResources().getColor(R.color.amber));
                     holder.doneIndicator.setImageResource(R.drawable.pending);
                     break;
             }
 
             holder.doneIndicator.setVisibility(View.VISIBLE);
+        }else{
+            Log.d(_LOG, "Incomplete transaction");
+            holder.progressBar.setVisibility(View.VISIBLE);
+            holder.tvDescription.setTextColor(getContext().getResources().getColor(R.color.app_primary_text));
+            holder.doneIndicator.setImageResource(R.drawable.pending);
+            holder.doneIndicator.setVisibility(View.GONE);
         }
 
         return row;

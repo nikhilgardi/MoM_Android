@@ -197,18 +197,20 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
                 Log.i(_LOG, "Check result: " + result);
 
                 //TESTING
-                result = null;
+               // result = null;
                 //TESTING
 
                 if(TextUtils.isEmpty(result)){
                     Log.i(_LOG, "User not of new PL");
-                    login(PlatformIdentifier.PBX);
+                   // login(PlatformIdentifier.PBX);
+                    Log.i(_LOG, "User not of new PL");
+                    login(PlatformIdentifier.MOM);
                     return;
                 }
 
                 String[] sArrDetails	= result.split("~");
-
-                if(sArrDetails.length < 12){
+                Log.i("Array", sArrDetails[1]);
+                if(sArrDetails.length < 13){
                     Log.i(_LOG, "2. User not of new PL");
                     login(PlatformIdentifier.PBX);
                     return;
@@ -217,6 +219,7 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
                 EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_USER_ID, sArrDetails[0]);
 
                 EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_CUSTOMER_ID, sArrDetails[1]);
+                Log.i("TestStore" ,sArrDetails[1]);
                 EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_MOBILE_NUMBER, sArrDetails[2]);
                 EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_COMPANY_ID, sArrDetails[3]);
                 EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_ROLE_ID, sArrDetails[4]);
@@ -228,6 +231,8 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
                 EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_USER_AREA_DIST, sArrDetails[10]);
                 EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_USER_VAS01, sArrDetails[11]);
                 EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_USER_VAS02, sArrDetails[12]);
+
+                Log.i(_LOG, EphemeralStorage.getInstance(this).getString(AppConstants.PARAM_NEW_CUSTOMER_ID , null));
 
                 login(PlatformIdentifier.MOM);
                 break;
