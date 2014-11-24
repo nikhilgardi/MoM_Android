@@ -349,14 +349,7 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                         AppConstants.PARAM_NEW_COMPANY_ID,
                         EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_NEW_COMPANY_ID, null)
                 ),
-//                new BasicNameValuePair(
-//                        AppConstants.PARAM_NEW_INT_CUSTOMER_ID,"10787246"
-//
-//                ),
-//                new BasicNameValuePair(
-//                        AppConstants.PARAM_NEW_COMPANY_ID,
-//                        "184"
-//                ),
+
                 new BasicNameValuePair(AppConstants.PARAM_NEW_STR_ACCESS_ID, "Test"),
                 new BasicNameValuePair(AppConstants.PARAM_NEW_STR_MOBILE_NUMBER, request.getConsumerId()),
                 new BasicNameValuePair(AppConstants.PARAM_NEW_RECHARGE_AMOUNT, String.valueOf(Math.round(request.getAmount()))),
