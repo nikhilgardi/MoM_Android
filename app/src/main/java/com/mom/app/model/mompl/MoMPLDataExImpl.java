@@ -99,14 +99,14 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 case RECHARGE_MOBILE:
                     Log.d(_LOG, "TaskComplete: rechargeMobile method, result: " + result);
                     if (_listener != null) {
-                        TransactionRequest<PaymentResponse> response = getPaymentResult(result);
+                        TransactionRequest<PaymentResponse> response = getPaymentResult(result , Methods.RECHARGE_MOBILE);
                         _listener.onTaskSuccess(response, Methods.RECHARGE_MOBILE);
                     }
                     break;
                 case RECHARGE_DTH:
                     Log.d(_LOG, "TaskComplete: rechargeDTH method, result: " + result);
                     if (_listener != null) {
-                        TransactionRequest<PaymentResponse> response = getPaymentResult(result);
+                        TransactionRequest<PaymentResponse> response = getPaymentResult(result , Methods.RECHARGE_DTH);
                         _listener.onTaskSuccess(response, Methods.RECHARGE_DTH);
                     }
                     break;
@@ -114,7 +114,7 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                     Log.d(_LOG, "TaskComplete: payBill method, result: " + result);
 
                     if (_listener != null) {
-                        TransactionRequest<PaymentResponse> response = getPaymentResult(result);
+                        TransactionRequest<PaymentResponse> response = getPaymentResult(result , Methods.PAY_BILL);
                         _listener.onTaskSuccess(response, Methods.PAY_BILL);
                     }
                     break;
@@ -122,7 +122,7 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                     Log.d(_LOG, "TaskComplete: balanceTransfer method, result: " + result);
 
                     if (_listener != null) {
-                        TransactionRequest<PaymentResponse> response = getPaymentResult(result);
+                        TransactionRequest<PaymentResponse> response = getPaymentResult(result , Methods.BALANCE_TRANSFER);
                         _listener.onTaskSuccess(response, Methods.BALANCE_TRANSFER);
                     }
                     break;
@@ -367,7 +367,7 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
     }
 
     public TransactionRequest<PaymentResponse> getPaymentResult(
-            TransactionRequest<PaymentResponse> pResult
+            TransactionRequest<PaymentResponse> pResult , Methods callback
     ) throws MOMException{
 
         if(pResult == null || "".equals(pResult.getRemoteResponse().trim())){
@@ -379,10 +379,47 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
             String response     = parser.getTextResponse();
 
             Log.d(_LOG, "Response: " + response);
-            pResult.setRemoteResponse(response);
-            pResult.setCompleted(true);
-            pResult.setStatus(TransactionRequest.RequestStatus.SUCCESSFUL);
+            String responseResult = response.toLowerCase();
+            Log.d(_LOG, "NewResponse:" + responseResult);
+            pResult.setRemoteResponse(responseResult);
 
+            if(callback.equals(Methods.BALANCE_TRANSFER)){
+
+                if(responseResult.startsWith("0")){
+                    pResult.setCompleted(true);
+                    pResult.setStatus(TransactionRequest.RequestStatus.SUCCESSFUL);
+                }
+                else if(responseResult.startsWith("-7"))
+                {
+                    pResult.setCompleted(true);
+                    pResult.setStatus(TransactionRequest.RequestStatus.FAILED);
+                }
+                else if(responseResult.contains("invalid user")){
+                    pResult.setCompleted(true);
+                    pResult.setStatus(TransactionRequest.RequestStatus.FAILED);
+                }
+                else if(responseResult.contains("invalid accessid")){
+                    pResult.setCompleted(true);
+                    pResult.setStatus(TransactionRequest.RequestStatus.FAILED);
+                }
+
+            }
+
+            else  if(responseResult.contains("success")) {
+                   pResult.setCompleted(true);
+                   pResult.setStatus(TransactionRequest.RequestStatus.SUCCESSFUL);
+            }
+            else if(responseResult.contains("failed")){
+                   pResult.setCompleted(true);
+                   pResult.setStatus(TransactionRequest.RequestStatus.FAILED);
+            }
+            else if(responseResult.contains("pending")){
+                   pResult.setCompleted(true);
+                   pResult.setStatus(TransactionRequest.RequestStatus.PENDING);
+            }
+            else{
+
+             }
             return pResult;
         }catch (Exception e){
             e.printStackTrace();
