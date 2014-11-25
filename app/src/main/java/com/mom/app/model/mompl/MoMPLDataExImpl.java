@@ -61,6 +61,9 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         }
 
         try {
+            /*
+            Since all these transactions are synchronous, set them as completed.
+             */
             result.setCompleted(true);
             result.setDateCompleted(new Date());
 
@@ -96,27 +99,31 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 case RECHARGE_MOBILE:
                     Log.d(_LOG, "TaskComplete: rechargeMobile method, result: " + result);
                     if (_listener != null) {
-                        _listener.onTaskSuccess(getPaymentResult(result), Methods.RECHARGE_MOBILE);
+                        TransactionRequest<PaymentResponse> response = getPaymentResult(result);
+                        _listener.onTaskSuccess(response, Methods.RECHARGE_MOBILE);
                     }
                     break;
                 case RECHARGE_DTH:
                     Log.d(_LOG, "TaskComplete: rechargeDTH method, result: " + result);
                     if (_listener != null) {
-                        _listener.onTaskSuccess(getPaymentResult(result), Methods.RECHARGE_DTH);
+                        TransactionRequest<PaymentResponse> response = getPaymentResult(result);
+                        _listener.onTaskSuccess(response, Methods.RECHARGE_DTH);
                     }
                     break;
                 case PAY_BILL:
                     Log.d(_LOG, "TaskComplete: payBill method, result: " + result);
 
                     if (_listener != null) {
-                        _listener.onTaskSuccess(getPaymentResult(result), Methods.PAY_BILL);
+                        TransactionRequest<PaymentResponse> response = getPaymentResult(result);
+                        _listener.onTaskSuccess(response, Methods.PAY_BILL);
                     }
                     break;
                 case BALANCE_TRANSFER:
                     Log.d(_LOG, "TaskComplete: balanceTransfer method, result: " + result);
 
                     if (_listener != null) {
-                        _listener.onTaskSuccess(getPaymentResult(result), Methods.BALANCE_TRANSFER);
+                        TransactionRequest<PaymentResponse> response = getPaymentResult(result);
+                        _listener.onTaskSuccess(response, Methods.BALANCE_TRANSFER);
                     }
                     break;
                 case GET_BILL_AMOUNT:
@@ -159,7 +166,8 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
     @Override
     public void onTaskError(AsyncResult pResult, Methods callback) {
         if(_listener != null) {
-            _listener.onTaskError(pResult, Methods.GET_BILL_AMOUNT);
+
+            _listener.onTaskError(pResult, callback);
         }
     }
 
@@ -372,6 +380,9 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
             Log.d(_LOG, "Response: " + response);
             pResult.setRemoteResponse(response);
+            pResult.setCompleted(true);
+            pResult.setStatus(TransactionRequest.RequestStatus.SUCCESSFUL);
+
             return pResult;
         }catch (Exception e){
             e.printStackTrace();

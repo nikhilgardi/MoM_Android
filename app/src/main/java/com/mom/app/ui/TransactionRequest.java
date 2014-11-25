@@ -62,7 +62,7 @@ public class TransactionRequest<T> implements Serializable{
     Date dateStarted;
     Date dateCompleted;
     RequestStatus status;
-    boolean isCompleted;
+    boolean isCompleted = false;
     int responseCode;
 
     String remoteResponse;

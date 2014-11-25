@@ -272,12 +272,13 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
                 operator
         );
 
+        updateAsyncQueue(request);
         getDataEx(this).rechargeMobile(request, nRechargeType);
 
 
         showProgress(true);
 
-        updateAsyncQueue(request);
+
         _etTargetPhone.setText(null);
         _etAmount.setText(null);
         _spOperator.setSelection(0);

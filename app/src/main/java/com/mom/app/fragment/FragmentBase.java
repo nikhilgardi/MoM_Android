@@ -193,7 +193,6 @@ public abstract class FragmentBase extends Fragment {
 
     protected void taskCompleted(TransactionRequest result){
         showProgress(false);
-        result.setStatus(TransactionRequest.RequestStatus.FAILED);
         updateAsyncQueue(result);
     }
 
