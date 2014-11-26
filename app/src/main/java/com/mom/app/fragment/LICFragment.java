@@ -24,9 +24,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * Created by vaibhavsinha on 10/14/14.
- */
+
 public class LICFragment extends FragmentBase implements AsyncListener<TransactionRequest<LicLifeResponse>> {
     String _LOG         = AppConstants.LOG_PREFIX + "LIC";
 

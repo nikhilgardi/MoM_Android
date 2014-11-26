@@ -47,6 +47,7 @@ public class TextListViewAdapter extends ArrayAdapter {
             holder.txtDateTime  = (TextView) row.findViewById(R.id.txtDateTime);
             holder.txtOperator  = (TextView) row.findViewById(R.id.txtOperator);
             holder.txtStatus    = (TextView) row.findViewById(R.id.txtStatus);
+            holder.txtTransactionId = (TextView) row.findViewById(R.id.txtTransactionId);
             row.setTag(holder);
         } else {
             holder              = (ViewHolder) row.getTag();
@@ -58,8 +59,9 @@ public class TextListViewAdapter extends ArrayAdapter {
         holder.header.setText(String.valueOf(position + 1));
         holder.txtDateTime.setText(item.transactionDate);
         holder.txtOperator.setText(item.operator + " (" + item.subscriberId + ")");
+        holder.txtTransactionId.setText(item.transactionId);
         holder.txtStatus.setText(
-                context.getResources().getString(R.string.Rupee) + item.amount + ", " + item.status
+                context.getResources().getString(R.string.Rupee) + item.amount + ", " + item.statusString
         );
 
         return row;
@@ -70,5 +72,6 @@ public class TextListViewAdapter extends ArrayAdapter {
         TextView txtDateTime;
         TextView txtOperator;
         TextView txtStatus;
+        TextView txtTransactionId;
     }
 }

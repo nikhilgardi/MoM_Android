@@ -48,6 +48,17 @@
             android:textSize="16sp" >
         </TextView>
         <TextView
+            android:id="@+id/txtTransactionId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small"
+            android:ellipsize="marquee"
+            android:singleLine="true"
+            android:gravity="center_vertical"
+            android:textColor="@color/listTxnStatus"
+            android:textSize="16sp" >
+        </TextView>
+        <TextView
             android:id="@+id/txtStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -58,6 +69,7 @@
             android:textColor="@color/listTxnStatus"
             android:textSize="16sp" >
         </TextView>
+
     </LinearLayout>
 
 </LinearLayout>
