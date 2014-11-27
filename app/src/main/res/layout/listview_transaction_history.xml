@@ -1,75 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:layout_marginBottom="@dimen/medium"
-    android:orientation="horizontal">
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/white"
+    android:padding="@dimen/ultra_ultra_small"
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/txtHeader"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentTop="true"
-        android:gravity="center_vertical"
-        android:textColor="@color/listHeader"
-        android:textSize="36sp" >
-    </TextView>
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical"
-        android:layout_toRightOf="@id/txtHeader"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginLeft="@dimen/list_margin">
-
-        <TextView
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <com.mom.app.ui.CustomTextView
             android:id="@+id/txtDateTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ellipsize="marquee"
-            android:singleLine="true"
+            android:layout_gravity="start|center_vertical"
+            android:paddingRight="@dimen/ultra_ultra_small"
+            android:paddingEnd="@dimen/ultra_ultra_small"
+            android:textSize="@dimen/text_super_small"
+            android:layout_weight="10"/>
 
-            android:gravity="center_vertical"
-            android:textColor="@color/listDetails"
-            android:textSize="16sp" >
-        </TextView>
-        <TextView
-            android:id="@+id/txtOperator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/small"
-
-            android:ellipsize="marquee"
-            android:singleLine="true"
-            android:gravity="center_vertical"
-            android:textColor="@color/listDetails"
-            android:textSize="16sp" >
-        </TextView>
-        <TextView
+        <com.mom.app.ui.CustomTextView
             android:id="@+id/txtTransactionId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/small"
-            android:ellipsize="marquee"
-            android:singleLine="true"
-            android:gravity="center_vertical"
-            android:textColor="@color/listTxnStatus"
-            android:textSize="16sp" >
-        </TextView>
-        <TextView
+            android:layout_gravity="end|center_vertical"
+            android:textSize="@dimen/text_super_small"
+            android:layout_weight="10"/>
+
+        <com.mom.app.ui.CustomTextView
             android:id="@+id/txtStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/small"
-            android:ellipsize="marquee"
-            android:singleLine="true"
-            android:gravity="center_vertical"
-            android:textColor="@color/listTxnStatus"
-            android:textSize="16sp" >
-        </TextView>
-
+            android:layout_gravity="end|center_vertical"
+            android:textSize="@dimen/text_super_small"
+            android:layout_weight="10"/>
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.mom.app.ui.CustomTextView
+            android:id="@+id/txtOperator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:paddingLeft="@dimen/ultra_ultra_small"
+            android:paddingRight="@dimen/ultra_ultra_small"
+            android:textSize="@dimen/text_super_small"
+            android:layout_weight="60"/>
+
+        <com.mom.app.ui.CustomTextView
+            android:id="@+id/amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:paddingRight="@dimen/ultra_ultra_small"
+            android:paddingEnd="@dimen/ultra_ultra_small"
+            android:textSize="@dimen/text_super_small"
+            android:layout_weight="10"/>
+    </LinearLayout>
 </LinearLayout>
