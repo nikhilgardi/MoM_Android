@@ -37,19 +37,18 @@
                 android:layout_marginBottom="@dimen/ultra_small"/>
 
             <EditText
+                android:id="@+id/subscriberId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/lblSubscriberId"
+                android:layout_marginBottom="@dimen/ultra_small"/>
+
+            <EditText
                 android:id="@+id/number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/EditTextAppTheme.phone"
                 android:hint="@string/lblCustomerMobile"
-                android:layout_marginBottom="@dimen/ultra_small"/>
-
-            <EditText
-                android:id="@+id/subscriberId"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:hint="@string/lblSubscriberId"
                 android:layout_marginBottom="@dimen/ultra_small"/>
 
             <EditText

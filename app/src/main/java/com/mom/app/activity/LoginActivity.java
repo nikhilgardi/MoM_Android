@@ -65,9 +65,10 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 		_password 	        = (EditText) findViewById(R.id.et_pw);
 
         setupLanguageSelector();
-
+        getMessageTextView().setVisibility(View.GONE);
 		getProgressBar().setVisibility(View.GONE);
-//
+
+        //
 //		getWindow().setBackgroundDrawable(
 //							getResources().getDrawable(R.drawable.appsbg)
 //										);
@@ -202,7 +203,7 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 
                 if(TextUtils.isEmpty(result)){
                     Log.i(_LOG, "User not of new PL");
-                   // login(PlatformIdentifier.PBX);
+                    login(PlatformIdentifier.PBX);
                     Log.i(_LOG, "User not of new PL");
                     login(PlatformIdentifier.MOM);
                     return;
@@ -316,6 +317,7 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
             @Override
             public void onTaskSuccess(Boolean result, DataExImpl.Methods callback) {
                 hideProgressBar();
+                hideMessage();
                 if(!result){
                     setLoginFailed(R.string.login_failed_msg_default);
                     return;
@@ -328,7 +330,10 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
                     case PBX:
                         break;
                 }
-
+                getLoginBtn().setEnabled(true);
+                _username.setText(null);
+                _password.setText(null);
+                Log.d(_LOG, "Enable login button");
                 EphemeralStorage.getInstance(context).storeObject(AppConstants.ACTIVE_PLATFORM, _currentPlatform);
                 EphemeralStorage.getInstance(context).storeString(AppConstants.LOGGED_IN_USERNAME, _username.getText().toString());
                 EphemeralStorage.getInstance(context).storeBoolean(AppConstants.IS_LOGGED_IN, true);
@@ -377,9 +382,14 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 	
 	public void setLoginFailed(int id){
 		showMessage(id);
-		
+	    _username.setText(null);
         _password.setText(null);
+
 		
 		getLoginBtn().setEnabled(true);
 	}
+
+    public void hideMessage(){
+            getMessageTextView().setVisibility(View.GONE);
+        }
 }
