@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="money_on_mobile">MoneyOnMobile</string>
-    <string name="app_name">Money On Mobile</string>
+    <string name="money_on_mobile">মানি-এ-মোবাইল</string>
+    <string name="app_name">মানি-এ-মোবাইল</string>
     <string name="welcome">স্বাগতম</string>
 
     <string name="login_failed_msg_default">লগিন ব্যর্থ হয়েছে। দয়া করে আপনার মোবাইল নম্বর এবং M-Pin চেক করুন</string>

@@ -2,8 +2,8 @@
 <resources>
 
 
-    <string name="money_on_mobile">MoneyOnMobile</string>
-    <string name="app_name">Money On Mobile</string>
+    <string name="money_on_mobile">മനീ-ആന്- മൊബൈല്‍</string>
+    <string name="app_name">മനീ-ആന്- മൊബൈല്‍</string>
     <string name="welcome">സ്വാഗതം</string>
 
     <string name="login_failed_msg_default">ലോഗിൻ പരാജയം. നിങ്ങളുടെ മൊബൈൽ നമ്പറും M-Pin-ഉം പരിശോധിക്കുക</string>

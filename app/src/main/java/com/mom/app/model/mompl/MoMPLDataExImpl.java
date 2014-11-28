@@ -413,6 +413,10 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                    pResult.setCompleted(true);
                    pResult.setStatus(TransactionRequest.RequestStatus.FAILED);
             }
+            else if(responseResult.contains("no  productconfiguration  users")){
+                pResult.setCompleted(true);
+                pResult.setStatus(TransactionRequest.RequestStatus.FAILED);
+            }
             else if(responseResult.contains("pending")){
                    pResult.setCompleted(true);
                    pResult.setStatus(TransactionRequest.RequestStatus.PENDING);

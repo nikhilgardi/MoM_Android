@@ -171,6 +171,7 @@ public abstract class FragmentBase extends Fragment {
         }
 
         tv.setText("Balance: " + getResources().getString(R.string.Rupee) + sBal);
+        Log.d("BAlcheck" , sBal);
     }
 
 

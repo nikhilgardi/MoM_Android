@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="money_on_mobile">MoneyOnMobile</string>
-    <string name="app_name">Money On Mobile</string>
+    <string name="money_on_mobile">మనీ-ఓం-మొబైల్</string>
+    <string name="app_name">మనీ-ఓం-మొబైల్</string>
     <string name="welcome">స్వాగతం</string>
     <string name="Rupee">\u20B9</string>
     <string name="title_activity_main">MainActivity</string>

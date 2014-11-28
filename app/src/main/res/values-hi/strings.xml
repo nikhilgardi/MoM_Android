@@ -1,22 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="money_on_mobile">MoneyOnMobile</string>
-    <string name="app_name">Money On Mobile</string>
+    <string name="money_on_mobile">मनी-ऑन- मोबाईल</string>
+    <string name="app_name">मनी-ऑन- मोबाईल</string>
 
     <string name="title_activity_aadhar_payment">AadharPaymentActivity</string>
     <string name="title_activity_aadhar_list">AadharListActivity</string>
     <string name="title_activity_best_fusion">BestFusionActivity</string>
 
 
-
-
-
-
-
-
     <string name="btn_cancel">Cancel</string>
-
-
 
 
     <string name="welcome">स्वागतम्</string>
@@ -123,7 +115,6 @@
     <string name="action_changePassword">पासवर्ड बदलें</string>
 
 
-
     <string name="btn_dashboard">डैशबोर्ड</string>
     <string name="btn_recharge">रीचार्ज</string>
 
@@ -156,8 +147,6 @@
     <string name="confirm_password">पासवर्ड की पुष्टि करें</string>
 
 
-
-
     <string name="title_activity_change_pin">PIN बदलें</string>
     <string name="title_activity_settings">सेटिंग</string>
 
@@ -177,11 +166,6 @@
     <string name="btn_getPremium">प्रीमियम प्राप्‍त करें</string>
     <string name="lblPolicyNumber">पॉलिसी क्रमांक</string>
     <string name="title_activity_retailer_payment">रिटेलर भुगतान</string>
-
-
-
-
-
 
 
     <!-- START: LANGUAGE RELATED -->
