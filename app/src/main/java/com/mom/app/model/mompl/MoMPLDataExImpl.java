@@ -383,47 +383,43 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
             Log.d(_LOG, "NewResponse:" + responseResult);
             pResult.setRemoteResponse(responseResult);
 
-            if(callback.equals(Methods.BALANCE_TRANSFER)){
+            switch (callback){
+                case BALANCE_TRANSFER:
+                    if(responseResult.startsWith("0")){
+                        pResult.setCompleted(true);
+                        pResult.setStatus(TransactionRequest.RequestStatus.SUCCESSFUL);
+                    }else if(responseResult.startsWith("-7")){
+                        pResult.setCompleted(true);
+                        pResult.setStatus(TransactionRequest.RequestStatus.FAILED);
+                    }else if(responseResult.contains("invalid user")){
+                        pResult.setCompleted(true);
+                        pResult.setStatus(TransactionRequest.RequestStatus.FAILED);
+                    }else if(responseResult.contains("invalid accessid")){
+                        pResult.setCompleted(true);
+                        pResult.setStatus(TransactionRequest.RequestStatus.FAILED);
+                    }
+                    break;
+                default:
+                    if(responseResult.contains("success")) {
+                        pResult.setCompleted(true);
+                        pResult.setStatus(TransactionRequest.RequestStatus.SUCCESSFUL);
+                    }else if(responseResult.contains("failed")){
+                        pResult.setCompleted(true);
+                        pResult.setStatus(TransactionRequest.RequestStatus.FAILED);
+                    }else if(responseResult.contains("pending")){
+                        pResult.setCompleted(true);
+                        pResult.setStatus(TransactionRequest.RequestStatus.PENDING);
+                    }else if(responseResult.contains("could not process transaction")){
+                        pResult.setCompleted(true);
+                        pResult.setStatus(TransactionRequest.RequestStatus.FAILED);
+                    }
+                    else if(responseResult.contains("no  productconfiguration  users")){
+                        pResult.setCompleted(true);
+                        pResult.setStatus(TransactionRequest.RequestStatus.FAILED);
+                    }
 
-                if(responseResult.startsWith("0")){
-                    pResult.setCompleted(true);
-                    pResult.setStatus(TransactionRequest.RequestStatus.SUCCESSFUL);
-                }
-                else if(responseResult.startsWith("-7"))
-                {
-                    pResult.setCompleted(true);
-                    pResult.setStatus(TransactionRequest.RequestStatus.FAILED);
-                }
-                else if(responseResult.contains("invalid user")){
-                    pResult.setCompleted(true);
-                    pResult.setStatus(TransactionRequest.RequestStatus.FAILED);
-                }
-                else if(responseResult.contains("invalid accessid")){
-                    pResult.setCompleted(true);
-                    pResult.setStatus(TransactionRequest.RequestStatus.FAILED);
-                }
-
             }
 
-            else  if(responseResult.contains("success")) {
-                   pResult.setCompleted(true);
-                   pResult.setStatus(TransactionRequest.RequestStatus.SUCCESSFUL);
-            }
-            else if(responseResult.contains("failed")){
-                   pResult.setCompleted(true);
-                   pResult.setStatus(TransactionRequest.RequestStatus.FAILED);
-            }
-            else if(responseResult.contains("no  productconfiguration  users")){
-                pResult.setCompleted(true);
-                pResult.setStatus(TransactionRequest.RequestStatus.FAILED);
-            }
-            else if(responseResult.contains("pending")){
-                   pResult.setCompleted(true);
-                   pResult.setStatus(TransactionRequest.RequestStatus.PENDING);
-            }
-            else{
-
-             }
             return pResult;
         }catch (Exception e){
             e.printStackTrace();

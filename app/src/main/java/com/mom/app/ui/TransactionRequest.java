@@ -61,7 +61,7 @@ public class TransactionRequest<T> implements Serializable{
     Operator operator;
     Date dateStarted;
     Date dateCompleted;
-    RequestStatus status;
+    RequestStatus status = RequestStatus.PENDING;
     boolean isCompleted = false;
     int responseCode;
 

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mom.app.R;
@@ -43,9 +44,9 @@ public class TextListViewAdapter extends ArrayAdapter {
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
             row                 = inflater.inflate(layoutResourceId, parent, false);
             holder              = new ViewHolder();
-            holder.header       = (TextView) row.findViewById(R.id.txtHeader);
             holder.txtDateTime  = (TextView) row.findViewById(R.id.txtDateTime);
             holder.txtOperator  = (TextView) row.findViewById(R.id.txtOperator);
+            holder.amount       = (TextView) row.findViewById(R.id.amount);
             holder.txtStatus    = (TextView) row.findViewById(R.id.txtStatus);
             holder.txtTransactionId = (TextView) row.findViewById(R.id.txtTransactionId);
             row.setTag(holder);
@@ -56,20 +57,18 @@ public class TextListViewAdapter extends ArrayAdapter {
 //        row.setBackgroundColor(Color.BLUE);
 
         Log.d("LIST_VIEW", "Setting data in row: " + position + ", " + item.transactionDate);
-        holder.header.setText(String.valueOf(position + 1));
         holder.txtDateTime.setText(item.transactionDate);
         holder.txtOperator.setText(item.operator + " (" + item.subscriberId + ")");
         holder.txtTransactionId.setText(item.transactionId);
-        holder.txtStatus.setText(
-                context.getResources().getString(R.string.Rupee) + item.amount + ", " + item.statusString
-        );
+        holder.amount.setText(context.getResources().getString(R.string.Rupee) + item.amount);
+        holder.txtStatus.setText(item.statusString);
 
         return row;
     }
 
     static class ViewHolder {
-        TextView header;
         TextView txtDateTime;
+        TextView amount;
         TextView txtOperator;
         TextView txtStatus;
         TextView txtTransactionId;
