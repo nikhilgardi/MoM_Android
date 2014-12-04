@@ -146,10 +146,11 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
 
                     if (_listener != null) {
-                        _listener.onTaskSuccess(
-                                extractChangePinResponse(result.getRemoteResponse()),
-                                Methods.CHANGE_PIN
-                        );
+
+                        Log.d(_LOG, "TaskComplete: getTransactionHistory method, result: " + result);
+                        if (_listener != null) {
+                            _listener.onTaskSuccess(extractChangePinResponse(result.getRemoteResponse()), Methods.CHANGE_PIN);
+                        }
                     }
 
                     break;
@@ -685,11 +686,12 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
     @Override
     public void changePin(PinType pinType, String psOldPin, String psNewPin) {
 
-        String method           = pinType == PinType.M_PIN
+        String method             = pinType == PinType.M_PIN
                                     ? AppConstants.SVC_NEW_METHOD_CHANGE_MPIN
                                     : AppConstants.SVC_NEW_METHOD_CHANGE_TPIN;
 
-        String url				= AppConstants.URL_NEW_PLATFORM + method;
+            String url				= AppConstants.URL_NEW_PLATFORM + method;
+        Log.i("method" , url);
 
         AsyncDataEx dataEx		= new AsyncDataEx(this, new TransactionRequest(), url, Methods.CHANGE_PIN);
         String sUserId          = EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_NEW_USER_ID, null);
@@ -710,27 +712,59 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         );
     }
 
-    public String extractChangePinResponse(String psResult) throws MOMException{
-            if(psResult == null || "".equals(psResult.trim())){
+
+    @Override
+    public void changePinTest(TransactionRequest request) {
+
+        String method             = request.getPin() == PinType.M_PIN
+                ? AppConstants.SVC_NEW_METHOD_CHANGE_MPIN
+                : AppConstants.SVC_NEW_METHOD_CHANGE_TPIN;
+
+        String url				= AppConstants.URL_NEW_PLATFORM + method;
+        Log.i("method" , url);
+
+        AsyncDataEx dataEx		= new AsyncDataEx(this, new TransactionRequest(), url, Methods.CHANGE_PIN);
+        String sUserId          = EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_NEW_USER_ID, null);
+
+        dataEx.execute(
+                new BasicNameValuePair(
+                        AppConstants.PARAM_NEW_CUSTOMER_ID,
+                        EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_NEW_CUSTOMER_ID, null)
+                ),
+                new BasicNameValuePair(
+                        AppConstants.PARAM_NEW_COMPANY_ID,
+                        EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_NEW_COMPANY_ID, null)
+                ),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_STR_ACCESS_ID, "KJHASFD"),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_STR_PASSWORD, request.getOldPin()),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_STR_NEW_PASSWORD, request.getNewPin())
+
+        );
+    }
+
+    public TransactionRequest extractChangePinResponse(String psResult) throws MOMException{
+        if(psResult == null || "".equals(psResult.trim())){
+            throw new MOMException();
+        }
+        TransactionRequest transactionRequest = new TransactionRequest();
+        try {
+            PullParser parser   = new PullParser(new ByteArrayInputStream(psResult.getBytes()));
+            String response     = parser.getTextResponse();
+
+            Log.d(_LOG, "Response: " + response);
+            String[] strArrayResponse = response.split("~");
+            if(strArrayResponse.length < 2){
                 throw new MOMException();
             }
+            transactionRequest.setResponseCode(Integer.parseInt(strArrayResponse[0]));
+            transactionRequest.setRemoteResponse(strArrayResponse[1]);
+            return transactionRequest;
 
-            try {
-                PullParser parser   = new PullParser(new ByteArrayInputStream(psResult.getBytes()));
-                String response     = parser.getTextResponse();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
-                Log.d(_LOG, "Response: " + response);
-                String[] strArrayResponse = response.split("~");
-                if(strArrayResponse.length < 2){
-                    throw new MOMException();
-                }
-
-                return strArrayResponse[1];
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-
-            return "";
+        return transactionRequest;
     }
 
     public  void rechargeMobilePBX(

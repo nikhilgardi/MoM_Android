@@ -90,6 +90,7 @@ public class AppConstants {
     //PIN RELATED
     public static final String M_PIN                        = "M-Pin";
     public static final String T_PIN                        = "T-Pin";
+    public static final String PIN                          = "Pin";
     //End get bill information
 
     //START: External Android constants
