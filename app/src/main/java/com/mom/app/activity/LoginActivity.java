@@ -198,14 +198,12 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
                 Log.i(_LOG, "Check result: " + result);
 
                 //TESTING
-               // result = null;
+               result = null;
                 //TESTING
 
                 if(TextUtils.isEmpty(result)){
                     Log.i(_LOG, "User not of new PL");
                     login(PlatformIdentifier.PBX);
-                    Log.i(_LOG, "User not of new PL");
-                    login(PlatformIdentifier.MOM);
                     return;
                 }
 
@@ -330,6 +328,7 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
                     case PBX:
                         break;
                 }
+
                 getLoginBtn().setEnabled(true);
                 _username.setText(null);
                 _password.setText(null);

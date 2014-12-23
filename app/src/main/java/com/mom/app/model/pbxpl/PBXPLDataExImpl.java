@@ -49,29 +49,31 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
     // String jsonStr =    "{\"Table\":[{\"PartyROWID\":92420,\"PartyRMN\":\"9769496026\",\"PartyName\":\"Akshay\",\"PartyGUID\":\"9163b4dd-f23d-41fd-99ab-7c0f57c9c7ed\",\"PartyEnum\":null,\"PartyTypeEnum\":16,\"userName\":\"Software\"}]}" ;
 
-    private PBXPLDataExImpl(Context pContext){
+    private PBXPLDataExImpl(Context pContext, Methods method){
         checkConnectivity(pContext);
         _applicationContext         = pContext;
 
         _deviceRegId                = GcmUtil.getInstance(pContext).getRegistrationId();
         _userName                   = EphemeralStorage.getInstance(_applicationContext).getString(
-                AppConstants.PARAM_PBX_RMN, null
+                AppConstants.LOGGED_IN_USERNAME, null
         );
 
+        if(method != Methods.LOGIN) {
+            if (TextUtils.isEmpty(_userName)) {
+                throw new IllegalStateException("username should not be empty here");
+            }
+
+            if (TextUtils.isEmpty(_deviceRegId)) {
+                throw new IllegalStateException("device id should not be empty here");
+            }
+        }
     }
 
     private PBXPLDataExImpl(Context pContext, AsyncDataEx dataEx, boolean checkConnectivity){
         if(checkConnectivity) {
             checkConnectivity(pContext);
         }
-        _applicationContext         = pContext;
-        _deviceRegId                = GcmUtil.getInstance(pContext).getRegistrationId();
-        _token                      = EphemeralStorage.getInstance(_applicationContext).getString(
-                AppConstants.PARAM_PBX_TOKEN, null
-        );
-        _userName                   = EphemeralStorage.getInstance(_applicationContext).getString(
-                AppConstants.PARAM_PBX_RMN, null
-        );
+
     }
 
     public boolean setToken(){
@@ -88,13 +90,37 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
     public static PBXPLDataExImpl getInstance(Context context, AsyncListener pListener, Methods method) throws MOMException{
         if(_instance == null){
-            _instance               = new PBXPLDataExImpl(context);
+            _instance               = new PBXPLDataExImpl(context, method);
         }
 
         _instance.setListener(pListener);
 
-        if(!_instance.setToken() && method != Methods.LOGIN){
-            throw new MOMException(AsyncResult.CODE.NOT_LOGGED_IN);
+        _instance.setApplicationContext(context);
+
+        if(TextUtils.isEmpty(_instance.getUserName()) && method != Methods.LOGIN) {
+            _instance.setDeviceId(GcmUtil.getInstance(context).getRegistrationId());
+
+            _instance.setToken(EphemeralStorage.getInstance(context).getString(
+                    AppConstants.PARAM_PBX_TOKEN, null
+            ));
+
+            _instance.setUserName(EphemeralStorage.getInstance(context).getString(
+                    AppConstants.LOGGED_IN_USERNAME, null
+            ));
+        }
+
+        if(method != Methods.LOGIN) {
+            if (TextUtils.isEmpty(_instance.getUserName())) {
+                throw new IllegalStateException("username should not be empty here");
+            }
+
+            if (TextUtils.isEmpty(_instance.getDeviceId())) {
+                throw new IllegalStateException("device id should not be empty here");
+            }
+
+            if (!_instance.setToken()) {
+                throw new MOMException(AsyncResult.CODE.NOT_LOGGED_IN);
+            }
         }
 
         return _instance;
@@ -102,6 +128,28 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
     public static PBXPLDataExImpl getInstance(Context context, AsyncListener pListener) throws MOMException{
         return getInstance(context, pListener, Methods.LOGIN);
+    }
+
+    private void setApplicationContext(Context context){
+        _applicationContext = context;
+    }
+
+    private void setDeviceId(String id){
+        _deviceRegId    = id;
+    }
+    private String getDeviceId(){
+        return _deviceRegId;
+    }
+    private void setUserName(String un){
+        _userName   = un;
+    }
+
+    private String getUserName(){
+        return _userName;
+    }
+
+    private void setToken(String token){
+        _token  = token;
     }
 
     @SuppressWarnings("unchecked")
@@ -114,10 +162,6 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         Log.d(_LOG, "Result: " + result);
         try {
             switch (callback) {
-                case LOGIN:
-                    boolean bSuccess = loginSuccessful(result);
-                    _listener.onTaskSuccess(bSuccess, callback);
-                    break;
                 case GET_BALANCE:
                     try {
                         float balance = parseBalanceResult(result);
@@ -353,7 +397,22 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
     public void login(String username, String password){
         String url				= AppConstants.URL_PBX_PLATFORM_APP;
         Log.i(_LOG, "Calling Async login");
-        AsyncDataEx dataEx		    = new AsyncDataEx(this, new TransactionRequest(), url, Methods.LOGIN);
+        AsyncDataEx dataEx		    = new AsyncDataEx(new AsyncListener<TransactionRequest>() {
+            @Override
+            public void onTaskSuccess(TransactionRequest result, Methods callback) {
+                boolean bSuccess = loginSuccessful(result);
+                _listener.onTaskSuccess(bSuccess, callback);
+            }
+
+            @Override
+            public void onTaskError(AsyncResult pResult, Methods callback) {
+                _listener.onTaskError(pResult, callback);
+            }
+        },
+                new TransactionRequest(),
+                url,
+                Methods.LOGIN
+        );
 
         dataEx.execute(
                 new BasicNameValuePair(AppConstants.PARAM_PBX_SERVICE, AppConstants.SVC_PBX_CHECK_LOGIN),

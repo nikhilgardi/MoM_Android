@@ -105,6 +105,7 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
 
     private BroadcastReceiver messageReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
+            Log.d(_LOG, "BroadcastReceiver: Reecived message");
             String jsonReceived     = intent.getStringExtra(AppConstants.PARAM_GCM_PAYLOAD);
             if(TextUtils.isEmpty(jsonReceived)){
                 Log.w(_LOG, "Did not receive any json payload");

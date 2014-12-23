@@ -144,7 +144,6 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 case CHANGE_PIN:
                     Log.d(_LOG, "TaskComplete: changeMPin method, result: " + result);
 
-
                     if (_listener != null) {
                         _listener.onTaskSuccess(
                                 extractChangePinResponse(result.getRemoteResponse()),
