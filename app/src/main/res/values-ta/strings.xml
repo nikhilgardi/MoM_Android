@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="money_on_mobile">MoneyOnMobile</string>
-    <string name="app_name">Money On Mobile</string>
+    <string name="money_on_mobile">மநீ-ஒன்-மொபைல்</string>
+    <string name="app_name">மநீ-ஒன்-மொபைல்</string>
     <string name="welcome">வருக</string>
 
     <string name="login_failed_msg_default">உள்நுழைவு தோல்வி. உங்கள் மொபைல் எண் மற்றும் M-Pin-ஐச் சரிபார்க்கவும்</string>
@@ -111,9 +111,28 @@
     <string name="action_changePassword">கடவுச்சொல்லை மாற்றுக</string>
 
 
+    <string name="error_oldPasswordPbx">சரியான பழைய கடவுச்சொல்லை உள்ளிடுக</string>
+    <string name="error_newPasswordPbx">புதிய கடவுச்சொல் வெறுமையாக இருக்க முடியாது</string>
+    <string name="error_new_confirmPasswordPbx_matching">புதிய கடவுச்சொல்லும் உறுதிப்படுத்தும் கடவுச்சொல்லும் பொருந்தவில்லை</string>
+    <string name="error_old_newPasswordPbx_matching">பழைய கடவுச்சொல்லும் புதிய கடவுச்சொல்லும் ஒன்றாக இருக்க முடியாது</string>
+
+    <string name="error_oldMpin">சரியான பழைய MPIN -ஐ உள்ளிடவும்</string>
+    <string name="error_newMpin">புதிய MPIN கண்டிப்பாக 8 எண் எழுத்துக்களில் மட்டுமே இருக்க வேண்டும்</string>
+
+    <string name="error_Mpin_matching">புதிய MPIN மற்றும் கடவுச்சொல் உறுதிப்படுத்துதல் பொருந்தவில்லை</string>
+    <string name="validate_oldnewMpin"> பழைய MPIN மற்றும் புதிய MPIN ஒரே மாதிரியாக இருக்க முடியாது</string>
 
 
-  <!--  <string name="confirm_logout">இந்த பயன்பாட்டிலிருந்து வெளியேற விரும்புகிறீர்களா?</string>-->
+    <string name="error_oldTpin">சரியான பழைய T-Pin -ஐ உள்ளிடவும்</string>
+    <string name="error_newTpin">புதிய T-Pin கண்டிப்பாக 8 எண் எழுத்துக்களில் மட்டுமே இருக்க வேண்டும்</string>
+
+    <string name="error_Tpin_matching">புதிய T-Pin மற்றும் கடவுச்சொல் உறுதிப்படுத்துதல் பொருந்தவில்லை</string>
+    <string name="validate_oldnewTpin"> பழைய T-Pin மற்றும் புதிய T-Pin ஒரே மாதிரியாக இருக்க முடியாது</string>
+
+
+
+
+    <!--  <string name="confirm_logout">இந்த பயன்பாட்டிலிருந்து வெளியேற விரும்புகிறீர்களா?</string>-->
     <string name="btn_dashboard">டேஷ்போர்ட்</string>
     <string name="btn_recharge">ரீசார்ஜ் செய்க</string>
 

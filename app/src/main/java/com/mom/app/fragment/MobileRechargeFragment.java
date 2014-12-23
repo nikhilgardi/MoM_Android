@@ -93,6 +93,14 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
         });
 
         _backBtn                = (Button) view.findViewById(R.id.btnBack);
+        _backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DashboardFragment dsh = new DashboardFragment();
+
+            }
+        });
+
         setupBackListener();
 
         getAllOperators();

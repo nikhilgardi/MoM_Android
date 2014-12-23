@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.text.format.DateUtils;
 
 import com.mom.app.R;
+import com.mom.app.identifier.PinType;
 import com.mom.app.identifier.TransactionType;
 import com.mom.app.model.Operator;
 import com.mom.app.utils.MiscUtils;
@@ -57,6 +58,10 @@ public class TransactionRequest<T> implements Serializable{
     float amount;
     String placeholder;
     String consumerId;
+    String oldPin;
+    String newPin;
+    PinType pinType;
+    String NewConfirmPin;
     String customerMobile;
     Operator operator;
     Date dateStarted;
@@ -68,7 +73,7 @@ public class TransactionRequest<T> implements Serializable{
     String remoteResponse;
 
     T custom;
-
+String remoteId;
     /**
      * This is only used in methods which are not operator or transactionType specific.
      * e.g. getBalance
@@ -89,10 +94,11 @@ public class TransactionRequest<T> implements Serializable{
         this.dateStarted    = new Date();
     }
 
-    public TransactionRequest(String type, String consumerId){
-        _type               = type;
-        this.id             = MiscUtils.getRandomLong();
-        this.consumerId     = consumerId;
+    public TransactionRequest(PinType pinType , String oldPin, String NewPin ){
+
+        this.pinType            = pinType;
+        this.oldPin             = oldPin;
+        this.newPin             = NewPin ;
         this.dateStarted    = new Date();
     }
 
@@ -107,6 +113,13 @@ public class TransactionRequest<T> implements Serializable{
     }
     public TransactionRequest(String consumerId){
 
+        this.consumerId     = consumerId;
+        this.dateStarted    = new Date();
+    }
+
+    public TransactionRequest(String type, String consumerId){
+        _type               = type;
+        this.id             = MiscUtils.getRandomLong();
         this.consumerId     = consumerId;
         this.dateStarted    = new Date();
     }
@@ -144,9 +157,22 @@ public class TransactionRequest<T> implements Serializable{
     public String getConsumerId() {
         return consumerId;
     }
+    public void setPin(PinType pin) {
+        this.pinType = pinType;
+    }
+
+    public PinType getPin() {
+        return pinType;
+    }
 
     public String getCustomerMobile() {
         return customerMobile;
+    }
+    public String getOldPin() {
+        return oldPin;
+    }
+    public String getNewPin() {
+        return newPin;
     }
 
     public void setOperator(Operator operator) {

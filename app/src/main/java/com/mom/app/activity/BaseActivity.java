@@ -35,6 +35,7 @@ import com.mom.app.adapter.DrawerAdapter;
 import com.mom.app.error.MOMException;
 import com.mom.app.fragment.BalanceTransferFragment;
 import com.mom.app.fragment.BillPaymentFragment;
+import com.mom.app.fragment.ChangePinFragment;
 import com.mom.app.fragment.DTHRechargeFragment;
 import com.mom.app.fragment.DashboardFragment;
 import com.mom.app.fragment.FragmentBase;
@@ -43,6 +44,7 @@ import com.mom.app.fragment.MobileRechargeFragment;
 import com.mom.app.fragment.SettingsFragment;
 import com.mom.app.fragment.TransactionHistoryFragment;
 import com.mom.app.identifier.IdentifierUtils;
+import com.mom.app.identifier.PinType;
 import com.mom.app.identifier.PlatformIdentifier;
 import com.mom.app.model.GcmTransactionMessage;
 import com.mom.app.model.local.EphemeralStorage;
@@ -68,6 +70,7 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
     ActionBarDrawerToggle _drawerToggle;
 
     PlatformIdentifier _currentPlatform;
+    PinType _pPinType;
 
     ArrayList<ImageItem<MoMScreen>> _menuItems;
 
@@ -358,6 +361,12 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
                 break;
             case BALANCE_TRANSFER:
                 showFragment(BalanceTransferFragment.newInstance(_currentPlatform));
+                break;
+            case CHANGE_MPIN:
+                showFragment(ChangePinFragment.newInstance(_currentPlatform, PinType.M_PIN));
+                break;
+            case CHANGE_TPIN:
+                showFragment(ChangePinFragment.newInstance(_currentPlatform, PinType.T_PIN));
                 break;
             case HISTORY:
                 showFragment(TransactionHistoryFragment.newInstance(_currentPlatform));

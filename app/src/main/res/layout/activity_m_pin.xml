@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="80"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/msgDisplay"
+                style="@style/MoMTheme.wrapped.alertMsg"
+                android:textSize="@dimen/text_medium"
+                android:visibility="gone" />
+
+
+            <EditText
+                android:id="@+id/oldPin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/lblMPin_old"
+                style="@style/EditTextAppTheme.phone"
+                android:layout_marginBottom="@dimen/medium"/>
+
+            <EditText
+                android:id="@+id/newPin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/EditTextAppTheme.phone"
+                android:hint="@string/lblMPin_new"
+                android:layout_marginBottom="@dimen/small"/>
+
+            <EditText
+                android:id="@+id/newPinConfirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/EditTextAppTheme.phone"
+                android:hint="@string/lblMPin_new_confirm"
+                android:layout_marginBottom="@dimen/small"/>
+
+            <LinearLayout
+                android:weightSum="3"
+                style="@style/MoMTheme.btn_container">
+                <Button
+                    android:id="@+id/btnSubmit"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    style="@style/MoMTheme.wrapped.customButton"
+                    android:text="Submit"/>
+
+                <Button
+                    android:id="@+id/btnBack"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    style="@style/MoMTheme.wrapped.customButton"
+                    android:text="@string/btn_back"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"/>
+    </LinearLayout>
+</ScrollView>

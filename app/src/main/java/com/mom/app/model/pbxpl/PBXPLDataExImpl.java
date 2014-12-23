@@ -265,13 +265,14 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
             return;
         }
 
-        String url				    = AppConstants.URL_PBX_PLATFORM_APP;
+       // String url				    = AppConstants.URL_PBX_PLATFORM_APP;
+        String url				    = AppConstants.URL_PBX_PLATFORM_APPLIC;
 
         AsyncDataEx dataEx		    = new AsyncDataEx(this, request, url, Methods.RECHARGE_MOBILE);
 
         dataEx.execute(
                 new BasicNameValuePair(AppConstants.PARAM_PBX_SERVICE, AppConstants.SVC_PBX_RECHARGE_MOBILE),
-                new BasicNameValuePair(AppConstants.PARAM_PBX_RMN, _userName),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_RMN, EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.LOGGED_IN_USERNAME, null)),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_CUSTOMER_NUMBER, request.getConsumerId()),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_OPERTAORSHORTCODE , request.getOperator().getCode()),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_AMOUNT, String.valueOf(Math.round(request.getAmount()))),
@@ -810,20 +811,21 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         }
 
         String licrefno             = EphemeralStorage.getInstance(_applicationContext).getString(
-                AppConstants.PARAM_PBX_LICREFNO, null
+                AppConstants.PARAM_LICREFNO, null
         );
 
 
         AsyncDataEx dataEx		    = new AsyncDataEx(
                 this,
                 new TransactionRequest<LicLifeResponse>(),
-                AppConstants.URL_PBX_PLATFORM_APP,
+                AppConstants.URL_PBX_PLATFORM_APPLIC,
                 Methods.LIC
         );
 
         dataEx.execute(
-                new BasicNameValuePair(AppConstants.PARAM_PBX_SERVICE, AppConstants.SVC_PBX_LIC),
-                new BasicNameValuePair(AppConstants.PARAM_PBX_LICREFNO, policyNumber)
+                new BasicNameValuePair(AppConstants.PARAM_SERVICE_NEW, AppConstants.SVC_PBX_LIC),
+                new BasicNameValuePair(AppConstants.PARAM_LICREFNO, policyNumber),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_RMN , EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.LOGGED_IN_USERNAME, null))
 
         );
 
@@ -841,28 +843,33 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         }
 
         String licrefno             = EphemeralStorage.getInstance(_applicationContext).getString(
-                AppConstants.PARAM_PBX_LICREFNO, null
+                AppConstants.PARAM_LICREFNO, null
         );
 
 
         AsyncDataEx dataEx		    = new AsyncDataEx(
                 this,
                 new TransactionRequest<LicLifeResponse>(),
-                AppConstants.URL_PBX_PLATFORM_APP,
+                AppConstants.URL_PBX_PLATFORM_APPLIC,
                 Methods.PAY_LIC
         );
 
         dataEx.execute(
-                new BasicNameValuePair("Service", "LICPAY"),
-                new BasicNameValuePair("CustMobNo", CustomerMobNo),
-                new BasicNameValuePair("PolicyNo", PolicyNo),
-                new BasicNameValuePair("transRefGuid" , request.getCustom().getTransRefGUID()),
-                new BasicNameValuePair("transInvGuid" , request.getCustom().getTransInvGUID()),
-                new BasicNameValuePair("policyAmount" , Double.toString(request.getCustom().getTransInvAmount()))
+                new BasicNameValuePair(AppConstants.PARAM_SERVICE_NEW, AppConstants.PARAM_SERVICE_LIC),
+                new BasicNameValuePair(AppConstants.PARAM_CUSTOMER_NUMBER_LIC, CustomerMobNo),
+                new BasicNameValuePair(AppConstants.PARAM_POLICYNUMBER_LIC, PolicyNo),
+                new BasicNameValuePair(AppConstants.PARAM_TRANSREFGUID_LIC , request.getCustom().getTransRefGUID()),
+                new BasicNameValuePair(AppConstants.PARAM_TRANSINVGUID_LIC , request.getCustom().getTransInvGUID()),
+                new BasicNameValuePair(AppConstants.PARAM_POLICYAMOUNT_LIC , Double.toString(request.getCustom().getTransInvAmount())),
+                new BasicNameValuePair(AppConstants.PARAM_POLICYHOLDER_LIC , request.getCustom().getOLife().getParty().getFullName()),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_RMN , EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.LOGGED_IN_USERNAME, null))
+
 
 
         );
 
     }
+    public void changePinTest(TransactionRequest request){
 
+    }
 }

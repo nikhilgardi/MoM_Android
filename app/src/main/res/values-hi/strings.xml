@@ -1,22 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="money_on_mobile">MoneyOnMobile</string>
-    <string name="app_name">Money On Mobile</string>
+    <string name="money_on_mobile">मनी-ऑन- मोबाईल</string>
+    <string name="app_name">मनी-ऑन- मोबाईल</string>
 
     <string name="title_activity_aadhar_payment">AadharPaymentActivity</string>
     <string name="title_activity_aadhar_list">AadharListActivity</string>
     <string name="title_activity_best_fusion">BestFusionActivity</string>
 
 
-
-
-
-
-
-
     <string name="btn_cancel">Cancel</string>
-
-
 
 
     <string name="welcome">स्वागतम्</string>
@@ -123,7 +115,6 @@
     <string name="action_changePassword">पासवर्ड बदलें</string>
 
 
-
     <string name="btn_dashboard">डैशबोर्ड</string>
     <string name="btn_recharge">रीचार्ज</string>
 
@@ -156,13 +147,31 @@
     <string name="confirm_password">पासवर्ड की पुष्टि करें</string>
 
 
-
-
     <string name="title_activity_change_pin">PIN बदलें</string>
     <string name="title_activity_settings">सेटिंग</string>
 
     <string name="yes">हाँ</string>
     <string name="no">नहीं</string>
+
+
+    <string name="error_oldPasswordPbx">सही पुराने पासवर्ड दर्ज करें</string>
+    <string name="error_newPasswordPbx">नया पासवर्ड रिक्‍त नहीं हो सकता</string>
+    <string name="error_new_confirmPasswordPbx_matching">नया पासवर्ड और पासवर्ड की पुष्टि मेल नहीं खाते हैं</string>
+    <string name="error_old_newPasswordPbx_matching">पुराना पासवर्ड और नया पासवर्ड एकसमान नहीं हो सकते</string>
+
+    <string name="error_oldMpin">पुराना सही MPIN दर्ज करें</string>
+    <string name="error_newMpin">नए MPIN में केवल 8 संख्यात्मक अंक होने चाहिए</string>
+
+    <string name="error_Mpin_matching">नया  MPIN और पासवर्ड की पुष्टि मेल नहीं खाते हैं</string>
+    <string name="validate_oldnewMpin"> पुराना MPIN और नया MPIN एकसमान नहीं हो सकते</string>
+
+
+    <string name="error_oldTpin">पुराना सही TPIN दर्ज करें</string>
+    <string name="error_newTpin">नए TPIN में केवल 8 संख्यात्मक अंक होने चाहिए</string>
+
+    <string name="error_Tpin_matching">नया TPIN और पासवर्ड की पुष्टि मेल नहीं खाते हैं</string>
+    <string name="validate_oldnewTpin"> पुराना TPIN और नया TPIN एकसमान नहीं हो सकते</string>
+
 
 
     <string name="action_lIC">LIC</string>
@@ -177,11 +186,6 @@
     <string name="btn_getPremium">प्रीमियम प्राप्‍त करें</string>
     <string name="lblPolicyNumber">पॉलिसी क्रमांक</string>
     <string name="title_activity_retailer_payment">रिटेलर भुगतान</string>
-
-
-
-
-
 
 
     <!-- START: LANGUAGE RELATED -->

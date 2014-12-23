@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="money_on_mobile">MoneyOnMobile</string>
+    <string name="money_on_mobile">ମନି ଅନ ମୋବାଇଲ</string>
 
     <string name="welcome">ସ୍ୱାଗତମ୍‌</string>
 
@@ -80,7 +80,7 @@
     <string name="drawer_close">ନେଭିଗେସନ୍‌ ଲୁଚାନ୍ତୁ</string>
 
 
-    <string name="app_name">Money On Mobile</string>
+    <string name="app_name">ମନି ଅନ ମୋବାଇଲ</string>
 
     <string name="Rupee">\u20B9</string>
     <string name="title_activity_main">MainActivity</string>
@@ -113,6 +113,26 @@
     <string name="action_changeMpin">M-Pin ପରିବର୍ତ୍ତନ</string>
     <string name="action_changeTpin">T-Pin  ପରିବର୍ତ୍ତନ</string>
     <string name="action_changePassword">ପାସ୍‌ୱାର୍ଡ ପରିବର୍ତ୍ତନ</string>
+
+
+    <string name="error_oldPasswordPbx">ସଠିକ୍‌ ପୁରୁଣା ପାସ୍‌ୱାର୍ଡ ପ୍ରବେଶ କରାନ୍ତୁ</string>
+    <string name="error_newPasswordPbx">ଏକ ନୂତନ ପାସ୍‌ୱାର୍ଡ କେବେ ଖାଲି ହୋଇପାରିବ ନାହିଁ</string>
+    <string name="error_new_confirmPasswordPbx_matching">ନୂତନ ପାସ୍‌ୱାର୍ଡ ଏବଂ ସୁନିଶ୍ଚିତ ପାସ୍‌ୱାର୍ଡ ମେଳ ଖାଉ ନାହିଁ</string>
+    <string name="error_old_newPasswordPbx_matching">ପୁରୁଣା ପାସ୍‌ୱାର୍ଡ ଏବଂ ନୂତନ ପାସ୍‌ୱାର୍ଡ ସମାନ ହୋଇପାରିବ ନାହିଁ</string>
+
+    <string name="error_oldMpin">ସଠିକ୍‌ ପୁରୁଣା MPIN ପ୍ରବେଶ କରାନ୍ତୁ</string>
+    <string name="error_newMpin">ନୂତନ MPIN କେବଳ 8 ଟି ସଂଖ୍ୟା ବିଶିଷ୍ଟ ଅକ୍ଷର ରହିବା ଆବଶ୍ୟକ</string>
+
+    <string name="error_Mpin_matching">ନୂତନ MPIN ଏବଂ ସୁନିଶ୍ଚିତ କରିଥିବା ପାସ୍‌ୱାର୍ଡ ଟି ମେଳ ଖାଉନାହିଁ</string>
+    <string name="validate_oldnewMpin">ପୁରୁଣା MPIN ଏବଂ ନୂତନ MPIN ଟି ସମାନ ହୋଇପାରିବ ନାହିଁ</string>
+
+    <string name="error_oldTpin">ସଠିକ୍‌ ପୁରୁଣା TPIN ପ୍ରବେଶ କରାନ୍ତୁ</string>
+    <string name="error_newTpin">ନୂତନ TPIN କେବଳ 8 ଟି ସଂଖ୍ୟା ବିଶିଷ୍ଟ ଅକ୍ଷର ରହିବା ଆବଶ୍ୟକ</string>
+
+    <string name="error_Tpin_matching">ନୂତନ TPIN ଏବଂ ସୁନିଶ୍ଚିତ କରିଥିବା ପାସ୍‌ୱାର୍ଡ ଟି ମେଳ ଖାଉନାହିଁ</string>
+    <string name="validate_oldnewTpin"> ପୁରୁଣା TPIN ଏବଂ ନୂତନ TPIN ଟି ସମାନ ହୋଇପାରିବ ନାହିଁ</string>
+
+
 
 
 

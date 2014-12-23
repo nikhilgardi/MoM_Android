@@ -57,6 +57,21 @@
     <string name="error_no_internet">Your device is not connected to the Internet. Please try this when your Internet connection is back.</string>
     <string name="error_getting_balance">Error</string>
 
+    <string name="error_oldPasswordPbx"> Enter Correct Old Password </string>
+    <string name="error_newPasswordPbx">The new Password cannot be empty</string>
+    <string name="error_new_confirmPasswordPbx_matching">New Password and Confirm Password does not match</string>
+    <string name="error_old_newPasswordPbx_matching">Old Password and New Password cannot be same</string>
+
+    <string name="error_oldMpin">Enter Correct Old MPIN</string>
+    <string name="error_newMpin">The new MPIN should be 8 numeric characters only</string>
+    <string name="error_Mpin_matching">New MPIN and Confirm Password doesnot match</string>
+    <string name="validate_oldnewMpin"> Old MPIN and New MPIN cannot be same</string>
+    <string name="error_oldTpin">Enter Correct Old TPIN</string>
+    <string name="error_newTpin">The new TPIN should be 8 numeric characters only</string>
+    <string name="error_Tpin_matching">New TPIN and Confirm Password doesnot match</string>
+    <string name="validate_oldnewTpin"> Old TPIN and New TPIN cannot be same</string>
+
+
     <string name="confirm_logout">Do you want to logout and exit the app?</string>
     <string name="btn_dashboard">Dashboard</string>
     <string name="btn_recharge">Recharge</string>
@@ -87,15 +102,15 @@
     <string name="lblPolicyNumber">Policy Number</string>
     <string name="lblCustomerLandlineNumber">Customer\'s Land Line Number</string>
     <string name="lblAccountNumber">Account Number</string>
-    <string name="tpin_old">Old T-PIN</string>
-    <string name="tpin_new">New T-PIN</string>
-    <string name="tpin_new_confirm">Confirm New T-PIN</string>
-    <string name="mpin_old">Old M-PIN</string>
-    <string name="mpin_new">New M-PIN</string>
-    <string name="mpin_new_confirm">Confirm New M-PIN</string>
-    <string name="old_password">Old Password</string>
-    <string name="new_password">New Password</string>
-    <string name="confirm_password">Confirm Password</string>
+    <string name="lblTPin_old">Old T-PIN</string>
+    <string name="lblTPin_new">New T-PIN</string>
+    <string name="lblTPin_new_confirm">Confirm New T-PIN</string>
+    <string name="lblMPin_old">Old M-PIN</string>
+    <string name="lblMPin_new">New M-PIN</string>
+    <string name="lblMPin_new_confirm">Confirm New M-PIN</string>
+    <string name="lblOld_password">Old Password</string>
+    <string name="lblNew_password">New Password</string>
+    <string name="lblConfirm_password">Confirm Password</string>
     <string name="confirm_balance_transfer">Confirm Transfer</string>
     <string name="transfer">transfer</string>
     <string name="title_activity_bill_payment">Bill Payment Activity</string>

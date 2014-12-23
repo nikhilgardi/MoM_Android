@@ -57,6 +57,7 @@ public class SettingsFragment  extends FragmentBase implements AsyncListener<Str
 
             _gridView.setAdapter(_gridViewAdapter);
             _gridView.setNumColumns(2);
+            Log.i("Frag" , DataProvider.getSettingsScreens(getActivity()).toString());
         }else if (_currentPlatform == PlatformIdentifier.PBX) {
             _gridViewAdapter = new ImageTextViewAdapter<MoMScreen>(
                     getActivity(),
@@ -116,9 +117,10 @@ public class SettingsFragment  extends FragmentBase implements AsyncListener<Str
     }
 
     private void nextActivity(ImageItem<MoMScreen> item) {
-        Intent intent = null;
+        MoMScreen screen                            = item.getItem();
+        boolean isVerificationNeeded                = true;
 
-//        switch (item.getItem()){
+       switch (item.getItem()){
 //            case CHANGE_MPIN:
 //                Log.d(_LOG, "Starting Change M-Pin");
 //                intent      = new Intent(this, ChangePINActivity.class);
@@ -139,6 +141,22 @@ public class SettingsFragment  extends FragmentBase implements AsyncListener<Str
 //                Log.d(_LOG, "Started Change Password");
 //                break;
 //        }
+           case CHANGE_MPIN:
+               Log.d(_LOG, "Starting M-Pin");
+               isVerificationNeeded    = (_currentPlatform != PlatformIdentifier.PBX);
+               break;
+           case CHANGE_TPIN:
+               Log.d(_LOG, "Starting T-Pin");
+               isVerificationNeeded    = (_currentPlatform != PlatformIdentifier.PBX);
+               break;
 
+    }
+        if(isVerificationNeeded){
+
+        }
+
+        Bundle bundle                   = new Bundle();
+        bundle.putSerializable(AppConstants.BUNDLE_NEXT_SCREEN, screen);
+        _callbackListener.processMessage(bundle);
     }
 }

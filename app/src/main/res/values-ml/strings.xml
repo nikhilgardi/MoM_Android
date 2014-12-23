@@ -2,8 +2,8 @@
 <resources>
 
 
-    <string name="money_on_mobile">MoneyOnMobile</string>
-    <string name="app_name">Money On Mobile</string>
+    <string name="money_on_mobile">മനീ-ആന്- മൊബൈല്‍</string>
+    <string name="app_name">മനീ-ആന്- മൊബൈല്‍</string>
     <string name="welcome">സ്വാഗതം</string>
 
     <string name="login_failed_msg_default">ലോഗിൻ പരാജയം. നിങ്ങളുടെ മൊബൈൽ നമ്പറും M-Pin-ഉം പരിശോധിക്കുക</string>
@@ -170,6 +170,29 @@
     <string name="btn_getPremium">പ്രീമിയം അറിയുക</string>
     <string name="lblPolicyNumber">പോളിസി നമ്പർ</string>
     <string name="title_activity_retailer_payment">റീട്ടെയിലർ പെയ്മെന്റ്</string>
+
+
+
+    <string name="error_oldPasswordPbx">ശരിയായ പഴയ പാസ്‌വേഡ് നൽകുക</string>
+    <string name="error_newPasswordPbx">പുതിയ പാസ്‌വേഡ് ശൂന്യമായി വിടരുത്</string>
+    <string name="error_new_confirmPasswordPbx_matching">പുതിയ പാസ്‌വേഡ്, പൊരുത്തപ്പെടാത്ത പാസ്‌വേഡ് സ്ഥിരീകരിക്കുക</string>
+    <string name="error_old_newPasswordPbx_matching">പഴയ പാസ്‌വേഡും പുതിയ പാസ്‌വേഡും ഒന്നായിരിക്കരുത്</string>
+
+    <string name="error_oldMpin">ശരിയായ പഴയ MPIN നൽകുക</string>
+    <string name="error_newMpin">പുതിയ MPIN-ൽ 8 സംഖ്യാ ക്യാരക്ടറുകൾ മാത്രമേ ഉണ്ടാകാവൂ</string>
+
+      <string name="error_Mpin_matching">പുതിയ MPIN-ഉം സ്ഥിരീകരണ പാസ്വേഡും പൊരുത്തപ്പെടുന്നില്ല
+      </string>
+    <string name="validate_oldnewMpin"> പഴയ MPIN-ഉം പുതിയ MPIN-ഉം ഒന്നാകരുത്</string>
+
+
+    <string name="error_oldTpin">ശരിയായ പഴയ TPIN നൽകുക</string>
+    <string name="error_newTpin">പുതിയ TPIN-ൽ 8 സംഖ്യാ ക്യാരക്ടറുകൾ മാത്രമേ ഉണ്ടാകാവൂ</string>
+
+      <string name="error_Tpin_matching">പുതിയ TPIN-ഉം സ്ഥിരീകരണ പാസ്വേഡും പൊരുത്തപ്പെടുന്നില്ല
+      </string>
+    <string name="validate_oldnewTpin">പഴയ TPIN-ഉം പുതിയ TPIN-ഉം ഒന്നാകരുത്</string>
+
 
 
     <!-- START: LANGUAGE RELATED -->

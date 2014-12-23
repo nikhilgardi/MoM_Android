@@ -352,7 +352,9 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
         if(
                 AppConstants.OPERATOR_ID_RELIANCE_ENERGY.equals(sOperatorId) ||
                         AppConstants.OPERATOR_ID_BEST_ELECTRICITY.equals(sOperatorId) ||
-                        AppConstants.OPERATOR_ID_MAHANAGAR_GAS.equals(sOperatorId)
+                        AppConstants.OPERATOR_ID_MAHANAGAR_GAS.equals(sOperatorId) ||
+                        AppConstants.OPERATOR_ID_BSES_RAJDHANI.equals(sOperatorId) ||
+                        AppConstants.OPERATOR_ID_BESCOM_BANGALURU.equals(sOperatorId)
                 ){
 
             sMsg        = getResources().getString(R.string.lblConsumerNumber) + ": "
@@ -388,6 +390,18 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
     public void showRetrieveBillFields(){
         _etSubscriberId.setVisibility(View.VISIBLE);
         _btnGetBillAmount.setVisibility(View.VISIBLE);
+
+        String sOperator                = _spOperator.getSelectedItem().toString();
+        Log.d(_LOG, "Operator selected: " + sOperator);
+        String sOperatorId              = getOperatorId(sOperator);
+
+        if(AppConstants.OPERATOR_ID_BSES_RAJDHANI.equals(sOperatorId)||
+           AppConstants.OPERATOR_ID_BESCOM_BANGALURU.equals(sOperatorId) ||
+           AppConstants.OPERATOR_ID_CESCOM_MYSORE.equals(sOperatorId)||
+           AppConstants.OPERATOR_ID_DHBVN_HARYANA.equals(sOperatorId)||
+           AppConstants.OPERATOR_ID_INDRAPRASTHA_GAS.equals(sOperatorId)){
+            _btnGetBillAmount.setVisibility(View.GONE);
+        }
     }
 
     public void hideRetrieveBillFields(){
@@ -402,6 +416,7 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
         public void onNothingSelected(AdapterView<?> adapterView) {
 
         }
+
 
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -430,7 +445,12 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
             }else if(
                     AppConstants.OPERATOR_ID_RELIANCE_ENERGY.equals(sOperatorId) ||
                             AppConstants.OPERATOR_ID_BEST_ELECTRICITY.equals(sOperatorId) ||
-                            AppConstants.OPERATOR_ID_MAHANAGAR_GAS.equals(sOperatorId)){
+                            AppConstants.OPERATOR_ID_MAHANAGAR_GAS.equals(sOperatorId) ||
+                            AppConstants.OPERATOR_ID_BSES_RAJDHANI.equals(sOperatorId) ||
+                            AppConstants.OPERATOR_ID_BESCOM_BANGALURU.equals(sOperatorId)||
+                            AppConstants.OPERATOR_ID_CESCOM_MYSORE.equals(sOperatorId)||
+                            AppConstants.OPERATOR_ID_DHBVN_HARYANA.equals(sOperatorId)||
+                            AppConstants.OPERATOR_ID_INDRAPRASTHA_GAS.equals(sOperatorId)){
 
                 sHintDisplay                = sAccountNumber;
 
