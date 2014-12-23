@@ -112,6 +112,24 @@
 
 
 
+    <string name="error_oldPasswordPbx">સાચો જૂનો પાસવર્ડ દાખલ કરો</string>
+    <string name="error_newPasswordPbx">નવો પાસવર્ડ ખાલી મૂકી શકાશે નહીં </string>
+    <string name="error_new_confirmPasswordPbx_matching">નવો પાસવર્ડ અને કન્ફર્મ પાસવર્ડ બંધબેસતા નથી</string>
+    <string name="error_old_newPasswordPbx_matching">જૂનો પાસવર્ડ અને નવો પાસવર્ડ એકસરખાં હોઇ શકે નહીં</string>
+
+    <string name="error_oldMpin">યોગ્ય જૂના એમ પિન દાખલ કરો</string>
+    <string name="error_newMpin">નવી એમ પિન પ્રયત્ન કરીશું 8 આંકડાકીય અક્ષરો માત્ર</string>
+
+    <string name="error_Mpin_matching">નવા એમ પિન અને ખાતરી પાસવર્ડ મેળ ખાતો નથી</string>
+    <string name="validate_oldnewMpin"> જૂના એમ પિન અને નવા એમ પિન જ ન હોઈ શકે</string>
+
+
+    <string name="error_oldTpin">યોગ્ય જૂના ટી પિન દાખલ કરો</string>
+    <string name="error_newTpin">નવી ટી પિન પ્રયત્ન કરીશું 8 આંકડાકીય અક્ષરો માત્ર</string>
+
+    <string name="error_Tpin_matching">નવા ટી પિન અને ખાતરી પાસવર્ડ મેળ ખાતો નથી</string>
+    <string name="validate_oldnewTpin"> જૂના ટી પિન અને નવા ટી પિન જ ન હોઈ શકે</string>
+
 
 
 

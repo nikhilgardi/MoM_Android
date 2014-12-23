@@ -57,6 +57,21 @@
     <string name="error_no_internet">Your device is not connected to the Internet. Please try this when your Internet connection is back.</string>
     <string name="error_getting_balance">Error</string>
 
+    <string name="error_oldPasswordPbx"> Enter Correct Old Password </string>
+    <string name="error_newPasswordPbx">The new Password cannot be empty</string>
+    <string name="error_new_confirmPasswordPbx_matching">New Password and Confirm Password does not match</string>
+    <string name="error_old_newPasswordPbx_matching">Old Password and New Password cannot be same</string>
+
+    <string name="error_oldMpin">Enter Correct Old MPIN</string>
+    <string name="error_newMpin">The new MPIN should be 8 numeric characters only</string>
+    <string name="error_Mpin_matching">New MPIN and Confirm Password doesnot match</string>
+    <string name="validate_oldnewMpin"> Old MPIN and New MPIN cannot be same</string>
+    <string name="error_oldTpin">Enter Correct Old TPIN</string>
+    <string name="error_newTpin">The new TPIN should be 8 numeric characters only</string>
+    <string name="error_Tpin_matching">New TPIN and Confirm Password doesnot match</string>
+    <string name="validate_oldnewTpin"> Old TPIN and New TPIN cannot be same</string>
+
+
     <string name="confirm_logout">Do you want to logout and exit the app?</string>
     <string name="btn_dashboard">Dashboard</string>
     <string name="btn_recharge">Recharge</string>

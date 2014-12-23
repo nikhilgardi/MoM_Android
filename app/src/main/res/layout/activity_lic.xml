@@ -153,7 +153,15 @@
                     android:text="@string/btn_pay"
                     android:visibility="gone"/>
                 <Button
-                    android:id="@+id/btnCancel"
+                    android:id="@+id/btnPolicyDetailsCancel"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    style="@style/MoMTheme.wrapped.customButton"
+                    android:text="@string/btn_cancel"
+                    />
+                <Button
+                    android:id="@+id/btnPaymentCancel"
                     android:layout_height="wrap_content"
                     android:layout_width="0dp"
                     android:layout_weight="1"

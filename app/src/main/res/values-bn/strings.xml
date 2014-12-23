@@ -79,6 +79,23 @@
     <string name="drawer_close">নেভিগেশন লুকান</string>
 
 
+    <string name="error_oldPasswordPbx">সঠিক পুরনো পাসওয়ার্ড লিখুন</string>
+    <string name="error_newPasswordPbx">নতুন পাসওয়ার্ড খালি রাখা যাবে না।</string>
+    <string name="error_new_confirmPasswordPbx_matching">নতুন পাসওয়ার্ড এবং নিশ্চিত করা পাসওয়ার্ড মিলছে না</string>
+    <string name="error_old_newPasswordPbx_matching">পুরনো পাসওয়ার্ড এবং নতুন পাসওয়ার্ড একই হতে পারবে</string>
+
+    <string name="error_oldMpin">পুরানো সঠিক MPIN  লিখুন</string>
+    <string name="error_newMpin">নতুন MPIN কেবলমাত্র 8 সাংখ্যিক অক্ষরের হতে হবে</string>
+
+    <string name="error_Mpin_matching">নতুন MPIN এবং নিশ্চিত পাসওয়ার্ড মিলছে না</string>
+    <string name="validate_oldnewMpin"> পুরানো MPIN এবং নতুন MPIN একই  হওয়া চলবে না</string>
+
+
+    <string name="error_oldTpin">পুরানো সঠিক TPIN লিখুন</string>
+    <string name="error_newTpin">নতুন TPIN  কেবলমাত্র 8 সাংখ্যিক অক্ষরের হতে হবে</string>
+
+    <string name="error_Tpin_matching">নতুন TPIN  এবং নিশ্চিত পাসওয়ার্ড মিলছে না</string>
+    <string name="validate_oldnewTpin"> পুরানো TPIN  এবং নতুন TPIN  হওয়া চলবে না</string>
 
 
 

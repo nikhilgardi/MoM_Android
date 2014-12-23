@@ -110,40 +110,146 @@ public class ChangePinFragment extends FragmentBase implements AsyncListener<Tra
     protected void showBalance(float pfBalance) {
     }
 
+    private int validate() {
+
+        if (_oldPin.getText().length() <= 8) {
+            if (_oldPin.getText().length() >= 4) {
+                if (_newPin.getText().length() == 8)
+                {
+
+                    if (_newPin.getText().toString().equals(_newPinConfirm.getText().toString()))
+                    {
+                        if(!_oldPin.getText().toString().equals(_newPin.getText().toString()))
+                        {
+                            return 0;
+                        }
+                        else
+                            return 5;
+                    }
+                    else
+                        return 4;
+                }
+                else
+                    return 3;
+            } else
+                return 2;
+        } else
+            return 1;
+    }
 
 
 
-    public void changePIN(View view){
-        String sOldPin          = _oldPin.getText().toString();
-        String sNewPin          = _newPin.getText().toString();
-        String sNewPinConfirm   = _newPinConfirm.getText().toString();
-        String sRequiredError   = getResources().getString(R.string.error_field_required);
+   public void changePIN(View view) {
+       String sOldPin = _oldPin.getText().toString();
+       String sNewPin = _newPin.getText().toString();
+       String sNewPinConfirm = _newPinConfirm.getText().toString();
+       String sRequiredError = getResources().getString(R.string.error_field_required);
+       int ValidationResult = validate();
+       if (ValidationResult == 0) {
+           getDataEx(this).changePin(_pinType, sOldPin, sNewPin);
+       }
+       else {
 
-        if("".equals(sOldPin)){
-            _oldPin.setError(sRequiredError);
-            return;
-        }
-        if("".equals(sNewPin)){
-            _newPin.setError(sRequiredError);
-            return;
-        }
-        if("".equals(sNewPinConfirm)){
-            _newPinConfirm.setError(sRequiredError);
-            return;
-        }
+           switch (ValidationResult) {
 
-        if(!sNewPin.equals(sNewPinConfirm)){
-            _newPinConfirm.setError(getResources().getString(R.string.error_pin_confirm_mismatch));
-            return;
-        }
+               case 1:
+                   if(_pinType.equals(PinType.M_PIN)) {
 
-         getDataEx(this).changePin(_pinType, sOldPin, sNewPin);
 
-         _oldPin.setText(null);
-         _newPin.setText(null);
-         _newPinConfirm.setText(null);
+                       //	responseText.setText("Enter Correct Old MPIN");
+                       _oldPin.setError(getResources().getString(R.string.error_oldMpin));
+
+                   }
+                   else if (_pinType.equals(PinType.T_PIN)){
+                       _oldPin.setError(getResources().getString(R.string.error_oldTpin));
+
+                   }
+                   _oldPin.setText("");
+                   _newPin.setText("");
+                   _newPinConfirm.setText("");
+                   break;
+
+               case 2:
+
+                   if(_pinType.equals(PinType.M_PIN)) {
+
+                   //	responseText.setText("Enter Correct Old MPIN");
+                   _oldPin.setError(getResources().getString(R.string.error_oldMpin));
+
+                   }
+                   else if (_pinType.equals(PinType.T_PIN)) {
+                       _oldPin.setError(getResources().getString(R.string.error_oldTpin));
+
+
+                   }
+                   _oldPin.setText("");
+                   _newPin.setText("");
+                   _newPinConfirm.setText("");
+
+                   break;
+
+               case 3:
+                   if(_pinType.equals(PinType.M_PIN)) {
+
+                       //	responseText.setText("The new MPIN should be 8 numeric characters only");
+                       _newPin.setError(getResources().getString(R.string.error_newMpin));
+
+                   }
+                   else if(_pinType.equals(PinType.T_PIN))
+                   {
+                       _newPin.setError(getResources().getString(R.string.error_newTpin));
+                       _newPin.setText("");
+                       _newPinConfirm.setText("");
+                   }
+
+                   _newPin.setText("");
+                   _newPinConfirm.setText("");
+                   break;
+
+               case 4:
+
+                if(_pinType.equals(PinType.M_PIN)) {
+                    //	responseText.setText("New MPIN and Confirm Password doesnot match");
+                    _newPin.setError(getResources().getString(R.string.error_Mpin_matching));
+                    _newPinConfirm.setError(getResources().getString(R.string.error_Mpin_matching));
+
+                }
+                   else if (_pinType.equals(PinType.T_PIN)){
+                    _newPin.setError(getResources().getString(R.string.error_Tpin_matching));
+                    _newPinConfirm.setError(getResources().getString(R.string.error_Tpin_matching));
+
+                }
+                   _newPin.setText("");
+                   _newPinConfirm.setText("");
+                   break;
+
+
+               case 5:
+
+                   if(_pinType.equals(PinType.M_PIN)) {
+                       //	responseText.setText("Old MPIN and New MPIN cannot be same");
+                       _newPin.setError(getResources().getString(R.string.validate_oldnewMpin));
+
+                   }
+                   else if (_pinType.equals(PinType.T_PIN)){
+                       _newPin.setError(getResources().getString(R.string.validate_oldnewTpin));
+
+                   }
+                   _oldPin.setText("");
+                   _newPin.setText("");
+                   _newPinConfirm.setText("");
+                   break;
+
+           }
+       }
+
+
+
 
     }
+
+
+
 
 
 

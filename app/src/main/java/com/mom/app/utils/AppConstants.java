@@ -59,6 +59,8 @@ public class AppConstants {
     public static final String SVC_PBX_BILL_PAY                 = "BILLPAY";
     public static final String SVC_PBX_LIC                      = "LICENQ";
 
+    public static final String PARAM_SERVICE_LIC                = "LICPAY";
+
     //End: PBX Platform Service
 
     public static final String PBX_OPERATOR_TYPE_DEFAULT    = "1";
@@ -66,7 +68,8 @@ public class AppConstants {
     public static final String URL_PBX_PLATFORM_SERVICE     = "http://test.pbx.momappworld.com/momspre/service.ashx";
   //  public static final String URL_PBX_PLATFORM_APP         = "http://test.pbx.momappworld.com/momspre/PbxMobApp.ashx";
    public static final String URL_PBX_PLATFORM_APP         =  "http://api.pbx.momappworld.com/mobapps1/pbxmobapp.ashx";
-//    public static final String URL_PBX_PLATFORM_APP         = "http://172.16.1.102/MobAppS/PbxMobApp.ashx";
+    public static final String URL_PBX_PLATFORM_APPLIC     =   "http://192.168.8.20/MobAppS1/PbxMobApp.ashx";
+   //    public static final String URL_PBX_PLATFORM_APP         = "http://172.16.1.102/MobAppS/PbxMobApp.ashx";
 
     //End: PBX Platform URLs
 
@@ -152,12 +155,13 @@ public class AppConstants {
 
 
     //Start: PBX Platform Params
-    public static final String PARAM_PBX_SERVICE            = "service";
-    public static final String PARAM_PBX_USERNAME           = "username";
-    public static final String PARAM_PBX_PASSWORD           = "password";
-    public static final String PARAM_PBX_IDENTIFIER         = "identifier";
-    public static final String PARAM_PBX_ORIGIN_ID          = "originId";
-    public static final String PARAM_PBX_CLIENT_TOKEN       = "clientToken";
+    public static final String PARAM_PBX_SERVICE             = "service";
+    public static final String PARAM_PBX_USERNAME            = "username";
+    public static final String PARAM_PBX_PASSWORD            = "password";
+    public static final String PARAM_PBX_IDENTIFIER          = "identifier";
+    public static final String PARAM_PBX_ORIGIN_ID           = "originId";
+    public static final String PARAM_PBX_CLIENT_TOKEN        = "clientToken";
+
 
     public static final String PARAM_PBX_OP                 = "oldPassword";
     public static final String PARAM_PBX_NP                 = "newPassword";
@@ -172,12 +176,20 @@ public class AppConstants {
     public static final String PARAM_PBX_AMOUNT             = "amount";
     public static final String PARAM_PBX_USERTYPE           = "userType";
     public static final String PARAM_PBX_USERNAMELOGIN      = "userName";
+    public static final String PARAM_PBX_LICAMOUNT          = "premiumAmount";
 
 
 
-    public static final String PARAM_PBX_PARENT_RMN         = "ParentRmn";
-    public static final String PARAM_PBX_CHILD_RMN          = "childRmn";
-    public static final String PARAM_PBX_LICREFNO           = "licRefNo";
+    public static final String PARAM_PBX_PARENT_RMN          = "ParentRmn";
+    public static final String PARAM_PBX_CHILD_RMN           = "childRmn";
+    public static final String PARAM_LICREFNO            = "licRefNo";
+    public static final String PARAM_CUSTOMER_NUMBER_LIC ="custMobNo";
+    public static final String PARAM_POLICYNUMBER_LIC    = "policyNo";
+    public static final String PARAM_TRANSREFGUID_LIC    = "transRefGuid";
+    public static final String PARAM_TRANSINVGUID_LIC    = "transInvGuid";
+    public static final String PARAM_POLICYAMOUNT_LIC    = "policyAmount";
+    public static final String PARAM_POLICYHOLDER_LIC    = "policyHolder";
+    public static final String PARAM_SERVICE_NEW         = "Service";
 
     //End: PBX Platform Params
 

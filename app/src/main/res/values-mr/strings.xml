@@ -153,6 +153,23 @@
     <string name="confirm_password">पासवर्डची पुष्टी करा</string>
 
 
+    <string name="error_oldPasswordPbx">जुना अचूक पासवर्ड प्रविष्ठ करा</string>
+    <string name="error_newPasswordPbx">नवीन पासवर्ड रिकामा असू शकत नाही</string>
+    <string name="error_new_confirmPasswordPbx_matching">नवीन पासवर्ड आणि पासवर्डची पुष्टी जुळत नाही</string>
+    <string name="error_old_newPasswordPbx_matching">जुना पासवर्डची आणि नवीन पासवर्डची समान असू शकत नाही</string>
+
+    <string name="error_oldMpin">अचूक जुना MPIN प्रविष्ट करा</string>
+    <string name="error_newMpin">नवीन MPIN केवळ 8 आकडी वर्णांचा असावा</string>
+
+    <string name="error_Mpin_matching">नवीन MPIN आणि पासवर्डची पुष्टी करा जुळत नाही</string>
+    <string name="validate_oldnewMpin"> जुना MPIN आणि नवीन MPIN समान असू शकत नाही</string>
+
+
+    <string name="error_oldTpin">अचूक जुना TPIN प्रविष्ट करा</string>
+    <string name="error_newTpin">नवीन TPIN केवळ 8 आकडी वर्णांचा असावा</string>
+
+    <string name="error_Tpin_matching">नवीन TPIN आणि पासवर्डची पुष्टी करा जुळत नाही</string>
+    <string name="validate_oldnewTpin"> जुना TPIN आणि नवीन TPIN समान असू शकत नाही</string>
 
 
     <string name="title_activity_change_pin">PIN बदला</string>

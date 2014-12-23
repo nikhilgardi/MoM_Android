@@ -482,12 +482,21 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         if (
                 AppConstants.OPERATOR_ID_BEST_ELECTRICITY.equals(operatorCode) ||
                 AppConstants.OPERATOR_ID_RELIANCE_ENERGY.equals(operatorCode) ||
-                AppConstants.OPERATOR_ID_MAHANAGAR_GAS.equals(operatorCode)){
+                AppConstants.OPERATOR_ID_MAHANAGAR_GAS.equals(operatorCode) ){
 
             strCustomerNumber   = strCustomerNumber + "|" + request.getCustomerMobile()
                                 + "|" + sUserId;
 
-        } else if (AppConstants.OPERATOR_ID_SBE.equals(operatorCode) && pExtraParamsMap != null) {
+        }
+        else if(AppConstants.OPERATOR_ID_BSES_RAJDHANI.equals(operatorCode) ||
+                AppConstants.OPERATOR_ID_BESCOM_BANGALURU.equals(operatorCode)||
+                AppConstants.OPERATOR_ID_CESCOM_MYSORE.equals(operatorCode)||
+                AppConstants.OPERATOR_ID_DHBVN_HARYANA.equals(operatorCode)||
+                AppConstants.OPERATOR_ID_INDRAPRASTHA_GAS.equals(operatorCode)){
+            strCustomerNumber = request.getConsumerId() + "|" + request.getCustomerMobile();
+            Log.i("ParametersBIll" , strCustomerNumber.toString());
+        }
+        else if (AppConstants.OPERATOR_ID_SBE.equals(operatorCode) && pExtraParamsMap != null) {
             if(
                     !pExtraParamsMap.containsKey(AppConstants.PARAM_NEW_RELIANCE_SBE_NBE) ||
                     !pExtraParamsMap.containsKey(AppConstants.PARAM_NEW_SPECIAL_OPERATOR)

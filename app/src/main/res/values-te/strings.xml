@@ -140,6 +140,23 @@
     <string name="lblPolicyNumber">పాలసీ నెంబరు.</string>
     <string name="title_activity_retailer_payment">రిటైలర్ పేమెంట్.</string>
 
+    <string name="error_oldPasswordPbx">సరైన పాత పాస్‌వర్డ్ నమోదు చేయండి</string>
+    <string name="error_newPasswordPbx">కొత్త పాస్‌వర్డ్ ఖాళీగా ఉండరాదు</string>
+    <string name="error_new_confirmPasswordPbx_matching">కొత్త పాస్‌వర్డ్ మరియు ధృవీకరణ పాస్‌వర్డ్ జతకాలేదు</string>
+    <string name="error_old_newPasswordPbx_matching">పాత పాస్‌వర్డ్ మరియు కొత్త పాస్‌వర్డ్ ఒకటే కారాదు</string>
+
+    <string name="error_oldMpin">సరైన పాత MPIN నమోదు చేయి</string>
+    <string name="error_newMpin">కొత్త MPIN తప్పనిసరిగా 8 న్యూమరికల్ క్యారెక్టర్లను మాత్రమే కలిగి ఉండాలి</string>
+
+    <string name="error_Mpin_matching">కొత్త MPIN మరియు ధృవీకరణ పాస్‌వర్డ్ జతకాలేదు</string>
+    <string name="validate_oldnewMpin"> పాత MPIN మరియు కొత్త MPINలు ఒకటే కారాదు</string>
+
+
+    <string name="error_oldTpin">సరైన పాత TPIN నమోదు చేయి</string>
+    <string name="error_newTpin">కొత్త TPIN తప్పనిసరిగా 8 న్యూమరికల్ క్యారెక్టర్లను మాత్రమే కలిగి ఉండాలి</string>
+
+    <string name="error_Tpin_matching">కొత్త TPIN మరియు ధృవీకరణ పాస్‌వర్డ్ జతకాలేదు</string>
+    <string name="validate_oldnewTpin"> పాత TPIN మరియు కొత్త TPINలు ఒకటే కారాదు</string>
 
 
 

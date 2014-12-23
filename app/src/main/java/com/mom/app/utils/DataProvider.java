@@ -111,7 +111,7 @@ public class DataProvider {
                             false
                     )
             );
-        }
+       }
 
 
         imageItems.add(
@@ -207,7 +207,7 @@ public class DataProvider {
     public static List<Operator> getMoMPlatformBillPayOperators(){
         String[] operatorNames  = {"AIRCEL BILL" , "AIRTEL BILL", "AIRTEL LAND LINE",
                 "BESCOM BANGALURU", "BEST ELECTRICITY BILL" ,"BSES RAJDHANI" ,"BSNL BILL PAY" ,
-                "CELLONE BILL PAY"," CESC LIMITED" ,"CESCOM MYSORE",
+                "CELLONE BILL PAY","CESC LIMITED" ,"CESCOM MYSORE",
                 "DHBVN HARYANA", "IDEA BILL" ,"INDRAPRASTH GAS" , "MAHANAGAR GAS BILL",
                 "NORTH BIHAR ELECTRICITY", "RELIANCE BILL GSM" ,"RELIANCE CDMA BILL",
                 "RELIANCE ENERGY BILL", "SOUTH BIHAR ELECTRICITY","TATA BILL",

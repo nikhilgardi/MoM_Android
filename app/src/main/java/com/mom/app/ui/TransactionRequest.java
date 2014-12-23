@@ -73,7 +73,7 @@ public class TransactionRequest<T> implements Serializable{
     String remoteResponse;
 
     T custom;
-
+String remoteId;
     /**
      * This is only used in methods which are not operator or transactionType specific.
      * e.g. getBalance

@@ -154,6 +154,26 @@
     <string name="no">नहीं</string>
 
 
+    <string name="error_oldPasswordPbx">सही पुराने पासवर्ड दर्ज करें</string>
+    <string name="error_newPasswordPbx">नया पासवर्ड रिक्‍त नहीं हो सकता</string>
+    <string name="error_new_confirmPasswordPbx_matching">नया पासवर्ड और पासवर्ड की पुष्टि मेल नहीं खाते हैं</string>
+    <string name="error_old_newPasswordPbx_matching">पुराना पासवर्ड और नया पासवर्ड एकसमान नहीं हो सकते</string>
+
+    <string name="error_oldMpin">पुराना सही MPIN दर्ज करें</string>
+    <string name="error_newMpin">नए MPIN में केवल 8 संख्यात्मक अंक होने चाहिए</string>
+
+    <string name="error_Mpin_matching">नया  MPIN और पासवर्ड की पुष्टि मेल नहीं खाते हैं</string>
+    <string name="validate_oldnewMpin"> पुराना MPIN और नया MPIN एकसमान नहीं हो सकते</string>
+
+
+    <string name="error_oldTpin">पुराना सही TPIN दर्ज करें</string>
+    <string name="error_newTpin">नए TPIN में केवल 8 संख्यात्मक अंक होने चाहिए</string>
+
+    <string name="error_Tpin_matching">नया TPIN और पासवर्ड की पुष्टि मेल नहीं खाते हैं</string>
+    <string name="validate_oldnewTpin"> पुराना TPIN और नया TPIN एकसमान नहीं हो सकते</string>
+
+
+
     <string name="action_lIC">LIC</string>
     <string name="lic_success_msg_default">भुगतान सफल हुआ।</string>
     <string name="lic_failed_msg_default">भुगतान असफल हुआ।</string>

@@ -118,6 +118,23 @@
 
 
 
+    <string name="error_oldPasswordPbx">ಸರಿಯಾದ ಹಳೆಯ ಪಾಸ್‌ವರ್ಡ್‌ ಹಾಕಿ</string>
+    <string name="error_newPasswordPbx">ಹೊಸ ಪಾಸ್‌ವರ್ಡ್‌ ಖಾಲಿಯಿರಬಾರದು</string>
+    <string name="error_new_confirmPasswordPbx_matching">ಹೊಸ ಪಾಸ್‌ವರ್ಡ್‌ ಹಾಗೂ ಧೃಢೀಕರಣ ಪಾಸ್‌ವರ್ಡ್‌ ಹೊಂದುತ್ತಿಲ್ಲ</string>
+    <string name="error_old_newPasswordPbx_matching">ಹಳೆಯ ಪಾಸ್‌ವರ್ಡ್‌ ಹಾಗೂ ಹೊಸ ಪಾಸ್‌ವರ್ಡ್‌ ಒಂದೇ ಆಗಿರಬಾರದು</string>
+
+    <string name="error_oldMpin">ಸರಿಯಾದ ಹಳೆಯ MPIN ನಮೂದಿಸಿ </string>
+    <string name="error_newMpin">ಹೊಸ MPIN ಕೇವಲ 8 ಅಂಕೆಗಳನ್ನು ಹೊಂದಿರಬೇಕು</string>
+
+    <string name="error_Mpin_matching">ಹೊಸ MPIN ಹಾಗೂ ಪಾಸ್‌ವರ್ಡ್‌ ಧೃಢೀಕರಣಗಳು ಹೊಂದುತ್ತಿಲ್ಲ</string>
+    <string name="validate_oldnewMpin"> ಹಳೆಯ MPIN ಹಾಗೂ ಹೊಸ MPIN ಒಂದೇ ಆಗಿರಬಾರದು</string>
+
+
+    <string name="error_oldTpin">ಸರಿಯಾದ ಹಳೆಯ TPIN ನಮೂದಿಸಿ </string>
+    <string name="error_newTpin">ಹೊಸ TPIN ಕೇವಲ 8 ಅಂಕೆಗಳನ್ನು ಹೊಂದಿರಬೇಕು</string>
+
+    <string name="error_Tpin_matching">ಹೊಸ TPIN ಹಾಗೂ ಪಾಸ್‌ವರ್ಡ್‌ ಧೃಢೀಕರಣಗಳು ಹೊಂದುತ್ತಿಲ್ಲ</string>
+    <string name="validate_oldnewTpin"> ಹಳೆಯ TPIN ಹಾಗೂ ಹೊಸ TPIN ಒಂದೇ ಆಗಿರಬಾರದು</string>
 
 
 

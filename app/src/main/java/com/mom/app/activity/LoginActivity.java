@@ -204,8 +204,8 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
                 if(TextUtils.isEmpty(result)){
                     Log.i(_LOG, "User not of new PL");
                     login(PlatformIdentifier.PBX);
-                    Log.i(_LOG, "User not of new PL");
-                    login(PlatformIdentifier.MOM);
+//                    Log.i(_LOG, "User not of new PL");
+//                    login(PlatformIdentifier.MOM);
                     return;
                 }
 
@@ -311,11 +311,14 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 		Log.i(_LOG, "Going to login");
         _currentPlatform        = platform;
 
+        Log.i("_currentPlatform" , platform.toString());
+
         final Context context   = this;
 
         AsyncListener<Boolean> listener = new AsyncListener<Boolean>() {
             @Override
             public void onTaskSuccess(Boolean result, DataExImpl.Methods callback) {
+                String username 			= _username.getText().toString();
                 hideProgressBar();
                 hideMessage();
                 if(!result){
@@ -335,7 +338,8 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
                 _password.setText(null);
                 Log.d(_LOG, "Enable login button");
                 EphemeralStorage.getInstance(context).storeObject(AppConstants.ACTIVE_PLATFORM, _currentPlatform);
-                EphemeralStorage.getInstance(context).storeString(AppConstants.LOGGED_IN_USERNAME, _username.getText().toString());
+                EphemeralStorage.getInstance(context).storeString(AppConstants.LOGGED_IN_USERNAME, username);
+                Log.i("RMN",username);
                 EphemeralStorage.getInstance(context).storeBoolean(AppConstants.IS_LOGGED_IN, true);
 
                 navigateToMain();
