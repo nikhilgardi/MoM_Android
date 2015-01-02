@@ -66,7 +66,6 @@
             android:hint="@string/mpin"
             android:textSize="@dimen/text_medium"
             android:imeOptions="actionDone"
-            android:inputType="number"
             android:password="true"/>
 
         <LinearLayout

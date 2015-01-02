@@ -18,12 +18,14 @@ import android.widget.Toast;
 
 import com.mom.app.R;
 import com.mom.app.error.MOMException;
+import com.mom.app.identifier.PBXOperatorDataType;
 import com.mom.app.identifier.PlatformIdentifier;
 import com.mom.app.identifier.TransactionType;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.Operator;
+import com.mom.app.model.pbxpl.PBXPLDataExImpl;
 import com.mom.app.model.pbxpl.PaymentResponse;
 import com.mom.app.ui.TransactionRequest;
 import com.mom.app.utils.AppConstants;
@@ -35,7 +37,7 @@ import java.util.List;
  * A simple {@link android.app.Fragment} subclass.
  *
  */
-public class MobileRechargeFragment extends FragmentBase implements AsyncListener<TransactionRequest<PaymentResponse>>{
+public class MobileRechargeFragment extends FragmentBase implements AsyncListener<TransactionRequest<String>>{
 
     String _LOG     = AppConstants.LOG_PREFIX + "MOB_RECHARGE";
 
@@ -103,7 +105,11 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
 
         setupBackListener();
 
-        getAllOperators();
+        try {
+            getAllOperators();
+        }catch(MOMException me){
+            showMessage("Error getting operator list!");
+        }
 
         addListenerOnSpinnerItemSelection();
         return view;
@@ -111,7 +117,7 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
 
 
     @Override
-    public void onTaskSuccess(TransactionRequest<PaymentResponse> result, DataExImpl.Methods callback) {
+    public void onTaskSuccess(TransactionRequest<String> result, DataExImpl.Methods callback) {
         showProgress(false);
         Log.d(_LOG, "Called back: " + result);
 
@@ -150,18 +156,22 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
                 .setOnItemSelectedListener(new CustomOnItemSelectedListener());
     }
 
-    public void getAllOperators() {
+    public void getAllOperators() throws MOMException{
         List<Operator> operatorList = null;
 
         if (_currentPlatform == PlatformIdentifier.MOM){
             operatorList    = DataProvider.getMoMPlatformMobileOperators();
         } else if (_currentPlatform == PlatformIdentifier.PBX) {
-            operatorList    = DataProvider.getMoMPlatformMobileOperators();
+            operatorList    = DataProvider.getPBXPlatformMobileOperators();
         } else {
             Toast.makeText(getActivity().getApplicationContext(), "Error", Toast.LENGTH_LONG)
                     .show();
         }
 
+        showOperators(operatorList);
+    }
+
+    private void showOperators(List<Operator> operatorList){
         if(operatorList == null){
             Log.e(_LOG, "No operators!");
             return;
@@ -177,7 +187,6 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         _spOperator.setAdapter(dataAdapter);
     }
-
 
     public void validateAndRecharge(View view) {
         if (_spOperator.getSelectedItemPosition() < 1){

@@ -122,16 +122,7 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
 
                 if(!TextUtils.isEmpty(message.getOriginTxnId())){
                     TransactionRequest request  = _asyncAdapter.getTransactionRequest(message.getOriginTxnId());
-                    if(request == null){
-                        Log.w(_LOG, "Did not find a transaction with tihs id: " + message.getOriginTxnId());
-                        return;
-                    }
-
-                    if(request.setStatus(message.getStatus())){
-                        request.setCompleted(true);
-                        Log.d(_LOG, "Found status, setting to: " + request.getStatus());
-                        addToAsyncList(request);
-                    }
+                    updateAsyncList(request, message.getStatus());
                 }
             }catch(Exception e){
                 Log.e(_LOG, "Error parsing json", e);
@@ -139,6 +130,7 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
 
         }
     };
+
 
 
     private void setupDrawerMenu(){
@@ -208,7 +200,32 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
         }
 
         _asyncStatusList.setAdapter(_asyncAdapter);
-//        addToAsyncList(new TransactionRequest("Recharge", "9810012345", "398923", 20f, new Operator("ab", "airtel")));
+        _asyncStatusList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(_LOG, "Clicked");
+                TransactionRequest request = (TransactionRequest)parent.getItemAtPosition(position);
+                if(request == null){
+                    Log.d(_LOG, "Did not find transaction!");
+                    throw new IllegalArgumentException("Cannot have a list item without a transaction");
+                }
+
+
+            }
+        });
+    }
+
+    private void updateAsyncList(TransactionRequest request, Integer status){
+        if(request == null){
+            Log.w(_LOG, "Invalid transaction for update");
+            return;
+        }
+
+        if(request.setStatus(status)){
+            request.setCompleted(true);
+            Log.d(_LOG, "Found status, setting to: " + request.getStatus());
+            addToAsyncList(request);
+        }
     }
 
     private void addToAsyncList(TransactionRequest transactionRequest){

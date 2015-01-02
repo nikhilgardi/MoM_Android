@@ -134,9 +134,9 @@ public abstract class FragmentBase extends Fragment {
         try {
             if (_dataEx == null) {
                 if (_currentPlatform == PlatformIdentifier.MOM) {
-                    _dataEx = MoMPLDataExImpl.getInstance(getActivity(), pListener);
+                    _dataEx = new MoMPLDataExImpl(getActivity(), pListener);
                 } else {
-                    _dataEx = PBXPLDataExImpl.getInstance(getActivity(), pListener);
+                    _dataEx = new PBXPLDataExImpl(getActivity(), null, pListener);
                 }
             }
         }catch(MOMException me){
@@ -200,7 +200,7 @@ public abstract class FragmentBase extends Fragment {
     protected void updateAsyncQueue(TransactionRequest request){
         Bundle bundle = new Bundle();
         bundle.putSerializable(AppConstants.BUNDLE_TRANSACTION_REQUEST, request);
-        Toast.makeText(getActivity().getApplicationContext(), R.string.added_to_queue, Toast.LENGTH_LONG)
+        Toast.makeText(getActivity().getApplicationContext(), R.string.added_to_queue, Toast.LENGTH_SHORT)
                 .show();
 
         _callbackListener.processMessage(bundle);

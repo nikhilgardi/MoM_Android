@@ -197,7 +197,7 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
             case CHECK_PLATFORM_DETAILS:
                 Log.i(_LOG, "Check result: " + result);
 
-                //TESTING
+                //TESTING. TODO: Remove this
                result = null;
                 //TESTING
 
@@ -296,7 +296,7 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 		list.add(new BasicNameValuePair(AppConstants.PARAM_NEW_RMN, username));
 		list.add(new BasicNameValuePair(AppConstants.PARAM_NEW_COMPANY_ID, AppConstants.NEW_PL_COMPANY_ID));
 
-        MoMPLDataExImpl dataEx      = MoMPLDataExImpl.getInstance(this, this);
+        MoMPLDataExImpl dataEx      = new MoMPLDataExImpl(this, this);
 
         dataEx.checkPlatform(
                 new BasicNameValuePair(AppConstants.PARAM_NEW_RMN, username),
@@ -355,9 +355,9 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 
         try {
             if (platform == PlatformIdentifier.MOM) {
-                dataEx = MoMPLDataExImpl.getInstance(getApplicationContext(), listener);
+                dataEx = new MoMPLDataExImpl(getApplicationContext(), listener);
             } else {
-                dataEx = PBXPLDataExImpl.getInstance(getApplicationContext(), listener, DataExImpl.Methods.LOGIN);
+                dataEx = new PBXPLDataExImpl(getApplicationContext(), DataExImpl.Methods.LOGIN, listener);
             }
 
             dataEx.login(_username.getText().toString(), _password.getText().toString());
@@ -385,10 +385,8 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 	
 	public void setLoginFailed(int id){
 		showMessage(id);
-	    _username.setText(null);
         _password.setText(null);
 
-		
 		getLoginBtn().setEnabled(true);
 	}
 

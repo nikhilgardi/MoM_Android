@@ -65,11 +65,9 @@ public class AppConstants {
 
     public static final String PBX_OPERATOR_TYPE_DEFAULT    = "1";
     //Start: PBX Platform URLs
-    public static final String URL_PBX_PLATFORM_SERVICE     = "http://test.pbx.momappworld.com/momspre/service.ashx";
-  //  public static final String URL_PBX_PLATFORM_APP         = "http://test.pbx.momappworld.com/momspre/PbxMobApp.ashx";
 
    public static final String URL_PBX_PLATFORM_APP         =  "http://api.pbx.momappworld.com/pbxmobapp.ashx";
-//    public static final String URL_PBX_PLATFORM_APP         = "http://172.16.1.102/MobAppS/PbxMobApp.ashx";
+//   public static final String URL_PBX_PLATFORM_APP         =  "http://test.api.pbx.momappworld.com/pbxmobapp.ashx";
 
     //End: PBX Platform URLs
 
@@ -163,6 +161,7 @@ public class AppConstants {
     public static final String PARAM_PBX_CLIENT_TOKEN        = "clientToken";
 
 
+    public static final String PARAM_PBX_OPERATORS          = "pbxOperators";
     public static final String PARAM_PBX_OP                 = "oldPassword";
     public static final String PARAM_PBX_NP                 = "newPassword";
     public static final String PARAM_PBX_RN                 = "RN";
@@ -269,67 +268,111 @@ public class AppConstants {
     public static final String OPERATOR_ID_VODAFONE_BILL    = "20";
 
 
+    public static HashMap<String, String> OPERATOR_PBX     = new HashMap<String, String>();
+    static{
+        OPERATOR_PBX.put("BST", "BSNL");
+        OPERATOR_PBX.put("BSV", "BSNL VALIDITY");
+        OPERATOR_PBX.put("IDE", "IDEA");
+        OPERATOR_PBX.put("ACT", "MOM CARD ACTIVATION");
+        OPERATOR_PBX.put("MOM", "MOM CARD REFILL");
+        OPERATOR_PBX.put("MTT", "MTNL");
+        OPERATOR_PBX.put("MTV", "MTNL VALIDITY");
+        OPERATOR_PBX.put("MTS", "MTS");
+        OPERATOR_PBX.put("REL", "RELIANCE CDMA");
+        OPERATOR_PBX.put("RGM", "RELIANCE GSM");
+        OPERATOR_PBX.put("STE", "STEL");
+        OPERATOR_PBX.put("TID", "TATA");
+        OPERATOR_PBX.put("SDC", "TATA DOCOMO SPECIAL RECHARGE");
+        OPERATOR_PBX.put("TWT", "TATA WALKY");
+        OPERATOR_PBX.put("UNI", "UNINOR");
+        OPERATOR_PBX.put("UNS", "UNINOR SPECIAL RECHARGE");
+        OPERATOR_PBX.put("VIN", "VIDEOCON MOBILE TOPUP");
+        OPERATOR_PBX.put("VIR", "VIRGIN");
+        OPERATOR_PBX.put("VOD", "VODAFONE");
+
+        OPERATOR_PBX.put("ADG", "AIRTEL DTH");
+        OPERATOR_PBX.put("DSH", "DISH TV");
+        OPERATOR_PBX.put("BIG", "RELIANCE BIG TV");
+        OPERATOR_PBX.put("SUN", "SUN DIRECT");
+        OPERATOR_PBX.put("TSK", "TATA SKY");
+        OPERATOR_PBX.put("D2H", "VIDEOCON D2H");
+
+        OPERATOR_PBX.put("BAI", "AIRTEL BILL");
+        OPERATOR_PBX.put("BLA", "AIRTEL_LAND_LINE");
+        OPERATOR_PBX.put("BLL", "BSNL BILL");
+        OPERATOR_PBX.put("BID", "IDEA BILL");
+        OPERATOR_PBX.put("BRC", "RELIANCE BILL");
+        OPERATOR_PBX.put("BRG", "RELIANCE BILL GSM");
+        OPERATOR_PBX.put("BTA", "TATA BILL");
+        OPERATOR_PBX.put("BVO", "VODAFONE BILL");
+        OPERATOR_PBX.put("BES", "BEST ELECTRICITY BILL");
+        OPERATOR_PBX.put("CES", "CALCUTTA ELECTRIC SUPPLY CORPORATION");
+        OPERATOR_PBX.put("MGB", "MAHANAGAR GAS BILL");
+        OPERATOR_PBX.put("NDP", "NDPLPayment");
+        OPERATOR_PBX.put("IMP", "OIMPS");
+        OPERATOR_PBX.put("REM", "RELIANCE ENERGY BILL");
+    }
 
     public static HashMap<String, String> OPERATOR_NEW     = new HashMap<String, String>();
 
     static {
-        OPERATOR_NEW.put("AIRCEL", AppConstants.OPERATOR_ID_AIRCEL);
-        OPERATOR_NEW.put("AIRTEL", AppConstants.OPERATOR_ID_AIRTEL);
-        OPERATOR_NEW.put("BSNL", AppConstants.OPERATOR_ID_BSNL);
-        OPERATOR_NEW.put("DATACOMM", AppConstants.OPERATOR_ID_DATACOMM);
-        OPERATOR_NEW.put("IDEA", AppConstants.OPERATOR_ID_IDEA);
-        OPERATOR_NEW.put("LOOP", AppConstants.OPERATOR_ID_LOOP);
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_AIRCEL, "AIRCEL");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_AIRTEL, "AIRTEL");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_BSNL, "BSNL");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_DATACOMM, "DATACOMM");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_IDEA, "IDEA");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_LOOP, "LOOP");
 
-        OPERATOR_NEW.put("MOM CARD REFILL", AppConstants.OPERATOR_ID_MOM_CARD);
-        OPERATOR_NEW.put("MTNL", AppConstants.OPERATOR_ID_MTNL);
-        OPERATOR_NEW.put("MTS", AppConstants.OPERATOR_ID_MTS);
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_MOM_CARD, "MOM CARD REFILL");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_MTNL, "MTNL");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_MTS, "MTS");
 
-        OPERATOR_NEW.put("QUE MOBILE", AppConstants.OPERATOR_ID_QUE);
-        OPERATOR_NEW.put("RELIANCE CDMA", AppConstants.OPERATOR_ID_RELIANCE_CDMA);
-        OPERATOR_NEW.put("RELIANCE GSM", AppConstants.OPERATOR_ID_RELIANCE_GSM);
-        OPERATOR_NEW.put("STEL", AppConstants.OPERATOR_ID_STEL);
-        OPERATOR_NEW.put("TATA", AppConstants.OPERATOR_ID_TATA);
-        OPERATOR_NEW.put("TATA DOCOMO", AppConstants.OPERATOR_ID_TATA_DOCOMO);
-        OPERATOR_NEW.put("TATA WALKY", AppConstants.OPERATOR_ID_TATA_WALKY);
-        OPERATOR_NEW.put("UNINOR", AppConstants.OPERATOR_ID_UNINOR);
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_QUE, "QUE MOBILE");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_RELIANCE_CDMA, "RELIANCE CDMA");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_RELIANCE_GSM, "RELIANCE GSM");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_STEL, "STEL");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_TATA, "TATA");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_TATA_DOCOMO, "TATA DOCOMO");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_TATA_WALKY, "TATA WALKY");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_UNINOR, "UNINOR");
 
-        OPERATOR_NEW.put("VIRGIN", AppConstants.OPERATOR_ID_VIRGIN);
-        OPERATOR_NEW.put("VODAFONE", AppConstants.OPERATOR_ID_VODAFONE);
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_VIRGIN, "VIRGIN");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_VODAFONE, "VODAFONE");
 
-        OPERATOR_NEW.put("AIRTEL DIGITAL", AppConstants.OPERATOR_ID_AIRTEL_DIGITAL);
-        OPERATOR_NEW.put("BIG TV", AppConstants.OPERATOR_ID_BIG_TV);
-        OPERATOR_NEW.put("DISH", AppConstants.OPERATOR_ID_DISH);
-        OPERATOR_NEW.put("SUN DIRECT", AppConstants.OPERATOR_ID_SUN_DIRECT);
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_AIRTEL_DIGITAL, "AIRTEL DIGITAL");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_BIG_TV, "BIG TV");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_DISH, "DISH");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_SUN_DIRECT, "SUN DIRECT");
 
-        OPERATOR_NEW.put("TATA SKY", AppConstants.OPERATOR_ID_TATA_SKY);
-        OPERATOR_NEW.put("VIDEOCON DTH", AppConstants.OPERATOR_ID_VIDEOCON_DTH);
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_TATA_SKY, "TATA SKY");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_VIDEOCON_DTH, "VIDEOCON DTH");
 
-        //Bill Payment
-        OPERATOR_NEW.put("AIRCEL BILL", AppConstants.OPERATOR_ID_AIRCEL_BILL);
-        OPERATOR_NEW.put("AIRTEL BILL", AppConstants.OPERATOR_ID_AIRTEL_BILL);
-        OPERATOR_NEW.put("AIRTEL LAND LINE", AppConstants.OPERATOR_ID_AIRTEL_LAND_LINE);
+//Bill Payment
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_AIRCEL_BILL, "AIRCEL BILL");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_AIRTEL_BILL, "AIRTEL BILL");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_AIRTEL_LAND_LINE, "AIRTEL LAND LINE");
 
-        OPERATOR_NEW.put("BESCOM BANGALURU", AppConstants.OPERATOR_ID_BESCOM_BANGALURU);
-        OPERATOR_NEW.put("BEST ELECTRICITY BILL", AppConstants.OPERATOR_ID_BEST_ELECTRICITY);
-        OPERATOR_NEW.put("BSES RAJDHANI", AppConstants.OPERATOR_ID_BSES_RAJDHANI);
-        OPERATOR_NEW.put("BSNL BILL PAY", AppConstants.OPERATOR_ID_BSNL_BILL_PAY);
-        OPERATOR_NEW.put("CELLONE BILL PAY", AppConstants.OPERATOR_ID_CELLONE_BILL_PAY);
-        OPERATOR_NEW.put("CESC LIMITED", AppConstants.OPERATOR_ID_CESC_LIMITED);
-        OPERATOR_NEW.put("CESCOM MYSORE", AppConstants.OPERATOR_ID_CESCOM_MYSORE);
-        OPERATOR_NEW.put("DHBVN HARYANA", AppConstants.OPERATOR_ID_DHBVN_HARYANA);
-        OPERATOR_NEW.put("IDEA BILL", AppConstants.OPERATOR_ID_IDEA_BILL);
-        OPERATOR_NEW.put("INDRAPRASTH GAS", AppConstants.OPERATOR_ID_INDRAPRASTHA_GAS);
-        OPERATOR_NEW.put("MAHANAGAR GAS BILL", AppConstants.OPERATOR_ID_MAHANAGAR_GAS);
-        OPERATOR_NEW.put("NORTH BIHAR ELECTRICITY", AppConstants.OPERATOR_ID_NBE);
-        OPERATOR_NEW.put("RELIANCE BILL GSM", AppConstants.OPERATOR_ID_RELIANCE_BILL_GSM);
-        OPERATOR_NEW.put("RELIANCE CDMA BILL", AppConstants.OPERATOR_ID_RELIANCE_BILL_CDMA);
-        OPERATOR_NEW.put("RELIANCE ENERGY BILL", AppConstants.OPERATOR_ID_RELIANCE_ENERGY);
-        OPERATOR_NEW.put("SOUTH BIHAR ELECTRICITY", AppConstants.OPERATOR_ID_SBE);
-        OPERATOR_NEW.put("TATA BILL", AppConstants.OPERATOR_ID_TATA_BILL);
-        OPERATOR_NEW.put("TATA POWER DELHI", AppConstants.OPERATOR_ID_TATA_POWER_DELHI);
-        OPERATOR_NEW.put("TIKONA BILL PAYMENT", AppConstants.OPERATOR_ID_TIKONA_BILL);
-        OPERATOR_NEW.put("UHBVN HARYANA", AppConstants.OPERATOR_ID_UHBVN_HARYANA);
-        OPERATOR_NEW.put("VODAFONE BILL", AppConstants.OPERATOR_ID_VODAFONE_BILL);
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_BESCOM_BANGALURU, "BESCOM BANGALURU");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_BEST_ELECTRICITY, "BEST ELECTRICITY BILL");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_BSES_RAJDHANI, "BSES RAJDHANI");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_BSNL_BILL_PAY, "BSNL BILL PAY");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_CELLONE_BILL_PAY, "CELLONE BILL PAY");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_CESC_LIMITED, "CESC LIMITED");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_CESCOM_MYSORE, "CESCOM MYSORE");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_DHBVN_HARYANA, "DHBVN HARYANA");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_IDEA_BILL, "IDEA BILL");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_INDRAPRASTHA_GAS, "INDRAPRASTH GAS");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_MAHANAGAR_GAS, "MAHANAGAR GAS BILL");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_NBE, "NORTH BIHAR ELECTRICITY");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_RELIANCE_BILL_GSM, "RELIANCE BILL GSM");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_RELIANCE_BILL_CDMA, "RELIANCE CDMA BILL");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_RELIANCE_ENERGY, "RELIANCE ENERGY BILL");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_SBE, "SOUTH BIHAR ELECTRICITY");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_TATA_BILL, "TATA BILL");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_TATA_POWER_DELHI, "TATA POWER DELHI");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_TIKONA_BILL, "TIKONA BILL PAYMENT");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_UHBVN_HARYANA, "UHBVN HARYANA");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_VODAFONE_BILL, "VODAFONE BILL");
     }
 
 }

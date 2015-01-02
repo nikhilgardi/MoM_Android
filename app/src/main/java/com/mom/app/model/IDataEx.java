@@ -31,9 +31,7 @@ public interface IDataEx {
     public void getBillAmount(TransactionRequest request);
 
     public void getTransactionHistory();
-    public  void getOperatorNames();
     public void changePin(PinType pinType, String psOldPin, String psNewPin);
-    public void changePinTest(TransactionRequest request);
     public void changePassword(String psOldPin, String psNewPin);
 
     public abstract void balanceTransfer(TransactionRequest request, String payTo);
