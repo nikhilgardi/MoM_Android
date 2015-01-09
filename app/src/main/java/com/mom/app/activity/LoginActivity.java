@@ -214,6 +214,8 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
                 if(sArrDetails.length < 13){
                     Log.i(_LOG, "2. User not of new PL");
                     login(PlatformIdentifier.PBX);
+                    EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_USER_ID, sArrDetails[0]);
+
                     return;
                 }
 

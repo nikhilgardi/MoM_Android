@@ -132,6 +132,11 @@
                 android:hint="@string/lblPolicyNumber"
                 android:layout_marginBottom="@dimen/small"/>
 
+            <TextView
+                android:id="@+id/tvFailResponse"
+                style="@style/MoMTheme.wrapped.alertMsg"
+                android:textSize="@dimen/text_medium"
+                android:visibility="gone"/>
 
             <LinearLayout
                 android:weightSum="3"
@@ -150,7 +155,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     style="@style/MoMTheme.wrapped.customButton"
-                    android:text="@string/btn_pay"
+                    android:text="@string/btn_cash_collected"
                     android:visibility="gone"/>
                 <Button
                     android:id="@+id/btnPolicyDetailsCancel"
