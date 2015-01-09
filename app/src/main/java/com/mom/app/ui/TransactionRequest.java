@@ -43,6 +43,8 @@ public class TransactionRequest<T> implements Serializable{
                     return INVALID_NUMBER;
                 case -4:
                     return INVALID_SYNTAX;
+                case -5:
+                    return INVALID_SYNTAX;
                 case -6:
                     return NOT_AUTHORIZED;
                 case -7:

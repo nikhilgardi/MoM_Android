@@ -27,6 +27,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.mom.app.R;
@@ -66,6 +67,7 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
     ListView _drawerList;
     ListView _asyncStatusList;
     AsyncStatusListAdapter _asyncAdapter;
+    TextView _tvAppMessage;
 
     ActionBarDrawerToggle _drawerToggle;
 
@@ -81,6 +83,7 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
 
         _asyncStatusList    = (ListView) findViewById(R.id.asyncStatusList);
         _progressBar        = (ProgressBar) findViewById(R.id.progressBarActivityBase);
+        _tvAppMessage       = (TextView) findViewById(R.id.appMessage);
         _currentPlatform    = IdentifierUtils.getPlatformIdentifier(this);
 
         /**
@@ -102,13 +105,15 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
         }
 
         LocalBroadcastManager.getInstance(this).registerReceiver(
-                messageReceiver, new IntentFilter(AppConstants.GCM_INTENT)
+                messageReceiver, new IntentFilter(AppConstants.INTENT_GCM)
         );
+
+
     }
 
     private BroadcastReceiver messageReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
-            Log.d(_LOG, "BroadcastReceiver: Reecived message");
+            Log.d(_LOG, "BroadcastReceiver: Received message");
             String jsonReceived     = intent.getStringExtra(AppConstants.PARAM_GCM_PAYLOAD);
             if(TextUtils.isEmpty(jsonReceived)){
                 Log.w(_LOG, "Did not receive any json payload");
@@ -131,7 +136,44 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
         }
     };
 
+    private BroadcastReceiver _networkMessageReceiver = new BroadcastReceiver() {
 
+        public void onReceive(Context context, Intent intent) {
+            Log.d(_LOG, "NetworkReceiver: Received message");
+            boolean isConnected     = intent.getBooleanExtra(AppConstants.NETWORK_STATUS_CONNECTED, true);
+            if(isConnected){
+                showAppMessage(false, -1);
+            }else {
+                showAppMessage(true, R.string.error_no_internet);
+            }
+        }
+    };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(
+                _networkMessageReceiver, new IntentFilter(AppConstants.INTENT_NETWORK)
+        );
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(_networkMessageReceiver);
+    }
+
+    private void showAppMessage(boolean show, int idMsg){
+        if(!show){
+            _tvAppMessage.setText(null);
+            _tvAppMessage.setVisibility(View.GONE);
+            return;
+        }
+
+        _tvAppMessage.setText(idMsg);
+        _tvAppMessage.setVisibility(View.VISIBLE);
+    }
 
     private void setupDrawerMenu(){
         if(_currentPlatform == null){

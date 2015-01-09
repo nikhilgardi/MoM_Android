@@ -233,26 +233,24 @@ public class DataProvider {
     }
 
     public static List<Operator> getPBXPlatformMobileOperators(){
-        String[] operatorNames  = {"BST", "BSV", "IDE", "ACT", "MOM",
-                "MTT", "MTV", "MTS", "REL", "RGM",
-                "STE", "TID", "SDC", "TWT", "UNI",
-                "UNS", "VIN", "VIR", "VOD"
+        String[] operatorNames  = {
+                "CEL", "AIR", "BST", "BSV", "DTC", "IDE",
+                "ACT", "MOM", "MTS", "REL", "RGM", "TID",
+                "DCM", "SDC", "TWT", "UNI", "UNS", "VIN",
+                "VIR", "VOD"
         };
 
         return getOperators(AppConstants.OPERATOR_PBX, operatorNames);
     }
 
     public static List<Operator> getPBXPlatformBillPayOperators(){
-        String[] operatorNames  = {"BAI", "BLA", "BLL",
-                "BID", "BRC", "BRG", "BTA", "BVO",
-                "BES", "CES", "MGB", "NDP", "IMP",
-                "REM", "RELIANCE ENERGY BILL"};
+        String[] operatorNames  = {"BAI", "BLA", "BLL", "BID", "BRC", "BRG", "BTA", "BVO"};
 
         return getOperators(AppConstants.OPERATOR_PBX, operatorNames);
     }
 
     public static List<Operator> getPBXPlatformDTHOperators(){
-        String[] operatorNames  = {"ADG", "DSH", "BIG", "SUN", "TSK", "D2H", "VIDEOCON D2H"};
+        String[] operatorNames  = {"ADG", "BIG", "SUN", "TSK", "D2H"};
 
         return getOperators(AppConstants.OPERATOR_PBX, operatorNames);
     }

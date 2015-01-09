@@ -207,8 +207,10 @@ public class AppConstants {
     public static final String INTENT_MESSAGE               = PACKAGE + "MESSAGE";
     public static final String INTENT_MESSAGE_DEST          = PACKAGE + "MESSAGE_DEST";
     public static final String INTENT_MESSAGE_ORIGIN        = PACKAGE + "MESSAGE_ORIGIN";
-    public static final String GCM_INTENT                   = PACKAGE + "gcmIntent";
+    public static final String INTENT_GCM                   = PACKAGE + "intentGcm";
+    public static final String INTENT_NETWORK               = PACKAGE + "intentNetwork";
 
+    public static String NETWORK_STATUS_CONNECTED           = "networkStatusConnected";
 
     public static final String OPERATOR_ID_AIRCEL           = "1";
     public static final String OPERATOR_ID_AIRTEL           = "2";
@@ -270,18 +272,19 @@ public class AppConstants {
 
     public static HashMap<String, String> OPERATOR_PBX     = new HashMap<String, String>();
     static{
+        OPERATOR_PBX.put("CEL", "AIRCEL");
+        OPERATOR_PBX.put("AIR", "AIRTEL");
         OPERATOR_PBX.put("BST", "BSNL");
         OPERATOR_PBX.put("BSV", "BSNL VALIDITY");
+        OPERATOR_PBX.put("DTC", "DATACOMM");
         OPERATOR_PBX.put("IDE", "IDEA");
         OPERATOR_PBX.put("ACT", "MOM CARD ACTIVATION");
         OPERATOR_PBX.put("MOM", "MOM CARD REFILL");
-        OPERATOR_PBX.put("MTT", "MTNL");
-        OPERATOR_PBX.put("MTV", "MTNL VALIDITY");
         OPERATOR_PBX.put("MTS", "MTS");
         OPERATOR_PBX.put("REL", "RELIANCE CDMA");
         OPERATOR_PBX.put("RGM", "RELIANCE GSM");
-        OPERATOR_PBX.put("STE", "STEL");
         OPERATOR_PBX.put("TID", "TATA");
+        OPERATOR_PBX.put("DCM", "TATA DOCOMO");
         OPERATOR_PBX.put("SDC", "TATA DOCOMO SPECIAL RECHARGE");
         OPERATOR_PBX.put("TWT", "TATA WALKY");
         OPERATOR_PBX.put("UNI", "UNINOR");
@@ -291,26 +294,22 @@ public class AppConstants {
         OPERATOR_PBX.put("VOD", "VODAFONE");
 
         OPERATOR_PBX.put("ADG", "AIRTEL DTH");
-        OPERATOR_PBX.put("DSH", "DISH TV");
-        OPERATOR_PBX.put("BIG", "RELIANCE BIG TV");
+        OPERATOR_PBX.put("BIG", "RELIANCE BIGTV");
         OPERATOR_PBX.put("SUN", "SUN DIRECT");
         OPERATOR_PBX.put("TSK", "TATA SKY");
         OPERATOR_PBX.put("D2H", "VIDEOCON D2H");
 
         OPERATOR_PBX.put("BAI", "AIRTEL BILL");
-        OPERATOR_PBX.put("BLA", "AIRTEL_LAND_LINE");
+        OPERATOR_PBX.put("BLA", "AIRTELLANDLINE");
         OPERATOR_PBX.put("BLL", "BSNL BILL");
         OPERATOR_PBX.put("BID", "IDEA BILL");
         OPERATOR_PBX.put("BRC", "RELIANCE BILL");
         OPERATOR_PBX.put("BRG", "RELIANCE BILL GSM");
         OPERATOR_PBX.put("BTA", "TATA BILL");
         OPERATOR_PBX.put("BVO", "VODAFONE BILL");
-        OPERATOR_PBX.put("BES", "BEST ELECTRICITY BILL");
+
         OPERATOR_PBX.put("CES", "CALCUTTA ELECTRIC SUPPLY CORPORATION");
-        OPERATOR_PBX.put("MGB", "MAHANAGAR GAS BILL");
-        OPERATOR_PBX.put("NDP", "NDPLPayment");
-        OPERATOR_PBX.put("IMP", "OIMPS");
-        OPERATOR_PBX.put("REM", "RELIANCE ENERGY BILL");
+
     }
 
     public static HashMap<String, String> OPERATOR_NEW     = new HashMap<String, String>();

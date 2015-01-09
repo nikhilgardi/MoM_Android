@@ -44,4 +44,12 @@
         android:divider="@android:color/transparent"
         android:dividerHeight="0dp"
         android:background="@color/drawer"/>
+
+    <TextView
+        android:id="@+id/appMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/app.primary"
+        android:textColor="@color/app.secondary"
+        android:visibility="gone"/>
 </android.support.v4.widget.DrawerLayout>

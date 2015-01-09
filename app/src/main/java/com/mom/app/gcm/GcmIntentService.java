@@ -85,7 +85,7 @@ public class GcmIntentService extends IntentService {
             return;
         }
 
-        Intent intent = new Intent(AppConstants.GCM_INTENT);
+        Intent intent = new Intent(AppConstants.INTENT_GCM);
         intent.putExtra(AppConstants.PARAM_GCM_PAYLOAD, jsonReceived);
 
         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
