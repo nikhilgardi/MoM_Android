@@ -33,6 +33,8 @@ public class GcmIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        Log.d(_LOG, "GcmIntentService::onHandleIntent");
+
         Bundle extras = intent.getExtras();
         GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(this);
         // The getMessageType() intent parameter must be the intent you received
@@ -69,6 +71,8 @@ public class GcmIntentService extends IntentService {
     }
 
     private void handleGcmMessage(Bundle extras){
+        Log.d(_LOG, "GcmIntentService::handleGcmMessage: " + extras);
+
         if(extras == null){
             Log.i(_LOG, "null message received from GCM");
             return;
@@ -81,7 +85,7 @@ public class GcmIntentService extends IntentService {
             return;
         }
 
-        Intent intent = new Intent(AppConstants.GCM_INTENT);
+        Intent intent = new Intent(AppConstants.INTENT_GCM);
         intent.putExtra(AppConstants.PARAM_GCM_PAYLOAD, jsonReceived);
 
         LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
@@ -91,6 +95,7 @@ public class GcmIntentService extends IntentService {
     // This is just one simple example of what you might choose to do with
     // a GCM message.
     private void sendNotification(String msg) {
+        Log.d(_LOG, "sendNotification");
         mNotificationManager = (NotificationManager)
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
 

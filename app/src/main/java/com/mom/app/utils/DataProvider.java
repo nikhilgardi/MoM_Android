@@ -10,6 +10,7 @@ import com.mom.app.ui.flow.MoMScreen;
 import com.mom.app.widget.holder.ImageItem;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -177,45 +178,83 @@ public class DataProvider {
         return imageItems;
     }
 
-    public static List<Operator> getMoMPlatformMobileOperators(){
-        String[] operatorNames  = {"AIRCEL", "AIRTEL",
-                "BSNL", "DATACOMM", "IDEA", "LOOP", "MOM CARD REFILL",
-                "MTNL", "MTS", "QUE MOBILE", "RELIANCE CDMA",
-                "RELIANCE GSM", "STEL", "TATA", "TATA DOCOMO",
-                "TATA WALKY", "UNINOR", "VIRGIN", "VODAFONE"};
 
-        return getOperators(operatorNames);
-    }
 
-    public static List<Operator> getOperators(String[] operatorNames){
+    public static List<Operator> getOperators(HashMap<String, String> map, String[] operatorCodes){
         List<Operator> operators    = new ArrayList<Operator>();
 
-        for(String opName:operatorNames){
+        for(String op:operatorCodes){
             Operator operator   = new Operator();
-            operator.name       = opName;
-            operator.code       = AppConstants.OPERATOR_NEW.get(opName);
+            operator.code       = op;
+            operator.name       = map.get(op);
+
             operators.add(operator);
         }
 
         return operators;
     }
 
-    public static List<Operator> getMoMPlatformDTHOperators(){
-        String[] operatorNames  = {"AIRTEL DIGITAL" , "BIG TV" , "DISH",
-                "SUN DIRECT" ,"TATA SKY", "VIDEOCON DTH"};
+    public static List<Operator> getMoMPlatformMobileOperators(){
+        String[] operatorNames  = {AppConstants.OPERATOR_ID_AIRCEL, AppConstants.OPERATOR_ID_AIRTEL,
+                AppConstants.OPERATOR_ID_BSNL, AppConstants.OPERATOR_ID_DATACOMM, AppConstants.OPERATOR_ID_IDEA,
+                AppConstants.OPERATOR_ID_LOOP, AppConstants.OPERATOR_ID_MOM_CARD,
+                AppConstants.OPERATOR_ID_MTNL, AppConstants.OPERATOR_ID_MTS, AppConstants.OPERATOR_ID_QUE,
+                AppConstants.OPERATOR_ID_RELIANCE_CDMA,
+                AppConstants.OPERATOR_ID_RELIANCE_GSM, AppConstants.OPERATOR_ID_STEL,
+                AppConstants.OPERATOR_ID_TATA, AppConstants.OPERATOR_ID_TATA_DOCOMO,
+                AppConstants.OPERATOR_ID_TATA_WALKY, AppConstants.OPERATOR_ID_UNINOR,
+                AppConstants.OPERATOR_ID_VIRGIN, AppConstants.OPERATOR_ID_VODAFONE};
 
-        return getOperators(operatorNames);
+        return getOperators(AppConstants.OPERATOR_NEW, operatorNames);
+    }
+
+    public static List<Operator> getMoMPlatformDTHOperators(){
+        String[] operatorNames  = {AppConstants.OPERATOR_ID_AIRTEL_DIGITAL , AppConstants.OPERATOR_ID_BIG_TV ,
+                AppConstants.OPERATOR_ID_DISH,
+                AppConstants.OPERATOR_ID_SUN_DIRECT, AppConstants.OPERATOR_ID_TATA_SKY, AppConstants.OPERATOR_ID_VIDEOCON_DTH};
+
+        return getOperators(AppConstants.OPERATOR_NEW, operatorNames);
     }
 
     public static List<Operator> getMoMPlatformBillPayOperators(){
-        String[] operatorNames  = {"AIRCEL BILL" , "AIRTEL BILL", "AIRTEL LAND LINE",
-                "BESCOM BANGALURU", "BEST ELECTRICITY BILL" ,"BSES RAJDHANI" ,"BSNL BILL PAY" ,
-                "CELLONE BILL PAY","CESC LIMITED" ,"CESCOM MYSORE",
-                "DHBVN HARYANA", "IDEA BILL" ,"INDRAPRASTH GAS" , "MAHANAGAR GAS BILL",
-                "NORTH BIHAR ELECTRICITY", "RELIANCE BILL GSM" ,"RELIANCE CDMA BILL",
-                "RELIANCE ENERGY BILL", "SOUTH BIHAR ELECTRICITY","TATA BILL",
-                "TATA POWER DELHI", "TIKONA BILL PAYMENT","UHBVN HARYANA","VODAFONE BILL"};
+        String[] operatorNames  = {AppConstants.OPERATOR_ID_AIRCEL_BILL , AppConstants.OPERATOR_ID_AIRTEL_BILL,
+                AppConstants.OPERATOR_ID_AIRTEL_LAND_LINE,
+                AppConstants.OPERATOR_ID_BESCOM_BANGALURU, AppConstants.OPERATOR_ID_BEST_ELECTRICITY,
+                AppConstants.OPERATOR_ID_BSES_RAJDHANI, AppConstants.OPERATOR_ID_BSNL_BILL_PAY,
+                AppConstants.OPERATOR_ID_CELLONE_BILL_PAY, AppConstants.OPERATOR_ID_CESC_LIMITED,
+                AppConstants.OPERATOR_ID_CESCOM_MYSORE,
+                AppConstants.OPERATOR_ID_DHBVN_HARYANA, AppConstants.OPERATOR_ID_IDEA_BILL,
+                AppConstants.OPERATOR_ID_INDRAPRASTHA_GAS, AppConstants.OPERATOR_ID_MAHANAGAR_GAS,
+                AppConstants.OPERATOR_ID_NBE, AppConstants.OPERATOR_ID_RELIANCE_BILL_GSM,
+                AppConstants.OPERATOR_ID_RELIANCE_BILL_CDMA,
+                AppConstants.OPERATOR_ID_RELIANCE_ENERGY, AppConstants.OPERATOR_ID_SBE,
+                AppConstants.OPERATOR_ID_TATA_BILL, AppConstants.OPERATOR_ID_TATA_POWER_DELHI,
+                AppConstants.OPERATOR_ID_TIKONA_BILL, AppConstants.OPERATOR_ID_UHBVN_HARYANA,
+                AppConstants.OPERATOR_ID_VODAFONE_BILL};
 
-        return getOperators(operatorNames);
+        return getOperators(AppConstants.OPERATOR_NEW, operatorNames);
+    }
+
+    public static List<Operator> getPBXPlatformMobileOperators(){
+        String[] operatorNames  = {
+                "CEL", "AIR", "BST", "BSV", "DTC", "IDE",
+                "ACT", "MOM", "MTS", "REL", "RGM", "TID",
+                "DCM", "SDC", "TWT", "UNI", "UNS", "VIN",
+                "VIR", "VOD"
+        };
+
+        return getOperators(AppConstants.OPERATOR_PBX, operatorNames);
+    }
+
+    public static List<Operator> getPBXPlatformBillPayOperators(){
+        String[] operatorNames  = {"BAI", "BLA", "BLL", "BID", "BRC", "BRG", "BTA", "BVO"};
+
+        return getOperators(AppConstants.OPERATOR_PBX, operatorNames);
+    }
+
+    public static List<Operator> getPBXPlatformDTHOperators(){
+        String[] operatorNames  = {"ADG", "BIG", "SUN", "TSK", "D2H"};
+
+        return getOperators(AppConstants.OPERATOR_PBX, operatorNames);
     }
 }

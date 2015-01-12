@@ -27,6 +27,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.mom.app.R;
@@ -66,6 +67,7 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
     ListView _drawerList;
     ListView _asyncStatusList;
     AsyncStatusListAdapter _asyncAdapter;
+    TextView _tvAppMessage;
 
     ActionBarDrawerToggle _drawerToggle;
 
@@ -81,6 +83,7 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
 
         _asyncStatusList    = (ListView) findViewById(R.id.asyncStatusList);
         _progressBar        = (ProgressBar) findViewById(R.id.progressBarActivityBase);
+        _tvAppMessage       = (TextView) findViewById(R.id.appMessage);
         _currentPlatform    = IdentifierUtils.getPlatformIdentifier(this);
 
         /**
@@ -102,12 +105,15 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
         }
 
         LocalBroadcastManager.getInstance(this).registerReceiver(
-                messageReceiver, new IntentFilter(AppConstants.GCM_INTENT)
+                messageReceiver, new IntentFilter(AppConstants.INTENT_GCM)
         );
+
+
     }
 
     private BroadcastReceiver messageReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
+            Log.d(_LOG, "BroadcastReceiver: Received message");
             String jsonReceived     = intent.getStringExtra(AppConstants.PARAM_GCM_PAYLOAD);
             if(TextUtils.isEmpty(jsonReceived)){
                 Log.w(_LOG, "Did not receive any json payload");
@@ -121,16 +127,7 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
 
                 if(!TextUtils.isEmpty(message.getOriginTxnId())){
                     TransactionRequest request  = _asyncAdapter.getTransactionRequest(message.getOriginTxnId());
-                    if(request == null){
-                        Log.w(_LOG, "Did not find a transaction with tihs id: " + message.getOriginTxnId());
-                        return;
-                    }
-
-                    if(request.setStatus(message.getStatus())){
-                        request.setCompleted(true);
-                        Log.d(_LOG, "Found status, setting to: " + request.getStatus());
-                        addToAsyncList(request);
-                    }
+                    updateAsyncList(request, message.getStatus());
                 }
             }catch(Exception e){
                 Log.e(_LOG, "Error parsing json", e);
@@ -139,6 +136,44 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
         }
     };
 
+    private BroadcastReceiver _networkMessageReceiver = new BroadcastReceiver() {
+
+        public void onReceive(Context context, Intent intent) {
+            Log.d(_LOG, "NetworkReceiver: Received message");
+            boolean isConnected     = intent.getBooleanExtra(AppConstants.NETWORK_STATUS_CONNECTED, true);
+            if(isConnected){
+                showAppMessage(false, -1);
+            }else {
+                showAppMessage(true, R.string.error_no_internet);
+            }
+        }
+    };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(
+                _networkMessageReceiver, new IntentFilter(AppConstants.INTENT_NETWORK)
+        );
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(_networkMessageReceiver);
+    }
+
+    private void showAppMessage(boolean show, int idMsg){
+        if(!show){
+            _tvAppMessage.setText(null);
+            _tvAppMessage.setVisibility(View.GONE);
+            return;
+        }
+
+        _tvAppMessage.setText(idMsg);
+        _tvAppMessage.setVisibility(View.VISIBLE);
+    }
 
     private void setupDrawerMenu(){
         if(_currentPlatform == null){
@@ -207,7 +242,32 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
         }
 
         _asyncStatusList.setAdapter(_asyncAdapter);
-//        addToAsyncList(new TransactionRequest("Recharge", "9810012345", "398923", 20f, new Operator("ab", "airtel")));
+        _asyncStatusList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(_LOG, "Clicked");
+                TransactionRequest request = (TransactionRequest)parent.getItemAtPosition(position);
+                if(request == null){
+                    Log.d(_LOG, "Did not find transaction!");
+                    throw new IllegalArgumentException("Cannot have a list item without a transaction");
+                }
+
+
+            }
+        });
+    }
+
+    private void updateAsyncList(TransactionRequest request, Integer status){
+        if(request == null){
+            Log.w(_LOG, "Invalid transaction for update");
+            return;
+        }
+
+        if(request.setStatus(status)){
+            request.setCompleted(true);
+            Log.d(_LOG, "Found status, setting to: " + request.getStatus());
+            addToAsyncList(request);
+        }
     }
 
     private void addToAsyncList(TransactionRequest transactionRequest){
@@ -366,6 +426,9 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
                 break;
             case CHANGE_TPIN:
                 showFragment(ChangePinFragment.newInstance(_currentPlatform, PinType.T_PIN));
+                break;
+            case CHANGE_PASSWORD:
+               // showFragment(ChangePinFragment.newInstance(_currentPlatform, PinType.PBX_CHANGE_PASSWORD));
                 break;
             case HISTORY:
                 showFragment(TransactionHistoryFragment.newInstance(_currentPlatform));

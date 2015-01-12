@@ -49,12 +49,16 @@ public abstract class MOMActivityBase extends Activity{
     }
 
     public IDataEx getDataEx(AsyncListener pListener){
+        return getDataEx(pListener, null);
+    }
+
+    public IDataEx getDataEx(AsyncListener pListener, DataExImpl.Methods method){
         try {
             if (_dataEx == null) {
                 if (_currentPlatform == PlatformIdentifier.MOM) {
-                    _dataEx = MoMPLDataExImpl.getInstance(getApplicationContext(), pListener);
+                    _dataEx = new MoMPLDataExImpl(getApplicationContext(), pListener);
                 } else {
-                    _dataEx = PBXPLDataExImpl.getInstance(getApplicationContext(), pListener);
+                    _dataEx = new PBXPLDataExImpl(getApplicationContext(), method, pListener);
                 }
             }
         }catch(MOMException me){

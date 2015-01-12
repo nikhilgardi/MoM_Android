@@ -126,7 +126,7 @@ public class DTHRechargeFragment extends FragmentBase implements AsyncListener<T
         if (_currentPlatform == PlatformIdentifier.MOM){
             operatorList    = DataProvider.getMoMPlatformDTHOperators();
         } else if (_currentPlatform == PlatformIdentifier.PBX) {
-
+            operatorList    = DataProvider.getPBXPlatformDTHOperators();
         } else {
             Toast.makeText(getActivity().getApplicationContext(), "Error", Toast.LENGTH_LONG)
                     .show();

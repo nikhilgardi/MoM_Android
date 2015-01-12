@@ -53,6 +53,7 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 	private TextView _tvMessage;
     private Spinner _languageSpinner;
     EditText _username, _password;
+    boolean _spinnerCalledOnce = false;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -104,8 +105,41 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
         GooglePlayServicesUtil.getErrorDialog(code, this, REQUEST_CODE_RECOVER_PLAY_SERVICES).show();
     }
 
-    public void setupLanguageSelector(){
-        _languageSpinner    = (Spinner) findViewById(R.id.selectLanguage);
+//    public void setupLanguageSelector(){
+//        _languageSpinner    = (Spinner) findViewById(R.id.selectLanguage);
+//
+//        ArrayAdapter<LanguageItem> dataAdapter = new ArrayAdapter<LanguageItem>(this,
+//                android.R.layout.simple_spinner_item, LanguageItem.getLanguages(this));
+//
+//        dataAdapter
+//                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//
+//        _languageSpinner.setAdapter(dataAdapter);
+//
+//        _languageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                Object objSelection    = adapterView.getItemAtPosition(i);
+//                Log.d(_LOG, "getting selection: " + objSelection);
+//                LanguageItem selection    = (LanguageItem) objSelection;
+//                Log.d(_LOG, "Language: " + selection + ", id: " + selection.resourceId);
+//                setLocale(selection);
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//                setLocale(LanguageItem.getDefault(getApplicationContext()));
+//            }
+//        });
+//
+//        LanguageItem item       = getSelectedLanguageItem();
+//        if(item != null){
+//            _languageSpinner.setSelection(dataAdapter.getPosition(item));
+//        }
+//    }
+
+    public void setupLanguageSelector() {
+        _languageSpinner = (Spinner) findViewById(R.id.selectLanguage);
 
         ArrayAdapter<LanguageItem> dataAdapter = new ArrayAdapter<LanguageItem>(this,
                 android.R.layout.simple_spinner_item, LanguageItem.getLanguages(this));
@@ -115,14 +149,24 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 
         _languageSpinner.setAdapter(dataAdapter);
 
+
         _languageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Object objSelection    = adapterView.getItemAtPosition(i);
+                Object objSelection = adapterView.getItemAtPosition(i);
                 Log.d(_LOG, "getting selection: " + objSelection);
-                LanguageItem selection    = (LanguageItem) objSelection;
+                LanguageItem selection = (LanguageItem) objSelection;
                 Log.d(_LOG, "Language: " + selection + ", id: " + selection.resourceId);
                 setLocale(selection);
+
+                if(_spinnerCalledOnce){
+                    Intent intent   = getIntent();
+                    finish();
+                    startActivity(intent);
+                }
+
+                _spinnerCalledOnce  = true;
+
             }
 
             @Override
@@ -131,8 +175,9 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
             }
         });
 
-        LanguageItem item       = getSelectedLanguageItem();
-        if(item != null){
+        LanguageItem item = getSelectedLanguageItem();
+
+        if (item != null) {
             _languageSpinner.setSelection(dataAdapter.getPosition(item));
         }
     }
@@ -197,15 +242,13 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
             case CHECK_PLATFORM_DETAILS:
                 Log.i(_LOG, "Check result: " + result);
 
-                //TESTING
-               // result = null;
+                //TESTING. TODO: Remove this
+              // result = null;
                 //TESTING
 
                 if(TextUtils.isEmpty(result)){
                     Log.i(_LOG, "User not of new PL");
                     login(PlatformIdentifier.PBX);
-//                    Log.i(_LOG, "User not of new PL");
-//                    login(PlatformIdentifier.MOM);
                     return;
                 }
 
@@ -300,7 +343,7 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 		list.add(new BasicNameValuePair(AppConstants.PARAM_NEW_RMN, username));
 		list.add(new BasicNameValuePair(AppConstants.PARAM_NEW_COMPANY_ID, AppConstants.NEW_PL_COMPANY_ID));
 
-        MoMPLDataExImpl dataEx      = MoMPLDataExImpl.getInstance(this, this);
+        MoMPLDataExImpl dataEx      = new MoMPLDataExImpl(this, this);
 
         dataEx.checkPlatform(
                 new BasicNameValuePair(AppConstants.PARAM_NEW_RMN, username),
@@ -335,6 +378,7 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
                     case PBX:
                         break;
                 }
+
                 getLoginBtn().setEnabled(true);
                 _username.setText(null);
                 _password.setText(null);
@@ -358,9 +402,9 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 
         try {
             if (platform == PlatformIdentifier.MOM) {
-                dataEx = MoMPLDataExImpl.getInstance(getApplicationContext(), listener);
+                dataEx = new MoMPLDataExImpl(getApplicationContext(), listener);
             } else {
-                dataEx = PBXPLDataExImpl.getInstance(getApplicationContext(), listener, DataExImpl.Methods.LOGIN);
+                dataEx = new PBXPLDataExImpl(getApplicationContext(), DataExImpl.Methods.LOGIN, listener);
             }
 
             dataEx.login(_username.getText().toString(), _password.getText().toString());
@@ -388,10 +432,8 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 	
 	public void setLoginFailed(int id){
 		showMessage(id);
-	    _username.setText(null);
         _password.setText(null);
 
-		
 		getLoginBtn().setEnabled(true);
 	}
 

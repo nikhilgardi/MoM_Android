@@ -265,7 +265,7 @@ public class LICFragment extends FragmentBase implements AsyncListener<Transacti
     public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
         switch (callback){
             case LIC:
-               // showMessage(getResources().getString(R.string.error_invalid_policy_number));
+
                 showMessage(getResources().getString(R.string.lic_failed_Receipt_msg_default));
                 _etLIC.setVisibility(View.GONE);
                 _etCustMobileNumber.setVisibility(View.GONE);
@@ -437,7 +437,7 @@ public class LICFragment extends FragmentBase implements AsyncListener<Transacti
             _tblPaymentConfirmation.setVisibility(View.GONE);
             _tvFailResponse.setVisibility(View.VISIBLE);
             _tvFailResponse.setTextColor(getActivity().getResources().getColor(R.color.red));
-            //_tvFailResponse.setText(R.string.lic_failed_msg_default);
+
             _tvFailResponse.setText(getString(R.string.lic_failed_Receipt_msg_default));
         }
         else if(result.getCustom().getPymtTrsfrStatus().equals(PymtTrsfrStatusReceiptCode)){
@@ -448,7 +448,7 @@ public class LICFragment extends FragmentBase implements AsyncListener<Transacti
             _tblPaymentConfirmation.setVisibility(View.GONE);
             _tvFailResponse.setVisibility(View.VISIBLE);
             _tvFailResponse.setTextColor(getActivity().getResources().getColor(R.color.red));
-            //_tvFailResponse.setText(R.string.lic_failed_msg_default);
+           
             _tvFailResponse.setText(getString(R.string.lic_failed_Receipt_msg_default));
         }
         else{
@@ -483,8 +483,7 @@ public class LICFragment extends FragmentBase implements AsyncListener<Transacti
     private void getPremiumAmount(String policyNumber ,String CustomerMobNo ) {
         hideMessage();
 
-       // _etLIC.setText(null);
-       // _etCustMobileNumber.setText(null);
+
 
         _etCustMobileNumber.setEnabled(true);
         _etLIC.setEnabled(true);
@@ -500,7 +499,7 @@ public class LICFragment extends FragmentBase implements AsyncListener<Transacti
        String CustomerMobNo          = _etCustMobileNumber.getText().toString();
        String UnpaidDate               = _lastRequest.getCustom().getOLife().getPolicy().getFrUnpaidPremiumDate();
        hideMessage();
-       // _etLIC.setText(null);
+
 
         getDataEx(this).licPayment(_lastRequest , CustomerMobNo ,  policyNumber , UnpaidDate);
         showProgress(true);

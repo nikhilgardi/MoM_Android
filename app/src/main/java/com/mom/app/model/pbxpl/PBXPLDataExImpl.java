@@ -10,6 +10,7 @@ import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.mom.app.error.MOMException;
 import com.mom.app.gcm.GcmUtil;
+import com.mom.app.identifier.PBXOperatorDataType;
 import com.mom.app.identifier.PinType;
 import com.mom.app.model.AsyncDataEx;
 import com.mom.app.model.AsyncListener;
@@ -41,37 +42,47 @@ import java.util.List;
 public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<TransactionRequest> {
     static String _LOG              = AppConstants.LOG_PREFIX + "PBX_DATA";
 
-    static PBXPLDataExImpl _instance;
 
     String _deviceRegId             = null;
     String _token                   = null;
     String _userName                = null;
+    PBXOperatorDataType _opType     = null;
 
     // String jsonStr =    "{\"Table\":[{\"PartyROWID\":92420,\"PartyRMN\":\"9769496026\",\"PartyName\":\"Akshay\",\"PartyGUID\":\"9163b4dd-f23d-41fd-99ab-7c0f57c9c7ed\",\"PartyEnum\":null,\"PartyTypeEnum\":16,\"userName\":\"Software\"}]}" ;
 
-    private PBXPLDataExImpl(Context pContext){
+    public PBXPLDataExImpl(Context pContext, Methods method, AsyncListener pListener) throws MOMException{
         checkConnectivity(pContext);
         _applicationContext         = pContext;
 
         _deviceRegId                = GcmUtil.getInstance(pContext).getRegistrationId();
         _userName                   = EphemeralStorage.getInstance(_applicationContext).getString(
-                AppConstants.PARAM_PBX_RMN, null
+                AppConstants.LOGGED_IN_USERNAME, null
         );
 
-    }
-
-    private PBXPLDataExImpl(Context pContext, AsyncDataEx dataEx, boolean checkConnectivity){
-        if(checkConnectivity) {
-            checkConnectivity(pContext);
-        }
-        _applicationContext         = pContext;
-        _deviceRegId                = GcmUtil.getInstance(pContext).getRegistrationId();
-        _token                      = EphemeralStorage.getInstance(_applicationContext).getString(
+        _listener = pListener;
+        _applicationContext = pContext;
+        _deviceRegId            = GcmUtil.getInstance(pContext).getRegistrationId();
+        _token                  = EphemeralStorage.getInstance(pContext).getString(
                 AppConstants.PARAM_PBX_TOKEN, null
         );
-        _userName                   = EphemeralStorage.getInstance(_applicationContext).getString(
-                AppConstants.PARAM_PBX_RMN, null
+        _userName               = EphemeralStorage.getInstance(pContext).getString(
+                AppConstants.LOGGED_IN_USERNAME, null
         );
+
+
+        if(method != Methods.LOGIN) {
+            if (TextUtils.isEmpty(_userName)) {
+                throw new IllegalStateException("username should not be empty here");
+            }
+
+            if (TextUtils.isEmpty(_deviceRegId)) {
+                throw new IllegalStateException("device id should not be empty here");
+            }
+
+            if (TextUtils.isEmpty(_token)) {
+                throw new MOMException(AsyncResult.CODE.NOT_LOGGED_IN);
+            }
+        }
     }
 
     public boolean setToken(){
@@ -86,24 +97,6 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         return true;
     }
 
-    public static PBXPLDataExImpl getInstance(Context context, AsyncListener pListener, Methods method) throws MOMException{
-        if(_instance == null){
-            _instance               = new PBXPLDataExImpl(context);
-        }
-
-        _instance.setListener(pListener);
-
-        if(!_instance.setToken() && method != Methods.LOGIN){
-            throw new MOMException(AsyncResult.CODE.NOT_LOGGED_IN);
-        }
-
-        return _instance;
-    }
-
-    public static PBXPLDataExImpl getInstance(Context context, AsyncListener pListener) throws MOMException{
-        return getInstance(context, pListener, Methods.LOGIN);
-    }
-
     @SuppressWarnings("unchecked")
     @Override
     public void onTaskSuccess(TransactionRequest result, Methods callback) {
@@ -114,10 +107,6 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         Log.d(_LOG, "Result: " + result);
         try {
             switch (callback) {
-                case LOGIN:
-                    boolean bSuccess = loginSuccessful(result);
-                    _listener.onTaskSuccess(bSuccess, callback);
-                    break;
                 case GET_BALANCE:
                     try {
                         float balance = parseBalanceResult(result);
@@ -221,8 +210,8 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
             return;
         }
 
-       // String url				    = AppConstants.URL_PBX_PLATFORM_APP;
-        String url				    = AppConstants.URL_PBX_PLATFORM_APPLIC;
+        String url				    = AppConstants.URL_PBX_PLATFORM_APP;
+
 
         AsyncDataEx dataEx		    = new AsyncDataEx(this, request, url, Methods.RECHARGE_MOBILE);
 
@@ -232,7 +221,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 new BasicNameValuePair(AppConstants.PARAM_PBX_CUSTOMER_NUMBER, request.getConsumerId()),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_OPERTAORSHORTCODE , request.getOperator().getCode()),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_AMOUNT, String.valueOf(Math.round(request.getAmount()))),
-                new BasicNameValuePair(AppConstants.PARAM_PBX_IDENTIFIER, MiscUtils.getRandomLongAsString()),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_IDENTIFIER, String.valueOf(request.getId())),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_ORIGIN_ID, _deviceRegId),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_CLIENT_TOKEN, _token)
         );
@@ -249,8 +238,9 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
             }
         }
 
-        //String url				    = AppConstants.URL_PBX_PLATFORM_APP;
-        String url				    = AppConstants.URL_PBX_PLATFORM_APPLIC;
+        String url				    = AppConstants.URL_PBX_PLATFORM_APP;
+
+
         AsyncDataEx dataEx		    = new AsyncDataEx(this, request, url, Methods.RECHARGE_DTH);
 
         dataEx.execute(
@@ -259,7 +249,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 new BasicNameValuePair(AppConstants.PARAM_PBX_CUSTOMER_NUMBER, request.getConsumerId()),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_AMOUNT, String.valueOf(Math.round(request.getAmount()))),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_OPERTAORSHORTCODE , request.getOperator().getCode()),
-                new BasicNameValuePair(AppConstants.PARAM_PBX_IDENTIFIER, MiscUtils.getRandomLongAsString()),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_IDENTIFIER, String.valueOf(request.getId())),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_ORIGIN_ID, _deviceRegId),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_CLIENT_TOKEN, _token)
         );
@@ -272,8 +262,8 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
             String psConsumerName,
             HashMap<String, String> pExtraParamsMap
     ){
-       // String url				    = AppConstants.URL_PBX_PLATFORM_APP ;
-        String url				    = AppConstants.URL_PBX_PLATFORM_APPLIC;
+        String url				    = AppConstants.URL_PBX_PLATFORM_APP ;
+
         AsyncDataEx dataEx		    = new AsyncDataEx(this, request, url, Methods.PAY_BILL);
 
         dataEx.execute(
@@ -282,7 +272,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 new BasicNameValuePair(AppConstants.PARAM_PBX_CUSTOMER_NUMBER, request.getConsumerId()),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_AMOUNT, String.valueOf(Math.round(request.getAmount()))),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_OPERTAORSHORTCODE , request.getOperator().getCode()),
-                new BasicNameValuePair(AppConstants.PARAM_PBX_IDENTIFIER, MiscUtils.getRandomLongAsString()),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_IDENTIFIER, String.valueOf(request.getId())),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_ORIGIN_ID, _deviceRegId),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_CLIENT_TOKEN, _token)
         );
@@ -298,9 +288,9 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         try {
             Gson gson   = new GsonBuilder().create();
 
-            Type type   = new TypeToken<ResponseBase<PaymentResponse>>() {
+            Type type   = new TypeToken<ResponseBase<String>>() {
             }.getType();
-            ResponseBase<PaymentResponse> responseBase = gson.fromJson(request.getRemoteResponse(), type);
+            ResponseBase<String> responseBase = gson.fromJson(request.getRemoteResponse(), type);
 
             if(responseBase == null){
                 Log.w(_LOG, "Null response?");
@@ -308,8 +298,10 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
             }
 
             Log.d(_LOG, "Response: " + responseBase.data);
+            PaymentResponse response = new PaymentResponse();
+            response.transactionId  = responseBase.data;
 
-            request.setCustom(responseBase.data);
+            request.setCustom(response);
 
             return request;
         }catch (Exception e){
@@ -322,9 +314,16 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
     @Override
     public void getBalance(){
 
-      //  String url                  = AppConstants.URL_PBX_PLATFORM_APP;
-        String url				    = AppConstants.URL_PBX_PLATFORM_APPLIC;
-        AsyncDataEx dataEx		    = new AsyncDataEx(this, new TransactionRequest(), url, Methods.GET_BALANCE);
+
+
+
+
+
+        String url                  = AppConstants.URL_PBX_PLATFORM_APP;
+        TransactionRequest request  = new TransactionRequest();
+
+        AsyncDataEx dataEx		    = new AsyncDataEx(this, request, url, Methods.GET_BALANCE);
+
 
         String userName             = EphemeralStorage.getInstance(_applicationContext).getString(
                 AppConstants.LOGGED_IN_USERNAME, null
@@ -333,7 +332,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         dataEx.execute(
                 new BasicNameValuePair(AppConstants.PARAM_PBX_SERVICE, AppConstants.SVC_PBX_CHECK_BALANCE),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_RN, userName),
-                new BasicNameValuePair(AppConstants.PARAM_PBX_IDENTIFIER, MiscUtils.getRandomLongAsString()),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_IDENTIFIER, String.valueOf(request.getId())),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_ORIGIN_ID, _deviceRegId),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_CLIENT_TOKEN, _token)
         );
@@ -355,17 +354,37 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
     @Override
     public void login(String username, String password){
-        String url				= AppConstants.URL_PBX_PLATFORM_APPLIC;
+
+        //String url				    = AppConstants.URL_PBX_PLATFORM_APPLIC;
+
+        String url				    = AppConstants.URL_PBX_PLATFORM_APP;
+
         Log.i(_LOG, "Calling Async login");
-        AsyncDataEx dataEx		    = new AsyncDataEx(this, new TransactionRequest(), url, Methods.LOGIN);
+        TransactionRequest request  = new TransactionRequest();
+
+        AsyncDataEx dataEx		    = new AsyncDataEx(new AsyncListener<TransactionRequest>() {
+            @Override
+            public void onTaskSuccess(TransactionRequest result, Methods callback) {
+                boolean bSuccess = loginSuccessful(result);
+                _listener.onTaskSuccess(bSuccess, callback);
+            }
+
+            @Override
+            public void onTaskError(AsyncResult pResult, Methods callback) {
+                _listener.onTaskError(pResult, callback);
+            }
+        },
+                request,
+                url,
+                Methods.LOGIN
+        );
 
         dataEx.execute(
                 new BasicNameValuePair(AppConstants.PARAM_PBX_SERVICE, AppConstants.SVC_PBX_CHECK_LOGIN),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_USERNAME, username),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_PASSWORD, password),
-                new BasicNameValuePair(AppConstants.PARAM_PBX_IDENTIFIER, MiscUtils.getRandomLongAsString()),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_IDENTIFIER, String.valueOf(request.getId())),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_ORIGIN_ID, _deviceRegId)
-
         );
     }
 
@@ -482,23 +501,25 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 AppConstants.PARAM_PBX_RMN, null
         );
 
-      /*  AsyncDataEx dataEx		    = new AsyncDataEx(
+
+
+
+        TransactionRequest request  = new TransactionRequest();
+
+
+        AsyncDataEx dataEx		    = new AsyncDataEx(
+
                 this,
-                new TransactionRequest(),
+                request,
                 AppConstants.URL_PBX_PLATFORM_APP,
                 Methods.TRANSACTION_HISTORY
-        );*/
-        AsyncDataEx dataEx		    = new AsyncDataEx(
-                this,
-                new TransactionRequest(),
-                AppConstants.URL_PBX_PLATFORM_APPLIC,
-                Methods.TRANSACTION_HISTORY
         );
+
 
         dataEx.execute(
                 new BasicNameValuePair(AppConstants.PARAM_PBX_SERVICE, AppConstants.SVC_PBX_TRANSACTION_HISTORY),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_RMN, userName),
-                new BasicNameValuePair(AppConstants.PARAM_PBX_IDENTIFIER, MiscUtils.getRandomLongAsString()),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_IDENTIFIER, String.valueOf(request.getId())),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_ORIGIN_ID, _deviceRegId),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_CLIENT_TOKEN, _token)
         );
@@ -532,17 +553,12 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 AppConstants.LOGGED_IN_USERNAME, null
         );
 
-       /* AsyncDataEx dataEx		    = new AsyncDataEx(
-                this,
-                new TransactionRequest(),
-                AppConstants.URL_PBX_PLATFORM_APP,
-                Methods.CHANGE_PASSWORD
-        );*/
+
 
         AsyncDataEx dataEx		    = new AsyncDataEx(
                 this,
                 new TransactionRequest(),
-                AppConstants.URL_PBX_PLATFORM_APPLIC,
+                AppConstants.URL_PBX_PLATFORM_APP,
                 Methods.CHANGE_PASSWORD
         );
 
@@ -584,29 +600,22 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         return request;
     }
 
-    public void getOperatorNames(){
-        String userName             = EphemeralStorage.getInstance(_applicationContext).getString(
-                AppConstants.LOGGED_IN_USERNAME, null
-        );
+    public void getOperatorNames(PBXOperatorDataType type){
+        _opType                     = type;
 
-       /* AsyncDataEx dataEx		    = new AsyncDataEx(
-                this,
-                new TransactionRequest(),
-                AppConstants.URL_PBX_PLATFORM_APP,
-                Methods.GET_OPERATOR_NAMES
-        );*/
+
 
         AsyncDataEx dataEx		    = new AsyncDataEx(
                 this,
                 new TransactionRequest(),
-                AppConstants.URL_PBX_PLATFORM_APPLIC,
+                AppConstants.URL_PBX_PLATFORM_APP,
                 Methods.GET_OPERATOR_NAMES
         );
 
         dataEx.execute(
                 new BasicNameValuePair(AppConstants.PARAM_PBX_SERVICE, AppConstants.SVC_PBX_OPERATOR_NAMES),
-                new BasicNameValuePair(AppConstants.PARAM_OPERATOR_TYPE, AppConstants.PBX_OPERATOR_TYPE_DEFAULT),
-                new BasicNameValuePair(AppConstants.PARAM_PBX_RMN, userName),
+                new BasicNameValuePair(AppConstants.PARAM_OPERATOR_TYPE, String.valueOf(type.code)),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_RMN, _userName),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_IDENTIFIER, MiscUtils.getRandomLongAsString()),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_ORIGIN_ID, _deviceRegId),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_CLIENT_TOKEN, _token)
@@ -624,7 +633,13 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
             return null;
         }
 
-        return Arrays.asList(responseBase.data);
+        List<Operator> operators    = Arrays.asList(responseBase.data);
+
+        EphemeralStorage.getInstance(_applicationContext).storeObject(
+                AppConstants.PARAM_PBX_OPERATORS + _opType.code, operators
+        );
+
+        return operators;
     }
 
     public void balanceTransfer(TransactionRequest request, String payTo){
@@ -641,16 +656,11 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 AppConstants.PARAM_PBX_RMN, null
         );
 
-      /*  AsyncDataEx dataEx		    = new AsyncDataEx(
-                this,
-                new TransactionRequest(),
-                AppConstants.URL_PBX_PLATFORM_APP,
-                Methods.BALANCE_TRANSFER
-        );*/
+
         AsyncDataEx dataEx		    = new AsyncDataEx(
                 this,
                 new TransactionRequest(),
-                AppConstants.URL_PBX_PLATFORM_APPLIC,
+                AppConstants.URL_PBX_PLATFORM_APP,
                 Methods.BALANCE_TRANSFER
         );
         dataEx.execute(
@@ -792,15 +802,13 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
             return;
         }
 
-        String licrefno             = EphemeralStorage.getInstance(_applicationContext).getString(
-                AppConstants.PARAM_LICREFNO, null
-        );
 
+        TransactionRequest<LicLifeResponse> request = new TransactionRequest<LicLifeResponse>();
 
         AsyncDataEx dataEx		    = new AsyncDataEx(
                 this,
-                new TransactionRequest<LicLifeResponse>(),
-                AppConstants.URL_PBX_PLATFORM_APPLIC,
+                request,
+                AppConstants.URL_PBX_PLATFORM_APP,
                 Methods.LIC
         );
 
@@ -834,7 +842,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         AsyncDataEx dataEx		    = new AsyncDataEx(
                 this,
                 new TransactionRequest<LicLifeResponse>(),
-                AppConstants.URL_PBX_PLATFORM_APPLIC,
+                AppConstants.URL_PBX_PLATFORM_APP,
                 Methods.PAY_LIC
         );
 

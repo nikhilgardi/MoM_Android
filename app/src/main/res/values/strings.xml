@@ -16,7 +16,7 @@
     <string name="login_username_required">Please enter your mobile Number</string>
     <string name="login_pwd_required">Please enter your password</string>
     <string name="tpin">Enter T-Pin</string>
-    <string name="mpin">Enter M-Pin</string>
+    <string name="mpin">Enter M-Pin/Password</string>
     <string name="tpin_incorrect">Incorrect T-Pin</string>
     <string name="mpin_incorrect">Incorrect M-Pin</string>
     <string name="title_activity_verify_tpin">VerifyTPinActivity</string>

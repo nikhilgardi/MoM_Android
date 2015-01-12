@@ -36,20 +36,12 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
     private String _operatorId      = null;
 
-    private MoMPLDataExImpl(Context pContext){
-        this._applicationContext    = pContext;
-
+    public MoMPLDataExImpl(Context pContext, AsyncListener pListener){
+        _applicationContext    = pContext;
+        _listener   = pListener;
         checkConnectivity(pContext);
     }
 
-    public static MoMPLDataExImpl getInstance(Context context, AsyncListener pListener){
-        if(_instance == null){
-            _instance               = new MoMPLDataExImpl(context);
-        }
-
-        _instance.setListener(pListener);
-        return _instance;
-    }
 
     @SuppressWarnings("unchecked")
     @Override
@@ -99,14 +91,14 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 case RECHARGE_MOBILE:
                     Log.d(_LOG, "TaskComplete: rechargeMobile method, result: " + result);
                     if (_listener != null) {
-                        TransactionRequest<PaymentResponse> response = getPaymentResult(result , Methods.RECHARGE_MOBILE);
+                        TransactionRequest<String> response = getPaymentResult(result , Methods.RECHARGE_MOBILE);
                         _listener.onTaskSuccess(response, Methods.RECHARGE_MOBILE);
                     }
                     break;
                 case RECHARGE_DTH:
                     Log.d(_LOG, "TaskComplete: rechargeDTH method, result: " + result);
                     if (_listener != null) {
-                        TransactionRequest<PaymentResponse> response = getPaymentResult(result , Methods.RECHARGE_DTH);
+                        TransactionRequest<String> response = getPaymentResult(result , Methods.RECHARGE_DTH);
                         _listener.onTaskSuccess(response, Methods.RECHARGE_DTH);
                     }
                     break;
@@ -114,7 +106,7 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                     Log.d(_LOG, "TaskComplete: payBill method, result: " + result);
 
                     if (_listener != null) {
-                        TransactionRequest<PaymentResponse> response = getPaymentResult(result , Methods.PAY_BILL);
+                        TransactionRequest<String> response = getPaymentResult(result , Methods.PAY_BILL);
                         _listener.onTaskSuccess(response, Methods.PAY_BILL);
                     }
                     break;
@@ -122,7 +114,7 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                     Log.d(_LOG, "TaskComplete: balanceTransfer method, result: " + result);
 
                     if (_listener != null) {
-                        TransactionRequest<PaymentResponse> response = getPaymentResult(result , Methods.BALANCE_TRANSFER);
+                        TransactionRequest<String> response = getPaymentResult(result , Methods.BALANCE_TRANSFER);
                         _listener.onTaskSuccess(response, Methods.BALANCE_TRANSFER);
                     }
                     break;
@@ -143,7 +135,6 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                     break;
                 case CHANGE_PIN:
                     Log.d(_LOG, "TaskComplete: changeMPin method, result: " + result);
-
 
                     if (_listener != null) {
 
@@ -367,8 +358,8 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         );
     }
 
-    public TransactionRequest<PaymentResponse> getPaymentResult(
-            TransactionRequest<PaymentResponse> pResult , Methods callback
+    public TransactionRequest<String> getPaymentResult(
+            TransactionRequest<String> pResult , Methods callback
     ) throws MOMException{
 
         if(pResult == null || "".equals(pResult.getRemoteResponse().trim())){
@@ -722,7 +713,7 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
     }
 
 
-    @Override
+
     public void changePinTest(TransactionRequest request) {
 
         String method             = request.getPin() == PinType.M_PIN

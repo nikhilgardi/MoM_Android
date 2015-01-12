@@ -1,14 +1,30 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+
 
 android {
 
-    compileSdkVersion 19
-    buildToolsVersion "19.1.0"
+    compileSdkVersion 20
+    buildToolsVersion '20.0.0'
     defaultConfig {
         applicationId "com.mom.app"
         minSdkVersion 16
-        targetSdkVersion 19
+        targetSdkVersion 20
     }
+
 //    buildTypes {
 //        release {
 //            runProguard false
@@ -16,6 +32,15 @@ android {
 //
 //        }
 //    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+
+        }
+    }
+
    
 }
 
@@ -25,5 +50,12 @@ dependencies {
     compile files('libs/gson-2.3.jar')
     compile 'com.android.support:support-v4:20.0.0'
     compile 'com.android.support:appcompat-v7:20.0.0'
-    compile 'com.google.android.gms:play-services:6.5.87'
+
+   // compile 'com.google.android.gms:play-services:6.5.87'
+
+    compile 'com.google.android.gms:play-services:+'
+    compile('com.crashlytics.sdk.android:crashlytics:2.1.0@aar') {
+        transitive = true;
+    }
+
 }
