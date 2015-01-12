@@ -38,7 +38,10 @@
     <string name="action_lIC">LIC</string>
     <string name="title_activity_transaction_confirmation">Transaction Result</string>
     <string name="lic_success_msg_default">Payment Successful.</string>
-    <string name="lic_failed_msg_default">Payment Failed</string>
+    <string name="lic_failed_policyDetails_msg_default">Insufficient Limit</string>
+    <string name="lic_failed_authorised_msg_default">Not Authorized</string>
+    <string name="lic_failed_msg_default">Payment Failed.Please try again later</string>
+    <string name="lic_failed_Receipt_msg_default">None of the policies entered is due for payment</string>
     <string name="error_field_required">This field is mandatory</string>
     <string name="error_pin_confirm_mismatch">Both PINs should be same</string>
     <string name="error_init_app">Error initializing the app. Please try again later or contact customer support if the problem persists</string>
@@ -75,7 +78,7 @@
     <string name="confirm_logout">Do you want to logout and exit the app?</string>
     <string name="btn_dashboard">Dashboard</string>
     <string name="btn_recharge">Recharge</string>
-    <string name="btn_pay">Pay</string>
+    <string name="btn_cash_collected">Cash Collected</string>
     <string name="btn_btnGetAnotherPremium">Get Another Premium</string>
     <string name="btn_new_recharge">New Recharge</string>
     <string name="btn_new_bill_pay">Pay another Bill</string>

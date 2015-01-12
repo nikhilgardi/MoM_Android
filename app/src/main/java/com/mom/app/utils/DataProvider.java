@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.mom.app.identifier.PlatformIdentifier;
 import com.mom.app.model.Operator;
+import com.mom.app.model.local.EphemeralStorage;
 import com.mom.app.ui.flow.MoMScreen;
 import com.mom.app.widget.holder.ImageItem;
 
@@ -101,7 +102,9 @@ public class DataProvider {
             );
         }
 
-        if(platform == PlatformIdentifier.PBX){
+
+        int isLic = EphemeralStorage.getInstance(context).getInt(AppConstants.PARAM_IsLIC , -1);
+        if((isLic)== 0){
             imageItems.add(
                     new ImageItem<MoMScreen>(
                             MoMScreen.LIC,

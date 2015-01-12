@@ -60,6 +60,12 @@ public class ChangePinFragment extends FragmentBase implements AsyncListener<Tra
                 view = inflater.inflate(R.layout.activity_t_pin, null, false);
 
                     break;
+
+                case PBX_CHANGE_PASSWORD:
+
+                    view = inflater.inflate(R.layout.activity_t_pin, null, false);
+
+                    break;
             }
 
         _oldPin             = (EditText)view.findViewById(R.id.oldPin);
@@ -146,7 +152,12 @@ public class ChangePinFragment extends FragmentBase implements AsyncListener<Tra
        String sRequiredError = getResources().getString(R.string.error_field_required);
        int ValidationResult = validate();
        if (ValidationResult == 0) {
+           if(_pinType.equals(PinType.PBX_CHANGE_PASSWORD)){
+              getDataEx(this).changePassword(sOldPin , sNewPin);
+           }
+           else{
            getDataEx(this).changePin(_pinType, sOldPin, sNewPin);
+       }
        }
        else {
 
@@ -164,6 +175,12 @@ public class ChangePinFragment extends FragmentBase implements AsyncListener<Tra
                        _oldPin.setError(getResources().getString(R.string.error_oldTpin));
 
                    }
+
+                   else if (_pinType.equals(PinType.PBX_CHANGE_PASSWORD)){
+                       _oldPin.setError(getResources().getString(R.string.error_oldTpin));
+
+                   }
+
                    _oldPin.setText("");
                    _newPin.setText("");
                    _newPinConfirm.setText("");
@@ -182,6 +199,12 @@ public class ChangePinFragment extends FragmentBase implements AsyncListener<Tra
 
 
                    }
+                   else if (_pinType.equals(PinType.PBX_CHANGE_PASSWORD)) {
+                       _oldPin.setError(getResources().getString(R.string.error_oldTpin));
+
+
+                   }
+
                    _oldPin.setText("");
                    _newPin.setText("");
                    _newPinConfirm.setText("");
@@ -196,6 +219,13 @@ public class ChangePinFragment extends FragmentBase implements AsyncListener<Tra
 
                    }
                    else if(_pinType.equals(PinType.T_PIN))
+                   {
+                       _newPin.setError(getResources().getString(R.string.error_newTpin));
+                       _newPin.setText("");
+                       _newPinConfirm.setText("");
+                   }
+
+                   else if(_pinType.equals(PinType.PBX_CHANGE_PASSWORD))
                    {
                        _newPin.setError(getResources().getString(R.string.error_newTpin));
                        _newPin.setText("");
@@ -219,6 +249,11 @@ public class ChangePinFragment extends FragmentBase implements AsyncListener<Tra
                     _newPinConfirm.setError(getResources().getString(R.string.error_Tpin_matching));
 
                 }
+                else if (_pinType.equals(PinType.PBX_CHANGE_PASSWORD)){
+                    _newPin.setError(getResources().getString(R.string.error_Tpin_matching));
+                    _newPinConfirm.setError(getResources().getString(R.string.error_Tpin_matching));
+
+                }
                    _newPin.setText("");
                    _newPinConfirm.setText("");
                    break;
@@ -232,6 +267,10 @@ public class ChangePinFragment extends FragmentBase implements AsyncListener<Tra
 
                    }
                    else if (_pinType.equals(PinType.T_PIN)){
+                       _newPin.setError(getResources().getString(R.string.validate_oldnewTpin));
+
+                   }
+                   else if (_pinType.equals(PinType.PBX_CHANGE_PASSWORD)){
                        _newPin.setError(getResources().getString(R.string.validate_oldnewTpin));
 
                    }

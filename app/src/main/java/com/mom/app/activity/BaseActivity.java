@@ -427,6 +427,9 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
             case CHANGE_TPIN:
                 showFragment(ChangePinFragment.newInstance(_currentPlatform, PinType.T_PIN));
                 break;
+            case CHANGE_PASSWORD:
+               // showFragment(ChangePinFragment.newInstance(_currentPlatform, PinType.PBX_CHANGE_PASSWORD));
+                break;
             case HISTORY:
                 showFragment(TransactionHistoryFragment.newInstance(_currentPlatform));
                 break;

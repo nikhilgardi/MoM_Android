@@ -48,7 +48,8 @@ public class AppConstants {
     //End: MoM Platform Methods
 
     //Start: PBX Platform Service
-    public static final String SVC_PBX_CHECK_LOGIN              = "CL";
+   // public static final String SVC_PBX_CHECK_LOGIN              = "CL";
+    public static final String SVC_PBX_CHECK_LOGIN              = "LOGIN";
     public static final String SVC_PBX_CHANGE_PASSWORD          = "CP";
     public static final String SVC_PBX_CHECK_BALANCE            = "BL";
     public static final String SVC_PBX_TRANSACTION_HISTORY      = "LTH";
@@ -66,8 +67,16 @@ public class AppConstants {
     public static final String PBX_OPERATOR_TYPE_DEFAULT    = "1";
     //Start: PBX Platform URLs
 
-   public static final String URL_PBX_PLATFORM_APP         =  "http://api.pbx.momappworld.com/pbxmobapp.ashx";
+    public static final String URL_PBX_PLATFORM_SERVICE     = "http://test.pbx.momappworld.com/momspre/service.ashx";
+  //  public static final String URL_PBX_PLATFORM_APP         = "http://test.pbx.momappworld.com/momspre/PbxMobApp.ashx";
+   // public static final String URL_PBX_PLATFORM_APP         =  "http://api.pbx.momappworld.com/mobapps1/pbxmobapp.ashx";
+    public static final String URL_PBX_PLATFORM_APPLIC     =   "http://test.api.pbx.momappworld.com/PbxMobApp.ashx";
+   //    public static final String URL_PBX_PLATFORM_APP         = "http://172.16.1.102/MobAppS/PbxMobApp.ashx";
+
+
+     public static final String URL_PBX_PLATFORM_APP         =  "http://api.pbx.momappworld.com/pbxmobapp.ashx";
 //   public static final String URL_PBX_PLATFORM_APP         =  "http://test.api.pbx.momappworld.com/pbxmobapp.ashx";
+
 
     //End: PBX Platform URLs
 
@@ -89,6 +98,7 @@ public class AppConstants {
     public static final int DEFAULT_INT                     = Integer.MIN_VALUE;
 
     //PIN RELATED
+    public static final String PBX_CHANGE_PASSWORD           = "Pbx-Pin";
     public static final String M_PIN                        = "M-Pin";
     public static final String T_PIN                        = "T-Pin";
     public static final String PIN                          = "Pin";
@@ -181,14 +191,18 @@ public class AppConstants {
 
     public static final String PARAM_PBX_PARENT_RMN          = "ParentRmn";
     public static final String PARAM_PBX_CHILD_RMN           = "childRmn";
-    public static final String PARAM_LICREFNO            = "licRefNo";
-    public static final String PARAM_CUSTOMER_NUMBER_LIC ="custMobNo";
-    public static final String PARAM_POLICYNUMBER_LIC    = "policyNo";
-    public static final String PARAM_TRANSREFGUID_LIC    = "transRefGuid";
-    public static final String PARAM_TRANSINVGUID_LIC    = "transInvGuid";
-    public static final String PARAM_POLICYAMOUNT_LIC    = "policyAmount";
-    public static final String PARAM_POLICYHOLDER_LIC    = "policyHolder";
-    public static final String PARAM_SERVICE_NEW         = "Service";
+    public static final String PARAM_LICREFNO                = "licRefNo";
+    public static final String PARAM_CUSTOMER_NUMBER_LIC     = "custMobNo";
+    public static final String PARAM_POLICYNUMBER_LIC        = "policyNo";
+    public static final String PARAM_TRANSREFGUID_LIC        = "transRefGuid";
+    public static final String PARAM_TRANSINVGUID_LIC        = "transInvGuid";
+    public static final String PARAM_POLICYAMOUNT_LIC        = "policyAmount";
+    public static final String PARAM_POLICYHOLDER_LIC        = "policyHolder";
+    public static final String PARAM_FRUNPAIDPREMIUMDATE     = "UnpaidPremiumDate";
+    public static final String PARAM_MERCHANTID_LIC          = "merchantId";
+    public static final String PARAM_IsLIC                   = "isLic";
+    public static final String PARAM_SERVICE_NEW             = "Service";
+
 
     //End: PBX Platform Params
 

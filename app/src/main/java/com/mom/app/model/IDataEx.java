@@ -36,6 +36,6 @@ public interface IDataEx {
 
     public abstract void balanceTransfer(TransactionRequest request, String payTo);
 
-    public  void lic(String lic);
-    public void licPayment(TransactionRequest<LicLifeResponse> request , String CustomerMobNo , String PolicyNo);
+    public  void lic(String lic , String customerMobNo);
+    public void licPayment(TransactionRequest<LicLifeResponse> request , String CustomerMobNo , String PolicyNo , String fromDate);
 }

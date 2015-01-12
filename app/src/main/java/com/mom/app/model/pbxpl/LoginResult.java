@@ -10,6 +10,8 @@ public class LoginResult {
     public String token;
     public String userType;
     public String userName;
+    public String merchantId;
+    public int isLic;
 
 
 //    public LoginResult getLoginDetails(){

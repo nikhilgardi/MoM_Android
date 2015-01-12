@@ -44,7 +44,7 @@ public class LICFragment extends FragmentBase implements AsyncListener<Transacti
 
     private EditText _etLIC , _etCustMobileNumber;
 
-    private TextView _tvPremiumAmount , _tvPlaceHolder, _tvStatus , _tvReceiptId , _tvFromDate , _tvToDate;
+    private TextView _tvPremiumAmount , _tvPlaceHolder, _tvStatus , _tvReceiptId ,_tvFailResponse , _tvFromDate , _tvToDate;
 
     private TableLayout _tblPolicyDetails;
     private TableLayout _tblPaymentConfirmation;
@@ -53,6 +53,8 @@ public class LICFragment extends FragmentBase implements AsyncListener<Transacti
     private TransactionRequest<LicLifeResponse> _lastRequest;
 
     public static final String PymtTrsfrStatusSuccessCode = "S" ;
+    public static final String PymtTrsfrStatusErrorCode1  = "E1" ;
+    public static final String PymtTrsfrStatusErrorCode2  = "E2" ;
     public static final String PymtTrsfrStatusErrorCode3  = "E3" ;
     public static final String PymtTrsfrStatusErrorCode4  = "E4" ;
     public static final String PymtTrsfrStatusErrorCode5  = "E5" ;
@@ -62,6 +64,16 @@ public class LICFragment extends FragmentBase implements AsyncListener<Transacti
     public static final String PymtTrsfrStatusErrorCode9  = "E9" ;
     public static final String PymtTrsfrStatusErrorCode10 = "E10" ;
     public static final String PymtTrsfrStatusErrorCode11 = "E11" ;
+    public static final String PymtTrsfrStatusReceiptCode = "A1" ;
+
+    public static final String PolicyDetailsTransTypeErrorCode1  = "E2" ;
+    public static final String PolicyDetailsTransTypeErrorCode2  = "E3" ;
+    public static final String PolicyDetailsTransTypeErrorCode3  = "E4" ;
+    public static final String PolicyDetailsTransTypeErrorCode4  = "E15" ;
+    public static final String PolicyDetailsTransTypeErrorCode5  = "E16" ;
+
+
+
     ArrayList<ImageItem<MoMScreen>> _menuItems;
 
     public static LICFragment newInstance(PlatformIdentifier currentPlatform){
@@ -83,6 +95,7 @@ public class LICFragment extends FragmentBase implements AsyncListener<Transacti
         _tvPlaceHolder          = (TextView) view.findViewById(R.id.policyHolder);
         _tvStatus               = (TextView) view.findViewById(R.id.status);
         _tvReceiptId            = (TextView) view.findViewById(R.id.receiptNo);
+        _tvFailResponse         = (TextView) view.findViewById(R.id.tvFailResponse);
         _tvFromDate             = (TextView) view.findViewById(R.id.fromDate);
         _tvToDate               = (TextView) view.findViewById(R.id.toDate);
 
@@ -123,7 +136,7 @@ public class LICFragment extends FragmentBase implements AsyncListener<Transacti
 
                 _btnPolicyDetailsCancel.setEnabled(false);
                 showFragment(DashboardFragment.newInstance(_currentPlatform));
-                // getLicPayment(_lastRequest) ;
+                 // getLicPayment(_lastRequest) ;
 
             }
         });
@@ -134,13 +147,17 @@ public class LICFragment extends FragmentBase implements AsyncListener<Transacti
                 _btnGetAnotherPremium.setVisibility(View.GONE);
 
                 _etLIC.setVisibility(View.VISIBLE);
-                _etLIC.setText("806000021");
+
                 _etCustMobileNumber.setVisibility(View.VISIBLE);
                 _btnGetPremium.setVisibility(View.VISIBLE);
                 _btnPay.setEnabled(true);
                 _tblPolicyDetails.setVisibility(View.GONE);
-                _btnPolicyDetailsCancel.setVisibility(View.GONE);
+                _btnPolicyDetailsCancel.setVisibility(View.VISIBLE);
                 _tblPaymentConfirmation.setVisibility(View.GONE);
+                _tvFailResponse.setVisibility(View.GONE);
+                _etLIC.setText("");
+                _etCustMobileNumber.setText("");
+
 
             }
         });
@@ -162,6 +179,8 @@ public class LICFragment extends FragmentBase implements AsyncListener<Transacti
                 _btnPaymentCancel.setVisibility(View.GONE);
                 _tblPolicyDetails.setVisibility(View.GONE);
                 _tblPaymentConfirmation.setVisibility(View.GONE);
+                _etLIC.setText("");
+                _etCustMobileNumber.setText("");
                 showMessage(null);
 
 
@@ -193,7 +212,7 @@ public class LICFragment extends FragmentBase implements AsyncListener<Transacti
     }
     public void confirmRecharge() {
         showDialog(
-                "Confirm Confirmation Collected",
+                "Confirmed Collection",
                 "PolicyNumber:" + " "
                         + _etLIC.getText().toString() + "\n"
                         + "Amount:" + " " + "Rs." + " "
@@ -246,7 +265,8 @@ public class LICFragment extends FragmentBase implements AsyncListener<Transacti
     public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
         switch (callback){
             case LIC:
-                showMessage(getResources().getString(R.string.error_invalid_policy_number));
+
+                showMessage(getResources().getString(R.string.lic_failed_Receipt_msg_default));
                 _etLIC.setVisibility(View.GONE);
                 _etCustMobileNumber.setVisibility(View.GONE);
                 _btnGetPremium.setVisibility(View.GONE);
@@ -275,41 +295,96 @@ public class LICFragment extends FragmentBase implements AsyncListener<Transacti
             return;
         }
 
-        _etLIC.setVisibility(View.GONE);
-        _etCustMobileNumber.setVisibility(View.GONE);
+       else if(result.getCustom().getTransType().equals("M")) {
+            _etLIC.setVisibility(View.GONE);
+            _etCustMobileNumber.setVisibility(View.GONE);
 
-        _tblPolicyDetails.setVisibility(View.VISIBLE);
+            _tvFailResponse.setVisibility(View.GONE);
+            _tblPolicyDetails.setVisibility(View.VISIBLE);
 
-        _tvPremiumAmount.setText(String.valueOf(result.getCustom().getTransInvAmount()));
+            _tvPremiumAmount.setText(String.valueOf(result.getCustom().getTransInvAmount()));
 
 
-        _tvPlaceHolder.setText(result.getCustom().getOLife().getParty().getFullName());
+            _tvPlaceHolder.setText(result.getCustom().getOLife().getParty().getFullName());
 
-        _lastRequest    = result;
+            _lastRequest = result;
 
-        String fromDate = result.getCustom().getOLife().getPolicy().getFrUnpaidPremiumDate();
-        String toDate = result.getCustom().getOLife().getPolicy().getToUnpaidPremiumDate();
+            String fromDate = result.getCustom().getOLife().getPolicy().getFrUnpaidPremiumDate();
+            String toDate = result.getCustom().getOLife().getPolicy().getToUnpaidPremiumDate();
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
-        try {
-            Date FromUnpaidDate = dateFormat.parse(fromDate);
-            Date ToUnpaidDate = dateFormat.parse(toDate);
-            dateFormat = new SimpleDateFormat("MM/yyyy");
-            String fromDateLic = dateFormat.format(FromUnpaidDate);
-            String toDateLic = dateFormat.format(ToUnpaidDate);
-            _tvFromDate.setText(fromDateLic);
-            _tvToDate.setText(toDateLic);
-        } catch (ParseException e) {
-            e.printStackTrace();
+            try {
+                Date FromUnpaidDate = dateFormat.parse(fromDate);
+                Date ToUnpaidDate = dateFormat.parse(toDate);
+                dateFormat = new SimpleDateFormat("MM/yyyy");
+                String fromDateLic = dateFormat.format(FromUnpaidDate);
+                String toDateLic = dateFormat.format(ToUnpaidDate);
+                _tvFromDate.setText(fromDateLic);
+                _tvToDate.setText(toDateLic);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            _btnGetPremium.setVisibility(View.GONE);
+            _btnGetAnotherPremium.setVisibility(View.GONE);
+
+            _btnPay.setVisibility(View.VISIBLE);
+            _btnPaymentCancel.setVisibility(View.VISIBLE);
+            _btnPolicyDetailsCancel.setVisibility(View.GONE);
         }
 
-        _btnGetPremium.setVisibility(View.GONE);
-        _btnGetAnotherPremium.setVisibility(View.GONE);
+        else if((result.getCustom().getTransType().equals(PolicyDetailsTransTypeErrorCode1))
+                || (result.getCustom().getTransType().equals(PolicyDetailsTransTypeErrorCode2))
+                ||(result.getCustom().getTransType().equals(PolicyDetailsTransTypeErrorCode3))){
 
-        _btnPay.setVisibility(View.VISIBLE);
-        _btnPaymentCancel.setVisibility(View.VISIBLE);
-        _btnPolicyDetailsCancel.setVisibility(View.GONE);
+
+            _tvFailResponse.setVisibility(View.GONE);
+            _etLIC.setVisibility(View.GONE);
+            _etCustMobileNumber.setVisibility(View.GONE);
+            _btnGetPremium.setVisibility(View.GONE);
+            _btnPolicyDetailsCancel.setVisibility(View.GONE);
+            _btnPaymentCancel.setVisibility(View.VISIBLE);
+            _etCustMobileNumber.setEnabled(true);
+            _etLIC.setEnabled(true);
+            showMessage(getString(R.string.lic_failed_Receipt_msg_default));
+        }
+        else if(result.getCustom().getTransType().equals(PolicyDetailsTransTypeErrorCode4)){
+
+            _tvFailResponse.setVisibility(View.GONE);
+            _etLIC.setVisibility(View.GONE);
+            _etCustMobileNumber.setVisibility(View.GONE);
+            _btnGetPremium.setVisibility(View.GONE);
+            _btnPolicyDetailsCancel.setVisibility(View.GONE);
+            _btnPaymentCancel.setVisibility(View.VISIBLE);
+            _etCustMobileNumber.setEnabled(true);
+            _etLIC.setEnabled(true);
+            showMessage(getString(R.string.lic_failed_policyDetails_msg_default));
+        }
+        else if(result.getCustom().getTransType().equals(PolicyDetailsTransTypeErrorCode5)){
+
+            _tvFailResponse.setVisibility(View.GONE);
+            _etLIC.setVisibility(View.GONE);
+            _etCustMobileNumber.setVisibility(View.GONE);
+            _btnGetPremium.setVisibility(View.GONE);
+            _btnPolicyDetailsCancel.setVisibility(View.GONE);
+            _btnPaymentCancel.setVisibility(View.VISIBLE);
+            _etCustMobileNumber.setEnabled(true);
+            _etLIC.setEnabled(true);
+            showMessage(getString(R.string.lic_failed_authorised_msg_default));
+        }
+        else {
+
+            _tvFailResponse.setVisibility(View.GONE);
+            _etLIC.setVisibility(View.GONE);
+            _etCustMobileNumber.setVisibility(View.GONE);
+            _btnGetPremium.setVisibility(View.GONE);
+            _btnPolicyDetailsCancel.setVisibility(View.GONE);
+            _btnPaymentCancel.setVisibility(View.VISIBLE);
+            _etCustMobileNumber.setEnabled(true);
+            _etLIC.setEnabled(true);
+            showMessage(getString(R.string.lic_failed_Receipt_msg_default));
+        }
     }
 
     private void showPaymentConfirmation(TransactionRequest<LicLifeResponse> result) {
@@ -329,11 +404,14 @@ public class LICFragment extends FragmentBase implements AsyncListener<Transacti
             _btnPaymentCancel.setVisibility(View.GONE);
 
             _btnGetAnotherPremium.setVisibility(View.VISIBLE);
+            _tvFailResponse.setVisibility(View.GONE);
 
             _tvStatus.setTextColor(getActivity().getResources().getColor(R.color.green));
             _tvStatus.setText(R.string.lic_success_msg_default);
             _tvReceiptId.setText(result.getCustom().getTransReceiptID());
-        } else if (result.getCustom().getPymtTrsfrStatus().equals(PymtTrsfrStatusErrorCode3)
+        } else if (result.getCustom().getPymtTrsfrStatus().equals(PymtTrsfrStatusErrorCode1)
+                || result.getCustom().getPymtTrsfrStatus().equals(PymtTrsfrStatusErrorCode2)
+                || result.getCustom().getPymtTrsfrStatus().equals(PymtTrsfrStatusErrorCode3)
                 || result.getCustom().getPymtTrsfrStatus().equals(PymtTrsfrStatusErrorCode4)
                 || result.getCustom().getPymtTrsfrStatus().equals(PymtTrsfrStatusErrorCode5)
                 || result.getCustom().getPymtTrsfrStatus().equals(PymtTrsfrStatusErrorCode6)
@@ -346,15 +424,43 @@ public class LICFragment extends FragmentBase implements AsyncListener<Transacti
             _btnPaymentCancel.setVisibility(View.GONE);
             _btnGetAnotherPremium.setVisibility(View.VISIBLE);
             _tblPolicyDetails.setVisibility(View.GONE);
-            _tblPaymentConfirmation.setVisibility(View.VISIBLE);
+            _tblPaymentConfirmation.setVisibility(View.GONE);
+            _tvFailResponse.setVisibility(View.VISIBLE);
+            _tvFailResponse.setTextColor(getActivity().getResources().getColor(R.color.red));
+            _tvFailResponse.setText(getString(R.string.lic_failed_Receipt_msg_default));
         }
+     else if((result.getCustom().getTransReceiptID()== null)||(result.getCustom().getTransReceiptID().isEmpty())){
+            _btnPay.setVisibility(View.GONE);
+            _btnPaymentCancel.setVisibility(View.GONE);
+            _btnGetAnotherPremium.setVisibility(View.VISIBLE);
+            _tblPolicyDetails.setVisibility(View.GONE);
+            _tblPaymentConfirmation.setVisibility(View.GONE);
+            _tvFailResponse.setVisibility(View.VISIBLE);
+            _tvFailResponse.setTextColor(getActivity().getResources().getColor(R.color.red));
 
+            _tvFailResponse.setText(getString(R.string.lic_failed_Receipt_msg_default));
+        }
+        else if(result.getCustom().getPymtTrsfrStatus().equals(PymtTrsfrStatusReceiptCode)){
+            _btnPay.setVisibility(View.GONE);
+            _btnPaymentCancel.setVisibility(View.GONE);
+            _btnGetAnotherPremium.setVisibility(View.VISIBLE);
+            _tblPolicyDetails.setVisibility(View.GONE);
+            _tblPaymentConfirmation.setVisibility(View.GONE);
+            _tvFailResponse.setVisibility(View.VISIBLE);
+            _tvFailResponse.setTextColor(getActivity().getResources().getColor(R.color.red));
+           
+            _tvFailResponse.setText(getString(R.string.lic_failed_Receipt_msg_default));
+        }
         else{
             _btnPay.setVisibility(View.GONE);
             _btnPaymentCancel.setVisibility(View.GONE);
             _btnGetAnotherPremium.setVisibility(View.VISIBLE);
             _tblPolicyDetails.setVisibility(View.GONE);
-            _tblPaymentConfirmation.setVisibility(View.VISIBLE);
+            _tblPaymentConfirmation.setVisibility(View.GONE);
+            _tvFailResponse.setVisibility(View.VISIBLE);
+            _tvFailResponse.setTextColor(getActivity().getResources().getColor(R.color.red));
+            _tvFailResponse.setText(getString(R.string.lic_failed_Receipt_msg_default));
+
         }
     }
 
@@ -365,36 +471,37 @@ public class LICFragment extends FragmentBase implements AsyncListener<Transacti
 
     public void validateAndGetAmount() {
         String policyNumber           = _etLIC.getText().toString();
+        String CustomerMobNo          = _etCustMobileNumber.getText().toString();
         if(TextUtils.isEmpty(policyNumber)){
             showMessage(getActivity().getResources().getString(R.string.error_invalid_policy_number));
             return;
         }
 
-        getPremiumAmount(policyNumber);
+        getPremiumAmount(policyNumber,CustomerMobNo);
     }
 
-    private void getPremiumAmount(String policyNumber) {
+    private void getPremiumAmount(String policyNumber ,String CustomerMobNo ) {
         hideMessage();
 
-       // _etLIC.setText(null);
-       // _etCustMobileNumber.setText(null);
+
 
         _etCustMobileNumber.setEnabled(true);
         _etLIC.setEnabled(true);
 
 
         _lastRequest    = null;
-        getDataEx(this).lic(policyNumber);
+        getDataEx(this).lic(policyNumber , CustomerMobNo);
         showProgress(true);
     }
     private void getLicPayment(TransactionRequest<LicLifeResponse>  _lastRequest)
    {
        String policyNumber           = _etLIC.getText().toString();
        String CustomerMobNo          = _etCustMobileNumber.getText().toString();
+       String UnpaidDate               = _lastRequest.getCustom().getOLife().getPolicy().getFrUnpaidPremiumDate();
        hideMessage();
-       // _etLIC.setText(null);
 
-        getDataEx(this).licPayment(_lastRequest , CustomerMobNo ,  policyNumber);
+
+        getDataEx(this).licPayment(_lastRequest , CustomerMobNo ,  policyNumber , UnpaidDate);
         showProgress(true);
     }
 
