@@ -10,20 +10,21 @@ public class PBXTransaction {
 
     public String transactionId;
     public float  amount;
-    public int bal;
+    public int balance;
     public String transactionDate;
-    public String customerNumber;
+    public String subscriberId;
     public String operatorName;
-    public int transactionStatus;
+    public String transactionStatus;
 
     public Transaction getTransaction(){
         Transaction transaction = new Transaction();
         transaction.transactionId   = transactionId;
         transaction.amount          = amount;
+        transaction.balance         = balance;
         transaction.transactionDate = transactionDate;
         transaction.operator        = operatorName;
-        transaction.subscriberId    = customerNumber;
-        transaction.status          = transactionStatus > 0;
+        transaction.subscriberId    = subscriberId;
+        transaction.statusString    = transactionStatus ;
 
         return transaction;
     }

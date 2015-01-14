@@ -44,6 +44,8 @@
 
     <string name="btn_pay">পে করুন</string>
 
+    <string name="btn_cash_collected">Cash Collected</string>
+
     <string name="btn_new_recharge">নতুন রিচার্জ</string>
 
     <string name="btn_new_bill_pay">আরেকটি বিলের অর্থপ্রদান করুন</string>
@@ -166,7 +168,15 @@
     <string name="new_password">নতুন পাসওয়ার্ড</string>
     <string name="confirm_password">পাসওয়ার্ড নিশ্চিত করুন</string>
 
-
+    <string name="lblTPin_old">Old T-PIN</string>
+    <string name="lblTPin_new">New T-PIN</string>
+    <string name="lblTPin_new_confirm">Confirm New T-PIN</string>
+    <string name="lblMPin_old">Old M-PIN</string>
+    <string name="lblMPin_new">New M-PIN</string>
+    <string name="lblMPin_new_confirm">Confirm New M-PIN</string>
+    <string name="lblOld_password">Old Password</string>
+    <string name="lblNew_password">New Password</string>
+    <string name="lblConfirm_password">Confirm Password</string>
 
     <string name="title_activity_retailer_payment">রিটেলার পেমেন্ট</string>
 
@@ -200,6 +210,13 @@
     <string name="title_activity_base">MoneyOnMobile</string>
 
     <string name="action_lIC">LIC</string>
+
+    <string name="lic_failed_policyDetails_msg_default">Insufficient Limit</string>
+    <string name="lic_failed_authorised_msg_default">Not Authorized</string>
+
+    <string name="lic_failed_Receipt_msg_default">None of the policies entered is due for payment</string>
+
+
     <string name="lic_success_msg_default">পেমেন্ট সফল।</string>
     <string name="lic_failed_msg_default">পেমেন্ট ব্যর্থ।</string>
     <string name="error_field_required">এই ফিল্ডটি আবশ্যিক</string>

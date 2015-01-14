@@ -45,6 +45,8 @@
 
     <string name="btn_pay">देयक</string>
 
+    <string name="btn_cash_collected">Cash Collected</string>
+
     <string name="btn_new_recharge">नवीन रिचार्ज</string>
 
     <string name="btn_new_bill_pay">अजून एक बिल भरा</string>
@@ -152,6 +154,16 @@
     <string name="new_password">नवा पासवर्ड</string>
     <string name="confirm_password">पासवर्डची पुष्टी करा</string>
 
+    <string name="lblTPin_old">Old T-PIN</string>
+    <string name="lblTPin_new">New T-PIN</string>
+    <string name="lblTPin_new_confirm">Confirm New T-PIN</string>
+    <string name="lblMPin_old">Old M-PIN</string>
+    <string name="lblMPin_new">New M-PIN</string>
+    <string name="lblMPin_new_confirm">Confirm New M-PIN</string>
+    <string name="lblOld_password">Old Password</string>
+    <string name="lblNew_password">New Password</string>
+    <string name="lblConfirm_password">Confirm Password</string>
+
 
     <string name="error_oldPasswordPbx">जुना अचूक पासवर्ड प्रविष्ठ करा</string>
     <string name="error_newPasswordPbx">नवीन पासवर्ड रिकामा असू शकत नाही</string>
@@ -200,6 +212,11 @@
 
 
     <string name="action_lIC">LIC</string>
+
+    <string name="lic_failed_policyDetails_msg_default">Insufficient Limit</string>
+    <string name="lic_failed_authorised_msg_default">Not Authorized</string>
+    <string name="lic_failed_Receipt_msg_default">None of the policies entered is due for payment</string>
+
     <string name="lic_success_msg_default">भूकतान यशस्वी.</string>
     <string name="lic_failed_msg_default">भूकतान अयशस्वी</string>
     <string name="error_field_required">हे क्षत्र आवश्यक आहे</string>

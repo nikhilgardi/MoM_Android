@@ -46,6 +46,8 @@
 
     <string name="btn_pay">പണം അടയ്ക്കുക</string>
 
+    <string name="btn_cash_collected">Cash Collected</string>
+
     <string name="btn_new_recharge">പുതിയ റീചാർജ്</string>
 
     <string name="btn_new_bill_pay">മറ്റൊരു ബിൽ അടയ്ക്കുക</string>
@@ -115,6 +117,8 @@
     <string name="btn_dashboard">ഡാഷ്ബോഡ്</string>
     <string name="btn_recharge">റീചാർജ്ജ്</string>
 
+
+
     <string name="btn_back">പിന്നിലേക്ക്</string>
 
     <string name="btn_cancel">റദ്ദാക്കുക</string>
@@ -145,6 +149,16 @@
     <string name="new_password">പുതിയ പാസ്‌വേഡ്</string>
     <string name="confirm_password">പാസ്‌വേഡ് സ്ഥിരീകരിക്കുക</string>
 
+    <string name="lblTPin_old">Old T-PIN</string>
+    <string name="lblTPin_new">New T-PIN</string>
+    <string name="lblTPin_new_confirm">Confirm New T-PIN</string>
+    <string name="lblMPin_old">Old M-PIN</string>
+    <string name="lblMPin_new">New M-PIN</string>
+    <string name="lblMPin_new_confirm">Confirm New M-PIN</string>
+    <string name="lblOld_password">Old Password</string>
+    <string name="lblNew_password">New Password</string>
+    <string name="lblConfirm_password">Confirm Password</string>
+
 
     <string name="title_activity_change_pin">PIN മാറ്റുക</string>
     <string name="title_activity_settings">ക്രമീകരണങ്ങൾ</string>
@@ -159,6 +173,12 @@
 
 
     <string name="action_lIC">LIC</string>
+
+    <string name="lic_failed_policyDetails_msg_default">Insufficient Limit</string>
+    <string name="lic_failed_authorised_msg_default">Not Authorized</string>
+
+    <string name="lic_failed_Receipt_msg_default">None of the policies entered is due for payment</string>
+
     <string name="lic_success_msg_default">പെയ്മെന്റ് വിജയകരം</string>
     <string name="lic_failed_msg_default">പെയ്മെന്റ് പരാജയപ്പെട്ടു</string>
     <string name="error_field_required">ഈ ഫീൽഡ് നിർബന്ധമാണ്</string>

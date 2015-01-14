@@ -277,7 +277,7 @@ public class DTHRechargeFragment extends FragmentBase implements AsyncListener<T
         String sRechargeAmount          = _etAmount.getText().toString();
         Operator operator               = (Operator) _spOperator.getSelectedItem();
         String sCustomerNumber          = _etCustomerNumber.getText().toString().trim();
-
+Log.i("Params" , sSubscriberId +"/n" + sRechargeAmount +"/n"+ operator+ "/n" +  sCustomerNumber);
         TransactionRequest request      = new TransactionRequest(
                 getActivity().getString(TransactionType.DTH.transactionTypeStringId),
                 sSubscriberId,
@@ -291,7 +291,7 @@ public class DTHRechargeFragment extends FragmentBase implements AsyncListener<T
             getDataEx(this).rechargeDTH(request);
 
         } else if (_currentPlatform == PlatformIdentifier.PBX){
-
+            getDataEx(this).rechargeDTH(request);
         }
 
         _etSubscriberId.setText(null);
