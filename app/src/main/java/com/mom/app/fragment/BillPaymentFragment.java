@@ -301,7 +301,7 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
         String sCustomerName            = "";
 
         int nRechargeType               = 0;
-
+        Log.i("Params" , sSubscriberId +"/n" + sAmount +"/n"+ operator+ "/n" +  sCustomerNumber);
 //        SharedPreferences pref = PreferenceManager
 //                .getDefaultSharedPreferences(getApplicationContext());
         HashMap<String, String> map     = new HashMap<String, String>();

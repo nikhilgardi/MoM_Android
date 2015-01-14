@@ -45,6 +45,8 @@
 
     <string name="btn_pay">ପୈଠ</string>
 
+    <string name="btn_cash_collected">Cash Collected</string>
+
     <string name="btn_new_recharge">ନୂତନ ରିଚାର୍ଜ</string>
 
     <string name="btn_new_bill_pay">ଅନ୍ୟ ଏକ ବିଲ୍‌ ପୈଠ</string>
@@ -174,6 +176,16 @@
     <string name="confirm_password">ସୁନିଶ୍ଚିତ ପାସ୍‌ୱାର୍ଡ</string>
 
 
+    <string name="lblTPin_old">Old T-PIN</string>
+    <string name="lblTPin_new">New T-PIN</string>
+    <string name="lblTPin_new_confirm">Confirm New T-PIN</string>
+    <string name="lblMPin_old">Old M-PIN</string>
+    <string name="lblMPin_new">New M-PIN</string>
+    <string name="lblMPin_new_confirm">Confirm New M-PIN</string>
+    <string name="lblOld_password">Old Password</string>
+    <string name="lblNew_password">New Password</string>
+    <string name="lblConfirm_password">Confirm Password</string>
+
 
     <string name="title_activity_change_pin">PIN ପରିବର୍ତ୍ତନ</string>
     <string name="title_activity_settings">ସେଟିଂ</string>
@@ -202,6 +214,11 @@
 
 
     <string name="action_lIC">LIC</string>
+
+    <string name="lic_failed_policyDetails_msg_default">Insufficient Limit</string>
+    <string name="lic_failed_authorised_msg_default">Not Authorized</string>
+    <string name="lic_failed_Receipt_msg_default">None of the policies entered is due for payment</string>
+
     <string name="lic_success_msg_default">ପୈଠ ସଫଳ</string>
     <string name="lic_failed_msg_default">ପୈଠ ବିଫଳ</string>
     <string name="error_field_required">ଏହି କ୍ଷେତ୍ର ମାଣ୍ଡାଟୋରୀ</string>

@@ -83,6 +83,8 @@
 
     <string name="btn_pay">ಪಾವತಿಸಿ</string>
 
+    <string name="btn_cash_collected">Cash Collected</string>
+
     <string name="btn_new_recharge">ಹೊಸ ರೀಚಾರ್ಜ್</string>
 
     <string name="btn_new_bill_pay">ಇನ್ನೊಂದು ಬಿಲ್ ಪಾವತಿಸಿ</string>
@@ -171,7 +173,15 @@
     <string name="new_password">ಹೊಸ ಪಾಸ್‌ವರ್ಡ್‌ </string>
     <string name="confirm_password">ಪಾಸ್‌ವರ್ಡ್‌ ಖಚಿತಪಡಿಸಿ </string>
 
-
+    <string name="lblTPin_old">Old T-PIN</string>
+    <string name="lblTPin_new">New T-PIN</string>
+    <string name="lblTPin_new_confirm">Confirm New T-PIN</string>
+    <string name="lblMPin_old">Old M-PIN</string>
+    <string name="lblMPin_new">New M-PIN</string>
+    <string name="lblMPin_new_confirm">Confirm New M-PIN</string>
+    <string name="lblOld_password">Old Password</string>
+    <string name="lblNew_password">New Password</string>
+    <string name="lblConfirm_password">Confirm Password</string>
 
 
     <string name="title_activity_change_pin">PIN ಬದಲಾಯಿಸಿ </string>
@@ -181,6 +191,11 @@
     <string name="no">ಇಲ್ಲ </string>
 
     <string name="action_lIC">LIC</string>
+    <string name="lic_failed_policyDetails_msg_default">Insufficient Limit</string>
+    <string name="lic_failed_authorised_msg_default">Not Authorized</string>
+
+    <string name="lic_failed_Receipt_msg_default">None of the policies entered is due for payment</string>
+
     <string name="lic_success_msg_default">ಪಾವತಿ ಯಶಸ್ವಿಯಾಗಿದೆ</string>
     <string name="lic_failed_msg_default">ಪಾವತಿ ವಿಫಲವಾಗಿದೆ</string>
     <string name="error_field_required">ಈ ಕ್ಷೇತ್ರ ಕಡ್ಡಾಯವಾಗಿದೆ</string>

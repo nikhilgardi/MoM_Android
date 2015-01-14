@@ -13,6 +13,7 @@ public class Transaction implements ITransaction{
     public String transactionId;
     public String operator;
     public Float amount;
+    public int balance;
     public String statusString;
     public boolean status;
 

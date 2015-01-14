@@ -89,16 +89,25 @@ public class AsyncStatusListAdapter extends ArrayAdapter<TransactionRequest> {
                     holder.tvDescription.setTextColor(getContext().getResources().getColor(R.color.green));
                     holder.doneIndicator.setImageResource(R.drawable.tick);
                     break;
-                case FAILED:
-                    Log.d(_LOG, "Setting icon as failed");
-                    holder.tvDescription.setTextColor(getContext().getResources().getColor(R.color.red));
-                    holder.doneIndicator.setImageResource(R.drawable.cross);
-                    break;
+
                 case PENDING:
                     Log.d(_LOG, "Setting icon as pending");
                     holder.tvDescription.setTextColor(getContext().getResources().getColor(R.color.amber));
                     holder.doneIndicator.setImageResource(R.drawable.pending);
                     break;
+
+                case FAILED:
+                case REPEAT_RECHARGE:
+                case INVALID_SYNTAX:
+                case INVALID_NUMBER:
+                case NOT_AUTHORIZED:
+                case NOT_REGISTERED:
+
+                    Log.d(_LOG, "Setting icon as failed");
+                    holder.tvDescription.setTextColor(getContext().getResources().getColor(R.color.red));
+                    holder.doneIndicator.setImageResource(R.drawable.cross);
+                    break;
+
             }
 
             holder.doneIndicator.setVisibility(View.VISIBLE);
@@ -106,7 +115,7 @@ public class AsyncStatusListAdapter extends ArrayAdapter<TransactionRequest> {
             Log.d(_LOG, "Incomplete transaction");
             holder.progressBar.setVisibility(View.VISIBLE);
             holder.tvDescription.setTextColor(getContext().getResources().getColor(R.color.app_primary_text));
-            holder.doneIndicator.setImageResource(R.drawable.pending);
+            holder.doneIndicator.setImageResource(R.drawable.search);
             holder.doneIndicator.setVisibility(View.GONE);
         }
 

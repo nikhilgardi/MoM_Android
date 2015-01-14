@@ -53,6 +53,8 @@
 
     <string name="btn_pay">भुगतान</string>
 
+    <string name="btn_cash_collected">Cash Collected</string>
+
     <string name="btn_new_recharge">नया रीचार्ज</string>
 
     <string name="btn_new_bill_pay">दूसरे बिल का भुगतान करें</string>
@@ -118,6 +120,8 @@
     <string name="btn_dashboard">डैशबोर्ड</string>
     <string name="btn_recharge">रीचार्ज</string>
 
+
+
     <string name="btn_back">वापस</string>
 
     <string name="btn_login">लॉगिन</string>
@@ -145,6 +149,17 @@
     <string name="old_password">पुराना पासवर्ड</string>
     <string name="new_password">नया पासवर्ड</string>
     <string name="confirm_password">पासवर्ड की पुष्टि करें</string>
+
+
+    <string name="lblTPin_old">Old T-PIN</string>
+    <string name="lblTPin_new">New T-PIN</string>
+    <string name="lblTPin_new_confirm">Confirm New T-PIN</string>
+    <string name="lblMPin_old">Old M-PIN</string>
+    <string name="lblMPin_new">New M-PIN</string>
+    <string name="lblMPin_new_confirm">Confirm New M-PIN</string>
+    <string name="lblOld_password">Old Password</string>
+    <string name="lblNew_password">New Password</string>
+    <string name="lblConfirm_password">Confirm Password</string>
 
 
     <string name="title_activity_change_pin">PIN बदलें</string>
@@ -175,6 +190,12 @@
 
 
     <string name="action_lIC">LIC</string>
+
+    <string name="lic_failed_policyDetails_msg_default">Insufficient Limit</string>
+    <string name="lic_failed_authorised_msg_default">Not Authorized</string>
+
+    <string name="lic_failed_Receipt_msg_default">None of the policies entered is due for payment</string>
+
     <string name="lic_success_msg_default">भुगतान सफल हुआ।</string>
     <string name="lic_failed_msg_default">भुगतान असफल हुआ।</string>
     <string name="error_field_required">यह फील्‍ड अनिवार्य है।</string>

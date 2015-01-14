@@ -448,7 +448,7 @@ public class LICFragment extends FragmentBase implements AsyncListener<Transacti
             _tblPaymentConfirmation.setVisibility(View.GONE);
             _tvFailResponse.setVisibility(View.VISIBLE);
             _tvFailResponse.setTextColor(getActivity().getResources().getColor(R.color.red));
-           
+
             _tvFailResponse.setText(getString(R.string.lic_failed_Receipt_msg_default));
         }
         else{

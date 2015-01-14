@@ -126,6 +126,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                     Log.i(_LOG, "TaskComplete: rechargeMobile method, result: " + result);
                     if (_listener != null) {
                         _listener.onTaskSuccess(getPaymentTransactionResult(result), Methods.RECHARGE_MOBILE);
+                        Log.i("REsult" , result.getConsumerId());
                     }
                     break;
 
@@ -133,12 +134,14 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                     Log.i(_LOG, "TaskComplete: rechargeDTH method, result: " + result);
                     if (_listener != null) {
                         _listener.onTaskSuccess(getPaymentTransactionResult(result), Methods.RECHARGE_DTH);
+                        Log.i("REsultDTH" , result.getConsumerId());
                     }
                     break;
                 case PAY_BILL:
                     Log.i(_LOG, "TaskComplete: payBill method, result: " + result);
                     if (_listener != null) {
                         _listener.onTaskSuccess(getPaymentTransactionResult(result), Methods.PAY_BILL);
+                        Log.i("REsultBill" , result.getConsumerId());
                     }
                     break;
 
@@ -269,7 +272,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         dataEx.execute(
                 new BasicNameValuePair(AppConstants.PARAM_PBX_SERVICE, AppConstants.SVC_PBX_BILL_PAY),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_RMN, _userName),
-                new BasicNameValuePair(AppConstants.PARAM_PBX_CUSTOMER_NUMBER, request.getConsumerId()),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_CUSTOMER_NUMBER, request.getCustomerMobile()),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_AMOUNT, String.valueOf(Math.round(request.getAmount()))),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_OPERTAORSHORTCODE , request.getOperator().getCode()),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_IDENTIFIER, String.valueOf(request.getId())),
@@ -521,6 +524,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 new BasicNameValuePair(AppConstants.PARAM_PBX_RMN, userName),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_IDENTIFIER, String.valueOf(request.getId())),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_ORIGIN_ID, _deviceRegId),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_TOKEN, _token),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_CLIENT_TOKEN, _token)
         );
     }
