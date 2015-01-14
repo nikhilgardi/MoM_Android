@@ -83,8 +83,6 @@
 
     <string name="btn_pay">ಪಾವತಿಸಿ</string>
 
-    <string name="btn_cash_collected">Cash Collected</string>
-
     <string name="btn_new_recharge">ಹೊಸ ರೀಚಾರ್ಜ್</string>
 
     <string name="btn_new_bill_pay">ಇನ್ನೊಂದು ಬಿಲ್ ಪಾವತಿಸಿ</string>
@@ -177,11 +175,9 @@
     <string name="lblTPin_new">New T-PIN</string>
     <string name="lblTPin_new_confirm">Confirm New T-PIN</string>
     <string name="lblMPin_old">Old M-PIN</string>
-    <string name="lblMPin_new">New M-PIN</string>
     <string name="lblMPin_new_confirm">Confirm New M-PIN</string>
     <string name="lblOld_password">Old Password</string>
     <string name="lblNew_password">New Password</string>
-    <string name="lblConfirm_password">Confirm Password</string>
 
 
     <string name="title_activity_change_pin">PIN ಬದಲಾಯಿಸಿ </string>

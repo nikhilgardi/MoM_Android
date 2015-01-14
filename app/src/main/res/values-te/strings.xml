@@ -58,7 +58,6 @@
     <string name="error_no_internet">మీ పరికరం ఇంటర్నెట్‌కు జతచేయబడలేదు మీ ఇంటర్నెట్ కనెక్షన్ తిరిగి పొందిన తరువాత దయచేసి దీనిని తిరిగి ప్రయత్నించండి.</string>
     <string name="error_getting_balance">దోషం</string>
     <string name="btn_pay">చెల్లించడం</string>
-    <string name="btn_cash_collected">Cash Collected</string>
 
     <string name="btn_new_recharge">కొత్త రీఛార్జీ</string>
     <string name="btn_new_bill_pay">మరో బిల్లు చెల్లించడం</string>
@@ -107,11 +106,9 @@
     <string name="lblTPin_new">New T-PIN</string>
     <string name="lblTPin_new_confirm">Confirm New T-PIN</string>
     <string name="lblMPin_old">Old M-PIN</string>
-    <string name="lblMPin_new">New M-PIN</string>
     <string name="lblMPin_new_confirm">Confirm New M-PIN</string>
     <string name="lblOld_password">Old Password</string>
     <string name="lblNew_password">New Password</string>
-    <string name="lblConfirm_password">Confirm Password</string>
 
 
     <string name="yes">అవును</string>
