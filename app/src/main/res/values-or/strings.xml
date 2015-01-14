@@ -466,5 +466,8 @@
     <!--End: NBE/SBE related-->
     <!-- Start: LIC related -->
     <string name="error_could_not_pay">ପ୍ରେରଣ କରାଯାଇଥିବା ପୈଠ ସୁନିଶ୍ଚିତତାରେ ତ୍ରୁଟି ଦୟାକରିପରେ ପୁନଃଚେଷ୍ଟା କରନ୍ତୁ।</string>
+    <string name="btn_cash_collected">Cash Collected</string>
+    <string name="lblConfirm_password">Confirm Password</string>
+    <string name="lblMPin_new">New M-PIN</string>
     <!-- End: LIC related -->
 </resources>

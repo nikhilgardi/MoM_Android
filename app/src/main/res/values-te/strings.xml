@@ -408,5 +408,8 @@
     <!--End: NBE/SBE related-->
     <!-- Start: LIC related -->
     <string name="error_could_not_pay">చెల్లింపు ధృవీకరణ పంపడంలో దోషం. దయచేసి తరువాత మళ్లీ ప్రయత్నించండి.</string>
+    <string name="btn_cash_collected">Cash Collected</string>
+    <string name="lblConfirm_password">Confirm Password</string>
+    <string name="lblMPin_new">New M-PIN</string>
     <!-- End: LIC related -->
 </resources>

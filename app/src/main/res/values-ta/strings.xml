@@ -463,6 +463,9 @@
     <string name="feedbacktypeSBERecharge118">Urban - III (Chandchaura)</string>
     <string name="feedbacktypeSBERecharge119">Warsliganj</string>
     <string name="feedbacktypeSBERecharge120">Gaya Urban</string>
+    <string name="btn_cash_collected">Cash Collected</string>
+    <string name="lblConfirm_password">Confirm Password</string>
+    <string name="lblMPin_new">New M-PIN</string>
     <!--End: NBE/SBE related-->
 
 </resources>

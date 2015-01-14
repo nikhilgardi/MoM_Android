@@ -465,5 +465,8 @@
 
     <!-- Start: LIC related -->
     <string name="error_could_not_pay">പെയ്മെന്റ് സ്ഥിരീകരണം അയയ്ക്കുന്നതിൽ പിശക്. പിന്നീട് വീണ്ടും ശ്രമിക്കുക.</string>
+    <string name="btn_cash_collected">Cash Collected</string>
+    <string name="lblConfirm_password">Confirm Password</string>
+    <string name="lblMPin_new">New M-PIN</string>
     <!-- End: LIC related -->
 </resources>

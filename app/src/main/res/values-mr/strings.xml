@@ -465,6 +465,9 @@
     <!--End: NBE/SBE related-->
     <!-- Start: LIC related -->
     <string name="error_could_not_pay">भूकतान पृष्टी पाठवण्यात त्रुटी. कृपया नंतर पुन्हा प्रयत्न करा.</string>
+    <string name="btn_cash_collected">Cash Collected</string>
+    <string name="lblConfirm_password">Confirm Password</string>
+    <string name="lblMPin_new">New M-PIN</string>
     <!-- End: LIC related -->
 </resources>
 
