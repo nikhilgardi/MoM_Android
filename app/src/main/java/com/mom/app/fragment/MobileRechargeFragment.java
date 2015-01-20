@@ -336,6 +336,18 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
                 _rbtnTopUp.setChecked(true);
                 _rbtnValidity.setChecked(false);
             }
+
+            else if (sOperatorId.equals(AppConstants.OPERATOR_ID_DATACOMM)) {
+
+                _etTargetPhone.setText("");
+                _etAmount.setText("");
+                _rbtnTopUp.setVisibility(view.VISIBLE);
+                _rbtnValidity.setVisibility(view.GONE);
+                _rbtnSpecial.setVisibility(view.VISIBLE);
+                _rbtnTopUp.setChecked(true);
+                _rbtnSpecial.setChecked(false);
+
+            }
         }
 
         @Override

@@ -74,6 +74,108 @@
                 android:hint="@string/lblAmount"
                 android:layout_marginBottom="@dimen/small"/>
 
+
+
+            <com.mom.app.ui.CustomEditText
+                android:id="@+id/DueDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/EditTextAppTheme.phone"
+                android:layout_below="@+id/amount"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+
+                android:hint="Due Date"
+                android:inputType="date"
+
+                android:visibility="gone" />
+            <ImageButton
+                android:id="@+id/imageButton1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:layout_alignBottom="@+id/DueDate"
+                android:layout_toRightOf="@+id/DueDate"
+                android:onClick="setDate"
+                android:cropToPadding="true"
+                android:visibility="gone"
+                android:src="@drawable/calender" />
+            <com.mom.app.ui.CustomButton
+                android:id="@+id/btn_ChangeBtn"
+                android:layout_width="265dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/DueDate"
+
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="21dp"
+                android:layout_marginTop="15dp"
+                android:text="Change Date"
+                android:onClick="setDate"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:visibility="gone"
+                />
+
+            <com.mom.app.ui.CustomEditText
+                android:id="@+id/SDCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/EditTextAppTheme"
+                android:layout_below="@+id/btn_ChangeBtn"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+
+                android:hint="SD CODE"
+
+
+                android:visibility="gone" />
+            <com.mom.app.ui.CustomEditText
+                android:id="@+id/SOP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/EditTextAppTheme.money"
+                android:layout_below="@+id/SDCode"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+
+                android:hint="SOP"
+
+
+                android:visibility="gone" />
+            <com.mom.app.ui.CustomEditText
+                android:id="@+id/FSA"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/EditTextAppTheme.money"
+                android:layout_below="@+id/SOP"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+
+                android:hint="FSA"
+
+
+                android:visibility="gone" />
+            <com.mom.app.ui.CustomEditText
+                android:id="@+id/ACMonth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/EditTextAppTheme.money"
+                android:layout_below="@+id/FSA"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+
+                android:hint="A/C Month"
+                android:inputType="number"
+                android:maxLength="10"
+                android:visibility="gone" />
+
+
+
             <LinearLayout
                 android:weightSum="3"
                 style="@style/MoMTheme.btn_container">

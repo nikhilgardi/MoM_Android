@@ -97,6 +97,13 @@
     <string name="prompt_numbers_only_amount">Please only enter numbers in the amount field</string>
     <string name="prompt_select_operator">Please select the Operator</string>
     <string name="lblBal">Bal: </string>
+
+
+    <string name ="error_sinUp_msg">You are already registered with Money On Mobile.</string>
+    <string name="lblKNumber">KNumber</string>
+    <string name="lblBPNumber">BP Number</string>
+    <string name="lblCANumber">CA Number</string>
+    <string name="lblCRNIDNumber">CRNID Number</string>
     <string name="lblSubscriberId">Subscriber ID</string>
     <string name="lblRechargeAmount">Recharge Amount</string>
     <string name="lblAmount">Amount</string>
@@ -126,6 +133,9 @@
     <string name="title_activity_change_pin">Change PIN</string>
     <string name="title_activity_settings">Settings</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="prompt_Validity_DOB_Age">Minimum age of 18 years required for SignUp</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <!-- START: LANGUAGE RELATED -->

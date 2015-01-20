@@ -102,6 +102,16 @@ public class ChangePinFragment extends FragmentBase implements AsyncListener<Tra
                 Log.d(_LOG, "Starting navigation to TxnMsg Activity");
 
                 break;
+
+            case CHANGE_PASSWORD:
+                if(result == null){
+                    Log.d(_LOG, "Obtained NULL recharge response");
+                    showMessage(getResources().getString(R.string.error_pin_confirm_mismatch));
+                    return;
+                }
+                Log.d(_LOG, "Starting navigation to TxnMsg Activity");
+
+                break;
         }
         Log.i("ResultChange" , result.getRemoteResponse()+ result.getResponseCode());
         showMessage(result.getRemoteResponse());

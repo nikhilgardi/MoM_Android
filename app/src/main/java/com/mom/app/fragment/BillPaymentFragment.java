@@ -1,16 +1,22 @@
 package com.mom.app.fragment;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CalendarView;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -28,6 +34,8 @@ import com.mom.app.ui.TransactionRequest;
 import com.mom.app.utils.AppConstants;
 import com.mom.app.utils.DataProvider;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -42,8 +50,14 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
     private EditText _etSubscriberId;
     private EditText _etAmount;
     private EditText _etCustomerNumber;
+     EditText et_dueDate ,et_sdCode , et_sop ,et_fsa ,et_acMonth;
     private TextView _billMsgDisplay;
     private Button _btnPay;
+    private int day;
+    private int month;
+    private int year;
+    private Calendar cal;
+
 
     Spinner _spOperator;
 
@@ -76,10 +90,36 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
         _etCustomerNumber   = (EditText) view.findViewById(R.id.number);
         _btnPay             = (Button) view.findViewById(R.id.btnPay);
 
+        et_dueDate = (EditText) view.findViewById(R.id.DueDate);
+        et_sdCode = (EditText) view.findViewById(R.id.SDCode);
+        et_sop = (EditText) view.findViewById(R.id.SOP);
+        et_fsa = (EditText) view.findViewById(R.id.FSA);
+        et_acMonth = (EditText) view.findViewById(R.id.ACMonth);
+
+        cal = Calendar.getInstance();
+        day = cal.get(Calendar.DAY_OF_MONTH);
+        month = cal.get(Calendar.MONTH);
+        year = cal.get(Calendar.YEAR);
+
+
+
         _btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 validateAndPay(view);
+            }
+        });
+
+        et_dueDate.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getAction() == MotionEvent.ACTION_UP){
+                    showDatePicker();
+
+                }
+                return false;
+
             }
         });
 
@@ -158,15 +198,24 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
 
         if (_currentPlatform == PlatformIdentifier.MOM)
         {
-            String id      = AppConstants.OPERATOR_NEW.get(strOperatorName);
+            Operator operator               = (Operator) _spOperator.getSelectedItem();
+            String id = operator.getCode();
+          //  String id      = AppConstants.OPERATOR_NEW.get(operator);
             if(id == null){
                 return "-1";
             }
-
+            Log.i("OperatorBillMOM Payment", id);
             return id;
 
         } else if (_currentPlatform == PlatformIdentifier.PBX) {
-
+           // String id      = AppConstants.OPERATOR_PBX.get(strOperatorName);
+            Operator operator               = (Operator) _spOperator.getSelectedItem();
+            String id = operator.getCode();
+            if(id == null){
+                return "-1";
+            }
+            Log.i("OperatorBill Payment", id);
+            return id;
         }
         return "-1";
     }
@@ -213,7 +262,9 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
         }
 
         String sOperator        = _spOperator.getSelectedItem().toString();
+        Log.i("sOperator" , sOperator);
         String sOperatorId      = getOperatorId(sOperator);
+        Log.i("sOperatorId" , sOperatorId);
 
         int nMinAmount          = 10;
         int nMaxAmount          = 10000;
@@ -301,7 +352,7 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
         String sCustomerName            = "";
 
         int nRechargeType               = 0;
-        Log.i("Params" , sSubscriberId +"/n" + sAmount +"/n"+ operator+ "/n" +  sCustomerNumber);
+
 //        SharedPreferences pref = PreferenceManager
 //                .getDefaultSharedPreferences(getApplicationContext());
         HashMap<String, String> map     = new HashMap<String, String>();
@@ -348,6 +399,7 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
         String sOperator                = _spOperator.getSelectedItem().toString();
 
         String sOperatorId              = getOperatorId(sOperator);
+        Log.i("AlertOperatorId" , sOperatorId);
 
         if(
                 AppConstants.OPERATOR_ID_RELIANCE_ENERGY.equals(sOperatorId) ||
@@ -387,6 +439,47 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
         alertDialog.show();
     }
 
+
+    private void showDatePicker() {
+        DatepickerFragment date = new DatepickerFragment();
+
+        Calendar calender = Calendar.getInstance();
+        Bundle args = new Bundle();
+        args.putInt("year", calender.get(Calendar.YEAR));
+        args.putInt("month", calender.get(Calendar.MONTH));
+        args.putInt("day", calender.get(Calendar.DAY_OF_MONTH));
+        date.setArguments(args);
+
+        date.setCallBack(ondate);
+        date.show(getFragmentManager(), "Date Picker");
+    }
+
+    DatePickerDialog.OnDateSetListener ondate = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
+
+            showDate(arg1 , arg2 + 1, arg3);
+        }
+    };
+
+    private void showDate(int year , int month, int day) {
+        et_dueDate.setText(new StringBuilder().append(day).append("/")
+                .append(month).append("/").append(year));
+       
+        Calendar userAge = new GregorianCalendar(year, month, day);
+        Calendar minAdultAge = new GregorianCalendar();
+        minAdultAge.add(Calendar.YEAR, -18);
+
+
+        if (minAdultAge.before(userAge)) {
+            showMessage(getResources().getString(R.string.prompt_Validity_DOB_Age));
+        } else {
+            hideMessage();
+        }
+    }
+
+
+
     public void showRetrieveBillFields(){
         _etSubscriberId.setVisibility(View.VISIBLE);
         _btnGetBillAmount.setVisibility(View.VISIBLE);
@@ -394,6 +487,7 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
         String sOperator                = _spOperator.getSelectedItem().toString();
         Log.d(_LOG, "Operator selected: " + sOperator);
         String sOperatorId              = getOperatorId(sOperator);
+        Log.d(_LOG, "Operator selectedID: " + sOperatorId);
 
         if(AppConstants.OPERATOR_ID_BSES_RAJDHANI.equals(sOperatorId)||
            AppConstants.OPERATOR_ID_BESCOM_BANGALURU.equals(sOperatorId) ||
@@ -401,6 +495,11 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
            AppConstants.OPERATOR_ID_DHBVN_HARYANA.equals(sOperatorId)||
            AppConstants.OPERATOR_ID_INDRAPRASTHA_GAS.equals(sOperatorId)){
             _btnGetBillAmount.setVisibility(View.GONE);
+            et_dueDate.setVisibility(View.GONE);
+        }
+        else if( AppConstants.OPERATOR_ID_DELHI_JAL_BOARD.equals(sOperatorId)){
+            _btnGetBillAmount.setVisibility(View.GONE);
+            et_dueDate.setVisibility(View.VISIBLE);
         }
     }
 
@@ -423,7 +522,10 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
             String sConsumerNumber          = getResources().getString(R.string.lblConsumerNumber);
             String sAccountNumber           = getResources().getString(R.string.lblAccountNumber);
             String sMobileNumber            = getResources().getString(R.string.lblCustomerMobile);
-
+            String sCANumber                = getResources().getString(R.string.lblCANumber);
+            String sCRNIDNumber             = getResources().getString(R.string.lblCRNIDNumber);
+            String sBPNumber                = getResources().getString(R.string.lblBPNumber);
+            String sKNumber                 = getResources().getString(R.string.lblKNumber);
             String sHintDisplay             = sConsumerNumber;
 
             showBillMessage("");
@@ -443,17 +545,42 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
             if(AppConstants.OPERATOR_ID_NBE.equals(sOperatorId) || AppConstants.OPERATOR_ID_SBE.equals(sOperatorId)){
                 sHintDisplay                = sConsumerNumber;
             }else if(
-                    AppConstants.OPERATOR_ID_RELIANCE_ENERGY.equals(sOperatorId) ||
-                            AppConstants.OPERATOR_ID_BEST_ELECTRICITY.equals(sOperatorId) ||
-                            AppConstants.OPERATOR_ID_MAHANAGAR_GAS.equals(sOperatorId) ||
-                            AppConstants.OPERATOR_ID_BSES_RAJDHANI.equals(sOperatorId) ||
                             AppConstants.OPERATOR_ID_BESCOM_BANGALURU.equals(sOperatorId)||
-                            AppConstants.OPERATOR_ID_CESCOM_MYSORE.equals(sOperatorId)||
-                            AppConstants.OPERATOR_ID_DHBVN_HARYANA.equals(sOperatorId)||
-                            AppConstants.OPERATOR_ID_INDRAPRASTHA_GAS.equals(sOperatorId)){
+                            AppConstants.OPERATOR_ID_CESCOM_MYSORE.equals(sOperatorId) ){
 
                 sHintDisplay                = sAccountNumber;
 
+                showRetrieveBillFields();
+            }
+
+            else if( AppConstants.OPERATOR_ID_RELIANCE_ENERGY.equals(sOperatorId) ||
+                    AppConstants.OPERATOR_ID_BEST_ELECTRICITY.equals(sOperatorId)){
+                sHintDisplay                = sConsumerNumber;
+                showRetrieveBillFields();
+            }
+
+            else if( AppConstants.OPERATOR_ID_MAHANAGAR_GAS.equals(sOperatorId)){
+                sHintDisplay                = sCANumber;
+                showRetrieveBillFields();
+            }
+
+            else if(  AppConstants.OPERATOR_ID_BSES_RAJDHANI.equals(sOperatorId) ){
+                sHintDisplay              = sCRNIDNumber;
+                showRetrieveBillFields();
+            }
+
+
+            else if(  AppConstants.OPERATOR_ID_INDRAPRASTHA_GAS.equals(sOperatorId) ){
+                sHintDisplay              = sBPNumber;
+                showRetrieveBillFields();
+            }
+
+            else if(  AppConstants.OPERATOR_ID_DHBVN_HARYANA.equals(sOperatorId) ){
+                sHintDisplay              = sKNumber;
+                showRetrieveBillFields();
+            }
+            else if(  AppConstants.OPERATOR_ID_DELHI_JAL_BOARD.equals(sOperatorId) ){
+                sHintDisplay              = sKNumber;
                 showRetrieveBillFields();
             }
 

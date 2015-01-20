@@ -65,7 +65,7 @@ public class DataProvider {
                 )
         );
 
-        if(platform == PlatformIdentifier.MOM){
+//        if(platform == PlatformIdentifier.MOM){
             imageItems.add(
                     new ImageItem<MoMScreen>(
                             MoMScreen.BALANCE_TRANSFER,
@@ -76,7 +76,7 @@ public class DataProvider {
                             false
                     )
             );
-        }
+      //  }
 
         imageItems.add(
                 new ImageItem<MoMScreen>(
@@ -220,10 +220,12 @@ public class DataProvider {
         String[] operatorNames  = {AppConstants.OPERATOR_ID_AIRCEL_BILL , AppConstants.OPERATOR_ID_AIRTEL_BILL,
                 AppConstants.OPERATOR_ID_AIRTEL_LAND_LINE,
                 AppConstants.OPERATOR_ID_BESCOM_BANGALURU, AppConstants.OPERATOR_ID_BEST_ELECTRICITY,
-                AppConstants.OPERATOR_ID_BSES_RAJDHANI, AppConstants.OPERATOR_ID_BSNL_BILL_PAY,
+                AppConstants.OPERATOR_ID_BSES_RAJDHANI,  AppConstants.OPERATOR_ID_BSES_YAMUNA,
+                AppConstants.OPERATOR_ID_BSNL_BILL_PAY,
                 AppConstants.OPERATOR_ID_CELLONE_BILL_PAY, AppConstants.OPERATOR_ID_CESC_LIMITED,
                 AppConstants.OPERATOR_ID_CESCOM_MYSORE,
-                AppConstants.OPERATOR_ID_DHBVN_HARYANA, AppConstants.OPERATOR_ID_IDEA_BILL,
+                AppConstants.OPERATOR_ID_DHBVN_HARYANA, AppConstants.OPERATOR_ID_DELHI_JAL_BOARD,
+                AppConstants.OPERATOR_ID_IDEA_BILL,
                 AppConstants.OPERATOR_ID_INDRAPRASTHA_GAS, AppConstants.OPERATOR_ID_MAHANAGAR_GAS,
                 AppConstants.OPERATOR_ID_NBE, AppConstants.OPERATOR_ID_RELIANCE_BILL_GSM,
                 AppConstants.OPERATOR_ID_RELIANCE_BILL_CDMA,
