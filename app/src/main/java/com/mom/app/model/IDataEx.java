@@ -24,7 +24,7 @@ public interface IDataEx {
 
     public void payBill(
             TransactionRequest<PaymentResponse> request,
-            String psConsumerName,
+            String psConsumerName,String sDueDate,
             HashMap<String, String> psExtraParamsMap
     );
 

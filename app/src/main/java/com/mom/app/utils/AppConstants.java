@@ -263,12 +263,14 @@ public class AppConstants {
     public static final String OPERATOR_ID_BESCOM_BANGALURU = "61";
     public static final String OPERATOR_ID_BEST_ELECTRICITY = "55";
     public static final String OPERATOR_ID_BSES_RAJDHANI    = "58";
+    public static final String OPERATOR_ID_BSES_YAMUNA      = "70";
     public static final String OPERATOR_ID_BSNL_BILL_PAY    = "6";
     public static final String OPERATOR_ID_CELLONE_BILL_PAY = "56";
     public static final String OPERATOR_ID_CESC_LIMITED     = "57";
 
     public static final String OPERATOR_ID_CESCOM_MYSORE    = "62";
     public static final String OPERATOR_ID_DHBVN_HARYANA    = "59";
+    public static final String OPERATOR_ID_DELHI_JAL_BOARD  = "74";
     public static final String OPERATOR_ID_IDEA_BILL        = "35";
     public static final String OPERATOR_ID_INDRAPRASTHA_GAS = "63";
     public static final String OPERATOR_ID_MAHANAGAR_GAS    = "45";
@@ -370,11 +372,13 @@ public class AppConstants {
         OPERATOR_NEW.put(AppConstants.OPERATOR_ID_BESCOM_BANGALURU, "BESCOM BANGALURU");
         OPERATOR_NEW.put(AppConstants.OPERATOR_ID_BEST_ELECTRICITY, "BEST ELECTRICITY BILL");
         OPERATOR_NEW.put(AppConstants.OPERATOR_ID_BSES_RAJDHANI, "BSES RAJDHANI");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_BSES_YAMUNA, "BSES YAMUNA");
         OPERATOR_NEW.put(AppConstants.OPERATOR_ID_BSNL_BILL_PAY, "BSNL BILL PAY");
         OPERATOR_NEW.put(AppConstants.OPERATOR_ID_CELLONE_BILL_PAY, "CELLONE BILL PAY");
         OPERATOR_NEW.put(AppConstants.OPERATOR_ID_CESC_LIMITED, "CESC LIMITED");
         OPERATOR_NEW.put(AppConstants.OPERATOR_ID_CESCOM_MYSORE, "CESCOM MYSORE");
         OPERATOR_NEW.put(AppConstants.OPERATOR_ID_DHBVN_HARYANA, "DHBVN HARYANA");
+        OPERATOR_NEW.put(AppConstants.OPERATOR_ID_DELHI_JAL_BOARD, "DELHI JAL BOARD");
         OPERATOR_NEW.put(AppConstants.OPERATOR_ID_IDEA_BILL, "IDEA BILL");
         OPERATOR_NEW.put(AppConstants.OPERATOR_ID_INDRAPRASTHA_GAS, "INDRAPRASTH GAS");
         OPERATOR_NEW.put(AppConstants.OPERATOR_ID_MAHANAGAR_GAS, "MAHANAGAR GAS BILL");
