@@ -455,7 +455,7 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
     public void payBill(
                         TransactionRequest<PaymentResponse> request,
-                        String psConsumerName,
+                        String psConsumerName,String formatDueDate,
                         HashMap<String, String> pExtraParamsMap
                     ){
 
@@ -479,6 +479,9 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
             strCustomerNumber   = request.getConsumerId() + "|" + request.getCustomerMobile()
                                 + "|" + sUserId;
 
+        }
+        else if (AppConstants.OPERATOR_ID_DELHI_JAL_BOARD.equals(operatorCode)){
+            strCustomerNumber   = request.getConsumerId() + "|" + request.getCustomerMobile() +"|"+ formatDueDate;
         }
         else if(AppConstants.OPERATOR_ID_BSES_RAJDHANI.equals(operatorCode) ||
                 AppConstants.OPERATOR_ID_BESCOM_BANGALURU.equals(operatorCode)||

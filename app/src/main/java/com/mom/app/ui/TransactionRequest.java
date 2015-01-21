@@ -74,6 +74,14 @@ public class TransactionRequest<T> implements Serializable{
 
     String remoteResponse;
 
+
+    String ACMonth;
+    static String DueDate;
+     String SDCode;
+     String SOP;
+     String FSA;
+     String FormatDueDate;
+
     T custom;
 String remoteId;
     /**
@@ -252,4 +260,55 @@ String remoteId;
     public void setCustom(T custom) {
         this.custom = custom;
     }
+
+    public String getACMonth() {
+        return ACMonth;
+    }
+
+    public void setACMonth(String ACMonth) {
+        this.ACMonth = ACMonth;
+    }
+
+    public  String getDueDate() {
+        return DueDate;
+    }
+
+    public  void setDueDate(String dueDate) {
+        DueDate = dueDate;
+    }
+
+    public String getSDCode() {
+        return SDCode;
+    }
+
+    public void setSDCode(String SDCode) {
+        this.SDCode = SDCode;
+    }
+
+    public String getSOP() {
+        return SOP;
+    }
+
+    public void setSOP(String SOP) {
+        this.SOP = SOP;
+    }
+
+    public String getFSA() {
+        return FSA;
+    }
+
+    public void setFSA(String FSA) {
+        this.FSA = FSA;
+    }
+
+    public String getFormatDueDate() {
+        return FormatDueDate;
+    }
+
+    public void setFormatDueDate(String formatDueDate) {
+        FormatDueDate = formatDueDate;
+    }
+
+
+
 }

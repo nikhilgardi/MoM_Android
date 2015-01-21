@@ -262,7 +262,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
     public void payBill(
             TransactionRequest<PaymentResponse> request,
-            String psConsumerName,
+            String psConsumerName, String sDueDate,
             HashMap<String, String> pExtraParamsMap
     ){
         String url				    = AppConstants.URL_PBX_PLATFORM_APP ;

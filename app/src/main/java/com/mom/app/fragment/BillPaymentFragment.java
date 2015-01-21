@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import java.text.ParseException;
 
 import com.mom.app.R;
 import com.mom.app.identifier.PlatformIdentifier;
@@ -30,14 +31,18 @@ import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.IDataEx;
 import com.mom.app.model.Operator;
+import com.mom.app.model.local.EphemeralStorage;
 import com.mom.app.ui.TransactionRequest;
 import com.mom.app.utils.AppConstants;
 import com.mom.app.utils.DataProvider;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by vaibhavsinha on 10/8/14.
@@ -57,8 +62,9 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
     private int month;
     private int year;
     private Calendar cal;
+    String formatDueDate;
 
-
+    TransactionRequest transrequest = new TransactionRequest();
     Spinner _spOperator;
 
     public static BillPaymentFragment newInstance(PlatformIdentifier currentPlatform){
@@ -350,8 +356,24 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
         Operator operator               = (Operator) _spOperator.getSelectedItem();
         String sCustomerNumber          = _etCustomerNumber.getText().toString().trim();
         String sCustomerName            = "";
-
+        String sDueDate = et_dueDate.getText().toString();
+        Log.i("Check" , sDueDate);
         int nRechargeType               = 0;
+
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            Date dueDate = dateFormat.parse(sDueDate);
+            Log.i("FormatDate" , dueDate.toString());
+            dateFormat = new SimpleDateFormat("dd/MM/yy");
+            formatDueDate = dateFormat.format(dueDate);
+            Log.i("FormatDate1" , formatDueDate);
+
+
+        }
+        catch (ParseException e) {
+
+        }
 
 //        SharedPreferences pref = PreferenceManager
 //                .getDefaultSharedPreferences(getApplicationContext());
@@ -372,7 +394,7 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
                 operator
         );
 
-        getDataEx(this).payBill(request, sCustomerName, map);
+        getDataEx(this).payBill(request,sCustomerName,formatDueDate, map );
 
         _etAmount.setText(null);
         _etSubscriberId.setText(null);
@@ -465,18 +487,8 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
     private void showDate(int year , int month, int day) {
         et_dueDate.setText(new StringBuilder().append(day).append("/")
                 .append(month).append("/").append(year));
-       
-        Calendar userAge = new GregorianCalendar(year, month, day);
-        Calendar minAdultAge = new GregorianCalendar();
-        minAdultAge.add(Calendar.YEAR, -18);
 
-
-        if (minAdultAge.before(userAge)) {
-            showMessage(getResources().getString(R.string.prompt_Validity_DOB_Age));
-        } else {
-            hideMessage();
-        }
-    }
+   }
 
 
 
