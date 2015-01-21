@@ -38,10 +38,10 @@
     <string name="action_lIC">LIC</string>
     <string name="title_activity_transaction_confirmation">Transaction Result</string>
     <string name="lic_success_msg_default">Payment Successful.</string>
-    <string name="lic_failed_policyDetails_msg_default">Insufficient Limit</string>
-    <string name="lic_failed_authorised_msg_default">Not Authorized</string>
+    <string name="lic_failed_policyDetails_msg_default" translatable="false">Insufficient Limit</string>
+    <string name="lic_failed_authorised_msg_default" translatable="false">Not Authorized</string>
     <string name="lic_failed_msg_default">Payment Failed.Please try again later</string>
-    <string name="lic_failed_Receipt_msg_default">None of the policies entered is due for payment</string>
+    <string name="lic_failed_Receipt_msg_default" translatable="false">None of the policies entered is due for payment</string>
     <string name="error_field_required">This field is mandatory</string>
     <string name="error_pin_confirm_mismatch">Both PINs should be same</string>
     <string name="error_init_app">Error initializing the app. Please try again later or contact customer support if the problem persists</string>
@@ -114,14 +114,14 @@
     <string name="lblPolicyNumber">Policy Number</string>
     <string name="lblCustomerLandlineNumber">Customer\'s Land Line Number</string>
     <string name="lblAccountNumber">Account Number</string>
-    <string name="lblTPin_old">Old T-PIN</string>
-    <string name="lblTPin_new">New T-PIN</string>
-    <string name="lblTPin_new_confirm">Confirm New T-PIN</string>
-    <string name="lblMPin_old">Old M-PIN</string>
+    <string name="lblTPin_old" translatable="false">Old T-PIN</string>
+    <string name="lblTPin_new" translatable="false">New T-PIN</string>
+    <string name="lblTPin_new_confirm" translatable="false">Confirm New T-PIN</string>
+    <string name="lblMPin_old" translatable="false">Old M-PIN</string>
     <string name="lblMPin_new">New M-PIN</string>
-    <string name="lblMPin_new_confirm">Confirm New M-PIN</string>
-    <string name="lblOld_password">Old Password</string>
-    <string name="lblNew_password">New Password</string>
+    <string name="lblMPin_new_confirm" translatable="false">Confirm New M-PIN</string>
+    <string name="lblOld_password" translatable="false">Old Password</string>
+    <string name="lblNew_password" translatable="false">New Password</string>
     <string name="lblConfirm_password">Confirm Password</string>
     <string name="confirm_balance_transfer">Confirm Transfer</string>
     <string name="transfer">transfer</string>
@@ -407,5 +407,9 @@
     <string name="feedbacktypeSBERecharge118">Urban - III (Chandchaura)</string>
     <string name="feedbacktypeSBERecharge119">Warsliganj</string>
     <string name="feedbacktypeSBERecharge120">Gaya Urban</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="tpin_new">New T-Pin</string>
+    <string name="tpin_new_confirm">Confirm New T-Pin</string>
+    <string name="tpin_old">Old T-Pin</string>
     <!--End: NBE/SBE related-->
 </resources>

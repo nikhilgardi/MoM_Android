@@ -44,7 +44,6 @@
 
     <string name="btn_pay">পে করুন</string>
 
-    <string name="btn_cash_collected">Cash Collected</string>
 
     <string name="btn_new_recharge">নতুন রিচার্জ</string>
 
@@ -172,11 +171,9 @@
     <string name="lblTPin_new">New T-PIN</string>
     <string name="lblTPin_new_confirm">Confirm New T-PIN</string>
     <string name="lblMPin_old">Old M-PIN</string>
-    <string name="lblMPin_new">New M-PIN</string>
     <string name="lblMPin_new_confirm">Confirm New M-PIN</string>
     <string name="lblOld_password">Old Password</string>
     <string name="lblNew_password">New Password</string>
-    <string name="lblConfirm_password">Confirm Password</string>
 
     <string name="title_activity_retailer_payment">রিটেলার পেমেন্ট</string>
 
@@ -473,6 +470,9 @@
     <string name="feedbacktypeSBERecharge118">Urban - III (Chandchaura)</string>
     <string name="feedbacktypeSBERecharge119">Warsliganj</string>
     <string name="feedbacktypeSBERecharge120">Gaya Urban</string>
+    <string name="btn_cash_collected">Cash Collected</string>
+    <string name="lblConfirm_password">Confirm Password</string>
+    <string name="lblMPin_new">New M-PIN</string>
     <!--End: NBE/SBE related-->
 
 
