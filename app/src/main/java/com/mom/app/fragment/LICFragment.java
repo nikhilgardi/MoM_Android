@@ -465,10 +465,6 @@ public class LICFragment extends FragmentBase implements AsyncListener<Transacti
     }
 
 
-    @Override
-    protected void showBalance(float pfBalance) {
-    }
-
     public void validateAndGetAmount() {
         String policyNumber           = _etLIC.getText().toString();
         String CustomerMobNo          = _etCustMobileNumber.getText().toString();

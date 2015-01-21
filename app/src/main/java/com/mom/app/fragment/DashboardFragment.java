@@ -81,10 +81,6 @@ public class DashboardFragment extends FragmentBase {
         );
     }
 
-    @Override
-    protected void showBalance(float pfBalance) {
-
-    }
 
     private void showScreen(ImageItem<MoMScreen> item){
         MoMScreen screen                            = item.getItem();

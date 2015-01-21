@@ -97,10 +97,6 @@ public class TransactionHistoryFragment extends FragmentBase implements AsyncLis
     }
 
 
-    @Override
-    protected void showBalance(float pfBalance) {
-
-    }
 
     public void getHistory(){
         getDataEx(this).getTransactionHistory();

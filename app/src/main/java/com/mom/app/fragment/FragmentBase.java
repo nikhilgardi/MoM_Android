@@ -20,6 +20,7 @@ import com.mom.app.R;
 import com.mom.app.activity.LoginActivity;
 import com.mom.app.error.MOMException;
 import com.mom.app.identifier.IdentifierUtils;
+import com.mom.app.identifier.MessageCategory;
 import com.mom.app.identifier.PlatformIdentifier;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
@@ -48,7 +49,11 @@ public abstract class FragmentBase extends Fragment {
     Button _backBtn;
 
 
-    protected abstract void showBalance(float pfBalance);
+    protected void showBalance(){
+        Bundle bundle       = new Bundle();
+        bundle.putSerializable(AppConstants.BUNDLE_MESSAGE_CATEGORY, MessageCategory.GET_AND_SHOW_BALANCE);
+        _callbackListener.processMessage(bundle);
+    }
 
     protected void setCurrentPlatform() {
         _currentPlatform    = IdentifierUtils.getPlatformIdentifier(getActivity());
@@ -152,27 +157,7 @@ public abstract class FragmentBase extends Fragment {
         startActivity(intent);
     }
 
-    protected void showBalance(TextView tv){
-        float balance         = EphemeralStorage.getInstance(
-                getActivity()
-        ).getFloat(AppConstants.USER_BALANCE, AppConstants.ERROR_BALANCE);
 
-        showBalance(tv, balance);
-    }
-
-    protected void showBalance(TextView tv, Float balance){
-        String sBal         = null;
-        if(balance == AppConstants.ERROR_BALANCE){
-            sBal            = getString(R.string.error_getting_balance);
-            return;
-        }else {
-            DecimalFormat df = new DecimalFormat("#,###,###,##0.00");
-            sBal = df.format(balance);
-        }
-
-        tv.setText("Balance: " + getResources().getString(R.string.Rupee) + sBal);
-        Log.d("BAlcheck" , sBal);
-    }
 
 
     protected void setupBackListener(){

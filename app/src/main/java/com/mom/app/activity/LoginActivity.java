@@ -243,7 +243,7 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
                 Log.i(_LOG, "Check result: " + result);
 
                 //TESTING. TODO: Remove this
-              // result = null;
+//              result = null;
                 //TESTING
 
                 if(TextUtils.isEmpty(result)){
@@ -265,7 +265,6 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
                 EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_USER_ID, sArrDetails[0]);
 
                 EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_CUSTOMER_ID, sArrDetails[1]);
-                Log.i("TestStore" ,sArrDetails[1]);
                 EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_MOBILE_NUMBER, sArrDetails[2]);
                 EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_COMPANY_ID, sArrDetails[3]);
                 EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_ROLE_ID, sArrDetails[4]);
