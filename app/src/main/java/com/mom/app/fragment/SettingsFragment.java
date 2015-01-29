@@ -101,10 +101,6 @@ public class SettingsFragment  extends FragmentBase implements AsyncListener<Str
         _currentPlatform        = (PlatformIdentifier) getArguments().getSerializable(AppConstants.ACTIVE_PLATFORM);
     }
 
-    @Override
-    protected void showBalance(float pfBalance) {
-
-    }
 
     @Override
     public void onTaskSuccess(String result, DataExImpl.Methods callback) {

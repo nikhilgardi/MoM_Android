@@ -125,10 +125,6 @@ public class ChangePinFragment extends FragmentBase implements AsyncListener<Tra
 
     }
 
-    @Override
-    protected void showBalance(float pfBalance) {
-    }
-
     private int validate() {
 
         if (_oldPin.getText().length() <= 8) {

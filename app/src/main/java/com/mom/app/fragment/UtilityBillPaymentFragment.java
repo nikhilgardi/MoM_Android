@@ -159,7 +159,7 @@ public class UtilityBillPaymentFragment extends FragmentBase implements AsyncLis
                     showMessage(getResources().getString(R.string.error_recharge_failed));
                     return;
                 }
-
+                showBalance();
                 Log.d(_LOG, "Starting navigation to TxnMsg Activity");
 //                navigateToTransactionMessageActivity(ActivityIdentifier.BILL_PAYMENT, result);
                 break;
@@ -173,10 +173,10 @@ public class UtilityBillPaymentFragment extends FragmentBase implements AsyncLis
 
     }
 
-    @Override
-    protected void showBalance(float pfBalance) {
-
-    }
+//    @Override
+//    protected void showBalance(float pfBalance) {
+//
+//    }
 
 
     public void getAllOperators() {

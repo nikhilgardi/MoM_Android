@@ -131,6 +131,8 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
             case RECHARGE_MOBILE:
                 taskCompleted(result);
                 Log.i("MobileRecharge" , result.getRemoteResponse());
+
+                showBalance();
                 break;
         }
     }
@@ -145,10 +147,6 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
     public void receiveMessage(Bundle bundle) throws MOMException{
         Log.d(_LOG, "Received message in sub-fragment");
 
-    }
-
-    @Override
-    protected void showBalance(float pfBalance) {
     }
 
     public void addListenerOnSpinnerItemSelection() {

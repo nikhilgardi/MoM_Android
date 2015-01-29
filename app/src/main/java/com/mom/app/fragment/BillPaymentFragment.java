@@ -166,8 +166,8 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
                     return;
                 }
 
+                showBalance();
                 Log.d(_LOG, "Starting navigation to TxnMsg Activity");
-//                navigateToTransactionMessageActivity(ActivityIdentifier.BILL_PAYMENT, result);
                 break;
         }
 
@@ -176,11 +176,6 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
 
     @Override
     public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
-
-    }
-
-    @Override
-    protected void showBalance(float pfBalance) {
 
     }
 

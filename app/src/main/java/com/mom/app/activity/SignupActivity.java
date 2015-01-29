@@ -77,7 +77,7 @@ public class SignupActivity extends Activity {
         et_emailId = (EditText) findViewById(R.id.et_emailId);
         btn_login = (Button) findViewById(R.id.btn_login);
         btn_signUp = (Button) findViewById(R.id.BTN_signIn);
-       // responseText = (TextView) findViewById(R.id.tv_response);
+
         cal = Calendar.getInstance();
         day = cal.get(Calendar.DAY_OF_MONTH);
         month = cal.get(Calendar.MONTH);

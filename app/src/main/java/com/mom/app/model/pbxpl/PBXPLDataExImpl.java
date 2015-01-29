@@ -369,11 +369,6 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
     @Override
     public void getBalance(){
 
-
-
-
-
-
         String url                  = AppConstants.URL_PBX_PLATFORM_APP;
         TransactionRequest request  = new TransactionRequest();
 
@@ -386,7 +381,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
         dataEx.execute(
                 new BasicNameValuePair(AppConstants.PARAM_PBX_SERVICE, AppConstants.SVC_PBX_CHECK_BALANCE),
-                new BasicNameValuePair(AppConstants.PARAM_PBX_RN, userName),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_RMN, userName),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_IDENTIFIER, String.valueOf(request.getId())),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_ORIGIN_ID, _deviceRegId),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_CLIENT_TOKEN, _token)

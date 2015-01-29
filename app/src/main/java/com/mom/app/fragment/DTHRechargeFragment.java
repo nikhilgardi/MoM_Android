@@ -102,8 +102,8 @@ public class DTHRechargeFragment extends FragmentBase implements AsyncListener<T
                     showMessage(getResources().getString(R.string.error_recharge_failed));
                     return;
                 }
-                Log.d(_LOG, "Starting navigation to TxnMsg Activity");
 
+                showBalance();
                 break;
         }
         
@@ -114,11 +114,6 @@ public class DTHRechargeFragment extends FragmentBase implements AsyncListener<T
     public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
 
     }
-
-    @Override
-    protected void showBalance(float pfBalance) {
-    }
-
 
     public void getAllOperators() {
         List<Operator> operatorList = null;

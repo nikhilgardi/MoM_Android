@@ -86,6 +86,8 @@ public class AppConstants {
     public static final String BUNDLE_NEXT_SCREEN           = PACKAGE + "NextScreen";
     public static final String BUNDLE_TRANSACTION_REQUEST   = PACKAGE + "Transaction";
     public static final String BUNDLE_PROGRESS              = PACKAGE + "Progress";
+    public static final String BUNDLE_MESSAGE_CATEGORY      = PACKAGE + "MessageCat";
+
     //End: Bundle Messages
     //Start: PBX Platform Methods
 

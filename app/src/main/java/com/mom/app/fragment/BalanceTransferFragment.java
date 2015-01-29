@@ -86,11 +86,15 @@ public class BalanceTransferFragment extends FragmentBase implements AsyncListen
                 }
                 Log.d(_LOG, "Going to get new balance");
                 Log.d(_LOG, "Starting navigation to TxnMsg Activity");
+
 //                navigateToTransactionMessageActivity(ActivityIdentifier.BALANCE_TRANSFER, result);
                 Log.i("ResultBalanceTransfer" , result.getRemoteResponse()+ result.getResponseCode());
                 Log.i("ResultBalanceTransferData" , result.getRemoteResponse());
                 showProgress(false);
                 showMessage(result.getRemoteResponse());
+
+                showBalance();
+
                 break;
         }
 
@@ -101,10 +105,6 @@ public class BalanceTransferFragment extends FragmentBase implements AsyncListen
     @Override
     public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
 
-    }
-
-    @Override
-    protected void showBalance(float pfBalance) {
     }
 
     public void validateAndTransfer() {

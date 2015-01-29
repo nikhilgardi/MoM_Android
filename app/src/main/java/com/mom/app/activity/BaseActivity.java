@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.content.LocalBroadcastManager;
@@ -19,6 +20,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.util.LongSparseArray;
 import android.view.Menu;
@@ -46,10 +48,18 @@ import com.mom.app.fragment.SettingsFragment;
 import com.mom.app.fragment.TransactionHistoryFragment;
 import com.mom.app.fragment.UtilityBillPaymentFragment;
 import com.mom.app.identifier.IdentifierUtils;
+import com.mom.app.identifier.MessageCategory;
 import com.mom.app.identifier.PinType;
 import com.mom.app.identifier.PlatformIdentifier;
+import com.mom.app.model.AsyncListener;
+import com.mom.app.model.AsyncResult;
+import com.mom.app.model.DataExImpl;
 import com.mom.app.model.GcmTransactionMessage;
+import com.mom.app.model.IDataEx;
 import com.mom.app.model.local.EphemeralStorage;
+import com.mom.app.model.mompl.MoMPLDataExImpl;
+import com.mom.app.model.pbxpl.PBXPLDataExImpl;
+import com.mom.app.ui.CustomTextView;
 import com.mom.app.ui.TransactionRequest;
 import com.mom.app.ui.IFragmentListener;
 import com.mom.app.ui.flow.MoMScreen;
@@ -57,6 +67,7 @@ import com.mom.app.utils.AppConstants;
 import com.mom.app.utils.DataProvider;
 import com.mom.app.widget.holder.ImageItem;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class BaseActivity extends ActionBarActivity implements IFragmentListener{
@@ -65,6 +76,7 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
 
     DrawerLayout _drawerLayout;
     ProgressBar _progressBar;
+    TextView _tvBalance;
     ListView _drawerList;
     ListView _asyncStatusList;
     AsyncStatusListAdapter _asyncAdapter;
@@ -87,13 +99,8 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
         _tvAppMessage       = (TextView) findViewById(R.id.appMessage);
         _currentPlatform    = IdentifierUtils.getPlatformIdentifier(this);
 
-        /**
-         * REMOVE THIS!
-         */
         if(_currentPlatform == null){
-//            _currentPlatform    = PlatformIdentifier.PBX;
-            _currentPlatform    = PlatformIdentifier.MOM;
-            EphemeralStorage.getInstance(this).storeObject(AppConstants.ACTIVE_PLATFORM, _currentPlatform);
+            throw new IllegalStateException("Platform should not have been null here!");
         }
 
         setupDrawerMenu();
@@ -101,7 +108,6 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
         setupAsyncProgressList();
 
         if (savedInstanceState == null) {
-//            showMobileRecharge();
             showDashboard();
         }
 
@@ -109,6 +115,7 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
                 messageReceiver, new IntentFilter(AppConstants.INTENT_GCM)
         );
 
+        getBalance();
 
     }
 
@@ -228,7 +235,7 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
-        getActionBar().setDisplayShowTitleEnabled(true);
+        getActionBar().setDisplayShowTitleEnabled(false);
         getActionBar().setTitle(R.string.money_on_mobile);
         getActionBar().setDisplayUseLogoEnabled(true);
     }
@@ -256,6 +263,72 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
 
             }
         });
+    }
+
+    private void getBalance(){
+        showProgress(true);
+
+        AsyncListener<Float> listener   = new AsyncListener<Float>() {
+            @Override
+            public void onTaskSuccess(Float result, DataExImpl.Methods callback) {
+                Log.d(_LOG, "Got balance: " + result);
+                showProgress(false);
+
+                EphemeralStorage.getInstance(getApplicationContext()).storeFloat(
+                        AppConstants.USER_BALANCE, result
+                );
+
+                showBalance(_tvBalance, result);
+            }
+
+            @Override
+            public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
+                Log.e(_LOG, "Error retrieving balance");
+                showProgress(false);
+            }
+        };
+
+        getDataEx(listener).getBalance();
+    }
+
+    protected void showBalance(TextView tv){
+        float balance         = EphemeralStorage.getInstance(
+                this
+        ).getFloat(AppConstants.USER_BALANCE, AppConstants.ERROR_BALANCE);
+
+        showBalance(tv, balance);
+    }
+
+    protected void showBalance(TextView tv, Float balance){
+        String sBal         = null;
+        if(balance == AppConstants.ERROR_BALANCE){
+            sBal            = getString(R.string.error_getting_balance);
+            return;
+        }else {
+            DecimalFormat df = new DecimalFormat("#,###,###,##0.00");
+            sBal = df.format(balance);
+        }
+
+        tv.setText("Balance: " + getResources().getString(R.string.Rupee) + sBal);
+        Log.d("BAlcheck" , sBal);
+    }
+
+    public IDataEx getDataEx(AsyncListener<?> listener){
+        IDataEx dataEx;
+
+        try {
+            if (_currentPlatform == PlatformIdentifier.MOM) {
+                dataEx = new MoMPLDataExImpl(getApplicationContext(), listener);
+            } else {
+                dataEx = new PBXPLDataExImpl(getApplicationContext(), DataExImpl.Methods.LOGIN, listener);
+            }
+
+            return dataEx;
+        }catch(MOMException me){
+            Log.e(_LOG, "Error getting dataex", me);
+        }
+
+        return null;
     }
 
     private void updateAsyncList(TransactionRequest request, Integer status){
@@ -307,6 +380,15 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.base, menu);
+
+        _tvBalance = new TextView(this);
+
+        _tvBalance.setTextColor(getResources().getColor(R.color.app_secondary));
+        _tvBalance.setPadding(5, 0, 5, 0);
+        _tvBalance.setTextSize(14);
+
+        menu.add("balance").setActionView(_tvBalance).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -344,6 +426,16 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
             }
             Log.d(_LOG, "Showing progress bar: " + showProgressBarCode);
             return;
+        }
+
+        MessageCategory category = (MessageCategory) bundle.getSerializable(AppConstants.BUNDLE_MESSAGE_CATEGORY);
+
+        if(category != null) {
+            switch (category) {
+                case GET_AND_SHOW_BALANCE:
+                    getBalance();
+                    return;
+            }
         }
 
         FragmentBase fragmentBase = (FragmentBase) getFragmentManager().findFragmentById(R.id.contentFrame);
