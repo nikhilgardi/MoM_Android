@@ -100,7 +100,9 @@ public class ChangePinFragment extends FragmentBase implements AsyncListener<Tra
                     return;
                 }
                 Log.d(_LOG, "Starting navigation to TxnMsg Activity");
-
+                Log.i("ResultChange" , result.getRemoteResponse()+ result.getResponseCode());
+                showProgress(false);
+                showMessage(result.getRemoteResponse());
                 break;
 
             case CHANGE_PASSWORD:
@@ -110,11 +112,12 @@ public class ChangePinFragment extends FragmentBase implements AsyncListener<Tra
                     return;
                 }
                 Log.d(_LOG, "Starting navigation to TxnMsg Activity");
-
+                Log.i("ResultChange" , result.getRemoteResponse()+ result.getResponseCode());
+                showProgress(false);
+                showMessage(result.getRemoteResponse());
                 break;
         }
-        Log.i("ResultChange" , result.getRemoteResponse()+ result.getResponseCode());
-        showMessage(result.getRemoteResponse());
+
     }
 
     @Override
@@ -164,9 +167,17 @@ public class ChangePinFragment extends FragmentBase implements AsyncListener<Tra
        if (ValidationResult == 0) {
            if(_pinType.equals(PinType.PBX_CHANGE_PASSWORD)){
               getDataEx(this).changePassword(sOldPin , sNewPin);
+               _oldPin.setText(null);
+               _newPin.setText(null);
+               _newPinConfirm.setText(null);
+               showProgress(true);
            }
            else{
            getDataEx(this).changePin(_pinType, sOldPin, sNewPin);
+               _oldPin.setText(null);
+               _newPin.setText(null);
+               _newPinConfirm.setText(null);
+               showProgress(true);
        }
        }
        else {

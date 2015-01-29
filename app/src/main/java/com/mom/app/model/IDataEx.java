@@ -24,7 +24,13 @@ public interface IDataEx {
 
     public void payBill(
             TransactionRequest<PaymentResponse> request,
-            String psConsumerName,String sDueDate,
+            String psConsumerName,
+            HashMap<String, String> psExtraParamsMap
+    );
+
+    public void utilityPayBill(
+            TransactionRequest<PaymentResponse> request,
+            String psConsumerName,
             HashMap<String, String> psExtraParamsMap
     );
 
@@ -35,6 +41,7 @@ public interface IDataEx {
     public void changePassword(String psOldPin, String psNewPin);
 
     public abstract void balanceTransfer(TransactionRequest request, String payTo);
+     public void signUpEncryptData(String composeData , String Key);
 
     public  void lic(String lic , String customerMobNo);
     public void licPayment(TransactionRequest<LicLifeResponse> request , String CustomerMobNo , String PolicyNo , String fromDate);

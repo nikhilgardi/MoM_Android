@@ -62,6 +62,8 @@
             </intent-filter>
         </activity>
 
+
+
         <!-- Credit sale -->
         <activity android:name=".MSwipeAndroidSDKListActivity1" >
             <intent-filter>
@@ -115,6 +117,10 @@
             android:label="@string/title_activity_transaction_confirmation" >
         </activity>
 
+        <activity
+            android:name=".activity.SignupActivity"
+            >
+        </activity>
         <activity
             android:name=".activity.ChangePINActivity"
             android:label="@string/title_activity_change_pin" >

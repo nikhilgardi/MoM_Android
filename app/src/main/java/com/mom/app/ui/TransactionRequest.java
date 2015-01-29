@@ -71,12 +71,12 @@ public class TransactionRequest<T> implements Serializable{
     RequestStatus status = RequestStatus.PENDING;
     boolean isCompleted = false;
     int responseCode;
-
+    String stubButton_rb;
     String remoteResponse;
 
 
-    String ACMonth;
-    static String DueDate;
+     String ACMonth;
+     String DueDate;
      String SDCode;
      String SOP;
      String FSA;
@@ -309,6 +309,14 @@ String remoteId;
         FormatDueDate = formatDueDate;
     }
 
+    public void setStubType(String Radiobutton_rb) {
+        stubButton_rb = Radiobutton_rb;
+    }
+
+    public String getStubType() {
+        return stubButton_rb;
+
+    }
 
 
 }

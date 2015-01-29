@@ -11,6 +11,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.mom.app.R;
 import com.mom.app.error.MOMException;
+
 import com.mom.app.gcm.GcmUtil;
 import com.mom.app.identifier.PlatformIdentifier;
 import com.mom.app.model.AsyncListener;
@@ -26,6 +27,9 @@ import com.mom.app.utils.AppConstants;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -49,11 +53,12 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
     static final int REQUEST_CODE_RECOVER_PLAY_SERVICES = 1001;
 	private ProgressBar _pb;
 	private PlatformIdentifier _currentPlatform;
-	private Button _loginBtn;
-	private TextView _tvMessage;
+	private Button _loginBtn , _SignUpBtn;
+	private TextView _tvMessage ,_tvsignUp;
     private Spinner _languageSpinner;
     EditText _username, _password;
     boolean _spinnerCalledOnce = false;
+    Intent myintent = new Intent();
 
 	/** Called when the activity is first created. */
 	@Override
@@ -64,7 +69,8 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 
 		_username 	        = (EditText) findViewById(R.id.et_un);
 		_password 	        = (EditText) findViewById(R.id.et_pw);
-
+        _tvsignUp = (TextView) findViewById(R.id.tv_signUp);
+        _SignUpBtn          = (Button) findViewById(R.id.btn_signUp);
         setupLanguageSelector();
         getMessageTextView().setVisibility(View.GONE);
 		getProgressBar().setVisibility(View.GONE);
@@ -73,6 +79,28 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 //		getWindow().setBackgroundDrawable(
 //							getResources().getDrawable(R.drawable.appsbg)
 //										);
+
+        Intent intentObject = getIntent();
+        int isRegistered = intentObject.getIntExtra(AppConstants.SIGNUP_STATUS , -1);
+        Log.i("test" , String.valueOf(isRegistered));
+
+        switch(isRegistered) {
+            case -1:
+                Log.i("test11" , String.valueOf(isRegistered));
+                _tvsignUp.setVisibility(View.GONE);
+                Log.i("test1" , String.valueOf(isRegistered));
+                break;
+            case 1:
+                _tvsignUp.setVisibility(View.VISIBLE);
+                Log.i("test12" , String.valueOf(isRegistered));
+                _tvsignUp.setText(getResources().getString(R.string.singUp_Successful_msg));
+                Toast.makeText(LoginActivity.this , "done" , Toast.LENGTH_LONG);
+                Log.i("test14" , String.valueOf(isRegistered));
+                break;
+
+
+        }
+        Log.i("test34" , String.valueOf(isRegistered));
 	}
 
     @Override
@@ -440,4 +468,13 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
     public void hideMessage(){
             getMessageTextView().setVisibility(View.GONE);
         }
+
+
+    public void signUp(View view) {
+        myintent = new Intent(LoginActivity.this, SignupActivity.class);
+        myintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(myintent);
+        finish();
+    }
+
 }

@@ -36,6 +36,8 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
     private String _operatorId      = null;
 
+    TransactionRequest transactionRequest = new TransactionRequest();
+
     public MoMPLDataExImpl(Context pContext, AsyncListener pListener){
         _applicationContext    = pContext;
         _listener   = pListener;
@@ -87,6 +89,13 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                         _listener.onTaskSuccess(balance, Methods.GET_BALANCE);
                     }
 
+                    break;
+                case SIGN_UP_CONSUMER:
+                    Log.d(_LOG, "TaskComplete: rechargeMobile method, result: " + result);
+                    if (_listener != null) {
+                        TransactionRequest<String> response = getPaymentResult(result , Methods.SIGN_UP_CONSUMER);
+                        _listener.onTaskSuccess(response, Methods.SIGN_UP_CONSUMER);
+                    }
                     break;
                 case RECHARGE_MOBILE:
                     Log.d(_LOG, "TaskComplete: rechargeMobile method, result: " + result);
@@ -322,7 +331,18 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         return false;
     }
 
+    public void signUpEncryptData(String composeData , String key)
+    {
 
+        String url          = AppConstants.URL_NEW_PLATFORM_TXN + AppConstants.SVC_NEW_METHOD_SIGN_UP_ENCRYPT_DATA;
+        AsyncDataEx dataEx	= new AsyncDataEx(this, new TransactionRequest(), url, Methods.SIGN_UP_CONSUMER);
+
+        dataEx.execute(
+                new BasicNameValuePair("PlainText", composeData),
+                new BasicNameValuePair("Key", "f0rZHW8IXM8+YNYL7VptiOMr45m0VZ1yHhXD5zADpB4=")
+
+        );
+    }
     public void rechargeMobile(TransactionRequest<PaymentResponse> request, int pnRechargeType){
 
         if(
@@ -375,7 +395,7 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
             Log.d(_LOG, "NewResponse:" + responseResult);
             pResult.setRemoteResponse(responseResult);
 
-            switch (callback){
+          /*  switch (callback){
                 case BALANCE_TRANSFER:
                     if(responseResult.startsWith("0")){
                         pResult.setCompleted(true);
@@ -410,7 +430,7 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                         pResult.setStatus(TransactionRequest.RequestStatus.FAILED);
                     }
 
-            }
+            }*/
 
             return pResult;
         }catch (Exception e){
@@ -455,7 +475,7 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
     public void payBill(
                         TransactionRequest<PaymentResponse> request,
-                        String psConsumerName,String formatDueDate,
+                        String psConsumerName ,
                         HashMap<String, String> pExtraParamsMap
                     ){
 
@@ -473,28 +493,100 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
         if (
                 AppConstants.OPERATOR_ID_BEST_ELECTRICITY.equals(operatorCode) ||
-                AppConstants.OPERATOR_ID_RELIANCE_ENERGY.equals(operatorCode) ||
-                AppConstants.OPERATOR_ID_MAHANAGAR_GAS.equals(operatorCode) ){
+                AppConstants.OPERATOR_ID_RELIANCE_ENERGY.equals(operatorCode)  ){
 
             strCustomerNumber   = request.getConsumerId() + "|" + request.getCustomerMobile()
                                 + "|" + sUserId;
 
         }
-        else if (AppConstants.OPERATOR_ID_DELHI_JAL_BOARD.equals(operatorCode)){
-            strCustomerNumber   = request.getConsumerId() + "|" + request.getCustomerMobile() +"|"+ formatDueDate;
+
+        else if(AppConstants.OPERATOR_ID_MAHANAGAR_GAS.equals(operatorCode)){
+            strCustomerNumber   = request.getConsumerId();
+        }
+
+       else if (
+                AppConstants.OPERATOR_ID_DHBVN_HARYANA.equals(operatorCode) ||
+                        AppConstants.OPERATOR_ID_BSES_RAJDHANI.equals(operatorCode) ||
+                        AppConstants.OPERATOR_ID_BSES_YAMUNA.equals(operatorCode)||
+                        AppConstants.OPERATOR_ID_INDRAPRASTHA_GAS.equals(operatorCode)||
+                        AppConstants.OPERATOR_ID_BESCOM_BANGALURU.equals(operatorCode)||
+                        AppConstants.OPERATOR_ID_CESCOM_MYSORE.equals(operatorCode)){
+
+            strCustomerNumber   = request.getConsumerId() + "|" + request.getCustomerMobile();
+
+
+        }
+        else if (AppConstants.OPERATOR_ID_DELHI_JAL_BOARD.equals(operatorCode) && pExtraParamsMap!= null){
+            if(
+                    !pExtraParamsMap.containsKey(AppConstants.PARAM_NEW_DUE_DATE)
+
+                    ){
+
+                Log.d("NEW_PL_DATA", "Parameters not sent for DJB");
+
+                if(_listener != null) {
+                    _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.LOGIN);
+                }
+
+                return;
+            }
+
+            strCustomerNumber   = request.getConsumerId() + "|" + request.getCustomerMobile() +"|"+ pExtraParamsMap.get(AppConstants.PARAM_NEW_DUE_DATE);
+        }
+
+        else if (AppConstants.OPERATOR_ID_CESC_LIMITED.equals(operatorCode)  && pExtraParamsMap != null){
+            if(
+                    !pExtraParamsMap.containsKey(AppConstants.PARAM_NEW_AC_MONTH)||
+                            !pExtraParamsMap.containsKey(AppConstants.PARAM_NEW_DUE_DATE)||
+                            !pExtraParamsMap.containsKey(AppConstants.PARAM_NEW_STUBTYPE)
+                    ){
+                Log.d("NEW_PL_DATA", "Parameters not sent for CESC");
+            if(_listener != null) {
+                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.LOGIN);
+            }
+            return;
+        }
+            strCustomerNumber   = request.getConsumerId() + "|" + request.getCustomerMobile()
+                    +"|"+ pExtraParamsMap.get(AppConstants.PARAM_NEW_AC_MONTH)
+                    + "|" +pExtraParamsMap.get(AppConstants.PARAM_NEW_DUE_DATE)
+                    + "|" + pExtraParamsMap.get(AppConstants.PARAM_NEW_STUBTYPE);
+
         }
         else if(AppConstants.OPERATOR_ID_BSES_RAJDHANI.equals(operatorCode) ||
                 AppConstants.OPERATOR_ID_BESCOM_BANGALURU.equals(operatorCode)||
                 AppConstants.OPERATOR_ID_CESCOM_MYSORE.equals(operatorCode)||
                 AppConstants.OPERATOR_ID_DHBVN_HARYANA.equals(operatorCode)||
                 AppConstants.OPERATOR_ID_INDRAPRASTHA_GAS.equals(operatorCode)){
+
             strCustomerNumber = request.getConsumerId() + "|" + request.getCustomerMobile();
             Log.i("ParametersBIll" , strCustomerNumber.toString());
         }
+
+        else if (AppConstants.OPERATOR_ID_UHBVN_HARYANA.equals(operatorCode) && pExtraParamsMap != null) {
+            if(
+                    !pExtraParamsMap.containsKey(AppConstants.PARAM_NEW_SD_CODE) ||
+                    !pExtraParamsMap.containsKey(AppConstants.PARAM_NEW_SOP)||
+                    !pExtraParamsMap.containsKey(AppConstants.PARAM_NEW_FSA)
+
+                    ){
+
+                Log.d("NEW_PL_DATA", "Parameters not sent for UHBVN");
+                if(_listener != null) {
+                    _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.LOGIN);
+                }
+                return;
+            }
+             strCustomerNumber   = request.getConsumerId() + "|" + request.getCustomerMobile()
+                    +"|"+ pExtraParamsMap.get(AppConstants.PARAM_NEW_SD_CODE)
+                    + "|" +pExtraParamsMap.get(AppConstants.PARAM_NEW_SOP)
+                    + "|" + pExtraParamsMap.get(AppConstants.PARAM_NEW_FSA);
+
+        }
+
         else if (AppConstants.OPERATOR_ID_SBE.equals(operatorCode) && pExtraParamsMap != null) {
             if(
-                    !pExtraParamsMap.containsKey(AppConstants.PARAM_NEW_RELIANCE_SBE_NBE) ||
-                    !pExtraParamsMap.containsKey(AppConstants.PARAM_NEW_SPECIAL_OPERATOR)
+                    !pExtraParamsMap.containsKey(AppConstants.PARAM_NEW_ACCOUNT_NUMBER) ||
+                    !pExtraParamsMap.containsKey(AppConstants.PARAM_NEW_SPECIAL_OPERATOR_SBE)
                 ){
 
                 Log.d("NEW_PL_DATA", "Parameters not sent for SBE");
@@ -503,13 +595,15 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 }
                 return;
             }
-            strCustomerNumber   = "SBE|" + request.getConsumerId() + "|" + psConsumerName + "|"
-                                + "|" + pExtraParamsMap.get(AppConstants.PARAM_NEW_RELIANCE_SBE_NBE)
-                                + "|" + pExtraParamsMap.get(AppConstants.PARAM_NEW_SPECIAL_OPERATOR);
+            strCustomerNumber   = "SBE" +"|" + request.getCustomerMobile() + "|" + psConsumerName
+                                + "|" + pExtraParamsMap.get(AppConstants.PARAM_NEW_ACCOUNT_NUMBER)
+                                + "|" + pExtraParamsMap.get(AppConstants.PARAM_NEW_SPECIAL_OPERATOR_NBE);
+
+            Log.d("NEW_PL_DATA_SBE", "Going to pay bill for strCustomerNumber: " + strCustomerNumber);
 
         } else if (AppConstants.OPERATOR_ID_NBE.equals(operatorCode) && pExtraParamsMap != null) {
             if(
-                    !pExtraParamsMap.containsKey(AppConstants.PARAM_NEW_RELIANCE_SBE_NBE) ||
+                    !pExtraParamsMap.containsKey(AppConstants.PARAM_NEW_ACCOUNT_NUMBER) ||
                             !pExtraParamsMap.containsKey(AppConstants.PARAM_NEW_SPECIAL_OPERATOR_NBE)
                 ){
 
@@ -522,13 +616,13 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 return;
             }
 
-            strCustomerNumber   = "NBE|" + request.getConsumerId() + "|" + psConsumerName + "|"
-                    + "|" + pExtraParamsMap.get(AppConstants.PARAM_NEW_RELIANCE_SBE_NBE)
+            strCustomerNumber   = "NBE" + "|" + request.getCustomerMobile() + "|" + psConsumerName
+                    + "|" + pExtraParamsMap.get(AppConstants.PARAM_NEW_ACCOUNT_NUMBER)
                     + "|" + pExtraParamsMap.get(AppConstants.PARAM_NEW_SPECIAL_OPERATOR_NBE);
 
         }
 
-        Log.d("NEW_PL_DATA", "Going to pay bill for strCustomerNumber: " + strCustomerNumber);
+        Log.d("NEW_PL_DATA_NBE", "Going to pay bill for strCustomerNumber: " + strCustomerNumber);
 
         dataEx.execute(
                 new BasicNameValuePair(
@@ -791,6 +885,14 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
     }
 
     public void licPayment(TransactionRequest<LicLifeResponse> request , String CustomerMobNo , String PolicyNo , String UnpaidDate){
+
+    }
+
+    public void utilityPayBill(
+            TransactionRequest<PaymentResponse> request,
+            String psConsumerName,
+            HashMap<String, String> pExtraParamsMap
+    ){
 
     }
 }

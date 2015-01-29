@@ -25,9 +25,11 @@ public abstract class DataExImpl implements IDataEx{
         LOGIN,
         VERIFY_TPIN,
         GET_BALANCE,
+        SIGN_UP_CONSUMER,
         RECHARGE_MOBILE,
         RECHARGE_DTH,
         PAY_BILL,
+        UTILITY_BILL_PAY,
         GET_BILL_AMOUNT,
         TRANSACTION_HISTORY,
         CHANGE_PIN,
@@ -35,6 +37,7 @@ public abstract class DataExImpl implements IDataEx{
         GET_OPERATOR_NAMES,
         CHANGE_PASSWORD,
         BALANCE_TRANSFER,
+        BALANCE_TRANSFER_PBX,
         LIC,
         PAY_LIC;
     }

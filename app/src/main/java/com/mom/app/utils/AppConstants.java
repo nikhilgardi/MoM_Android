@@ -45,6 +45,7 @@ public class AppConstants {
     public static final String SVC_NEW_METHOD_RETAILER_PAYMENT ="/doBalanceTransfer";
     public static final String SVC_NEW_METHOD_CHANGE_TPIN   = "/ChangeT_Pin";
     public static final String SVC_NEW_METHOD_CHANGE_MPIN   = "/ChangeM_Pin";
+    public static final String SVC_NEW_METHOD_SIGN_UP_ENCRYPT_DATA ="/Encrypt";
     //End: MoM Platform Methods
 
     //Start: PBX Platform Service
@@ -58,6 +59,7 @@ public class AppConstants {
     public static final String SVC_PBX_RECHARGE_MOBILE          = "RECHARGEMOBILE";
     public static final String SVC_PBX_RECHARGE_DTH             = "DTH";
     public static final String SVC_PBX_BILL_PAY                 = "BILLPAY";
+    public static final String SVC_PBX_UTILITY_BILL_PAY         = "UBP";
     public static final String SVC_PBX_LIC                      = "LICENQ";
 
     public static final String PARAM_SERVICE_LIC                = "LICPAY";
@@ -154,10 +156,18 @@ public class AppConstants {
     public static final String PARAM_NEW_USER_VAS02         = "UserVAS02";
     public static final String PARAM_NEW_TPIN               = "strTPassword";
 
-    public static final String PARAM_NEW_RELIANCE_SBE_NBE   = "relianceSBENBE";
-    public static final String PARAM_NEW_SPECIAL_OPERATOR   = "specialOperator";
-    public static final String PARAM_NEW_SPECIAL_OPERATOR_NBE
-                                                            = "specialOperatorNBE";
+    public static final String PARAM_NEW_RELIANCE_SBE_NBE    = "relianceSBENBE";
+    public static final String PARAM_NEW_SPECIAL_OPERATOR    = "specialOperator";
+    public static final String PARAM_NEW_DUE_DATE            = "dueDate";
+    public static final String PARAM_NEW_AC_MONTH            = "acmonth";
+    public static final String PARAM_NEW_SD_CODE             = "sdcode";
+    public static final String PARAM_NEW_SOP                 = "sop";
+    public static final String PARAM_NEW_FSA                 = "fsa";
+    public static final String PARAM_NEW_STUBTYPE            = "stubtype";
+    public static final String PARAM_NEW_SPECIAL_OPERATOR_NBE= "specialOperatorNBE";
+    public static final String PARAM_NEW_SPECIAL_OPERATOR_SBE= "specialOperatorSBE";
+    public static final String PARAM_NEW_FIRST_NAME          = "FirstNameSBE_NBE";
+
     public static final String PARAM_NEW_STR_PASSWORD       = "strPassword";
     public static final String PARAM_NEW_STR_NEW_PASSWORD   = "strNewPassword";
 
@@ -187,7 +197,10 @@ public class AppConstants {
     public static final String PARAM_PBX_USERNAMELOGIN      = "userName";
     public static final String PARAM_PBX_LICAMOUNT          = "premiumAmount";
 
-
+    public static final String PARAM_PBX_ACCOUNT_NUMBER            = "account";
+    public static final String PARAM_PBX_DUE_DATE            = "dueDate";
+    public static final String PARAM_PBX_AC_MONTH            = "acMonth";
+    public static final String PARAM_PBX_STUBTYPE            = "stubType";
 
     public static final String PARAM_PBX_PARENT_RMN          = "ParentRmn";
     public static final String PARAM_PBX_CHILD_RMN           = "childRmn";
@@ -223,6 +236,7 @@ public class AppConstants {
     public static final String INTENT_MESSAGE_ORIGIN        = PACKAGE + "MESSAGE_ORIGIN";
     public static final String INTENT_GCM                   = PACKAGE + "intentGcm";
     public static final String INTENT_NETWORK               = PACKAGE + "intentNetwork";
+    public static final String SIGNUP_STATUS                = PACKAGE + "MESSAGE_SignUp";
 
     public static String NETWORK_STATUS_CONNECTED           = "networkStatusConnected";
 
