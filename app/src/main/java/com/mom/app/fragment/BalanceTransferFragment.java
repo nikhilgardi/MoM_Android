@@ -63,6 +63,21 @@ public class BalanceTransferFragment extends FragmentBase implements AsyncListen
     public void onTaskSuccess(TransactionRequest result, DataExImpl.Methods callback) {
         Log.d(_LOG, "Called back");
         switch(callback){
+            case BALANCE_TRANSFER_PBX:
+                if(result == null){
+                    Log.d(_LOG, "Obtained NULL  response");
+                    showMessage(getResources().getString(R.string.error_transfer_failed));
+                    return;
+                }
+                Log.d(_LOG, "Going to get new balance");
+                Log.d(_LOG, "Starting navigation to TxnMsg Activity");
+//                navigateToTransactionMessageActivity(ActivityIdentifier.BALANCE_TRANSFER, result);
+                Log.i("ResultBalanceTransfer" , result.getRemoteResponse()+ result.getResponseCode());
+                Log.i("ResultBalanceTransferData" , result.getCustom().toString());
+                showProgress(false);
+                showMessage(result.getCustom().toString());
+                break;
+
             case BALANCE_TRANSFER:
                 if(result == null){
                     Log.d(_LOG, "Obtained NULL  response");
@@ -71,11 +86,20 @@ public class BalanceTransferFragment extends FragmentBase implements AsyncListen
                 }
                 Log.d(_LOG, "Going to get new balance");
                 Log.d(_LOG, "Starting navigation to TxnMsg Activity");
+
+//                navigateToTransactionMessageActivity(ActivityIdentifier.BALANCE_TRANSFER, result);
+                Log.i("ResultBalanceTransfer" , result.getRemoteResponse()+ result.getResponseCode());
+                Log.i("ResultBalanceTransferData" , result.getRemoteResponse());
+                showProgress(false);
+                showMessage(result.getRemoteResponse());
+
                 showBalance();
+
                 break;
         }
 
-        taskCompleted(result);
+
+       // taskCompleted(result);
     }
 
     @Override
@@ -134,7 +158,7 @@ public class BalanceTransferFragment extends FragmentBase implements AsyncListen
         _etAmount.setText(null);
         _etPayTo.setText(null);
         showProgress(true);
-        updateAsyncQueue(request);
+      //  updateAsyncQueue(request);
     }
 
 

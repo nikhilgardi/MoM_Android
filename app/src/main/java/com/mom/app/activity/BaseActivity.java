@@ -46,6 +46,7 @@ import com.mom.app.fragment.LICFragment;
 import com.mom.app.fragment.MobileRechargeFragment;
 import com.mom.app.fragment.SettingsFragment;
 import com.mom.app.fragment.TransactionHistoryFragment;
+import com.mom.app.fragment.UtilityBillPaymentFragment;
 import com.mom.app.identifier.IdentifierUtils;
 import com.mom.app.identifier.MessageCategory;
 import com.mom.app.identifier.PinType;
@@ -505,6 +506,10 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
                 break;
             case BILL_PAYMENT:
                 showFragment(BillPaymentFragment.newInstance(_currentPlatform));
+                break;
+
+            case UTILITY_BILL_PAYMENT:
+                showFragment(UtilityBillPaymentFragment.newInstance(_currentPlatform));
                 break;
             case LIC:
                 Log.d(_LOG, "lic selected");

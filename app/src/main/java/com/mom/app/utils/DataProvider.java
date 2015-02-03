@@ -65,6 +65,19 @@ public class DataProvider {
                 )
         );
 
+        if( platform == PlatformIdentifier.PBX){
+            imageItems.add(
+                    new ImageItem<MoMScreen>(
+                            MoMScreen.UTILITY_BILL_PAYMENT,
+                            MoMScreen.UTILITY_BILL_PAYMENT.id,
+                            MoMScreen.UTILITY_BILL_PAYMENT.drawableId,
+                            MoMScreen.UTILITY_BILL_PAYMENT.drawableTransparentId,
+                            context.getResources().getString(MoMScreen.UTILITY_BILL_PAYMENT.titleResId),
+                            false
+                    )
+            );
+        }
+
 //        if(platform == PlatformIdentifier.MOM){
             imageItems.add(
                     new ImageItem<MoMScreen>(
@@ -101,6 +114,8 @@ public class DataProvider {
                     )
             );
         }
+
+
 
 
         int isLic = EphemeralStorage.getInstance(context).getInt(AppConstants.PARAM_IsLIC , -1);
@@ -256,6 +271,12 @@ public class DataProvider {
 
     public static List<Operator> getPBXPlatformDTHOperators(){
         String[] operatorNames  = {"ADG", "BIG", "SUN", "TSK", "D2H"};
+
+        return getOperators(AppConstants.OPERATOR_PBX, operatorNames);
+    }
+
+    public static List<Operator> getPBXPlatformUtilityBillPayOperators(){
+        String[] operatorNames  = {"CES"};
 
         return getOperators(AppConstants.OPERATOR_PBX, operatorNames);
     }

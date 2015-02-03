@@ -184,6 +184,60 @@
     <string name="error_invalid_policy_number">చెల్లుబాటుకాని పాలసీ నెంబరు.</string>
     <!-- End: LIC related -->
 
+
+
+    <!---New Translations -->
+    <string name="lbl_Email">Email</string>
+
+    <string name="prompt_Validity_north_ServiceProvider">Select NorthService Provider</string>
+    <string name="prompt_Validity_south_ServiceProvider">Select SouthService Provider</string>
+    <string name="prompt_Validity_mobile_number">Invalid MobileNumber</string>
+    <string name="prompt_Validity_consumer_number">Invalid ConsumerNumber</string>
+    <string name="prompt_Validity_subscriberId">Invalid SubscriberId</string>
+    <string name="prompt_Validity_amount">Invalid Amount</string>
+    <string name="prompt_Validity_accntnumber">Invalid Account Number</string>
+
+    <string name="prompt_Validity_name">Invalid Name</string>
+    <string name="prompt_Validity_emailId">Invalid Email-Id</string>
+    <string name="lbl_Name">Name</string>
+    <string name="lbl_DOB">Date of Birth</string>
+
+    <string name="prompt_Validity_CA_number">Invalid CA Number</string>
+    <string name="prompt_Validity_CRNID_number">Invalid CRNID Number</string>
+    <string name="prompt_Validity_K_number">Invalid KNumber</string>
+    <string name="prompt_Validity_BP_number">Invalid BP Number</string>
+
+
+
+    <string name="prompt_Validity_radio_btn">Select radio button</string>
+    <string name="prompt_Validity_DOB_Age">Minimum age of 18 years required for SignUp</string>
+    <string name="prompt_Validity_DOB">Enter Your Date Of Birth</string>
+    <string name="prompt_Validity_Name">Enter your name</string>
+    <string name="prompt_Validity_Email_Address">Enter valid Email Address</string>
+    <string name="lbl_FirstName">Enter First Name</string>
+    <string name="lbl_LastName">Enter Last Name</string>
+    <string name="lbl_AccountNumber">Enter Account Number</string>
+
+    <string name="error_SDCode">Enter Correct SD Code</string>
+    <string name="error_SOP">Enter Correct SOP</string>
+    <string name="error_FSA">Enter Correct FSA</string>
+    <string name="error_AccountMonth">Enter Correct On Bill AC Month</string>
+    <string name="error_Bill_DueDate">Enter Correct On Bill Due Date</string>
+    <string name="error_Date">Inappropriate Date!!!Enter Correct On Bill Due Date</string>
+    <string name="error_Invalid_Date">Invalid date.Enter Correct On Bill Due Date</string>
+    <string name="error_RadioButton">Select StubType RadioButton</string>
+    <string name="singUp_Successful_msg">Consumer created Successfully.Please Log in</string>
+
+    <string name ="error_sinUp_msg">You are already registered with Money On Mobile.</string>
+    <string name="lblKNumber">KNumber</string>
+    <string name="lblBPNumber">BP Number</string>
+    <string name="lblCANumber">CA Number</string>
+    <string name="lblCRNIDNumber">CRNID Number</string>
+
+    <string name="tpin_submit_btn">Submit</string>
+    <string name="btn_Login">Login</string>
+
+
     <!--Start: Aadhar Related -->
     <string name="Aadhar">Hello World, RechargeActivity!</string>
     <string name="app_nameAadhar">Money-On-Mobile</string>

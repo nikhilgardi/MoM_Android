@@ -24,12 +24,14 @@ import com.mom.app.model.pbxpl.lic.LicLife;
 import com.mom.app.model.pbxpl.lic.LicLifeResponse;
 
 import com.mom.app.model.pbxpl.lic.LicResponse;
+import com.mom.app.model.xml.PullParser;
 import com.mom.app.ui.TransactionRequest;
 import com.mom.app.utils.AppConstants;
 import com.mom.app.utils.MiscUtils;
 
 import org.apache.http.message.BasicNameValuePair;
 
+import java.io.ByteArrayInputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -145,6 +147,14 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                     }
                     break;
 
+                case UTILITY_BILL_PAY:
+                    Log.i(_LOG, "TaskComplete: payBill method, result: " + result);
+                    if (_listener != null) {
+                        _listener.onTaskSuccess(getPaymentTransactionResult(result), Methods.UTILITY_BILL_PAY);
+                        Log.i("REsultBill" , result.getConsumerId());
+                    }
+                    break;
+
                 case LIC:
                     Log.d(_LOG, "TaskComplete: lic method, result: " + result);
 
@@ -164,11 +174,11 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                     }
 
                     break;
-                case BALANCE_TRANSFER:
+                case BALANCE_TRANSFER_PBX:
                     Log.d(_LOG, "TaskComplete: balanceTransfer method, result: " + result);
 
                     if (_listener != null) {
-                        _listener.onTaskSuccess(getInternalBalTransfer(result), Methods.BALANCE_TRANSFER);
+                        _listener.onTaskSuccess(getInternalBalTransfer(result), Methods.BALANCE_TRANSFER_PBX);
                     }
                     break;
 
@@ -262,7 +272,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
     public void payBill(
             TransactionRequest<PaymentResponse> request,
-            String psConsumerName, String sDueDate,
+            String psConsumerName,
             HashMap<String, String> pExtraParamsMap
     ){
         String url				    = AppConstants.URL_PBX_PLATFORM_APP ;
@@ -275,6 +285,48 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 new BasicNameValuePair(AppConstants.PARAM_PBX_CUSTOMER_NUMBER, request.getCustomerMobile()),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_AMOUNT, String.valueOf(Math.round(request.getAmount()))),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_OPERTAORSHORTCODE , request.getOperator().getCode()),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_IDENTIFIER, String.valueOf(request.getId())),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_ORIGIN_ID, _deviceRegId),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_CLIENT_TOKEN, _token)
+        );
+    }
+
+
+    public void utilityPayBill(
+            TransactionRequest<PaymentResponse> request,
+            String psConsumerName,
+            HashMap<String, String> pExtraParamsMap
+    ){
+        String url				    = AppConstants.URL_PBX_PLATFORM_APP ;
+        String operatorCode         = request.getOperator().code;
+        AsyncDataEx dataEx		    = new AsyncDataEx(this, request, url, Methods.UTILITY_BILL_PAY);
+        if (operatorCode.equals("CES")  && pExtraParamsMap != null){
+            if(
+                    !pExtraParamsMap.containsKey(AppConstants.PARAM_NEW_AC_MONTH)||
+                            !pExtraParamsMap.containsKey(AppConstants.PARAM_NEW_DUE_DATE)||
+                            !pExtraParamsMap.containsKey(AppConstants.PARAM_NEW_STUBTYPE)
+                    ){
+                Log.d("NEW_PL_DATA", "Parameters not sent for CESC");
+                if(_listener != null) {
+                    _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.LOGIN);
+                }
+                return;
+            }
+
+        }
+        dataEx.execute(
+                new BasicNameValuePair(AppConstants.PARAM_PBX_SERVICE, AppConstants.SVC_PBX_UTILITY_BILL_PAY),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_RMN, _userName),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_CUSTOMER_NUMBER, request.getCustomerMobile()),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_AMOUNT, String.valueOf(Math.round(request.getAmount()))),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_OPERTAORSHORTCODE , request.getOperator().getCode()),
+
+                new BasicNameValuePair(AppConstants.PARAM_PBX_ACCOUNT_NUMBER , request.getConsumerId()),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_AC_MONTH , pExtraParamsMap.get(AppConstants.PARAM_PBX_AC_MONTH)),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_DUE_DATE , pExtraParamsMap.get(AppConstants.PARAM_PBX_DUE_DATE)),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_STUBTYPE , pExtraParamsMap.get(AppConstants.PARAM_PBX_STUBTYPE)),
+
+
                 new BasicNameValuePair(AppConstants.PARAM_PBX_IDENTIFIER, String.valueOf(request.getId())),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_ORIGIN_ID, _deviceRegId),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_CLIENT_TOKEN, _token)
@@ -461,36 +513,88 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
 
 
-    public String getInternalBalTransfer(TransactionRequest request){
-        String intenalbal = null;
+    public TransactionRequest getInternalBalTransfer(TransactionRequest request){
 
         if(TextUtils.isEmpty(request.getRemoteResponse())){
+            Log.e(_LOG, "Null remote response received");
             return null;
+        }
+
+        try {
+            Gson gson   = new GsonBuilder().create();
+
+            Type type   = new TypeToken<ResponseBase<String>>() {
+            }.getType();
+            ResponseBase<String> responseBase = gson.fromJson(request.getRemoteResponse(), type);
+
+            if(responseBase == null){
+                Log.w(_LOG, "Null response?");
+                return null;
+            }
+
+            Log.d(_LOG, "Response: " + responseBase.data);
+
+            request.setCustom(responseBase.data);
+
+            return request;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return request;
+    }
+
+//    public TransactionRequest getInternalBalTransfer(TransactionRequest request){
+//        String intenalbal = null;
+//
+//        if(TextUtils.isEmpty(request.getRemoteResponse())){
+//            return null;
+//        }
+//
+//
+//        try {
+//            Gson gson   = new GsonBuilder().create();
+//
+//            Type type   = new TypeToken<ResponseBase>() {
+//            }.getType();
+//            ResponseBase<String> responseBase = gson.fromJson(request.getRemoteResponse(), type);
+//
+//            intenalbal= responseBase.data.toString();
+//            Log.d(_LOG, "ResponseInternalBal: " + intenalbal);
+//
+//            return intenalbal;
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//
+//        return intenalbal;
+//    }
+
+ /*   public TransactionRequest getInternalBalTransfer(TransactionRequest request){
+        String intenalbal = null;
+        if(TextUtils.isEmpty(request.getRemoteResponse())){
+            request.setStatus(TransactionRequest.RequestStatus.FAILED);
+            return request;
         }
 
 
         try {
             Gson gson   = new GsonBuilder().create();
 
-            Type type   = new TypeToken<ResponseBase>() {
-            }.getType();
+            Type type   = new TypeToken<ResponseBase>() {}.getType();
+
             ResponseBase responseBase = gson.fromJson(request.getRemoteResponse(), type);
 
-            intenalbal= responseBase.data.toString();
-            Log.d(_LOG, "ResponseInternalBal: " + intenalbal);
+            request.setResponseCode(responseBase.code);
 
-            return intenalbal;
         }catch (Exception e){
             e.printStackTrace();
         }
 
-        return intenalbal;
-    }
-
-
-    @Override
+        return request;
+    }*/
+       @Override
     public void getBillAmount(TransactionRequest request) {
-
     }
 
     @Override
@@ -570,6 +674,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 new BasicNameValuePair(AppConstants.PARAM_PBX_RMN, userName),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_IDENTIFIER, MiscUtils.getRandomLongAsString()),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_ORIGIN_ID, _deviceRegId),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_TOKEN, _token),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_CLIENT_TOKEN, _token)
 
         );
@@ -591,6 +696,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
             ResponseBase<ChangePBXPassword> responseBase = gson.fromJson(request.getRemoteResponse(), type);
 
             request.setResponseCode(responseBase.code);
+            request.setRemoteResponse(responseBase.data.message);
 
         }catch (Exception e){
             e.printStackTrace();
@@ -646,7 +752,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 TextUtils.isEmpty(payTo) || request.getAmount() < 1 ){
 
             if(_listener != null) {
-                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.BALANCE_TRANSFER);
+                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.BALANCE_TRANSFER_PBX);
             }
             return;
         }
@@ -660,7 +766,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 this,
                 new TransactionRequest(),
                 AppConstants.URL_PBX_PLATFORM_APP,
-                Methods.BALANCE_TRANSFER
+                Methods.BALANCE_TRANSFER_PBX
         );
         dataEx.execute(
                 new BasicNameValuePair(AppConstants.PARAM_PBX_SERVICE, AppConstants.SVC_PBX_INTERNAL_BAL_TRANSFER),
@@ -863,6 +969,10 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
     }
     public void changePinTest(TransactionRequest request){
+
+    }
+
+    public void signUpEncryptData(String composeData , String Key){
 
     }
 }

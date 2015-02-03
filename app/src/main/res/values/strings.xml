@@ -38,10 +38,10 @@
     <string name="action_lIC">LIC</string>
     <string name="title_activity_transaction_confirmation">Transaction Result</string>
     <string name="lic_success_msg_default">Payment Successful.</string>
-    <string name="lic_failed_policyDetails_msg_default" translatable="false">Insufficient Limit</string>
-    <string name="lic_failed_authorised_msg_default" translatable="false">Not Authorized</string>
+    <string name="lic_failed_policyDetails_msg_default">Insufficient Limit</string>
+    <string name="lic_failed_authorised_msg_default">Not Authorized</string>
     <string name="lic_failed_msg_default">Payment Failed.Please try again later</string>
-    <string name="lic_failed_Receipt_msg_default" translatable="false">None of the policies entered is due for payment</string>
+    <string name="lic_failed_Receipt_msg_default">None of the policies entered is due for payment</string>
     <string name="error_field_required">This field is mandatory</string>
     <string name="error_pin_confirm_mismatch">Both PINs should be same</string>
     <string name="error_init_app">Error initializing the app. Please try again later or contact customer support if the problem persists</string>
@@ -97,7 +97,44 @@
     <string name="prompt_numbers_only_amount">Please only enter numbers in the amount field</string>
     <string name="prompt_select_operator">Please select the Operator</string>
     <string name="lblBal">Bal: </string>
+    <string name="prompt_Validity_north_ServiceProvider">Select NorthService Provider</string>
+    <string name="prompt_Validity_south_ServiceProvider">Select SouthService Provider</string>
+    <string name="prompt_Validity_mobile_number">Invalid MobileNumber</string>
+    <string name="prompt_Validity_consumer_number">Invalid ConsumerNumber</string>
+    <string name="prompt_Validity_subscriberId">Invalid SubscriberId</string>
+    <string name="prompt_Validity_amount">Invalid Amount</string>
+    <string name="prompt_Validity_accntnumber">Invalid Account Number</string>
 
+    <string name="prompt_Validity_name">Invalid Name</string>
+    <string name="prompt_Validity_emailId">Invalid Email-Id</string>
+    <string name="lbl_Name">Name</string>
+    <string name="lbl_DOB">Date of Birth</string>
+
+    <string name="prompt_Validity_CA_number">Invalid CA Number</string>
+    <string name="prompt_Validity_CRNID_number">Invalid CRNID Number</string>
+    <string name="prompt_Validity_K_number">Invalid KNumber</string>
+    <string name="prompt_Validity_BP_number">Invalid BP Number</string>
+
+
+
+    <string name="prompt_Validity_radio_btn">Select radio button</string>
+    <string name="prompt_Validity_DOB_Age">Minimum age of 18 years required for SignUp</string>
+    <string name="prompt_Validity_DOB">Enter Your Date Of Birth</string>
+    <string name="prompt_Validity_Name">Enter your name</string>
+    <string name="prompt_Validity_Email_Address">Enter valid Email Address</string>
+    <string name="lbl_FirstName">Enter First Name</string>
+    <string name="lbl_LastName">Enter Last Name</string>
+    <string name="lbl_AccountNumber">Enter Account Number</string>
+
+    <string name="error_SDCode">Enter Correct SD Code</string>
+    <string name="error_SOP">Enter Correct SOP</string>
+    <string name="error_FSA">Enter Correct FSA</string>
+    <string name="error_AccountMonth">Enter Correct On Bill AC Month</string>
+    <string name="error_Bill_DueDate">Enter Correct On Bill Due Date</string>
+    <string name="error_Date">Inappropriate Date!!!Enter Correct On Bill Due Date</string>
+    <string name="error_Invalid_Date">Invalid date.Enter Correct On Bill Due Date</string>
+    <string name="error_RadioButton">Select StubType RadioButton</string>
+    <string name="singUp_Successful_msg">Consumer created Successfully.Please Log in</string>
 
     <string name ="error_sinUp_msg">You are already registered with Money On Mobile.</string>
     <string name="lblKNumber">KNumber</string>
@@ -107,6 +144,8 @@
     <string name="lblSubscriberId">Subscriber ID</string>
     <string name="lblRechargeAmount">Recharge Amount</string>
     <string name="lblAmount">Amount</string>
+    <string name="tpin_submit_btn">Submit</string>
+    <string name="btn_Login">Login</string>
     <string name="lblYourMobile">Your Mobile Number</string>
     <string name="lblConsumerNumber">Consumer Number</string>
     <string name="lblCustomerMobile">Customer\'s Mobile Number</string>
@@ -114,14 +153,15 @@
     <string name="lblPolicyNumber">Policy Number</string>
     <string name="lblCustomerLandlineNumber">Customer\'s Land Line Number</string>
     <string name="lblAccountNumber">Account Number</string>
-    <string name="lblTPin_old" translatable="false">Old T-PIN</string>
-    <string name="lblTPin_new" translatable="false">New T-PIN</string>
-    <string name="lblTPin_new_confirm" translatable="false">Confirm New T-PIN</string>
-    <string name="lblMPin_old" translatable="false">Old M-PIN</string>
+    <string name="lbl_Email">Email</string>
+    <string name="lblTPin_old">Old T-PIN</string>
+    <string name="lblTPin_new">New T-PIN</string>
+    <string name="lblTPin_new_confirm">Confirm New T-PIN</string>
+    <string name="lblMPin_old">Old M-PIN</string>
     <string name="lblMPin_new">New M-PIN</string>
-    <string name="lblMPin_new_confirm" translatable="false">Confirm New M-PIN</string>
-    <string name="lblOld_password" translatable="false">Old Password</string>
-    <string name="lblNew_password" translatable="false">New Password</string>
+    <string name="lblMPin_new_confirm">Confirm New M-PIN</string>
+    <string name="lblOld_password">Old Password</string>
+    <string name="lblNew_password">New Password</string>
     <string name="lblConfirm_password">Confirm Password</string>
     <string name="confirm_balance_transfer">Confirm Transfer</string>
     <string name="transfer">transfer</string>
@@ -135,7 +175,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
-    <string name="prompt_Validity_DOB_Age">Minimum age of 18 years required for SignUp</string>
+
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <!-- START: LANGUAGE RELATED -->

@@ -29,6 +29,19 @@
             android:gravity="left"
             android:src="@drawable/logo"/>
 
+        <com.mom.app.ui.CustomTextView
+            android:id="@+id/tv_signUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+
+            android:layout_marginLeft="10dip"
+            android:layout_marginTop="10dip"
+
+            android:textColor="#333"
+            android:textSize="8pt"
+            android:visibility="gone" />
+
         <Spinner
             android:id="@+id/selectLanguage"
             style="@style/SpinnerAppTheme"
@@ -75,6 +88,13 @@
                 style="@style/MoMTheme.wrapped.customButton"
                 android:onClick="startLogin"
                 android:text="@string/btn_login" />
+
+            <com.mom.app.ui.CustomButton
+                android:id="@+id/btn_signUp"
+                style="@style/MoMTheme.wrapped.customButton"
+                android:onClick="signUp"
+                android:text="Sign Up"
+                              />
         </LinearLayout>
     </LinearLayout>
     <TextView
