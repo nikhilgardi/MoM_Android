@@ -37,7 +37,6 @@ public abstract class DataExImpl implements IDataEx{
         GET_OPERATOR_NAMES,
         CHANGE_PASSWORD,
         BALANCE_TRANSFER,
-        BALANCE_TRANSFER_PBX,
         LIC,
         PAY_LIC;
     }

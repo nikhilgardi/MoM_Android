@@ -54,7 +54,8 @@
 
         <activity
             android:name=".activity.LoginActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation">
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -125,7 +126,9 @@
             android:name=".activity.ChangePINActivity"
             android:label="@string/title_activity_change_pin" >
         </activity>
-        <meta-data android:name="com.crashlytics.ApiKey" android:value="51a5691210b0b174e5bf61fb49618e1fa0d1c25d"/>
+        <meta-data
+            android:name="com.crashlytics.ApiKey"
+            android:value="da418bfcdda0ecf34013b3a98c08fa6fb5cd3fe8" />
 
     </application>
 

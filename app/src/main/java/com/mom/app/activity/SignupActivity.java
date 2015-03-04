@@ -213,6 +213,7 @@ public class SignupActivity extends Activity {
             }
         }
     }
+
     private class GetLoginTaskCustomerRegistration extends AsyncTask<Void, Void, String> {
 
         @Override

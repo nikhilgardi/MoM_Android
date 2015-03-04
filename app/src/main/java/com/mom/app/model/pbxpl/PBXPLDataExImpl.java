@@ -174,11 +174,11 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                     }
 
                     break;
-                case BALANCE_TRANSFER_PBX:
+                case BALANCE_TRANSFER:
                     Log.d(_LOG, "TaskComplete: balanceTransfer method, result: " + result);
 
                     if (_listener != null) {
-                        _listener.onTaskSuccess(getInternalBalTransfer(result), Methods.BALANCE_TRANSFER_PBX);
+                        _listener.onTaskSuccess(getInternalBalTransfer(result), Methods.BALANCE_TRANSFER);
                     }
                     break;
 
@@ -534,7 +534,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
             Log.d(_LOG, "Response: " + responseBase.data);
 
-            request.setCustom(responseBase.data);
+            request.setRemoteResponse(responseBase.data);
 
             return request;
         }catch (Exception e){
@@ -752,7 +752,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 TextUtils.isEmpty(payTo) || request.getAmount() < 1 ){
 
             if(_listener != null) {
-                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.BALANCE_TRANSFER_PBX);
+                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.BALANCE_TRANSFER);
             }
             return;
         }
@@ -766,8 +766,9 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 this,
                 new TransactionRequest(),
                 AppConstants.URL_PBX_PLATFORM_APP,
-                Methods.BALANCE_TRANSFER_PBX
+                Methods.BALANCE_TRANSFER
         );
+
         dataEx.execute(
                 new BasicNameValuePair(AppConstants.PARAM_PBX_SERVICE, AppConstants.SVC_PBX_INTERNAL_BAL_TRANSFER),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_PARENT_RMN, userName),

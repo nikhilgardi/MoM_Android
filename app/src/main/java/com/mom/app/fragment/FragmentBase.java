@@ -46,8 +46,6 @@ public abstract class FragmentBase extends Fragment {
     IDataEx _dataEx     = null;
     TextView tvMsgDisplay;
     IFragmentListener _callbackListener;
-    Button _backBtn;
-
 
     protected void showBalance(){
         Bundle bundle       = new Bundle();
@@ -157,21 +155,6 @@ public abstract class FragmentBase extends Fragment {
         startActivity(intent);
     }
 
-
-
-
-    protected void setupBackListener(){
-        if(_backBtn == null){
-            return;
-        }
-
-        _backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                goBack();
-            }
-        });
-    }
 
     protected void goBack(){
         getFragmentManager().popBackStack();

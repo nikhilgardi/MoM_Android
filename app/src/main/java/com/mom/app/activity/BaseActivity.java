@@ -87,6 +87,8 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
     PlatformIdentifier _currentPlatform;
     PinType _pPinType;
 
+    MoMScreen _currentScreen;
+
     ArrayList<ImageItem<MoMScreen>> _menuItems;
 
     @Override
@@ -288,6 +290,7 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
             }
         };
 
+        Log.d(_LOG, "Going to fetch balance");
         getDataEx(listener).getBalance();
     }
 
@@ -310,7 +313,7 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
         }
 
         tv.setText("Balance: " + getResources().getString(R.string.Rupee) + sBal);
-        Log.d("BAlcheck" , sBal);
+        Log.d(_LOG, sBal);
     }
 
     public IDataEx getDataEx(AsyncListener<?> listener){
@@ -412,6 +415,7 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
     @Override
     protected boolean onPrepareOptionsPanel(View view, Menu menu) {
         Log.d(_LOG, "onPrepareOptionsPanel");
+
         return super.onPrepareOptionsPanel(view, menu);
     }
 
@@ -538,6 +542,7 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
                 break;
         }
 
+        _currentScreen  = screen;
         return false;
     }
 
@@ -548,6 +553,17 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
             Log.d(_LOG, "Item clicked: " + position);
             selectItem(position);
 
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Log.d(_LOG, "Back pressed");
+
+        if(_currentScreen != MoMScreen.DASHBOARD){
+            showScreen(MoMScreen.DASHBOARD);
+        }else{
+            confirmLogout();
         }
     }
 

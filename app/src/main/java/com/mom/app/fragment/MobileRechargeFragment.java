@@ -94,16 +94,6 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
             }
         });
 
-        _backBtn                = (Button) view.findViewById(R.id.btnBack);
-        _backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DashboardFragment dsh = new DashboardFragment();
-
-            }
-        });
-
-        setupBackListener();
 
         try {
             getAllOperators();
@@ -306,6 +296,9 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
             _etTargetPhone.setText("");
             _etAmount.setText("");
 
+            _rbtnTopUp.setVisibility(View.GONE);
+            _rbtnValidity.setVisibility(View.GONE);
+            _rbtnSpecial.setVisibility(View.GONE);
             _rbtnTopUp.setChecked(false);
             _rbtnValidity.setChecked(false);
 
@@ -317,9 +310,9 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
                             sOperatorId.equals(AppConstants.OPERATOR_ID_MTNL)
                     ) {
 
-                _rbtnTopUp.setVisibility(view.VISIBLE);
-                _rbtnValidity.setVisibility(view.VISIBLE);
-                _rbtnSpecial.setVisibility(view.GONE);
+                _rbtnTopUp.setVisibility(View.VISIBLE);
+                _rbtnValidity.setVisibility(View.VISIBLE);
+                _rbtnSpecial.setVisibility(View.GONE);
                 _rbtnTopUp.setChecked(true);
                 _rbtnValidity.setChecked(false);
             } else if (sOperatorId.equals(AppConstants.OPERATOR_ID_TATA_DOCOMO) ||
@@ -328,9 +321,9 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
 
                 _etTargetPhone.setText("");
                 _etAmount.setText("");
-                _rbtnTopUp.setVisibility(view.VISIBLE);
-                _rbtnValidity.setVisibility(view.GONE);
-                _rbtnSpecial.setVisibility(view.VISIBLE);
+                _rbtnTopUp.setVisibility(View.VISIBLE);
+                _rbtnValidity.setVisibility(View.GONE);
+                _rbtnSpecial.setVisibility(View.VISIBLE);
                 _rbtnTopUp.setChecked(true);
                 _rbtnValidity.setChecked(false);
             }
@@ -339,9 +332,9 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
 
                 _etTargetPhone.setText("");
                 _etAmount.setText("");
-                _rbtnTopUp.setVisibility(view.VISIBLE);
-                _rbtnValidity.setVisibility(view.GONE);
-                _rbtnSpecial.setVisibility(view.VISIBLE);
+                _rbtnTopUp.setVisibility(View.VISIBLE);
+                _rbtnValidity.setVisibility(View.GONE);
+                _rbtnSpecial.setVisibility(View.VISIBLE);
                 _rbtnTopUp.setChecked(true);
                 _rbtnSpecial.setChecked(false);
 
