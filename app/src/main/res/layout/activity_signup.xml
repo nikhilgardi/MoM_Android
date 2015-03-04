@@ -327,7 +327,7 @@ android:orientation="vertical" >
             <Button
                 android:id="@+id/BTN_signIn"
                 android:layout_height="wrap_content"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_weight="2"
                 android:onClick="postSignUpData"
                 style="@style/MoMTheme.wrapped.customButton"

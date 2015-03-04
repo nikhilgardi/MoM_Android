@@ -43,6 +43,10 @@ public interface IDataEx {
     public abstract void balanceTransfer(TransactionRequest request, String payTo);
      public void signUpEncryptData(String composeData , String Key);
 
+    public void signUpCustomerRegistration(String data);
+    public void impsCustomerRegistration(String consumerNumber);
+    public void impsBeneficiaryList(String consumerNumber);
+
     public  void lic(String lic , String customerMobNo);
     public void licPayment(TransactionRequest<LicLifeResponse> request , String CustomerMobNo , String PolicyNo , String fromDate);
 }

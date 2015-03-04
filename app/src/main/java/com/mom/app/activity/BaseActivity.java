@@ -3,6 +3,7 @@ package com.mom.app.activity;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -42,6 +43,8 @@ import com.mom.app.fragment.ChangePinFragment;
 import com.mom.app.fragment.DTHRechargeFragment;
 import com.mom.app.fragment.DashboardFragment;
 import com.mom.app.fragment.FragmentBase;
+import com.mom.app.fragment.IMPSFragment;
+import com.mom.app.fragment.IMPSFragmentTest;
 import com.mom.app.fragment.LICFragment;
 import com.mom.app.fragment.MobileRechargeFragment;
 import com.mom.app.fragment.SettingsFragment;
@@ -518,6 +521,11 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
             case BALANCE_TRANSFER:
                 showFragment(BalanceTransferFragment.newInstance(_currentPlatform));
                 break;
+            case IMPS:
+                showFragment(IMPSFragment.newInstance(_currentPlatform));
+
+              break;
+
             case CHANGE_MPIN:
                 showFragment(ChangePinFragment.newInstance(_currentPlatform, PinType.M_PIN));
                 break;
@@ -550,6 +558,7 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
 
         }
     }
+
 
     public void showFragment(Fragment fragment){
         showFragment(fragment, R.id.contentFrame);

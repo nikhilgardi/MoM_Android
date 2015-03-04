@@ -177,6 +177,7 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
 
         operatorList.add(0, new Operator("", getActivity().getString(R.string.prompt_spinner_select_operator)));
 
+
         ArrayAdapter<Operator> dataAdapter = new ArrayAdapter<Operator>(
                 getActivity(), android.R.layout.simple_spinner_item,
                 operatorList
