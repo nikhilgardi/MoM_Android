@@ -11,7 +11,9 @@ public enum TransactionType {
     BILL_PAYMENT (R.string.action_billPayment),
     UTILITY_BILL_PAYMENT(R.string.action_utilityBill),
     LIC (R.string.action_lIC),
-    BALANCE_TRANSFER(R.string.action_balanceTransfer);
+    BALANCE_TRANSFER(R.string.action_balanceTransfer),
+    IMPS_CUSTOMER_REGISTRATION(R.string.action_IMPSCustomerRegistration),
+    IMPS_BENEFICIARY_LIST(R.string.action_IMPSBeneficiaryList);
 
     public int transactionTypeStringId;
 

@@ -19,6 +19,7 @@ public class AppConstants {
      */
 	public static final String URL_NEW_PLATFORM		        = "http://msvc.money-on-mobile.net/WebServiceV3Client.asmx";
 	public static final String URL_NEW_PLATFORM_TXN	        = "http://msvc.money-on-mobile.net/WebServiceV3Trans.asmx";
+    public static final String URL_NEW_PLATFORM_TXN_SIGNUP	= "http://utilities.money-on-mobile.net/android_userservice/userservice.asmx";
     public static final String URL_NEW_PLATFORM_GET_BEST_BILL
                                                             = "http://180.179.67.72/bestpayments/billInquiry.ashx";
 //    public static final String URL_NEW_PLATFORM_GET_BEST_BILL
@@ -35,17 +36,18 @@ public class AppConstants {
 
 
     //Start: MoM Platform Methods
-	public static final String SVC_NEW_METHOD_LOGIN	        = "/getLoggedIn";
-	public static final String SVC_NEW_METHOD_CHECK_TPIN    = "/checkVallidTpin";
-    public static final String SVC_NEW_METHOD_GET_BALANCE   = "/getBalanceByCustomerId";
-	public static final String SVC_NEW_METHOD_RECHARGE_MOBILE
-                                                            = "/DoMobRecharge";
-    public static final String SVC_NEW_METHOD_RECHARGE_DTH  = "/DoDTHRechargeV2";
-    public static final String SVC_NEW_METHOD_BILL_PAYMENT  = "/doBillPayment";
-    public static final String SVC_NEW_METHOD_RETAILER_PAYMENT ="/doBalanceTransfer";
-    public static final String SVC_NEW_METHOD_CHANGE_TPIN   = "/ChangeT_Pin";
-    public static final String SVC_NEW_METHOD_CHANGE_MPIN   = "/ChangeM_Pin";
-    public static final String SVC_NEW_METHOD_SIGN_UP_ENCRYPT_DATA ="/Encrypt";
+	public static final String SVC_NEW_METHOD_LOGIN	                         = "/getLoggedIn";
+	public static final String SVC_NEW_METHOD_CHECK_TPIN                     = "/checkVallidTpin";
+    public static final String SVC_NEW_METHOD_GET_BALANCE                    = "/getBalanceByCustomerId";
+	public static final String SVC_NEW_METHOD_RECHARGE_MOBILE                = "/DoMobRecharge";
+    public static final String SVC_NEW_METHOD_RECHARGE_DTH                   = "/DoDTHRechargeV2";
+    public static final String SVC_NEW_METHOD_BILL_PAYMENT                   = "/doBillPayment";
+    public static final String SVC_NEW_METHOD_RETAILER_PAYMENT               ="/doBalanceTransfer";
+    public static final String SVC_NEW_METHOD_CHANGE_TPIN                    = "/ChangeT_Pin";
+    public static final String SVC_NEW_METHOD_CHANGE_MPIN                    = "/ChangeM_Pin";
+    public static final String SVC_NEW_METHOD_SIGN_UP_ENCRYPT_DATA           ="/Encrypt";
+    public static final String SVC_NEW_METHOD_SIGN_UP_CUSTOMER_REGISTRATION  ="/CustomerRegistration";
+    public static final String SVC_NEW_METHOD_IMPS_CUSTOMER_REGISTRATION     = "/PbxIMPSApp.ashx";
     //End: MoM Platform Methods
 
     //Start: PBX Platform Service
@@ -63,21 +65,22 @@ public class AppConstants {
     public static final String SVC_PBX_LIC                      = "LICENQ";
 
     public static final String PARAM_SERVICE_LIC                = "LICPAY";
-
+    public static final String PARAM_SERVICE_IMPS               = "GETCUSTOMERSTATUS";
+    public static final String PARAM_SERVICE_IMPS_BENEFICIARY_LIST               = "BENEFICIARYLIST";
     //End: PBX Platform Service
 
     public static final String PBX_OPERATOR_TYPE_DEFAULT    = "1";
     //Start: PBX Platform URLs
 
-    public static final String URL_PBX_PLATFORM_SERVICE     = "http://test.pbx.momappworld.com/momspre/service.ashx";
+    public static final String URL_PBX_PLATFORM_SERVICE       = "http://test.pbx.momappworld.com/momspre/service.ashx";
   //  public static final String URL_PBX_PLATFORM_APP         = "http://test.pbx.momappworld.com/momspre/PbxMobApp.ashx";
    // public static final String URL_PBX_PLATFORM_APP         =  "http://api.pbx.momappworld.com/mobapps1/pbxmobapp.ashx";
-    public static final String URL_PBX_PLATFORM_APPLIC     =   "http://test.api.pbx.momappworld.com/PbxMobApp.ashx";
+    public static final String URL_PBX_PLATFORM_APPLIC        =   "http://test.api.pbx.momappworld.com/PbxMobApp.ashx";
    //    public static final String URL_PBX_PLATFORM_APP         = "http://172.16.1.102/MobAppS/PbxMobApp.ashx";
+   public static final String URL_PBX_PLATFORM_IMPS           =   "http://test.api.pbx.momappworld.com/PbxIMPSApp.ashx";
 
-
-     public static final String URL_PBX_PLATFORM_APP         =  "http://api.pbx.momappworld.com/pbxmobapp.ashx";
-//   public static final String URL_PBX_PLATFORM_APP         =  "http://test.api.pbx.momappworld.com/pbxmobapp.ashx";
+     public static final String URL_PBX_PLATFORM_APP          =  "http://api.pbx.momappworld.com/pbxmobapp.ashx";
+//   public static final String URL_PBX_PLATFORM_APP          =  "http://test.api.pbx.momappworld.com/pbxmobapp.ashx";
 
 
     //End: PBX Platform URLs
@@ -133,13 +136,14 @@ public class AppConstants {
     public static final String PARAM_NEW_INT_RECHARGE_TYPE  = "intRechargeType";
     public static final String PARAM_NEW_INT_CUSTOMER_ID    = "intCustomerId";
     public static final String PARAM_NEW_CUSTOMER_NUMBER    = "CustomerNumber";
+    public static final String PARAM_NEW_CONSUMER_NUMBER    = "ConsumerNumber";
     public static final String PARAM_NEW_INT_OPERATOR_ID_BILL_PAY
                                                             = "intOperatorIDBillPay";
     public static final String PARAM_NEW_DEC_BILL_AMOUNT    = "DecBillAmount";
     public static final String PARAM_NEW_STR_CUSTOMER_NUMBER
                                                             = "strCustomerNumber";
     public static final String PARAM_NEW_COMPANY_ID_CAMEL_CASE
-                                                            = "companyId";
+                                                                = "companyId";
     public static final String PARAM_NEW_STR_PAYER              = "payer";
     public static final String PARAM_NEW_STR_PAYEE              = "Payee";
     public static final String PARAM_NEW_STR_TRANSFERAMOUNT     = "TransferAmount";
@@ -181,7 +185,8 @@ public class AppConstants {
     public static final String PARAM_PBX_IDENTIFIER          = "identifier";
     public static final String PARAM_PBX_ORIGIN_ID           = "originId";
     public static final String PARAM_PBX_CLIENT_TOKEN        = "clientToken";
-
+    public static final String PARAM_PBX_CONSUMER_NUMBER     = "ConsumerNumber";
+    public static final String PARAM_PBX_ROWID               = "partyRowId";
 
     public static final String PARAM_PBX_OPERATORS          = "pbxOperators";
     public static final String PARAM_PBX_OP                 = "oldPassword";
@@ -198,6 +203,10 @@ public class AppConstants {
     public static final String PARAM_PBX_USERTYPE           = "userType";
     public static final String PARAM_PBX_USERNAMELOGIN      = "userName";
     public static final String PARAM_PBX_LICAMOUNT          = "premiumAmount";
+    public static final String PARAM_PBX_IMPS_CUSTOMER_ID   = "customerID";
+    public static final String PARAM_PBX_IMPS_SERVICEALLOWED= "isIMPSServiceAllowed";
+    public static final String PARAM_PBX_IMPS_ISREGISTERED  = "isRegistered";
+
 
     public static final String PARAM_PBX_ACCOUNT_NUMBER            = "account";
     public static final String PARAM_PBX_DUE_DATE            = "dueDate";

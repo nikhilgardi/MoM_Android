@@ -12,7 +12,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.content.LocalBroadcastManager;
@@ -20,7 +19,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.util.LongSparseArray;
 import android.view.Menu;
@@ -42,6 +40,7 @@ import com.mom.app.fragment.ChangePinFragment;
 import com.mom.app.fragment.DTHRechargeFragment;
 import com.mom.app.fragment.DashboardFragment;
 import com.mom.app.fragment.FragmentBase;
+import com.mom.app.fragment.IMPSFragment;
 import com.mom.app.fragment.LICFragment;
 import com.mom.app.fragment.MobileRechargeFragment;
 import com.mom.app.fragment.SettingsFragment;
@@ -59,7 +58,6 @@ import com.mom.app.model.IDataEx;
 import com.mom.app.model.local.EphemeralStorage;
 import com.mom.app.model.mompl.MoMPLDataExImpl;
 import com.mom.app.model.pbxpl.PBXPLDataExImpl;
-import com.mom.app.ui.CustomTextView;
 import com.mom.app.ui.TransactionRequest;
 import com.mom.app.ui.IFragmentListener;
 import com.mom.app.ui.flow.MoMScreen;
@@ -522,6 +520,11 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
             case BALANCE_TRANSFER:
                 showFragment(BalanceTransferFragment.newInstance(_currentPlatform));
                 break;
+            case IMPS:
+                showFragment(IMPSFragment.newInstance(_currentPlatform));
+
+              break;
+
             case CHANGE_MPIN:
                 showFragment(ChangePinFragment.newInstance(_currentPlatform, PinType.M_PIN));
                 break;

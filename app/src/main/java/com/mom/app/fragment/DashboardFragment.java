@@ -109,6 +109,12 @@ public class DashboardFragment extends FragmentBase {
                 isVerificationNeeded    = (_currentPlatform != PlatformIdentifier.PBX);
                 break;
 
+
+            case IMPS:
+                Log.d(_LOG, "Starting Transaction IMPS Activity");
+                isVerificationNeeded    = (_currentPlatform != PlatformIdentifier.PBX);
+                break;
+
             case HISTORY:
                 Log.d(_LOG, "Starting Transaction History Activity");
                 isVerificationNeeded    = false;

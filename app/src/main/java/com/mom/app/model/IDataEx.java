@@ -1,11 +1,14 @@
 package com.mom.app.model;
 
 import com.mom.app.identifier.PinType;
+import com.mom.app.model.pbxpl.BeneficiaryResult;
+import com.mom.app.model.pbxpl.ImpsCustomerRegistrationResult;
 import com.mom.app.model.pbxpl.PaymentResponse;
 import com.mom.app.model.pbxpl.lic.LicLifeResponse;
 import com.mom.app.ui.TransactionRequest;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by vaibhavsinha on 7/5/14.
@@ -42,6 +45,10 @@ public interface IDataEx {
 
     public abstract void balanceTransfer(TransactionRequest request, String payTo);
      public void signUpEncryptData(String composeData , String Key);
+
+    public void signUpCustomerRegistration(String data);
+    public void registerIMPSCustomer(TransactionRequest<ImpsCustomerRegistrationResult> request);
+    public void getIMPSBeneficiaryList(TransactionRequest<List<BeneficiaryResult>> request);
 
     public  void lic(String lic , String customerMobNo);
     public void licPayment(TransactionRequest<LicLifeResponse> request , String CustomerMobNo , String PolicyNo , String fromDate);

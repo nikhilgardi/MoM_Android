@@ -12,9 +12,12 @@ import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.Transaction;
 import com.mom.app.model.local.EphemeralStorage;
+import com.mom.app.model.pbxpl.BeneficiaryResult;
+import com.mom.app.model.pbxpl.ImpsCustomerRegistrationResult;
 import com.mom.app.model.pbxpl.PaymentResponse;
 import com.mom.app.model.pbxpl.lic.LicLifeResponse;
 import com.mom.app.model.xml.PullParser;
+import com.mom.app.model.xml.SignupPullParser;
 import com.mom.app.ui.TransactionRequest;
 import com.mom.app.utils.AppConstants;
 
@@ -25,6 +28,7 @@ import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by vaibhavsinha on 7/5/14.
@@ -90,13 +94,22 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                     }
 
                     break;
-                case SIGN_UP_CONSUMER:
-                    Log.d(_LOG, "TaskComplete: rechargeMobile method, result: " + result);
+                case SIGN_UP_ENCRYPT_DATA:
+                    Log.d(_LOG, "TaskComplete: signUpEncrypt method, result: " + result);
                     if (_listener != null) {
-                        TransactionRequest<String> response = getPaymentResult(result , Methods.SIGN_UP_CONSUMER);
-                        _listener.onTaskSuccess(response, Methods.SIGN_UP_CONSUMER);
+
+                        _listener.onTaskSuccess(SignUp(result) , Methods.SIGN_UP_ENCRYPT_DATA);
                     }
                     break;
+
+                case SIGN_UP_CONSUMER:
+                    Log.d(_LOG, "TaskComplete: signUpConsumer method, result: " + result);
+                    if (_listener != null) {
+
+                     _listener.onTaskSuccess(SignUp(result), Methods.SIGN_UP_CONSUMER);
+                    }
+                    break;
+
                 case RECHARGE_MOBILE:
                     Log.d(_LOG, "TaskComplete: rechargeMobile method, result: " + result);
                     if (_listener != null) {
@@ -127,6 +140,8 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                         _listener.onTaskSuccess(response, Methods.BALANCE_TRANSFER);
                     }
                     break;
+
+
                 case GET_BILL_AMOUNT:
                     Log.d(_LOG, "TaskComplete: getBillAmount method, result: " + result);
                     float billAmount = extractBillAmount(result.getRemoteResponse() , result.getOperator().code);
@@ -235,7 +250,49 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
         return false;
     }
+    public String SignUp(TransactionRequest pResult){
+        String response = null;
+        if("".equals(pResult.getRemoteResponse())){
 
+        }
+
+        try {
+            PullParser parser   = new PullParser(new ByteArrayInputStream(pResult.getRemoteResponse().getBytes()));
+            response     = parser.getTextResponse();
+
+            response    = parser.getTextResponse();
+            Log.d(_LOG, "Response: " + response);
+            Log.d(_LOG, "Responsetest: " + response);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return  response;
+    }
+
+    public String SignUpConsumer(TransactionRequest pResult){
+        String response = null;
+        String responseRegistrationStatus = null;
+        String responseErrorMessage = null;
+        if("".equals(pResult.getRemoteResponse())){
+
+        }
+
+        try {
+            PullParser parser   = new PullParser(new ByteArrayInputStream(pResult.getRemoteResponse().getBytes()), true);
+            responseRegistrationStatus = parser.getTextResponse();
+
+
+            Log.d(_LOG, "ResponseCOnsumer: " + responseRegistrationStatus + responseErrorMessage);
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return  responseRegistrationStatus;
+    }
     public void getBalance(){
         String url				= AppConstants.URL_NEW_PLATFORM + AppConstants.SVC_NEW_METHOD_GET_BALANCE;
 
@@ -333,13 +390,27 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
     public void signUpEncryptData(String composeData , String key)
     {
-
-        String url          = AppConstants.URL_NEW_PLATFORM_TXN + AppConstants.SVC_NEW_METHOD_SIGN_UP_ENCRYPT_DATA;
+        Log.i("testparams" , composeData +"\n" + key);
+        String url          = AppConstants.URL_NEW_PLATFORM_TXN_SIGNUP + AppConstants.SVC_NEW_METHOD_SIGN_UP_ENCRYPT_DATA;
         AsyncDataEx dataEx	= new AsyncDataEx(this, new TransactionRequest(), url, Methods.SIGN_UP_CONSUMER);
+
 
         dataEx.execute(
                 new BasicNameValuePair("PlainText", composeData),
                 new BasicNameValuePair("Key", "f0rZHW8IXM8+YNYL7VptiOMr45m0VZ1yHhXD5zADpB4=")
+
+        );
+    }
+
+    public void signUpCustomerRegistration(String data)
+    {
+        Log.i("testparams" , data);
+        String url          = AppConstants.URL_NEW_PLATFORM_TXN_SIGNUP + AppConstants.SVC_NEW_METHOD_SIGN_UP_CUSTOMER_REGISTRATION;
+        AsyncDataEx dataEx	= new AsyncDataEx(this, new TransactionRequest(), url, Methods.SIGN_UP_CONSUMER);
+
+
+        dataEx.execute(
+                new BasicNameValuePair("Data", data)
 
         );
     }
@@ -439,6 +510,8 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
         return null;
     }
+
+
 
     public void rechargeDTH(TransactionRequest<PaymentResponse> request){
         if(
@@ -639,6 +712,14 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 new BasicNameValuePair(AppConstants.PARAM_NEW_INT_OPERATOR_ID_BILL_PAY, operatorCode)
         );
     }
+
+
+
+
+
+
+
+
 
     public void balanceTransfer(TransactionRequest request, String payTo)
     {
@@ -893,6 +974,16 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
             String psConsumerName,
             HashMap<String, String> pExtraParamsMap
     ){
+
+    }
+
+    @Override
+    public void registerIMPSCustomer(TransactionRequest<ImpsCustomerRegistrationResult> request) {
+
+    }
+
+    @Override
+    public void getIMPSBeneficiaryList(TransactionRequest<List<BeneficiaryResult>> request) {
 
     }
 }

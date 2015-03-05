@@ -6,7 +6,8 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.StrictMode;
+
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MotionEvent;
@@ -16,8 +17,19 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mom.app.R;
+import com.mom.app.error.MOMException;
+import com.mom.app.identifier.PlatformIdentifier;
+import com.mom.app.model.AsyncDataEx;
+import com.mom.app.model.AsyncListener;
+import com.mom.app.model.AsyncResult;
+import com.mom.app.model.IDataEx;
+import com.mom.app.model.local.EphemeralStorage;
+import com.mom.app.model.mompl.MoMPLDataExImpl;
+import com.mom.app.model.pbxpl.PBXPLDataExImpl;
+import com.mom.app.ui.TransactionRequest;
 import com.mom.app.utils.AppConstants;
 
 import org.apache.http.HttpEntity;
@@ -45,9 +57,11 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.mom.app.model.DataExImpl;
 
-public class SignupActivity extends Activity {
 
+public class SignupActivity extends Activity implements AsyncListener<String> {
+    String _LOG         = AppConstants.LOG_PREFIX + "LOGIN";
     private EditText et_dob, et_mobileNumber, et_name, et_emailId;
     private Calendar cal;
     private Button btn_login , btn_signUp;
@@ -65,6 +79,7 @@ public class SignupActivity extends Activity {
     private String registeredCustomerID;
     private String errorMessage ;
     Intent myintent = new Intent();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,8 +98,8 @@ public class SignupActivity extends Activity {
         month = cal.get(Calendar.MONTH);
         year = cal.get(Calendar.YEAR);
 
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder() .permitAll().build();
-        StrictMode.setThreadPolicy(policy);
+
+
 
         et_dob.setOnTouchListener(new View.OnTouchListener() {
 
@@ -125,50 +140,18 @@ public class SignupActivity extends Activity {
         }
     }
 
-    public void postSignUpData(View view) {
-
-        new GetLoginTask().onPostExecute("SignUpData");
-    }
-    private class GetLoginTask extends AsyncTask<Void, Void, String> {
-
-        @Override
-        protected String doInBackground(Void... params) {
-
-            return responseBody;
-        }
-        @Override
-        protected void onPostExecute(String data) {
 
 
 
-            if (validate() == 0) {
+            public void postSignUpData(View view) {
 
-                HttpClient httpclient = new DefaultHttpClient();
+                if (validate() == 0) {
+                    signUpDataEncrpyt();
 
 
-                HttpPost httppost = new HttpPost("http://utilities.money-on-mobile.net/android_userservice/userservice.asmx/Encrypt");
+                Log.i(_LOG, "Async login request sent");
 
-                try {
 
-                    List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-                    nameValuePairs.add(new BasicNameValuePair("PlainText", ComposeData()));
-                    nameValuePairs.add(new BasicNameValuePair("Key", "f0rZHW8IXM8+YNYL7VptiOMr45m0VZ1yHhXD5zADpB4="));
-                    final HttpParams httpParams = httpclient.getParams();
-                    HttpConnectionParams.setConnectionTimeout(httpParams, 15000);
-                    HttpConnectionParams.setSoTimeout(httpParams, 45000);
-                    httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-                    HttpResponse response = httpclient.execute(httppost);
-                    HttpEntity entity = response.getEntity();
-                    responseBody = EntityUtils.toString(entity);
-                    String check = responseBody;
-                    Log.i("postData", response.getStatusLine().toString());
-                    Log.i("postData", check);
-                    InputStream in = new ByteArrayInputStream(responseBody.getBytes("UTF-8"));
-                    new XmlPullParsing(in);
-
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
 
             } else {
                 switch (validate()) {
@@ -212,58 +195,40 @@ public class SignupActivity extends Activity {
                 }
             }
         }
-    }
 
-    private class GetLoginTaskCustomerRegistration extends AsyncTask<Void, Void, String> {
+    public void postSignUpConsumer (String data){
+        AsyncListener<String> listener = new AsyncListener<String>() {
+            @Override
+            public void onTaskSuccess(String result, DataExImpl.Methods callback) {
+                switch (callback){
+                    case SIGN_UP_CONSUMER:
+                        Log.i(_LOG, "Check Response: " + result);
 
-        @Override
-        protected String doInBackground(Void... params) {
-
-            return responseBody;
-        }
-
-        @Override
-        protected void onPostExecute(String data) {
-
-
-
-                HttpClient httpclient = new DefaultHttpClient();
-
-
-                HttpPost httppost = new HttpPost("http://utilities.money-on-mobile.net/android_userservice/userservice.asmx/CustomerRegistration");
-
-                try {
-
-                    List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
-                    nameValuePairs.add(new BasicNameValuePair("Data", data));
-
-                    final HttpParams httpParams = httpclient.getParams();
-                    HttpConnectionParams.setConnectionTimeout(httpParams, 15000);
-                    HttpConnectionParams.setSoTimeout(httpParams, 45000);
-                    httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-                    HttpResponse response = httpclient.execute(httppost);
-                    HttpEntity entity = response.getEntity();
-                    responseBody = EntityUtils.toString(entity);
-                    String check = responseBody;
-                    Log.i("postData", response.getStatusLine().toString());
-                    Log.i("DAta", data);
-                    Log.i("postDataRegistration", check);
-
-
-                    InputStream in = new ByteArrayInputStream(responseBody.getBytes("UTF-8"));
-                    new XmlPullParsingRegistrationData(in);
-
-
-                } catch (Exception ex) {
-                    ex.printStackTrace();
                 }
+            }
+
+            @Override
+            public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
 
             }
-        }
-    public void postSignUpConsumer (String data){
+        };
 
-        new GetLoginTaskCustomerRegistration().onPostExecute("Registration");
+
+
+        try {
+            IDataEx dataEx;
+
+            dataEx = new MoMPLDataExImpl(getApplicationContext(), listener);
+
+
+            dataEx.signUpCustomerRegistration(data);
+        }catch(Exception me){
+            Log.e(_LOG, "Error getting dataex", me);
+
+        }
+
     }
+
     public String ComposeData() {
         EditText et_mobileNumber = (EditText) findViewById(R.id.et_mobileNumber);
         String usermob = et_mobileNumber.getText().toString();
@@ -299,16 +264,20 @@ public class SignupActivity extends Activity {
         Log.i("tag", sb.toString());
 
         return sb.toString();
+    }
 
+    public void onTaskSuccess(String result, DataExImpl.Methods callback) {
+        Log.i(_LOG, "User not of new PL");
+        postSignUpConsumer(result);
+    }
+
+    @Override
+    public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
 
     }
 
-
-
-
     public void setDate() {
         showDialog(999);
-
     }
 
     @Override
@@ -351,245 +320,6 @@ public class SignupActivity extends Activity {
     }
 
 
-
-
-
-
-
-
-
-    public class XmlPullParsing {
-
-        protected XmlPullParser xmlpullparser1;
-        String output1;
-        String TAG = "XmlPullParsing";
-
-        public XmlPullParsing(InputStream is) {
-
-
-            XmlPullParserFactory factory = null;
-            try {
-                factory = XmlPullParserFactory.newInstance();
-            } catch (XmlPullParserException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            factory.setNamespaceAware(true);
-            try {
-                xmlpullparser1 = factory.newPullParser();
-            } catch (XmlPullParserException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-
-
-            try {
-                xmlpullparser1.setInput(is, "UTF-8");
-            } catch (XmlPullParserException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-
-
-            int eventType = 0;
-            try {
-                eventType = xmlpullparser1.getEventType();
-            } catch (XmlPullParserException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            while (eventType != XmlPullParser.END_DOCUMENT) {
-
-                parseTag(eventType);
-                try {
-                    eventType = xmlpullparser1.next();
-                } catch (XmlPullParserException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }
-
-
-        }
-
-        void parseTag(int event) {
-
-            switch (event) {
-
-                case XmlPullParser.START_DOCUMENT:
-                    Log.i(TAG, "START_DOCUMENT");
-                    break;
-
-                case XmlPullParser.END_DOCUMENT:
-                    Log.i(TAG, "END_DOCUMENT");
-                    break;
-                case XmlPullParser.START_TAG:
-                    Log.i(TAG, "START_TAG" + xmlpullparser1.getName());
-                    Log.i(TAG, "Attribute Name" + xmlpullparser1.getAttributeValue(null, "category"));
-
-                    break;
-
-                case XmlPullParser.END_TAG:
-                    Log.i(TAG, "END_TAG" + xmlpullparser1.getName());
-
-                    break;
-
-                case XmlPullParser.TEXT:
-                    Log.i(TAG, "TEXT");
-                    String output = xmlpullparser1.getText();
-                    String newoutputrecharge = output;
-                  //  postSignUpConsumer(output);
-                    new GetLoginTaskCustomerRegistration().onPostExecute(output);
-                    Log.i("dataoutput", output);
-
-
-                    break;
-
-            }
-
-
-        }
-
-    }
-
-    public class XmlPullParsingRegistrationData {
-
-        protected XmlPullParser xmlpullparser1;
-        String output1;
-        String TAG = "XmlPullParsing";
-        int event;
-        String text=null;
-
-        public XmlPullParsingRegistrationData(InputStream is) {
-
-
-            XmlPullParserFactory factory = null;
-            try {
-                factory = XmlPullParserFactory.newInstance();
-            } catch (XmlPullParserException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            factory.setNamespaceAware(true);
-            try {
-                xmlpullparser1 = factory.newPullParser();
-            } catch (XmlPullParserException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-
-
-            try {
-                xmlpullparser1.setInput(is, "UTF-8");
-            } catch (XmlPullParserException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-
-
-            int eventType = 0;
-            try {
-                eventType = xmlpullparser1.getEventType();
-            } catch (XmlPullParserException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            while (eventType != XmlPullParser.END_DOCUMENT) {
-
-                parseTag(eventType);
-                try {
-                    eventType = xmlpullparser1.next();
-                } catch (XmlPullParserException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }
-
-
-        }
-
-        void parseTag(int event) {
-            try {
-                event = xmlpullparser1.getEventType();
-                while (event != XmlPullParser.END_DOCUMENT) {
-                    String name=xmlpullparser1.getName();
-                    switch (event){
-                        case XmlPullParser.START_TAG:
-                            break;
-                        case XmlPullParser.TEXT:
-                            text = xmlpullparser1.getText();
-                            break;
-
-                        case XmlPullParser.END_TAG:
-                            if(name.equals("RegistrationStatus")){
-                                registrationStatus = text;
-
-
-                            }
-                            else if(name.equals("RegisteredCustomerID")){
-                                registeredCustomerID = text;
-
-                            }
-                            else if(name.equals("ErrorMessage")){
-                                errorMessage = text;
-
-                            }
-                            else{
-                            }
-
-
-                            break;
-                    }
-                    Log.i("RegistrationStatus" , registrationStatus);
-                    if(registrationStatus.equals("true")){
-                        myintent = new Intent(SignupActivity.this, LoginActivity.class);
-                        myintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        myintent.putExtra(AppConstants.SIGNUP_STATUS, 1);
-                        startActivity(myintent);
-                        finish();
-                    }
-                    else if(registrationStatus.equals("false")){
-
-                        et_dob.setText("");
-                        et_mobileNumber.setText("");
-                        et_name.setText("");
-                        et_emailId.setText("");
-                      //  responseText.setVisibility(View.GONE);
-                        btn_login.setVisibility(View.VISIBLE);
-                        tv_signUp.setVisibility(View.VISIBLE);
-
-                        tv_signUp.setText(getResources().getString(R.string.error_sinUp_msg));
-                        ib.setVisibility(View.GONE);
-                        et_dob.setVisibility(View.VISIBLE);
-                        et_mobileNumber.setVisibility(View.VISIBLE);
-                        et_name.setVisibility(View.VISIBLE);
-                        et_emailId.setVisibility(View.VISIBLE);
-                        btn_signUp.setVisibility(View.VISIBLE);
-
-
-                    }
-                    event = xmlpullparser1.next();
-
-
-
-                }
-                parsingComplete = false;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-
-        }
-
-    }
-
-
     public void login(View view) {
         myintent = new Intent(SignupActivity.this, LoginActivity.class);
         myintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -613,7 +343,13 @@ public class SignupActivity extends Activity {
     }
 
 
+    public void signUpDataEncrpyt(){
+        String Key = "f0rZHW8IXM8+YNYL7VptiOMr45m0VZ1yHhXD5zADpB4=";
+        String url          = AppConstants.URL_NEW_PLATFORM_TXN_SIGNUP + AppConstants.SVC_NEW_METHOD_SIGN_UP_ENCRYPT_DATA;
+        MoMPLDataExImpl dataEx      = new MoMPLDataExImpl(this , this);
 
+        dataEx.signUpEncryptData(ComposeData(),Key);
+    }
 
 }
 

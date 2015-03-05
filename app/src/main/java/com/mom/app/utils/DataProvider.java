@@ -93,6 +93,17 @@ public class DataProvider {
 
         imageItems.add(
                 new ImageItem<MoMScreen>(
+                        MoMScreen.IMPS,
+                        MoMScreen.IMPS.id,
+                        MoMScreen.IMPS.drawableId,
+                        MoMScreen.IMPS.drawableTransparentId,
+                        context.getResources().getString(MoMScreen.IMPS.titleResId),
+                        false
+                )
+        );
+
+        imageItems.add(
+                new ImageItem<MoMScreen>(
                         MoMScreen.HISTORY,
                         MoMScreen.HISTORY.id,
                         MoMScreen.HISTORY.drawableId,
@@ -102,7 +113,7 @@ public class DataProvider {
                 )
         );
 
-        if(!showingDashboard || platform == PlatformIdentifier.PBX) {
+     //   if(!showingDashboard || platform == PlatformIdentifier.PBX) {
             imageItems.add(
                     new ImageItem<MoMScreen>(
                             MoMScreen.SETTINGS,
@@ -113,7 +124,7 @@ public class DataProvider {
                             false
                     )
             );
-        }
+      //  }
 
 
 
