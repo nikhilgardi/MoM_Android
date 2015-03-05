@@ -1,8 +1,6 @@
 package com.mom.app.fragment;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -10,8 +8,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -21,30 +17,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mom.app.R;
-import com.mom.app.error.MOMException;
-import com.mom.app.identifier.ClassType;
-import com.mom.app.identifier.PinType;
 import com.mom.app.identifier.PlatformIdentifier;
 import com.mom.app.identifier.TransactionType;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.IDataEx;
-import com.mom.app.model.Operator;
-import com.mom.app.model.Transaction;
-import com.mom.app.model.local.EphemeralStorage;
-import com.mom.app.model.mompl.MoMPLDataExImpl;
+import com.mom.app.model.pbxpl.BeneficiaryResult;
+import com.mom.app.model.pbxpl.ImpsCustomerRegistrationResult;
 import com.mom.app.ui.TransactionRequest;
 import com.mom.app.utils.AppConstants;
-import com.mom.app.utils.DataProvider;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
+<<<<<<< HEAD
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+=======
+>>>>>>> 198c7f77c4fc6efc3e62827ca177688d5171d5c7
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -156,6 +146,10 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
 
         _btnGetBillAmount.setVisibility(View.GONE);
         _splOperatorNBE.setVisibility(View.GONE);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 198c7f77c4fc6efc3e62827ca177688d5171d5c7
         _tvGetIFSC_List.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -180,8 +174,11 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
                 _etOTP.setVisibility(View.GONE);
                 _btnOTPResend.setVisibility(View.GONE);
                 _btnPay.setVisibility(View.GONE);
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 198c7f77c4fc6efc3e62827ca177688d5171d5c7
             }
         });
 
@@ -206,6 +203,7 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
         _btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+<<<<<<< HEAD
                 int nMinPhoneLength = 10;
                 int nMaxPhoneLength = 10;
                 int nPhoneLength = _etConsumerNumber.getText().toString().length();
@@ -223,6 +221,19 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
                 consumerRegistrationStatus();
 
                 }
+=======
+                int nMinPhoneLength     = 10;
+                int nMaxPhoneLength     = 10;
+                int nPhoneLength        = _etConsumerNumber.getText().toString().length();
+                if(nPhoneLength < nMinPhoneLength || nPhoneLength > nMaxPhoneLength){
+                    _etConsumerNumber.setText("");
+                    showMessage(String.format(getResources().getString(R.string.error_phone_length_min_max), nMinPhoneLength, nMaxPhoneLength));
+                    return;
+                }
+
+                consumerRegistration();
+            }
+>>>>>>> 198c7f77c4fc6efc3e62827ca177688d5171d5c7
         });
 
         _btnImpsCreateCustomer.setOnClickListener(new View.OnClickListener() {
@@ -230,6 +241,7 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
             @Override
             public void onClick(View view) {
 
+<<<<<<< HEAD
                 if (validate() == 0) {
                     createConsumerRegistration();
                     Log.i(_LOG, "Async Registration request sent");
@@ -242,8 +254,12 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
                             showMessage(getResources().getString(R.string.prompt_Validity_mobile_number));
                             _etConsumerNumber.setText("");
                             break;
+=======
+        _etDob.setOnTouchListener(new View.OnTouchListener() {
+>>>>>>> 198c7f77c4fc6efc3e62827ca177688d5171d5c7
 
 
+<<<<<<< HEAD
                         case 2:
 
 
@@ -350,11 +366,31 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
         });
 
         TransactionRequest request = new TransactionRequest(
+=======
+                }
+                return false;
+            }
+        });
+
+        return view;
+    }
+
+    private void consumerRegistration() {
+        showMessage(null);
+
+        String sConsumerNumber = _etConsumerNumber.getText().toString().trim();
+
+        TransactionRequest<ImpsCustomerRegistrationResult> request  = new TransactionRequest<ImpsCustomerRegistrationResult>(
+>>>>>>> 198c7f77c4fc6efc3e62827ca177688d5171d5c7
                 getActivity().getString(TransactionType.IMPS_CUSTOMER_REGISTRATION.transactionTypeStringId),
                 sConsumerNumber
         );
 
+<<<<<<< HEAD
         getDataEx(this).impsCustomerRegistrationStatus(sConsumerNumber);
+=======
+        getDataEx(this).registerIMPSCustomer(request);
+>>>>>>> 198c7f77c4fc6efc3e62827ca177688d5171d5c7
 
         showProgress(true);
     }
@@ -362,8 +398,8 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
     private void getBeneficiaryList() {
         showMessage(null);
 
-
         String sConsumerNumber = _etConsumerNumber.getText().toString().trim();
+<<<<<<< HEAD
         IDataEx dataEx         = getDataEx(new AsyncListener<ArrayList<Transaction>>() {
 
             public void onTaskSuccess(ArrayList<Transaction> result, DataExImpl.Methods callback) {
@@ -380,18 +416,27 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
 
             }
         });
+=======
+>>>>>>> 198c7f77c4fc6efc3e62827ca177688d5171d5c7
 
+        IDataEx dataEx = getDataEx(this);
 
+<<<<<<< HEAD
+=======
+        TransactionRequest<List<BeneficiaryResult>> request  = new TransactionRequest<List<BeneficiaryResult>>(
+                getActivity().getString(TransactionType.IMPS_BENEFICIARY_LIST.transactionTypeStringId),
+                sConsumerNumber
+        );
+
+>>>>>>> 198c7f77c4fc6efc3e62827ca177688d5171d5c7
         try {
-
-
-            dataEx.impsBeneficiaryList(sConsumerNumber);
-
+            dataEx.getIMPSBeneficiaryList(request);
             showProgress(true);
         } catch (Exception me) {
             Log.e(_LOG, "Error getting dataex", me);
 
         }
+<<<<<<< HEAD
 
 
     }
@@ -439,6 +484,14 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
     }
 
 
+=======
+    }
+
+    private void createConsumerRegistration(){
+     showMessage(null);
+ }
+
+>>>>>>> 198c7f77c4fc6efc3e62827ca177688d5171d5c7
     private void showDatePicker() {
         DatepickerFragment date = new DatepickerFragment();
 
@@ -465,6 +518,7 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
 
         _etDob.setText(new StringBuilder().append(day).append("/")
                 .append(month).append("/").append(year));
+<<<<<<< HEAD
         Calendar userAge = new GregorianCalendar(year, month, day);
         Calendar minAdultAge = new GregorianCalendar();
         minAdultAge.add(Calendar.YEAR, -18);
@@ -480,6 +534,11 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
     }
 
     public void showRetrieveBillNextFields() {
+=======
+    }
+
+    public void showRetrieveBillNextFields(){
+>>>>>>> 198c7f77c4fc6efc3e62827ca177688d5171d5c7
 
         _etConsumerNumber.setVisibility(View.GONE);
         _etConsumerName.setVisibility(View.VISIBLE);
@@ -505,7 +564,6 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
         _etOTP.setVisibility(View.VISIBLE);
         _btnOTPResend.setVisibility(View.VISIBLE);
         _btnPay.setVisibility(View.VISIBLE);
-
     }
 
     public void showCustomRegistrationFields() {
@@ -534,9 +592,13 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
         _btnCancel.setVisibility(View.GONE);
     }
 
+<<<<<<< HEAD
     public void showRetrieveBillFields() {
 
 
+=======
+    public void setupIMPSTransferView(){
+>>>>>>> 198c7f77c4fc6efc3e62827ca177688d5171d5c7
         _btnSubmit.setVisibility(View.GONE);
         _etConsumerNumber.setVisibility(View.VISIBLE);
 
@@ -553,8 +615,11 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
         _rbVerify.setVisibility(View.VISIBLE);
         _btnNext.setVisibility(View.VISIBLE);
         _btnCancel.setVisibility(View.VISIBLE);
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 198c7f77c4fc6efc3e62827ca177688d5171d5c7
     }
 
     public void hideRetrieveBillFields() {
@@ -584,13 +649,57 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
 
     @Override
     public void onTaskSuccess(TransactionRequest result, DataExImpl.Methods callback) {
+        Log.d(_LOG, "In onTaskSuccess");
 
+        switch (callback){
+            case IMPS_CUSTOMER_REGISTRATION:
+                Log.i(_LOG, result.getRemoteResponse() + result.getResponseCode());
+
+                if(!(result.getCustom() instanceof ImpsCustomerRegistrationResult)){
+                    Log.d(_LOG, "response is in incorrect format!");
+                    showMessage(getActivity().getString(R.string.error_imps_customer_registration));
+                    return;
+                }
+
+                ImpsCustomerRegistrationResult registrationResult   = (ImpsCustomerRegistrationResult) result.getCustom();
+
+                showMessage(result.getRemoteResponse());
+
+                if (registrationResult.isRegistered && registrationResult.isIMPSServiceAllowed) {
+                    Log.d(_LOG, "Both true");
+                    setupIMPSTransferView();
+                    //getBeneficiaryList();
+                } else if (!registrationResult.isRegistered && !registrationResult.isIMPSServiceAllowed) {
+                    Log.d(_LOG, "Both false");
+                    showCustomRegistrationFields();
+                }else if (!registrationResult.isRegistered && registrationResult.isIMPSServiceAllowed) {
+                    Log.d(_LOG, "not registered but service allowed");
+                    showCustomRegistrationFields();
+                }else if (registrationResult.isRegistered && !registrationResult.isIMPSServiceAllowed) {
+                    Log.d(_LOG, "customer already registered but imps not allowed");
+                    showMessage("You are not allowed to perform IMPS");
+                }
+                break;
+            case IMPS_BENEFICIARY_LIST:
+                break;
+        }
+
+<<<<<<< HEAD
+=======
+        Log.d(_LOG, "onTaskSuccess done");
     }
 
     @Override
     public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
-
+        Log.d(_LOG, "In onTaskError");
+        switch (callback){
+            case IMPS_CUSTOMER_REGISTRATION:
+                showMessage(getActivity().getString(R.string.error_imps_customer_registration));
+                break;
+            case IMPS_BENEFICIARY_LIST:
+                break;
+        }
+        Log.d(_LOG, "onTaskError done");
     }
-
-
+>>>>>>> 198c7f77c4fc6efc3e62827ca177688d5171d5c7
 }

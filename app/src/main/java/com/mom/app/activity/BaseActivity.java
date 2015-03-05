@@ -3,7 +3,6 @@ package com.mom.app.activity;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -13,7 +12,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.content.LocalBroadcastManager;
@@ -21,7 +19,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.util.LongSparseArray;
 import android.view.Menu;
@@ -44,7 +41,6 @@ import com.mom.app.fragment.DTHRechargeFragment;
 import com.mom.app.fragment.DashboardFragment;
 import com.mom.app.fragment.FragmentBase;
 import com.mom.app.fragment.IMPSFragment;
-import com.mom.app.fragment.IMPSFragmentTest;
 import com.mom.app.fragment.LICFragment;
 import com.mom.app.fragment.MobileRechargeFragment;
 import com.mom.app.fragment.SettingsFragment;
@@ -62,7 +58,6 @@ import com.mom.app.model.IDataEx;
 import com.mom.app.model.local.EphemeralStorage;
 import com.mom.app.model.mompl.MoMPLDataExImpl;
 import com.mom.app.model.pbxpl.PBXPLDataExImpl;
-import com.mom.app.ui.CustomTextView;
 import com.mom.app.ui.TransactionRequest;
 import com.mom.app.ui.IFragmentListener;
 import com.mom.app.ui.flow.MoMScreen;
@@ -89,6 +84,8 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
 
     PlatformIdentifier _currentPlatform;
     PinType _pPinType;
+
+    MoMScreen _currentScreen;
 
     ArrayList<ImageItem<MoMScreen>> _menuItems;
 
@@ -291,6 +288,7 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
             }
         };
 
+        Log.d(_LOG, "Going to fetch balance");
         getDataEx(listener).getBalance();
     }
 
@@ -313,7 +311,7 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
         }
 
         tv.setText("Balance: " + getResources().getString(R.string.Rupee) + sBal);
-        Log.d("BAlcheck" , sBal);
+        Log.d(_LOG, sBal);
     }
 
     public IDataEx getDataEx(AsyncListener<?> listener){
@@ -415,6 +413,7 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
     @Override
     protected boolean onPrepareOptionsPanel(View view, Menu menu) {
         Log.d(_LOG, "onPrepareOptionsPanel");
+
         return super.onPrepareOptionsPanel(view, menu);
     }
 
@@ -546,6 +545,7 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
                 break;
         }
 
+        _currentScreen  = screen;
         return false;
     }
 
@@ -559,6 +559,16 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        Log.d(_LOG, "Back pressed");
+
+        if(_currentScreen != MoMScreen.DASHBOARD){
+            showScreen(MoMScreen.DASHBOARD);
+        }else{
+            confirmLogout();
+        }
+    }
 
     public void showFragment(Fragment fragment){
         showFragment(fragment, R.id.contentFrame);

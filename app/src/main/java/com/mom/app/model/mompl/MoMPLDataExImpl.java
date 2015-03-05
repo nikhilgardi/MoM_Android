@@ -12,6 +12,8 @@ import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.Transaction;
 import com.mom.app.model.local.EphemeralStorage;
+import com.mom.app.model.pbxpl.BeneficiaryResult;
+import com.mom.app.model.pbxpl.ImpsCustomerRegistrationResult;
 import com.mom.app.model.pbxpl.PaymentResponse;
 import com.mom.app.model.pbxpl.lic.LicLifeResponse;
 import com.mom.app.model.xml.PullParser;
@@ -26,6 +28,7 @@ import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by vaibhavsinha on 7/5/14.
@@ -974,14 +977,20 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
     }
 
+<<<<<<< HEAD
      public void impsCustomerRegistrationStatus(String consumerNumber){
 
     }
     public void impsCustomerRegistration(String consumerNumber , String consumerName , String consumerDOB ,String EmailAddress){
+=======
+    @Override
+    public void registerIMPSCustomer(TransactionRequest<ImpsCustomerRegistrationResult> request) {
+>>>>>>> 198c7f77c4fc6efc3e62827ca177688d5171d5c7
 
     }
 
-    public void impsBeneficiaryList(String consumerNumber){
+    @Override
+    public void getIMPSBeneficiaryList(TransactionRequest<List<BeneficiaryResult>> request) {
 
     }
 }

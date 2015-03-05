@@ -398,13 +398,13 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
                     return;
                 }
 
-                switch (_currentPlatform){
-                    case MOM:
-
-                        break;
-                    case PBX:
-                        break;
-                }
+//                switch (_currentPlatform){
+//                    case MOM:
+//
+//                        break;
+//                    case PBX:
+//                        break;
+//                }
 
                 getLoginBtn().setEnabled(true);
                 _username.setText(null);

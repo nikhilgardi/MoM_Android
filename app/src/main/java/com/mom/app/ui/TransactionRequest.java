@@ -75,15 +75,16 @@ public class TransactionRequest<T> implements Serializable{
     String remoteResponse;
 
 
-     String ACMonth;
-     String DueDate;
-     String SDCode;
-     String SOP;
-     String FSA;
-     String FormatDueDate;
+    String ACMonth;
+    String DueDate;
+    String SDCode;
+    String SOP;
+    String FSA;
+    String FormatDueDate;
 
     T custom;
-String remoteId;
+    String remoteId;
+
     /**
      * This is only used in methods which are not operator or transactionType specific.
      * e.g. getBalance

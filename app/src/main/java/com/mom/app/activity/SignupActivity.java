@@ -181,6 +181,7 @@ public class SignupActivity extends Activity implements AsyncListener<String> {
 
             }
         }
+<<<<<<< HEAD
     }
 
 
@@ -203,6 +204,26 @@ public class SignupActivity extends Activity implements AsyncListener<String> {
 
             }
         };
+=======
+
+    public void postSignUpConsumer (String data){
+        AsyncListener<String> listener = new AsyncListener<String>() {
+            @Override
+            public void onTaskSuccess(String result, DataExImpl.Methods callback) {
+                switch (callback){
+                    case SIGN_UP_CONSUMER:
+                        Log.i(_LOG, "Check Response: " + result);
+
+                }
+            }
+
+            @Override
+            public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
+
+            }
+        };
+
+>>>>>>> 198c7f77c4fc6efc3e62827ca177688d5171d5c7
 
 
         try {
@@ -212,7 +233,11 @@ public class SignupActivity extends Activity implements AsyncListener<String> {
 
 
             dataEx.signUpCustomerRegistration(data);
+<<<<<<< HEAD
         } catch (Exception me) {
+=======
+        }catch(Exception me){
+>>>>>>> 198c7f77c4fc6efc3e62827ca177688d5171d5c7
             Log.e(_LOG, "Error getting dataex", me);
 
         }
@@ -254,11 +279,10 @@ public class SignupActivity extends Activity implements AsyncListener<String> {
         Log.i("tag", sb.toString());
 
         return sb.toString();
-
-
     }
 
     public void onTaskSuccess(String result, DataExImpl.Methods callback) {
+<<<<<<< HEAD
         switch (callback) {
             case SIGN_UP_ENCRYPT_DATA:
                 Log.i(_LOG, "SignUpEncryptData: " + result);
@@ -270,6 +294,10 @@ public class SignupActivity extends Activity implements AsyncListener<String> {
 
         postSignUpConsumer(result);
 
+=======
+        Log.i(_LOG, "User not of new PL");
+        postSignUpConsumer(result);
+>>>>>>> 198c7f77c4fc6efc3e62827ca177688d5171d5c7
     }
 
     @Override
@@ -277,10 +305,12 @@ public class SignupActivity extends Activity implements AsyncListener<String> {
 
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 198c7f77c4fc6efc3e62827ca177688d5171d5c7
     public void setDate() {
         showDialog(999);
-
     }
 
     @Override
@@ -321,6 +351,7 @@ public class SignupActivity extends Activity implements AsyncListener<String> {
     }
 
 
+<<<<<<< HEAD
     public class XmlPullParsing {
 
         protected XmlPullParser xmlpullparser1;
@@ -548,6 +579,8 @@ public class SignupActivity extends Activity implements AsyncListener<String> {
     }
 
 
+=======
+>>>>>>> 198c7f77c4fc6efc3e62827ca177688d5171d5c7
     public void login(View view) {
         myintent = new Intent(SignupActivity.this, LoginActivity.class);
         myintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -573,6 +606,7 @@ public class SignupActivity extends Activity implements AsyncListener<String> {
 
     public void signUpDataEncrpyt() {
         String Key = "f0rZHW8IXM8+YNYL7VptiOMr45m0VZ1yHhXD5zADpB4=";
+<<<<<<< HEAD
         String url = AppConstants.URL_NEW_PLATFORM_TXN_SIGNUP + AppConstants.SVC_NEW_METHOD_SIGN_UP_ENCRYPT_DATA;
         MoMPLDataExImpl dataEx = new MoMPLDataExImpl(this, this);
 
@@ -580,6 +614,12 @@ public class SignupActivity extends Activity implements AsyncListener<String> {
         dataEx.signUpEncryptData(ComposeData(), Key);
 
 
+=======
+        String url          = AppConstants.URL_NEW_PLATFORM_TXN_SIGNUP + AppConstants.SVC_NEW_METHOD_SIGN_UP_ENCRYPT_DATA;
+        MoMPLDataExImpl dataEx      = new MoMPLDataExImpl(this , this);
+
+        dataEx.signUpEncryptData(ComposeData(),Key);
+>>>>>>> 198c7f77c4fc6efc3e62827ca177688d5171d5c7
     }
 
 }
