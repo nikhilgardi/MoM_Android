@@ -10,7 +10,6 @@ import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.mom.app.error.MOMException;
 import com.mom.app.gcm.GcmUtil;
-import com.mom.app.identifier.ClassType;
 import com.mom.app.identifier.PBXOperatorDataType;
 import com.mom.app.identifier.PinType;
 import com.mom.app.model.AsyncDataEx;
@@ -42,38 +41,38 @@ import java.util.List;
  * Created by vaibhavsinha on 7/6/14.
  */
 public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<TransactionRequest> {
-    static String _LOG              = AppConstants.LOG_PREFIX + "PBX_DATA";
+    static String _LOG = AppConstants.LOG_PREFIX + "PBX_DATA";
 
 
-    String _deviceRegId             = null;
-    String _token                   = null;
-    String _userName                = null;
-    PBXOperatorDataType _opType     = null;
+    String _deviceRegId = null;
+    String _token = null;
+    String _userName = null;
+    PBXOperatorDataType _opType = null;
 
 
     // String jsonStr =    "{\"Table\":[{\"PartyROWID\":92420,\"PartyRMN\":\"9769496026\",\"PartyName\":\"Akshay\",\"PartyGUID\":\"9163b4dd-f23d-41fd-99ab-7c0f57c9c7ed\",\"PartyEnum\":null,\"PartyTypeEnum\":16,\"userName\":\"Software\"}]}" ;
 
-    public PBXPLDataExImpl(Context pContext, Methods method, AsyncListener pListener) throws MOMException{
+    public PBXPLDataExImpl(Context pContext, Methods method, AsyncListener pListener) throws MOMException {
         checkConnectivity(pContext);
-        _applicationContext         = pContext;
+        _applicationContext = pContext;
 
-        _deviceRegId                = GcmUtil.getInstance(pContext).getRegistrationId();
-        _userName                   = EphemeralStorage.getInstance(_applicationContext).getString(
+        _deviceRegId = GcmUtil.getInstance(pContext).getRegistrationId();
+        _userName = EphemeralStorage.getInstance(_applicationContext).getString(
                 AppConstants.LOGGED_IN_USERNAME, null
         );
 
         _listener = pListener;
         _applicationContext = pContext;
-        _deviceRegId            = GcmUtil.getInstance(pContext).getRegistrationId();
-        _token                  = EphemeralStorage.getInstance(pContext).getString(
+        _deviceRegId = GcmUtil.getInstance(pContext).getRegistrationId();
+        _token = EphemeralStorage.getInstance(pContext).getString(
                 AppConstants.PARAM_PBX_TOKEN, null
         );
-        _userName               = EphemeralStorage.getInstance(pContext).getString(
+        _userName = EphemeralStorage.getInstance(pContext).getString(
                 AppConstants.LOGGED_IN_USERNAME, null
         );
 
 
-        if(method != Methods.LOGIN) {
+        if (method != Methods.LOGIN) {
             if (TextUtils.isEmpty(_userName)) {
                 throw new IllegalStateException("username should not be empty here");
             }
@@ -88,12 +87,12 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         }
     }
 
-    public boolean setToken(){
-        _token                      = EphemeralStorage.getInstance(_applicationContext).getString(
+    public boolean setToken() {
+        _token = EphemeralStorage.getInstance(_applicationContext).getString(
                 AppConstants.PARAM_PBX_TOKEN, null
         );
 
-        if(TextUtils.isEmpty(_token)){
+        if (TextUtils.isEmpty(_token)) {
             return false;
         }
 
@@ -103,7 +102,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
     @SuppressWarnings("unchecked")
     @Override
     public void onTaskSuccess(TransactionRequest result, Methods callback) {
-        if(_listener == null){
+        if (_listener == null) {
             return;
         }
 
@@ -129,7 +128,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                     Log.i(_LOG, "TaskComplete: rechargeMobile method, result: " + result);
                     if (_listener != null) {
                         _listener.onTaskSuccess(getPaymentTransactionResult(result), Methods.RECHARGE_MOBILE);
-                        Log.i("REsult" , result.getConsumerId());
+                        Log.i("Result", result.getConsumerId());
                     }
                     break;
 
@@ -137,14 +136,14 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                     Log.i(_LOG, "TaskComplete: rechargeDTH method, result: " + result);
                     if (_listener != null) {
                         _listener.onTaskSuccess(getPaymentTransactionResult(result), Methods.RECHARGE_DTH);
-                        Log.i("REsultDTH" , result.getConsumerId());
+                        Log.i("ResultDTH", result.getConsumerId());
                     }
                     break;
                 case PAY_BILL:
                     Log.i(_LOG, "TaskComplete: payBill method, result: " + result);
                     if (_listener != null) {
                         _listener.onTaskSuccess(getPaymentTransactionResult(result), Methods.PAY_BILL);
-                        Log.i("REsultBill" , result.getConsumerId());
+                        Log.i("ResultBill", result.getConsumerId());
                     }
                     break;
 
@@ -152,19 +151,26 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                     Log.i(_LOG, "TaskComplete: payBill method, result: " + result);
                     if (_listener != null) {
                         _listener.onTaskSuccess(getPaymentTransactionResult(result), Methods.UTILITY_BILL_PAY);
-                        Log.i("REsultBill" , result.getConsumerId());
+                        Log.i("ResultUBPBill", result.getConsumerId());
+                    }
+                    break;
+
+                case IMPS_CUSTOMER_REGISTRATION_STATUS:
+                    Log.d(_LOG, "TaskComplete: Customer Registration Status method, result: " + result);
+                    if (_listener != null) {
+                        _listener.onTaskSuccess(getImpsCustomerRegistrationStatus(result), callback);
                     }
                     break;
 
                 case IMPS_CUSTOMER_REGISTRATION:
-                    Log.d(_LOG, "TaskComplete: Login method, result: " + result);
+                    Log.d(_LOG, "TaskComplete: Customer Registration method, result: " + result);
                     if (_listener != null) {
-                       _listener.onTaskSuccess(getImpsCustomerRegistration(result), callback);
+                        _listener.onTaskSuccess(getImpsCustomerRegistration(result), callback);
                     }
                     break;
 
                 case IMPS_BENEFICIARY_LIST:
-                    Log.d(_LOG, "TaskComplete: Login method, result: " + result);
+                    Log.d(_LOG, "TaskComplete: BeneficiaryList method, result: " + result);
                     if (_listener != null) {
                         _listener.onTaskSuccess(getImpsBeneficiaryList(result), Methods.IMPS_BENEFICIARY_LIST);
                     }
@@ -175,13 +181,13 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
                     if (_listener != null) {
 
-                       _listener.onTaskSuccess(getPremiumAmount(result), Methods.LIC);
-                     }
+                        _listener.onTaskSuccess(getPremiumAmount(result), Methods.LIC);
+                    }
 
-                     break;
+                    break;
 
                 case PAY_LIC:
-                    Log.d(_LOG, "TaskComplete: lic method, result: " + result);
+                    Log.d(_LOG, "TaskComplete: Pay lic method, result: " + result);
 
                     if (_listener != null) {
 
@@ -207,7 +213,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                     break;
 
             }
-        }catch(MOMException me){
+        } catch (MOMException me) {
             me.printStackTrace();
             _listener.onTaskError(new AsyncResult(AsyncResult.CODE.GENERAL_FAILURE), callback);
         }
@@ -215,7 +221,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
     @Override
     public void onTaskError(AsyncResult pResult, Methods callback) {
-        if(_listener == null){
+        if (_listener == null) {
             return;
         }
 
@@ -230,24 +236,24 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
     @Override
     public void rechargeMobile(TransactionRequest<PaymentResponse> request, int rechargeType) {
 
-        if(TextUtils.isEmpty(request.getConsumerId())){
+        if (TextUtils.isEmpty(request.getConsumerId())) {
 
-            if(_listener != null) {
+            if (_listener != null) {
                 _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.RECHARGE_MOBILE);
             }
             return;
         }
 
-        String url				    = AppConstants.URL_PBX_PLATFORM_APP;
+        String url = AppConstants.URL_PBX_PLATFORM_APP;
 
 
-        AsyncDataEx dataEx		    = new AsyncDataEx(this, request, url, Methods.RECHARGE_MOBILE);
+        AsyncDataEx dataEx = new AsyncDataEx(this, request, url, Methods.RECHARGE_MOBILE);
 
         dataEx.execute(
                 new BasicNameValuePair(AppConstants.PARAM_PBX_SERVICE, AppConstants.SVC_PBX_RECHARGE_MOBILE),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_RMN, EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.LOGGED_IN_USERNAME, null)),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_CUSTOMER_NUMBER, request.getConsumerId()),
-                new BasicNameValuePair(AppConstants.PARAM_PBX_OPERTAORSHORTCODE , request.getOperator().getCode()),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_OPERTAORSHORTCODE, request.getOperator().getCode()),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_AMOUNT, String.valueOf(Math.round(request.getAmount()))),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_IDENTIFIER, String.valueOf(request.getId())),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_ORIGIN_ID, _deviceRegId),
@@ -256,27 +262,26 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
     }
 
 
-
     @Override
-    public void rechargeDTH(TransactionRequest<PaymentResponse> request){
-        if(TextUtils.isEmpty(request.getConsumerId())){
+    public void rechargeDTH(TransactionRequest<PaymentResponse> request) {
+        if (TextUtils.isEmpty(request.getConsumerId())) {
 
-            if(_listener != null) {
+            if (_listener != null) {
                 _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.RECHARGE_DTH);
             }
         }
 
-        String url				    = AppConstants.URL_PBX_PLATFORM_APP;
+        String url = AppConstants.URL_PBX_PLATFORM_APP;
 
 
-        AsyncDataEx dataEx		    = new AsyncDataEx(this, request, url, Methods.RECHARGE_DTH);
+        AsyncDataEx dataEx = new AsyncDataEx(this, request, url, Methods.RECHARGE_DTH);
 
         dataEx.execute(
                 new BasicNameValuePair(AppConstants.PARAM_PBX_SERVICE, AppConstants.SVC_PBX_RECHARGE_DTH),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_RMN, _userName),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_CUSTOMER_NUMBER, request.getConsumerId()),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_AMOUNT, String.valueOf(Math.round(request.getAmount()))),
-                new BasicNameValuePair(AppConstants.PARAM_PBX_OPERTAORSHORTCODE , request.getOperator().getCode()),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_OPERTAORSHORTCODE, request.getOperator().getCode()),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_IDENTIFIER, String.valueOf(request.getId())),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_ORIGIN_ID, _deviceRegId),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_CLIENT_TOKEN, _token)
@@ -284,22 +289,21 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
     }
 
 
-
     public void payBill(
             TransactionRequest<PaymentResponse> request,
             String psConsumerName,
             HashMap<String, String> pExtraParamsMap
-    ){
-        String url				    = AppConstants.URL_PBX_PLATFORM_APP ;
+    ) {
+        String url = AppConstants.URL_PBX_PLATFORM_APP;
 
-        AsyncDataEx dataEx		    = new AsyncDataEx(this, request, url, Methods.PAY_BILL);
+        AsyncDataEx dataEx = new AsyncDataEx(this, request, url, Methods.PAY_BILL);
 
         dataEx.execute(
                 new BasicNameValuePair(AppConstants.PARAM_PBX_SERVICE, AppConstants.SVC_PBX_BILL_PAY),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_RMN, _userName),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_CUSTOMER_NUMBER, request.getCustomerMobile()),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_AMOUNT, String.valueOf(Math.round(request.getAmount()))),
-                new BasicNameValuePair(AppConstants.PARAM_PBX_OPERTAORSHORTCODE , request.getOperator().getCode()),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_OPERTAORSHORTCODE, request.getOperator().getCode()),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_IDENTIFIER, String.valueOf(request.getId())),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_ORIGIN_ID, _deviceRegId),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_CLIENT_TOKEN, _token)
@@ -311,18 +315,18 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
             TransactionRequest<PaymentResponse> request,
             String psConsumerName,
             HashMap<String, String> pExtraParamsMap
-    ){
-        String url				    = AppConstants.URL_PBX_PLATFORM_APP ;
-        String operatorCode         = request.getOperator().code;
-        AsyncDataEx dataEx		    = new AsyncDataEx(this, request, url, Methods.UTILITY_BILL_PAY);
-        if (operatorCode.equals("CES")  && pExtraParamsMap != null){
-            if(
-                    !pExtraParamsMap.containsKey(AppConstants.PARAM_NEW_AC_MONTH)||
-                            !pExtraParamsMap.containsKey(AppConstants.PARAM_NEW_DUE_DATE)||
+    ) {
+        String url = AppConstants.URL_PBX_PLATFORM_APP;
+        String operatorCode = request.getOperator().code;
+        AsyncDataEx dataEx = new AsyncDataEx(this, request, url, Methods.UTILITY_BILL_PAY);
+        if (operatorCode.equals("CES") && pExtraParamsMap != null) {
+            if (
+                    !pExtraParamsMap.containsKey(AppConstants.PARAM_NEW_AC_MONTH) ||
+                            !pExtraParamsMap.containsKey(AppConstants.PARAM_NEW_DUE_DATE) ||
                             !pExtraParamsMap.containsKey(AppConstants.PARAM_NEW_STUBTYPE)
-                    ){
+                    ) {
                 Log.d("NEW_PL_DATA", "Parameters not sent for CESC");
-                if(_listener != null) {
+                if (_listener != null) {
                     _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.LOGIN);
                 }
                 return;
@@ -334,12 +338,12 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 new BasicNameValuePair(AppConstants.PARAM_PBX_RMN, _userName),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_CUSTOMER_NUMBER, request.getCustomerMobile()),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_AMOUNT, String.valueOf(Math.round(request.getAmount()))),
-                new BasicNameValuePair(AppConstants.PARAM_PBX_OPERTAORSHORTCODE , request.getOperator().getCode()),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_OPERTAORSHORTCODE, request.getOperator().getCode()),
 
-                new BasicNameValuePair(AppConstants.PARAM_PBX_ACCOUNT_NUMBER , request.getConsumerId()),
-                new BasicNameValuePair(AppConstants.PARAM_PBX_AC_MONTH , pExtraParamsMap.get(AppConstants.PARAM_PBX_AC_MONTH)),
-                new BasicNameValuePair(AppConstants.PARAM_PBX_DUE_DATE , pExtraParamsMap.get(AppConstants.PARAM_PBX_DUE_DATE)),
-                new BasicNameValuePair(AppConstants.PARAM_PBX_STUBTYPE , pExtraParamsMap.get(AppConstants.PARAM_PBX_STUBTYPE)),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_ACCOUNT_NUMBER, request.getConsumerId()),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_AC_MONTH, pExtraParamsMap.get(AppConstants.PARAM_PBX_AC_MONTH)),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_DUE_DATE, pExtraParamsMap.get(AppConstants.PARAM_PBX_DUE_DATE)),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_STUBTYPE, pExtraParamsMap.get(AppConstants.PARAM_PBX_STUBTYPE)),
 
 
                 new BasicNameValuePair(AppConstants.PARAM_PBX_IDENTIFIER, String.valueOf(request.getId())),
@@ -348,139 +352,160 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         );
     }
 
-    public TransactionRequest getPaymentTransactionResult(TransactionRequest<PaymentResponse> request){
+    public TransactionRequest getPaymentTransactionResult(TransactionRequest<PaymentResponse> request) {
 
-        if(TextUtils.isEmpty(request.getRemoteResponse())){
+        if (TextUtils.isEmpty(request.getRemoteResponse())) {
             Log.e(_LOG, "Null remote response received");
             return null;
         }
 
         try {
-            Gson gson   = new GsonBuilder().create();
+            Gson gson = new GsonBuilder().create();
 
-            Type type   = new TypeToken<ResponseBase<String>>() {
+            Type type = new TypeToken<ResponseBase<String>>() {
             }.getType();
             ResponseBase<String> responseBase = gson.fromJson(request.getRemoteResponse(), type);
 
-            if(responseBase == null){
+            if (responseBase == null) {
                 Log.w(_LOG, "Null response?");
                 return null;
             }
 
             Log.d(_LOG, "Response: " + responseBase.data);
             PaymentResponse response = new PaymentResponse();
-            response.transactionId  = responseBase.data;
+            response.transactionId = responseBase.data;
 
             request.setCustom(response);
 
             return request;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return request;
     }
-    public TransactionRequest getImpsCustomerRegistration(TransactionRequest<ImpsCustomerRegistrationResult> request){
+
+    public TransactionRequest getImpsCustomerRegistrationStatus(TransactionRequest<ImpsCustomerRegistrationStatus> request) {
 
 
-        if(TextUtils.isEmpty(request.getRemoteResponse())){
+        if (TextUtils.isEmpty(request.getRemoteResponse())) {
             Log.e(_LOG, "Null remote response received");
             return null;
         }
-    //    boolean success = false;
+
         try {
-            Gson gson   = new GsonBuilder().create();
+            Gson gson = new GsonBuilder().create();
 
-            Type type   = new TypeToken<ResponseBase<ImpsCustomerRegistrationResult>>() {
+            Type type = new TypeToken<ResponseBase<ImpsCustomerRegistrationStatus>>() {
             }.getType();
-            ResponseBase<ImpsCustomerRegistrationResult> responseBase = gson.fromJson(request.getRemoteResponse(), type);
+            ResponseBase<ImpsCustomerRegistrationStatus> responseBase = gson.fromJson(request.getRemoteResponse(), type);
 
-            if(responseBase == null){
+            if (responseBase == null) {
+                Log.w(_LOG, "Null response");
+                return null;
+            }
+
+            Log.d(_LOG, "Response: " + responseBase.data);
+            ImpsCustomerRegistrationStatus response = new ImpsCustomerRegistrationStatus();
+            response = responseBase.data;
+            request.setCustom(response);
+
+            EphemeralStorage.getInstance(_applicationContext).storeInt(
+                    AppConstants.PARAM_PBX_IMPS_CUSTOMER_ID,
+                    responseBase.data.customerID);
+            Log.i("CustomerId", String.valueOf(responseBase.data.customerID));
+
+            EphemeralStorage.getInstance(_applicationContext).storeBoolean(
+                    AppConstants.PARAM_PBX_IMPS_SERVICEALLOWED,
+                    responseBase.data.isIMPSServiceAllowed);
+            Log.i("ServiceAllowed", String.valueOf(responseBase.data.isIMPSServiceAllowed));
+
+            EphemeralStorage.getInstance(_applicationContext).storeBoolean(
+                    AppConstants.PARAM_PBX_IMPS_ISREGISTERED,
+                    responseBase.data.isRegistered);
+            Log.i("IsRegisteredUser", String.valueOf(responseBase.data.isRegistered));
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return request;
+    }
+
+    public TransactionRequest getImpsCustomerRegistration(TransactionRequest<ImpsCustomerRegistration> request) {
+
+
+        if (TextUtils.isEmpty(request.getRemoteResponse())) {
+            Log.e(_LOG, "Null remote response received");
+            return null;
+        }
+        try {
+            Gson gson = new GsonBuilder().create();
+
+            Type type = new TypeToken<ResponseBase<ImpsCustomerRegistration>>() {
+            }.getType();
+            ResponseBase<ImpsCustomerRegistration> responseBase = gson.fromJson(request.getRemoteResponse(), type);
+
+            if (responseBase == null) {
                 Log.w(_LOG, "Null response?");
                 return null;
             }
 
             Log.d(_LOG, "Response: " + responseBase.data);
-            ImpsCustomerRegistrationResult response = new ImpsCustomerRegistrationResult();
-             response  = responseBase.data;
-             request.setCustom(response);
-
-                 EphemeralStorage.getInstance(_applicationContext).storeInt(
-                        AppConstants.PARAM_PBX_IMPS_CUSTOMER_ID,
-                        responseBase.data.customerID);
-                Log.i("CustId" , String.valueOf(responseBase.data.customerID));
-
-                EphemeralStorage.getInstance(_applicationContext).storeBoolean(
-                        AppConstants.PARAM_PBX_IMPS_SERVICEALLOWED,
-                        responseBase.data.isIMPSServiceAllowed);
-                Log.i("ServiceAllowed" , String.valueOf(responseBase.data.isIMPSServiceAllowed));
-
-                EphemeralStorage.getInstance(_applicationContext).storeBoolean(
-                        AppConstants.PARAM_PBX_IMPS_ISREGISTERED,
-                        responseBase.data.isRegistered);
-                Log.i("Isreg" , String.valueOf(responseBase.data.isRegistered));
+            ImpsCustomerRegistration response = new ImpsCustomerRegistration();
+            response = responseBase.data;
+            request.setCustom(response);
 
 
+            Log.i("CustomerId", String.valueOf(responseBase.data.RegistrationStatus));
 
 
+            Log.i("ServiceAllowed", String.valueOf(responseBase.data.RegisteredCustomerID));
 
-        }catch (Exception e){
+
+            Log.i("IsRegisteredUser", String.valueOf(responseBase.data.ErrorMessage));
+
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return request;
     }
 
-        public  ArrayList<Beneficiary> getImpsBeneficiaryList(TransactionRequest request){
-            Gson gson = new GsonBuilder().create();
-
-            Type type   = new TypeToken<ResponseBase<BeneficiaryResult[]>>(){}.getType();
-
-            ResponseBase<BeneficiaryResult[]> responseBase  = gson.fromJson(request.getRemoteResponse(), type);
-
-            BeneficiaryResult[] beneficiarylist    = responseBase.data;
-            ArrayList<Beneficiary> list     = new ArrayList<Beneficiary>();
-            if(responseBase == null || responseBase.code != 0 || responseBase.data == null){
-                return null;
-            }
-
-            for(BeneficiaryResult beneficiaryResult:responseBase.data){
-                list.add(beneficiaryResult.getBeneficiary());
-            }
-
-            return list;
-        }
-
-
-    public List<BeneficiaryResult> getBeneficiaryListResponse(TransactionRequest request){
+    public ArrayList<Beneficiary> getImpsBeneficiaryList(TransactionRequest request) {
         Gson gson = new GsonBuilder().create();
 
-        Type type   = new TypeToken<ResponseBase<BeneficiaryResult[]>>(){}.getType();
+        Type type = new TypeToken<ResponseBase<BeneficiaryResult[]>>() {
+        }.getType();
 
-        ResponseBase<BeneficiaryResult[]> responseBase  = gson.fromJson(request.getRemoteResponse(), type);
+        ResponseBase<BeneficiaryResult[]> responseBase = gson.fromJson(request.getRemoteResponse(), type);
 
-        if(responseBase == null || responseBase.data == null){
+        BeneficiaryResult[] beneficiarylist = responseBase.data;
+        ArrayList<Beneficiary> list = new ArrayList<Beneficiary>();
+        if (responseBase == null || responseBase.code != 0 || responseBase.data == null) {
             return null;
         }
 
-        List<BeneficiaryResult> beneficiaryResult    = Arrays.asList(responseBase.data);
+        for (BeneficiaryResult beneficiaryResult : responseBase.data) {
+            list.add(beneficiaryResult.getBeneficiary());
+        }
 
-//        EphemeralStorage.getInstance(_applicationContext).storeObject(
-//                AppConstants.PARAM_PBX_OPERATORS + _opType.id, beneficiaryResult
-//        );
-System.out.println("Beneficiary"+ beneficiaryResult.toString());
-        return beneficiaryResult;
+        return list;
     }
+
+
     @Override
-    public void getBalance(){
+    public void getBalance() {
 
-        String url                  = AppConstants.URL_PBX_PLATFORM_APP;
-        TransactionRequest request  = new TransactionRequest();
+        String url = AppConstants.URL_PBX_PLATFORM_APP;
+        TransactionRequest request = new TransactionRequest();
 
-        AsyncDataEx dataEx		    = new AsyncDataEx(this, request, url, Methods.GET_BALANCE);
+        AsyncDataEx dataEx = new AsyncDataEx(this, request, url, Methods.GET_BALANCE);
 
 
-        String userName             = EphemeralStorage.getInstance(_applicationContext).getString(
+        String userName = EphemeralStorage.getInstance(_applicationContext).getString(
                 AppConstants.LOGGED_IN_USERNAME, null
         );
 
@@ -493,31 +518,31 @@ System.out.println("Beneficiary"+ beneficiaryResult.toString());
         );
     }
 
-    public float parseBalanceResult(TransactionRequest request) throws MOMException{
-        if(TextUtils.isEmpty(request.getRemoteResponse())){
+    public float parseBalanceResult(TransactionRequest request) throws MOMException {
+        if (TextUtils.isEmpty(request.getRemoteResponse())) {
             throw new MOMException();
         }
         try {
             Gson gson = new GsonBuilder().create();
             Balance balance = gson.fromJson(request.getRemoteResponse(), Balance.class);
             return balance.balance;
-        }catch(JsonSyntaxException jse){
+        } catch (JsonSyntaxException jse) {
             jse.printStackTrace();
             throw new MOMException();
         }
     }
 
     @Override
-    public void login(String username, String password){
+    public void login(String username, String password) {
 
         //String url				    = AppConstants.URL_PBX_PLATFORM_APPLIC;
 
-        String url				    = AppConstants.URL_PBX_PLATFORM_APP;
+        String url = AppConstants.URL_PBX_PLATFORM_APP;
 
         Log.i(_LOG, "Calling Async login");
-        TransactionRequest request  = new TransactionRequest();
+        TransactionRequest request = new TransactionRequest();
 
-        AsyncDataEx dataEx		    = new AsyncDataEx(new AsyncListener<TransactionRequest>() {
+        AsyncDataEx dataEx = new AsyncDataEx(new AsyncListener<TransactionRequest>() {
             @Override
             public void onTaskSuccess(TransactionRequest result, Methods callback) {
                 boolean bSuccess = loginSuccessful(result);
@@ -544,26 +569,26 @@ System.out.println("Beneficiary"+ beneficiaryResult.toString());
     }
 
 
-    public boolean loginSuccessful(TransactionRequest pResult){
-        if(pResult == null || TextUtils.isEmpty(pResult.getRemoteResponse())){
+    public boolean loginSuccessful(TransactionRequest pResult) {
+        if (pResult == null || TextUtils.isEmpty(pResult.getRemoteResponse())) {
             return false;
         }
 
         boolean success = false;
 
         try {
-            Gson gson   = new GsonBuilder().create();
+            Gson gson = new GsonBuilder().create();
 
-            Type type   = new TypeToken<ResponseBase<LoginResult>>() {
+            Type type = new TypeToken<ResponseBase<LoginResult>>() {
             }.getType();
 
             ResponseBase<LoginResult> responseBase = gson.fromJson(pResult.getRemoteResponse(), type);
 
             LoginResult loginResult = responseBase.data;
 
-            success     = (responseBase != null && responseBase.code == 0);
+            success = (responseBase != null && responseBase.code == 0);
 
-            if (success && responseBase.data != null ) {
+            if (success && responseBase.data != null) {
                 //success = false;
                 success = true;
             }
@@ -593,7 +618,7 @@ System.out.println("Beneficiary"+ beneficiaryResult.toString());
                         AppConstants.PARAM_PBX_USERNAME,
                         responseBase.data.userName);
 
-                Log.i("Username" ,responseBase.data.userName);
+                Log.i("Username", responseBase.data.userName);
                 EphemeralStorage.getInstance(_applicationContext).storeString(
                         AppConstants.PARAM_MERCHANTID_LIC,
                         responseBase.data.merchantId);
@@ -602,12 +627,12 @@ System.out.println("Beneficiary"+ beneficiaryResult.toString());
                 EphemeralStorage.getInstance(_applicationContext).storeInt(
                         AppConstants.PARAM_IsLIC,
                         responseBase.data.isLic);
-                Log.i("isLic" , String.valueOf(responseBase.data.isLic));
+                Log.i("isLic", String.valueOf(responseBase.data.isLic));
 
 
             }
 
-        }catch(JsonSyntaxException jse){
+        } catch (JsonSyntaxException jse) {
             Log.e(_LOG, jse.getMessage());
             jse.printStackTrace();
         }
@@ -616,94 +641,24 @@ System.out.println("Beneficiary"+ beneficiaryResult.toString());
 
 
 
-     /*   public TransactionRequest getImpsCustomerRegistration(TransactionRequest request){
 
 
-                if(request == null || TextUtils.isEmpty(request.getRemoteResponse())){
-                    return null;
-                }
 
-                boolean success = false;
+    public TransactionRequest getInternalBalTransfer(TransactionRequest request) {
 
-                try {
-                    Gson gson   = new GsonBuilder().create();
-
-                    Type type   = new TypeToken<ResponseBase<LoginResult>>() {
-                    }.getType();
-
-                    ResponseBase<ImpsCustomerRegistrationResult> responseBase = gson.fromJson(request.getRemoteResponse(), type);
-
-                    ImpsCustomerRegistrationResult impsCustReg = responseBase.data;
-
-                    success     = (responseBase != null && responseBase.code == 0);
-
-                    if (success && responseBase.data != null ) {
-                        //success = false;
-                        success = true;
-                    }
-
-                    if (success) {
-                        EphemeralStorage.getInstance(_applicationContext).storeString(
-                                AppConstants.PARAM_PBX_USERID,
-                                responseBase.data.userID);
-
-                        EphemeralStorage.getInstance(_applicationContext).storeString(
-                                AppConstants.PARAM_PBX_RMN,
-                                responseBase.data.rmn);
-
-                        EphemeralStorage.getInstance(_applicationContext).storeString(
-                                AppConstants.PARAM_PBX_NAME,
-                                responseBase.data.name);
-
-                        EphemeralStorage.getInstance(_applicationContext).storeString(
-                                AppConstants.PARAM_PBX_TOKEN,
-                                responseBase.data.token);
-
-                        EphemeralStorage.getInstance(_applicationContext).storeString(
-                                AppConstants.PARAM_PBX_USERTYPE,
-                                responseBase.data.userType);
-
-                        EphemeralStorage.getInstance(_applicationContext).storeString(
-                                AppConstants.PARAM_PBX_USERNAME,
-                                responseBase.data.userName);
-
-                        Log.i("Username" ,responseBase.data.userName);
-                        EphemeralStorage.getInstance(_applicationContext).storeString(
-                                AppConstants.PARAM_MERCHANTID_LIC,
-                                responseBase.data.merchantId);
-
-
-                        EphemeralStorage.getInstance(_applicationContext).storeInt(
-                                AppConstants.PARAM_IsLIC,
-                                responseBase.data.isLic);
-                        Log.i("isLic" , String.valueOf(responseBase.data.isLic));
-
-
-                    }
-
-                }catch(JsonSyntaxException jse){
-                    Log.e(_LOG, jse.getMessage());
-                    jse.printStackTrace();
-                }
-                return success;
-            }*/
-
-
-    public TransactionRequest getInternalBalTransfer(TransactionRequest request){
-
-        if(TextUtils.isEmpty(request.getRemoteResponse())){
+        if (TextUtils.isEmpty(request.getRemoteResponse())) {
             Log.e(_LOG, "Null remote response received");
             return null;
         }
 
         try {
-            Gson gson   = new GsonBuilder().create();
+            Gson gson = new GsonBuilder().create();
 
-            Type type   = new TypeToken<ResponseBase<String>>() {
+            Type type = new TypeToken<ResponseBase<String>>() {
             }.getType();
             ResponseBase<String> responseBase = gson.fromJson(request.getRemoteResponse(), type);
 
-            if(responseBase == null){
+            if (responseBase == null) {
                 Log.w(_LOG, "Null response?");
                 return null;
             }
@@ -713,7 +668,7 @@ System.out.println("Beneficiary"+ beneficiaryResult.toString());
             request.setCustom(responseBase.data);
 
             return request;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -721,24 +676,21 @@ System.out.println("Beneficiary"+ beneficiaryResult.toString());
     }
 
 
-
-       @Override
+    @Override
     public void getBillAmount(TransactionRequest request) {
     }
 
     @Override
     public void getTransactionHistory() {
-        String userName             = EphemeralStorage.getInstance(_applicationContext).getString(
+        String userName = EphemeralStorage.getInstance(_applicationContext).getString(
                 AppConstants.PARAM_PBX_RMN, null
         );
 
 
+        TransactionRequest request = new TransactionRequest();
 
 
-        TransactionRequest request  = new TransactionRequest();
-
-
-        AsyncDataEx dataEx		    = new AsyncDataEx(
+        AsyncDataEx dataEx = new AsyncDataEx(
 
                 this,
                 request,
@@ -757,20 +709,21 @@ System.out.println("Beneficiary"+ beneficiaryResult.toString());
         );
     }
 
-    public ArrayList<Transaction> extractTransactionshistory(TransactionRequest request){
+    public ArrayList<Transaction> extractTransactionshistory(TransactionRequest request) {
         Gson gson = new GsonBuilder().create();
 
-        Type type   = new TypeToken<ResponseBase<PBXTransaction[]>>(){}.getType();
+        Type type = new TypeToken<ResponseBase<PBXTransaction[]>>() {
+        }.getType();
 
-        ResponseBase<PBXTransaction[]> responseBase  = gson.fromJson(request.getRemoteResponse(), type);
+        ResponseBase<PBXTransaction[]> responseBase = gson.fromJson(request.getRemoteResponse(), type);
 
-        ArrayList<Transaction> list     = new ArrayList<Transaction>();
+        ArrayList<Transaction> list = new ArrayList<Transaction>();
 
-        if(responseBase == null || responseBase.code != 0 || responseBase.data == null){
+        if (responseBase == null || responseBase.code != 0 || responseBase.data == null) {
             return list;
         }
 
-        for(PBXTransaction transaction:responseBase.data){
+        for (PBXTransaction transaction : responseBase.data) {
             list.add(transaction.getTransaction());
         }
 
@@ -778,22 +731,20 @@ System.out.println("Beneficiary"+ beneficiaryResult.toString());
     }
 
     @Override
-    public  void changePassword( String psOldPin, String psNewPin){
+    public void changePassword(String psOldPin, String psNewPin) {
         Log.i(_LOG, "Calling Async password");
 
-        String userName             = EphemeralStorage.getInstance(_applicationContext).getString(
+        String userName = EphemeralStorage.getInstance(_applicationContext).getString(
                 AppConstants.LOGGED_IN_USERNAME, null
         );
 
 
-
-        AsyncDataEx dataEx		    = new AsyncDataEx(
+        AsyncDataEx dataEx = new AsyncDataEx(
                 this,
                 new TransactionRequest(),
                 AppConstants.URL_PBX_PLATFORM_APP,
                 Methods.CHANGE_PASSWORD
         );
-
 
 
         dataEx.execute(
@@ -809,37 +760,37 @@ System.out.println("Beneficiary"+ beneficiaryResult.toString());
         );
     }
 
-    private TransactionRequest getChangePasswordResult(TransactionRequest request){
+    private TransactionRequest getChangePasswordResult(TransactionRequest request) {
 
-        if(TextUtils.isEmpty(request.getRemoteResponse())){
+        if (TextUtils.isEmpty(request.getRemoteResponse())) {
             request.setStatus(TransactionRequest.RequestStatus.FAILED);
             return request;
         }
 
 
         try {
-            Gson gson   = new GsonBuilder().create();
+            Gson gson = new GsonBuilder().create();
 
-            Type type   = new TypeToken<ResponseBase<ChangePBXPassword>>() {}.getType();
+            Type type = new TypeToken<ResponseBase<ChangePBXPassword>>() {
+            }.getType();
 
             ResponseBase<ChangePBXPassword> responseBase = gson.fromJson(request.getRemoteResponse(), type);
 
             request.setResponseCode(responseBase.code);
             request.setRemoteResponse(responseBase.data.message);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return request;
     }
 
-    public void getOperatorNames(PBXOperatorDataType type){
-        _opType                     = type;
+    public void getOperatorNames(PBXOperatorDataType type) {
+        _opType = type;
 
 
-
-        AsyncDataEx dataEx		    = new AsyncDataEx(
+        AsyncDataEx dataEx = new AsyncDataEx(
                 this,
                 new TransactionRequest(),
                 AppConstants.URL_PBX_PLATFORM_APP,
@@ -856,18 +807,19 @@ System.out.println("Beneficiary"+ beneficiaryResult.toString());
         );
     }
 
-    public List<Operator> getOperatorNamesResult(TransactionRequest request){
+    public List<Operator> getOperatorNamesResult(TransactionRequest request) {
         Gson gson = new GsonBuilder().create();
 
-        Type type   = new TypeToken<ResponseBase<Operator[]>>(){}.getType();
+        Type type = new TypeToken<ResponseBase<Operator[]>>() {
+        }.getType();
 
-        ResponseBase<Operator[]> responseBase  = gson.fromJson(request.getRemoteResponse(), type);
+        ResponseBase<Operator[]> responseBase = gson.fromJson(request.getRemoteResponse(), type);
 
-        if(responseBase == null || responseBase.data == null){
+        if (responseBase == null || responseBase.data == null) {
             return null;
         }
 
-        List<Operator> operators    = Arrays.asList(responseBase.data);
+        List<Operator> operators = Arrays.asList(responseBase.data);
 
         EphemeralStorage.getInstance(_applicationContext).storeObject(
                 AppConstants.PARAM_PBX_OPERATORS + _opType.code, operators
@@ -876,22 +828,22 @@ System.out.println("Beneficiary"+ beneficiaryResult.toString());
         return operators;
     }
 
-    public void balanceTransfer(TransactionRequest request, String payTo){
-        if(
-                TextUtils.isEmpty(payTo) || request.getAmount() < 1 ){
+    public void balanceTransfer(TransactionRequest request, String payTo) {
+        if (
+                TextUtils.isEmpty(payTo) || request.getAmount() < 1) {
 
-            if(_listener != null) {
+            if (_listener != null) {
                 _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.BALANCE_TRANSFER_PBX);
             }
             return;
         }
 
-        String userName             = EphemeralStorage.getInstance(_applicationContext).getString(
+        String userName = EphemeralStorage.getInstance(_applicationContext).getString(
                 AppConstants.PARAM_PBX_RMN, null
         );
 
 
-        AsyncDataEx dataEx		    = new AsyncDataEx(
+        AsyncDataEx dataEx = new AsyncDataEx(
                 this,
                 new TransactionRequest(),
                 AppConstants.URL_PBX_PLATFORM_APP,
@@ -908,129 +860,130 @@ System.out.println("Beneficiary"+ beneficiaryResult.toString());
         );
     }
 
-    public  void changePin(PinType pinType, String psOldPin, String psNewPin){
+    public void changePin(PinType pinType, String psOldPin, String psNewPin) {
 
     }
 
 
-    public TransactionRequest<LicLifeResponse> getPremiumAmount(TransactionRequest<LicLifeResponse> response) throws MOMException{
+    public TransactionRequest<LicLifeResponse> getPremiumAmount(TransactionRequest<LicLifeResponse> response) throws MOMException {
 
-        if(TextUtils.isEmpty(response.getRemoteResponse())){
+        if (TextUtils.isEmpty(response.getRemoteResponse())) {
             throw new MOMException();
         }
 
         try {
-            Gson gson   = new GsonBuilder().create();
+            Gson gson = new GsonBuilder().create();
 
-            Type type   = new TypeToken<ResponseBase<LicResponse>>() {
+            Type type = new TypeToken<ResponseBase<LicResponse>>() {
             }.getType();
 
             ResponseBase<LicResponse> responseBase = gson.fromJson(response.getRemoteResponse(), type);
 
 
-            if(
+            if (
                     responseBase == null ||
-                    responseBase.data == null ||
-                    responseBase.data.TXLife == null ||
-                    responseBase.data.TXLife.getTXLifeResponse() == null ||
-                    responseBase.data.TXLife.getTXLifeResponse().getOLife() == null
-                    ){
+                            responseBase.data == null ||
+                            responseBase.data.TXLife == null ||
+                            responseBase.data.TXLife.getTXLifeResponse() == null ||
+                            responseBase.data.TXLife.getTXLifeResponse().getOLife() == null
+                    ) {
                 throw new MOMException();
             }
 
             LicResponse licResponse = responseBase.data;
-            LicLife txLife           = licResponse.TXLife;
+            LicLife txLife = licResponse.TXLife;
 
-            Log.i("Premium Amount" ,(txLife.getTXLifeResponse().getTransInvAmount().toString()));
-            Log.i("Full Name" ,(txLife.getTXLifeResponse().getOLife().getParty().getFullName()));
-            Log.i("From Unpaid" ,(txLife.getTXLifeResponse().getOLife().getPolicy().getFrUnpaidPremiumDate().toString()));
-            Log.i("To Unpaid" ,(txLife.getTXLifeResponse().getOLife().getPolicy().getToUnpaidPremiumDate().toString()));
+            Log.i("Premium Amount", (txLife.getTXLifeResponse().getTransInvAmount().toString()));
+            Log.i("Full Name",      (txLife.getTXLifeResponse().getOLife().getParty().getFullName()));
+            Log.i("From Unpaid",    (txLife.getTXLifeResponse().getOLife().getPolicy().getFrUnpaidPremiumDate().toString()));
+            Log.i("To Unpaid",      (txLife.getTXLifeResponse().getOLife().getPolicy().getToUnpaidPremiumDate().toString()));
 
             response.setCustom(txLife.getTXLifeResponse());
 
 
-
             return response;
 
-        }catch(JsonSyntaxException jse){
+        } catch (JsonSyntaxException jse) {
             Log.e(_LOG, jse.getMessage());
         }
 
         return null;
     }
-    public TransactionRequest<LicLifeResponse> getLic(TransactionRequest<LicLifeResponse> response) throws MOMException{
 
-        if(TextUtils.isEmpty(response.getRemoteResponse())){
+    public TransactionRequest<LicLifeResponse> getLic(TransactionRequest<LicLifeResponse> response) throws MOMException {
+
+        if (TextUtils.isEmpty(response.getRemoteResponse())) {
             throw new MOMException();
         }
 
         try {
-            Gson gson   = new GsonBuilder().create();
+            Gson gson = new GsonBuilder().create();
 
-            Type type   = new TypeToken<ResponseBase<LicResponse>>() {
+            Type type = new TypeToken<ResponseBase<LicResponse>>() {
             }.getType();
 
             ResponseBase<LicResponse> responseBase = gson.fromJson(response.getRemoteResponse(), type);
 
 
-            if(
+            if (
                     responseBase == null ||
                             responseBase.data == null ||
                             responseBase.data.TXLife == null ||
                             responseBase.data.TXLife.getTXLifeResponse() == null
-                    ){
+                    ) {
                 throw new MOMException();
             }
 
             LicResponse licResponse = responseBase.data;
-            LicLife txLife           = licResponse.TXLife;
+            LicLife txLife = licResponse.TXLife;
 
             response.setCustom(txLife.getTXLifeResponse());
 
             return response;
 
-        }catch(JsonSyntaxException jse){
+        } catch (JsonSyntaxException jse) {
             Log.e(_LOG, jse.getMessage());
         }
 
         return null;
     }
 
-    public String getPlaceHolder(String response){
+    public String getPlaceHolder(String response) {
 
-        Log.i("Lic" , response);
+        Log.i("Lic", response);
 
-        if(TextUtils.isEmpty(response)){
+        if (TextUtils.isEmpty(response)) {
             return null;
         }
 
         try {
-            Gson gson   = new GsonBuilder().create();
+            Gson gson = new GsonBuilder().create();
 
-            Type type   = new TypeToken<ResponseBase<LicResponse>>() {
+            Type type = new TypeToken<ResponseBase<LicResponse>>() {
             }.getType();
 
             ResponseBase<LicResponse> responseBase = gson.fromJson(response, type);
 
             LicResponse licResponse = responseBase.data;
-            LicLife txLife           = licResponse.TXLife;
+            LicLife txLife = licResponse.TXLife;
 
 
-            Log.i("PlaceHolder" , txLife.getTXLifeResponse().getOLife().getParty().getFullName().toString());
-            return (txLife.getTXLifeResponse().getOLife().getParty().getFullName().toString());
+            Log.i("PlaceHolder", txLife.getTXLifeResponse().getOLife().getParty().getFullName().toString());
+            return(txLife.getTXLifeResponse().getOLife().getParty().getFullName().toString());
 
-        }catch(JsonSyntaxException jse){
+        } catch (JsonSyntaxException jse) {
             Log.e(_LOG, jse.getMessage());
-                    }
+        }
 
         return null;
     }
-    public  void lic(String policyNumber , String CustomerMobNo){
 
-        if(
-                TextUtils.isEmpty(policyNumber)){
+    public void lic(String policyNumber, String CustomerMobNo) {
 
-            if(_listener != null) {
+        if (
+                TextUtils.isEmpty(policyNumber)) {
+
+            if (_listener != null) {
                 _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.LIC);
             }
             return;
@@ -1039,7 +992,7 @@ System.out.println("Beneficiary"+ beneficiaryResult.toString());
 
         TransactionRequest<LicLifeResponse> request = new TransactionRequest<LicLifeResponse>();
 
-        AsyncDataEx dataEx		    = new AsyncDataEx(
+        AsyncDataEx dataEx = new AsyncDataEx(
                 this,
                 request,
                 AppConstants.URL_PBX_PLATFORM_APP,
@@ -1049,31 +1002,29 @@ System.out.println("Beneficiary"+ beneficiaryResult.toString());
         dataEx.execute(
                 new BasicNameValuePair(AppConstants.PARAM_SERVICE_NEW, AppConstants.SVC_PBX_LIC),
                 new BasicNameValuePair(AppConstants.PARAM_LICREFNO, policyNumber),
-                new BasicNameValuePair(AppConstants.PARAM_MERCHANTID_LIC , EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_MERCHANTID_LIC,null)),
-                new BasicNameValuePair(AppConstants.PARAM_PBX_RMN , EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.LOGGED_IN_USERNAME, null)),
-                new BasicNameValuePair(AppConstants.PARAM_CUSTOMER_NUMBER_LIC ,CustomerMobNo)
+                new BasicNameValuePair(AppConstants.PARAM_MERCHANTID_LIC, EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_MERCHANTID_LIC, null)),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_RMN, EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.LOGGED_IN_USERNAME, null)),
+                new BasicNameValuePair(AppConstants.PARAM_CUSTOMER_NUMBER_LIC, CustomerMobNo)
 
         );
 
     }
 
-    public  void licPayment(TransactionRequest<LicLifeResponse> request , String CustomerMobNo , String PolicyNo , String UnpaidDate){
+    public void licPayment(TransactionRequest<LicLifeResponse> request, String CustomerMobNo, String PolicyNo, String UnpaidDate) {
 
-        if(
-                TextUtils.isEmpty(request.getRemoteResponse())){
+        if (
+                TextUtils.isEmpty(request.getRemoteResponse())) {
 
-            if(_listener != null) {
+            if (_listener != null) {
                 _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.PAY_LIC);
             }
             return;
         }
 
-        String licrefno             = EphemeralStorage.getInstance(_applicationContext).getString(
-                AppConstants.PARAM_LICREFNO, null
-        );
+        String licrefno = EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_LICREFNO, null);
 
 
-        AsyncDataEx dataEx		    = new AsyncDataEx(
+        AsyncDataEx dataEx = new AsyncDataEx(
                 this,
                 new TransactionRequest<LicLifeResponse>(),
                 AppConstants.URL_PBX_PLATFORM_APP,
@@ -1083,67 +1034,90 @@ System.out.println("Beneficiary"+ beneficiaryResult.toString());
         dataEx.execute(
                 new BasicNameValuePair(AppConstants.PARAM_SERVICE_NEW, AppConstants.PARAM_SERVICE_LIC),
                 new BasicNameValuePair(AppConstants.PARAM_CUSTOMER_NUMBER_LIC, CustomerMobNo),
-                new BasicNameValuePair(AppConstants.PARAM_PBX_USERID,EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_PBX_USERID, null) ),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_USERID, EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_PBX_USERID, null)),
                 new BasicNameValuePair(AppConstants.PARAM_POLICYNUMBER_LIC, PolicyNo),
-                new BasicNameValuePair(AppConstants.PARAM_TRANSREFGUID_LIC , request.getCustom().getTransRefGUID()),
-                new BasicNameValuePair(AppConstants.PARAM_TRANSINVGUID_LIC , request.getCustom().getTransInvGUID()),
-                new BasicNameValuePair(AppConstants.PARAM_POLICYAMOUNT_LIC , Double.toString(request.getCustom().getTransInvAmount())),
-                new BasicNameValuePair(AppConstants.PARAM_POLICYHOLDER_LIC , request.getCustom().getOLife().getParty().getFullName()),
+                new BasicNameValuePair(AppConstants.PARAM_TRANSREFGUID_LIC, request.getCustom().getTransRefGUID()),
+                new BasicNameValuePair(AppConstants.PARAM_TRANSINVGUID_LIC, request.getCustom().getTransInvGUID()),
+                new BasicNameValuePair(AppConstants.PARAM_POLICYAMOUNT_LIC, Double.toString(request.getCustom().getTransInvAmount())),
+                new BasicNameValuePair(AppConstants.PARAM_POLICYHOLDER_LIC, request.getCustom().getOLife().getParty().getFullName()),
                 new BasicNameValuePair(AppConstants.PARAM_FRUNPAIDPREMIUMDATE, request.getCustom().getOLife().getPolicy().getFrUnpaidPremiumDate()),
-                new BasicNameValuePair(AppConstants.PARAM_PBX_RMN , EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.LOGGED_IN_USERNAME, null))
-
+                new BasicNameValuePair(AppConstants.PARAM_PBX_RMN, EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.LOGGED_IN_USERNAME, null))
 
 
         );
 
     }
 
-    public void impsCustomerRegistration(String sConsumerNumber){
-        if(TextUtils.isEmpty(sConsumerNumber)){
-            if(_listener != null) {
+    public void impsCustomerRegistrationStatus(String sConsumerNumber) {
+        if (TextUtils.isEmpty(sConsumerNumber)) {
+            if (_listener != null) {
                 _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.IMPS_CUSTOMER_REGISTRATION);
             }
         }
 
-        String Url				= AppConstants.URL_PBX_PLATFORM_IMPS + AppConstants.SVC_NEW_METHOD_IMPS_CUSTOMER_REGISTRATION;
+        String Url = AppConstants.URL_PBX_PLATFORM_IMPS + AppConstants.SVC_NEW_METHOD_IMPS_CUSTOMER_REGISTRATION;
 
-        AsyncDataEx dataEx		    = new AsyncDataEx(this, new TransactionRequest(), Url, Methods.IMPS_CUSTOMER_REGISTRATION);
+        AsyncDataEx dataEx = new AsyncDataEx(this, new TransactionRequest(), Url, Methods.IMPS_CUSTOMER_REGISTRATION);
 
         dataEx.execute(
 
-                new BasicNameValuePair(AppConstants.PARAM_PBX_SERVICE, AppConstants.PARAM_SERVICE_IMPS),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_SERVICE, AppConstants.PARAM_SERVICE_IMPS_CUSTOMER_STATUS),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_CONSUMER_NUMBER, sConsumerNumber),
-                new BasicNameValuePair(AppConstants.PARAM_PBX_ROWID,EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_PBX_USERID, null) ),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_ROWID, EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_PBX_USERID, null)),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_RMN, EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.LOGGED_IN_USERNAME, null))
         );
     }
 
+    public void impsCustomerRegistration(String sConsumerNumber, String sConsumerName, String sConsumerDOB, String sConsumerEmail) {
+        if (TextUtils.isEmpty(sConsumerNumber)) {
+            if (_listener != null) {
+                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.IMPS_CUSTOMER_REGISTRATION);
+            }
+        }
 
-    public void impsBeneficiaryList(String sConsumerNumber){
+        String Url = AppConstants.URL_PBX_PLATFORM_IMPS + AppConstants.SVC_NEW_METHOD_IMPS_CUSTOMER_REGISTRATION;
+
+        AsyncDataEx dataEx = new AsyncDataEx(this, new TransactionRequest(), Url, Methods.IMPS_CUSTOMER_REGISTRATION);
+
+        dataEx.execute(
+
+                new BasicNameValuePair(AppConstants.PARAM_PBX_SERVICE, AppConstants.PARAM_SERVICE_IMPS_CUSTOMER_REGISTRATION),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_CONSUMER_NUMBER, sConsumerNumber),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_CONSUMER_NAME, sConsumerName),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_CONSUMER_DOB, sConsumerDOB),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_CONSUMER_EMAIL, sConsumerEmail),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_ROWID, EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_PBX_USERID, null)),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_RMN, EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.LOGGED_IN_USERNAME, null))
+        );
+    }
+
+    public void impsBeneficiaryList(String sConsumerNumber) {
 
 
-        String Url				= AppConstants.URL_PBX_PLATFORM_IMPS + AppConstants.SVC_NEW_METHOD_IMPS_CUSTOMER_REGISTRATION;
+        String Url = AppConstants.URL_PBX_PLATFORM_IMPS + AppConstants.SVC_NEW_METHOD_IMPS_CUSTOMER_REGISTRATION;
 
-        AsyncDataEx dataEx		    = new AsyncDataEx(this, new TransactionRequest(), Url, Methods.IMPS_BENEFICIARY_LIST);
+        AsyncDataEx dataEx = new AsyncDataEx(this, new TransactionRequest(), Url, Methods.IMPS_BENEFICIARY_LIST);
 
         dataEx.execute(
 
                 new BasicNameValuePair(AppConstants.PARAM_PBX_SERVICE, AppConstants.PARAM_SERVICE_IMPS_BENEFICIARY_LIST),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_IMPS_CUSTOMER_ID, String.valueOf(EphemeralStorage.getInstance(_applicationContext).getInt(AppConstants.PARAM_PBX_IMPS_CUSTOMER_ID, -1))),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_ROWID, String.valueOf(EphemeralStorage.getInstance(_applicationContext).getBoolean(AppConstants.PARAM_PBX_IMPS_ISREGISTERED, false))),
-               // new BasicNameValuePair(AppConstants.PARAM_PBX_IMPS_CUSTOMER_ID,"40596" ),
-               // new BasicNameValuePair(AppConstants.PARAM_PBX_ROWID,"true" ),
+                // new BasicNameValuePair(AppConstants.PARAM_PBX_IMPS_CUSTOMER_ID,"40596" ),
+                // new BasicNameValuePair(AppConstants.PARAM_PBX_ROWID,"true" ),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_RMN, sConsumerNumber)
         );
     }
-    public void changePinTest(TransactionRequest request){
+
+    public void changePinTest(TransactionRequest request) {
 
     }
 
-    public void signUpEncryptData(String composeData , String Key){
+    public void signUpEncryptData(String composeData, String Key) {
 
     }
-    public void signUpCustomerRegistration(String data){
+
+    public void signUpCustomerRegistration(String data) {
 
     }
 }

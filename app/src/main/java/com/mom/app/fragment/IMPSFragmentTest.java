@@ -452,7 +452,7 @@ public class IMPSFragmentTest extends FragmentBase implements AsyncListener<Tran
                 sConsumerNumber
                        );
 
-        getDataEx(this).impsCustomerRegistration(sConsumerNumber);
+      // getDataEx(this).impsCustomerRegistration(sConsumerNumber);
 
         showProgress(true);
 }

@@ -44,7 +44,8 @@ public interface IDataEx {
      public void signUpEncryptData(String composeData , String Key);
 
     public void signUpCustomerRegistration(String data);
-    public void impsCustomerRegistration(String consumerNumber);
+    public void impsCustomerRegistrationStatus(String consumerNumber);
+    public void impsCustomerRegistration(String consumerNumber , String consumerName , String consumerDOB , String EmailAddress);
     public void impsBeneficiaryList(String consumerNumber);
 
     public  void lic(String lic , String customerMobNo);

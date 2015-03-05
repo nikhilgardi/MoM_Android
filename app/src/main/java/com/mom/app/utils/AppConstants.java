@@ -65,8 +65,9 @@ public class AppConstants {
     public static final String SVC_PBX_LIC                      = "LICENQ";
 
     public static final String PARAM_SERVICE_LIC                = "LICPAY";
-    public static final String PARAM_SERVICE_IMPS               = "GETCUSTOMERSTATUS";
-    public static final String PARAM_SERVICE_IMPS_BENEFICIARY_LIST               = "BENEFICIARYLIST";
+    public static final String PARAM_SERVICE_IMPS_CUSTOMER_STATUS               = "GETCUSTOMERSTATUS";
+    public static final String PARAM_SERVICE_IMPS_CUSTOMER_REGISTRATION         = "CONSUMERRESISTER";
+    public static final String PARAM_SERVICE_IMPS_BENEFICIARY_LIST              = "BENEFICIARYLIST";
     //End: PBX Platform Service
 
     public static final String PBX_OPERATOR_TYPE_DEFAULT    = "1";
@@ -185,7 +186,10 @@ public class AppConstants {
     public static final String PARAM_PBX_IDENTIFIER          = "identifier";
     public static final String PARAM_PBX_ORIGIN_ID           = "originId";
     public static final String PARAM_PBX_CLIENT_TOKEN        = "clientToken";
-    public static final String PARAM_PBX_CONSUMER_NUMBER     = "ConsumerNumber";
+    public static final String PARAM_PBX_CONSUMER_NUMBER     = "CustomerMobileNumber";
+    public static final String PARAM_PBX_CONSUMER_NAME       = "CustomerName";
+    public static final String PARAM_PBX_CONSUMER_DOB        = "CustomerDOB";
+    public static final String PARAM_PBX_CONSUMER_EMAIL        = "CustomerEmail";
     public static final String PARAM_PBX_ROWID               = "partyRowId";
 
     public static final String PARAM_PBX_OPERATORS          = "pbxOperators";

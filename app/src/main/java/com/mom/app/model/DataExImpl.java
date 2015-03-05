@@ -32,6 +32,7 @@ public abstract class DataExImpl implements IDataEx{
         PAY_BILL,
         UTILITY_BILL_PAY,
         IMPS_CUSTOMER_REGISTRATION,
+        IMPS_CUSTOMER_REGISTRATION_STATUS,
         IMPS_BENEFICIARY_LIST,
         GET_BILL_AMOUNT,
         TRANSACTION_HISTORY,

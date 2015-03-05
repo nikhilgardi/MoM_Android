@@ -1,9 +1,9 @@
 package com.mom.app.model.pbxpl;
 
 /**
- * Created by vaibhavsinha on 9/16/14.
+ * Created by akanksharaina
  */
-public class ImpsCustomerRegistrationResult {
+public class ImpsCustomerRegistrationStatus {
     public int customerID;
     public Boolean isIMPSServiceAllowed;
     public Boolean isRegistered;

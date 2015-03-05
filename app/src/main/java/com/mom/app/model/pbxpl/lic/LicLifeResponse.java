@@ -3,9 +3,7 @@ package com.mom.app.model.pbxpl.lic;
 import com.mom.app.model.ITransaction;
 import com.mom.app.model.pbxpl.lic.LicOLife;
 
-/**
- * Created by vaibhavsinha on 7/14/14.
- */
+
 public class LicLifeResponse implements ITransaction {
     LicOLife OLife;
     public Float TransInvAmount;

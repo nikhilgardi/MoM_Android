@@ -974,7 +974,10 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
     }
 
-     public void impsCustomerRegistration(String consumerNumber){
+     public void impsCustomerRegistrationStatus(String consumerNumber){
+
+    }
+    public void impsCustomerRegistration(String consumerNumber , String consumerName , String consumerDOB ,String EmailAddress){
 
     }
 

@@ -61,44 +61,41 @@ import com.mom.app.model.DataExImpl;
 
 
 public class SignupActivity extends Activity implements AsyncListener<String> {
-    String _LOG         = AppConstants.LOG_PREFIX + "LOGIN";
+    String _LOG = AppConstants.LOG_PREFIX + "LOGIN";
     private EditText et_dob, et_mobileNumber, et_name, et_emailId;
     private Calendar cal;
-    private Button btn_login , btn_signUp;
+    private Button btn_login, btn_signUp;
     private int day;
     private int month;
     private int year;
 
 
     private ImageButton ib;
-    TextView responseText , tv_signUp , lbl_login;
+    TextView responseText, tv_signUp, lbl_login;
     String responseBody;
     public volatile boolean parsingComplete = true;
-    private String registrationStatus ;
-    private String temperature ;
+    private String registrationStatus;
+    private String temperature;
     private String registeredCustomerID;
-    private String errorMessage ;
+    private String errorMessage;
     Intent myintent = new Intent();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        ib = (ImageButton) findViewById(R.id.imageButton1);
-        tv_signUp = (TextView) findViewById(R.id.tv_signUp);
-        et_dob = (EditText) findViewById(R.id.et_dob);
+        ib              = (ImageButton) findViewById(R.id.imageButton1);
+        tv_signUp       = (TextView) findViewById(R.id.tv_signUp);
+        et_dob          = (EditText) findViewById(R.id.et_dob);
         et_mobileNumber = (EditText) findViewById(R.id.et_mobileNumber);
-        et_name = (EditText) findViewById(R.id.et_name);
-        et_emailId = (EditText) findViewById(R.id.et_emailId);
-        btn_login = (Button) findViewById(R.id.btn_login);
-        btn_signUp = (Button) findViewById(R.id.BTN_signIn);
-
-        cal = Calendar.getInstance();
-        day = cal.get(Calendar.DAY_OF_MONTH);
-        month = cal.get(Calendar.MONTH);
-        year = cal.get(Calendar.YEAR);
-
-
+        et_name         = (EditText) findViewById(R.id.et_name);
+        et_emailId      = (EditText) findViewById(R.id.et_emailId);
+        btn_login       = (Button) findViewById(R.id.btn_login);
+        btn_signUp      = (Button) findViewById(R.id.BTN_signIn);
+        cal             = Calendar.getInstance();
+        day             = cal.get(Calendar.DAY_OF_MONTH);
+        month           = cal.get(Calendar.MONTH);
+        year            = cal.get(Calendar.YEAR);
 
 
         et_dob.setOnTouchListener(new View.OnTouchListener() {
@@ -109,8 +106,6 @@ public class SignupActivity extends Activity implements AsyncListener<String> {
                 return false;
             }
         });
-
-
 
 
     }
@@ -130,119 +125,99 @@ public class SignupActivity extends Activity implements AsyncListener<String> {
             return 1;
         } else if (et_name.getText().toString().length() == 0) {
             return 2;
-        } else if ((isEmailValid(et_emailId.getText().toString()))== 0) {
+        } else if ((isEmailValid(et_emailId.getText().toString())) == 0) {
             return 3;
-        }else if (et_dob.getText().toString().length() == 0) {
+        } else if (et_dob.getText().toString().length() == 0) {
             return 4;
-        }
-        else {
+        } else {
             return 0;
         }
     }
 
 
+    public void postSignUpData(View view) {
+
+        if (validate() == 0) {
+            signUpDataEncrpyt();
 
 
-            public void postSignUpData(View view) {
-
-                if (validate() == 0) {
-                    signUpDataEncrpyt();
+            Log.i(_LOG, "Async login request sent");
 
 
-                Log.i(_LOG, "Async login request sent");
+        } else {
+            switch (validate()) {
 
 
-
-            } else {
-                switch (validate()) {
-
-
-                    case 1:
-
-
-                        tv_signUp.setText("");
-                        tv_signUp.setVisibility(View.VISIBLE);
-                        tv_signUp.setText(getResources().getString(R.string.prompt_Validity_mobile_number));
-                        et_mobileNumber.setText("");
-                        break;
+                case 1:
+                    tv_signUp.setText("");
+                    tv_signUp.setVisibility(View.VISIBLE);
+                    tv_signUp.setText(getResources().getString(R.string.prompt_Validity_mobile_number));
+                    et_mobileNumber.setText("");
+                    break;
 
 
-                    case 2:
+                case 2:
+                    tv_signUp.setText("");
+                    tv_signUp.setVisibility(View.VISIBLE);
+                    tv_signUp.setText(getString(R.string.prompt_Validity_Name));
+                    et_name.setText("");
+                    break;
 
+                case 3:
 
-                        tv_signUp.setText("");
-                        tv_signUp.setVisibility(View.VISIBLE);
-                        tv_signUp.setText(getString(R.string.prompt_Validity_Name));
-                        et_name.setText("");
-                        break;
+                    tv_signUp.setText("");
+                    tv_signUp.setVisibility(View.VISIBLE);
+                    tv_signUp.setText(getString(R.string.prompt_Validity_Email_Address));
+                    et_emailId.setText("");
+                    break;
 
-                    case 3:
+                case 4:
 
-                        tv_signUp.setText("");
-                        tv_signUp.setVisibility(View.VISIBLE);
-                        tv_signUp.setText(getString(R.string.prompt_Validity_Email_Address));
-                        et_emailId.setText("");
-                        break;
-
-                    case 4:
-
-                        tv_signUp.setText("");
-                        tv_signUp.setVisibility(View.VISIBLE);
-                        tv_signUp.setText(getString(R.string.prompt_Validity_DOB));
-                        et_dob.setText("");
-                        break;
-
-                }
-            }
-        }
-  //  }
-//    private class GetLoginTaskCustomerRegistration extends AsyncTask<Void, Void, String> {
-//
-//        @Override
-//        protected String doInBackground(Void... params) {
-//
-//            return responseBody;
-//        }
-//
-//        @Override
-//        protected void onPostExecute(String data) {
-
-public void postSignUpConsumer (String data){
-
-
-
-    AsyncListener<String> listener = new AsyncListener<String>() {
-        @Override
-        public void onTaskSuccess(String result, DataExImpl.Methods callback) {
-            switch (callback){
-                case SIGN_UP_CONSUMER:
-                    Log.i(_LOG, "Check Response: " + result);
+                    tv_signUp.setText("");
+                    tv_signUp.setVisibility(View.VISIBLE);
+                    tv_signUp.setText(getString(R.string.prompt_Validity_DOB));
+                    et_dob.setText("");
+                    break;
 
             }
-
         }
-
-        @Override
-        public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
-
-        }
-    };
-
-
-
-    try {
-        IDataEx dataEx;
-
-        dataEx = new MoMPLDataExImpl(getApplicationContext(), listener);
-
-
-        dataEx.signUpCustomerRegistration(data);
-    }catch(Exception me){
-        Log.e(_LOG, "Error getting dataex", me);
-
     }
 
+
+    public void postSignUpConsumer(String data) {
+
+
+        AsyncListener<String> listener = new AsyncListener<String>() {
+            @Override
+            public void onTaskSuccess(String result, DataExImpl.Methods callback) {
+                switch (callback) {
+                    case SIGN_UP_CONSUMER:
+                        Log.i(_LOG, "SignUpConsumer: " + result);
+
+                }
+
             }
+
+            @Override
+            public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
+
+            }
+        };
+
+
+        try {
+            IDataEx dataEx;
+
+            dataEx = new MoMPLDataExImpl(getApplicationContext(), listener);
+
+
+            dataEx.signUpCustomerRegistration(data);
+        } catch (Exception me) {
+            Log.e(_LOG, "Error getting dataex", me);
+
+        }
+
+    }
 
     public String ComposeData() {
         EditText et_mobileNumber = (EditText) findViewById(R.id.et_mobileNumber);
@@ -284,26 +259,23 @@ public void postSignUpConsumer (String data){
     }
 
     public void onTaskSuccess(String result, DataExImpl.Methods callback) {
-        switch (callback){
+        switch (callback) {
             case SIGN_UP_ENCRYPT_DATA:
-                Log.i(_LOG, "Check resultdata123: " + result);
-
+                Log.i(_LOG, "SignUpEncryptData: " + result);
 
 
                 break;
 
         }
 
-            Log.i(_LOG, "User not of new PL");
-            postSignUpConsumer(result);
-          //  return;
+        postSignUpConsumer(result);
+
     }
 
     @Override
     public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
 
     }
-
 
 
     public void setDate() {
@@ -327,35 +299,26 @@ public void postSignUpConsumer (String data){
         @Override
         public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
 
-            showDate(arg1 , arg2 + 1, arg3);
+            showDate(arg1, arg2 + 1, arg3);
         }
     };
 
-    private void showDate(int year , int month, int day) {
+    private void showDate(int year, int month, int day) {
         et_dob.setText(new StringBuilder().append(day).append("/")
                 .append(month).append("/").append(year));
-        Calendar userAge = new GregorianCalendar(year,month,day);
+        Calendar userAge = new GregorianCalendar(year, month, day);
         Calendar minAdultAge = new GregorianCalendar();
         minAdultAge.add(Calendar.YEAR, -18);
 
 
-        if (minAdultAge.before(userAge))
-        {
+        if (minAdultAge.before(userAge)) {
             tv_signUp.setVisibility(View.VISIBLE);
             tv_signUp.setText(getResources().getString(R.string.prompt_Validity_DOB_Age));
-        }
-        else{
+        } else {
             tv_signUp.setVisibility(View.GONE);
         }
 
     }
-
-
-
-
-
-
-
 
 
     public class XmlPullParsing {
@@ -441,8 +404,8 @@ public void postSignUpConsumer (String data){
                     Log.i(TAG, "TEXT");
                     String output = xmlpullparser1.getText();
                     String newoutputrecharge = output;
-                //   postSignUpConsumer(output);
-                 //   new GetLoginTaskCustomerRegistration().onPostExecute(output);
+                    //   postSignUpConsumer(output);
+                    //   new GetLoginTaskCustomerRegistration().onPostExecute(output);
                     Log.i("dataoutput", output);
 
 
@@ -461,7 +424,7 @@ public void postSignUpConsumer (String data){
         String output1;
         String TAG = "XmlPullParsing";
         int event;
-        String text=null;
+        String text = null;
 
         public XmlPullParsingRegistrationData(InputStream is) {
 
@@ -518,8 +481,8 @@ public void postSignUpConsumer (String data){
             try {
                 event = xmlpullparser1.getEventType();
                 while (event != XmlPullParser.END_DOCUMENT) {
-                    String name=xmlpullparser1.getName();
-                    switch (event){
+                    String name = xmlpullparser1.getName();
+                    switch (event) {
                         case XmlPullParser.START_TAG:
                             break;
                         case XmlPullParser.TEXT:
@@ -527,40 +490,36 @@ public void postSignUpConsumer (String data){
                             break;
 
                         case XmlPullParser.END_TAG:
-                            if(name.equals("RegistrationStatus")){
+                            if (name.equals("RegistrationStatus")) {
                                 registrationStatus = text;
 
 
-                            }
-                            else if(name.equals("RegisteredCustomerID")){
+                            } else if (name.equals("RegisteredCustomerID")) {
                                 registeredCustomerID = text;
 
-                            }
-                            else if(name.equals("ErrorMessage")){
+                            } else if (name.equals("ErrorMessage")) {
                                 errorMessage = text;
 
-                            }
-                            else{
+                            } else {
                             }
 
 
                             break;
                     }
-                    Log.i("RegistrationStatus" , registrationStatus);
-                    if(registrationStatus.equals("true")){
+                    Log.i("RegistrationStatus", registrationStatus);
+                    if (registrationStatus.equals("true")) {
                         myintent = new Intent(SignupActivity.this, LoginActivity.class);
                         myintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         myintent.putExtra(AppConstants.SIGNUP_STATUS, 1);
                         startActivity(myintent);
                         finish();
-                    }
-                    else if(registrationStatus.equals("false")){
+                    } else if (registrationStatus.equals("false")) {
 
                         et_dob.setText("");
                         et_mobileNumber.setText("");
                         et_name.setText("");
                         et_emailId.setText("");
-                      //  responseText.setVisibility(View.GONE);
+                        //  responseText.setVisibility(View.GONE);
                         btn_login.setVisibility(View.VISIBLE);
                         tv_signUp.setVisibility(View.VISIBLE);
 
@@ -575,7 +534,6 @@ public void postSignUpConsumer (String data){
 
                     }
                     event = xmlpullparser1.next();
-
 
 
                 }
@@ -613,14 +571,13 @@ public void postSignUpConsumer (String data){
     }
 
 
-    public void signUpDataEncrpyt(){
+    public void signUpDataEncrpyt() {
         String Key = "f0rZHW8IXM8+YNYL7VptiOMr45m0VZ1yHhXD5zADpB4=";
-        String url          = AppConstants.URL_NEW_PLATFORM_TXN_SIGNUP + AppConstants.SVC_NEW_METHOD_SIGN_UP_ENCRYPT_DATA;
-        MoMPLDataExImpl dataEx      = new MoMPLDataExImpl(this , this);
+        String url = AppConstants.URL_NEW_PLATFORM_TXN_SIGNUP + AppConstants.SVC_NEW_METHOD_SIGN_UP_ENCRYPT_DATA;
+        MoMPLDataExImpl dataEx = new MoMPLDataExImpl(this, this);
 
 
-        dataEx.signUpEncryptData(ComposeData(),Key);
-
+        dataEx.signUpEncryptData(ComposeData(), Key);
 
 
     }

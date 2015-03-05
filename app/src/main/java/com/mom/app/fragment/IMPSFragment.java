@@ -43,10 +43,13 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public class IMPSFragment extends FragmentBase implements AsyncListener<TransactionRequest>  {
+public class IMPSFragment extends FragmentBase implements AsyncListener<TransactionRequest> {
 
     private String _LOG = AppConstants.LOG_PREFIX + "BILL PAY";
 
@@ -110,60 +113,55 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_imps, null, false);
 
-        _btnSubmit        = (Button) view.findViewById(R.id.BTN_Submit);
-        _btnNext          = (Button) view.findViewById(R.id.btn_Submit);
-        _btnCancel        = (Button) view.findViewById(R.id.btnCancel);
-        _btnOTPResend     = (Button) view.findViewById(R.id.btn_OTPResend);
-        _btnNewRecharge  = (Button) view.findViewById(R.id._btn_newRecharge);
-        _btnGetBillAmount = (Button) view.findViewById(R.id.btnGetBillAmount);
-        _btnImpsCreateCustomer = (Button) view.findViewById(R.id.btn_impsCreateCustomer);
-        _btnImpsCancel     = (Button) view.findViewById(R.id.btn_ImpsCancel);
-        _billMsgDisplay = (TextView) view.findViewById(R.id.msgDisplay);
-        _spOperator = (Spinner) view.findViewById(R.id.Operator);
-        _splOperatorNBE = (Spinner) view.findViewById(R.id.Spl_OperatorNBE);
-        _OperatorPayFrom = (Spinner) view.findViewById(R.id.Operator_PayFrom);
-      //  _spOperator.setOnItemSelectedListener(new OperatorSelectedListener());
-        _etSubscriberId = (EditText) view.findViewById(R.id.subscriberId);
-        _etAmount = (EditText) view.findViewById(R.id.amount);
-        _etConsumerNumber = (EditText) view.findViewById(R.id.ConsumerNumber);
-        _etBeneficiaryMobile_Number  = (EditText) view.findViewById(R.id.BeneficiaryMobile_number);
-        _etAvailableLimit = (EditText) view.findViewById(R.id.availableLimit);
-        _etIFSC_Code      = (EditText) view.findViewById(R.id.IFSC_Code);
-        _etProcessingFees = (EditText) view.findViewById(R.id.ProcessingFees);
-        _etAmountPayable  = (EditText) view.findViewById(R.id.AmountPayable);
-        _etOTP            = (EditText) view.findViewById(R.id.OTP);
-        _etConsumerName   = (EditText) view.findViewById(R.id.et_name);
-        _etDob            = (EditText) view.findViewById(R.id.et_dob);
-        _etEmailAddress   = (EditText) view.findViewById(R.id.et_emailId);
-        _tvGetIFSC_List   = (TextView) view.findViewById(R.id.GetIFSC_List);
-        _btnPay = (Button) view.findViewById(R.id.btn_Pay);
-        _etDueDate = (EditText) view.findViewById(R.id.DueDate);
-        _etSdCode = (EditText) view.findViewById(R.id.SDCode);
-        _etSop = (EditText) view.findViewById(R.id.SOP);
-        _etFsa = (EditText) view.findViewById(R.id.FSA);
-        _etAcMonth = (EditText) view.findViewById(R.id.ACMonth);
-        _etBeneficiaryName = (EditText) view.findViewById(R.id.beneficiary_name);
-        _etLastName = (EditText) view.findViewById(R.id.last_name);
-        _etAccountNumber = (EditText) view.findViewById(R.id.account_number);
-        _rbPay = (RadioButton) view.findViewById(R.id.rbtnPay);
-        _rbVerify = (RadioButton) view.findViewById(R.id.rbtn_Verify);
-        cal = Calendar.getInstance();
-        day = cal.get(Calendar.DAY_OF_MONTH);
-        month = cal.get(Calendar.MONTH);
-        year = cal.get(Calendar.YEAR);
+        _btnSubmit                  = (Button) view.findViewById(R.id.BTN_Submit);
+        _btnNext                    = (Button) view.findViewById(R.id.btn_Submit);
+        _btnCancel                  = (Button) view.findViewById(R.id.btnCancel);
+        _btnOTPResend               = (Button) view.findViewById(R.id.btn_OTPResend);
+        _btnNewRecharge             = (Button) view.findViewById(R.id._btn_newRecharge);
+        _btnGetBillAmount           = (Button) view.findViewById(R.id.btnGetBillAmount);
+        _btnImpsCreateCustomer      = (Button) view.findViewById(R.id.btn_impsCreateCustomer);
+        _btnImpsCancel              = (Button) view.findViewById(R.id.btn_ImpsCancel);
+        _billMsgDisplay             = (TextView) view.findViewById(R.id.msgDisplay);
+        _spOperator                 = (Spinner) view.findViewById(R.id.Operator);
+        _splOperatorNBE             = (Spinner) view.findViewById(R.id.Spl_OperatorNBE);
+        _OperatorPayFrom            = (Spinner) view.findViewById(R.id.Operator_PayFrom);
+        _etSubscriberId             = (EditText) view.findViewById(R.id.subscriberId);
+        _etAmount                   = (EditText) view.findViewById(R.id.amount);
+        _etConsumerNumber           = (EditText) view.findViewById(R.id.ConsumerNumber);
+        _etBeneficiaryMobile_Number = (EditText) view.findViewById(R.id.BeneficiaryMobile_number);
+        _etAvailableLimit           = (EditText) view.findViewById(R.id.availableLimit);
+        _etIFSC_Code                = (EditText) view.findViewById(R.id.IFSC_Code);
+        _etProcessingFees           = (EditText) view.findViewById(R.id.ProcessingFees);
+        _etAmountPayable            = (EditText) view.findViewById(R.id.AmountPayable);
+        _etOTP                      = (EditText) view.findViewById(R.id.OTP);
+        _etConsumerName             = (EditText) view.findViewById(R.id.et_name);
+        _etDob                      = (EditText) view.findViewById(R.id.et_dob);
+        _etEmailAddress             = (EditText) view.findViewById(R.id.et_emailId);
+        _tvGetIFSC_List             = (TextView) view.findViewById(R.id.GetIFSC_List);
+        _btnPay                     = (Button) view.findViewById(R.id.btn_Pay);
+        _etDueDate                  = (EditText) view.findViewById(R.id.DueDate);
+        _etSdCode                   = (EditText) view.findViewById(R.id.SDCode);
+        _etSop                      = (EditText) view.findViewById(R.id.SOP);
+        _etFsa                      = (EditText) view.findViewById(R.id.FSA);
+        _etAcMonth                  = (EditText) view.findViewById(R.id.ACMonth);
+        _etBeneficiaryName          = (EditText) view.findViewById(R.id.beneficiary_name);
+        _etLastName                 = (EditText) view.findViewById(R.id.last_name);
+        _etAccountNumber            = (EditText) view.findViewById(R.id.account_number);
+        _rbPay                      = (RadioButton) view.findViewById(R.id.rbtnPay);
+        _rbVerify                   = (RadioButton) view.findViewById(R.id.rbtn_Verify);
+        cal                         = Calendar.getInstance();
+        day                         = cal.get(Calendar.DAY_OF_MONTH);
+        month                       = cal.get(Calendar.MONTH);
+        year                        = cal.get(Calendar.YEAR);
 
         _btnGetBillAmount.setVisibility(View.GONE);
         _splOperatorNBE.setVisibility(View.GONE);
-
-
         _tvGetIFSC_List.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity().getApplicationContext(),"Its working",Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity().getApplicationContext(), "Its working", Toast.LENGTH_LONG).show();
             }
         });
-
-
 
         _btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,8 +180,6 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
                 _etOTP.setVisibility(View.GONE);
                 _btnOTPResend.setVisibility(View.GONE);
                 _btnPay.setVisibility(View.GONE);
-
-
 
 
             }
@@ -210,37 +206,71 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
         _btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int nMinPhoneLength     = 10;
-                int nMaxPhoneLength     = 10;
-                int nPhoneLength        = _etConsumerNumber.getText().toString().length();
-                if(nPhoneLength < nMinPhoneLength || nPhoneLength > nMaxPhoneLength){
-                    if(nMinPhoneLength == nMaxPhoneLength) {
+                int nMinPhoneLength = 10;
+                int nMaxPhoneLength = 10;
+                int nPhoneLength = _etConsumerNumber.getText().toString().length();
+                if (nPhoneLength < nMinPhoneLength || nPhoneLength > nMaxPhoneLength) {
+                    if (nMinPhoneLength == nMaxPhoneLength) {
                         _etConsumerNumber.setText("");
                         showMessage(String.format(getResources().getString(R.string.error_phone_length), nMinPhoneLength));
-                    }else{
+                    } else {
                         _etConsumerNumber.setText("");
                         showMessage(String.format(getResources().getString(R.string.error_phone_length_min_max), nMinPhoneLength, nMaxPhoneLength));
                     }
                     return;
                 }
 
-                consumerRegistration();
+                consumerRegistrationStatus();
 
-
-              //  showRetrieveBillFields();
-
-            }
+                }
         });
 
-        _btnImpsCreateCustomer.setOnClickListener( new View.OnClickListener(){
+        _btnImpsCreateCustomer.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                createConsumerRegistration();
+
+                if (validate() == 0) {
+                    createConsumerRegistration();
+                    Log.i(_LOG, "Async Registration request sent");
+                } else {
+                    switch (validate()) {
+
+
+                        case 1:
+
+                            showMessage(getResources().getString(R.string.prompt_Validity_mobile_number));
+                            _etConsumerNumber.setText("");
+                            break;
+
+
+                        case 2:
+
+
+                            showMessage(getString(R.string.prompt_Validity_Name));
+                            _etConsumerName.setText("");
+                            break;
+
+                        case 3:
+
+
+                            showMessage(getString(R.string.prompt_Validity_DOB));
+                            _etDob.setText("");
+                            break;
+
+                        case 4:
+
+
+                            showMessage(getString(R.string.prompt_Validity_Email_Address));
+                            _etEmailAddress.setText("");
+                            break;
+
+
+                    }
+                }
             }
+
         });
-
-
 
 
         _etDob.setOnTouchListener(new View.OnTouchListener() {
@@ -257,32 +287,19 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
         });
 
 
-
-
         return view;
     }
 
 
-
-
-
-
-
-
-
-
-
-
-    private void consumerRegistration() {
+    private void consumerRegistrationStatus() {
         showMessage(null);
 
         String sConsumerNumber = _etConsumerNumber.getText().toString().trim();
-        IDataEx dataEx = getDataEx(new AsyncListener<TransactionRequest>()
-        {
+        IDataEx dataEx = getDataEx(new AsyncListener<TransactionRequest>() {
             public void onTaskSuccess(TransactionRequest result, DataExImpl.Methods callback) {
                 Log.d(_LOG, "Called back");
                 switch (callback) {
-                    case IMPS_CUSTOMER_REGISTRATION:
+                    case IMPS_CUSTOMER_REGISTRATION_STATUS:
                         if (result == null) {
                             Log.d(_LOG, "Obtained NULL bill payment response");
                             showMessage(getResources().getString(R.string.error_recharge_failed));
@@ -305,21 +322,22 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
                 if ((isReg == true) && (isImpsServiceAllowed == true)) {
                     System.out.println(isReg + "true");
                     Toast.makeText(getActivity().getApplicationContext(), "true", Toast.LENGTH_LONG).show();
+                    hideMessage();
                     showRetrieveBillFields();
                     //getBeneficiaryList();
                 } else if ((isReg == false) && (isImpsServiceAllowed == false)) {
-                    System.out.println(isReg + "False");
-                    Toast.makeText(getActivity().getApplicationContext(), "false", Toast.LENGTH_LONG).show();
+//                    System.out.println(isReg + "False");
+//                    Toast.makeText(getActivity().getApplicationContext(), "false", Toast.LENGTH_LONG).show();
+                    hideMessage();
                     showCustomRegistrationFields();
-                }
-                else if ((isReg == false) && (isImpsServiceAllowed == true)) {
-                    System.out.println(isReg + "False");
-                    Toast.makeText(getActivity().getApplicationContext(), "false", Toast.LENGTH_LONG).show();
+                } else if ((isReg == false) && (isImpsServiceAllowed == true)) {
+//                    System.out.println(isReg + "False");
+//                    Toast.makeText(getActivity().getApplicationContext(), "false", Toast.LENGTH_LONG).show();
                     showCustomRegistrationFields();
-                }
-                else if ((isReg == true) && (isImpsServiceAllowed == false)) {
-                    System.out.println(isImpsServiceAllowed + "False");
-                    Toast.makeText(getActivity().getApplicationContext(), "false", Toast.LENGTH_LONG).show();
+                } else if ((isReg == true) && (isImpsServiceAllowed == false)) {
+//                    System.out.println(isImpsServiceAllowed + "False");
+                    hideMessage();
+//                    Toast.makeText(getActivity().getApplicationContext(), "false", Toast.LENGTH_LONG).show();
                     showMessage("You are not allowed to perform IMPS");
                 }
 
@@ -331,26 +349,25 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
             }
         });
 
-        TransactionRequest request  = new TransactionRequest(
+        TransactionRequest request = new TransactionRequest(
                 getActivity().getString(TransactionType.IMPS_CUSTOMER_REGISTRATION.transactionTypeStringId),
                 sConsumerNumber
-                       );
+        );
 
-        getDataEx(this).impsCustomerRegistration(sConsumerNumber);
+        getDataEx(this).impsCustomerRegistrationStatus(sConsumerNumber);
 
         showProgress(true);
-}
+    }
 
     private void getBeneficiaryList() {
         showMessage(null);
 
 
         String sConsumerNumber = _etConsumerNumber.getText().toString().trim();
-        IDataEx dataEx = getDataEx(new AsyncListener<ArrayList<Transaction>> ()
-         {
+        IDataEx dataEx         = getDataEx(new AsyncListener<ArrayList<Transaction>>() {
 
             public void onTaskSuccess(ArrayList<Transaction> result, DataExImpl.Methods callback) {
-                switch (callback){
+                switch (callback) {
                     case IMPS_BENEFICIARY_LIST:
                         Log.i(_LOG, "Check Response: " + result);
 
@@ -365,32 +382,61 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
         });
 
 
-
         try {
 
 
             dataEx.impsBeneficiaryList(sConsumerNumber);
 
             showProgress(true);
-        }catch(Exception me){
+        } catch (Exception me) {
             Log.e(_LOG, "Error getting dataex", me);
 
         }
 
 
-
     }
 
- private void createConsumerRegistration(){
-     showMessage(null);
- }
+    private int validate() {
+        if        (_etConsumerNumber.getText().toString().length() < 10) {
+            return 1;
+        } else if (_etConsumerNumber.getText().toString().length() > 10) {
+            return 1;
+        } else if (_etConsumerName.getText().toString().length() == 0) {
+            return 2;
+        } else if (_etDob.getText().toString().length() == 0) {
+            return 3;
+        } else if ((isEmailValid(_etEmailAddress.getText().toString())) == 0) {
+            return 4;
+        } else {
+            return 0;
+        }
+    }
 
+    public static int isEmailValid(String email) {
+        int isValid = 0;
 
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,3}$";
+        CharSequence inputStr = email;
 
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(inputStr);
+        if (matcher.matches()) {
+            isValid = 1;
 
+        }
+        return isValid;
+    }
 
+    private void createConsumerRegistration() {
+        showMessage(null);
+        String sConsumerNumber = _etConsumerNumber.getText().toString().trim();
+        String sConsumerName   = _etConsumerName.getText().toString().trim();
+        String sConsumerDOB    = _etDob.getText().toString();
+        String sConsumerEmailAddress = _etEmailAddress.getText().toString();
 
+        getDataEx(this).impsCustomerRegistration(sConsumerNumber, sConsumerName, sConsumerDOB, sConsumerEmailAddress);
 
+    }
 
 
     private void showDatePicker() {
@@ -411,16 +457,29 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
         @Override
         public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
 
-            showDate(arg1 , arg2 + 1, arg3);
+            showDate(arg1, arg2 + 1, arg3);
         }
     };
 
-    private void showDate(int year , int month, int day) {
-        _etDueDate.setText(new StringBuilder().append(day).append("/")
-                .append(month).append("/").append(year));
+    private void showDate(int year, int month, int day) {
 
-   }
-    public void showRetrieveBillNextFields(){
+        _etDob.setText(new StringBuilder().append(day).append("/")
+                .append(month).append("/").append(year));
+        Calendar userAge = new GregorianCalendar(year, month, day);
+        Calendar minAdultAge = new GregorianCalendar();
+        minAdultAge.add(Calendar.YEAR, -18);
+
+
+        if (minAdultAge.before(userAge)) {
+
+            showMessage(getResources().getString(R.string.prompt_Validity_DOB_Age));
+        } else {
+            hideMessage();
+        }
+
+    }
+
+    public void showRetrieveBillNextFields() {
 
         _etConsumerNumber.setVisibility(View.GONE);
         _etConsumerName.setVisibility(View.VISIBLE);
@@ -448,6 +507,7 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
         _btnPay.setVisibility(View.VISIBLE);
 
     }
+
     public void showCustomRegistrationFields() {
 
         _etConsumerNumber.setVisibility(View.VISIBLE);
@@ -474,7 +534,7 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
         _btnCancel.setVisibility(View.GONE);
     }
 
-    public void showRetrieveBillFields(){
+    public void showRetrieveBillFields() {
 
 
         _btnSubmit.setVisibility(View.GONE);
@@ -495,13 +555,9 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
         _btnCancel.setVisibility(View.VISIBLE);
 
 
-
-
-
-
     }
 
-    public void hideRetrieveBillFields(){
+    public void hideRetrieveBillFields() {
         _etSubscriberId.setVisibility(View.GONE);
         _btnGetBillAmount.setVisibility(View.GONE);
 //        _btnSubmit.setVisibility(View.GONE);
@@ -537,5 +593,4 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
     }
 
 
-
-   }
+}
