@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.mom.app.R;
+import com.mom.app.model.DataExImpl;
 import com.mom.app.utils.AppConstants;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -29,7 +30,7 @@ public class SignupPullParser {
     private String registeredCustomerID;
     private String errorMessage ;
 
-    public SignupPullParser(InputStream is) {
+    public SignupPullParser(InputStream is , DataExImpl.Methods callback) {
 
 
         XmlPullParserFactory factory = null;
@@ -93,13 +94,13 @@ public class SignupPullParser {
                         break;
 
                     case XmlPullParser.END_TAG:
-                        if(name.equals("RegistrationStatus")){
+                        if(name.equals("PostingStatus")){
                             registrationStatus = text;
                             Log.i("REG", registrationStatus);
 
 
                         }
-                        else if(name.equals("RegisteredCustomerID")){
+                        else if(name.equals("SessionID")){
                             registeredCustomerID = text;
 
                         }

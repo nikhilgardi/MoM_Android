@@ -22,6 +22,8 @@ public class AppConstants {
     public static final String URL_NEW_PLATFORM_TXN_SIGNUP	= "http://utilities.money-on-mobile.net/android_userservice/userservice.asmx";
     public static final String URL_NEW_PLATFORM_GET_BEST_BILL
                                                             = "http://180.179.67.72/bestpayments/billInquiry.ashx";
+
+    public static final String URL_NEW_PLATFORM_IMPS	            = "http://180.179.67.72/imps_appapi/IMPSService.asmx";
 //    public static final String URL_NEW_PLATFORM_GET_BEST_BILL
 //            = "http://180.179.67.72/bestpayments/billInquiry.ashx?AccountNumber=";
     public static final String URL_NEW_PLATFORM_GET_RELIANCE_BILL
@@ -48,10 +50,14 @@ public class AppConstants {
     public static final String SVC_NEW_METHOD_SIGN_UP_ENCRYPT_DATA           ="/Encrypt";
     public static final String SVC_NEW_METHOD_SIGN_UP_CUSTOMER_REGISTRATION  ="/CustomerRegistration";
     public static final String SVC_NEW_METHOD_IMPS_CUSTOMER_REGISTRATION     = "/PbxIMPSApp.ashx";
+    public static final String SVC_NEW_METHOD_IMPS_SUBMIT_PAYMENT            = "/getSubmitPaymentDetails";
+    public static final String SVC_NEW_METHOD_IMPS_CONFIRM_PAYMENT           = "/getConfirmPaymentDetails";
+    public static final String SVC_NEW_METHOD_MOM_T_PIN                      = "/checkVallidTpin";
     //End: MoM Platform Methods
 
     //Start: PBX Platform Service
    // public static final String SVC_PBX_CHECK_LOGIN              = "CL";
+
     public static final String SVC_PBX_CHECK_LOGIN              = "LOGIN";
     public static final String SVC_PBX_CHANGE_PASSWORD          = "CP";
     public static final String SVC_PBX_CHECK_BALANCE            = "BL";
@@ -67,10 +73,22 @@ public class AppConstants {
     public static final String PARAM_SERVICE_LIC                = "LICPAY";
     public static final String PARAM_SERVICE_IMPS_CUSTOMER_STATUS               = "GETCUSTOMERSTATUS";
     public static final String PARAM_SERVICE_IMPS_CUSTOMER_REGISTRATION         = "CONSUMERRESISTER";
+    public static final String PARAM_SERVICE_IMPS_CHECK_KYC                     = "CHECKKYC";
     public static final String PARAM_SERVICE_IMPS_BENEFICIARY_LIST              = "BENEFICIARYLIST";
+    public static final String PARAM_SERVICE_IMPS_ADD_BENEFICIARY               = "NEWBENEFICIARYREGISTER";
+    public static final String PARAM_SERVICE_IMPS_BANK_NAME                     = "GETBANKNAME";
+    public static final String PARAM_SERVICE_IMPS_STATE_NAME                    = "GETSTATE";
+    public static final String PARAM_SERVICE_IMPS_CITY_NAME                     = "GETCITY";
+    public static final String PARAM_SERVICE_IMPS_BRANCH_NAME                   = "GETBRANCH";
+    public static final String PARAM_SERVICE_IMPS_BENEFICIARY_DETAILS           = "BENEFICIARYDETAILS";
+    public static final String PARAM_SERVICE_IMPS_VERIFY_PROCESS                = "VERIFYPROCESS";
+    public static final String PARAM_SERVICE_IMPS_VERIFY_PAYMENT                = "VERIFYPAYMENT";
+    public static final String PARAM_SERVICE_IMPS_PAYMENT_PROCESS               = "PAYMENTPROCESS";
+    public static final String PARAM_SERVICE_IMPS_CONFIRM_PAYMENT               = "CONFIRMPAYMENT";
+    public static final String   PARAM_IS_EXIST_ID_PBX                          = "-1";
     //End: PBX Platform Service
 
-    public static final String PBX_OPERATOR_TYPE_DEFAULT    = "1";
+    public static final String PBX_OPERATOR_TYPE_DEFAULT      = "1";
     //Start: PBX Platform URLs
 
     public static final String URL_PBX_PLATFORM_SERVICE       = "http://test.pbx.momappworld.com/momspre/service.ashx";
@@ -79,8 +97,11 @@ public class AppConstants {
     public static final String URL_PBX_PLATFORM_APPLIC        =   "http://test.api.pbx.momappworld.com/PbxMobApp.ashx";
    //    public static final String URL_PBX_PLATFORM_APP         = "http://172.16.1.102/MobAppS/PbxMobApp.ashx";
    public static final String URL_PBX_PLATFORM_IMPS           =   "http://test.api.pbx.momappworld.com/PbxIMPSApp.ashx";
-
-     public static final String URL_PBX_PLATFORM_APP          =  "http://api.pbx.momappworld.com/pbxmobapp.ashx";
+  // public static final String URL_PBX_PLATFORM_IMPS           =   "http://192.168.8.20/testapipbx/PbxIMPSApp.ashx";
+     //-- production public static final String URL_PBX_PLATFORM_APP          =  "http://api.pbx.momappworld.com/pbxmobapp.ashx";
+  public static final String URL_PBX_PLATFORM_APP          =  "http://test.api.pbx.momappworld.com/pbxmobapp.ashx";
+//local url
+  //  public static final String URL_PBX_PLATFORM_APP          =  "http://192.168.8.20/testapipbx/pbxmobapp.ashx";
 //   public static final String URL_PBX_PLATFORM_APP          =  "http://test.api.pbx.momappworld.com/pbxmobapp.ashx";
 
 
@@ -128,6 +149,7 @@ public class AppConstants {
 	public static final String PARAM_NEW_STR_ACCESS_ID      = "strAccessID";
 	public static final String PARAM_NEW_STR_ACCESS_ID_SMALL_D
                                                             = "strAccessId";
+    public static final String PARAM_NEW_RETAILER_ID        = "RetailerID";
     public static final String PARAM_NEW_USER_ID            = "UserID";
     public static final String PARAM_NEW_CUSTOMER_ID        = "CustomerID";
     public static final String PARAM_NEW_MOBILE_NUMBER      = "MobileNumber";
@@ -178,6 +200,13 @@ public class AppConstants {
     public static final String PARAM_NEW_STR_PASSWORD       = "strPassword";
     public static final String PARAM_NEW_STR_NEW_PASSWORD   = "strNewPassword";
 
+    public static final String PARAM_NEW_IMPS_PASSWORD       = "Password";
+    public static final String PARAM_NEW_IMPS_ConsumerID     = "ConsumerID";
+    public static final String PARAM_NEW_IMPS_PAYMENT_BENEFICIARY_ID ="BeneficiaryID";
+    public static final String PARAM_NEW_IMPS_PAYMENT_REMITTANCE_AMOUNT ="RemittanceAmount";
+    public static final String PARAM_NEW_IMPS_TRANSACTION_NARRATION ="Narration";
+    public static final String PARAM_NEW_IMPS_CLIENTTxnID    ="ClientTransactionID";
+
 
     //Start: PBX Platform Params
     public static final String PARAM_PBX_SERVICE             = "service";
@@ -186,6 +215,7 @@ public class AppConstants {
     public static final String PARAM_PBX_IDENTIFIER          = "identifier";
     public static final String PARAM_PBX_ORIGIN_ID           = "originId";
     public static final String PARAM_PBX_CLIENT_TOKEN        = "clientToken";
+    public static final String PARAM_PBX_CONSUMER_NUMBER_STATUS = "ConsumerNumber";
     public static final String PARAM_PBX_CONSUMER_NUMBER     = "CustomerMobileNumber";
     public static final String PARAM_PBX_CONSUMER_NAME       = "CustomerName";
     public static final String PARAM_PBX_CONSUMER_DOB        = "CustomerDOB";
@@ -207,12 +237,54 @@ public class AppConstants {
     public static final String PARAM_PBX_USERTYPE           = "userType";
     public static final String PARAM_PBX_USERNAMELOGIN      = "userName";
     public static final String PARAM_PBX_LICAMOUNT          = "premiumAmount";
-    public static final String PARAM_PBX_IMPS_CUSTOMER_ID   = "customerID";
+    public static final String PARAM_PBX_IMPS_CONSUMER_NUMBER= "consumerNumber";
+    public static final String PARAM_PBX_IMPS_CUSTOMER_ID    = "customerID";
+    public static final String PARAM_PBX_IMPS_KYC_CUSTOMER_ID = "customerId";
+
+    public static final String PARAM_PBX_IMPS_ISBENEFICIAYSTATUS  = "isIMPSBeneficiaryStatus";
+    public static final String PARAM_PBX_IMPS_POSTINGSTATUS = "isIMPSPostingStatus";
+    public static final String PARAM_PBX_IMPS_SESSIONID     = "SessionID";
     public static final String PARAM_PBX_IMPS_SERVICEALLOWED= "isIMPSServiceAllowed";
     public static final String PARAM_PBX_IMPS_ISREGISTERED  = "isRegistered";
+    public static final String PARAM_PBX_IMPS_BENEFICIARY_CUSTOMER_ID   ="customerID";
+    public static final String PARAM_PBX_IMPS_OTP          ="OTP";
+    public static final String PARAMS_PBX_IMPS_SESSION_ID          ="SessionID";
+
+    public static final String PARAM_PBX_IMPS_BENEFICIARY_ID ="BeneficiaryID";
+    public static final String PARAM_PBX_IMPS_BANK_NAME      ="BankName";
+    public static final String PARAM_PBX_IMPS_STATE_NAME     ="StateName";
+    public static final String PARAM_PBX_IMPS_CITY_NAME      ="CityName";
+    public static final String PARAM_PBX_IMPS_BENEFICIARY_ACCOUNT_NAME = "BeneficiaryAccountName";
+    public static final String PARAM_PBX_IMPS_ACCOUNT_NAME     ="accountName";
+    public static final String PARAM_PBX_IMPS_CUSTOMER_NUMBER       ="CustomerNumber";
+    public static final String PARAM_PBX_IMPS_IFSC_CODE        = "ifscCode";
+    public static final String PARAM_PBX_IMPS_VERIFY_IFSC_CODE ="iFSCCode";
+    public static final String PARAM_PBX_IMPS_ACCOUNT_NUMBER   ="accountNumber";
+    public static final String PARAM_PBX_IMPS_BENEFICIARY_NAME = "beneficiaryName";
+    public static final String PARAM_PBX_IMPS_BENEFICIARY_MOBILE_NUMBER ="beneficiaryMobileNumber";
+    public static final String PARAM_PBX_IMPS_REMITTANCE_AMOUNT   ="RemittanceAmount";
+    public static final String PARAM_PBX_IMPS_TRANSACTION_NARRATION ="TransactionNarration";
+    public static final String PARAM_PBX_IMPS_TRANSACTION_NARRATION_DESC ="testingPBXIMPS";
+
+    // IMPS PAYMENT PROCESS
+    public static final String PARAM_PBX_IMPS_PAYMENT_REMITTANCE_AMOUNT     ="remittanceAmount";
+    public static final String PARAM_PBX_IMPS_PAYMENT_BENEFICIARY_ID         ="beneficiaryID";
+
+    //  IMPS CONFIRM PAYMENT
+
+    public static final String PARAM_PBX_IMPS_CONFIRM_PAYMENT_REMITTANCE_AMOUNT   ="paymentAmount";
+
+    public static final String PARAM_NEW_SUBMIT_POSTING_STATUS       = "Posting Status";
+    public static final String PARAM_NEW_SUBMIT_SESSION_ID           = "Session ID";
+    public static final String PARAM_NEW_SUBMIT_ERROR_MSG            = "ErrorMessage";
+    public static final String PARAM_NEW_SUBMIT_STATUS_CODE          = "StatusCode";
+    public static final String PARAM_NEW_SUBMIT_ERROR_CODE           = "ErrorCode";
+    public static final String PARAM_NEW_SUBMIT_RECEIPT_ID           = "ReceiptID";
+    public static final String PARAM_NEW_SUBMIT_CURRENT_BALANCE      = "CurrentBalance";
+    public static final String PARAM_NEW_SIGNUP_STATUS                = "RegistrationStatus";
 
 
-    public static final String PARAM_PBX_ACCOUNT_NUMBER            = "account";
+    public static final String PARAM_PBX_ACCOUNT_NUMBER      = "account";
     public static final String PARAM_PBX_DUE_DATE            = "dueDate";
     public static final String PARAM_PBX_AC_MONTH            = "acMonth";
     public static final String PARAM_PBX_STUBTYPE            = "stubType";
@@ -241,8 +313,10 @@ public class AppConstants {
 
 	public static final String IS_LOGGED_IN = "isLoggedIn";
 	public static final String LOGGED_IN_USERNAME	        = "username";
+    public static final String LOGGED_IN_PASSWORD	        = "password";
 	
 	public static final String NEW_PL_COMPANY_ID	        = "184";
+    public static final String NEW_B2C_COMPANY_ID	        = "2365";
     public static final int NEW_PL_LOGIN_SUCCESS            = 101;
     public static final int NEW_PL_TPIN_VERIFIED            = 101;
 

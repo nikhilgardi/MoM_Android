@@ -32,15 +32,6 @@
                 android:visibility="gone" />
 
 
-            <!--<Spinner-->
-                <!--android:id="@+id/Operator"-->
-                <!--style="@style/SpinnerAppTheme"-->
-                <!--android:prompt="@string/prompt_spinner_select_operator"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="@dimen/small"-->
-                <!--android:layout_marginBottom="@dimen/small"-->
-                <!--android:visibility="gone" />-->
 
             <Spinner
                 android:id="@+id/Spl_OperatorNBE"
@@ -126,12 +117,27 @@
                 android:layout_gravity="center_horizontal"
                 android:text="@string/btn_getBillAmount"
                 android:visibility="gone"/>
+
+            <com.mom.app.ui.CustomTextView
+                android:id="@+id/tv_consumerNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+
+                android:layout_marginLeft="10dip"
+                android:layout_marginTop="10dip"
+                android:text ="Consumer Number"
+                android:textColor="#333"
+                android:textSize="@dimen/text_small"
+                android:visibility="gone" />
             <EditText
                 android:id="@+id/ConsumerNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/lblConsumerNumber"
+                style="@style/EditTextAppTheme.phone"
                 android:layout_marginBottom="@dimen/medium"
+                android:textSize="@dimen/text_small"
                />
             <Button
                 android:id="@+id/BTN_Submit"
@@ -194,15 +200,40 @@
                     android:visibility="gone" />
             </LinearLayout>
 
+            <com.mom.app.ui.CustomTextView
+                android:id="@+id/tv_availableLimit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="Available Limit"
+                android:layout_marginLeft="10dip"
+                android:layout_marginTop="10dip"
+
+                android:textColor="#333"
+                android:textSize="@dimen/text_small"
+                android:visibility="gone" />
             <EditText
                 android:id="@+id/availableLimit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/EditTextAppTheme.money"
+                android:textSize="@dimen/text_small"
                 android:hint="Available Limit"
                 android:layout_marginBottom="@dimen/small"
                 android:visibility="gone" />
 
+
+            <com.mom.app.ui.CustomTextView
+                android:id="@+id/tv_operator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="Select Account Alias"
+                android:layout_marginLeft="10dip"
+                android:layout_marginTop="10dip"
+                android:textSize="@dimen/text_small"
+                android:textColor="#333"
+
+                android:visibility="gone" />
             <Spinner
                 android:id="@+id/Operator"
                 style="@style/SpinnerAppTheme"
@@ -212,8 +243,26 @@
                 android:layout_marginTop="@dimen/small"
                 android:layout_marginBottom="@dimen/ultra_small"
                 android:visibility="gone" />
+            <TextView
+                android:id="@+id/Verified"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_isVerified"
+                android:visibility="gone"
+                android:gravity="right"/>
 
+            <com.mom.app.ui.CustomTextView
+                android:id="@+id/tv_beneficiary_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="Beneficiary Name"
+                android:layout_marginLeft="10dip"
+                android:layout_marginTop="10dip"
+                android:textSize="@dimen/text_small"
+                android:textColor="#333"
 
+                android:visibility="gone" />
 
             <com.mom.app.ui.CustomEditText
                 android:id="@+id/beneficiary_name"
@@ -224,8 +273,24 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="@dimen/medium"
                 android:hint="@string/lbl_BeneficiaryName"
-                android:inputType="text"
-                android:maxLength="50"
+                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+                android:textSize="@dimen/text_small"
+                style="@style/EditTextAppTheme.BeneficiaryName"
+
+                android:visibility="gone" />
+            <!--android:digits="abcdefghijklmnopqrstuvwxyz"-->
+
+            <com.mom.app.ui.CustomTextView
+                android:id="@+id/tv_account_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="Account Number"
+                android:layout_marginLeft="10dip"
+                android:layout_marginTop="10dip"
+                android:textSize="@dimen/text_small"
+                android:textColor="#333"
+
                 android:visibility="gone" />
 
             <com.mom.app.ui.CustomEditText
@@ -237,8 +302,8 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="@dimen/medium"
                 android:hint="@string/lbl_AccountNumber"
-                android:inputType="number"
-                android:maxLength="20"
+                style="@style/EditTextAppTheme.AccountNumber"
+                android:textSize="@dimen/text_small"
                 android:visibility="gone" />
 
             <!--<RelativeLayout-->
@@ -257,13 +322,26 @@
 
             <!--</LinearLayout>-->
 
+            <com.mom.app.ui.CustomTextView
+                android:id="@+id/tv_IFSC_Code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="IFSC Code"
+                android:layout_marginLeft="10dip"
+                android:layout_marginTop="10dip"
+                android:textSize="@dimen/text_small"
+                android:textColor="#333"
 
+                android:visibility="gone" />
             <com.mom.app.ui.CustomEditText
                 android:id="@+id/IFSC_Code"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/lbl_IFSCCode"
-                style="@style/EditTextAppTheme"
+                style="@style/EditTextAppTheme.IFSCCode"
+                android:textSize="@dimen/text_small"
+                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
                 android:visibility="gone" />
 
 
@@ -275,13 +353,28 @@
                 android:visibility="gone"
                 android:gravity="right"/>
 
+            <com.mom.app.ui.CustomTextView
+                android:id="@+id/tv_BeneficiaryMobile_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="Beneficiary Mobile Number"
+                android:layout_marginLeft="10dip"
+                android:layout_marginTop="10dip"
+                android:textSize="@dimen/text_small"
+                android:textColor="#333"
+
+                android:visibility="gone" />
+
             <EditText
                 android:id="@+id/BeneficiaryMobile_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/EditTextAppTheme.phone"
-                android:hint="@string/lblCustomerMobile"
+                android:hint="@string/lblBeneficiaryMobileNumber"
+                android:maxLength="10"
                 android:layout_marginBottom="@dimen/small"
+                android:textSize="@dimen/text_small"
                 android:visibility="gone" />
 
             <Spinner
@@ -295,13 +388,65 @@
                 android:visibility="gone" />
 
 
+            <com.mom.app.ui.CustomTextView
+                android:id="@+id/tv_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="Amount"
+                android:textSize="@dimen/text_small"
+                android:layout_marginLeft="10dip"
+                android:layout_marginTop="10dip"
+
+                android:textColor="#333"
+
+                android:visibility="gone" />
+
+
             <EditText
                 android:id="@+id/amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/EditTextAppTheme.money"
+                style="@style/EditTextAppTheme.impsmoney"
                 android:hint="@string/lblAmount"
                 android:layout_marginBottom="@dimen/small"
+                android:textSize="@dimen/text_small"
+                android:visibility="gone" />
+
+
+            <com.mom.app.ui.CustomTextView
+                android:id="@+id/tv_txnDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="Transaction Description"
+                android:layout_marginLeft="10dip"
+                android:layout_marginTop="10dip"
+                android:textSize="@dimen/text_small"
+                android:textColor="#333"
+
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/txnDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_small"
+                android:hint="@string/lblTxnDescription"
+                android:layout_marginBottom="@dimen/small"
+                android:visibility="gone" />
+
+            <com.mom.app.ui.CustomTextView
+                android:id="@+id/tv_ProcessingFees"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="Processing Fees"
+                android:layout_marginLeft="10dip"
+                android:layout_marginTop="10dip"
+                android:textSize="@dimen/text_small"
+                android:textColor="#333"
+
                 android:visibility="gone" />
 
             <EditText
@@ -311,6 +456,20 @@
                 style="@style/EditTextAppTheme.money"
                 android:hint="@string/lblProcessingFees"
                 android:layout_marginBottom="@dimen/small"
+                android:textSize="@dimen/text_small"
+                android:visibility="gone" />
+
+            <com.mom.app.ui.CustomTextView
+                android:id="@+id/tv_AmountPayable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="Amount Payable"
+                android:layout_marginLeft="10dip"
+                android:layout_marginTop="10dip"
+                android:textSize="@dimen/text_small"
+                android:textColor="#333"
+
                 android:visibility="gone" />
 
             <EditText
@@ -320,14 +479,29 @@
                 style="@style/EditTextAppTheme.money"
                 android:hint="@string/lblAmountPayable"
                 android:layout_marginBottom="@dimen/small"
+                android:textSize="@dimen/text_small"
+                android:visibility="gone" />
+
+            <com.mom.app.ui.CustomTextView
+                android:id="@+id/tv_OTP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="OTP"
+                android:layout_marginLeft="10dip"
+                android:layout_marginTop="10dip"
+                android:textSize="@dimen/text_small"
+                android:textColor="#333"
+
                 android:visibility="gone" />
             <EditText
                 android:id="@+id/OTP"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/EditTextAppTheme.money"
+                android:inputType="textPassword"
                 android:hint="@string/lblOTP"
                 android:layout_marginBottom="@dimen/small"
+                android:textSize="@dimen/text_small"
                 android:visibility="gone" />
 
             <Button
@@ -350,7 +524,7 @@
                 android:visibility="gone" />
 
             <RadioGroup
-                android:id="@+id/RadioGroup01"
+                android:id="@+id/radioGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
@@ -364,6 +538,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Pay"
+
                     style="@style/RadioButtonAppTheme"
                     android:visibility="gone" >
                 </RadioButton>
@@ -373,6 +548,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Verify"
+
                     style="@style/RadioButtonAppTheme"
                     android:visibility="gone" >
                 </RadioButton>
@@ -399,108 +575,247 @@
                     android:text="@string/btn_cancel"
                     android:visibility="gone" />
             </LinearLayout>
+
+            <LinearLayout
+                android:weightSum="3"
+                style="@style/MoMTheme.btn_container">
+                <Button
+                    android:id="@+id/btn_VerifySubmit"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    style="@style/MoMTheme.wrapped.customButton"
+                    android:text ="VerifySubmit"
+
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btnVerifyCancel"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    style="@style/MoMTheme.wrapped.customButton"
+
+                    android:text ="VerifyCancel"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:weightSum="3"
+                style="@style/MoMTheme.btn_container">
+                <Button
+                    android:id="@+id/btn_VerifyPaySubmit"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    style="@style/MoMTheme.wrapped.customButton"
+                    android:text="Submit"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btn_VerifyPayCancel"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    style="@style/MoMTheme.wrapped.customButton"
+                    android:text="Cancel"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:weightSum="3"
+                style="@style/MoMTheme.btn_container">
+                <Button
+                    android:id="@+id/btn_PaymentPaySubmit"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    style="@style/MoMTheme.wrapped.customButton"
+
+                    android:text="Payment"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btn_PaymentPayCancel"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    style="@style/MoMTheme.wrapped.customButton"
+                    android:text="Cancel"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+
+
+
+
+
+            <com.mom.app.ui.CustomEditText
+                android:id="@+id/DueDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:hint="Due Date"
+                android:inputType="date"
+                android:visibility="gone" />
+            <ImageButton
+                android:id="@+id/imageButton1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:layout_alignBottom="@+id/DueDate"
+                android:layout_toRightOf="@+id/DueDate"
+                android:onClick="setDate"
+                android:cropToPadding="true"
+                android:visibility="gone"
+                android:src="@drawable/calender" />
+            <com.mom.app.ui.CustomButton
+                android:id="@+id/btn_ChangeBtn"
+                android:layout_width="265dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/DueDate"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="21dp"
+                android:layout_marginTop="15dp"
+                android:text="Change Date"
+                android:onClick="setDate"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:visibility="gone"/>
+
+            <com.mom.app.ui.CustomEditText
+                android:id="@+id/SDCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:hint="SD CODE"
+                android:visibility="gone" />
+
+            <com.mom.app.ui.CustomEditText
+                android:id="@+id/SOP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:hint="SOP"
+                android:visibility="gone" />
+
+            <com.mom.app.ui.CustomEditText
+                android:id="@+id/FSA"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:hint="FSA"
+                android:visibility="gone" />
+
+            <com.mom.app.ui.CustomEditText
+                android:id="@+id/ACMonth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:hint="A/C Month"
+                android:inputType="number"
+                android:maxLength="10"
+                android:visibility="gone" />
+
+            <!--<TextView-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_weight="10"/>-->
+
+
+
+
+            <TextView
+                android:id="@+id/transactionHistoryHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_activity_transaction_history"
+                android:visibility="gone"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/historyHeader" />
+
+            <TextView
+                android:id="@+id/noTransactionsMsg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/listEmptyMessage"
+                android:textColor="@color/red"
+                android:text="@string/no_transactions_found"
+                android:visibility="gone"
+                />
+
+            <ListView
+                android:id="@+id/listView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+
+                android:visibility="gone"
+                android:background="@android:color/holo_blue_dark"
+                />
+
+            <com.mom.app.ui.CustomButton
+                android:id="@+id/_btn_newRecharge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/MoMTheme.wrapped.customButton"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="80dp"
+
+
+                android:onClick="newRecharge"
+                android:text="@string/btn_newRecharge"
+                android:visibility="gone" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         </LinearLayout>
 
 
-        <com.mom.app.ui.CustomButton
-            android:id="@+id/_btn_newRecharge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/MoMTheme.wrapped.customButton"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="80dp"
-            android:layout_marginTop="5dp"
-            android:onClick="newRecharge"
-            android:text="@string/btn_newRecharge"
-            android:visibility="gone" />
 
 
 
-        <com.mom.app.ui.CustomEditText
-            android:id="@+id/DueDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
 
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="15dp"
-            android:hint="Due Date"
-            android:inputType="date"
-            android:visibility="gone" />
-        <ImageButton
-            android:id="@+id/imageButton1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:layout_alignBottom="@+id/DueDate"
-            android:layout_toRightOf="@+id/DueDate"
-            android:onClick="setDate"
-            android:cropToPadding="true"
-            android:visibility="gone"
-            android:src="@drawable/calender" />
-        <com.mom.app.ui.CustomButton
-            android:id="@+id/btn_ChangeBtn"
-            android:layout_width="265dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/DueDate"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="21dp"
-            android:layout_marginTop="15dp"
-            android:text="Change Date"
-            android:onClick="setDate"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            android:visibility="gone"/>
+        <!--<LinearLayout-->
 
-        <com.mom.app.ui.CustomEditText
-            android:id="@+id/SDCode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
 
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="15dp"
-            android:hint="SD CODE"
-            android:visibility="gone" />
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="80dp"-->
+            <!--style="@style/MoMTheme.btn_container">94-->
 
-        <com.mom.app.ui.CustomEditText
-            android:id="@+id/SOP"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
 
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="15dp"
-            android:hint="SOP"
-            android:visibility="gone" />
+        <!--</LinearLayout>-->
 
-        <com.mom.app.ui.CustomEditText
-            android:id="@+id/FSA"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
 
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="15dp"
-            android:hint="FSA"
-            android:visibility="gone" />
-
-        <com.mom.app.ui.CustomEditText
-            android:id="@+id/ACMonth"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="15dp"
-            android:hint="A/C Month"
-            android:inputType="number"
-            android:maxLength="10"
-            android:visibility="gone" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="10"/>
     </LinearLayout>
 </ScrollView>

@@ -78,7 +78,10 @@ public class DataProvider {
             );
         }
 
-//        if(platform == PlatformIdentifier.MOM){
+        if(platform == PlatformIdentifier.MOM) {
+            if((EphemeralStorage.getInstance(context).getString(AppConstants.PARAM_NEW_ROLE_ID, null).equals("5"))
+            ||(EphemeralStorage.getInstance(context).getString(AppConstants.PARAM_NEW_ROLE_ID, null).equals("11"))||
+                    (EphemeralStorage.getInstance(context).getString(AppConstants.PARAM_NEW_ROLE_ID, null).equals("3"))){
             imageItems.add(
                     new ImageItem<MoMScreen>(
                             MoMScreen.BALANCE_TRANSFER,
@@ -89,7 +92,25 @@ public class DataProvider {
                             false
                     )
             );
-      //  }
+       }
+        }
+        else if (platform == PlatformIdentifier.PBX) {
+//            if ((EphemeralStorage.getInstance(context).getString(AppConstants.PARAM_PBX_USERTYPE, null).equals("2"))
+//                    || (EphemeralStorage.getInstance(context).getString(AppConstants.PARAM_PBX_USERTYPE, null).equals("4")) ||
+//                    (EphemeralStorage.getInstance(context).getString(AppConstants.PARAM_PBX_USERTYPE, null).equals("8"))) {
+                imageItems.add(
+                        new ImageItem<MoMScreen>(
+                                MoMScreen.BALANCE_TRANSFER,
+                                MoMScreen.BALANCE_TRANSFER.id,
+                                MoMScreen.BALANCE_TRANSFER.drawableId,
+                                MoMScreen.BALANCE_TRANSFER.drawableTransparentId,
+                                context.getResources().getString(MoMScreen.BALANCE_TRANSFER.titleResId),
+                                false
+                        )
+                );
+
+           // }
+        }
 
         imageItems.add(
                 new ImageItem<MoMScreen>(

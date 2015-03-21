@@ -31,6 +31,24 @@
                 android:textSize="@dimen/text_medium"
                 android:visibility="gone" />
 
+            <EditText
+                android:id="@+id/verifyTpin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:hint="Enter T-Pin"
+                android:inputType="phone"
+                android:layout_marginBottom="@dimen/small"
+                android:visibility="gone"/>
+            <Button
+                android:id="@+id/btnSubmit"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                style="@style/MoMTheme.wrapped.customButton"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/btn_verifyTpin"
+                android:visibility="gone"/>
+
             <Spinner
                 android:id="@+id/Operator"
                 style="@style/SpinnerAppTheme"
@@ -38,7 +56,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/small"
-                android:layout_marginBottom="@dimen/small"/>
+                android:layout_marginBottom="@dimen/small"
+                android:visibility="gone"/>
 
             <Spinner
                 android:id="@+id/Spl_OperatorNBE"
@@ -111,7 +130,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/lblConsumerNumber"
-                android:layout_marginBottom="@dimen/medium"/>
+                android:layout_marginBottom="@dimen/medium"
+                android:visibility="gone"/>
 
             <Button
                 android:id="@+id/btnGetBillAmount"
@@ -130,7 +150,8 @@
                 android:layout_height="wrap_content"
                 style="@style/EditTextAppTheme.phone"
                 android:hint="@string/lblCustomerMobile"
-                android:layout_marginBottom="@dimen/small"/>
+                android:layout_marginBottom="@dimen/small"
+                android:visibility="gone"/>
 
             <EditText
                 android:id="@+id/amount"
@@ -138,7 +159,8 @@
                 android:layout_height="wrap_content"
                 style="@style/EditTextAppTheme.money"
                 android:hint="@string/lblAmount"
-                android:layout_marginBottom="@dimen/small"/>
+                android:layout_marginBottom="@dimen/small"
+                android:visibility="gone"/>
 
 
 
@@ -263,7 +285,8 @@
                 android:layout_width="wrap_content"
                 style="@style/MoMTheme.wrapped.customButton"
                 android:layout_gravity="center_horizontal"
-                android:text="@string/btn_pay"/>
+                android:text="@string/btn_pay"
+                android:visibility="gone"/>
         </LinearLayout>
 
         <TextView

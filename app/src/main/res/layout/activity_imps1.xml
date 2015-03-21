@@ -1,0 +1,634 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:fillViewport="false"
+   >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="80"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/msgDisplay"
+                style="@style/MoMTheme.wrapped.alertMsg"
+                android:textSize="@dimen/text_medium"
+                android:visibility="gone" />
+
+
+            <!--<Spinner-->
+                <!--android:id="@+id/Operator"-->
+                <!--style="@style/SpinnerAppTheme"-->
+                <!--android:prompt="@string/prompt_spinner_select_operator"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="@dimen/small"-->
+                <!--android:layout_marginBottom="@dimen/small"-->
+                <!--android:visibility="gone" />-->
+
+            <Spinner
+                android:id="@+id/Spl_OperatorNBE"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/SpinnerAppTheme"
+                android:layout_marginTop="@dimen/small"
+                android:layout_marginBottom="@dimen/small"
+                android:entries="@array/feedbacktypelist"
+                android:prompt="@string/feedbacktype"
+                android:visibility="gone"
+                />
+
+            <Spinner
+                android:id="@+id/Spl_OperatorSBE"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small"
+                android:layout_marginBottom="@dimen/small"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                style="@style/SpinnerAppTheme"
+                android:entries="@array/feedbacktypeSBElist"
+                android:prompt="@string/feedbacktypeSBERecharge"
+                android:visibility="gone" />
+
+            <com.mom.app.ui.CustomEditText
+                android:id="@+id/first_name"
+                android:layout_width="265dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="@dimen/medium"
+                android:hint="@string/lbl_FirstName"
+                android:inputType="text"
+                android:maxLength="50"
+                android:visibility="gone" />
+
+            <com.mom.app.ui.CustomEditText
+                android:id="@+id/last_name"
+                android:layout_width="265dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="@dimen/medium"
+                android:hint="@string/lbl_LastName"
+                android:inputType="text"
+                android:maxLength="50"
+                android:visibility="gone" />
+
+            <com.mom.app.ui.CustomEditText
+                android:id="@+id/spl_accountnumber"
+                android:layout_width="265dp"
+                android:layout_height="40dp"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="@dimen/medium"
+                android:hint="@string/lbl_AccountNumber"
+                android:inputType="number"
+                android:maxLength="20"
+                android:visibility="gone" />
+
+
+
+            <EditText
+                android:id="@+id/subscriberId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/lblConsumerNumber"
+                android:layout_marginBottom="@dimen/medium"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btnGetBillAmount"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                style="@style/MoMTheme.wrapped.customButton"
+                android:onClick="getBillAmount"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/btn_getBillAmount"
+                android:visibility="gone"/>
+            <EditText
+                android:id="@+id/ConsumerNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/lblConsumerNumber"
+                android:layout_marginBottom="@dimen/medium"
+               />
+            <Button
+                android:id="@+id/BTN_Submit"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+
+                android:layout_marginLeft="50dip"
+                android:layout_marginRight="50dip"
+                android:layout_marginTop="15dp"
+                android:text="@string/tpin_submit_btn"/>
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/lbl_Name"
+                android:inputType="textPersonName"
+                android:layout_marginTop="@dimen/small"
+                android:layout_marginBottom="@dimen/small"
+                android:visibility="gone" />
+            <EditText
+                android:id="@+id/et_dob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/lbl_DOB"
+                android:focusableInTouchMode="false"
+                android:layout_marginTop="@dimen/small"
+                android:layout_marginBottom="@dimen/small"
+                android:visibility="gone"/>
+
+            <EditText
+                android:id="@+id/et_emailId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="@dimen/small"
+                android:layout_marginBottom="@dimen/small"
+                android:hint="@string/lbl_Email"
+                android:imeOptions="actionNext"
+                android:inputType="textWebEmailAddress"
+                android:visibility="gone"/>
+            <LinearLayout
+                android:weightSum="3"
+                style="@style/MoMTheme.btn_container">
+                <Button
+                    android:id="@+id/btn_impsCreateCustomer"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    style="@style/MoMTheme.wrapped.customButton"
+                    android:text="@string/tpin_submit_btn"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btn_ImpsCancel"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    style="@style/MoMTheme.wrapped.customButton"
+                    android:text="@string/btn_cancel"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/availableLimit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:hint="Available Limit"
+                android:layout_marginBottom="@dimen/small"
+                android:visibility="gone" />
+
+            <Spinner
+                android:id="@+id/Operator"
+                style="@style/SpinnerAppTheme"
+                android:prompt="@string/prompt_spinner_select_NewBeneficiary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small"
+                android:layout_marginBottom="@dimen/ultra_small"
+                android:visibility="gone" />
+            <TextView
+                android:id="@+id/Verified"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_isVerified"
+                android:visibility="gone"
+                android:gravity="right"/>
+
+
+
+            <com.mom.app.ui.CustomEditText
+                android:id="@+id/beneficiary_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="@dimen/medium"
+                android:hint="@string/lbl_BeneficiaryName"
+                android:inputType="text"
+                android:maxLength="50"
+                android:visibility="gone" />
+
+            <com.mom.app.ui.CustomEditText
+                android:id="@+id/account_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="@dimen/medium"
+                android:hint="@string/lbl_AccountNumber"
+                android:inputType="number"
+                android:maxLength="20"
+                android:visibility="gone" />
+
+            <!--<RelativeLayout-->
+                <!--android:id="@+id/titleLinearLayout"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content" >-->
+
+            <!--<LinearLayout android:layout_width="fill_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:orientation="horizontal"-->
+
+                <!--android:layout_marginTop="10dp">-->
+
+               <!---->
+
+
+            <!--</LinearLayout>-->
+
+
+            <com.mom.app.ui.CustomEditText
+                android:id="@+id/IFSC_Code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/lbl_IFSCCode"
+                style="@style/EditTextAppTheme"
+                android:visibility="gone" />
+
+
+            <TextView
+                android:id="@+id/GetIFSC_List"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_IFSCCode"
+                android:visibility="gone"
+                android:gravity="right"/>
+
+            <EditText
+                android:id="@+id/BeneficiaryMobile_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/EditTextAppTheme.phone"
+                android:hint="@string/lblBeneficiaryMobileNumber"
+                android:layout_marginBottom="@dimen/small"
+                android:visibility="gone" />
+
+            <Spinner
+                android:id="@+id/Operator_PayFrom"
+                style="@style/SpinnerAppTheme"
+                android:prompt="@string/prompt_spinner_select_operator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small"
+                android:layout_marginBottom="@dimen/small"
+                android:visibility="gone" />
+
+
+            <EditText
+                android:id="@+id/amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/EditTextAppTheme.money"
+                android:hint="@string/lblAmount"
+                android:layout_marginBottom="@dimen/small"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/txnDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:hint="@string/lblTxnDescription"
+                android:layout_marginBottom="@dimen/small"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/ProcessingFees"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/EditTextAppTheme.money"
+                android:hint="@string/lblProcessingFees"
+                android:layout_marginBottom="@dimen/small"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/AmountPayable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/EditTextAppTheme.money"
+                android:hint="@string/lblAmountPayable"
+                android:layout_marginBottom="@dimen/small"
+                android:visibility="gone" />
+            <EditText
+                android:id="@+id/OTP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:hint="@string/lblOTP"
+                android:layout_marginBottom="@dimen/small"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btn_OTPResend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="Resend"
+                style="@style/MoMTheme.wrapped.customButton"
+                android:cropToPadding="true"
+                android:visibility="gone"/>
+
+            <Button
+                android:id="@+id/btn_Pay"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+
+                style="@style/MoMTheme.wrapped.customButton"
+                android:text="@string/btn_pay"
+                android:visibility="gone" />
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_column="0"
+                android:layout_span="3"
+                android:orientation="horizontal"
+                android:layout_centerHorizontal="true">
+
+                <RadioButton
+                    android:id="@+id/rbtnPay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pay"
+
+                    style="@style/RadioButtonAppTheme"
+                    android:visibility="gone" >
+                </RadioButton>
+
+                <RadioButton
+                    android:id="@+id/rbtn_Verify"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Verify"
+
+                    style="@style/RadioButtonAppTheme"
+                    android:visibility="gone" >
+                </RadioButton>
+            </RadioGroup>
+
+            <LinearLayout
+                android:weightSum="3"
+                style="@style/MoMTheme.btn_container">
+                <Button
+                    android:id="@+id/btn_Submit"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    style="@style/MoMTheme.wrapped.customButton"
+                    android:text="@string/tpin_submit_btn"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btnCancel"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    style="@style/MoMTheme.wrapped.customButton"
+                    android:text="@string/btn_cancel"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:weightSum="3"
+                style="@style/MoMTheme.btn_container">
+                <Button
+                    android:id="@+id/btn_VerifySubmit"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    style="@style/MoMTheme.wrapped.customButton"
+                    android:text="@string/tpin_submit_btn"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btnVerifyCancel"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    style="@style/MoMTheme.wrapped.customButton"
+                    android:text="@string/btn_cancel"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:weightSum="3"
+                style="@style/MoMTheme.btn_container">
+                <Button
+                    android:id="@+id/btn_VerifyPaySubmit"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    style="@style/MoMTheme.wrapped.customButton"
+                    android:text="@string/tpin_submit_btn"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btn_VerifyPayCancel"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    style="@style/MoMTheme.wrapped.customButton"
+                    android:text="@string/btn_cancel"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:weightSum="3"
+                style="@style/MoMTheme.btn_container">
+                <Button
+                    android:id="@+id/btn_PaymentPaySubmit"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    style="@style/MoMTheme.wrapped.customButton"
+
+                    android:text="Payment"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btn_PaymentPayCancel"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    style="@style/MoMTheme.wrapped.customButton"
+                    android:text="@string/btn_cancel"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+
+
+
+        <com.mom.app.ui.CustomEditText
+            android:id="@+id/DueDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:hint="Due Date"
+            android:inputType="date"
+            android:visibility="gone" />
+        <ImageButton
+            android:id="@+id/imageButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:layout_alignBottom="@+id/DueDate"
+            android:layout_toRightOf="@+id/DueDate"
+            android:onClick="setDate"
+            android:cropToPadding="true"
+            android:visibility="gone"
+            android:src="@drawable/calender" />
+        <com.mom.app.ui.CustomButton
+            android:id="@+id/btn_ChangeBtn"
+            android:layout_width="265dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/DueDate"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="21dp"
+            android:layout_marginTop="15dp"
+            android:text="Change Date"
+            android:onClick="setDate"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:visibility="gone"/>
+
+        <com.mom.app.ui.CustomEditText
+            android:id="@+id/SDCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:hint="SD CODE"
+            android:visibility="gone" />
+
+        <com.mom.app.ui.CustomEditText
+            android:id="@+id/SOP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:hint="SOP"
+            android:visibility="gone" />
+
+        <com.mom.app.ui.CustomEditText
+            android:id="@+id/FSA"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:hint="FSA"
+            android:visibility="gone" />
+
+        <com.mom.app.ui.CustomEditText
+            android:id="@+id/ACMonth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:hint="A/C Month"
+            android:inputType="number"
+            android:maxLength="10"
+            android:visibility="gone" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"/>
+
+
+        <com.mom.app.ui.CustomButton
+            android:id="@+id/_btn_newRecharge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/MoMTheme.wrapped.customButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="5dp"
+            android:onClick="newRecharge"
+            android:text="@string/btn_newRecharge"
+            android:visibility="gone" />
+
+        <LinearLayout
+
+        android:layout_width="300dp"
+        android:layout_height="80dp"
+        style="@style/MoMTheme.btn_container">
+
+            <TextView
+                android:id="@+id/transactionHistoryHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_activity_transaction_history"
+
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/historyHeader" />
+
+            <TextView
+                android:id="@+id/noTransactionsMsg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/listEmptyMessage"
+                android:textColor="@color/red"
+                android:text="@string/no_transactions_found"
+                android:visibility="gone"
+                />
+
+            <ListView
+                android:id="@+id/listView"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+
+                android:visibility="visible"
+                android:background="@android:color/holo_blue_dark"
+                />
+        </LinearLayout>
+
+
+    </LinearLayout>
+</ScrollView>

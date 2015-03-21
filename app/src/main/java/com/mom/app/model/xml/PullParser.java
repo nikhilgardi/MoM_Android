@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.mom.app.R;
+import com.mom.app.model.local.EphemeralStorage;
 import com.mom.app.utils.AppConstants;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -52,8 +53,8 @@ public class PullParser {
             int eventType = xmlpullparser.getEventType();
             while (eventType != XmlPullParser.END_DOCUMENT) {
                 if(_signUpParsing){
-                  //  parseTag(eventType);
-                    parseXMLAndStoreIt(xmlpullparser);
+                    parseTag(eventType);
+                   // parseXMLAndStoreIt(xmlpullparser);
 
                     return null;
                 }
@@ -81,21 +82,37 @@ public class PullParser {
                 String name = xmlpullparser.getName();
                 switch (event){
                     case XmlPullParser.START_TAG:
+                        if(name.equals("PostingStatus")){
+                            registrationStatus = xmlpullparser.getText();
+                            Log.i("RS" ,registrationStatus );
+
+                        }
+                        else if(name.equals("SessionID")){
+                            registeredCustomerID = text;
+                            Log.i("RC" ,registeredCustomerID );
+                        }
+                        else if(name.equals("ErrorMessage")){
+                            errorMessage = text;
+                            Log.i("ErrorMessage" ,errorMessage );
+
+                        }
                         break;
                     case XmlPullParser.TEXT:
                         text = xmlpullparser.getText();
                         break;
                     case XmlPullParser.END_TAG:
-                        if(name.equals("RegistrationStatus")){
+                        if(name.equals("PostingStatus")){
                             registrationStatus = xmlpullparser.getText();
+                        Log.i("RS" ,registrationStatus );
 
                         }
-                        else if(name.equals("RegisteredCustomerID")){
+                        else if(name.equals("SessionID")){
                             registeredCustomerID = text;
-
+                            Log.i("RC" ,registeredCustomerID );
                         }
                         else if(name.equals("ErrorMessage")){
                             errorMessage = text;
+                            Log.i("ErrorMessage" ,errorMessage );
 
                         }
 

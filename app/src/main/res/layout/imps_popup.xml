@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@android:color/background_light">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:layout_margin="1dp"
+        android:background="@android:color/darker_gray">
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_margin="20dp">
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="It's a PopupWindow" />
+            <Spinner
+                android:id="@+id/Operator"
+                style="@style/SpinnerAppTheme"
+                android:prompt="@string/prompt_spinner_select_NewBeneficiary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small"
+                android:layout_marginBottom="@dimen/ultra_small"
+                android:visibility="visible" />
+            <Spinner
+                android:id="@+id/Operator1"
+                style="@style/SpinnerAppTheme"
+                android:prompt="@string/prompt_spinner_select_NewBeneficiary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small"
+                android:layout_marginBottom="@dimen/ultra_small"
+                android:visibility="visible" />
+            <Spinner
+                android:id="@+id/Operator2"
+                style="@style/SpinnerAppTheme"
+                android:prompt="@string/prompt_spinner_select_NewBeneficiary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small"
+                android:layout_marginBottom="@dimen/ultra_small"
+                android:visibility="visible" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -1,6 +1,8 @@
 package com.mom.app.fragment;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -8,49 +10,88 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.mom.app.R;
+import com.mom.app.identifier.IdentifierUtils;
 import com.mom.app.identifier.PlatformIdentifier;
 import com.mom.app.identifier.TransactionType;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.IDataEx;
+import com.mom.app.model.local.EphemeralStorage;
+import com.mom.app.model.pbxpl.BankNameResult;
 import com.mom.app.model.pbxpl.BeneficiaryResult;
+import com.mom.app.model.pbxpl.BranchNameResult;
+import com.mom.app.model.pbxpl.CityNameResult;
+import com.mom.app.model.pbxpl.ImpsAddBeneficiaryResult;
+import com.mom.app.model.pbxpl.ImpsBeneficiaryDetailsResult;
+import com.mom.app.model.pbxpl.ImpsCheckKYCResult;
+import com.mom.app.model.pbxpl.ImpsConfirmPaymentResult;
+import com.mom.app.model.pbxpl.ImpsCreateCustomerResult;
 import com.mom.app.model.pbxpl.ImpsCustomerRegistrationResult;
+import com.mom.app.model.pbxpl.ImpsPaymentProcessResult;
+import com.mom.app.model.pbxpl.ImpsVerifyPaymentResult;
+import com.mom.app.model.pbxpl.ImpsVerifyProcessResult;
+import com.mom.app.model.pbxpl.StateNameResult;
 import com.mom.app.ui.TransactionRequest;
 import com.mom.app.utils.AppConstants;
-
+import com.mom.app.widget.ConfirmPaymentTextListViewAdapter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
-<<<<<<< HEAD
-import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
-=======
->>>>>>> 198c7f77c4fc6efc3e62827ca177688d5171d5c7
 import java.util.List;
+import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class IMPSFragment extends FragmentBase implements AsyncListener<TransactionRequest> {
 
-    private String _LOG = AppConstants.LOG_PREFIX + "BILL PAY";
+    private String _LOG = AppConstants.LOG_PREFIX + "IMPS";
 
     Button _btnGetBillAmount;
     private EditText _etSubscriberId;
     private EditText _etAmount;
+    private EditText _etTxnDescription;
     private EditText _etAvailableLimit;
     private EditText _etConsumerNumber;
     private EditText _etIFSC_Code;
     private EditText _etBeneficiaryMobile_Number;
     private TextView _tvGetIFSC_List;
+    private TextView _tvVerified;
+    private TextView _lblBeneficiaryName;
+    private TextView _lblAccountNumber;
+    private TextView _lblIFSCCode;
+    private TextView _lblBeneficiaryMobileNumber;
+    private TextView _tvBeneficiaryName;
+    private TextView _tvNoTrans , _titleView;
+    private TextView _tvAccountNumber;
+    private TextView _tvIFSCCode;
+    private TextView _tvBeneficiaryMobileNumber;
+    private TextView _tv_availableLimit;
+    private TextView _tv_operator;
+    private TextView _tv_beneficiary_name;
+    private TextView _tv_account_number;
+    private TextView _tv_IFSC_Code;
+    private TextView _tv_BeneficiaryMobile_number;
+    private TextView _tv_amount;
+    private TextView _tv_txnDescription;
+    private TextView _tv_ProcessingFees;
+    private TextView _tv_AmountPayable;
+    private TextView _tv_OTP;
+    private TextView _tv_consumerNumber;
     private EditText _etDueDate;
     private EditText _etSdCode;
     private EditText _etSop;
@@ -70,17 +111,30 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
     private Button _btnSubmit;
     private Button _btnNext;
     private Button _btnCancel;
+    private Button _btnVerifySubmit;
+    private Button _btnVerifyCancel;
+    private Button _btnPaymentPaySubmit;
+    private Button _btnPaymentPayCancel;
+    private Button _btnVerifyPaySubmit;
+    private Button _btnVerifyPayCancel;
     private Button _btnOTPResend;
     private Button _btnNewRecharge;
     private Button _btnImpsCreateCustomer;
     private Button _btnImpsCancel;
+    private ListView _listView;
     private int day;
     private int month;
     private int year;
     private Calendar cal;
+    private RadioGroup _rGrp;
     private RadioButton _rbPay, _rbVerify;
     String formatDueDate;
+    String sBranchIfscCode;
     Spinner _spOperator;
+    Spinner _spOperator1;
+    Spinner _spOperator2;
+    Spinner _spOperator3;
+    Spinner _spOperator4;
     Spinner _OperatorPayFrom;
     Spinner _splOperatorNBE;
 
@@ -102,10 +156,20 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_imps, null, false);
-
+        setCurrentPlatform();
+        _currentPlatform            = IdentifierUtils.getPlatformIdentifier(getActivity());
+        _titleView                  = (TextView) view.findViewById(R.id.transactionHistoryHeader);
+        _listView                   = (ListView) view.findViewById(R.id.listView);
+        _tvNoTrans                  = (TextView) view.findViewById(R.id.noTransactionsMsg);
         _btnSubmit                  = (Button) view.findViewById(R.id.BTN_Submit);
         _btnNext                    = (Button) view.findViewById(R.id.btn_Submit);
         _btnCancel                  = (Button) view.findViewById(R.id.btnCancel);
+        _btnVerifySubmit            = (Button) view.findViewById(R.id.btn_VerifySubmit);
+        _btnVerifyCancel            = (Button) view.findViewById(R.id.btnVerifyCancel);
+        _btnVerifyPaySubmit         = (Button) view.findViewById(R.id.btn_VerifyPaySubmit);
+        _btnVerifyPayCancel         = (Button) view.findViewById(R.id.btn_VerifyPayCancel);
+        _btnPaymentPaySubmit        = (Button) view.findViewById(R.id.btn_PaymentPaySubmit);
+        _btnPaymentPayCancel        = (Button) view.findViewById(R.id.btn_PaymentPayCancel);
         _btnOTPResend               = (Button) view.findViewById(R.id.btn_OTPResend);
         _btnNewRecharge             = (Button) view.findViewById(R.id._btn_newRecharge);
         _btnGetBillAmount           = (Button) view.findViewById(R.id.btnGetBillAmount);
@@ -117,6 +181,7 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
         _OperatorPayFrom            = (Spinner) view.findViewById(R.id.Operator_PayFrom);
         _etSubscriberId             = (EditText) view.findViewById(R.id.subscriberId);
         _etAmount                   = (EditText) view.findViewById(R.id.amount);
+        _etTxnDescription           = (EditText) view.findViewById(R.id.txnDescription);
         _etConsumerNumber           = (EditText) view.findViewById(R.id.ConsumerNumber);
         _etBeneficiaryMobile_Number = (EditText) view.findViewById(R.id.BeneficiaryMobile_number);
         _etAvailableLimit           = (EditText) view.findViewById(R.id.availableLimit);
@@ -128,6 +193,19 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
         _etDob                      = (EditText) view.findViewById(R.id.et_dob);
         _etEmailAddress             = (EditText) view.findViewById(R.id.et_emailId);
         _tvGetIFSC_List             = (TextView) view.findViewById(R.id.GetIFSC_List);
+        _tvVerified                 = (TextView) view.findViewById(R.id.Verified);
+        _tv_availableLimit          = (TextView) view.findViewById(R.id.tv_availableLimit);
+        _tv_operator                = (TextView) view.findViewById(R.id.tv_operator);
+        _tv_beneficiary_name        = (TextView) view.findViewById(R.id.tv_beneficiary_name);
+        _tv_account_number          = (TextView) view.findViewById(R.id.tv_account_number);
+        _tv_IFSC_Code               = (TextView) view.findViewById(R.id.tv_IFSC_Code);
+        _tv_BeneficiaryMobile_number= (TextView) view.findViewById(R.id.tv_BeneficiaryMobile_number);
+        _tv_amount                  = (TextView) view.findViewById(R.id.tv_amount);
+        _tv_txnDescription          = (TextView) view.findViewById(R.id.tv_txnDescription);
+        _tv_ProcessingFees          = (TextView) view.findViewById(R.id.tv_ProcessingFees);
+        _tv_AmountPayable           = (TextView) view.findViewById(R.id.tv_AmountPayable);
+        _tv_OTP                     = (TextView) view.findViewById(R.id.tv_OTP);
+        _tv_consumerNumber          = (TextView) view.findViewById(R.id.tv_consumerNumber);
         _btnPay                     = (Button) view.findViewById(R.id.btn_Pay);
         _etDueDate                  = (EditText) view.findViewById(R.id.DueDate);
         _etSdCode                   = (EditText) view.findViewById(R.id.SDCode);
@@ -137,23 +215,85 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
         _etBeneficiaryName          = (EditText) view.findViewById(R.id.beneficiary_name);
         _etLastName                 = (EditText) view.findViewById(R.id.last_name);
         _etAccountNumber            = (EditText) view.findViewById(R.id.account_number);
+        _rGrp                       = (RadioGroup) view.findViewById(R.id.radioGroup);
         _rbPay                      = (RadioButton) view.findViewById(R.id.rbtnPay);
         _rbVerify                   = (RadioButton) view.findViewById(R.id.rbtn_Verify);
-        cal                         = Calendar.getInstance();
+         cal                        = Calendar.getInstance();
         day                         = cal.get(Calendar.DAY_OF_MONTH);
         month                       = cal.get(Calendar.MONTH);
         year                        = cal.get(Calendar.YEAR);
 
-        _btnGetBillAmount.setVisibility(View.GONE);
-        _splOperatorNBE.setVisibility(View.GONE);
-<<<<<<< HEAD
-=======
+        _etBeneficiaryName.setEnabled(true);
+        _etAccountNumber.setEnabled(true);
+        _etIFSC_Code.setEnabled(true);
+        _etBeneficiaryMobile_Number.setEnabled(true);
+        _btnSubmit.setVisibility(view.VISIBLE);
+        _titleView.setVisibility(view.GONE);
 
->>>>>>> 198c7f77c4fc6efc3e62827ca177688d5171d5c7
+        Calendar c = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        System.out.println("Current time => "+c.getTime());
+        DateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
+        String formattedDate = df.format(c.getTime());
+        Log.i("Date Time: ", formattedDate);
+
+        _rbPay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                _rbPay.setChecked(true);
+                if((_spOperator.getSelectedItemPosition()== 0) && (_rbPay.isChecked())){
+
+                    _etBeneficiaryName.setEnabled(true);
+                    _etAccountNumber.setEnabled(true);
+                    _etIFSC_Code.setEnabled(true);
+                    _etBeneficiaryMobile_Number.setEnabled(true);
+
+                    _etTxnDescription.setText(null);
+                    _etAmount.setText(null);
+                    _etAmount.setVisibility(View.VISIBLE);
+                    _etTxnDescription.setVisibility(View.VISIBLE);
+                    setupIMPSTransferView();
+
+                }
+               else  if((_spOperator.getSelectedItemPosition()!= 0) && (_rbPay.isChecked())){
+                    _etBeneficiaryName.setEnabled(true);
+                    _etAccountNumber.setEnabled(true);
+                    _etIFSC_Code.setEnabled(true);
+                    _etBeneficiaryMobile_Number.setEnabled(true);
+                    _etTxnDescription.setText(null);
+                    _etAmount.setText(null);
+                    _etAmount.setEnabled(true);
+                    _etAmount.setVisibility(View.VISIBLE);
+                    _etTxnDescription.setVisibility(View.VISIBLE);
+                    setupIMPSTransferPayView();
+
+                }
+
+               }
+        });
+
+        _rbVerify.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+                _rbVerify.setChecked(true);
+                if ((_spOperator.getSelectedItemPosition() == 0) && (_rbVerify.isChecked())) {
+                    _etBeneficiaryName.setEnabled(true);
+                    _etAccountNumber.setEnabled(true);
+                    _etIFSC_Code.setEnabled(true);
+                    _etBeneficiaryMobile_Number.setEnabled(true);
+
+                }
+                setIMPSVerifyView();
+                       }
+        });
+
         _tvGetIFSC_List.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity().getApplicationContext(), "Its working", Toast.LENGTH_LONG).show();
+
+                showAlert();
+
             }
         });
 
@@ -174,18 +314,20 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
                 _etOTP.setVisibility(View.GONE);
                 _btnOTPResend.setVisibility(View.GONE);
                 _btnPay.setVisibility(View.GONE);
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 198c7f77c4fc6efc3e62827ca177688d5171d5c7
             }
         });
 
         _btnNewRecharge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                showMessage(null);
+                _listView.setVisibility(View.GONE);
+                _etConsumerNumber.setText(null);
+                _etConsumerNumber.setEnabled(true);
                 _btnNewRecharge.setVisibility(View.GONE);
+                _etAmount.setVisibility(View.GONE);
+                _etProcessingFees.setVisibility(View.GONE);
+                _etAmountPayable.setVisibility(View.GONE);
                 _btnSubmit.setVisibility(View.VISIBLE);
                 _etConsumerNumber.setVisibility(View.VISIBLE);
 
@@ -195,45 +337,69 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
         _btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                showProgress(false);
+                _btnVerifyPaySubmit.setEnabled(true);
+                _btnPaymentPaySubmit.setEnabled(true);
+                validate(view);
+            }
+        });
 
-                showRetrieveBillNextFields();
+
+        _btnVerifyPaySubmit.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                _btnVerifyPaySubmit.setEnabled(false);
+                showProgress(false);
+                if ("".equals(_etOTP.getText().toString().trim())) {
+                    showMessage(getResources().getString(R.string.error_otp));
+
+                    return;
+                }
+                getIMPSVerifyPayment();
+            }
+        });
+        _btnPaymentPaySubmit.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                _btnPaymentPaySubmit.setEnabled(false);
+                showProgress(false);
+                _btnNext.setVisibility(View.GONE);
+
+                _tvVerified.setVisibility(View.GONE);
+                getIMPSConfirmPayment();
             }
         });
 
         _btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-<<<<<<< HEAD
+
+
+
                 int nMinPhoneLength = 10;
                 int nMaxPhoneLength = 10;
                 int nPhoneLength = _etConsumerNumber.getText().toString().length();
-                if (nPhoneLength < nMinPhoneLength || nPhoneLength > nMaxPhoneLength) {
-                    if (nMinPhoneLength == nMaxPhoneLength) {
-                        _etConsumerNumber.setText("");
+                if (nPhoneLength < nMinPhoneLength || nPhoneLength > nMaxPhoneLength)
+                {
+                    if(nMinPhoneLength == nMaxPhoneLength){
                         showMessage(String.format(getResources().getString(R.string.error_phone_length), nMinPhoneLength));
-                    } else {
-                        _etConsumerNumber.setText("");
+                    }else{
                         showMessage(String.format(getResources().getString(R.string.error_phone_length_min_max), nMinPhoneLength, nMaxPhoneLength));
                     }
                     return;
                 }
 
-                consumerRegistrationStatus();
+                _etConsumerNumber.setEnabled(false);
+                _etAvailableLimit.setEnabled(false);
 
-                }
-=======
-                int nMinPhoneLength     = 10;
-                int nMaxPhoneLength     = 10;
-                int nPhoneLength        = _etConsumerNumber.getText().toString().length();
-                if(nPhoneLength < nMinPhoneLength || nPhoneLength > nMaxPhoneLength){
-                    _etConsumerNumber.setText("");
-                    showMessage(String.format(getResources().getString(R.string.error_phone_length_min_max), nMinPhoneLength, nMaxPhoneLength));
-                    return;
-                }
 
+                showProgress(true);
                 consumerRegistration();
+
             }
->>>>>>> 198c7f77c4fc6efc3e62827ca177688d5171d5c7
+
         });
 
         _btnImpsCreateCustomer.setOnClickListener(new View.OnClickListener() {
@@ -241,49 +407,9 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
             @Override
             public void onClick(View view) {
 
-<<<<<<< HEAD
-                if (validate() == 0) {
-                    createConsumerRegistration();
-                    Log.i(_LOG, "Async Registration request sent");
-                } else {
-                    switch (validate()) {
 
+                createConsumerRegistration();
 
-                        case 1:
-
-                            showMessage(getResources().getString(R.string.prompt_Validity_mobile_number));
-                            _etConsumerNumber.setText("");
-                            break;
-=======
-        _etDob.setOnTouchListener(new View.OnTouchListener() {
->>>>>>> 198c7f77c4fc6efc3e62827ca177688d5171d5c7
-
-
-<<<<<<< HEAD
-                        case 2:
-
-
-                            showMessage(getString(R.string.prompt_Validity_Name));
-                            _etConsumerName.setText("");
-                            break;
-
-                        case 3:
-
-
-                            showMessage(getString(R.string.prompt_Validity_DOB));
-                            _etDob.setText("");
-                            break;
-
-                        case 4:
-
-
-                            showMessage(getString(R.string.prompt_Validity_Email_Address));
-                            _etEmailAddress.setText("");
-                            break;
-
-
-                    }
-                }
             }
 
         });
@@ -303,132 +429,301 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
         });
 
 
-        return view;
+
+        _btnCancel.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                _etConsumerNumber.setText(null);
+                _etConsumerNumber.setEnabled(true);
+                _btnSubmit.setVisibility(View.VISIBLE);
+                _etConsumerNumber.setVisibility(View.VISIBLE);
+
+                _etAvailableLimit.setVisibility(View.GONE);
+                _spOperator.setVisibility(View.GONE);
+                _tvVerified.setVisibility(View.GONE);
+
+                _etBeneficiaryName.setVisibility(View.GONE);
+                _etAccountNumber.setVisibility(View.GONE);
+                _etIFSC_Code.setVisibility(View.GONE);
+                _tvGetIFSC_List.setVisibility(View.GONE);
+                _etBeneficiaryMobile_Number.setVisibility(View.GONE);
+                _OperatorPayFrom.setVisibility(View.GONE);
+                _etTxnDescription.setVisibility(View.GONE);
+                _etAmount.setVisibility(View.GONE);
+                _rbPay.setVisibility(View.GONE);
+                _rbVerify.setVisibility(View.GONE);
+                _btnNext.setVisibility(View.GONE);
+                _btnCancel.setVisibility(View.GONE);
+                _btnVerifySubmit.setVisibility(View.GONE);
+                _btnVerifyCancel.setVisibility(View.GONE);
+
+
+            }
+
+        });
+//
+        _btnVerifyPayCancel.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+        Boolean isVerified = EphemeralStorage.getInstance(getActivity().getApplicationContext()).getBoolean(
+                        AppConstants.PARAM_PBX_IMPS_ISBENEFICIAYSTATUS, false);
+
+                         // setupIMPSTransferView();
+                if ((isVerified == true)) {
+                    _tvVerified.setVisibility(View.VISIBLE);
+                    _etAmount.setEnabled(true);
+                    _etBeneficiaryName.setEnabled(true);
+                    _etAccountNumber.setEnabled(true);
+                    _etIFSC_Code.setEnabled(true);
+                    _etBeneficiaryMobile_Number.setEnabled(true);
+                    _btnSubmit.setVisibility(View.GONE);
+                    _etConsumerNumber.setVisibility(View.VISIBLE);
+                    _etAvailableLimit.setVisibility(View.VISIBLE);
+                    _spOperator.setVisibility(View.VISIBLE);
+                    _etBeneficiaryName.setVisibility(View.VISIBLE);
+                    _etAccountNumber.setVisibility(View.VISIBLE);
+                    _etIFSC_Code.setVisibility(View.VISIBLE);
+                    _tvGetIFSC_List.setVisibility(View.VISIBLE);
+                    _etBeneficiaryMobile_Number.setVisibility(View.VISIBLE);
+                    _OperatorPayFrom.setVisibility(View.GONE);
+                    _etTxnDescription.setVisibility(View.VISIBLE);
+                    _etAmount.setVisibility(View.VISIBLE);
+                    _rbPay.setVisibility(View.VISIBLE);
+                    _rbVerify.setVisibility(View.GONE);
+                    _btnNext.setVisibility(View.VISIBLE);
+                    _btnCancel.setVisibility(View.VISIBLE);
+                    _btnVerifySubmit.setVisibility(View.GONE);
+                    _btnVerifyCancel.setVisibility(View.GONE);
+                    _btnVerifyPaySubmit.setVisibility(View.GONE);
+                    _btnVerifyPayCancel.setVisibility(View.GONE);
+                    _etAmountPayable.setVisibility(View.GONE);
+                    _etOTP.setVisibility(View.GONE);
+                    _tv_availableLimit.setVisibility(View.VISIBLE);
+                    _tv_operator.setVisibility(View.VISIBLE);
+                    _tv_beneficiary_name.setVisibility(View.VISIBLE);
+                    _tv_account_number.setVisibility(View.VISIBLE);
+                    _tv_IFSC_Code.setVisibility(View.VISIBLE);
+                    _tv_BeneficiaryMobile_number.setVisibility(View.VISIBLE);
+                    _tv_consumerNumber.setVisibility(View.VISIBLE);
+                    _tv_amount.setVisibility(View.VISIBLE);
+                    _tv_txnDescription.setVisibility(View.VISIBLE);
+                    _tv_ProcessingFees.setVisibility(View.GONE);
+                    _tv_AmountPayable.setVisibility(View.GONE);
+                    _tv_OTP.setVisibility(View.GONE);
+                    Toast.makeText(getActivity().getApplicationContext(), "true", Toast.LENGTH_LONG).show();
+                }
+                else if(isVerified == false){
+                    _tvVerified.setVisibility(View.GONE);
+                    _etAmount.setEnabled(true);
+                    _etBeneficiaryName.setEnabled(true);
+                    _etAccountNumber.setEnabled(true);
+                    _etIFSC_Code.setEnabled(true);
+                    _etBeneficiaryMobile_Number.setEnabled(true);
+                    _btnSubmit.setVisibility(View.GONE);
+                    _etConsumerNumber.setVisibility(View.VISIBLE);
+                    _etAvailableLimit.setVisibility(View.VISIBLE);
+                    _spOperator.setVisibility(View.VISIBLE);
+                    _etBeneficiaryName.setVisibility(View.VISIBLE);
+                    _etAccountNumber.setVisibility(View.VISIBLE);
+                    _etIFSC_Code.setVisibility(View.VISIBLE);
+                    _tvGetIFSC_List.setVisibility(View.VISIBLE);
+                    _etBeneficiaryMobile_Number.setVisibility(View.VISIBLE);
+                    _OperatorPayFrom.setVisibility(View.GONE);
+                    _etTxnDescription.setVisibility(View.GONE);
+                    _etAmount.setVisibility(View.GONE);
+                    _rbPay.setVisibility(View.GONE);
+                    _rbVerify.setVisibility(View.VISIBLE);
+                    _btnNext.setVisibility(View.VISIBLE);
+                    _btnCancel.setVisibility(View.VISIBLE);
+                    _btnVerifySubmit.setVisibility(View.GONE);
+                    _btnVerifyCancel.setVisibility(View.GONE);
+                    _btnVerifyPaySubmit.setVisibility(View.GONE);
+                    _btnVerifyPayCancel.setVisibility(View.GONE);
+                    _etAmountPayable.setVisibility(View.GONE);
+                    _etOTP.setVisibility(View.GONE);
+                    _tv_availableLimit.setVisibility(View.VISIBLE);
+                    _tv_operator.setVisibility(View.VISIBLE);
+                    _tv_beneficiary_name.setVisibility(View.VISIBLE);
+                    _tv_account_number.setVisibility(View.VISIBLE);
+                    _tv_IFSC_Code.setVisibility(View.VISIBLE);
+                    _tv_BeneficiaryMobile_number.setVisibility(View.VISIBLE);
+                    _tv_consumerNumber.setVisibility(View.VISIBLE);
+                    _tv_amount.setVisibility(View.GONE);
+                    _tv_txnDescription.setVisibility(View.GONE);
+                    _tv_ProcessingFees.setVisibility(View.GONE);
+                    _tv_AmountPayable.setVisibility(View.GONE);
+                    _tv_OTP.setVisibility(View.GONE);
+                    Toast.makeText(getActivity().getApplicationContext(), "false", Toast.LENGTH_LONG).show();
+                }
+
+            }
+
+
+        });
+
+        _btnPaymentPayCancel.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+
+                _etAmount.setEnabled(true);
+                _etConsumerNumber.setVisibility(View.VISIBLE);
+                _etAvailableLimit.setVisibility(View.VISIBLE);
+                _spOperator.setVisibility(View.VISIBLE);
+                _etBeneficiaryName.setVisibility(View.VISIBLE);
+                _etAccountNumber.setVisibility(View.VISIBLE);
+                _etIFSC_Code.setVisibility(View.VISIBLE);
+                _etTxnDescription.setVisibility(View.VISIBLE);
+                _etBeneficiaryMobile_Number.setVisibility(View.VISIBLE);
+                _OperatorPayFrom.setVisibility(View.GONE);
+                _etAmount.setVisibility(View.VISIBLE);
+                _rbPay.setVisibility(View.VISIBLE);
+                _tvGetIFSC_List.setVisibility(View.VISIBLE);
+                _btnNext.setVisibility(View.VISIBLE);
+                _btnCancel.setVisibility(View.VISIBLE);
+                _tvVerified.setVisibility(View.VISIBLE);
+                _rbVerify.setVisibility(View.GONE);
+                _btnVerifySubmit.setVisibility(View.GONE);
+                _btnVerifyCancel.setVisibility(View.GONE);
+                _tv_amount.setVisibility(View.GONE);
+                _tv_txnDescription.setVisibility(View.GONE);
+                _tv_ProcessingFees.setVisibility(View.GONE);
+                _tv_availableLimit.setVisibility(View.GONE);
+                _tv_operator.setVisibility(View.GONE);
+                _tv_beneficiary_name.setVisibility(View.GONE);
+                _tv_account_number.setVisibility(View.GONE);
+                _tv_IFSC_Code.setVisibility(View.GONE);
+                _tv_BeneficiaryMobile_number.setVisibility(View.GONE);
+                _tv_amount.setVisibility(View.GONE);
+                _tv_txnDescription.setVisibility(View.GONE);
+                _tv_ProcessingFees.setVisibility(View.GONE);
+                _tv_AmountPayable.setVisibility(View.GONE);
+                _tv_OTP.setVisibility(View.GONE);
+                _btnPaymentPaySubmit.setVisibility(View.GONE);
+                _btnPaymentPayCancel.setVisibility(View.GONE);
+                _btnVerifyPayCancel.setVisibility(View.GONE);
+                _btnVerifyPaySubmit.setVisibility(View.GONE);
+                _etProcessingFees.setVisibility(View.GONE);
+                _etAmountPayable.setVisibility(View.GONE);
+                _etOTP.setVisibility(View.GONE);
+
+            }
+
+        });
+                return view;
     }
 
 
-    private void consumerRegistrationStatus() {
-        showMessage(null);
+    public void setIMPSVerifyView() {
 
-        String sConsumerNumber = _etConsumerNumber.getText().toString().trim();
-        IDataEx dataEx = getDataEx(new AsyncListener<TransactionRequest>() {
-            public void onTaskSuccess(TransactionRequest result, DataExImpl.Methods callback) {
-                Log.d(_LOG, "Called back");
-                switch (callback) {
-                    case IMPS_CUSTOMER_REGISTRATION_STATUS:
-                        if (result == null) {
-                            Log.d(_LOG, "Obtained NULL bill payment response");
-                            showMessage(getResources().getString(R.string.error_recharge_failed));
-                            return;
-                        }
-                        showBalance();
-                        Log.d(_LOG, "Starting navigation to TxnMsg Activity");
+        _btnSubmit.setVisibility(View.GONE);
+        _etConsumerNumber.setVisibility(View.VISIBLE);
+        _etAvailableLimit.setVisibility(View.VISIBLE);
+        _spOperator.setVisibility(View.VISIBLE);
+        _etBeneficiaryName.setVisibility(View.VISIBLE);
+        _etAccountNumber.setVisibility(View.VISIBLE);
+        _etIFSC_Code.setVisibility(View.VISIBLE);
+        _tvGetIFSC_List.setVisibility(View.VISIBLE);
+        _etBeneficiaryMobile_Number.setVisibility(View.VISIBLE);
+        _etTxnDescription.setVisibility(View.GONE);
+        _OperatorPayFrom.setVisibility(View.GONE);
+        _etAmount.setVisibility(View.GONE);
+        _etProcessingFees.setVisibility(View.GONE);
+        _etTxnDescription.setVisibility(View.GONE);
+        _tv_amount.setVisibility(View.GONE);
+        _tv_ProcessingFees.setVisibility(View.GONE);
+        _tv_txnDescription.setVisibility(View.GONE);
+        _rbPay.setVisibility(View.VISIBLE);
+        _rbVerify.setVisibility(View.VISIBLE);
+        _btnNext.setVisibility(View.VISIBLE);
+        _btnCancel.setVisibility(View.VISIBLE);
+        _btnVerifySubmit.setVisibility(View.GONE);
+        _btnVerifyCancel.setVisibility(View.GONE);
 
-                        break;
-                }
-                Log.i("ResultChange", result.getRemoteResponse() + result.getResponseCode());
-                showMessage(result.getRemoteResponse());
-                Boolean isReg = EphemeralStorage.getInstance(getActivity().getApplicationContext()).getBoolean(
-                        AppConstants.PARAM_PBX_IMPS_ISREGISTERED, false);
-                Boolean isImpsServiceAllowed = EphemeralStorage.getInstance(getActivity().getApplicationContext()).getBoolean(
-                        AppConstants.PARAM_PBX_IMPS_SERVICEALLOWED, false);
+    }
 
-                System.out.println(isReg + "test");
+    private void showAlert() {
+        getBankName();
+        AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+        LinearLayout layout = new LinearLayout(getActivity());
+        TextView tvMessage = new TextView(getActivity());
+        final EditText etInput = new EditText(getActivity());
+        _spOperator1 = new Spinner(getActivity());
+        _spOperator2 = new Spinner(getActivity());
+        _spOperator3 = new Spinner(getActivity());
+        _spOperator4 = new Spinner(getActivity());
 
-                if ((isReg == true) && (isImpsServiceAllowed == true)) {
-                    System.out.println(isReg + "true");
-                    Toast.makeText(getActivity().getApplicationContext(), "true", Toast.LENGTH_LONG).show();
-                    hideMessage();
-                    showRetrieveBillFields();
-                    //getBeneficiaryList();
-                } else if ((isReg == false) && (isImpsServiceAllowed == false)) {
-//                    System.out.println(isReg + "False");
-//                    Toast.makeText(getActivity().getApplicationContext(), "false", Toast.LENGTH_LONG).show();
-                    hideMessage();
-                    showCustomRegistrationFields();
-                } else if ((isReg == false) && (isImpsServiceAllowed == true)) {
-//                    System.out.println(isReg + "False");
-//                    Toast.makeText(getActivity().getApplicationContext(), "false", Toast.LENGTH_LONG).show();
-                    showCustomRegistrationFields();
-                } else if ((isReg == true) && (isImpsServiceAllowed == false)) {
-//                    System.out.println(isImpsServiceAllowed + "False");
-                    hideMessage();
-//                    Toast.makeText(getActivity().getApplicationContext(), "false", Toast.LENGTH_LONG).show();
-                    showMessage("You are not allowed to perform IMPS");
-                }
 
-            }
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.addView(_spOperator1);
+        layout.addView(_spOperator2);
+        layout.addView(_spOperator3);
+        layout.addView(_spOperator4);
+
+        alert.setTitle("IFSC Code");
+        alert.setView(layout);
+
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 
             @Override
-            public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        alert.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                _etIFSC_Code.setText(sBranchIfscCode);
+                showProgress(false);
+
 
             }
         });
 
-        TransactionRequest request = new TransactionRequest(
-=======
-                }
-                return false;
-            }
-        });
+        alert.show();
+    }
 
-        return view;
+
+    public void addListenerOnSpinnerItemSelection() {
+        _spOperator
+                .setOnItemSelectedListener(new CustomOnItemSelectedListener());
     }
 
     private void consumerRegistration() {
-        showMessage(null);
+    //    showMessage(null);
 
         String sConsumerNumber = _etConsumerNumber.getText().toString().trim();
 
-        TransactionRequest<ImpsCustomerRegistrationResult> request  = new TransactionRequest<ImpsCustomerRegistrationResult>(
->>>>>>> 198c7f77c4fc6efc3e62827ca177688d5171d5c7
+        TransactionRequest<ImpsCustomerRegistrationResult> request = new TransactionRequest<ImpsCustomerRegistrationResult>(
+
                 getActivity().getString(TransactionType.IMPS_CUSTOMER_REGISTRATION.transactionTypeStringId),
                 sConsumerNumber
         );
 
-<<<<<<< HEAD
-        getDataEx(this).impsCustomerRegistrationStatus(sConsumerNumber);
-=======
-        getDataEx(this).registerIMPSCustomer(request);
->>>>>>> 198c7f77c4fc6efc3e62827ca177688d5171d5c7
 
-        showProgress(true);
+        getDataEx(this).registerIMPSCustomer(request);
+
+
+
+
     }
 
     private void getBeneficiaryList() {
-        showMessage(null);
+
 
         String sConsumerNumber = _etConsumerNumber.getText().toString().trim();
-<<<<<<< HEAD
-        IDataEx dataEx         = getDataEx(new AsyncListener<ArrayList<Transaction>>() {
-
-            public void onTaskSuccess(ArrayList<Transaction> result, DataExImpl.Methods callback) {
-                switch (callback) {
-                    case IMPS_BENEFICIARY_LIST:
-                        Log.i(_LOG, "Check Response: " + result);
-
-                }
-
-            }
-
-            @Override
-            public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
-
-            }
-        });
-=======
->>>>>>> 198c7f77c4fc6efc3e62827ca177688d5171d5c7
 
         IDataEx dataEx = getDataEx(this);
 
-<<<<<<< HEAD
-=======
-        TransactionRequest<List<BeneficiaryResult>> request  = new TransactionRequest<List<BeneficiaryResult>>(
+
+        TransactionRequest<List<BeneficiaryResult>> request = new TransactionRequest<List<BeneficiaryResult>>(
                 getActivity().getString(TransactionType.IMPS_BENEFICIARY_LIST.transactionTypeStringId),
                 sConsumerNumber
         );
 
->>>>>>> 198c7f77c4fc6efc3e62827ca177688d5171d5c7
+
         try {
             dataEx.getIMPSBeneficiaryList(request);
             showProgress(true);
@@ -436,13 +731,96 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
             Log.e(_LOG, "Error getting dataex", me);
 
         }
-<<<<<<< HEAD
-
-
     }
 
+    private void getBankName() {
+
+
+        IDataEx dataEx = getDataEx(this);
+
+
+        TransactionRequest<List<BankNameResult>> request = new TransactionRequest<List<BankNameResult>>(
+                getActivity().getString(TransactionType.IMPS_BANK_NAME_LIST.transactionTypeStringId),
+                null
+        );
+
+
+        try {
+            dataEx.getIMPSBankName(request);
+            showProgress(true);
+        } catch (Exception me) {
+            Log.e(_LOG, "Error getting dataex", me);
+
+        }
+    }
+
+
+    private void getStateName(String sBankName) {
+
+
+        IDataEx dataEx = getDataEx(this);
+
+
+        TransactionRequest<List<StateNameResult>> request = new TransactionRequest<List<StateNameResult>>(
+                getActivity().getString(TransactionType.IMPS_STATE_NAME.transactionTypeStringId),
+                null
+        );
+
+
+        try {
+            dataEx.getIMPSStateName(request, sBankName);
+            showProgress(true);
+        } catch (Exception me) {
+            Log.e(_LOG, "Error getting dataex", me);
+
+        }
+    }
+
+    private void getCityName(String sBankName, String sStateName) {
+
+
+        IDataEx dataEx = getDataEx(this);
+
+
+        TransactionRequest<List<CityNameResult>> request = new TransactionRequest<List<CityNameResult>>(
+                getActivity().getString(TransactionType.IMPS_CITY_NAME.transactionTypeStringId),
+                null
+        );
+
+
+        try {
+            dataEx.getIMPSCityName(request, sBankName, sStateName);
+            showProgress(true);
+        } catch (Exception me) {
+            Log.e(_LOG, "Error getting dataex", me);
+
+        }
+    }
+
+    private void getBranchName(String sBankName, String sStateName, String sCityName) {
+
+
+        IDataEx dataEx = getDataEx(this);
+
+
+        TransactionRequest<List<BranchNameResult>> request = new TransactionRequest<List<BranchNameResult>>(
+                getActivity().getString(TransactionType.IMPS_BRANCH_NAME.transactionTypeStringId),
+                null
+        );
+
+
+        try {
+            dataEx.getIMPSBranchName(request, sBankName, sStateName, sCityName);
+            showProgress(true);
+        } catch (Exception me) {
+            Log.e(_LOG, "Error getting dataex", me);
+
+        }
+    }
+
+
     private int validate() {
-        if        (_etConsumerNumber.getText().toString().length() < 10) {
+        if (_etConsumerNumber.getText().toString().length() < 10) {
             return 1;
         } else if (_etConsumerNumber.getText().toString().length() > 10) {
             return 1;
@@ -472,26 +850,458 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
         return isValid;
     }
 
+
+
+    private void setNoPaymentHistoryMessage(){
+        _titleView.setText(getResources().getString(R.string.title_activity_transaction_history));
+
+        _tvNoTrans.setVisibility(View.VISIBLE);
+    }
+
+
+
     private void createConsumerRegistration() {
         showMessage(null);
         String sConsumerNumber = _etConsumerNumber.getText().toString().trim();
-        String sConsumerName   = _etConsumerName.getText().toString().trim();
-        String sConsumerDOB    = _etDob.getText().toString();
+        String sConsumerName = _etConsumerName.getText().toString().trim();
+        String sConsumerDOB = _etDob.getText().toString();
         String sConsumerEmailAddress = _etEmailAddress.getText().toString();
+        TransactionRequest<ImpsCreateCustomerResult> request = new TransactionRequest<ImpsCreateCustomerResult>(
 
-        getDataEx(this).impsCustomerRegistration(sConsumerNumber, sConsumerName, sConsumerDOB, sConsumerEmailAddress);
+                getActivity().getString(TransactionType.IMPS_CREATE_CUSTOMER_REGISTRATION.transactionTypeStringId),
+                sConsumerNumber, sConsumerName, sConsumerDOB, sConsumerEmailAddress
+        );
+
+        getDataEx(this).impsCustomerRegistration(request);
+
+    }
+
+    private void checkKYC() {
+        showMessage(null);
+        String sConsumerNumber = _etConsumerNumber.getText().toString().trim();
+        TransactionRequest<ImpsCheckKYCResult> request = new TransactionRequest<ImpsCheckKYCResult>(
+
+                getActivity().getString(TransactionType.IMPS_CHECK_KYC.transactionTypeStringId),
+                null
+        );
+        getDataEx(this).impsCheckKYC(request, sConsumerNumber);
+
+    }
+
+    private void createNewBeneficiary() {
+     //   showMessage(null);
+        String sBeneficiaryName = _etBeneficiaryName.getText().toString();
+        String sAccountNumber = _etAccountNumber.getText().toString();
+        String sIfscCode = _etIFSC_Code.getText().toString();
+        String sBeneficiaryMobNo = _etBeneficiaryMobile_Number.getText().toString();
+
+
+
+        TransactionRequest<ImpsAddBeneficiaryResult> request = new TransactionRequest<ImpsAddBeneficiaryResult>(
+                getActivity().getString(TransactionType.IMPS_ADD_BENEFICIARY.transactionTypeStringId),
+                sBeneficiaryName, sAccountNumber, sIfscCode, sBeneficiaryMobNo, null
+        );
+
+        getDataEx(this).impsAddBeneficiary(request);
 
     }
 
 
-=======
+    private void getIMPSBeneficiaryDetails(String sBeneficiaryName) {
+
+        TransactionRequest<ImpsBeneficiaryDetailsResult> request = new TransactionRequest<ImpsBeneficiaryDetailsResult>(
+                getActivity().getString(TransactionType.IMPS_BENEFICIARY_DETAILS.transactionTypeStringId),
+                null
+
+        );
+
+        try {
+            getDataEx(this).impsBeneficiaryDetails(request, sBeneficiaryName);
+
+            showProgress(true);
+
+        } catch (Exception me) {
+            Log.e(_LOG, "Error getting dataex", me);
+
+        }
+
     }
 
-    private void createConsumerRegistration(){
-     showMessage(null);
- }
+    private void getIMPSVerifyProcess() {
 
->>>>>>> 198c7f77c4fc6efc3e62827ca177688d5171d5c7
+
+
+        try {
+            if (_currentPlatform == PlatformIdentifier.PBX) {
+                TransactionRequest<ImpsVerifyProcessResult> request = new TransactionRequest<ImpsVerifyProcessResult>(
+                        getActivity().getString(TransactionType.IMPS_VERIFY_PROCESS.transactionTypeStringId),
+                        null
+
+                );
+                getDataEx(this).impsVerifyProcess(request);
+            }
+            else if(_currentPlatform == PlatformIdentifier.MOM){
+                String sAmount = "1";
+                String sTxnNarration  = _etTxnDescription.getText().toString();
+                TransactionRequest request  = new TransactionRequest(
+                        getActivity().getString(TransactionType.IMPS_MOM_SUBMIT_PROCESS.transactionTypeStringId),
+                        null
+
+                );
+                getDataEx(this).impsMomPaymentProcess(request, sAmount, sTxnNarration);
+            }
+            showProgress(true);
+
+        } catch (Exception me) {
+            Log.e(_LOG, "Error getting dataex", me);
+
+        }
+
+    }
+
+    private void getIMPSVerifyPayment() {
+
+        String sCustomerNumber= _etConsumerNumber.getText().toString();
+
+        Log.i("1" ,sCustomerNumber);
+        String sOTP           = _etOTP.getText().toString();
+        Log.i("2" ,sOTP);
+        String sAccountNumber = _etAccountNumber.getText().toString();
+        Log.i("3" ,sAccountNumber);
+        String sIFSCCode      = _etIFSC_Code.getText().toString();
+        Log.i("4" ,sIFSCCode);
+
+
+
+        try {
+            if(_currentPlatform == PlatformIdentifier.PBX) {
+                TransactionRequest<ImpsVerifyPaymentResult> request = new TransactionRequest<ImpsVerifyPaymentResult>(
+                        getActivity().getString(TransactionType.IMPS_VERIFY_PAYMENT.transactionTypeStringId),
+                        null
+
+                );
+                getDataEx(this).impsVerifyPayment(request, sOTP, sAccountNumber, sIFSCCode, sCustomerNumber);
+            }
+            else if(_currentPlatform == PlatformIdentifier.MOM){
+                TransactionRequest request  = new TransactionRequest(
+                        getActivity().getString(TransactionType.IMPS_MOM_CONFIRM_PROCESS.transactionTypeStringId),
+                        null
+
+                );
+
+                getDataEx(this).impsMomConfirmProcess(request, sOTP, sAccountNumber, sIFSCCode, sCustomerNumber);
+
+            }
+            showProgress(true);
+
+        } catch (Exception me) {
+            Log.e(_LOG, "Error getting dataex", me);
+
+        }
+
+    }
+    private void getIMPSPaymentProcess() {
+        String sAmount        = _etAmount.getText().toString();
+        String sTxnNarration  = _etTxnDescription.getText().toString();
+
+
+        try {
+            if (_currentPlatform == PlatformIdentifier.MOM) {
+                TransactionRequest request  = new TransactionRequest(
+                        getActivity().getString(TransactionType.IMPS_MOM_SUBMIT_PROCESS.transactionTypeStringId),
+                        null
+
+                );
+                getDataEx(this).impsMomPaymentProcess(request, sAmount, sTxnNarration);
+            }
+            else if (_currentPlatform == PlatformIdentifier.PBX) {
+                TransactionRequest<ImpsPaymentProcessResult> request = new TransactionRequest<ImpsPaymentProcessResult>(
+
+                        getActivity().getString(TransactionType.IMPS_PAYMENT_PROCESS.transactionTypeStringId),
+                        null
+                );
+                getDataEx(this).impsPaymentProcess(request, sAmount, sTxnNarration);
+            }
+
+            showProgress(true);
+
+        } catch (Exception me) {
+            Log.e(_LOG, "Error getting dataex", me);
+
+        }
+
+    }
+
+    private void getIMPSConfirmPayment() {
+
+        String sCustomerNumber= _etConsumerNumber.getText().toString();
+        String sFormattedCustNumber = sCustomerNumber.substring(sCustomerNumber.length() - 3);
+        Log.i("CustomerNumber", sFormattedCustNumber);
+        Log.i("11" ,sCustomerNumber);
+        String sOTP           = _etOTP.getText().toString();
+        Log.i("22" ,sOTP);
+        String sAccountNumber = _etAccountNumber.getText().toString();
+        Log.i("33" ,sAccountNumber);
+        String sIFSCCode      = _etIFSC_Code.getText().toString();
+        Log.i("44" ,sIFSCCode);
+        String sAmount        = _etAmount.getText().toString();
+
+
+
+        try {
+
+            if (_currentPlatform == PlatformIdentifier.PBX){
+                TransactionRequest<List<ImpsConfirmPaymentResult>> request = new TransactionRequest<List<ImpsConfirmPaymentResult>>(
+                        getActivity().getString(TransactionType.IMPS_CONFIRM_PAYMENT.transactionTypeStringId),
+                        null
+
+                );
+                getDataEx(this).impsConfirmPayment(request, sOTP, sAccountNumber, sIFSCCode, sCustomerNumber, sAmount);
+              }
+
+            else if(_currentPlatform == PlatformIdentifier.MOM){
+                TransactionRequest request  = new TransactionRequest(
+                        getActivity().getString(TransactionType.IMPS_MOM_CONFIRM_PROCESS.transactionTypeStringId),
+                        null
+
+                );
+                Calendar c = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+                System.out.println("Current time => "+c.getTime());
+                DateFormat df = new SimpleDateFormat("yyyyMMddHHmmssSSS");
+                String formattedDate = df.format(c.getTime());
+                String sClientTxnID = formattedDate+sFormattedCustNumber;
+
+               getDataEx(this).impsMomConfirmProcess(request, sOTP, sAccountNumber, sClientTxnID, sCustomerNumber);
+
+            }
+            showProgress(true);
+
+        } catch (Exception me) {
+            Log.e(_LOG, "Error getting dataex", me);
+
+        }
+
+    }
+
+
+    private void validate( View view) {
+
+
+        int nAmount             = 0;
+        int nMinAmount          = 10;
+        int nMaxAmount          = 25000;
+        int nMinLength          = 10;
+        int nMaxLength          = 10;
+        int nMinName            = 6;
+        int nMaxName            = 25;
+        int nMinAccountLength   = 4;
+        int nMaxAccountlength   = 30;
+        int nMinIFSClength      = 11;
+        int nMaxIFSClength      = 11;
+
+
+
+
+
+        int nCustomerNumberLength
+                = _etConsumerNumber.getText().toString().trim().length();
+        int nBeneficiaryNameLength
+                = _etBeneficiaryName.getText().toString().trim().length();
+        int nAccountLength
+                = _etAccountNumber.getText().toString().trim().length();
+        int nIFSCLength
+                = _etIFSC_Code.getText().toString().trim().length();
+        int nBeneficiaryNumberLength
+                = _etBeneficiaryMobile_Number.getText().toString().trim().length();
+
+        if(((_spOperator.getSelectedItemPosition()== 0)&& (_rbPay.isChecked()))|| (_spOperator.getSelectedItemPosition()== 0)
+        ||((_spOperator.getSelectedItemPosition()== 0) &&(_rbVerify.isChecked()))){
+            if (nBeneficiaryNameLength < nMinName || nBeneficiaryNameLength > nMaxName) {
+
+                if (nMinName == nMaxName) {
+
+                    showMessage(String.format(getResources().getString(R.string.error_beneficiary_name_length), nMinName));
+                } else {
+                    showMessage(String.format(getResources().getString(R.string.error_beneficiary_name_min_max), nMinName, nMaxName));
+                }
+                _etBeneficiaryName.setText("");
+                return;
+            }
+
+
+            if (nAccountLength < nMinAccountLength || nAccountLength > nMaxAccountlength) {
+                if (nMinAccountLength == nMaxAccountlength) {
+                    showMessage(String.format(getResources().getString(R.string.error_AccountNumber_length), nMinAccountLength));
+                } else {
+                    showMessage(String.format(getResources().getString(R.string.error_AccountNumber_length_min_max), nMinAccountLength, nMaxAccountlength));
+                }
+                _etAccountNumber.setText("");
+                return;
+            }
+            if ("".equals(_etIFSC_Code.getText().toString().trim())) {
+                showMessage(getResources().getString(R.string.prompt_numbers_only_IFSCCode));
+                return;
+            }
+
+            if (nIFSCLength < nMinIFSClength || nIFSCLength > nMaxIFSClength) {
+                if (nMinIFSClength == nMaxIFSClength) {
+                    showMessage(String.format(getResources().getString(R.string.error_IFSCCODE_length), nMinIFSClength));
+                } else {
+                    showMessage(String.format(getResources().getString(R.string.error_IFSCCODE_length_min_max), nMinIFSClength, nMaxIFSClength));
+                }
+                _etIFSC_Code.setText("");
+                return;
+            }
+            if (nBeneficiaryNumberLength < nMinLength || nBeneficiaryNumberLength > nMaxLength) {
+                if (nMinLength == nMaxLength) {
+                    showMessage(String.format(getResources().getString(R.string.error_phone_length), nMinLength));
+                } else {
+                    showMessage(String.format(getResources().getString(R.string.error_phone_length_min_max), nMinLength, nMaxLength));
+                }
+                _etBeneficiaryMobile_Number.setText("");
+                return;
+            }
+        }
+
+           if((_rbPay.isChecked()) && (_spOperator.getSelectedItemPosition()!= 0))
+
+           {
+
+
+           if (nBeneficiaryNameLength < nMinName || nBeneficiaryNameLength > nMaxName) {
+
+             if (nMinName == nMaxName) {
+
+            showMessage(String.format(getResources().getString(R.string.error_beneficiary_name_length), nMinName));
+           } else {
+            showMessage(String.format(getResources().getString(R.string.error_beneficiary_name_min_max), nMinName, nMaxName));
+          }
+            _etBeneficiaryName.setText("");
+            return;
+          }
+
+         if (nAccountLength < nMinAccountLength || nAccountLength > nMaxAccountlength) {
+          if (nMinAccountLength == nMaxAccountlength) {
+            showMessage(String.format(getResources().getString(R.string.error_AccountNumber_length), nMinAccountLength));
+          } else {
+            showMessage(String.format(getResources().getString(R.string.error_AccountNumber_length_min_max), nMinAccountLength, nMaxAccountlength));
+          }
+           _etAccountNumber.setText("");
+           return;
+         }
+         if ("".equals(_etIFSC_Code.getText().toString().trim())) {
+          showMessage(getResources().getString(R.string.prompt_numbers_only_IFSCCode));
+          return;
+        }
+
+    if (nIFSCLength < nMinIFSClength || nIFSCLength > nMaxIFSClength) {
+        if (nMinIFSClength == nMaxIFSClength) {
+            showMessage(String.format(getResources().getString(R.string.error_IFSCCODE_length), nMinIFSClength));
+        } else {
+            showMessage(String.format(getResources().getString(R.string.error_IFSCCODE_length_min_max), nMinIFSClength, nMaxIFSClength));
+        }
+        _etIFSC_Code.setText("");
+        return;
+    }
+    if (nBeneficiaryNumberLength < nMinLength || nBeneficiaryNumberLength > nMaxLength) {
+        if (nMinLength == nMaxLength) {
+            showMessage(String.format(getResources().getString(R.string.error_phone_length), nMinLength));
+        } else {
+            showMessage(String.format(getResources().getString(R.string.error_phone_length_min_max), nMinLength, nMaxLength));
+        }
+        _etBeneficiaryMobile_Number.setText("");
+        return;
+    }
+
+    if ("".equals(_etAmount.getText().toString().trim())) {
+        showMessage(getResources().getString(R.string.prompt_numbers_only_amount));
+        _etAmount.setText("");
+        return;
+    }
+    if (Integer.parseInt(_etAmount.getText().toString().trim()) < nMinAmount
+            || Integer.parseInt(_etAmount.getText().toString().trim()) > nMaxAmount) {
+        showMessage(String.format(getResources().getString(R.string.error_amount_min_max), nMinAmount, nMaxAmount));
+        _etAmount.setText("");
+        return;
+    }
+    if ("".equals(_etTxnDescription.getText().toString().trim())) {
+        showMessage(getResources().getString(R.string.prompt_TxnDescription));
+        _etTxnDescription.setText("");
+        return;
+    }
+}
+
+        else if((_rbVerify.isChecked())&& (_spOperator.getSelectedItemPosition()!= 0)){
+    if (nBeneficiaryNameLength < nMinName || nBeneficiaryNameLength > nMaxName) {
+
+        if (nMinName == nMaxName) {
+
+            showMessage(String.format(getResources().getString(R.string.error_beneficiary_name_length), nMinName));
+        } else {
+            showMessage(String.format(getResources().getString(R.string.error_beneficiary_name_min_max), nMinName, nMaxName));
+        }
+        _etBeneficiaryName.setText("");
+        return;
+    }
+
+    if (nAccountLength < nMinAccountLength || nAccountLength > nMaxAccountlength) {
+        if (nMinAccountLength == nMaxAccountlength) {
+            showMessage(String.format(getResources().getString(R.string.error_AccountNumber_length), nMinAccountLength));
+        } else {
+            showMessage(String.format(getResources().getString(R.string.error_AccountNumber_length_min_max), nMinAccountLength, nMaxAccountlength));
+        }
+        _etAccountNumber.setText("");
+        return;
+    }
+    if ("".equals(_etIFSC_Code.getText().toString().trim())) {
+        showMessage(getResources().getString(R.string.prompt_numbers_only_IFSCCode));
+        return;
+    }
+
+    if (nIFSCLength < nMinIFSClength || nIFSCLength > nMaxIFSClength) {
+        if (nMinIFSClength == nMaxIFSClength) {
+            showMessage(String.format(getResources().getString(R.string.error_IFSCCODE_length), nMinIFSClength));
+        } else {
+            showMessage(String.format(getResources().getString(R.string.error_IFSCCODE_length_min_max), nMinIFSClength, nMaxIFSClength));
+        }
+        _etIFSC_Code.setText("");
+        return;
+    }
+    if (nBeneficiaryNumberLength < nMinLength || nBeneficiaryNumberLength > nMaxLength) {
+        if (nMinLength == nMaxLength) {
+            showMessage(String.format(getResources().getString(R.string.error_phone_length), nMinLength));
+        } else {
+            showMessage(String.format(getResources().getString(R.string.error_phone_length_min_max), nMinLength, nMaxLength));
+        }
+        _etBeneficiaryMobile_Number.setText("");
+        return;
+    }
+
+        }
+
+        String sBeneficiarySpinner = _spOperator.getSelectedItem().toString();
+
+        if (_spOperator.getSelectedItemPosition() == 0) {
+            _tvVerified.setVisibility(View.GONE);
+
+            createNewBeneficiary();
+        } else if((_spOperator.getSelectedItemPosition()!= 0)&& (_rbPay.isChecked()== true)) {
+           // todo enable
+
+            getIMPSPaymentProcess();
+
+            _tvVerified.setVisibility(View.GONE);
+
+        }
+        else if((_spOperator.getSelectedItemPosition()!= 0)&& (_rbVerify.isChecked()== true)) {
+            getIMPSVerifyProcess();
+            _tvVerified.setVisibility(View.GONE);
+
+
+        }
+        }
+
+
     private void showDatePicker() {
         DatepickerFragment date = new DatepickerFragment();
 
@@ -518,7 +1328,7 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
 
         _etDob.setText(new StringBuilder().append(day).append("/")
                 .append(month).append("/").append(year));
-<<<<<<< HEAD
+
         Calendar userAge = new GregorianCalendar(year, month, day);
         Calendar minAdultAge = new GregorianCalendar();
         minAdultAge.add(Calendar.YEAR, -18);
@@ -533,19 +1343,16 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
 
     }
 
-    public void showRetrieveBillNextFields() {
-=======
-    }
 
-    public void showRetrieveBillNextFields(){
->>>>>>> 198c7f77c4fc6efc3e62827ca177688d5171d5c7
+    public void showRetrieveBillNextFields() {
+
 
         _etConsumerNumber.setVisibility(View.GONE);
-        _etConsumerName.setVisibility(View.VISIBLE);
-        _etDob.setVisibility(View.VISIBLE);
-        _etEmailAddress.setVisibility(View.VISIBLE);
-        _btnImpsCreateCustomer.setVisibility(View.VISIBLE);
-        _btnImpsCancel.setVisibility(View.VISIBLE);
+        _etConsumerName.setVisibility(View.GONE);
+        _etDob.setVisibility(View.GONE);
+        _etEmailAddress.setVisibility(View.GONE);
+        _btnImpsCreateCustomer.setVisibility(View.GONE);
+        _btnImpsCancel.setVisibility(View.GONE);
         _etAvailableLimit.setVisibility(View.GONE);
         _tvGetIFSC_List.setVisibility(View.GONE);
         _rbPay.setVisibility(View.GONE);
@@ -558,7 +1365,7 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
         _etIFSC_Code.setVisibility(View.VISIBLE);
         _etBeneficiaryMobile_Number.setVisibility(View.VISIBLE);
         _OperatorPayFrom.setVisibility(View.VISIBLE);
-        _etAmount.setVisibility(View.VISIBLE);
+        _etAmount.setVisibility(View.GONE);
         _etProcessingFees.setVisibility(View.VISIBLE);
         _etAmountPayable.setVisibility(View.VISIBLE);
         _etOTP.setVisibility(View.VISIBLE);
@@ -592,16 +1399,125 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
         _btnCancel.setVisibility(View.GONE);
     }
 
-<<<<<<< HEAD
-    public void showRetrieveBillFields() {
+    public void setupIMPSPaymentCancelTransferView() {
 
-
-=======
-    public void setupIMPSTransferView(){
->>>>>>> 198c7f77c4fc6efc3e62827ca177688d5171d5c7
+        _etAmount.setEnabled(true);
         _btnSubmit.setVisibility(View.GONE);
         _etConsumerNumber.setVisibility(View.VISIBLE);
 
+        _etAvailableLimit.setVisibility(View.VISIBLE);
+        _spOperator.setVisibility(View.VISIBLE);
+
+        _etBeneficiaryName.setVisibility(View.VISIBLE);
+        _etAccountNumber.setVisibility(View.VISIBLE);
+        _etIFSC_Code.setVisibility(View.VISIBLE);
+        _tvGetIFSC_List.setVisibility(View.VISIBLE);
+        _etBeneficiaryMobile_Number.setVisibility(View.VISIBLE);
+        _OperatorPayFrom.setVisibility(View.GONE);
+        _etTxnDescription.setVisibility(View.VISIBLE);
+        _etAmount.setVisibility(View.VISIBLE);
+        _rbPay.setVisibility(View.VISIBLE);
+        _rbVerify.setVisibility(View.GONE);
+        _btnNext.setVisibility(View.VISIBLE);
+        _btnCancel.setVisibility(View.VISIBLE);
+        _btnVerifySubmit.setVisibility(View.GONE);
+        _btnVerifyCancel.setVisibility(View.GONE);
+
+        _tv_availableLimit.setVisibility(View.GONE);
+        _tv_operator.setVisibility(View.GONE);
+        _tv_beneficiary_name.setVisibility(View.GONE);
+        _tv_account_number.setVisibility(View.GONE);
+        _tv_IFSC_Code.setVisibility(View.GONE);
+        _tv_BeneficiaryMobile_number.setVisibility(View.GONE);
+        _tv_amount.setVisibility(View.GONE);
+        _tv_txnDescription.setVisibility(View.GONE);
+        _tv_ProcessingFees.setVisibility(View.GONE);
+        _tv_AmountPayable.setVisibility(View.GONE);
+        _tv_OTP.setVisibility(View.GONE);
+
+    }
+  public void  setupIMPSTransferPayView(){
+      _etAmount.setEnabled(true);
+      _btnSubmit.setVisibility(View.GONE);
+      _etConsumerNumber.setVisibility(View.VISIBLE);
+
+      _etAvailableLimit.setVisibility(View.VISIBLE);
+      _spOperator.setVisibility(View.VISIBLE);
+
+      _etBeneficiaryName.setVisibility(View.VISIBLE);
+      _etAccountNumber.setVisibility(View.VISIBLE);
+      _etIFSC_Code.setVisibility(View.VISIBLE);
+      _tvGetIFSC_List.setVisibility(View.VISIBLE);
+      _etBeneficiaryMobile_Number.setVisibility(View.VISIBLE);
+      _OperatorPayFrom.setVisibility(View.GONE);
+      _etTxnDescription.setVisibility(View.VISIBLE);
+      _etAmount.setVisibility(View.VISIBLE);
+      _rbPay.setVisibility(View.VISIBLE);
+      _rbVerify.setVisibility(View.VISIBLE);
+      _btnNext.setVisibility(View.VISIBLE);
+      _btnCancel.setVisibility(View.VISIBLE);
+      _btnVerifySubmit.setVisibility(View.GONE);
+      _btnVerifyCancel.setVisibility(View.GONE);
+
+      _tv_availableLimit.setVisibility(View.GONE);
+      _tv_operator.setVisibility(View.GONE);
+      _tv_beneficiary_name.setVisibility(View.GONE);
+      _tv_account_number.setVisibility(View.GONE);
+      _tv_IFSC_Code.setVisibility(View.GONE);
+      _tv_BeneficiaryMobile_number.setVisibility(View.GONE);
+      _tv_amount.setVisibility(View.GONE);
+      _tv_txnDescription.setVisibility(View.GONE);
+      _tv_ProcessingFees.setVisibility(View.GONE);
+      _tv_AmountPayable.setVisibility(View.GONE);
+      _tv_OTP.setVisibility(View.GONE);
+    }
+
+    public void setupIMPSTransferView() {
+
+
+        _etAmount.setEnabled(true);
+        _btnSubmit.setVisibility(View.GONE);
+        _etConsumerNumber.setVisibility(View.VISIBLE);
+
+        _etAvailableLimit.setVisibility(View.VISIBLE);
+        _spOperator.setVisibility(View.VISIBLE);
+
+        _etBeneficiaryName.setVisibility(View.VISIBLE);
+        _etAccountNumber.setVisibility(View.VISIBLE);
+        _etIFSC_Code.setVisibility(View.VISIBLE);
+        _tvGetIFSC_List.setVisibility(View.VISIBLE);
+        _etBeneficiaryMobile_Number.setVisibility(View.VISIBLE);
+        _OperatorPayFrom.setVisibility(View.GONE);
+        _etTxnDescription.setVisibility(View.GONE);
+        _etAmount.setVisibility(View.GONE);
+        _rbPay.setVisibility(View.VISIBLE);
+        _rbVerify.setVisibility(View.VISIBLE);
+        _btnNext.setVisibility(View.VISIBLE);
+        _btnCancel.setVisibility(View.VISIBLE);
+        _btnVerifySubmit.setVisibility(View.GONE);
+        _btnVerifyCancel.setVisibility(View.GONE);
+
+        _tv_availableLimit.setVisibility(View.GONE);
+        _tv_operator.setVisibility(View.GONE);
+        _tv_beneficiary_name.setVisibility(View.GONE);
+        _tv_account_number.setVisibility(View.GONE);
+        _tv_IFSC_Code.setVisibility(View.GONE);
+        _tv_BeneficiaryMobile_number.setVisibility(View.GONE);
+        _tv_amount.setVisibility(View.GONE);
+        _tv_txnDescription.setVisibility(View.GONE);
+        _tv_ProcessingFees.setVisibility(View.GONE);
+        _tv_AmountPayable.setVisibility(View.GONE);
+        _tv_OTP.setVisibility(View.GONE);
+
+    }
+
+
+
+    public void setupIMPSVerifyView() {
+
+
+        _btnSubmit.setVisibility(View.GONE);
+        _etConsumerNumber.setVisibility(View.VISIBLE);
         _etAvailableLimit.setVisibility(View.VISIBLE);
         _spOperator.setVisibility(View.VISIBLE);
         _etBeneficiaryName.setVisibility(View.VISIBLE);
@@ -609,40 +1525,359 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
         _etIFSC_Code.setVisibility(View.VISIBLE);
         _tvGetIFSC_List.setVisibility(View.VISIBLE);
         _etBeneficiaryMobile_Number.setVisibility(View.VISIBLE);
-        _OperatorPayFrom.setVisibility(View.VISIBLE);
-        _etAmount.setVisibility(View.VISIBLE);
+        _OperatorPayFrom.setVisibility(View.GONE);
+        _etAmount.setVisibility(View.GONE);
         _rbPay.setVisibility(View.VISIBLE);
         _rbVerify.setVisibility(View.VISIBLE);
         _btnNext.setVisibility(View.VISIBLE);
         _btnCancel.setVisibility(View.VISIBLE);
-<<<<<<< HEAD
+        _etTxnDescription.setVisibility(View.GONE);
+        _btnVerifySubmit.setVisibility(View.VISIBLE);
+        _btnVerifyCancel.setVisibility(View.VISIBLE);
+        _tv_AmountPayable.setVisibility(View.GONE);
+        _tv_OTP.setVisibility(View.GONE);
+        _btnVerifySubmit.setVisibility(View.GONE);
+        _btnVerifyCancel.setVisibility(View.GONE);
 
-
-=======
->>>>>>> 198c7f77c4fc6efc3e62827ca177688d5171d5c7
     }
 
+
+    public void showPaymentFields(){
+        _etBeneficiaryName.setEnabled(false);
+        _etAccountNumber.setEnabled(false);
+        _etIFSC_Code.setEnabled(false);
+        _etBeneficiaryMobile_Number.setEnabled(false);
+        _etAmountPayable.setEnabled(false);
+
+        _tv_availableLimit.setVisibility(View.VISIBLE);
+        _tv_operator.setVisibility(View.VISIBLE);
+        _tv_beneficiary_name.setVisibility(View.VISIBLE);
+        _tv_account_number.setVisibility(View.VISIBLE);
+        _tv_IFSC_Code.setVisibility(View.VISIBLE);
+        _tv_BeneficiaryMobile_number.setVisibility(View.VISIBLE);
+
+        _tv_AmountPayable.setVisibility(View.VISIBLE);
+        _tv_OTP.setVisibility(View.VISIBLE);
+        _tv_amount.setVisibility(View.VISIBLE);
+        _etBeneficiaryName.setVisibility(View.VISIBLE);
+        _etAccountNumber.setVisibility(View.VISIBLE);
+        _etIFSC_Code.setVisibility(View.VISIBLE);
+        _etBeneficiaryMobile_Number.setVisibility(View.VISIBLE);
+        _etOTP.setVisibility(View.VISIBLE);
+        _etAmountPayable.setVisibility(View.VISIBLE);
+
+        _btnVerifyPaySubmit.setVisibility(View.VISIBLE);
+        _btnVerifyPayCancel.setVisibility(View.VISIBLE);
+        _etTxnDescription.setVisibility(View.GONE);
+        _tvGetIFSC_List.setVisibility(View.GONE);
+        _rbPay.setVisibility(View.GONE);
+        _rbVerify.setVisibility(View.GONE);
+        _spOperator.setVisibility(View.GONE);
+        _etConsumerNumber.setVisibility(View.GONE);
+        _etAvailableLimit.setVisibility(View.GONE);
+        _spOperator.setVisibility(View.GONE);
+        _btnNext.setVisibility(View.GONE);
+        _btnCancel.setVisibility(View.GONE);
+        _tv_txnDescription.setVisibility(View.GONE);
+        _tv_consumerNumber.setVisibility(View.GONE);
+        _tv_availableLimit.setVisibility(View.GONE);
+        _tv_operator.setVisibility(View.GONE);
+
+    }
+    public void showVerifyPaymentFields(){
+        _etBeneficiaryName.setEnabled(false);
+        _etAccountNumber.setEnabled(false);
+        _etIFSC_Code.setEnabled(false);
+        _etBeneficiaryMobile_Number.setEnabled(false);
+        _etAmountPayable.setEnabled(false);
+        _etAmountPayable.setText("10");
+        _tv_availableLimit.setVisibility(View.VISIBLE);
+        _tv_operator.setVisibility(View.VISIBLE);
+        _tv_beneficiary_name.setVisibility(View.VISIBLE);
+        _tv_account_number.setVisibility(View.VISIBLE);
+        _tv_IFSC_Code.setVisibility(View.VISIBLE);
+        _tv_BeneficiaryMobile_number.setVisibility(View.VISIBLE);
+
+        _tv_AmountPayable.setVisibility(View.VISIBLE);
+        _tv_OTP.setVisibility(View.VISIBLE);
+        _tv_amount.setVisibility(View.GONE);
+        _etBeneficiaryName.setVisibility(View.VISIBLE);
+        _etAccountNumber.setVisibility(View.VISIBLE);
+        _etIFSC_Code.setVisibility(View.VISIBLE);
+        _etBeneficiaryMobile_Number.setVisibility(View.VISIBLE);
+        _etOTP.setVisibility(View.VISIBLE);
+        _etAmountPayable.setVisibility(View.VISIBLE);
+
+        _btnVerifyPaySubmit.setVisibility(View.VISIBLE);
+        _btnVerifyPayCancel.setVisibility(View.VISIBLE);
+        _etTxnDescription.setVisibility(View.GONE);
+        _tvGetIFSC_List.setVisibility(View.GONE);
+        _rbPay.setVisibility(View.GONE);
+        _rbVerify.setVisibility(View.GONE);
+        _spOperator.setVisibility(View.GONE);
+        _etConsumerNumber.setVisibility(View.GONE);
+        _etAvailableLimit.setVisibility(View.GONE);
+        _spOperator.setVisibility(View.GONE);
+        _btnNext.setVisibility(View.GONE);
+        _btnCancel.setVisibility(View.GONE);
+        _tv_txnDescription.setVisibility(View.GONE);
+        _tv_consumerNumber.setVisibility(View.GONE);
+        _tv_availableLimit.setVisibility(View.GONE);
+        _tv_operator.setVisibility(View.GONE);
+
+    }
+
+    public void showPaymentProcessFields(){
+        _etBeneficiaryName.setVisibility(View.VISIBLE);
+        _etAccountNumber.setVisibility(View.VISIBLE);
+        _etIFSC_Code.setVisibility(View.VISIBLE);
+        _etBeneficiaryMobile_Number.setVisibility(View.VISIBLE);
+        _etOTP.setVisibility(View.VISIBLE);
+        _btnVerifyPaySubmit.setVisibility(View.GONE);
+        _btnVerifyPayCancel.setVisibility(View.GONE);
+        _etAmountPayable.setVisibility(View.VISIBLE);
+        _etProcessingFees.setVisibility(View.VISIBLE);
+        _etAmount.setVisibility(View.VISIBLE);
+        _etOTP.setVisibility(View.VISIBLE);
+
+        _etTxnDescription.setVisibility(View.GONE);
+
+    }
+    public void showConfirmPaymentFields(){
+        int amount = Integer.parseInt(_etAmount.getText().toString());
+        int processFees = 10;
+        int amountPayable = amount+processFees;
+        _etBeneficiaryName.setVisibility(View.VISIBLE);
+        _etAccountNumber.setVisibility(View.VISIBLE);
+        _etIFSC_Code.setVisibility(View.VISIBLE);
+        _etBeneficiaryMobile_Number.setVisibility(View.VISIBLE);
+        _etAmountPayable.setVisibility(View.VISIBLE);
+        _etProcessingFees.setVisibility(View.VISIBLE);
+        _etAmount.setVisibility(View.VISIBLE);
+
+        _etProcessingFees.setText(String.valueOf(processFees));
+
+        _etAmountPayable.setText(String.valueOf(amountPayable));
+        _etOTP.setVisibility(View.VISIBLE);
+        _etConsumerNumber.setVisibility(View.GONE);
+        _etAvailableLimit.setVisibility(View.GONE);
+        _spOperator.setVisibility(View.GONE);
+        _etTxnDescription.setVisibility(View.GONE);
+        _btnSubmit.setVisibility(View.GONE);
+        _btnCancel.setVisibility(View.GONE);
+        _btnVerifyPaySubmit.setVisibility(View.GONE);
+        _btnVerifyPayCancel.setVisibility(View.GONE);
+        _btnNext.setVisibility(View.GONE);
+        _btnCancel.setVisibility(View.GONE);
+        _rbPay.setVisibility(View.GONE);
+        _rbVerify.setVisibility(View.GONE);
+        _btnPaymentPaySubmit.setVisibility(View.VISIBLE);
+        _btnPaymentPayCancel.setVisibility(View.VISIBLE);
+
+
+        _tvGetIFSC_List.setVisibility(View.GONE);
+        _tv_availableLimit.setVisibility(View.VISIBLE);
+        _tv_operator.setVisibility(View.VISIBLE);
+        _tv_beneficiary_name.setVisibility(View.VISIBLE);
+        _tv_account_number.setVisibility(View.VISIBLE);
+        _tv_IFSC_Code.setVisibility(View.VISIBLE);
+        _tv_BeneficiaryMobile_number.setVisibility(View.VISIBLE);
+        _tv_amount.setVisibility(View.VISIBLE);
+        _tv_txnDescription.setVisibility(View.GONE);
+        _tv_ProcessingFees.setVisibility(View.VISIBLE);
+        _tv_AmountPayable.setVisibility(View.VISIBLE);
+        _tv_OTP.setVisibility(View.VISIBLE);
+        _tv_consumerNumber.setVisibility(View.GONE);
+        _tv_availableLimit.setVisibility(View.GONE);
+        _tv_operator.setVisibility(View.GONE);
+
+    }
+
+
+    public void showPBXPaymentSubmit(){
+        int amount = Integer.parseInt(_etAmount.getText().toString());
+        int processFees = 10;
+        int amountPayable = amount+processFees;
+        _etBeneficiaryName.setVisibility(View.VISIBLE);
+        _etAccountNumber.setVisibility(View.VISIBLE);
+        _etIFSC_Code.setVisibility(View.VISIBLE);
+        _etBeneficiaryMobile_Number.setVisibility(View.VISIBLE);
+        _etAmountPayable.setVisibility(View.VISIBLE);
+        _etProcessingFees.setVisibility(View.VISIBLE);
+        _etAmount.setVisibility(View.VISIBLE);
+
+        _etProcessingFees.setText(String.valueOf(processFees));
+
+        _etAmountPayable.setText(String.valueOf(amountPayable));
+        _etOTP.setVisibility(View.VISIBLE);
+        _btnSubmit.setVisibility(View.GONE);
+        _btnCancel.setVisibility(View.GONE);
+        _btnVerifyPaySubmit.setVisibility(View.GONE);
+        _btnVerifyPayCancel.setVisibility(View.GONE);
+        _btnNext.setVisibility(View.GONE);
+        _btnCancel.setVisibility(View.GONE);
+        _btnPaymentPaySubmit.setVisibility(View.VISIBLE);
+        _btnPaymentPayCancel.setVisibility(View.VISIBLE);
+
+
+
+        _tv_availableLimit.setVisibility(View.VISIBLE);
+        _tv_operator.setVisibility(View.VISIBLE);
+        _tv_beneficiary_name.setVisibility(View.VISIBLE);
+        _tv_account_number.setVisibility(View.VISIBLE);
+        _tv_IFSC_Code.setVisibility(View.VISIBLE);
+        _tv_BeneficiaryMobile_number.setVisibility(View.VISIBLE);
+        _tv_amount.setVisibility(View.VISIBLE);
+        _tv_txnDescription.setVisibility(View.GONE);
+        _tv_ProcessingFees.setVisibility(View.VISIBLE);
+        _tv_AmountPayable.setVisibility(View.VISIBLE);
+        _tv_OTP.setVisibility(View.VISIBLE);
+
+    }
+
+    public void showPBXBackSubmit(){
+        _etAmount.setEnabled(true);
+        _btnSubmit.setVisibility(View.GONE);
+        _etConsumerNumber.setVisibility(View.VISIBLE);
+
+        _etAvailableLimit.setVisibility(View.VISIBLE);
+        _spOperator.setVisibility(View.VISIBLE);
+
+        _etBeneficiaryName.setVisibility(View.VISIBLE);
+        _etAccountNumber.setVisibility(View.VISIBLE);
+        _etIFSC_Code.setVisibility(View.VISIBLE);
+        _tvGetIFSC_List.setVisibility(View.VISIBLE);
+        _etBeneficiaryMobile_Number.setVisibility(View.VISIBLE);
+        _OperatorPayFrom.setVisibility(View.GONE);
+        _etTxnDescription.setVisibility(View.VISIBLE);
+        _etAmount.setVisibility(View.VISIBLE);
+        _rbPay.setVisibility(View.VISIBLE);
+        _rbVerify.setVisibility(View.GONE);
+        _btnNext.setVisibility(View.VISIBLE);
+        _btnCancel.setVisibility(View.VISIBLE);
+        _btnVerifySubmit.setVisibility(View.GONE);
+        _btnVerifyCancel.setVisibility(View.GONE);
+
+        _tv_availableLimit.setVisibility(View.GONE);
+        _tv_operator.setVisibility(View.GONE);
+        _tv_beneficiary_name.setVisibility(View.GONE);
+        _tv_account_number.setVisibility(View.GONE);
+        _tv_IFSC_Code.setVisibility(View.GONE);
+        _tv_BeneficiaryMobile_number.setVisibility(View.GONE);
+        _tv_amount.setVisibility(View.GONE);
+        _tv_txnDescription.setVisibility(View.GONE);
+        _tv_ProcessingFees.setVisibility(View.GONE);
+        _tv_AmountPayable.setVisibility(View.GONE);
+        _tv_OTP.setVisibility(View.GONE);
+
+        _etConsumerNumber.setVisibility(View.VISIBLE);
+        _etAvailableLimit.setVisibility(View.VISIBLE);
+        _spOperator.setVisibility(View.VISIBLE);
+        _etBeneficiaryName.setVisibility(View.VISIBLE);
+        _etAccountNumber.setVisibility(View.VISIBLE);
+        _etIFSC_Code.setVisibility(View.VISIBLE);
+        _etBeneficiaryMobile_Number.setVisibility(View.VISIBLE);
+
+        _etAmount.setVisibility(View.VISIBLE);
+
+        _btnNext.setVisibility(View.VISIBLE);
+        _btnCancel.setVisibility(View.VISIBLE);
+
+        _etAmountPayable.setVisibility(View.GONE);
+        _etProcessingFees.setVisibility(View.GONE);
+        _etOTP.setVisibility(View.GONE);
+        _btnSubmit.setVisibility(View.GONE);
+        _btnCancel.setVisibility(View.GONE);
+        _btnVerifyPaySubmit.setVisibility(View.GONE);
+        _btnVerifyPayCancel.setVisibility(View.GONE);
+
+        _btnPaymentPaySubmit.setVisibility(View.GONE);
+        _btnPaymentPayCancel.setVisibility(View.GONE);
+
+
+
+        _tv_availableLimit.setVisibility(View.GONE);
+        _tv_operator.setVisibility(View.GONE);
+        _tv_beneficiary_name.setVisibility(View.GONE);
+        _tv_account_number.setVisibility(View.GONE);
+        _tv_IFSC_Code.setVisibility(View.GONE);
+        _tv_BeneficiaryMobile_number.setVisibility(View.GONE);
+        _tv_amount.setVisibility(View.GONE);
+        _tv_txnDescription.setVisibility(View.GONE);
+        _tv_ProcessingFees.setVisibility(View.GONE);
+        _tv_AmountPayable.setVisibility(View.GONE);
+        _tv_OTP.setVisibility(View.GONE);
+
+    }
     public void hideRetrieveBillFields() {
-        _etSubscriberId.setVisibility(View.GONE);
-        _btnGetBillAmount.setVisibility(View.GONE);
-//        _btnSubmit.setVisibility(View.GONE);
-//        _etCustomerNumber.setVisibility(View.GONE);
-//
-//        _etAvailableLimit.setVisibility(View.GONE);
-//        _spOperator.setVisibility(View.GONE);
-//        _etBeneficiaryName.setVisibility(View.GONE);
-//        _etAccountNumber.setVisibility(View.GONE);
-//        _etIFSC_Code.setVisibility(View.GONE);
-//        _tvGetIFSC_List.setVisibility(View.GONE);
-//        _etBeneficiaryMobile_Number.setVisibility(View.GONE);
-//        _OperatorPayFrom.setVisibility(View.GONE);
-//        _etAmount.setVisibility(View.GONE);
-//        _rbPay.setVisibility(View.GONE);
-//        _rbVerify.setVisibility(View.GONE);
-//        _btnNext.setVisibility(View.GONE);
-//        _btnCancel.setVisibility(View.GONE);
-//
-//        _btnGetBillAmount.setVisibility(View.GONE);
+
+        _etConsumerNumber.setVisibility(View.GONE);
+        _etAvailableLimit.setVisibility(View.GONE);
+        _spOperator.setVisibility(View.GONE);
+        _etBeneficiaryName.setVisibility(View.GONE);
+        _etAccountNumber.setVisibility(View.GONE);
+        _etIFSC_Code.setVisibility(View.GONE);
+        _etTxnDescription.setVisibility(View.GONE);
+
+        _etBeneficiaryMobile_Number.setVisibility(View.GONE);
+        _OperatorPayFrom.setVisibility(View.GONE);
+        _etAmount.setVisibility(View.GONE);
+        _rbPay.setVisibility(View.GONE);
+        _rbVerify.setVisibility(View.GONE);
+        _btnVerifySubmit.setVisibility(View.GONE);
+        _btnVerifyCancel.setVisibility(View.GONE);
+        _tv_amount.setVisibility(View.GONE);
+        _tv_txnDescription.setVisibility(View.GONE);
+        _tv_ProcessingFees.setVisibility(View.GONE);
+
+
+        _tv_availableLimit.setVisibility(View.GONE);
+        _tv_operator.setVisibility(View.GONE);
+        _tv_beneficiary_name.setVisibility(View.GONE);
+        _tv_account_number.setVisibility(View.GONE);
+        _tv_IFSC_Code.setVisibility(View.GONE);
+        _tv_BeneficiaryMobile_number.setVisibility(View.GONE);
+        _tv_amount.setVisibility(View.GONE);
+        _tv_txnDescription.setVisibility(View.GONE);
+        _tv_ProcessingFees.setVisibility(View.GONE);
+        _tv_AmountPayable.setVisibility(View.GONE);
+        _tv_OTP.setVisibility(View.GONE);
+
+    }
+
+    public void hideVerifyPaymentFields(){
+        _etOTP.setVisibility(View.GONE);
+        _etAmountPayable.setVisibility(View.GONE);
+        _btnVerifyPaySubmit.setVisibility(View.GONE);
+        _btnVerifyPayCancel.setVisibility(View.GONE);
+        _btnPaymentPaySubmit.setVisibility(View.GONE);
+        _btnPaymentPayCancel.setVisibility(View.GONE);
+        _etProcessingFees.setVisibility(View.GONE);
+        _etAmount.setVisibility(View.GONE);
+        _etAmountPayable.setVisibility(View.GONE);
+        _etTxnDescription.setVisibility(View.GONE);
+        _btnNext.setVisibility(View.GONE);
+        _tvVerified.setVisibility(View.GONE);
+        _btnVerifyPaySubmit.setVisibility(View.GONE);
+        _btnVerifyPayCancel.setVisibility(View.GONE);
+        _etBeneficiaryName.setVisibility(View.GONE);
+        _etAccountNumber.setVisibility(View.GONE);
+        _etIFSC_Code.setVisibility(View.GONE);
+        _etBeneficiaryMobile_Number.setVisibility(View.GONE);
+        _btnNewRecharge.setVisibility(View.VISIBLE);
+
+        _tv_availableLimit.setVisibility(View.GONE);
+        _tv_operator.setVisibility(View.GONE);
+        _tv_beneficiary_name.setVisibility(View.GONE);
+        _tv_account_number.setVisibility(View.GONE);
+        _tv_IFSC_Code.setVisibility(View.GONE);
+        _tv_BeneficiaryMobile_number.setVisibility(View.GONE);
+        _tv_amount.setVisibility(View.GONE);
+        _tv_txnDescription.setVisibility(View.GONE);
+        _tv_ProcessingFees.setVisibility(View.GONE);
+        _tv_AmountPayable.setVisibility(View.GONE);
+        _tv_OTP.setVisibility(View.GONE);
+
 
     }
 
@@ -651,55 +1886,630 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
     public void onTaskSuccess(TransactionRequest result, DataExImpl.Methods callback) {
         Log.d(_LOG, "In onTaskSuccess");
 
-        switch (callback){
+        switch (callback) {
             case IMPS_CUSTOMER_REGISTRATION:
-                Log.i(_LOG, result.getRemoteResponse() + result.getResponseCode());
 
-                if(!(result.getCustom() instanceof ImpsCustomerRegistrationResult)){
+                showProgress(false);
+                Log.i(_LOG + "IMPS_CUSTOMER_REGISTRATION", result.getRemoteResponse() + result.getResponseCode());
+
+                if (!(result.getCustom() instanceof ImpsCustomerRegistrationResult)) {
                     Log.d(_LOG, "response is in incorrect format!");
                     showMessage(getActivity().getString(R.string.error_imps_customer_registration));
                     return;
                 }
 
-                ImpsCustomerRegistrationResult registrationResult   = (ImpsCustomerRegistrationResult) result.getCustom();
+                ImpsCustomerRegistrationResult registrationResult = (ImpsCustomerRegistrationResult) result.getCustom();
 
-                showMessage(result.getRemoteResponse());
 
+                showProgress(false);
                 if (registrationResult.isRegistered && registrationResult.isIMPSServiceAllowed) {
                     Log.d(_LOG, "Both true");
+                    checkKYC();
+                    getBeneficiaryList();
                     setupIMPSTransferView();
-                    //getBeneficiaryList();
+
                 } else if (!registrationResult.isRegistered && !registrationResult.isIMPSServiceAllowed) {
                     Log.d(_LOG, "Both false");
                     showCustomRegistrationFields();
-                }else if (!registrationResult.isRegistered && registrationResult.isIMPSServiceAllowed) {
+                } else if (!registrationResult.isRegistered && registrationResult.isIMPSServiceAllowed) {
                     Log.d(_LOG, "not registered but service allowed");
                     showCustomRegistrationFields();
-                }else if (registrationResult.isRegistered && !registrationResult.isIMPSServiceAllowed) {
+                } else if (registrationResult.isRegistered && !registrationResult.isIMPSServiceAllowed) {
                     Log.d(_LOG, "customer already registered but imps not allowed");
                     showMessage("You are not allowed to perform IMPS");
                 }
+
                 break;
+
             case IMPS_BENEFICIARY_LIST:
+                Log.d(_LOG, "onTaskSuccess done_Beneficiary");
+
+                if(result.getCustom() == null){
+                     Log.d(_LOG, "response is in incorrect format!");
+                    showMessage("Couldn't fetch BeneficiaryList.");
+                    showProgress(false);
+                    return;
+                }
+
+
+                showProgress(false);
+                List<BeneficiaryResult> beneficiaryResultsList = null;
+                beneficiaryResultsList = (List<BeneficiaryResult>) result.getCustom();
+
+
+
+                beneficiaryResultsList.add(0, new BeneficiaryResult("", getActivity().getString(R.string.prompt_spinner_select_NewBeneficiary)));
+                ArrayAdapter<BeneficiaryResult> dataAdapter = new ArrayAdapter<BeneficiaryResult>(
+                        getActivity(), android.R.layout.simple_spinner_item,
+                        beneficiaryResultsList
+                );
+
+                dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                _spOperator.setAdapter(dataAdapter);
+                _spOperator.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        showMessage(null);
+                        if (_spOperator.getSelectedItemPosition() == 0) {
+                            _etBeneficiaryName.setEnabled(true);
+                            _etAccountNumber.setEnabled(true);
+                            _etIFSC_Code.setEnabled(true);
+                            _etBeneficiaryMobile_Number.setEnabled(true);
+                            _etBeneficiaryName.setText(null);
+                            _etAccountNumber.setText(null);
+                            _etIFSC_Code.setText(null);
+                            _etBeneficiaryMobile_Number.setText(null);
+                            _etAmount.setText(null);
+                            _etTxnDescription.setText(null);
+
+
+                            _rbPay.setVisibility(View.VISIBLE);
+                            _rbVerify.setVisibility(View.VISIBLE);
+                            _tvVerified.setVisibility(View.GONE);
+
+                        } else   if (_spOperator.getSelectedItemPosition() != 0)   {
+                            _rbPay.setVisibility(View.VISIBLE);
+                            _rbVerify.setVisibility(View.VISIBLE);
+                            _rbPay.setChecked(true);
+
+
+                            BeneficiaryResult beneficiaryResult = (BeneficiaryResult) _spOperator.getSelectedItem();
+
+                            String sBeneficiaryId = beneficiaryResult.id;
+                            String sBeneficiaryName = beneficiaryResult.name;
+
+                            EphemeralStorage.getInstance(getActivity()).storeString(
+                                    AppConstants.PARAM_PBX_IMPS_BENEFICIARY_ACCOUNT_NAME,
+                                    beneficiaryResult.name);
+                            EphemeralStorage.getInstance(getActivity()).storeString(
+                                    AppConstants.PARAM_PBX_IMPS_BENEFICIARY_ID,
+                                    beneficiaryResult.id);
+                            //  showMessage(sBeneficiaryId);
+                            _etAmount.setText(null);
+                            _etTxnDescription.setText(null);
+                            _etAmount.setVisibility(View.VISIBLE);
+                            _etTxnDescription.setVisibility(View.VISIBLE);
+
+                            _rbVerify.setChecked(false);
+                            getIMPSBeneficiaryDetails(sBeneficiaryName);
+                        }
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
+
+
+
                 break;
+
+            case IMPS_CREATE_CUSTOMER_REGISTRATION:
+                Log.d(_LOG, "onTaskSuccess done_CreateCustomer");
+
+
+                if(result.getCustom() == null){
+                    Log.d(_LOG, "response is in incorrect format!");
+                    showMessage("Couldn't Create Customer.");
+                    showProgress(false);
+                    return;
+                }
+
+
+                ImpsCreateCustomerResult impsCreateCustomerResult = (ImpsCreateCustomerResult) result.getCustom();
+
+                showMessage(impsCreateCustomerResult.ErrorMessage);
+                break;
+
+            case IMPS_CHECK_KYC:
+                Log.d(_LOG, "onTaskSuccess done_CreateCustomer");
+
+                if(result.getCustom() == null){
+                    Log.d(_LOG, "response is in incorrect format!");
+                    showMessage(getResources().getString(R.string.error_imps_kyc));
+                    showProgress(false);
+                    return;
+                }
+
+                ImpsCheckKYCResult impsCheckKYCResult = (ImpsCheckKYCResult) result.getCustom();
+
+
+                _etAvailableLimit.setText(String.valueOf(impsCheckKYCResult.AvailableLimit));
+                break;
+
+            case IMPS_BENEFICIARY_DETAILS:
+                Log.d(_LOG, "onTaskSuccess done_BeneficiaryDetails");
+
+                showProgress(false);
+                ImpsBeneficiaryDetailsResult impsBeneficiaryDetailsResult = (ImpsBeneficiaryDetailsResult) result.getCustom();
+                if(impsBeneficiaryDetailsResult.IsBeneficiaryVerified)
+                {
+                    _rbPay.setChecked(true);
+                    _tvVerified.setVisibility(View.VISIBLE);
+                    _rbVerify.setVisibility(View.GONE);
+                }
+                else if(!impsBeneficiaryDetailsResult.IsBeneficiaryVerified){
+                    _tvVerified.setVisibility(View.GONE);
+                    _rbVerify.setVisibility(View.VISIBLE);
+                }
+
+                _etBeneficiaryName.setText(impsBeneficiaryDetailsResult.BeneficiaryName);
+                _etBeneficiaryName.setEnabled(false);
+                _etAccountNumber.setText(impsBeneficiaryDetailsResult.AccountNumber);
+                _etAccountNumber.setEnabled(false);
+                _etIFSC_Code.setText(impsBeneficiaryDetailsResult.IFSCCode);
+                _etIFSC_Code.setEnabled(false);
+                _etBeneficiaryMobile_Number.setText(impsBeneficiaryDetailsResult.BeneficiaryMobileNumber);
+                _etBeneficiaryMobile_Number.setEnabled(false);
+                break;
+
+            case IMPS_ADD_BENEFICIARY:
+
+                Log.d(_LOG, "onTaskSuccess done_AddBeneficiary");
+
+
+                ImpsAddBeneficiaryResult impsAddBeneficiaryResult = (ImpsAddBeneficiaryResult) result.getCustom();
+                if (impsAddBeneficiaryResult.RegistrationStatus) {
+                    getBeneficiaryList();
+                }
+                showMessage(impsAddBeneficiaryResult.ErrorMessage);
+                Toast.makeText(getActivity().getApplicationContext(), impsAddBeneficiaryResult.ErrorMessage, Toast.LENGTH_LONG).show();
+
+                break;
+
+
+            case IMPS_BANK_NAME_LIST:
+                Log.d(_LOG, "onTaskSuccess done_BankNameList");
+
+                List<BankNameResult> bankNameResultList = null;
+                bankNameResultList = (List<BankNameResult>) result.getCustom();
+
+
+                ArrayAdapter<BankNameResult> dataAdapterBankList = new ArrayAdapter<BankNameResult>(
+                        getActivity(), android.R.layout.simple_spinner_item,
+                        bankNameResultList
+                );
+
+                dataAdapterBankList.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                _spOperator1.setAdapter(dataAdapterBankList);
+                _spOperator1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        getStateName(_spOperator1.getSelectedItem().toString());
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
+
+
+                break;
+
+            case IMPS_STATE_NAME:
+                Log.d(_LOG, "onTaskSuccess done_StateNameList");
+
+
+                List<StateNameResult> stateNameResultList = null;
+                stateNameResultList = (List<StateNameResult>) result.getCustom();
+
+
+                ArrayAdapter<StateNameResult> dataAdapterStateList = new ArrayAdapter<StateNameResult>(
+                        getActivity(), android.R.layout.simple_spinner_item,
+                        stateNameResultList
+                );
+
+                dataAdapterStateList.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                _spOperator2.setAdapter(dataAdapterStateList);
+                _spOperator2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        getCityName(_spOperator1.getSelectedItem().toString(), _spOperator2.getSelectedItem().toString());
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
+                break;
+
+            case IMPS_CITY_NAME:
+                Log.d(_LOG, "onTaskSuccess done_CityNameList");
+
+
+                List<CityNameResult> cityNameResultList = null;
+                cityNameResultList = (List<CityNameResult>) result.getCustom();
+
+
+                ArrayAdapter<CityNameResult> dataAdapterCityList = new ArrayAdapter<CityNameResult>(
+                        getActivity(), android.R.layout.simple_spinner_item,
+                        cityNameResultList
+                );
+
+                dataAdapterCityList.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                _spOperator3.setAdapter(dataAdapterCityList);
+                _spOperator3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        getBranchName(_spOperator1.getSelectedItem().toString(), _spOperator2.getSelectedItem().toString()
+                                , _spOperator3.getSelectedItem().toString());
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
+                break;
+
+            case IMPS_BRANCH_NAME:
+                Log.d(_LOG, "onTaskSuccess done_BranchNameList");
+//
+                List<BranchNameResult> branchNameResultList = null;
+                branchNameResultList = (List<BranchNameResult>) result.getCustom();
+
+
+
+                ArrayAdapter<BranchNameResult> dataAdapterBranchList = new ArrayAdapter<BranchNameResult>(
+                        getActivity(), android.R.layout.simple_spinner_item,
+                        branchNameResultList
+                );
+
+                dataAdapterBranchList.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                _spOperator4.setAdapter(dataAdapterBranchList);
+                _spOperator4.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        BranchNameResult branchNameResult = (BranchNameResult) _spOperator4.getSelectedItem();
+                        sBranchIfscCode = branchNameResult.IFSCCode;
+               //         Toast.makeText(getActivity().getApplicationContext(), sBranchIfscCode, Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+
+                    }
+                });
+
+
+                break;
+
+            case IMPS_VERIFY_PROCESS:
+
+
+                Log.i(_LOG + "IMPS_VERIFY_PROCESS", result.getRemoteResponse() + result.getResponseCode());
+
+                if(result.getCustom()== null){
+                    showMessage("Couldn't process");
+                }
+
+                ImpsVerifyProcessResult impsVerifyProcessResult = (ImpsVerifyProcessResult) result.getCustom();
+
+
+
+                if (impsVerifyProcessResult.PostingStatus) {
+                    Log.d(_LOG, "true");
+                    _etAmountPayable.setVisibility(View.VISIBLE);
+                    _etOTP.setText(null);
+
+
+
+                    showVerifyPaymentFields();
+
+
+                } else if (!impsVerifyProcessResult.PostingStatus) {
+                    Log.d(_LOG, "Both false");
+                    setupIMPSTransferView();
+                    showMessage(impsVerifyProcessResult.ErrorMessage);
+                }
+                else{
+                    showMessage("Couldn't process");
+                }
+
+                showProgress(false);
+                break;
+
+            case IMPS_VERIFY_PAYMENT:
+                Log.i(_LOG + "IMPS_VERIFY_PAYMENT", result.getRemoteResponse() + result.getResponseCode());
+
+
+                ImpsVerifyPaymentResult impsVerifyPaymentResult = (ImpsVerifyPaymentResult) result.getCustom();
+
+               showMessage("Message: "+" " +impsVerifyPaymentResult.errorMessage +"\n"
+                       + "Receipt ID: " + impsVerifyPaymentResult.recieptId +"\n"
+                       + "Transaction ID:" + impsVerifyPaymentResult.transactionId +"\n"
+                      );
+                hideVerifyPaymentFields();
+                _etOTP.setText(null);
+                showProgress(false);
+                break;
+
+            case IMPS_PAYMENT_PROCESS:
+
+                Log.i(_LOG + "IMPS_PAYMENT_PROCESS", result.getRemoteResponse() + result.getResponseCode());
+
+                ImpsPaymentProcessResult impsPaymentProcessResult = (ImpsPaymentProcessResult) result.getCustom();
+
+                showProgress(false);
+
+                if (impsPaymentProcessResult.PostingStatus) {
+                    Log.d(_LOG, "true");
+
+                    _etOTP.setText(null);
+                    int amount = Integer.parseInt(_etAmount.getText().toString());
+                    int processFees = 10;
+                    int amountPayable = amount+processFees;
+                    _etProcessingFees.setText(String.valueOf(processFees));
+                    _etAmountPayable.setText(String.valueOf(amountPayable));
+                    _etAmount.setEnabled(false);
+                    _etProcessingFees.setEnabled(false);
+                    _etAmountPayable.setEnabled(false);
+
+
+                    showConfirmPaymentFields();
+
+
+                } else if (!impsPaymentProcessResult.PostingStatus) {
+                    Log.d(_LOG, "Both false");
+
+                    showMessage(impsPaymentProcessResult.ErrorMessage);
+                }
+                break;
+
+            case IMPS_CONFIRM_PAYMENT:
+                Log.i(_LOG + "IMPS_VERIFY_PAYMENT", result.getRemoteResponse() + result.getResponseCode());
+
+                List<ImpsConfirmPaymentResult> impsConfirmPaymentResultList = null;
+                impsConfirmPaymentResultList = (List<ImpsConfirmPaymentResult>) result.getCustom();
+
+
+                showMessage(null);
+
+
+                Log.d("HISTORY", "Obtained result: " + impsConfirmPaymentResultList);
+
+                if(impsConfirmPaymentResultList == null || impsConfirmPaymentResultList.size() < 1) {
+                    setNoPaymentHistoryMessage();
+                    return;
+                }
+
+                Log.d("HISTORY", "Creating list with " + impsConfirmPaymentResultList.size() + " transactions");
+
+                ConfirmPaymentTextListViewAdapter adapter = new ConfirmPaymentTextListViewAdapter(
+                        getActivity(),
+                        R.layout.listview_impsconfirm_payment,
+                        impsConfirmPaymentResultList
+                );
+
+                _titleView.setText(String.format(getResources().getString(R.string.title_activity_transaction_history_count), impsConfirmPaymentResultList.size()));
+
+                _listView.setAdapter(adapter);
+                _listView.setVisibility(View.VISIBLE);
+
+                Log.d("HISTORY", "ListView created");
+
+                showProgress(false);
+
+
+                hideVerifyPaymentFields();
+
+                break;
+
+
+            case IMPS_MOM_SUBMIT_PROCESS:
+                showMessage(null);
+                _etOTP.setText(null);
+
+                Log.i(_LOG + "IMPS_MOM_SUBMIT_PROCESS", result.getRemoteResponse());
+
+
+                showProgress(false);
+
+                if ((result.getRemoteResponse().equals("true")) && (_rbPay.isChecked())) {
+                    Log.d(_LOG, "true");
+                    _etAmountPayable.setVisibility(View.GONE);
+
+                    _etOTP.setVisibility(View.VISIBLE);
+                    _etOTP.setText(null);
+                    int amount = Integer.parseInt(_etAmount.getText().toString());
+                    int processFees = 10;
+                    int amountPayable = amount+processFees;
+                    _etProcessingFees.setText(String.valueOf(processFees));
+                    _etAmountPayable.setText(String.valueOf(amountPayable));
+                    _etAmount.setEnabled(false);
+                    _etProcessingFees.setEnabled(false);
+                    _etAmountPayable.setEnabled(false);
+
+                    showConfirmPaymentFields();
+
+
+                }
+                else if ((result.getRemoteResponse().equals("true")) && (_rbVerify.isChecked())) {
+                    Log.d(_LOG, "true");
+                    _etAmountPayable.setVisibility(View.GONE);
+
+                    _etOTP.setVisibility(View.VISIBLE);
+                    _etOTP.setText(null);
+
+                    //hideRetrieveBillFields();
+                    showVerifyPaymentFields();
+                }
+                else {
+
+                    showMessage("Couldn't fetch the response.Try again");
+                }
+                break;
+
+
+            case IMPS_MOM_CONFIRM_PROCESS:
+                Log.i(_LOG + "IMPS_MOM_CONFIRM_PROCESS", result.getRemoteResponse());
+                showProgress(false);
+                showMessage(result.getRemoteResponse());
+                hideVerifyPaymentFields();
+                break;
+
+
+            case IMPS_MOM_SUBMIT_PAY_PROCESS:
+                showMessage(null);
+                _etOTP.setText(null);
+
+                Log.i(_LOG + "IMPS_MOM_SUBMIT_PROCESS", result.getRemoteResponse());
+
+                showProgress(false);
+
+                if (result.getRemoteResponse().equals("true")) {
+                    Log.d(_LOG, "true");
+                    _etAmountPayable.setVisibility(View.GONE);
+
+                    _etOTP.setVisibility(View.VISIBLE);
+                    _etOTP.setText(null);
+                    int amount = Integer.parseInt(_etAmount.getText().toString());
+                    int processFees = 10;
+                    int amountPayable = amount+processFees;
+                    _etProcessingFees.setText(String.valueOf(processFees));
+                    _etAmountPayable.setText(String.valueOf(amountPayable));
+                    _etAmount.setEnabled(false);
+                    _etProcessingFees.setEnabled(false);
+                    _etAmountPayable.setEnabled(false);
+                    //hideRetrieveBillFields();
+                    showVerifyPaymentFields();
+
+                }
+                else {
+
+                    showMessage("Couldn't fetch the response.Try again");
+                }
+                break;
+
+//            case IMPS_MOM_CONFIRM_PAY_PROCESS:
+//                Log.i(_LOG + "IMPS_MOM_CONFIRM_PROCESS", result.getRemoteResponse());
+//                showProgress(false);
+//                showMessage(result.getRemoteResponse());
+//                hideVerifyPaymentFields();
+//                break;
+
+
+
         }
 
-<<<<<<< HEAD
-=======
+
         Log.d(_LOG, "onTaskSuccess done");
     }
 
     @Override
     public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
         Log.d(_LOG, "In onTaskError");
-        switch (callback){
+        switch (callback) {
             case IMPS_CUSTOMER_REGISTRATION:
+
                 showMessage(getActivity().getString(R.string.error_imps_customer_registration));
                 break;
             case IMPS_BENEFICIARY_LIST:
+                showMessage(getActivity().getString(R.string.error_imps_beneficiary_List));
+                break;
+
+            case IMPS_CREATE_CUSTOMER_REGISTRATION:
+                showMessage(getActivity().getString(R.string.error_imps_customer_creation));
+                break;
+
+            case IMPS_BENEFICIARY_DETAILS:
+                showMessage(getActivity().getString(R.string.error_imps_beneficiary_Details));
+                break;
+
+            case IMPS_ADD_BENEFICIARY:
+                showMessage(getActivity().getString(R.string.error_imps_add_beneficiary));
+                break;
+
+            case IMPS_BANK_NAME_LIST:
+                showMessage(getActivity().getString(R.string.error_imps_bank_List));
+
+                break;
+
+            case IMPS_STATE_NAME:
+                showMessage(getActivity().getString(R.string.error_imps_state_List));
+                break;
+
+            case IMPS_CITY_NAME:
+                showMessage(getActivity().getString(R.string.error_imps_city_List));
+                break;
+            case IMPS_BRANCH_NAME:
+                showMessage(getActivity().getString(R.string.error_imps_branch_List));
+                break;
+
+            case IMPS_VERIFY_PROCESS:
+                showMessage(getActivity().getString(R.string.error_tryAgain));
+                break;
+            case IMPS_VERIFY_PAYMENT:
+                showMessage(getActivity().getString(R.string.error_tryAgain));
+                break;
+            case IMPS_PAYMENT_PROCESS:
+                showMessage(getActivity().getString(R.string.error_tryAgain));
+                break;
+            case IMPS_CONFIRM_PAYMENT:
+                showMessage(getActivity().getString(R.string.error_tryAgain));
+                break;
+            case IMPS_MOM_SUBMIT_PROCESS:
+                showMessage(getActivity().getString(R.string.error_tryAgain));
+                break;
+            case IMPS_MOM_CONFIRM_PROCESS:
+                showMessage(getActivity().getString(R.string.error_tryAgain));
+                break;
+            case IMPS_MOM_SUBMIT_PAY_PROCESS:
+                break;
+            case IMPS_MOM_CONFIRM_PAY_PROCESS:
                 break;
         }
+        showProgress(false);
         Log.d(_LOG, "onTaskError done");
     }
->>>>>>> 198c7f77c4fc6efc3e62827ca177688d5171d5c7
+
+
+    public class CustomOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
+        public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+
+            BeneficiaryResult beneficiaryResult = (BeneficiaryResult) _spOperator.getSelectedItem();
+            String sBeneficiaryId = beneficiaryResult.id;
+            String sBeneficiaryName = beneficiaryResult.name;
+            EphemeralStorage.getInstance(getActivity()).storeString(
+                    AppConstants.PARAM_PBX_IMPS_BENEFICIARY_ACCOUNT_NAME,
+                    beneficiaryResult.name);
+            EphemeralStorage.getInstance(getActivity()).storeString(
+                    AppConstants.PARAM_PBX_IMPS_BENEFICIARY_ID,
+                    beneficiaryResult.id);
+            showMessage(sBeneficiaryId);
+            getIMPSBeneficiaryDetails(sBeneficiaryName);
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> arg0) {
+
+        }
+    }
+
+
 }
+
+

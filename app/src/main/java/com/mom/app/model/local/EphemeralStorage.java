@@ -10,6 +10,7 @@ import java.util.HashMap;
  */
 public class EphemeralStorage extends LocalStorage {
     HashMap map = new HashMap();
+    long id = -1;
     private EphemeralStorage(Context context){
         _context    = context;
     }

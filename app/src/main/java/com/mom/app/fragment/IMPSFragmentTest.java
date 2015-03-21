@@ -24,20 +24,16 @@ import com.mom.app.identifier.PlatformIdentifier;
 import com.mom.app.identifier.TransactionType;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
-import com.mom.app.model.Beneficiary;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.IDataEx;
 import com.mom.app.model.Operator;
-import com.mom.app.model.Transaction;
 import com.mom.app.model.local.EphemeralStorage;
-import com.mom.app.model.pbxpl.PBXPLDataExImpl;
 import com.mom.app.ui.TransactionRequest;
 import com.mom.app.utils.AppConstants;
 import com.mom.app.utils.DataProvider;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -108,7 +104,7 @@ public class IMPSFragmentTest extends FragmentBase implements AsyncListener<Tran
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_imps, null, false);
+        View view = inflater.inflate(R.layout.activity_imps1, null, false);
 
         _btnSubmit        = (Button) view.findViewById(R.id.BTN_Submit);
         _btnNext          = (Button) view.findViewById(R.id.btn_Submit);

@@ -75,6 +75,8 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
     Spinner _spOperator;
     Spinner _splOperatorSBE;
     Spinner _splOperatorNBE;
+    EditText _verifyTPin;
+    Button _btnSubmit;
 
     public static BillPaymentFragment newInstance(PlatformIdentifier currentPlatform) {
         BillPaymentFragment fragment = new BillPaymentFragment();
@@ -120,7 +122,32 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
         month = cal.get(Calendar.MONTH);
         year = cal.get(Calendar.YEAR);
 
+        this._verifyTPin  = (EditText) view.findViewById(R.id.verifyTpin);
+        _btnSubmit         = (Button) view.findViewById(R.id.btnSubmit);
 
+
+        if(_currentPlatform == PlatformIdentifier.MOM)
+        {
+            _verifyTPin.setVisibility(View.VISIBLE);
+            _btnSubmit.setVisibility(View.VISIBLE);
+        }
+        else if(_currentPlatform == PlatformIdentifier.PBX)
+        {
+            _spOperator.setVisibility(View.VISIBLE);
+
+            _etCustomerNumber.setVisibility(View.VISIBLE);
+            _etAmount.setVisibility(View.VISIBLE);
+            _btnPay.setVisibility(View.VISIBLE);
+        }
+
+
+
+        _btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getVerifyTpin();
+            }
+        });
         _btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -154,7 +181,57 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
 
         return view;
     }
+    private void getVerifyTpin() {
 
+        IDataEx dataEx = getDataEx(new AsyncListener<Integer>() {
+            @Override
+            public void onTaskSuccess(Integer result, DataExImpl.Methods callback) {
+                Log.e(_LOG, "VerifyTpin: " + result);
+
+                switch(result)
+                {
+                    case 101:
+                        _spOperator.setVisibility(View.VISIBLE);
+
+                        _etCustomerNumber.setVisibility(View.VISIBLE);
+                        _etAmount.setVisibility(View.VISIBLE);
+                        _btnPay.setVisibility(View.VISIBLE);
+                        _verifyTPin.setVisibility(View.GONE);
+                        _btnSubmit.setVisibility(View.GONE);
+                        break;
+
+                    default:
+                        showMessage(getResources().getString(R.string.error_invalid_t_pin));
+                        _verifyTPin.setText(null);
+
+
+
+                }
+                showProgress(false);
+
+            }
+
+            @Override
+            public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
+                Log.e(_LOG, "Error obtaining bill amount");
+
+            }
+        });
+        showMessage(null);
+        String sTpin          = _verifyTPin.getText().toString();
+
+
+        TransactionRequest request = new TransactionRequest();
+        request.setTpin(sTpin);
+
+        dataEx.verifyTPin(sTpin);
+        Log.d(_LOG, "Get Bill Amount finished");
+
+
+        showProgress(true);
+
+
+    }
     @Override
     public void onTaskSuccess(TransactionRequest result, DataExImpl.Methods callback) {
         Log.d(_LOG, "Called back");

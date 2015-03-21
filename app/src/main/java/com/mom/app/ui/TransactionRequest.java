@@ -18,19 +18,20 @@ import java.util.Random;
 /**
  * Created by vaibhavsinha on 10/9/14.
  */
-public class TransactionRequest<T> implements Serializable{
-    public static enum RequestStatus{
-        PENDING (1), SUCCESSFUL (0), FAILED (-1), REPEAT_RECHARGE(-2),
+public class TransactionRequest<T> implements Serializable {
+    public static enum RequestStatus {
+        PENDING(1), SUCCESSFUL(0), FAILED(-1), REPEAT_RECHARGE(-2),
         INVALID_NUMBER(-3), INVALID_AMOUNT(-4), INVALID_SYNTAX(-5),
         NOT_AUTHORIZED(-6), NOT_REGISTERED(-7);
 
         public int code;
-        private RequestStatus(int code){
-            this.code   = code;
+
+        private RequestStatus(int code) {
+            this.code = code;
         }
 
-        public static RequestStatus getStatus(int code){
-            switch (code){
+        public static RequestStatus getStatus(int code) {
+            switch (code) {
                 case 1:
                     return PENDING;
                 case 0:
@@ -74,79 +75,153 @@ public class TransactionRequest<T> implements Serializable{
     String stubButton_rb;
     String remoteResponse;
 
+    public String getTpin() {
+        return tpin;
+    }
 
-    String ACMonth;
-    String DueDate;
-    String SDCode;
+    public void setTpin(String tpin) {
+        this.tpin = tpin;
+    }
+
+    String tpin;
+
+
+    String acMonth;
+    String dueDate;
+    String sdCode;
     String SOP;
     String FSA;
-    String FormatDueDate;
+    String formatDueDate;
 
     T custom;
     String remoteId;
+
+    //IMPS CUSTOMER CREATION
+    String consumerNumber;
+    String consumerName;
+    String consumerDOB;
+    String consumerEmailAddress;
+
+
+    //IMPS ADD BENEFICIARY
+    String beneficiaryName;
+    String accountNumber;
+    String ifscCode;
+    String beneficiaryMobNo;
+
+
+    //IMPS BENEFICIARY DETAILS
+    String beneficiaryId;
+
+
+    //IMPS ADD BENEFICIARY
+    String sBeneficiaryName;
+
+    //IMPS VERIFY PAYMENT
+
+    String OTP;
+
+    String customerNumber;
+
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
 
     /**
      * This is only used in methods which are not operator or transactionType specific.
      * e.g. getBalance
      */
-    public TransactionRequest(){
-        this.id             = new Random().nextLong();
+    public TransactionRequest() {
+        this.id = new Random().nextLong();
     }
 
     /**
-     * @param type String of transaction type
+     * @param type   String of transaction type
      * @param amount amount of transaction
      */
-    public TransactionRequest(String type, String consumerId, float amount){
-        _type               = type;
-        this.id             = MiscUtils.getRandomLong();
-        this.consumerId     = consumerId;
-        this.amount         = amount;
-        this.dateStarted    = new Date();
+    public TransactionRequest(String type, String consumerId, float amount) {
+        _type = type;
+        this.id = MiscUtils.getRandomLong();
+        this.consumerId = consumerId;
+        this.amount = amount;
+        this.dateStarted = new Date();
     }
 
-    public TransactionRequest(PinType pinType , String oldPin, String NewPin ){
+    public TransactionRequest(PinType pinType, String oldPin, String NewPin) {
 
-        this.pinType            = pinType;
-        this.oldPin             = oldPin;
-        this.newPin             = NewPin ;
-        this.dateStarted    = new Date();
+        this.pinType = pinType;
+        this.oldPin = oldPin;
+        this.newPin = NewPin;
+        this.dateStarted = new Date();
     }
 
-    public TransactionRequest(String type, String consumerId, String customerMobile, float amount, Operator operator){
-        this.id             = MiscUtils.getRandomLong();
-        _type               = type;
-        this.consumerId     = consumerId;
+    public TransactionRequest(String type, String consumerId, String customerMobile, float amount, Operator operator) {
+        this.id = MiscUtils.getRandomLong();
+        _type = type;
+        this.consumerId = consumerId;
         this.customerMobile = customerMobile;
-        this.amount         = amount;
-        this.operator       = operator;
-        this.dateStarted    = new Date();
-    }
-    public TransactionRequest(String consumerId){
-
-        this.consumerId     = consumerId;
-        this.dateStarted    = new Date();
+        this.amount = amount;
+        this.operator = operator;
+        this.dateStarted = new Date();
     }
 
-    public TransactionRequest(String type, String consumerId){
-        _type               = type;
-        this.id             = MiscUtils.getRandomLong();
-        this.consumerId     = consumerId;
-        this.dateStarted    = new Date();
+
+    public TransactionRequest(String type, String sConsumerNumber, String sConsumerName, String sConsumerDOB, String sConsumerEmailAddress) {
+        this.id = MiscUtils.getRandomLong();
+        _type = type;
+        this.consumerNumber = sConsumerNumber;
+        this.consumerName = sConsumerName;
+        this.consumerDOB = sConsumerDOB;
+        this.consumerEmailAddress = sConsumerEmailAddress;
+
+    }
+
+    public TransactionRequest(String type, String sBeneficiaryName, String sAccountNumber, String sIfscCode, String sBeneficiaryMobNo, String sAmount) {
+        this.id = MiscUtils.getRandomLong();
+        _type = type;
+        this.beneficiaryName = sBeneficiaryName;
+        this.accountNumber = sAccountNumber;
+        this.ifscCode = sIfscCode;
+        this.beneficiaryMobNo = sBeneficiaryMobNo;
+
+    }
+
+    public TransactionRequest(String consumerId) {
+
+        this.consumerId = consumerId;
+        this.dateStarted = new Date();
+    }
+
+    public TransactionRequest(String type, String consumerId) {
+        _type = type;
+        this.id = MiscUtils.getRandomLong();
+        this.consumerId = consumerId;
+        this.dateStarted = new Date();
+    }
+
+    public TransactionRequest(String type, String sOTP, String sAccountNumber ,String sifscCode ) {
+        _type = type;
+        this.id = MiscUtils.getRandomLong();
+        this.OTP           = OTP;
+        this.accountNumber = accountNumber;
+        this.ifscCode      = ifscCode;
+        this.dateStarted   = new Date();
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getDescription(){
-        StringBuilder sb    = new StringBuilder(_type);
+    public String getDescription() {
+        StringBuilder sb = new StringBuilder(_type);
 
-        if(operator != null){
+        if (operator != null) {
             sb.append(" / ").append(operator.name);
         }
 
-        if(!TextUtils.isEmpty(consumerId)) {
+        if (!TextUtils.isEmpty(consumerId)) {
             sb.append(" (").append(consumerId).append(") ");
         }
 
@@ -156,8 +231,8 @@ public class TransactionRequest<T> implements Serializable{
     public float getAmount() {
         return amount;
     }
-    public String getPlaceHolder()
-    {
+
+    public String getPlaceHolder() {
         return placeholder;
     }
 
@@ -168,6 +243,7 @@ public class TransactionRequest<T> implements Serializable{
     public String getConsumerId() {
         return consumerId;
     }
+
     public void setPin(PinType pin) {
         this.pinType = pinType;
     }
@@ -179,9 +255,11 @@ public class TransactionRequest<T> implements Serializable{
     public String getCustomerMobile() {
         return customerMobile;
     }
+
     public String getOldPin() {
         return oldPin;
     }
+
     public String getNewPin() {
         return newPin;
     }
@@ -214,9 +292,9 @@ public class TransactionRequest<T> implements Serializable{
         this.status = status;
     }
 
-    public boolean setStatus(int code){
-        RequestStatus statusFromCode    = RequestStatus.getStatus(code);
-        if(statusFromCode != null){
+    public boolean setStatus(int code) {
+        RequestStatus statusFromCode = RequestStatus.getStatus(code);
+        if (statusFromCode != null) {
             setStatus(statusFromCode);
             return true;
         }
@@ -250,6 +328,7 @@ public class TransactionRequest<T> implements Serializable{
     public void setAmount(float amount) {
         this.amount = amount;
     }
+
     public void setPlaceHolder(String placeholder) {
         this.placeholder = placeholder;
     }
@@ -263,27 +342,27 @@ public class TransactionRequest<T> implements Serializable{
     }
 
     public String getACMonth() {
-        return ACMonth;
+        return acMonth;
     }
 
     public void setACMonth(String ACMonth) {
-        this.ACMonth = ACMonth;
+        this.acMonth = ACMonth;
     }
 
-    public  String getDueDate() {
-        return DueDate;
+    public String getDueDate() {
+        return dueDate;
     }
 
-    public  void setDueDate(String dueDate) {
-        DueDate = dueDate;
+    public void setDueDate(String dueDate) {
+        dueDate = dueDate;
     }
 
     public String getSDCode() {
-        return SDCode;
+        return sdCode;
     }
 
     public void setSDCode(String SDCode) {
-        this.SDCode = SDCode;
+        this.sdCode = SDCode;
     }
 
     public String getSOP() {
@@ -303,11 +382,11 @@ public class TransactionRequest<T> implements Serializable{
     }
 
     public String getFormatDueDate() {
-        return FormatDueDate;
+        return formatDueDate;
     }
 
     public void setFormatDueDate(String formatDueDate) {
-        FormatDueDate = formatDueDate;
+        formatDueDate = formatDueDate;
     }
 
     public void setStubType(String Radiobutton_rb) {
@@ -317,6 +396,110 @@ public class TransactionRequest<T> implements Serializable{
     public String getStubType() {
         return stubButton_rb;
 
+    }
+
+    public String get_type() {
+        return _type;
+    }
+
+    public void set_type(String _type) {
+        this._type = _type;
+    }
+
+    public String getConsumerEmailAddress() {
+        return consumerEmailAddress;
+    }
+
+    public void setConsumerEmailAddress(String consumerEmailAddress) {
+        this.consumerEmailAddress = consumerEmailAddress;
+    }
+
+    public String getConsumerDOB() {
+        return consumerDOB;
+    }
+
+    public void setConsumerDOB(String consumerDOB) {
+        this.consumerDOB = consumerDOB;
+    }
+
+    public String getConsumerName() {
+        return consumerName;
+    }
+
+    public void setConsumerName(String consumerName) {
+        this.consumerName = consumerName;
+    }
+
+    public String getConsumerNumber() {
+        return consumerNumber;
+    }
+
+    public void setConsumerNumber(String consumerNumber) {
+        this.consumerNumber = consumerNumber;
+    }
+
+    public String getBeneficiaryName() {
+        return beneficiaryName;
+    }
+
+    public void setBeneficiaryName(String beneficiaryName) {
+        this.beneficiaryName = beneficiaryName;
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
+    public String getIfscCode() {
+        return ifscCode;
+    }
+
+    public void setIfscCode(String ifscCode) {
+        this.ifscCode = ifscCode;
+    }
+
+    public String getBeneficiaryMobNo() {
+        return beneficiaryMobNo;
+    }
+
+    public void setBeneficiaryMobNo(String beneficiaryMobNo) {
+        this.beneficiaryMobNo = beneficiaryMobNo;
+    }
+
+    public String getBeneficiaryId() {
+        return beneficiaryId;
+    }
+
+    public void setBeneficiaryId(String beneficiaryId) {
+        this.beneficiaryId = beneficiaryId;
+    }
+
+    public String getsBeneficiaryName() {
+        return sBeneficiaryName;
+    }
+
+    public void setsBeneficiaryName(String sBeneficiaryName) {
+        this.sBeneficiaryName = sBeneficiaryName;
+    }
+
+    public String getOTP() {
+        return OTP;
+    }
+
+    public void setOTP(String OTP) {
+        this.OTP = OTP;
+    }
+
+    public String getCustomerNumber() {
+        return customerNumber;
+    }
+
+    public void setCustomerNumber(String customerNumber) {
+        this.customerNumber = customerNumber;
     }
 
 

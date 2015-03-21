@@ -2,6 +2,7 @@ package com.mom.app.fragment;
 
 
 import android.app.AlertDialog;
+import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,8 +13,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mom.app.R;
@@ -24,6 +27,7 @@ import com.mom.app.identifier.TransactionType;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
+import com.mom.app.model.IDataEx;
 import com.mom.app.model.Operator;
 import com.mom.app.model.pbxpl.PBXPLDataExImpl;
 import com.mom.app.model.pbxpl.PaymentResponse;
@@ -47,6 +51,8 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
     Spinner _spOperator;
     RadioButton _rbtnTopUp, _rbtnValidity, _rbtnSpecial;
     Button _rechargeBtn;
+    EditText _verifyTPin;
+    Button _btnSubmit;
 
 
     public MobileRechargeFragment() {
@@ -64,9 +70,11 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        showProgress(false);
         Log.d(_LOG, "onCreate");
         _currentPlatform        = (PlatformIdentifier) getArguments().getSerializable(AppConstants.ACTIVE_PLATFORM);
         Log.d(_LOG, "Returning from onCreate");
+
     }
 
     @Override
@@ -85,8 +93,29 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
         this._rbtnTopUp = (RadioButton) view.findViewById(R.id.rbtnTopUp);
         this._rbtnValidity = (RadioButton) view.findViewById(R.id.rbtnValidity);
         this._rbtnSpecial = (RadioButton) view.findViewById(R.id.rbtnSpecial);
-        _rechargeBtn            = (Button) view.findViewById(R.id.btnRecharge);
+        this._verifyTPin  = (EditText) view.findViewById(R.id.verifyTpin);
+       _btnSubmit         = (Button) view.findViewById(R.id.btnSubmit);
+        _rechargeBtn      = (Button) view.findViewById(R.id.btnRecharge);
 
+        if(_currentPlatform == PlatformIdentifier.MOM)
+        {
+            _verifyTPin.setVisibility(View.VISIBLE);
+            _btnSubmit.setVisibility(View.VISIBLE);
+        }
+        else if(_currentPlatform == PlatformIdentifier.PBX)
+        {
+            _spOperator.setVisibility(View.VISIBLE);
+            _etTargetPhone.setVisibility(View.VISIBLE);
+            _etAmount.setVisibility(View.VISIBLE);
+            _rechargeBtn.setVisibility(View.VISIBLE);
+        }
+
+       _btnSubmit.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               getVerifyTpin();
+           }
+       });
         _rechargeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,6 +132,60 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
 
         addListenerOnSpinnerItemSelection();
         return view;
+    }
+
+    private void getVerifyTpin() {
+
+        IDataEx dataEx = getDataEx(new AsyncListener<Integer>() {
+            @Override
+            public void onTaskSuccess(Integer result, DataExImpl.Methods callback) {
+                Log.e(_LOG, "VerifyTpin: " + result);
+
+                switch(result)
+                {
+                    case 101:
+                        _spOperator.setVisibility(View.VISIBLE);
+                        _etTargetPhone.setVisibility(View.VISIBLE);
+                        _etAmount.setVisibility(View.VISIBLE);
+                        _rechargeBtn.setVisibility(View.VISIBLE);
+                        _verifyTPin.setVisibility(View.GONE);
+                        _btnSubmit.setVisibility(View.GONE);
+                        break;
+
+                    default:
+                       showMessage(getResources().getString(R.string.error_invalid_t_pin));
+                        _verifyTPin.setText(null);
+
+
+
+                }
+                showProgress(false);
+
+            }
+
+            @Override
+            public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
+                Log.e(_LOG, "Error obtaining bill amount");
+
+            }
+        });
+        showMessage(null);
+        String sTpin          = _verifyTPin.getText().toString();
+
+
+        TransactionRequest request = new TransactionRequest();
+        request.setTpin(sTpin);
+
+        dataEx.verifyTPin(sTpin);
+        Log.d(_LOG, "Get Bill Amount finished");
+
+
+        showProgress(true);
+
+
+        _etTargetPhone.setText(null);
+        _etAmount.setText(null);
+        _spOperator.setSelection(0);
     }
 
 
@@ -124,7 +207,10 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
 
                 showBalance();
                 break;
+
+
         }
+
     }
 
     @Override
@@ -154,7 +240,7 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
         } else {
             Toast.makeText(getActivity().getApplicationContext(), "Error", Toast.LENGTH_LONG)
                     .show();
-        }
+    }
 
         showOperators(operatorList);
     }
@@ -347,4 +433,91 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
 
         }
     }
+
+    private void showEditDialog() {
+        FragmentManager fm = getActivity().getFragmentManager();
+        MyDialogFragment editNameDialog = new MyDialogFragment();
+        editNameDialog.show(fm, "fragment_edit_name");
+    }
+
+
+        public void onFinishEditDialog(String inputText) {
+        showMessage(inputText);
+    }
+
+    private void showAlert() {
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
+        LinearLayout layout = new LinearLayout(getActivity());
+        TextView tvMessage = new TextView(getActivity());
+        final EditText input = new EditText(getActivity().getApplicationContext());
+        alert.setView(input);
+
+
+
+
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.addView(input);
+
+
+        alert.setTitle("T-Pin");
+        alert.setView(layout);
+
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        alert.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String value = input.getText().toString();
+
+                  TransactionRequest request  = new TransactionRequest(
+                        getActivity().getString(TransactionType.MOM_T_PIN.transactionTypeStringId),
+                        null );
+              _dataEx.verifyTPin(value);
+                Toast.makeText(getActivity().getApplicationContext(), value, Toast.LENGTH_LONG)
+                        .show();
+
+                showProgress(false);
+
+
+            }
+        });
+
+        alert.show();
+    }
+
+//    protected void showInputDialog() {
+//
+//        // get prompts.xml view
+//        LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
+//        View promptView = layoutInflater.inflate(R.layout.input_dialog, null);
+//        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+//        alertDialogBuilder.setView(promptView);
+//
+//        final EditText editText = (EditText) promptView.findViewById(R);
+//        // setup a dialog window
+//        alertDialogBuilder.setCancelable(false)
+//                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int id) {
+//                        resultText.setText("Hello, " + editText.getText());
+//                    }
+//                })
+//                .setNegativeButton("Cancel",
+//                        new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int id) {
+//                                dialog.cancel();
+//                            }
+//                        });
+//
+//        // create an alert dialog
+//        AlertDialog alert = alertDialogBuilder.create();
+//        alert.show();
+//    }
 }

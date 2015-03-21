@@ -1,5 +1,5 @@
 package com.mom.app.identifier;
 
 public enum PlatformIdentifier {
-	PBX, MOM;
+	PBX, MOM ,B2C;
 }

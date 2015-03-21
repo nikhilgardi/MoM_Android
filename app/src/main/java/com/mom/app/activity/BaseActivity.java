@@ -55,6 +55,7 @@ import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.GcmTransactionMessage;
 import com.mom.app.model.IDataEx;
+import com.mom.app.model.b2cpl.B2CPLDataExImpl;
 import com.mom.app.model.local.EphemeralStorage;
 import com.mom.app.model.mompl.MoMPLDataExImpl;
 import com.mom.app.model.pbxpl.PBXPLDataExImpl;
@@ -212,12 +213,14 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
         ) {
             public void onDrawerClosed(View view) {
                 Log.d(_LOG, "onDrawerClosed");
+                getBalance();
 //                getActionBar().setTitle(mTitle);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
             public void onDrawerOpened(View drawerView) {
                 Log.d(_LOG, "onDrawerOpened");
+                getBalance();
 //                getActionBar().setTitle(mDrawerTitle);
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
@@ -265,31 +268,34 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
         });
     }
 
-    private void getBalance(){
+    private void getBalance() {
         showProgress(true);
 
-        AsyncListener<Float> listener   = new AsyncListener<Float>() {
-            @Override
-            public void onTaskSuccess(Float result, DataExImpl.Methods callback) {
-                Log.d(_LOG, "Got balance: " + result);
-                showProgress(false);
+            AsyncListener<Float> listener = new AsyncListener<Float>() {
+                @Override
+                public void onTaskSuccess(Float result, DataExImpl.Methods callback) {
+                    Log.d(_LOG, "Got balance: " + result);
+                    showProgress(false);
 
-                EphemeralStorage.getInstance(getApplicationContext()).storeFloat(
-                        AppConstants.USER_BALANCE, result
-                );
+                    EphemeralStorage.getInstance(getApplicationContext()).storeFloat(
+                            AppConstants.USER_BALANCE, result
+                    );
 
-                showBalance(_tvBalance, result);
-            }
+                    showBalance(_tvBalance, result);
+                }
 
-            @Override
-            public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
-                Log.e(_LOG, "Error retrieving balance");
-                showProgress(false);
-            }
-        };
+                @Override
+                public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
+                    Log.e(_LOG, "Error retrieving balance");
+                    showProgress(false);
+                }
+            };
 
-        Log.d(_LOG, "Going to fetch balance");
-        getDataEx(listener).getBalance();
+
+            Log.d(_LOG, "Going to fetch balance");
+            getDataEx(listener).getBalance();
+
+
     }
 
     protected void showBalance(TextView tv){
@@ -302,6 +308,7 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
 
     protected void showBalance(TextView tv, Float balance){
         String sBal         = null;
+
         if(balance == AppConstants.ERROR_BALANCE){
             sBal            = getString(R.string.error_getting_balance);
             return;
@@ -320,7 +327,12 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
         try {
             if (_currentPlatform == PlatformIdentifier.MOM) {
                 dataEx = new MoMPLDataExImpl(getApplicationContext(), listener);
-            } else {
+            }
+            else if(_currentPlatform == PlatformIdentifier.B2C){
+                dataEx = new B2CPLDataExImpl(getApplicationContext(), listener);
+            }
+
+            else {
                 dataEx = new PBXPLDataExImpl(getApplicationContext(), DataExImpl.Methods.LOGIN, listener);
             }
 

@@ -19,6 +19,7 @@ import com.mom.app.identifier.TransactionType;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
+import com.mom.app.model.IDataEx;
 import com.mom.app.model.Operator;
 import com.mom.app.ui.TransactionRequest;
 import com.mom.app.utils.AppConstants;
@@ -50,6 +51,8 @@ public class DTHRechargeFragment extends FragmentBase implements AsyncListener<T
     private EditText _etCustomerNumber;
 
     Spinner _spOperator;
+    EditText _verifyTPin;
+    Button _btnSubmit;
 
 //    String responseBody;
     Button _rechargeButton;
@@ -78,7 +81,28 @@ public class DTHRechargeFragment extends FragmentBase implements AsyncListener<T
         _etAmount = (EditText) view.findViewById(R.id.amount);
         _etCustomerNumber  = (EditText) view.findViewById(R.id.number);
         _rechargeButton     = (Button) view.findViewById(R.id.btnRecharge);
+        this._verifyTPin  = (EditText) view.findViewById(R.id.verifyTpin);
+        _btnSubmit         = (Button) view.findViewById(R.id.btnSubmit);
+        if(_currentPlatform == PlatformIdentifier.MOM)
+        {
+            _verifyTPin.setVisibility(View.VISIBLE);
+            _btnSubmit.setVisibility(View.VISIBLE);
+        }
+        else if(_currentPlatform == PlatformIdentifier.PBX)
+        {
+            _spOperator.setVisibility(View.VISIBLE);
+            _etSubscriberId.setVisibility(View.VISIBLE);
+            _etCustomerNumber.setVisibility(View.VISIBLE);
+            _etAmount.setVisibility(View.VISIBLE);
+            _rechargeButton.setVisibility(View.VISIBLE);
+        }
 
+        _btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getVerifyTpin();
+            }
+        });
         _rechargeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,7 +114,57 @@ public class DTHRechargeFragment extends FragmentBase implements AsyncListener<T
         return view;
     }
 
+    private void getVerifyTpin() {
 
+        IDataEx dataEx = getDataEx(new AsyncListener<Integer>() {
+            @Override
+            public void onTaskSuccess(Integer result, DataExImpl.Methods callback) {
+                Log.e(_LOG, "VerifyTpin: " + result);
+
+                switch(result)
+                {
+                    case 101:
+                        _spOperator.setVisibility(View.VISIBLE);
+                        _etSubscriberId.setVisibility(View.VISIBLE);
+                        _etCustomerNumber.setVisibility(View.VISIBLE);
+                        _etAmount.setVisibility(View.VISIBLE);
+                        _rechargeButton.setVisibility(View.VISIBLE);
+                        _verifyTPin.setVisibility(View.GONE);
+                        _btnSubmit.setVisibility(View.GONE);
+                        break;
+
+                    default:
+                        showMessage(getResources().getString(R.string.error_invalid_t_pin));
+                        _verifyTPin.setText(null);
+
+
+
+                }
+                showProgress(false);
+
+            }
+
+            @Override
+            public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
+                Log.e(_LOG, "Error obtaining bill amount");
+
+            }
+        });
+        showMessage(null);
+        String sTpin          = _verifyTPin.getText().toString();
+
+
+        TransactionRequest request = new TransactionRequest();
+        request.setTpin(sTpin);
+
+        dataEx.verifyTPin(sTpin);
+        Log.d(_LOG, "Get Bill Amount finished");
+
+
+        showProgress(true);
+
+
+    }
 
     @Override
     public void onTaskSuccess(TransactionRequest result, DataExImpl.Methods callback) {

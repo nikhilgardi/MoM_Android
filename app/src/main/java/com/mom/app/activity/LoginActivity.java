@@ -18,6 +18,7 @@ import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
 import com.mom.app.model.IDataEx;
+import com.mom.app.model.b2cpl.B2CPLDataExImpl;
 import com.mom.app.model.local.EphemeralStorage;
 import com.mom.app.model.local.PersistentStorage;
 import com.mom.app.model.mompl.MoMPLDataExImpl;
@@ -31,6 +32,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -41,6 +43,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -274,21 +277,23 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 //              result = null;
                 //TESTING
 
-                if(TextUtils.isEmpty(result)){
-                    Log.i(_LOG, "User not of new PL");
-                    login(PlatformIdentifier.PBX);
-                    return;
-                }
+                   if(TextUtils.isEmpty(result)) {
+                        Log.i(_LOG, "User not of new PL");
+                        login(PlatformIdentifier.PBX);
+                        return;
+                    }
+
 
                 String[] sArrDetails	= result.split("~");
                 Log.i("Array", sArrDetails[1]);
                 if(sArrDetails.length < 13){
-                    Log.i(_LOG, "2. User not of new PL");
-                    login(PlatformIdentifier.PBX);
-                    EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_USER_ID, sArrDetails[0]);
+                Log.i(_LOG, "2. User not of new PL");
+                login(PlatformIdentifier.PBX);
+                EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_USER_ID, sArrDetails[0]);
 
-                    return;
-                }
+                return;
+            }
+
 
                 EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_USER_ID, sArrDetails[0]);
 
@@ -378,6 +383,24 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
         );
 
 	}
+
+
+    public void checkPlatformAndLoginB2C(){
+        EditText uname 				= (EditText) findViewById(R.id.et_un);
+        String username 			= uname.getText().toString();
+
+        List<NameValuePair> list	= new ArrayList<NameValuePair>();
+        list.add(new BasicNameValuePair(AppConstants.PARAM_NEW_RMN, username));
+        list.add(new BasicNameValuePair(AppConstants.PARAM_NEW_COMPANY_ID, AppConstants.NEW_B2C_COMPANY_ID));
+
+        B2CPLDataExImpl dataEx      = new B2CPLDataExImpl(this, this);
+
+        dataEx.checkPlatform(
+                new BasicNameValuePair(AppConstants.PARAM_NEW_RMN, username),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_COMPANY_ID, AppConstants.NEW_B2C_COMPANY_ID)
+        );
+
+    }
 	
 	public void login(PlatformIdentifier platform) {
 		Log.i(_LOG, "Going to login");
@@ -390,10 +413,11 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
         AsyncListener<Boolean> listener = new AsyncListener<Boolean>() {
             @Override
             public void onTaskSuccess(Boolean result, DataExImpl.Methods callback) {
-                String username 			= _username.getText().toString();
+                String username = _username.getText().toString();
+                String password = _password.getText().toString();
                 hideProgressBar();
                 hideMessage();
-                if(!result){
+                if (!result) {
                     setLoginFailed(R.string.login_failed_msg_default);
                     return;
                 }
@@ -412,10 +436,13 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
                 Log.d(_LOG, "Enable login button");
                 EphemeralStorage.getInstance(context).storeObject(AppConstants.ACTIVE_PLATFORM, _currentPlatform);
                 EphemeralStorage.getInstance(context).storeString(AppConstants.LOGGED_IN_USERNAME, username);
-                Log.i("RMN",username);
+                EphemeralStorage.getInstance(context).storeString(AppConstants.LOGGED_IN_PASSWORD, password);
+                Log.i("RMN", username);
                 EphemeralStorage.getInstance(context).storeBoolean(AppConstants.IS_LOGGED_IN, true);
 
+                // temporary
                 navigateToMain();
+
             }
 
             @Override
@@ -430,7 +457,12 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
         try {
             if (platform == PlatformIdentifier.MOM) {
                 dataEx = new MoMPLDataExImpl(getApplicationContext(), listener);
-            } else {
+            }
+            else if (platform ==PlatformIdentifier.B2C){
+                dataEx = new B2CPLDataExImpl(getApplicationContext(), listener);
+            }
+
+            else {
                 dataEx = new PBXPLDataExImpl(getApplicationContext(), DataExImpl.Methods.LOGIN, listener);
             }
 
@@ -449,6 +481,8 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
         }
         return _tvMessage;
     }
+
+
 
 	public void showMessage(int id){
 		TextView response	= getMessageTextView();

@@ -1,18 +1,26 @@
 package com.mom.app.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.mom.app.R;
 
 import com.mom.app.identifier.PlatformIdentifier;
 
+import com.mom.app.identifier.TransactionType;
+import com.mom.app.model.IDataEx;
 import com.mom.app.model.local.EphemeralStorage;
+import com.mom.app.ui.TransactionRequest;
 import com.mom.app.ui.flow.MoMScreen;
 import com.mom.app.utils.AppConstants;
 import com.mom.app.utils.DataProvider;
@@ -26,6 +34,7 @@ public class DashboardFragment extends FragmentBase {
     String _LOG         = AppConstants.LOG_PREFIX + "DASHBOARD";
 
     GridView gridView;
+    IDataEx _dataEx     = null;
     ImageTextViewAdapter gridViewAdapter;
 
     public static DashboardFragment newInstance(PlatformIdentifier currentPlatform){
@@ -70,6 +79,7 @@ public class DashboardFragment extends FragmentBase {
                 showScreen(item);
             }
         });
+
         return view;
     }
 
@@ -80,6 +90,7 @@ public class DashboardFragment extends FragmentBase {
                 AppConstants.ACTIVE_PLATFORM
         );
     }
+
 
 
     private void showScreen(ImageItem<MoMScreen> item){
