@@ -20,7 +20,7 @@
             <!--android:text="Status"-->
             <!--android:layout_weight="10"/>-->
 
-        <com.mom.app.ui.CustomTextView
+        <com.mom.apps.ui.CustomTextView
             android:id="@+id/errorMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <com.mom.app.ui.CustomTextView
+        <com.mom.apps.ui.CustomTextView
             android:id="@+id/txtTransactionId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
             android:textSize="@dimen/text_super_small"
             android:layout_weight="60"/>
 
-        <com.mom.app.ui.CustomTextView
+        <com.mom.apps.ui.CustomTextView
             android:id="@+id/txtRecieptId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

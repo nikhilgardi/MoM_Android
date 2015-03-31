@@ -37,7 +37,7 @@
             android:onClick="verifyTPin"
             android:text="@string/btn_verifyTpin"/>
 
-        <com.mom.app.ui.CustomButton
+        <com.mom.apps.ui.CustomButton
             android:id="@+id/btnBack"
             style="@style/MoMTheme.wrapped.customButton"
             android:onClick="goBack"

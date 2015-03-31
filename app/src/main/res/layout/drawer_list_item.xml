@@ -18,7 +18,7 @@
         android:focusableInTouchMode="false">
     </ImageView>
 
-    <com.mom.app.ui.CustomTextView
+    <com.mom.apps.ui.CustomTextView
         android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,6 +27,6 @@
         android:paddingRight="4dp"
         android:textColor="@color/white"
         android:textSize="@dimen/text_small"
-        android:background="?android:attr/activatedBackgroundIndicator"
-        android:minHeight="?android:attr/listPreferredItemHeightSmall"/>
+        android:background="@color/mom_blue"
+        android:minHeight="@dimen/medium"/>
 </LinearLayout>

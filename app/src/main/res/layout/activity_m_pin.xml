@@ -36,7 +36,9 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/lblMPin_old"
                 style="@style/EditTextAppTheme.phone"
-                android:layout_marginBottom="@dimen/medium"/>
+                android:layout_marginBottom="@dimen/small"
+                android:inputType="number"
+                android:password="true"/>
 
             <EditText
                 android:id="@+id/newPin"
@@ -44,7 +46,9 @@
                 android:layout_height="wrap_content"
                 style="@style/EditTextAppTheme.phone"
                 android:hint="@string/lblMPin_new"
-                android:layout_marginBottom="@dimen/small"/>
+                android:layout_marginBottom="@dimen/small"
+                android:inputType="number"
+                android:password="true"/>
 
             <EditText
                 android:id="@+id/newPinConfirm"
@@ -52,7 +56,9 @@
                 android:layout_height="wrap_content"
                 style="@style/EditTextAppTheme.phone"
                 android:hint="@string/lblMPin_new_confirm"
-                android:layout_marginBottom="@dimen/small"/>
+                android:layout_marginBottom="@dimen/small"
+                android:inputType="number"
+                android:password="true"/>
 
             <Button
                 android:id="@+id/btnSubmit"
@@ -60,7 +66,7 @@
                 android:layout_width="wrap_content"
                 style="@style/MoMTheme.wrapped.customButton"
                 android:layout_gravity="center_horizontal"
-                android:text="@string/btn_transfer"/>
+                android:text="@string/tpin_submit_btn"/>
         </LinearLayout>
 
         <TextView

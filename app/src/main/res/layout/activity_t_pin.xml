@@ -36,7 +36,9 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/lblTPin_old"
                 style="@style/EditTextAppTheme.phone"
-                android:layout_marginBottom="@dimen/medium"/>
+                android:layout_marginBottom="@dimen/small"
+                android:inputType="number"
+                android:password="true"/>
 
             <EditText
                 android:id="@+id/newPin"
@@ -44,7 +46,9 @@
                 android:layout_height="wrap_content"
                 style="@style/EditTextAppTheme.phone"
                 android:hint="@string/lblTPin_new"
-                android:layout_marginBottom="@dimen/small"/>
+                android:layout_marginBottom="@dimen/small"
+                android:inputType="number"
+                android:password="true"/>
 
             <EditText
                 android:id="@+id/newPinConfirm"
@@ -52,7 +56,9 @@
                 android:layout_height="wrap_content"
                 style="@style/EditTextAppTheme.phone"
                 android:hint="@string/lblTPin_new_confirm"
-                android:layout_marginBottom="@dimen/small"/>
+                android:layout_marginBottom="@dimen/small"
+                android:inputType="number"
+                android:password="true"/>
 
             <LinearLayout
                 android:weightSum="3"
@@ -65,13 +71,13 @@
                     style="@style/MoMTheme.wrapped.customButton"
                     android:text="Submit"/>
 
-                <Button
-                    android:id="@+id/btnBack"
-                    android:layout_height="wrap_content"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    style="@style/MoMTheme.wrapped.customButton"
-                    android:text="@string/btn_back"/>
+                <!--<Button-->
+                    <!--android:id="@+id/btnBack"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--style="@style/MoMTheme.wrapped.customButton"-->
+                    <!--android:text="@string/btn_back"/>-->
             </LinearLayout>
         </LinearLayout>
 

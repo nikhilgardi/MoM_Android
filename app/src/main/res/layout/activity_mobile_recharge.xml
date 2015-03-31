@@ -29,13 +29,12 @@
                 android:visibility="gone" />
 
 
-            <EditText
+            <com.mom.apps.ui.CustomEditText
                 android:id="@+id/verifyTpin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:hint="Enter T-Pin"
-                android:inputType="phone"
+                android:inputType="numberPassword"
                 android:layout_marginBottom="@dimen/small"
                 android:visibility="gone"/>
             <Button

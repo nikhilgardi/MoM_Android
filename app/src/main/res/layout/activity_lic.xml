@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <com.mom.app.ui.CustomTextView
+            <com.mom.apps.ui.CustomTextView
                 android:id="@+id/msgDisplay"
                 style="@style/MoMTheme.wrapped.alertMsg"
                 android:textSize="@dimen/text_small"
@@ -45,11 +45,11 @@
                 <TableRow
                     android:id="@+id/tableRowPolicyHolder">
 
-                    <com.mom.app.ui.CustomTextView
+                    <com.mom.apps.ui.CustomTextView
                         style="@style/MoMTheme.wrapped.tbl.colHdr"
                         android:text="Policy Holder"/>
 
-                    <com.mom.app.ui.CustomTextView
+                    <com.mom.apps.ui.CustomTextView
                         android:id="@+id/policyHolder"
                         android:singleLine="true"
                         android:ellipsize="end"
@@ -57,32 +57,32 @@
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRowPremiumAmount">
-                    <com.mom.app.ui.CustomTextView
+                    <com.mom.apps.ui.CustomTextView
                        style="@style/MoMTheme.wrapped.tbl.colHdr"
                        android:text="Premium Due"/>
 
-                    <com.mom.app.ui.CustomTextView
+                    <com.mom.apps.ui.CustomTextView
                        android:id="@+id/premiumAmount"
                        style="@style/MoMTheme.wrapped.tbl.colData"/>
                 </TableRow>
 
                 <TableRow
                     android:id="@+id/tableRowFromDate">
-                    <com.mom.app.ui.CustomTextView
+                    <com.mom.apps.ui.CustomTextView
                        style="@style/MoMTheme.wrapped.tbl.colHdr"
                        android:text="From:"/>
 
-                    <com.mom.app.ui.CustomTextView
+                    <com.mom.apps.ui.CustomTextView
                       android:id="@+id/fromDate"
                       style="@style/MoMTheme.wrapped.tbl.colData"/>
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRowToDate">
-                    <com.mom.app.ui.CustomTextView
+                    <com.mom.apps.ui.CustomTextView
                       style="@style/MoMTheme.wrapped.tbl.colHdr"
                       android:text="To:" />
 
-                    <com.mom.app.ui.CustomTextView
+                    <com.mom.apps.ui.CustomTextView
                       android:id="@+id/toDate"
                       style="@style/MoMTheme.wrapped.tbl.colData"/>
                 </TableRow>
@@ -95,21 +95,21 @@
                 android:visibility="invisible">
                 <TableRow
                     android:id="@+id/tableRowStatus">
-                    <com.mom.app.ui.CustomTextView
+                    <com.mom.apps.ui.CustomTextView
                         style="@style/MoMTheme.wrapped.tbl.colHdr"
                         android:text="Status"/>
 
-                    <com.mom.app.ui.CustomTextView
+                    <com.mom.apps.ui.CustomTextView
                         android:id="@+id/status"
                         style="@style/MoMTheme.wrapped.tbl.colData"/>
                 </TableRow>
                 <TableRow
                     android:id="@+id/tableRowReceipt">
-                    <com.mom.app.ui.CustomTextView
+                    <com.mom.apps.ui.CustomTextView
                         style="@style/MoMTheme.wrapped.tbl.colHdr"
                         android:text="Receipt No." />
 
-                    <com.mom.app.ui.CustomTextView
+                    <com.mom.apps.ui.CustomTextView
                         android:id="@+id/receiptNo"
                         style="@style/MoMTheme.wrapped.tbl.colData"/>
                 </TableRow>
