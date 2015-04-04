@@ -1778,8 +1778,9 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         }.getType();
 
         ResponseBase<ImpsConfirmPaymentResult[]> responseBase = gson.fromJson(request.getRemoteResponse(), type);
-
-        if (responseBase == null || responseBase.data == null) {
+        request.setResponseCode(responseBase.code);
+        Log.e("ErrorPayment123" , String.valueOf(request.getResponseCode()));
+        if (responseBase == null || responseBase.data == null)  {
             return null;
         }
 

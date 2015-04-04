@@ -5,8 +5,12 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.MenuItemCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -35,6 +39,7 @@ import com.mom.apps.ui.TransactionRequest;
 import com.mom.apps.utils.AppConstants;
 import com.mom.apps.utils.DataProvider;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -47,7 +52,7 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
 
     private EditText _etTargetPhone;
     private EditText _etAmount;
-
+    TextView _tvBalance;
     Spinner _spOperator;
     RadioButton _rbtnTopUp, _rbtnValidity, _rbtnSpecial;
     Button _rechargeBtn;
@@ -143,6 +148,70 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
         addListenerOnSpinnerItemSelection();
         return view;
     }
+    protected void getBalance() {
+        showProgress(true);
+        Log.e(_LOG, "MOMbalance");
+        Toast.makeText(getActivity().getApplicationContext(),"250.00",Toast.LENGTH_LONG).show();
+        showBalance(_tvBalance,Float.valueOf("250.00"));
+
+//        AsyncListener<Float> listener = new AsyncListener<Float>() {
+//            @Override
+//            public void onTaskSuccess(Float result, DataExImpl.Methods callback) {
+//                Log.d(_LOG, "Got balance: " + result);
+//                showProgress(false);
+//
+//                EphemeralStorage.getInstance(getActivity().getApplicationContext()).storeFloat(
+//                        AppConstants.USER_BALANCE, result
+//                );
+//
+//                showBalance(_tvBalance, result);
+//            }
+//
+//            @Override
+//            public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
+//                Log.e(_LOG, "Error retrieving balance");
+//                showProgress(false);
+//            }
+//        };
+//
+//
+//        Log.d(_LOG, "Going to fetch balanceMOM");
+//        getDataEx(listener).getBalance();
+
+
+    }
+
+    protected void showBalance(TextView tv){
+        float balance         = EphemeralStorage.getInstance(getActivity().getApplicationContext() ).getFloat(AppConstants.USER_BALANCE, AppConstants.ERROR_BALANCE);
+
+        showBalance(tv, balance);
+    }
+    String sBal         = null;
+    protected void showBalance(TextView tv, Float balance){
+
+
+        if(balance == AppConstants.ERROR_BALANCE){
+            sBal            = getString(R.string.error_getting_balance);
+            return;
+        }else {
+            DecimalFormat df = new DecimalFormat("#,###,###,##0.00");
+            sBal = df.format(balance);
+        }
+
+        // tv.setText("Balance: " + getResources().getString(R.string.Rupee) + sBal);
+        balItem.setTitle("Balance: " + getResources().getString(R.string.Rupee) + sBal);
+        Log.d(_LOG, sBal);
+    }
+    private MenuItem balItem = null;
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.main_activity_actions, menu);
+        setHasOptionsMenu(true);
+        balItem = menu.findItem(R.id.balance);
+        MenuItemCompat.setShowAsAction(balItem, MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
+        MenuItemCompat.getActionView(balItem);
+        super.onCreateOptionsMenu(menu,inflater);
+    }
 
     private void getVerifyTpin() {
 
@@ -150,6 +219,7 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
             @Override
             public void onTaskSuccess(Integer result, DataExImpl.Methods callback) {
                 Log.e(_LOG, "VerifyTpin: " + result);
+                showProgress(false);
 
                 switch(result)
                 {
@@ -171,7 +241,7 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
 
 
                 }
-                showProgress(false);
+
 
             }
 
@@ -215,7 +285,7 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
         switch(callback){
             case RECHARGE_MOBILE:
 
-                showBalance();
+               // getBalance();
                 taskCompleted(result);
                 Log.i("MobileRecharge" , result.getRemoteResponse());
 
@@ -336,13 +406,13 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
 
     public void confirmRecharge() {
         showDialog(
-                "Confirm Mobile Recharge",
-                "Mobile Number:" + " "
-                        + _etTargetPhone.getText().toString() + "\n" + "Operator:"
+                getResources().getString(R.string.AlertDialog_MobileRecharge),
+                getResources().getString(R.string.Lbl_MobileNumber) + " "
+                        + _etTargetPhone.getText().toString() + "\n" + getResources().getString(R.string.Lbl_Operator)
                         + " " + _spOperator.getSelectedItem().toString() + "\n"
-                        + "Amount:" + " " + "Rs." + " "
+                        + getResources().getString(R.string.Lbl_Amount) + " "
                         + _etAmount.getText().toString(),
-                "YES",
+                getResources().getString(R.string.Dialog_Yes),
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         ((AlertDialog) dialog).getButton(
@@ -352,7 +422,7 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
 
                     }
                 },
-                "NO",
+                getResources().getString(R.string.Dialog_No),
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which1) {
                         dialog.cancel();
@@ -389,7 +459,7 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
 
 
 
-       // showProgress(true);
+        //showProgress(true);
 
 
         _etTargetPhone.setText(null);

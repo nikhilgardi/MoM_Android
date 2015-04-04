@@ -9,6 +9,7 @@
     <dimen name="listEmptyMessage">18sp</dimen>
     <dimen name="text_super_small">12sp</dimen>
     <dimen name="text_small">14sp</dimen>
+    <dimen name="text_login_small">12sp</dimen>
     <dimen name="text_medium">18sp</dimen>
     <dimen name="text_large">24sp</dimen>
     <dimen name="text_balance">12sp</dimen>
@@ -26,6 +27,7 @@
     <dimen name="small_lower_version">10dp</dimen>
     <dimen name="medium">36dp</dimen>
     <dimen name="large">64dp</dimen>
+    <dimen name="smallImps">20dp</dimen>
     <dimen name="ultra_large">90dp</dimen>
     <dimen name="drawer_img">24dp</dimen>
     <dimen name="nav_icon">48dp</dimen>

@@ -35,18 +35,19 @@
                 android:id="@+id/verifyTpin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter T-Pin"
+                android:hint="@string/tpin"
                 android:inputType="number"
                 android:password="true"
                 android:layout_marginBottom="@dimen/small"
+                android:maxLength="8"
                 android:visibility="gone"/>
             <Button
                 android:id="@+id/btnSubmit"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_width="match_parent"
                 style="@style/MoMTheme.wrapped.customButton"
                 android:layout_gravity="center_horizontal"
-                android:text="@string/btn_verifyTpin"
+                android:text="@string/tpin_submit_btn"
                 android:visibility="gone"/>
 
             <Spinner
@@ -172,7 +173,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
-                android:hint="Due Date"
+                android:hint="@string/action_DueDate"
                 android:inputType="date"
                 android:visibility="gone" />
             <ImageButton
@@ -260,7 +261,7 @@
                     android:id="@+id/RadioButton01"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Blue Bill"
+                    android:text="@string/action_BlueBill"
                     android:textColor="#992f2f"
                     android:textSize="14dp"
                     android:textStyle="bold"
@@ -271,7 +272,7 @@
                     android:id="@+id/RadioButton02"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Green Bill"
+                    android:text="@string/action_GreenBill"
                     android:textColor="#992f2f"
                     android:textSize="14dp"
                     android:textStyle="bold"
@@ -281,8 +282,8 @@
 
             <Button
                 android:id="@+id/btnPay"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_width="match_parent"
                 style="@style/MoMTheme.wrapped.customButton"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/btn_pay"

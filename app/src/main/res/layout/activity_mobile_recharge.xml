@@ -33,17 +33,18 @@
                 android:id="@+id/verifyTpin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter T-Pin"
+                android:hint="@string/tpin"
                 android:inputType="numberPassword"
                 android:layout_marginBottom="@dimen/small"
+                android:maxLength="8"
                 android:visibility="gone"/>
             <Button
                 android:id="@+id/btnSubmit"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_width="match_parent"
                 style="@style/MoMTheme.wrapped.customButton"
                 android:layout_gravity="center_horizontal"
-                android:text="@string/btn_verifyTpin"
+                android:text="@string/tpin_submit_btn"
                 android:visibility="gone"/>
 
 
@@ -131,8 +132,8 @@
 
             <Button
                 android:id="@+id/btnRecharge"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_width="match_parent"
                 style="@style/MoMTheme.wrapped.customButton"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/btn_recharge"

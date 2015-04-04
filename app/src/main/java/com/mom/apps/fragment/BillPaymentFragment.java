@@ -459,12 +459,12 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
 
         // Setting Dialog Title
-        alertDialog.setTitle("Confirm Payment...");
-        String sMsg     = "Operator: "
+        alertDialog.setTitle(getResources().getString(R.string.AlertDialog_BillPayment));
+        String sMsg     = getResources().getString(R.string.Lbl_Operator)
                 + _spOperator.getSelectedItem() + "\n"
-                + "Amount:" + " " + "Rs." + " "
+                + getResources().getString(R.string.Lbl_Amount) + " "
                 + _etAmount.getText() + "\n"
-                + "Phone: " + _etCustomerNumber.getText();
+                + getResources().getString(R.string.Lbl_MobileNumber) + _etCustomerNumber.getText();
 
         String sOperator                = _spOperator.getSelectedItem().toString();
 
@@ -530,7 +530,7 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
 
         alertDialog.setMessage(sMsg);
 
-        alertDialog.setPositiveButton("YES",
+        alertDialog.setPositiveButton(getResources().getString(R.string.Dialog_Yes),
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         ((AlertDialog) dialog).getButton(
@@ -541,7 +541,7 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
                 });
 
         // Setting Negative "NO" Button
-        alertDialog.setNegativeButton("NO",
+        alertDialog.setNegativeButton(getResources().getString(R.string.Dialog_No),
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which1) {
 

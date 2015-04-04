@@ -1120,7 +1120,7 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
         int nMaxAccountlength   = 30;
         int nMinIFSClength      = 11;
         int nMaxIFSClength      = 11;
-
+        float nAvailableLimit   =Float.valueOf(_etAvailableLimit.getText().toString());
 
 
 
@@ -1246,6 +1246,11 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
         _etAmount.setText("");
         return;
     }
+    if(Integer.parseInt(_etAmount.getText().toString().trim()) > nAvailableLimit ){
+        showMessage(getResources().getString(R.string.lic_failed_policyDetails_msg_default));
+       return;
+    }
+
     if ("".equals(_etTxnDescription.getText().toString().trim())) {
         showMessage(getResources().getString(R.string.prompt_TxnDescription));
         _etTxnDescription.setText("");
@@ -1398,7 +1403,7 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
     }
 
     public void showCustomRegistrationFields() {
-
+        _etConsumerName.setEnabled(true);
         _etConsumerNumber.setVisibility(View.VISIBLE);
         _etConsumerName.setVisibility(View.VISIBLE);
         _etDob.setVisibility(View.VISIBLE);
@@ -1944,6 +1949,7 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
                 if (!(result.getCustom() instanceof ImpsCustomerRegistrationResult)) {
                     Log.d(_LOG, "response is in incorrect format!");
                     showMessage(getActivity().getString(R.string.error_imps_customer_registration));
+                    _etConsumerNumber.setEnabled(true);
                     return;
                 }
 
@@ -1973,8 +1979,8 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
             case IMPS_BENEFICIARY_LIST:
                 Log.d(_LOG, "onTaskSuccess done_Beneficiary");
 
-                if(result.getCustom() == null){
-                     Log.d(_LOG, "response is in incorrect format!");
+                if (result.getCustom() == null) {
+                    Log.d(_LOG, "response is in incorrect format!");
                     showMessage("Couldn't fetch BeneficiaryList.");
                     showProgress(false);
                     return;
@@ -1984,7 +1990,6 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
                 showProgress(false);
                 List<BeneficiaryResult> beneficiaryResultsList = null;
                 beneficiaryResultsList = (List<BeneficiaryResult>) result.getCustom();
-
 
 
                 beneficiaryResultsList.add(0, new BeneficiaryResult("", getActivity().getString(R.string.prompt_spinner_select_NewBeneficiary)));
@@ -2017,7 +2022,7 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
                             _rbVerify.setVisibility(View.VISIBLE);
                             _tvVerified.setVisibility(View.GONE);
 
-                        } else   if (_spOperator.getSelectedItemPosition() != 0)   {
+                        } else if (_spOperator.getSelectedItemPosition() != 0) {
                             _rbPay.setVisibility(View.VISIBLE);
                             _rbVerify.setVisibility(View.VISIBLE);
                             _rbPay.setChecked(true);
@@ -2052,14 +2057,13 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
                 });
 
 
-
                 break;
 
             case IMPS_CREATE_CUSTOMER_REGISTRATION:
                 Log.d(_LOG, "onTaskSuccess done_CreateCustomer");
 
 
-                if(result.getCustom() == null){
+                if (result.getCustom() == null) {
                     Log.d(_LOG, "response is in incorrect format!");
                     showMessage("Couldn't Create Customer.");
                     showProgress(false);
@@ -2075,7 +2079,7 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
             case IMPS_CHECK_KYC:
                 Log.d(_LOG, "onTaskSuccess done_CreateCustomer");
 
-                if(result.getCustom() == null){
+                if (result.getCustom() == null) {
                     Log.d(_LOG, "response is in incorrect format!");
                     showMessage(getResources().getString(R.string.error_imps_kyc));
                     showProgress(false);
@@ -2093,13 +2097,11 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
 
                 showProgress(false);
                 ImpsBeneficiaryDetailsResult impsBeneficiaryDetailsResult = (ImpsBeneficiaryDetailsResult) result.getCustom();
-                if(impsBeneficiaryDetailsResult.IsBeneficiaryVerified)
-                {
+                if (impsBeneficiaryDetailsResult.IsBeneficiaryVerified) {
                     _rbPay.setChecked(true);
                     _tvVerified.setVisibility(View.VISIBLE);
                     _rbVerify.setVisibility(View.GONE);
-                }
-                else if(!impsBeneficiaryDetailsResult.IsBeneficiaryVerified){
+                } else if (!impsBeneficiaryDetailsResult.IsBeneficiaryVerified) {
                     _tvVerified.setVisibility(View.GONE);
                     _rbVerify.setVisibility(View.VISIBLE);
                 }
@@ -2223,7 +2225,6 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
                 branchNameResultList = (List<BranchNameResult>) result.getCustom();
 
 
-
                 ArrayAdapter<BranchNameResult> dataAdapterBranchList = new ArrayAdapter<BranchNameResult>(
                         getActivity(), android.R.layout.simple_spinner_item,
                         branchNameResultList
@@ -2236,7 +2237,7 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
                     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                         BranchNameResult branchNameResult = (BranchNameResult) _spOperator4.getSelectedItem();
                         sBranchIfscCode = branchNameResult.IFSCCode;
-               //         Toast.makeText(getActivity().getApplicationContext(), sBranchIfscCode, Toast.LENGTH_LONG).show();
+                        //         Toast.makeText(getActivity().getApplicationContext(), sBranchIfscCode, Toast.LENGTH_LONG).show();
                     }
 
                     @Override
@@ -2253,19 +2254,17 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
 
                 Log.i(_LOG + "IMPS_VERIFY_PROCESS", result.getRemoteResponse() + result.getResponseCode());
 
-                if(result.getCustom()== null){
+                if (result.getCustom() == null) {
                     showMessage("Couldn't process");
                 }
 
                 ImpsVerifyProcessResult impsVerifyProcessResult = (ImpsVerifyProcessResult) result.getCustom();
 
 
-
                 if (impsVerifyProcessResult.PostingStatus) {
                     Log.d(_LOG, "true");
                     _etAmountPayable.setVisibility(View.VISIBLE);
                     _etOTP.setText(null);
-
 
 
                     showVerifyPaymentFields();
@@ -2275,8 +2274,7 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
                     Log.d(_LOG, "Both false");
                     setupIMPSTransferView();
                     showMessage(impsVerifyProcessResult.ErrorMessage);
-                }
-                else{
+                } else {
                     showMessage("Couldn't process");
                 }
 
@@ -2284,18 +2282,21 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
                 break;
 
             case IMPS_VERIFY_PAYMENT:
-                Log.i(_LOG + "IMPS_VERIFY_PAYMENT", result.getRemoteResponse() + result.getResponseCode());
+
+                    Log.i(_LOG + "IMPS_VERIFY_PAYMENT", result.getRemoteResponse() + result.getResponseCode());
 
 
-                ImpsVerifyPaymentResult impsVerifyPaymentResult = (ImpsVerifyPaymentResult) result.getCustom();
+                    ImpsVerifyPaymentResult impsVerifyPaymentResult = (ImpsVerifyPaymentResult) result.getCustom();
 
-               showMessage("Message: "+" " +impsVerifyPaymentResult.errorMessage +"\n"
-                       + "Receipt ID: " + impsVerifyPaymentResult.recieptId +"\n"
-                       + "Transaction ID:" + impsVerifyPaymentResult.transactionId +"\n"
-                      );
-                hideVerifyPaymentFields();
-                _etOTP.setText(null);
+                    showMessage("Message: " + " " + impsVerifyPaymentResult.errorMessage + "\n"
+                                    + "Receipt ID: " + impsVerifyPaymentResult.recieptId + "\n"
+                                    + "Transaction ID:" + impsVerifyPaymentResult.transactionId + "\n"
+                    );
+                    hideVerifyPaymentFields();
+                    _etOTP.setText(null);
+
                 showProgress(false);
+
                 break;
 
             case IMPS_PAYMENT_PROCESS:
@@ -2312,7 +2313,7 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
                     _etOTP.setText(null);
                     int amount = Integer.parseInt(_etAmount.getText().toString());
                     int processFees = 10;
-                    int amountPayable = amount+processFees;
+                    int amountPayable = amount + processFees;
                     _etProcessingFees.setText(String.valueOf(processFees));
                     _etAmountPayable.setText(String.valueOf(amountPayable));
                     _etAmount.setEnabled(false);
@@ -2331,42 +2332,44 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
                 break;
 
             case IMPS_CONFIRM_PAYMENT:
-                Log.i(_LOG + "IMPS_VERIFY_PAYMENT", result.getRemoteResponse() + result.getResponseCode());
 
-                List<ImpsConfirmPaymentResult> impsConfirmPaymentResultList = null;
-                impsConfirmPaymentResultList = (List<ImpsConfirmPaymentResult>) result.getCustom();
+//                if (!(result.getCustom() instanceof ImpsConfirmPaymentResult)) {
+//                    showMessage(getResources().getString(R.string.lic_failed_msg_default));
+//                return;
+//                }
+//
+                    List<ImpsConfirmPaymentResult> impsConfirmPaymentResultList = null;
+
+                    impsConfirmPaymentResultList = (List<ImpsConfirmPaymentResult>) result.getCustom();
 
 
-                showMessage(null);
+                    showMessage(null);
 
 
-                Log.d("HISTORY", "Obtained result: " + impsConfirmPaymentResultList);
+                    Log.d("HISTORY", "Obtained result: " + impsConfirmPaymentResultList);
 
-                if(impsConfirmPaymentResultList == null || impsConfirmPaymentResultList.size() < 1) {
-                    setNoPaymentHistoryMessage();
-                    return;
-                }
+                    if (impsConfirmPaymentResultList == null || impsConfirmPaymentResultList.size() < 1) {
+                        setNoPaymentHistoryMessage();
+                        return;
+                    }
 
-                Log.d("HISTORY", "Creating list with " + impsConfirmPaymentResultList.size() + " transactions");
+                    Log.d("HISTORY", "Creating list with " + impsConfirmPaymentResultList.size() + " transactions");
 
-                ConfirmPaymentTextListViewAdapter adapter = new ConfirmPaymentTextListViewAdapter(
-                        getActivity(),
-                        R.layout.listview_impsconfirm_payment,
-                        impsConfirmPaymentResultList
-                );
+                    ConfirmPaymentTextListViewAdapter adapter = new ConfirmPaymentTextListViewAdapter(
+                            getActivity(),
+                            R.layout.listview_impsconfirm_payment,
+                            impsConfirmPaymentResultList
+                    );
 
-                _titleView.setText(String.format(getResources().getString(R.string.title_activity_transaction_history_count), impsConfirmPaymentResultList.size()));
+                    _titleView.setText(String.format(getResources().getString(R.string.title_activity_transaction_history_count), impsConfirmPaymentResultList.size()));
 
-                _listView.setAdapter(adapter);
-                _listView.setVisibility(View.VISIBLE);
+                    _listView.setAdapter(adapter);
+                    _listView.setVisibility(View.VISIBLE);
 
-                Log.d("HISTORY", "ListView created");
+                    Log.d("HISTORY", "ListView created");
 
                 showProgress(false);
-
-
                 hideVerifyPaymentFields();
-
                 break;
 
 

@@ -29,9 +29,9 @@ public class ChangePBXPasswordActivity extends MOMActivityBase  implements Async
         Log.i(_LOG, "started onCreate");
 
       //  _pinType            = (PinType) getIntent().getSerializableExtra(AppConstants.INTENT_MESSAGE);
-        _oldPassword             = (EditText)findViewById(R.id.oldPassword);
-        _newPassword             = (EditText)findViewById(R.id.newPassword);
-        _newPasswordConfirm      = (EditText)findViewById(R.id.newPasswordConfirm);
+        _oldPassword             = (EditText)findViewById(R.id.oldPin);
+        _newPassword             = (EditText)findViewById(R.id.newPin);
+        _newPasswordConfirm      = (EditText)findViewById(R.id.newPinConfirm);
     }
 
     @Override

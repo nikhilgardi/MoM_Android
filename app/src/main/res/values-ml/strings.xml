@@ -5,63 +5,63 @@
     <string name="money_on_mobile">മനീ-ആന്- മൊബൈല്‍</string>
     <string name="app_name">മനീ-ആന്- മൊബൈല്‍</string>
     <string name="welcome">സ്വാഗതം</string>
-    <string name="action_imps">IMPS</string>
-    <string name="action_IMPSCreateCustomerRegistration">IMPS Create Customer Registration</string>
-    <string name="action_IMPSCheckKYC">IMPS Check KYC</string>
-    <string name="action_IMPSCustomerRegistration">IMPS Customer Registration</string>
-    <string name="action_IMPSBeneficiaryList">IMPS Beneficiary List</string>
-    <string name="action_IMPSAddBeneficiary">IMPS Add Beneficiary </string>
-    <string name="error_invalid_t_pin">Invalid Tpin.Try again</string>
-    <string name="error_imps_customer_creation">Could not create customer.</string>
-    <string name="error_imps_beneficiary_List">Could not fetch Beneficiary List.</string>
-    <string name="error_tryAgain">Try Again.</string>
-    <string name="error_imps_kyc">Could not fetch KYC.</string>
-    <string name="error_otp">Enter Correct OTP.</string>Enter Correct OTP
-    <string name="error_imps_bank_List">Could not fetch Bank List.</string>
-    <string name="error_imps_state_List">Could not fetch State List.</string>
-    <string name="error_imps_city_List">Could not fetch City List.</string>
-    <string name="error_imps_branch_List">Could not fetch Branch List.</string>
-    <string name="error_imps_add_beneficiary">Could not Add New Beneficiary. Try Again Later.</string>
-    <string name="error_imps_beneficiary_Details">Could not fetch Beneficiary List.</string>
-    <string name="action_IMPSBeneficiaryDetails">IMPS Beneficiary Details </string>
-    <string name="action_IMPSBankName">IMPS Bank Name </string>
-    <string name="action_IMPSStateName">IMPS State Name </string>
-    <string name="action_IMPSCityName">IMPS City Name </string>
-    <string name="action_IMPSBranchName">IMPS Branch Name </string>
-    <string name="action_IMPSVerifyProcess">IMPS Verify Process </string>
-    <string name="action_IMPSVerifyPayment">IMPS Verify Payment </string>
-    <string name="action_IMPSPaymentProcess">IMPS Payment Process </string>
-    <string name="action_IMPSConfirmPayment">IMPS Confirm Payment </string>
-    <string name="action_IMPSMOMSubmitPayment">IMPS Submit Payment </string>
-    <string name="action_IMPSMOMConfirmPayment">IMPS Confirm Payment </string>
-    <string name="action_IMPSMOMSubmitPayPayment">IMPS Submit Pay Process </string>
-    <string name="action_MOMTPin">MOM T-Pin</string>
+    <!--<string name="action_imps">Mobile Money Order</string>-->
+    <!--<string name="action_IMPSCreateCustomerRegistration">IMPS Create Customer Registration</string>-->
+    <!--<string name="action_IMPSCheckKYC">IMPS Check KYC</string>-->
+    <!--<string name="action_IMPSCustomerRegistration">IMPS Customer Registration</string>-->
+    <!--<string name="action_IMPSBeneficiaryList">IMPS Beneficiary List</string>-->
+    <!--<string name="action_IMPSAddBeneficiary">IMPS Add Beneficiary </string>-->
+    <!--<string name="error_invalid_t_pin">Invalid Tpin.Try again</string>-->
+    <!--<string name="error_imps_customer_creation">Could not create customer.</string>-->
+    <!--<string name="error_imps_beneficiary_List">Could not fetch Beneficiary List.</string>-->
+    <!--<string name="error_tryAgain">Try Again.</string>-->
+    <!--<string name="error_imps_kyc">Could not fetch KYC.</string>-->
+    <!--<string name="error_otp">Enter Correct OTP.</string>Enter Correct OTP-->
+    <!--<string name="error_imps_bank_List">Could not fetch Bank List.</string>-->
+    <!--<string name="error_imps_state_List">Could not fetch State List.</string>-->
+    <!--<string name="error_imps_city_List">Could not fetch City List.</string>-->
+    <!--<string name="error_imps_branch_List">Could not fetch Branch List.</string>-->
+    <!--<string name="error_imps_add_beneficiary">Could not Add New Beneficiary. Try Again Later.</string>-->
+    <!--<string name="error_imps_beneficiary_Details">Could not fetch Beneficiary List.</string>-->
+    <!--<string name="action_IMPSBeneficiaryDetails">IMPS Beneficiary Details </string>-->
+    <!--<string name="action_IMPSBankName">IMPS Bank Name </string>-->
+    <!--<string name="action_IMPSStateName">IMPS State Name </string>-->
+    <!--<string name="action_IMPSCityName">IMPS City Name </string>-->
+    <!--<string name="action_IMPSBranchName">IMPS Branch Name </string>-->
+    <!--<string name="action_IMPSVerifyProcess">IMPS Verify Process </string>-->
+    <!--<string name="action_IMPSVerifyPayment">IMPS Verify Payment </string>-->
+    <!--<string name="action_IMPSPaymentProcess">IMPS Payment Process </string>-->
+    <!--<string name="action_IMPSConfirmPayment">IMPS Confirm Payment </string>-->
+    <!--<string name="action_IMPSMOMSubmitPayment">IMPS Submit Payment </string>-->
+    <!--<string name="action_IMPSMOMConfirmPayment">IMPS Confirm Payment </string>-->
+    <!--<string name="action_IMPSMOMSubmitPayPayment">IMPS Submit Pay Process </string>-->
+    <!--<string name="action_MOMTPin">MOM T-Pin</string>-->
     <string name="lblTxnDescription">Transaction Description</string>
-    <string name="lblProcessingFees">Processing Fees</string>
-    <string name="lblAmountPayable">Amount Payable</string>
-    <string name="lblOTP">OTP</string>
-    <string name="action_SignUp">SignUp</string>
-    <string name="error_beneficiary_name_length">Beneficiary Name should be of %1$d characters.</string>
-    <string name="error_beneficiary_name_min_max">Beneficiary Name should be between %1$d and %2$d characters.</string>
-    <string name="error_AccountNumber_length">Account Number should be of %1$d digits.</string>
-    <string name="error_AccountNumber_length_min_max">Account Number should be between %1$d and %2$d digits.</string>
-    <string name="error_IFSCCODE_length">IFSC Code should be of %1$d digits.</string>
-    <string name="error_IFSCCODE_length_min_max">IFSC Code should be between %1$d and %2$d digits.</string>
-    <string name="error_imps_customer_registration">Could not fetch customer\'s registration status.</string>
-    <string name="prompt_spinner_select_NewBeneficiary">Add New Beneficiary</string>
-    <string name="prompt_spinner_select_Bank">Select Bank</string>
-    <string name="prompt_spinner_select_State">Select State</string>
-    <string name="prompt_spinner_select_City">Select City</string>
-    <string name="prompt_spinner_select_Branch">Select Branch</string>
-    <string name="prompt_numbers_only_IFSCCode">Please enter the IFSC Code</string>
-    <string name="prompt_TxnDescription">Please fill the field</string>
-    <string name="lbl_BeneficiaryName">Enter Beneficiary Name</string>
-    <string name="lbl_Get_IFSC_Code">Get IFSC</string>
-    <string name="lbl_IFSCCode">Enter/Select IFSC Code</string>
-    <string name="lbl_isVerified">Verified</string>
-    <string name="lbl_IFSC_Code">IFSC Code</string>
-    <string name="lblBeneficiaryMobileNumber">Beneficiary Mobile Number</string>
-    <string name="btn_newRecharge">New Transaction</string>
+    <!--<string name="lblProcessingFees">Processing Fees</string>-->
+    <!--<string name="lblAmountPayable">Amount Payable</string>-->
+    <!--<string name="lblOTP">OTP</string>-->
+    <!--<string name="action_SignUp">SignUp</string>-->
+    <!--<string name="error_beneficiary_name_length">Beneficiary Name should be of %1$d characters.</string>-->
+    <!--<string name="error_beneficiary_name_min_max">Beneficiary Name should be between %1$d and %2$d characters.</string>-->
+    <!--<string name="error_AccountNumber_length">Account Number should be of %1$d digits.</string>-->
+    <!--<string name="error_AccountNumber_length_min_max">Account Number should be between %1$d and %2$d digits.</string>-->
+    <!--<string name="error_IFSCCODE_length">IFSC Code should be of %1$d digits.</string>-->
+    <!--<string name="error_IFSCCODE_length_min_max">IFSC Code should be between %1$d and %2$d digits.</string>-->
+    <!--<string name="error_imps_customer_registration">Could not fetch customer\'s registration status.</string>-->
+    <!--<string name="prompt_spinner_select_NewBeneficiary">Add New Beneficiary</string>-->
+    <!--<string name="prompt_spinner_select_Bank">Select Bank</string>-->
+    <!--<string name="prompt_spinner_select_State">Select State</string>-->
+    <!--<string name="prompt_spinner_select_City">Select City</string>-->
+    <!--<string name="prompt_spinner_select_Branch">Select Branch</string>-->
+    <!--<string name="prompt_numbers_only_IFSCCode">Please enter the IFSC Code</string>-->
+    <!--<string name="prompt_TxnDescription">Please fill the field</string>-->
+    <!--<string name="lbl_BeneficiaryName">Enter Beneficiary Name</string>-->
+    <!--<string name="lbl_Get_IFSC_Code">Get IFSC</string>-->
+    <!--<string name="lbl_IFSCCode">Enter/Select IFSC Code</string>-->
+    <!--<string name="lbl_isVerified">Verified</string>-->
+    <!--<string name="lbl_IFSC_Code">IFSC Code</string>-->
+    <!--<string name="lblBeneficiaryMobileNumber">Beneficiary Mobile Number</string>-->
+    <string name="btn_newRecharge">പുതിയ ട്രാൻസാക്ഷൻ</string>
 
     <string name="login_failed_msg_default">ലോഗിൻ പരാജയം. നിങ്ങളുടെ മൊബൈൽ നമ്പറും M-Pin-ഉം പരിശോധിക്കുക</string>
 
@@ -159,8 +159,8 @@
     <string name="action_billPayment">ബിൽ പെയ്മെന്റ്</string>
     <string name="action_cardSale">കാർഡ് വിൽപ്പന</string>
 
-    <string name="action_utilityBill">Utility Bill Payment</string>
-    <string name="action_retailerPayment">Retailer Payment</string>
+    <!--<string name="action_utilityBill">Utility Bill Payment</string>-->
+    <!--<string name="action_retailerPayment">Retailer Payment</string>-->
     <string name="action_history">ചരിത്രം</string>
     <string name="action_settings">ക്രമീകരണങ്ങൾ</string>
     <string name="action_logout">ലോഗൗട്ട്</string>
@@ -175,9 +175,9 @@
 
 
     <string name="btn_back">പിന്നിലേക്ക്</string>
-
+    <string name="btn_Ok">ഓകെ</string>
     <string name="btn_cancel">റദ്ദാക്കുക</string>
-
+    <string name="btn_payment">പെയ്മെന്റ്</string>
     <string name="btn_login">ലോഗിൻ ചെയ്യുക</string>
     <string name="btn_getBillAmount">നിങ്ങളുടെ ബിൽ തുക അറിയുക</string>
 
@@ -204,13 +204,13 @@
     <string name="new_password">പുതിയ പാസ്‌വേഡ്</string>
     <string name="confirm_password">പാസ്‌വേഡ് സ്ഥിരീകരിക്കുക</string>
 
-    <string name="lblTPin_old">Old T-PIN</string>
-    <string name="lblTPin_new">New T-PIN</string>
-    <string name="lblTPin_new_confirm">Confirm New T-PIN</string>
-    <string name="lblMPin_old">Old M-PIN</string>
-    <string name="lblMPin_new_confirm">Confirm New M-PIN</string>
-    <string name="lblOld_password">Old Password</string>
-    <string name="lblNew_password">New Password</string>
+    <string name="lblTPin_old">പഴയ T-PIN</string>
+    <string name="lblTPin_new">പുതിയ T-PIN</string>
+    <string name="lblTPin_new_confirm">പുതിയ T-PIN സ്ഥിരീകരിക്കുക</string>
+    <string name="lblMPin_old">പഴയ M-PIN</string>
+    <string name="lblMPin_new_confirm">പുതിയ M-PIN സ്ഥിരീകരിക്കുക</string>
+    <!--<string name="lblOld_password">Old Password</string>-->
+    <!--<string name="lblNew_password">New Password</string>-->
 
 
     <string name="title_activity_change_pin">PIN മാറ്റുക</string>
@@ -224,19 +224,55 @@
     <string name="title_activity_aadhar_list">AadharListActivity</string>
     <string name="title_activity_best_fusion">BestFusionActivity</string>
 
+    <string name="lblOld_password">പഴയ പാസ്‌വേഡ്</string>
+    <string name="lblNew_password">പുതിയ പാസ്‌വേഡ്</string>
+    <string name="action_utilityBill">യൂട്ടിലിറ്റി ബിൽ പെയ്മെന്റ്</string>
+    <string name="action_retailerPayment">റീട്ടെയിലർ പെയ്മെന്റ്</string>
+    <string name="prompt_spinner_select_NewBeneficiary">പുതിയ ബെനിഫിഷ്യറിയെ ചേർക്കുക</string>
+    <string name="prompt_spinner_select_Bank">ബാങ്ക് തിരഞെടുക്കുക</string>
+    <string name="prompt_spinner_select_State">സംസ്ഥാനം തിരഞ്ഞെടുക്കുക</string>
+    <string name="prompt_spinner_select_City">നഗരം തിരഞ്ഞെടുക്കുക</string>
+    <string name="prompt_spinner_select_Branch">ബ്രാഞ്ച് തിരഞെടുക്കുക</string>
+    <string name="prompt_numbers_only_IFSCCode">IFSC കോഡ് നൽകുക</string>
+    <string name="prompt_TxnDescription">ഫീൽഡ് പൂരിപ്പിക്കുക</string>
+    <string name="lbl_BeneficiaryName">ബെനിഫിഷ്യറി പേര് നൽകുക</string>
+    <string name="lblProcessingFees">പ്രോസസ്സിംഗ് ഫീസ്</string>
+    <string name="lblAmountPayable">നൽകേണ്ടുന്ന തുക</string>
+    <string name="action_imps">മൊബൈൽ മണി ഓർഡർ</string>
+    <!--<string name="action_imps">IMPS</string>-->
+    <!--<string name="action_lIC">LIC</string>-->
+    <string name="action_Balance">ബാലൻസ്</string>
 
     <string name="action_lIC">LIC</string>
 
-    <string name="lic_failed_policyDetails_msg_default">Insufficient Limit</string>
-    <string name="lic_failed_authorised_msg_default">Not Authorized</string>
 
-    <string name="lic_failed_Receipt_msg_default">None of the policies entered is due for payment</string>
+    <string name="action_Pay">പണം അടയ്ക്കുക</string>
+    <string name="action_Verify">പരിശോധിച്ചുറപ്പിക്കുക</string>
+    <string name="action_Transaction_Description">ട്രാൻസാക്ഷൻ വിവരണം</string>
+    <string name="action_DueDate">നിശ്ചിത തീയതി</string>
+    <string name="action_BlueBill">ബ്ലൂ ബിൽ</string>
+    <string name="action_GreenBill">ഗ്രീൻ ബിൽ</string>
+    <string name="action_NewTransaction">പുതിയ ട്രാൻസാക്ഷൻ</string>
+    <string name="tvBeneficiaryName">ബെനിഫിഷ്യറി പേര്</string>
+    <string name="tvAccountNumber">അക്കൗണ്ട് നമ്പർ</string>
+    <string name="tvIFSCCode">IFSC കോഡ്</string>
+    <string name="tvBeneficiaryMobileNumber">ബെനിഫിഷ്യറി മൊബൈൽ നമ്പർ</string>
+    <string name="tvAmount">തുക </string>
+    <string name="tvProcessingFees">പ്രോസസ്സിംഗ് ഫീസ്</string>
+    <string name="tvAmountPayable">നൽകേണ്ടുന്ന തുക</string>
+    <string name="tvOTP">OTP</string>
 
-    <string name="lic_success_msg_default">പെയ്മെന്റ് വിജയകരം</string>
-    <string name="lic_failed_msg_default">പെയ്മെന്റ് പരാജയപ്പെട്ടു</string>
-    <string name="error_field_required">ഈ ഫീൽഡ് നിർബന്ധമാണ്</string>
-    <string name="error_pin_confirm_mismatch">രണ്ട് PIN-കളും ഒന്നായിരിക്കണം.</string>
-    <string name="error_init_app">ആപ്ലിക്കേഷൻ തുടക്കമിടുന്നതിൽ പിശക്. പ്രശ്നം പരിഹരിക്കപ്പെടുന്നില്ലെങ്കിൽ പിന്നീട് ശ്രമിക്കുക അല്ലെങ്കിൽ കസ്റ്റമർ പിന്തുണയുമായി ബന്ധപ്പെടുക</string>
+
+    <!--<string name="lic_failed_policyDetails_msg_default">Insufficient Limit</string>-->
+    <!--<string name="lic_failed_authorised_msg_default">Not Authorized</string>-->
+
+    <!--<string name="lic_failed_Receipt_msg_default">None of the policies entered is due for payment</string>-->
+
+    <!--<string name="lic_success_msg_default">പെയ്മെന്റ് വിജയകരം</string>-->
+    <!--<string name="lic_failed_msg_default">പെയ്മെന്റ് പരാജയപ്പെട്ടു</string>-->
+    <!--<string name="error_field_required">ഈ ഫീൽഡ് നിർബന്ധമാണ്</string>-->
+    <!--<string name="error_pin_confirm_mismatch">രണ്ട് PIN-കളും ഒന്നായിരിക്കണം.</string>-->
+    <!--<string name="error_init_app">ആപ്ലിക്കേഷൻ തുടക്കമിടുന്നതിൽ പിശക്. പ്രശ്നം പരിഹരിക്കപ്പെടുന്നില്ലെങ്കിൽ പിന്നീട് ശ്രമിക്കുക അല്ലെങ്കിൽ കസ്റ്റമർ പിന്തുണയുമായി ബന്ധപ്പെടുക</string>-->
     <string name="confirm_logout">ലോഗൗട്ട് ചെയ്യാനും ആപ്ലിക്കേഷനിൽ നിന്ന് പുറത്തുകടക്കാനും ആഗ്രഹിക്കുന്നുണ്ടോ?</string>
     <string name="btn_btnGetAnotherPremium">മറ്റൊരു പ്രീയിയം സ്വീകരിക്കുക</string>
     <string name="btn_register">രജിസ്റ്റർ ചെയ്യുക</string>
@@ -269,6 +305,8 @@
 
 
     <!-- START: LANGUAGE RELATED -->
+
+
     <string name="language_bengali">Bengali</string>
     <string name="language_bengali_code">bn</string>
     <string name="language_english">English</string>
@@ -277,8 +315,12 @@
     <string name="language_gujarati_code">gu</string>
     <string name="language_hindi">Hindi</string>
     <string name="language_hindi_code">hi</string>
+    <string name="language_kannada">Kannada</string>
+    <string name="language_kannada_code">kn</string>
     <string name="language_malayalam">Malayalam</string>
     <string name="language_malayalam_code">ml</string>
+    <string name="language_marathi">Marathi</string>
+    <string name="language_marathi_code">mr</string>
     <string name="language_oriya">Oriya</string>
     <string name="language_oriya_code">or</string>
     <string name="language_tamil">Tamil</string>
@@ -298,55 +340,74 @@
     <!-- End: LIC related -->
 
     <!---New Translations -->
-    <string name="lbl_Email">Email</string>
 
-    <string name="prompt_Validity_north_ServiceProvider">Select NorthService Provider</string>
+
+    <string name="prompt_Validity_CA_number">അസാധുവായ CA നമ്പർ</string>
+    <string name="prompt_Validity_CRNID_number">അസാധുവായ CRNID നമ്പർ</string>
+    <string name="prompt_Validity_K_number">അസാധുവായ K നമ്പർ</string>
+    <string name="prompt_Validity_BP_number">അസാധുവായ BP നമ്പർ</string>
+    <string name="prompt_Validity_north_ServiceProvider">വടക്കേ സേവന ദാതാവിനെ തിരഞ്ഞെടുക്കുക</string>
+    <string name="prompt_Validity_Email_Address">അസാധുവായ ഇമെയിൽ വിലാസം</string>
+    <string name="prompt_Validity_Name">നിങ്ങളുടെ പേര് നൽകുക</string>
+    <string name="prompt_Validity_DOB_Age">സൈനപ്പിന് ചുരുങ്ങിയത് 18 വയസ്സ് ആവശ്യമാണ്</string>
+    <string name="prompt_Validity_DOB">നിങ്ങളുടെ ജനനത്തീയതി നൽകുക</string>
+    <string name="prompt_Validity_mobile_number">അസാധുവായ മൊബൈൽ നമ്പർ</string>
+    <string name="prompt_Validity_consumer_number">അസാധുവായ കൺസ്യൂമർ നമ്പർ</string>
+    <string name="prompt_Validity_subscriberId">അസാധുവായ സബ്സ്ക്രൈബർ Id </string>
+    <string name="prompt_Validity_amount">അസാധുവായ തുക</string>
+    <string name="prompt_Validity_accntnumber">അസാധുവായ അക്കൗണ്ട് നമ്പർ</string>
+    <string name="prompt_Validity_radio_btn">റേഡിയോ ബട്ടൺ തിരഞ്ഞെടുക്കുക</string>
+
     <string name="prompt_Validity_south_ServiceProvider">Select SouthService Provider</string>
-    <string name="prompt_Validity_mobile_number">Invalid MobileNumber</string>
-    <string name="prompt_Validity_consumer_number">Invalid ConsumerNumber</string>
-    <string name="prompt_Validity_subscriberId">Invalid SubscriberId</string>
-    <string name="prompt_Validity_amount">Invalid Amount</string>
-    <string name="prompt_Validity_accntnumber">Invalid Account Number</string>
 
-    <string name="prompt_Validity_name">Invalid Name</string>
-    <string name="prompt_Validity_emailId">Invalid Email-Id</string>
-    <string name="lbl_Name">Name</string>
-    <string name="lbl_DOB">Date of Birth</string>
+    <string name="prompt_Validity_name">അസാധുവായ  പേര് </string>
+    <string name="prompt_Validity_emailId">അസാധുവായ  ഇമെയിൽ -Id</string>
+    <string name="lbl_Name">പേര് </string>
+    <string name="lbl_DOB">ജനനത്തീയതി</string>
 
-    <string name="prompt_Validity_CA_number">Invalid CA Number</string>
-    <string name="prompt_Validity_CRNID_number">Invalid CRNID Number</string>
-    <string name="prompt_Validity_K_number">Invalid KNumber</string>
-    <string name="prompt_Validity_BP_number">Invalid BP Number</string>
+    <string name="signUp_btn">സൈൻ അപ്പ് ചെയ്യുക  </string>
+    <string name="lbl_FirstName">പേരിന്റെ ആദ്യ ഭാഗം നൽകുക</string>
+    <string name="lbl_LastName">പേരിന്റെ അവസാന ഭാഗം നൽകുക</string>
+    <string name="lbl_AccountNumber">അക്കൗണ്ട് നമ്പർ നൽകുക</string>
+    <string name="lbl_Email">ഇമെയിൽ </string>
 
 
+    <string name="changepassword_old">പഴയ പാസ്‌വേഡ്</string>
+    <string name="changepassword_new">പുതിയ പാസ്‌വേഡ്</string>
+    <string name="changepassword_confirm">പാസ്‌വേഡ് സ്ഥിരീകരിക്കുക</string>
+    <string name="password">പാസ്‌വേഡ്</string>
 
-    <string name="prompt_Validity_radio_btn">Select radio button</string>
-    <string name="prompt_Validity_DOB_Age">Minimum age of 18 years required for SignUp</string>
-    <string name="prompt_Validity_DOB">Enter Your Date Of Birth</string>
-    <string name="prompt_Validity_Name">Enter your name</string>
-    <string name="prompt_Validity_Email_Address">Enter valid Email Address</string>
-    <string name="lbl_FirstName">Enter First Name</string>
-    <string name="lbl_LastName">Enter Last Name</string>
-    <string name="lbl_AccountNumber">Enter Account Number</string>
+    <string name="Lbl_MobileNumber">മൊബൈൽ നമ്പർ: </string>
+    <string name="Lbl_Operator">ഓപ്പറേറ്റർ: </string>
+    <string name="Lbl_Amount">തുക: രൂപ</string>
+    <string name="Dialog_Yes">അതെ</string>
+    <string name="Dialog_No">ഇല്ല  </string>
+    <string name="AlertDialog_MobileRecharge">മൊബൈൽ റീചാർജ്ജ് സ്ഥിരീകരിക്കുക</string>
+    <string name="AlertDialog_DTHRecharge">DTH റീചാർജ്ജ് സ്ഥിരീകരിക്കുക</string>
+    <string name="Lbl_SubscriberID">സബ്സ്ക്രൈബർ ID: </string>
+    <string name="AlertDialog_BillPayment">പെയ്മെന്റ് സ്ഥിരീകരിക്കുക</string>
 
-    <string name="error_SDCode">Enter Correct SD Code</string>
-    <string name="error_SOP">Enter Correct SOP</string>
-    <string name="error_FSA">Enter Correct FSA</string>
-    <string name="error_AccountMonth">Enter Correct On Bill AC Month</string>
-    <string name="error_Bill_DueDate">Enter Correct On Bill Due Date</string>
-    <string name="error_Date">Inappropriate Date!!!Enter Correct On Bill Due Date</string>
-    <string name="error_Invalid_Date">Invalid date.Enter Correct On Bill Due Date</string>
-    <string name="error_RadioButton">Select StubType RadioButton</string>
-    <string name="singUp_Successful_msg">Consumer created Successfully.Please Log in</string>
 
-    <string name ="error_sinUp_msg">You are already registered with Money On Mobile.</string>
-    <string name="lblKNumber">KNumber</string>
-    <string name="lblBPNumber">BP Number</string>
-    <string name="lblCANumber">CA Number</string>
-    <string name="lblCRNIDNumber">CRNID Number</string>
+    <!--<string name="error_SDCode">Enter Correct SD Code</string>-->
+    <!--<string name="error_SOP">Enter Correct SOP</string>-->
+    <!--<string name="error_FSA">Enter Correct FSA</string>-->
+    <!--<string name="error_AccountMonth">Enter Correct On Bill AC Month</string>-->
+    <!--<string name="error_Bill_DueDate">Enter Correct On Bill Due Date</string>-->
+    <!--<string name="error_Date">Inappropriate Date!!!Enter Correct On Bill Due Date</string>-->
+    <!--<string name="error_Invalid_Date">Invalid date.Enter Correct On Bill Due Date</string>-->
+    <!--<string name="error_RadioButton">Select StubType RadioButton</string>-->
+    <!--<string name="singUp_Successful_msg">Consumer created Successfully.Please Log in</string>-->
 
-    <string name="tpin_submit_btn">Submit</string>
-    <string name="btn_Login">Login</string>
+    <!--<string name ="error_sinUp_msg">You are already registered with Money On Mobile.</string>-->
+
+
+    <string name="lblKNumber">K നമ്പർ</string>
+    <string name="lblBPNumber">BP നമ്പർ</string>
+    <string name="lblCANumber">CA നമ്പർ</string>
+    <string name="lblCRNIDNumber">CRNID നമ്പർ</string>
+
+    <string name="tpin_submit_btn">സമർപ്പിക്കുക</string>
+    <string name="btn_Login">ലോഗിൻ ചെയ്യുക</string>
     <!--Start: Aadhar Related -->
     <string name="Aadhar">Hello World, RechargeActivity!</string>
     <string name="app_nameAadhar">Money-On-Mobile</string>
@@ -590,6 +651,100 @@
     <string name="error_could_not_pay">പെയ്മെന്റ് സ്ഥിരീകരണം അയയ്ക്കുന്നതിൽ പിശക്. പിന്നീട് വീണ്ടും ശ്രമിക്കുക.</string>
     <string name="btn_cash_collected">Cash Collected</string>
     <string name="lblConfirm_password">Confirm Password</string>
-    <string name="lblMPin_new">New M-PIN</string>
+    <string name="lblMPin_new">പുതിയ M-PIN</string>
     <!-- End: LIC related -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <string name="action_lic">lic</string>
+    <string name="action_IMPSCreateCustomerRegistration">Imps ગ્રાહક રજીસ્ટ્રેશન તૈયાર કરો</string>
+    <string name="action_IMPSCheckKYC">imps kyc ચેક કરો</string>
+    <string name="action_IMPSCustomerRegistration">Imps ગ્રાહક રજીસ્ટ્રેશન</string>
+    <string name="action_IMPSBeneficiaryList">Imps બેનિફિસીયરી લિસ્ટ</string>
+    <string name="action_IMPSAddBeneficiary">Imps બેનિફિસીયરી ઉમેરો</string>
+    <string name="action_IMPSBeneficiaryDetails">Imps બેનિફિસીયરી વિગતો</string>
+    <string name="action_IMPSBankName">Imps બેંક નામ</string>
+    <string name="action_IMPSStateName">Imps રાજ્ય નામ</string>
+    <string name="action_IMPSCityName">Imps શહેર નામ</string>
+    <string name="action_IMPSBranchName">Imps શાખા નામ</string>
+    <string name="action_IMPSVerifyProcess">Imps પ્રક્રિયાની ચકાસણી કરો</string>
+    <string name="action_IMPSVerifyPayment">Imps ચૂકવણીની ચકાસણી કરો</string>
+    <string name="action_IMPSPaymentProcess">Imps ચૂકવણી પ્રક્રિયા</string>
+    <string name="action_IMPSConfirmPayment">Imps ચૂકવણીની પુષ્ટિ કરો</string>
+    <string name="action_IMPSMOMSubmitPayment">Imps ચૂકવણી જમા કરો</string>
+    <string name="action_IMPSMOMConfirmPayment">Imps ચૂકવણીની પુષ્ટિ કરો</string>
+    <string name="action_IMPSMOMSubmitPayPayment">Imps ચૂકવણી પ્રક્રિયા જમા કરો</string>
+    <string name="action_MOMTPin">momટી-પીન</string>
+    <string name="action_SignUp">સાઇન અપ</string>
+    <!--<string name="title_activity_transaction_confirmation">વ્યવહાર પરિણામ</string>-->
+    <string name="lic_success_msg_default">ચૂકવણી સફળ.</string>
+    <string name="lic_failed_policyDetails_msg_default">અપર્યાપ્ત મર્યાદા</string>
+    <string name="lic_failed_authorised_msg_default">અધિકૃત નથી</string>
+    <string name="lic_failed_msg_default">ચૂકવણી નિષ્ફળ. કૃપા કરી બાદમાં ફરીથી પ્રયાસ કરો</string>
+    <string name="lic_failed_Receipt_msg_default">ચૂકવણી માટે દાખલ કરેલ કોઇ પોલીસીઓ ચડત નથી</string>
+    <string name="error_invalid_t_pin">અમાન્ય ટીપીન. ફરીથી પ્રયાસ કરો.</string>
+    <string name="error_field_required">આ ફિલ્ડ ફરજિયાત છે</string>
+    <string name="error_pin_confirm_mismatch">બંને પીન સમાન હોવા જોઇએ</string>
+    <string name="error_init_app">એપ ભૂલ શોધે છે. કૃપા કરી બાદમાં ફરી પ્રયાસ કરો અથવા જો સમસ્યા ચાલુ રહેતો ગ્રાહક સહાયનો સંપર્ક કરો</string>
+    <!--<string name="error_mobile_required">મોબાઇલ નંબરની આવશ્યકતા છે</string>-->
+    <!--<string name="error_transfer_failed">સ્થળાંતર દરમિયાન ભૂલ થઇ, કૃપા કરી ફરી પ્રયાસ કરો અથવા મદદ માટે કસ્ટમર કેરનો સંપર્ક કરો.</string>-->
+    <!--<string name="error_recharge_failed">રીચાર્જ દરમિયાન ભૂલ થઇ, કૃપા કરી ફરી પ્રયાસ કરો અથવા મદદ માટે કસ્ટમર કેરનો સંપર્ક કરો.</string>-->
+    <!--<string name="error_customer_phone_required">કૃપા કરી ગ્રાહકનો નંબર દાખલ કરો.</string>-->
+    <!--<string name="error_phone_length">ફોન નંબર %1$d અંકોનો હોવો જોઇએ.</string>-->
+    <!--<string name="error_phone_length_min_max">ફોન નંબર %1$d અને %2$d અંકો વચ્ચેનો હોવો જોઇએ.</string>-->
+    <!--<string name="error_amount_min_max">રકમ રૂા. %1$d અને રૂા. %2$d ની વચ્ચે હોવી જોઇએ.</string>-->
+    <!--<string name="error_amount_min">રકમ આ રૂા. %1$d થી ઓછી હોવી જોઇએ જોઇએ.</string>-->
+    <!--<string name="error_subscriber_id_length">સબસ્ક્રાઇબર આઇડી %1$d વર્ણોનું હોવું જોઇએ.</string>-->
+    <!--<string name="error_subscriber_id_min_max">સબસ્ક્રાઇબર આઇડી %1$d અને %2$d વર્ણો વચ્ચેનો હોવો જોઇએ.</string>-->
+    <string name="error_beneficiary_name_length">બેનિફિસીયરી નામ %1$d વર્ણોનું હોવું જોઇએ.</string>
+    <string name="error_beneficiary_name_min_max">બેનિફિસીયરી નામ %1$d અને %2$d વર્ણો વચ્ચેનો હોવું જોઇએ.</string>
+    <string name="error_AccountNumber_length">ખાતા નંબર %1$d અંકોનો હોવો જોઇએ.</string>
+    <string name="error_AccountNumber_length_min_max">ખાતા નંબર %1$d અને %2$d અંકો વચ્ચેનો હોવો જોઇએ.</string>
+    <string name="error_IFSCCODE_length">ifsc કોડ %1$d અંકોનો હોવો જોઇએ.</string>
+    <string name="error_IFSCCODE_length_min_max">ifsc કોડ %1$d અને %2$d અંકો વચ્ચેનો હોવો જોઇએ.</string>
+    <!--<string name="error_obtaining_bill_amount">બિલ રકમ પ્રાપ્ત થઇ શકી નથી. કૃપા કરી ગ્રાહક નંબર તપાસો.</string>-->
+    <!--<string name="error_no_internet_title">કોઇ ઇન્ટરનેટ નથી!</string>-->
+    <!--<string name="error_no_internet">તમારું ઉપકરણ ઇન્ટરનેટ સાથે જોડાયેલ નથી. તમારું ઇન્ટરનેટ જોડાણ ફરી ચાલુ થાય ત્યારે કૃપા કરી આ પ્રયાસ કરો.</string>-->
+    <!--<string name="error_getting_balance">ભૂલ</string>-->
+    <string name="error_imps_customer_registration">ગ્રાહકની રજીસ્ટ્રેશન સ્થિતિ પ્રાપ્ત થઇ શકી નથી.</string>
+    <string name="error_imps_customer_creation">ગ્રાહક તૈયાર કરી શકાયા નથી.</string>
+    <string name="error_imps_beneficiary_List">બેનિફિસીયરી સૂચિ પ્રાપ્ત થઇ શકી નથી.</string>
+    <string name="error_tryAgain">ફરીથી પ્રયાસ કરો.</string>
+    <string name="error_imps_kyc">kys પ્રાપ્ત થઇ શકી નથી.</string>
+    <string name="error_otp">સાચો otp દાખલ કરો. સાચો otp દાખલ કરો</string>
+    <string name="error_imps_bank_List">બેંક સૂચિ પ્રાપ્ત થઇ શકી નથી.</string>
+    <string name="error_imps_state_List">રાજ્ય સૂચિ પ્રાપ્ત થઇ શકી નથી.</string>
+    <string name="error_imps_city_List">શહેર સૂચિ પ્રાપ્ત થઇ શકી નથી.</string>
+    <string name="error_imps_branch_List">શાખા સૂચિ પ્રાપ્ત થઇ શકી નથી.</string>
+    <string name="error_imps_add_beneficiary">નવું બેનિફિસીયરી ઉમેરી શકાયું નથી. બાદમાં ફરીથી પ્રયાસ કરો.</string>
+    <string name="error_imps_beneficiary_Details">બેનિફિસીયરી સૂચિ પ્રાપ્ત થઇ શકી નથી.</string>
+    <string name="lbl_Get_IFSC_Code">ifsc મેળવો</string>
+    <string name="lbl_IFSCCode">ifsc કોડ દાખલ/ પસંદ કરો</string>
+    <string name="lbl_isVerified">ચકાસાયેલ</string>
+    <string name="lbl_IFSC_Code">ifsc કોડ</string>
+    <string name="lblBeneficiaryMobileNumber">બેનિફિસીયરી મોબાઇલ નંબરઃ</string>
+
+    <string name="lblOTP">otp</string>
+    <!--<string name="no_transactions_found">કોઇ ટ્રાન્ઝેક્શન્સ મળ્યાં નથી</string>-->
+    <string name="error_SDCode">સાચો sd કોડ દાખલ કરો</string>
+    <string name="error_SOP">સાચો sop કોડ દાખલ કરો</string>
+    <string name="error_FSA">સાચો fsa કોડ દાખલ કરો</string>
+    <string name="error_AccountMonth">બિલ ખાતા માસ પર સાચું દાખલ કરો</string>
+    <string name="error_Bill_DueDate">બિલ ચડત તારીખ પર સાચું દાખલ કરો</string>
+    <string name="error_Date">અયોગ્ય તારીખ!!! બિલ ચડત તારીખ પર સાચું દાખલ કરો</string>
+    <string name="error_Invalid_Date">અમાન્ય તારીખ. બિલ ચડત તારીખ પર સાચું દાખલ કરો</string>
+    <string name="error_RadioButton">સ્ટડીપરઓડિયોબટન પસંદ કરો</string>
+    <string name="singUp_Successful_msg">ગ્રાહક સફળતાપૂર્વક તેયાર થયાં. કૃપા કરી લોગ ઇન કરો</string>
+    <string name ="error_sinUp_msg">money on mobile સાથે તમે પહેલાંથી નોંધાયેલ છો.</string>
+
 </resources>

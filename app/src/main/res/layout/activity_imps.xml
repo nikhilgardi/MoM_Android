@@ -93,6 +93,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="@dimen/medium"
+
                 android:hint="@string/lbl_AccountNumber"
                 android:inputType="number"
                 android:maxLength="20"
@@ -105,6 +106,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/lblConsumerNumber"
+                android:paddingLeft="20dp"
                 android:layout_marginBottom="@dimen/medium"
                 android:visibility="gone" />
 
@@ -125,8 +127,8 @@
                 android:layout_alignParentLeft="true"
                 android:layout_marginTop="@dimen/small"
                 android:layout_marginBottom="@dimen/small"
-                android:layout_marginLeft="10dip"
-                android:text ="Consumer Number"
+                android:paddingLeft="20dp"
+                android:text ="@string/lblConsumerNumber"
                 android:textColor="#333"
                 android:textSize="@dimen/text_small"
                 android:visibility="gone" />
@@ -135,19 +137,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/lblConsumerNumber"
-                style="@style/EditTextAppTheme.phone"
-                android:layout_marginTop="25dp"
 
+                android:background="@drawable/apptheme_edit_text_holo_light"
+                android:inputType="number"
+                android:maxLength="10"
+                android:layout_marginTop="25dp"
+                android:paddingLeft="20dp"
                 android:layout_marginBottom="@dimen/small"
                 android:textSize="@dimen/text_small"
                />
             <Button
                 android:id="@+id/BTN_Submit"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:layout_width="match_parent"
-
-                android:layout_marginLeft="50dip"
-                android:layout_marginRight="50dip"
+                style="@style/MoMTheme.wrapped.customButton"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginTop="15dp"
                 android:text="@string/tpin_submit_btn"/>
             <EditText
@@ -156,6 +160,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/lbl_Name"
                 android:inputType="textPersonName"
+                android:paddingLeft="20dp"
                 android:layout_marginTop="@dimen/small"
                 android:layout_marginBottom="@dimen/small"
                 android:visibility="gone" />
@@ -165,6 +170,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/lbl_DOB"
                 android:focusableInTouchMode="false"
+                android:paddingLeft="20dp"
                 android:layout_marginTop="@dimen/small"
                 android:layout_marginBottom="@dimen/small"
                 android:visibility="gone"/>
@@ -173,7 +179,7 @@
                 android:id="@+id/et_emailId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
+                android:paddingLeft="20dp"
                 android:layout_marginTop="@dimen/small"
                 android:layout_marginBottom="@dimen/small"
                 android:hint="@string/lbl_Email"
@@ -208,7 +214,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:text="Available Limit"
-                android:layout_marginLeft="10dip"
+                android:paddingLeft="20dp"
+
                 android:layout_marginTop="@dimen/small"
                 android:layout_marginBottom="@dimen/small"
                 android:textColor="#333"
@@ -220,6 +227,9 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_small"
                 android:hint="Available Limit"
+                android:paddingLeft="20dp"
+                android:background="@drawable/apptheme_edit_text_holo_light"
+
                 android:layout_marginTop="@dimen/small"
                 android:layout_marginBottom="@dimen/small"
                 android:visibility="gone" />
@@ -231,7 +241,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:text="Select Account Alias"
-                android:layout_marginLeft="10dip"
+                android:paddingLeft="20dp"
+
                 android:layout_marginTop="@dimen/small"
                 android:layout_marginBottom="@dimen/small"
                 android:textSize="@dimen/text_small"
@@ -244,6 +255,7 @@
                 android:prompt="@string/prompt_spinner_select_NewBeneficiary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:layout_marginTop="@dimen/small"
                 android:layout_marginBottom="@dimen/small"
                 android:visibility="gone" />
@@ -253,6 +265,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/lbl_isVerified"
                 android:visibility="gone"
+
                 android:layout_marginTop="@dimen/small"
                 android:layout_marginBottom="@dimen/small"
                 android:gravity="right"/>
@@ -262,8 +275,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:text="Beneficiary Name"
-                android:layout_marginLeft="10dip"
+                android:text="@string/tvBeneficiaryName"
+                android:paddingLeft="20dp"
                 android:layout_marginTop="@dimen/small"
                 android:layout_marginBottom="@dimen/small"
                 android:textSize="@dimen/text_small"
@@ -275,14 +288,17 @@
                 android:id="@+id/beneficiary_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center"
+
+
+                android:paddingLeft="20dp"
+                android:background="@drawable/apptheme_edit_text_holo_light"
                 android:layout_marginTop="@dimen/small"
                 android:layout_marginBottom="@dimen/small"
                 android:hint="@string/lbl_BeneficiaryName"
                 android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
                 android:textSize="@dimen/text_small"
-                style="@style/EditTextAppTheme.BeneficiaryName"
+                android:inputType="textCapCharacters"
+                android:maxLength="25"
 
                 android:visibility="gone" />
             <!--android:digits="abcdefghijklmnopqrstuvwxyz"-->
@@ -292,8 +308,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:text="Account Number"
-                android:layout_marginLeft="10dip"
+                android:text="@string/tvAccountNumber"
+                android:paddingLeft="20dp"
                 android:layout_marginTop="@dimen/small"
                 android:layout_marginBottom="@dimen/small"
                 android:textSize="@dimen/text_small"
@@ -306,11 +322,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_gravity="center"
+
+                android:paddingLeft="20dp"
+                android:background="@drawable/apptheme_edit_text_holo_light"
                 android:layout_marginTop="@dimen/small"
                 android:layout_marginBottom="@dimen/small"
                 android:hint="@string/lbl_AccountNumber"
-                style="@style/EditTextAppTheme.AccountNumber"
+                android:inputType ="number"
+                android:maxLength="30"
                 android:textSize="@dimen/text_small"
                 android:visibility="gone" />
 
@@ -335,8 +354,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:text="IFSC Code"
-                android:layout_marginLeft="10dip"
+                android:text="@string/tvIFSCCode"
+                android:paddingLeft="20dp"
                 android:layout_marginTop="@dimen/small"
                 android:layout_marginBottom="@dimen/small"
                 android:textSize="@dimen/text_small"
@@ -348,7 +367,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/lbl_IFSCCode"
-                style="@style/EditTextAppTheme.IFSCCode"
+                android:maxLength="11"
+                android:paddingLeft="20dp"
+                android:background="@drawable/apptheme_edit_text_holo_light"
                 android:layout_marginTop="@dimen/small"
                 android:layout_marginBottom="@dimen/small"
                 android:textSize="@dimen/text_small"
@@ -362,6 +383,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/lbl_IFSCCode"
                 android:visibility="gone"
+                android:paddingLeft="20dp"
                 android:layout_marginTop="@dimen/small"
                 android:layout_marginBottom="@dimen/small"
                 android:gravity="right"/>
@@ -371,8 +393,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:text="Beneficiary Mobile Number"
-                android:layout_marginLeft="10dip"
+                android:text="@string/tvBeneficiaryMobileNumber"
+                android:paddingLeft="20dp"
                 android:layout_marginTop="@dimen/small"
                 android:layout_marginBottom="@dimen/small"
                 android:textSize="@dimen/text_small"
@@ -384,9 +406,13 @@
                 android:id="@+id/BeneficiaryMobile_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/EditTextAppTheme.phone"
+
+                android:background="@drawable/apptheme_edit_text_holo_light"
+
+                android:inputType="number"
                 android:hint="@string/lblBeneficiaryMobileNumber"
                 android:maxLength="10"
+                android:paddingLeft="20dp"
                 android:layout_marginTop="@dimen/small"
                 android:layout_marginBottom="@dimen/small"
                 android:textSize="@dimen/text_small"
@@ -398,6 +424,7 @@
                 android:prompt="@string/prompt_spinner_select_operator"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
                 android:layout_marginTop="@dimen/small"
                 android:layout_marginBottom="@dimen/small"
                 android:visibility="gone" />
@@ -408,9 +435,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:text="Amount"
+                android:text="@string/tvAmount"
                 android:textSize="@dimen/text_small"
-                android:layout_marginLeft="10dip"
+                android:paddingLeft="20dp"
                 android:layout_marginTop="@dimen/small"
                 android:layout_marginBottom="@dimen/small"
 
@@ -423,8 +450,13 @@
                 android:id="@+id/amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/EditTextAppTheme.impsmoney"
+
+                android:inputType ="number"
+                android:maxLength="5"
                 android:hint="@string/lblAmount"
+                android:paddingLeft="20dp"
+                android:background="@drawable/apptheme_edit_text_holo_light"
+
                 android:layout_marginTop="@dimen/small"
                 android:layout_marginBottom="@dimen/small"
                 android:textSize="@dimen/text_small"
@@ -436,8 +468,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:text="Transaction Description"
-                android:layout_marginLeft="10dip"
+                android:text="@string/action_Transaction_Description"
+                android:paddingLeft="20dp"
                 android:layout_marginTop="@dimen/small"
                 android:layout_marginBottom="@dimen/small"
                 android:textSize="@dimen/text_small"
@@ -450,7 +482,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_small"
-                android:hint="@string/lblTxnDescription"
+                android:hint="@string/action_Transaction_Description"
+                android:paddingLeft="20dp"
+                android:background="@drawable/apptheme_edit_text_holo_light"
                 android:layout_marginTop="@dimen/small"
                 android:layout_marginBottom="@dimen/small"
                 android:visibility="gone" />
@@ -460,8 +494,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:text="Processing Fees"
-                android:layout_marginLeft="10dip"
+                android:text="@string/tvProcessingFees"
+                android:paddingLeft="20dp"
                 android:layout_marginTop="@dimen/small"
                 android:layout_marginBottom="@dimen/small"
                 android:textSize="@dimen/text_small"
@@ -473,8 +507,12 @@
                 android:id="@+id/ProcessingFees"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/EditTextAppTheme.money"
+
+                android:inputType="number"
+                android:maxLength="4"
                 android:hint="@string/lblProcessingFees"
+                android:paddingLeft="20dp"
+                android:background="@drawable/apptheme_edit_text_holo_light"
                 android:layout_marginTop="@dimen/small"
                 android:layout_marginBottom="@dimen/small"
                 android:textSize="@dimen/text_small"
@@ -485,8 +523,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:text="Amount Payable"
-                android:layout_marginLeft="10dip"
+                android:text="@string/tvAmountPayable"
+                android:paddingLeft="20dp"
                 android:layout_marginTop="@dimen/small"
                 android:layout_marginBottom="@dimen/small"
                 android:textSize="@dimen/text_small"
@@ -498,8 +536,12 @@
                 android:id="@+id/AmountPayable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/EditTextAppTheme.money"
+
+                android:background="@drawable/apptheme_edit_text_holo_light"
                 android:hint="@string/lblAmountPayable"
+                android:inputType="number"
+                android:maxLength="4"
+                android:paddingLeft="20dp"
                 android:layout_marginTop="@dimen/small"
                 android:layout_marginBottom="@dimen/small"
                 android:textSize="@dimen/text_small"
@@ -510,8 +552,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:text="OTP"
-                android:layout_marginLeft="10dip"
+                android:text="@string/tvOTP"
+                android:paddingLeft="20dp"
                 android:layout_marginTop="@dimen/small"
                 android:layout_marginBottom="@dimen/small"
                 android:textSize="@dimen/text_small"
@@ -523,6 +565,8 @@
                 android:layout_height="wrap_content"
                 android:inputType="numberPassword"
                 android:hint="@string/lblOTP"
+                android:paddingLeft="20dp"
+                android:background="@drawable/apptheme_edit_text_holo_light"
                 android:layout_marginTop="@dimen/small"
                 android:layout_marginBottom="@dimen/small"
                 android:textSize="@dimen/text_small"
@@ -561,7 +605,7 @@
                     android:id="@+id/rbtnPay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pay"
+                    android:text="@string/action_Pay"
 
                     style="@style/RadioButtonAppTheme"
                     android:visibility="gone" >
@@ -571,103 +615,168 @@
                     android:id="@+id/rbtn_Verify"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Verify"
+                    android:text="@string/action_Verify"
 
                     style="@style/RadioButtonAppTheme"
                     android:visibility="gone" >
                 </RadioButton>
             </RadioGroup>
+            <Button
+                android:id="@+id/btn_Submit"
+                android:layout_height="35dp"
+                android:layout_width="match_parent"
+                style="@style/MoMTheme.wrapped.customButton"
+                android:text="@string/tpin_submit_btn"
+                android:visibility="gone" />
 
-            <LinearLayout
-                android:weightSum="3"
-                style="@style/MoMTheme.btn_container">
-                <Button
-                    android:id="@+id/btn_Submit"
-                    android:layout_height="wrap_content"
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    style="@style/MoMTheme.wrapped.customButton"
-                    android:text="@string/tpin_submit_btn"
-                    android:visibility="gone" />
+            <Button
+                android:id="@+id/btnCancel"
+                android:layout_height="35dp"
+                android:layout_width="match_parent"
+                style="@style/MoMTheme.wrapped.customButton"
+                android:text="@string/btn_cancel"
+                android:visibility="gone" />
 
-                <Button
-                    android:id="@+id/btnCancel"
-                    android:layout_height="wrap_content"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    style="@style/MoMTheme.wrapped.customButton"
-                    android:text="@string/btn_cancel"
-                    android:visibility="gone" />
-            </LinearLayout>
+            <Button
+                android:id="@+id/btn_VerifySubmit"
+                android:layout_height="35dp"
+                android:layout_width="match_parent"
+                style="@style/MoMTheme.wrapped.customButton"
+                android:text ="VerifySubmit"
 
-            <LinearLayout
-                android:weightSum="3"
-                style="@style/MoMTheme.btn_container">
-                <Button
-                    android:id="@+id/btn_VerifySubmit"
-                    android:layout_height="wrap_content"
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    style="@style/MoMTheme.wrapped.customButton"
-                    android:text ="VerifySubmit"
+                android:visibility="gone" />
 
-                    android:visibility="gone" />
+            <Button
+                android:id="@+id/btnVerifyCancel"
+                android:layout_height="35dp"
+                android:layout_width="match_parent"
+                style="@style/MoMTheme.wrapped.customButton"
 
-                <Button
-                    android:id="@+id/btnVerifyCancel"
-                    android:layout_height="wrap_content"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    style="@style/MoMTheme.wrapped.customButton"
+                android:text ="VerifyCancel"
+                android:visibility="gone" />
 
-                    android:text ="VerifyCancel"
-                    android:visibility="gone" />
-            </LinearLayout>
+            <Button
+                android:id="@+id/btn_VerifyPaySubmit"
+                android:layout_height="35dp"
+                android:layout_width="match_parent"
+                style="@style/MoMTheme.wrapped.customButton"
+                android:text="@string/tpin_submit_btn"
+                android:visibility="gone" />
 
-            <LinearLayout
-                android:weightSum="3"
-                style="@style/MoMTheme.btn_container">
-                <Button
-                    android:id="@+id/btn_VerifyPaySubmit"
-                    android:layout_height="wrap_content"
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    style="@style/MoMTheme.wrapped.customButton"
-                    android:text="Submit"
-                    android:visibility="gone" />
+            <Button
+                android:id="@+id/btn_VerifyPayCancel"
+                android:layout_height="35dp"
+                android:layout_width="match_parent"
+                style="@style/MoMTheme.wrapped.customButton"
+                android:text="@string/btn_cancel"
+                android:visibility="gone" />
 
-                <Button
-                    android:id="@+id/btn_VerifyPayCancel"
-                    android:layout_height="wrap_content"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    style="@style/MoMTheme.wrapped.customButton"
-                    android:text="Cancel"
-                    android:visibility="gone" />
-            </LinearLayout>
+            <Button
+                android:id="@+id/btn_PaymentPaySubmit"
+                android:layout_height="35dp"
+                android:layout_width="match_parent"
+                style="@style/MoMTheme.wrapped.customButton"
 
-            <LinearLayout
-                android:weightSum="3"
-                style="@style/MoMTheme.btn_container">
-                <Button
-                    android:id="@+id/btn_PaymentPaySubmit"
-                    android:layout_height="wrap_content"
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    style="@style/MoMTheme.wrapped.customButton"
+                android:text="@string/btn_payment"
+                android:visibility="gone" />
 
-                    android:text="Payment"
-                    android:visibility="gone" />
+            <Button
+                android:id="@+id/btn_PaymentPayCancel"
+                android:layout_height="35dp"
+                android:layout_width="match_parent"
+                style="@style/MoMTheme.wrapped.customButton"
+                android:text="@string/btn_cancel"
+                android:visibility="gone" />
+            <!--<LinearLayout-->
+                <!--android:weightSum="3"-->
+                <!--style="@style/MoMTheme.btn_container">-->
+                <!--<Button-->
+                    <!--android:id="@+id/btn_Submit"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_weight="2"-->
+                    <!--style="@style/MoMTheme.wrapped.customButton"-->
+                    <!--android:text="@string/tpin_submit_btn"-->
+                    <!--android:visibility="gone" />-->
 
-                <Button
-                    android:id="@+id/btn_PaymentPayCancel"
-                    android:layout_height="wrap_content"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    style="@style/MoMTheme.wrapped.customButton"
-                    android:text="Cancel"
-                    android:visibility="gone" />
-            </LinearLayout>
+                <!--<Button-->
+                    <!--android:id="@+id/btnCancel"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--style="@style/MoMTheme.wrapped.customButton"-->
+                    <!--android:text="@string/btn_cancel"-->
+                    <!--android:visibility="gone" />-->
+            <!--</LinearLayout>-->
+
+            <!--<LinearLayout-->
+                <!--android:weightSum="3"-->
+                <!--style="@style/MoMTheme.btn_container">-->
+                <!--<Button-->
+                    <!--android:id="@+id/btn_VerifySubmit"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_weight="2"-->
+                    <!--style="@style/MoMTheme.wrapped.customButton"-->
+                    <!--android:text ="VerifySubmit"-->
+
+                    <!--android:visibility="gone" />-->
+
+                <!--<Button-->
+                    <!--android:id="@+id/btnVerifyCancel"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--style="@style/MoMTheme.wrapped.customButton"-->
+
+                    <!--android:text ="VerifyCancel"-->
+                    <!--android:visibility="gone" />-->
+            <!--</LinearLayout>-->
+
+            <!--<LinearLayout-->
+                <!--android:weightSum="3"-->
+                <!--style="@style/MoMTheme.btn_container">-->
+                <!--<Button-->
+                    <!--android:id="@+id/btn_VerifyPaySubmit"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_weight="2"-->
+                    <!--style="@style/MoMTheme.wrapped.customButton"-->
+                    <!--android:text="Submit"-->
+                    <!--android:visibility="gone" />-->
+
+                <!--<Button-->
+                    <!--android:id="@+id/btn_VerifyPayCancel"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--style="@style/MoMTheme.wrapped.customButton"-->
+                    <!--android:text="Cancel"-->
+                    <!--android:visibility="gone" />-->
+            <!--</LinearLayout>-->
+
+            <!--<LinearLayout-->
+                <!--android:weightSum="3"-->
+                <!--style="@style/MoMTheme.btn_container">-->
+                <!--<Button-->
+                    <!--android:id="@+id/btn_PaymentPaySubmit"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_weight="2"-->
+                    <!--style="@style/MoMTheme.wrapped.customButton"-->
+
+                    <!--android:text="Payment"-->
+                    <!--android:visibility="gone" />-->
+
+                <!--<Button-->
+                    <!--android:id="@+id/btn_PaymentPayCancel"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--style="@style/MoMTheme.wrapped.customButton"-->
+                    <!--android:text="Cancel"-->
+                    <!--android:visibility="gone" />-->
+            <!--</LinearLayout>-->
 
 
 
@@ -678,7 +787,7 @@
                 android:id="@+id/DueDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
+                android:paddingLeft="20dp"
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
@@ -714,7 +823,7 @@
                 android:id="@+id/SDCode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
+                android:paddingLeft="20dp"
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
@@ -725,7 +834,7 @@
                 android:id="@+id/SOP"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
+                android:paddingLeft="20dp"
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
@@ -736,7 +845,7 @@
                 android:id="@+id/FSA"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
+                android:paddingLeft="20dp"
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
@@ -747,7 +856,7 @@
                 android:id="@+id/ACMonth"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
+                android:paddingLeft="20dp"
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"

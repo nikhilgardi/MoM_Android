@@ -119,8 +119,9 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
         LocalBroadcastManager.getInstance(this).registerReceiver(
                 messageReceiver, new IntentFilter(AppConstants.INTENT_GCM)
         );
-
-        getBalance();
+//        getWindow().setBackgroundDrawable(
+//                getResources().getDrawable(R.drawable.appsbg));
+      getBalance();
 
     }
 
@@ -326,14 +327,35 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
         if(balance == AppConstants.ERROR_BALANCE){
             sBal            = getString(R.string.error_getting_balance);
             return;
-        }else {
-            DecimalFormat df = new DecimalFormat("#,###,###,##0.00");
-            sBal = df.format(balance);
+        }
+
+        else {
+            try {
+                if (balItem!=null) {
+                    //  DecimalFormat df = new DecimalFormat("#,###,###,##0.00");
+                    DecimalFormat df = new DecimalFormat("#0.00");
+                    Log.e("Bal1", String.valueOf(balance));
+                    sBal = df.format(balance);
+                    Log.e("Bal", sBal);
+                    balItem.setTitle("Balance: " + getResources().getString(R.string.Rupee) + sBal);
+                    //  balItem.setTitle("Balance: "  + sBal);
+                    Log.d(_LOG, sBal);
+                }
+                else{
+                    Log.e("Balance Error" , String.valueOf(balance));
+                }
+            }
+            catch(Exception ex){
+                Log.e("Exception" , ex.toString());
+                Intent intent 						= new Intent(BaseActivity.this, LoginActivity.class);
+                Log.i(_LOG, "Finishing LoginActivity");
+
+                startActivity(intent);
+            }
         }
 
        // tv.setText("Balance: " + getResources().getString(R.string.Rupee) + sBal);
-        balItem.setTitle("Balance: " + getResources().getString(R.string.Rupee) + sBal);
-        Log.d(_LOG, sBal);
+
     }
 
     public IDataEx getDataEx(AsyncListener<?> listener){
@@ -407,7 +429,7 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
 //    @Override
 //    public boolean onCreateOptionsMenu(Menu menu) {
 //        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.base, menu);
+ //      getMenuInflater().inflate(R.menu.base, menu);
 //
 //        _tvBalance = new TextView(this);
 //
@@ -424,7 +446,7 @@ private   MenuItem balItem = null;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_activity_actions, menu);
-         balItem = menu.findItem(R.id.balance);
+        balItem = menu.findItem(R.id.balance);
         MenuItemCompat.setShowAsAction(balItem , MenuItemCompat.SHOW_AS_ACTION_ALWAYS);
          MenuItemCompat.getActionView(balItem); //
 
@@ -762,14 +784,14 @@ private   MenuItem balItem = null;
 
         alertDialog.setMessage(R.string.confirm_logout)
                 .setCancelable(true)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.btn_Ok, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.dismiss();
                         EphemeralStorage.getInstance(context).clear();
                         finish();
                     }
                 })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.btn_cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                     }

@@ -53,6 +53,7 @@ public class DashboardFragment extends FragmentBase {
         gridView.setAdapter(gridViewAdapter);
 
 
+
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 

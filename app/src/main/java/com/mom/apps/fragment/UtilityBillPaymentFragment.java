@@ -114,7 +114,12 @@ public class UtilityBillPaymentFragment extends FragmentBase implements AsyncLis
         month = cal.get(Calendar.MONTH);
         year = cal.get(Calendar.YEAR);
 
+        _spOperator.setVisibility(View.VISIBLE);
 
+        _etCustomerNumber.setVisibility(View.VISIBLE);
+        _etAmount.setVisibility(View.VISIBLE);
+        _btnPay.setVisibility(View.VISIBLE);
+        
         _btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -346,12 +351,12 @@ public class UtilityBillPaymentFragment extends FragmentBase implements AsyncLis
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
 
         // Setting Dialog Title
-        alertDialog.setTitle("Confirm Payment...");
-        String sMsg     = "Operator: "
+        alertDialog.setTitle(getResources().getString(R.string.AlertDialog_BillPayment));
+        String sMsg     = getResources().getString(R.string.Lbl_Operator)
                 + _spOperator.getSelectedItem() + "\n"
-                + "Amount:" + " " + "Rs." + " "
+                + getResources().getString(R.string.Lbl_Amount) + " "
                 + _etAmount.getText() + "\n"
-                + "Phone: " + _etCustomerNumber.getText();
+                + getResources().getString(R.string.Lbl_MobileNumber) + _etCustomerNumber.getText();
 
         String sOperator                = _spOperator.getSelectedItem().toString();
 
@@ -375,7 +380,7 @@ public class UtilityBillPaymentFragment extends FragmentBase implements AsyncLis
 
         alertDialog.setMessage(sMsg);
 
-        alertDialog.setPositiveButton("YES",
+        alertDialog.setPositiveButton(getResources().getString(R.string.Dialog_Yes),
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         ((AlertDialog) dialog).getButton(
@@ -386,7 +391,7 @@ public class UtilityBillPaymentFragment extends FragmentBase implements AsyncLis
                 });
 
         // Setting Negative "NO" Button
-        alertDialog.setNegativeButton("NO",
+        alertDialog.setNegativeButton(getResources().getString(R.string.Dialog_No),
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which1) {
 

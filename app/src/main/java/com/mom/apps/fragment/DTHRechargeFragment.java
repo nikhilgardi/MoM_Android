@@ -382,16 +382,16 @@ Log.i("Params" , sSubscriberId +"/n" + sRechargeAmount +"/n"+ operator+ "/n" +  
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
 
         // Setting Dialog Title
-        alertDialog.setTitle("Confirm DTH Recharge...");
+        alertDialog.setTitle(getResources().getString(R.string.AlertDialog_DTHRecharge));
 
         // Setting Dialog Message
-        alertDialog.setMessage("Subscriber ID:" + " "
-                + _etSubscriberId.getText().toString() + "\n" + "Operator:"
+        alertDialog.setMessage(getResources().getString(R.string.Lbl_SubscriberID) + " "
+                + _etSubscriberId.getText().toString() + "\n" + getResources().getString(R.string.Lbl_Operator)
                 + " " + _spOperator.getSelectedItem().toString() + "\n"
-                + "Amount:" + " " + "Rs." + " "
+                + getResources().getString(R.string.Lbl_Amount) + " " + "Rs." + " "
                 + _etAmount.getText().toString());
 
-        alertDialog.setPositiveButton("YES",
+        alertDialog.setPositiveButton(getResources().getString(R.string.Dialog_Yes),
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         ((AlertDialog) dialog).getButton(
@@ -403,7 +403,7 @@ Log.i("Params" , sSubscriberId +"/n" + sRechargeAmount +"/n"+ operator+ "/n" +  
                 });
 
         // Setting Negative "NO" Button
-        alertDialog.setNegativeButton("NO",
+        alertDialog.setNegativeButton(getResources().getString(R.string.Dialog_No),
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which1) {
 

@@ -114,6 +114,7 @@
         <item name="android:textColor">@android:color/white</item>
         <item name="android:layout_margin">@dimen/ultra_small</item>
         <item name="android:padding">@dimen/ultra_ultra_small</item>
+
     </style>
     <style name="MoMTheme.action_buttons">
 
