@@ -131,22 +131,20 @@ public abstract class FragmentBase extends Fragment{
         InputMethodManager imm = (InputMethodManager)
                 getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 
-
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     public IDataEx getDataEx(AsyncListener pListener){
         try {
-            if (_dataEx == null) {
+//            if (_dataEx == null) {
                 if (_currentPlatform == PlatformIdentifier.MOM) {
                     _dataEx = new MoMPLDataExImpl(getActivity(), pListener);
-                }
-                else if (_currentPlatform == PlatformIdentifier.B2C) {
+                }else if (_currentPlatform == PlatformIdentifier.B2C) {
                     _dataEx = new B2CPLDataExImpl(getActivity(), pListener);
                 }else {
                     _dataEx = new PBXPLDataExImpl(getActivity(), null, pListener);
                 }
-            }
+//            }
         }catch(MOMException me){
             Log.w(_LOG, "Logged out", me);
             goToLogin();

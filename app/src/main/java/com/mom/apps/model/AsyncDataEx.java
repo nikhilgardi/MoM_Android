@@ -83,8 +83,6 @@ public class AsyncDataEx extends AsyncTask<NameValuePair, Integer, String>{
 
 	protected void onPostExecute(String result){
 
-        Log.e("\n\n\n************onPostExecute***************" , "test");
-
         Log.d(_LOG, "Called onPostExecute of listener, calling listener");
         if(_request != null) {
             _request.setRemoteResponse(result);

@@ -117,9 +117,6 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                         nfe.printStackTrace();
                     }
                     break;
-
-
-
                 case GET_OPERATOR_NAMES:
                     _listener.onTaskSuccess(getOperatorNamesResult(result), callback);
                     break;

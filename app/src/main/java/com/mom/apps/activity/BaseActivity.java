@@ -225,7 +225,7 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
         ) {
             public void onDrawerClosed(View view) {
                 Log.d(_LOG, "onDrawerClosed");
-                getBalance();
+//                getBalance();
 //                getActionBar().setTitle(mTitle);
                 //invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
                 supportInvalidateOptionsMenu();
@@ -233,7 +233,8 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
 
             public void onDrawerOpened(View drawerView) {
                 Log.d(_LOG, "onDrawerOpened");
-                getBalance();
+
+//                getBalance();
 //                getActionBar().setTitle(mDrawerTitle);
                 //invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
                 supportInvalidateOptionsMenu();
@@ -283,34 +284,31 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
     }
 
    // private void getBalance() {
-        protected void getBalance() {
+    protected void getBalance() {
         showProgress(true);
 
-            AsyncListener<Float> listener = new AsyncListener<Float>() {
-                @Override
-                public void onTaskSuccess(Float result, DataExImpl.Methods callback) {
-                    Log.d(_LOG, "Got balance: " + result);
-                    showProgress(false);
+        AsyncListener<Float> listener = new AsyncListener<Float>() {
+            @Override
+            public void onTaskSuccess(Float result, DataExImpl.Methods callback) {
+                Log.d(_LOG, "Got balance: " + result);
+                showProgress(false);
 
-                    EphemeralStorage.getInstance(getApplicationContext()).storeFloat(
-                            AppConstants.USER_BALANCE, result
-                    );
+                EphemeralStorage.getInstance(getApplicationContext()).storeFloat(
+                        AppConstants.USER_BALANCE, result
+                );
 
-                    showBalance(_tvBalance, result);
-                }
+                showBalance(_tvBalance, result);
+            }
 
-                @Override
-                public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
-                    Log.e(_LOG, "Error retrieving balance");
-                    showProgress(false);
-                }
-            };
+            @Override
+            public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
+                Log.e(_LOG, "Error retrieving balance");
+                showProgress(false);
+            }
+        };
 
-
-            Log.d(_LOG, "Going to fetch balance");
-            getDataEx(listener).getBalance();
-
-
+        Log.d(_LOG, "Going to fetch balance");
+        getDataEx(listener).getBalance();
     }
 
     protected void showBalance(TextView tv){
@@ -318,12 +316,14 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
                 this
         ).getFloat(AppConstants.USER_BALANCE, AppConstants.ERROR_BALANCE);
 
+        Log.d(_LOG, "Showing balance from storage: " + balance);
         showBalance(tv, balance);
     }
-    String sBal         = null;
+
+
+
     protected void showBalance(TextView tv, Float balance){
-
-
+        String sBal         = null;
         if(balance == AppConstants.ERROR_BALANCE){
             sBal            = getString(R.string.error_getting_balance);
             return;
@@ -367,10 +367,8 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
             }
             else if(_currentPlatform == PlatformIdentifier.B2C){
                 dataEx = new MoMPLDataExImpl(getApplicationContext(), listener);
-            }
-
-            else {
-                dataEx = new PBXPLDataExImpl(getApplicationContext(), DataExImpl.Methods.LOGIN, listener);
+            }else {
+                dataEx = new PBXPLDataExImpl(getApplicationContext(), null, listener);
             }
 
             return dataEx;
@@ -475,7 +473,10 @@ private   MenuItem balItem = null;
     protected boolean onPrepareOptionsPanel(View view, Menu menu) {
         Log.d(_LOG, "onPrepareOptionsPanel");
 
-        return super.onPrepareOptionsPanel(view, menu);
+        boolean result = super.onPrepareOptionsPanel(view, menu);
+        showBalance(_tvBalance);
+
+        return result;
     }
 
     @Override
@@ -490,8 +491,6 @@ private   MenuItem balItem = null;
 
                 showProgress(true);
             }
-
-
             return;
         }
 
