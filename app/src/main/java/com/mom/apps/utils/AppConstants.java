@@ -56,6 +56,7 @@ public class AppConstants {
     public static final String SVC_NEW_METHOD_IMPS_SUBMIT_PAYMENT            = "/getSubmitPaymentDetails";
     public static final String SVC_NEW_METHOD_IMPS_CONFIRM_PAYMENT           = "/getConfirmPaymentDetails";
     public static final String SVC_NEW_METHOD_MOM_T_PIN                      = "/checkVallidTpin";
+    public static final String SVC_NEW_METHOD_IMPS_AUTHENTICATION            = "/GetIMPSUserStatus";
     //End: MoM Platform Methods
 
     //Start: PBX Platform Service
@@ -76,6 +77,7 @@ public class AppConstants {
     public static final String PARAM_SERVICE_LIC                = "LICPAY";
     public static final String PARAM_SERVICE_IMPS_CUSTOMER_STATUS               = "GETCUSTOMERSTATUS";
     public static final String PARAM_SERVICE_IMPS_CUSTOMER_REGISTRATION         = "CONSUMERRESISTER";
+    public static final String PARAM_SERVICE_IMPS_AUTHENTICATION                = "IMPSAUTHENTICATION";
     public static final String PARAM_SERVICE_IMPS_CHECK_KYC                     = "CHECKKYC";
     public static final String PARAM_SERVICE_IMPS_BENEFICIARY_LIST              = "BENEFICIARYLIST";
     public static final String PARAM_SERVICE_IMPS_ADD_BENEFICIARY               = "NEWBENEFICIARYREGISTER";
@@ -99,10 +101,15 @@ public class AppConstants {
    // public static final String URL_PBX_PLATFORM_APP         =  "http://api.pbx.momappworld.com/mobapps1/pbxmobapp.ashx";
     public static final String URL_PBX_PLATFORM_APPLIC        =   "http://test.api.pbx.momappworld.com/PbxMobApp.ashx";
    //    public static final String URL_PBX_PLATFORM_APP         = "http://172.16.1.102/MobAppS/PbxMobApp.ashx";
-   public static final String URL_PBX_PLATFORM_IMPS           =   "http://test.api.pbx.momappworld.com/PbxIMPSApp.ashx";
+   // LOCAL IMPS URL
+   // public static final String URL_PBX_PLATFORM_IMPS           =   "http://test.api.pbx.momappworld.com/PbxIMPSApp.ashx";
+  // PRODUCTION IMPS PBX
+   public static final String URL_PBX_PLATFORM_IMPS           =   "http://api.pbx.momappworld.com";
   // public static final String URL_PBX_PLATFORM_IMPS           =   "http://192.168.8.20/testapipbx/PbxIMPSApp.ashx";
-     //-- production public static final String URL_PBX_PLATFORM_APP          =  "http://api.pbx.momappworld.com/pbxmobapp.ashx";
-  public static final String URL_PBX_PLATFORM_APP          =  "http://test.api.pbx.momappworld.com/pbxmobapp.ashx";
+     //-- production
+      public static final String URL_PBX_PLATFORM_APP          =  "http://api.pbx.momappworld.com/pbxmobapp.ashx";
+ // local pbx url
+ // public static final String URL_PBX_PLATFORM_APP          =  "http://test.api.pbx.momappworld.com/pbxmobapp.ashx";
 //local url
   //  public static final String URL_PBX_PLATFORM_APP          =  "http://192.168.8.20/testapipbx/pbxmobapp.ashx";
 //   public static final String URL_PBX_PLATFORM_APP          =  "http://test.api.pbx.momappworld.com/pbxmobapp.ashx";
@@ -220,10 +227,12 @@ public class AppConstants {
     public static final String PARAM_PBX_CLIENT_TOKEN        = "clientToken";
     public static final String PARAM_PBX_CONSUMER_NUMBER_STATUS = "ConsumerNumber";
     public static final String PARAM_PBX_CONSUMER_NUMBER     = "CustomerMobileNumber";
+    public static final String PARAM_PBX_CONSUMER_NUMBER_UBP = "customerMobileNumber";
     public static final String PARAM_PBX_CONSUMER_NAME       = "CustomerName";
     public static final String PARAM_PBX_CONSUMER_DOB        = "CustomerDOB";
-    public static final String PARAM_PBX_CONSUMER_EMAIL        = "CustomerEmail";
+    public static final String PARAM_PBX_CONSUMER_EMAIL      = "CustomerEmail";
     public static final String PARAM_PBX_ROWID               = "partyRowId";
+    public static final String PARAM_PBX_CLIENT_TYPE         = "ClientType";
 
     public static final String PARAM_PBX_OPERATORS          = "pbxOperators";
     public static final String PARAM_PBX_OP                 = "oldPassword";
@@ -268,6 +277,7 @@ public class AppConstants {
     public static final String PARAM_PBX_IMPS_REMITTANCE_AMOUNT   ="RemittanceAmount";
     public static final String PARAM_PBX_IMPS_TRANSACTION_NARRATION ="TransactionNarration";
     public static final String PARAM_PBX_IMPS_TRANSACTION_NARRATION_DESC ="testingPBXIMPS";
+    public static final String PARAM_IMPS_CLIENT_TYPE	        = "4";
 
     // IMPS PAYMENT PROCESS
     public static final String PARAM_PBX_IMPS_PAYMENT_REMITTANCE_AMOUNT     ="remittanceAmount";

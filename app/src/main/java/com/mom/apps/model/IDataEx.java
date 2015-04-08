@@ -6,6 +6,7 @@ import com.mom.apps.model.pbxpl.BeneficiaryResult;
 import com.mom.apps.model.pbxpl.BranchNameResult;
 import com.mom.apps.model.pbxpl.CityNameResult;
 import com.mom.apps.model.pbxpl.ImpsAddBeneficiaryResult;
+import com.mom.apps.model.pbxpl.ImpsAuthenticationResult;
 import com.mom.apps.model.pbxpl.ImpsBeneficiaryDetailsResult;
 import com.mom.apps.model.pbxpl.ImpsCheckKYCResult;
 import com.mom.apps.model.pbxpl.ImpsConfirmPaymentResult;
@@ -50,6 +51,7 @@ public interface IDataEx {
             HashMap<String, String> psExtraParamsMap
     );
 
+
     public void getBillAmount(TransactionRequest request);
 
     public void getTransactionHistory();
@@ -63,6 +65,7 @@ public interface IDataEx {
 
     public void impsCustomerRegistrationStatus(String consumerNumber);
     public void impsCustomerRegistration(TransactionRequest<ImpsCreateCustomerResult> request);
+    public void impsAuthentication(TransactionRequest<ImpsAuthenticationResult> request);
     public void impsBeneficiaryList(String consumerNumber);
 
     public void registerIMPSCustomer(TransactionRequest<ImpsCustomerRegistrationResult> request);

@@ -594,6 +594,7 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
         Log.d(_LOG, "Operator selectedID: " + sOperatorId);
 
         if(sOperatorId.equals(AppConstants.OPERATOR_ID_BSES_RAJDHANI)||
+                sOperatorId.equals(AppConstants.OPERATOR_ID_BSES_YAMUNA)||
                 sOperatorId.equals(AppConstants.OPERATOR_ID_BESCOM_BANGALURU) ||
                 sOperatorId.equals(AppConstants.OPERATOR_ID_CESCOM_MYSORE)||
                 sOperatorId.equals(AppConstants.OPERATOR_ID_DHBVN_HARYANA)||

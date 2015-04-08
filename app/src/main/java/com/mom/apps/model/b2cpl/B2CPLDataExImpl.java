@@ -21,6 +21,7 @@ import com.mom.apps.model.pbxpl.BeneficiaryResult;
 import com.mom.apps.model.pbxpl.BranchNameResult;
 import com.mom.apps.model.pbxpl.CityNameResult;
 import com.mom.apps.model.pbxpl.ImpsAddBeneficiaryResult;
+import com.mom.apps.model.pbxpl.ImpsAuthenticationResult;
 import com.mom.apps.model.pbxpl.ImpsBeneficiaryDetailsResult;
 import com.mom.apps.model.pbxpl.ImpsCheckKYCResult;
 import com.mom.apps.model.pbxpl.ImpsConfirmPaymentResult;
@@ -72,11 +73,19 @@ public class B2CPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
     TransactionRequest transactionRequest = new TransactionRequest();
 
-    public B2CPLDataExImpl(Context pContext, AsyncListener pListener){
+    public B2CPLDataExImpl(Context pContext, AsyncListener pListener, boolean isBalance){
         _applicationContext    = pContext;
-        _listener   = pListener;
+        if(!isBalance){
+            _listener   = pListener;
+        }else{
+            _balance_listener = pListener;
+        }
+
         checkConnectivity(pContext);
 
+    }
+    public B2CPLDataExImpl(Context pContext, AsyncListener pListener){
+        this(pContext,pListener,false);
     }
 
 
@@ -122,8 +131,12 @@ public class B2CPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                     Log.d(_LOG, "TaskComplete: getBalance method, result: " + result);
                     float balance = extractBalance(result);
 
-                    if (_listener != null) {
-                        _listener.onTaskSuccess(balance, Methods.GET_BALANCE);
+//                    if (_listener != null) {
+//                        _listener.onTaskSuccess(balance, Methods.GET_BALANCE);
+//                    }
+
+                    if(_balance_listener!=null){
+                        _balance_listener.onTaskSuccess(balance, callback);
                     }
 
                     break;
@@ -1848,6 +1861,10 @@ public void impsMomConfirmProcess(TransactionRequest request , String sOTP ,
 }
     public void impsConfirmPayment (TransactionRequest<List<ImpsConfirmPaymentResult>> request , String sOTP ,
                                     String sAccountNumber ,String sIFSCCode , String sCustomerNumber , String sAmount){
+
+    }
+
+    public void impsAuthentication(TransactionRequest<ImpsAuthenticationResult> request){
 
     }
 

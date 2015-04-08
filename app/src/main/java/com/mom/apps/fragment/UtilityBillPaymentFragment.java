@@ -157,6 +157,7 @@ public class UtilityBillPaymentFragment extends FragmentBase implements AsyncLis
     @Override
     public void onTaskSuccess(TransactionRequest result, DataExImpl.Methods callback) {
         Log.d(_LOG, "Called back");
+        showProgress(false);
         switch (callback) {
             case PAY_BILL:
                 if (result == null) {
@@ -275,6 +276,7 @@ public class UtilityBillPaymentFragment extends FragmentBase implements AsyncLis
 
 
     private void startPayment() {
+
         showMessage(null);
         String sSubscriberId            = _etSubscriberId.getText().toString();
         String sAmount                  = _etAmount.getText().toString();
@@ -286,6 +288,10 @@ public class UtilityBillPaymentFragment extends FragmentBase implements AsyncLis
         String sACMonth                 = _etAcMonth.getText().toString();
 
         String sBill;
+        Log.e("operator" ,operator.toString());
+        Log.e("sDueDate" ,sDueDate);
+        Log.e("sACMonth" ,sACMonth);
+        Log.e("sAccountNumber" ,sAccountNumber);
 
         Log.i("Check" , sDueDate);
         int nRechargeType               = 0;
@@ -325,6 +331,7 @@ public class UtilityBillPaymentFragment extends FragmentBase implements AsyncLis
             map.put(AppConstants.PARAM_PBX_DUE_DATE,formatDueDate );
             map.put(AppConstants.PARAM_PBX_AC_MONTH,sACMonth );
             map.put(AppConstants.PARAM_PBX_ACCOUNT_NUMBER , sAccountNumber);
+            map.put(AppConstants.PARAM_PBX_STUBTYPE , sBill);
         }
 
 
@@ -337,6 +344,7 @@ public class UtilityBillPaymentFragment extends FragmentBase implements AsyncLis
         );
 
         getDataEx(this).utilityPayBill(request,sCustomerName,map );
+
         _etAmount.setText(null);
         _etSubscriberId.setText(null);
         _etCustomerNumber.setText(null);

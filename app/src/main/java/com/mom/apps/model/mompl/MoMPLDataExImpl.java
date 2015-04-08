@@ -3,7 +3,9 @@ package com.mom.apps.model.mompl;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 
+import com.google.android.gms.internal.is;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -20,6 +22,7 @@ import com.mom.apps.model.pbxpl.BeneficiaryResult;
 import com.mom.apps.model.pbxpl.BranchNameResult;
 import com.mom.apps.model.pbxpl.CityNameResult;
 import com.mom.apps.model.pbxpl.ImpsAddBeneficiaryResult;
+import com.mom.apps.model.pbxpl.ImpsAuthenticationResult;
 import com.mom.apps.model.pbxpl.ImpsBeneficiaryDetailsResult;
 import com.mom.apps.model.pbxpl.ImpsCheckKYCResult;
 import com.mom.apps.model.pbxpl.ImpsConfirmPaymentResult;
@@ -72,11 +75,19 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
     TransactionRequest transactionRequest = new TransactionRequest();
 
-    public MoMPLDataExImpl(Context pContext, AsyncListener pListener){
+    public MoMPLDataExImpl(Context pContext, AsyncListener pListener, boolean isBalance){
         _applicationContext    = pContext;
-        _listener   = pListener;
+        if(!isBalance){
+            _listener   = pListener;
+        }else{
+            _balance_listener = pListener;
+        }
+
         checkConnectivity(pContext);
 
+    }
+    public MoMPLDataExImpl(Context pContext, AsyncListener pListener){
+        this(pContext,pListener,false);
     }
 
 
@@ -122,9 +133,15 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                     Log.d(_LOG, "TaskComplete: getBalance method, result: " + result);
                     float balance = extractBalance(result);
 
-                    if (_listener != null) {
-                        _listener.onTaskSuccess(balance, Methods.GET_BALANCE);
+//                    if (_listener != null) {
+//                        _listener.onTaskSuccess(balance, Methods.GET_BALANCE);
+//                    }
+
+
+                    if(_balance_listener!=null){
+                        _balance_listener.onTaskSuccess(balance, callback);
                     }
+
 
                     break;
                 case SIGN_UP_ENCRYPT_DATA:
@@ -165,6 +182,14 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                     if (_listener != null) {
                         TransactionRequest<String> response = getPaymentResult(result , Methods.PAY_BILL);
                         _listener.onTaskSuccess(response, Methods.PAY_BILL);
+                    }
+                    break;
+
+                case IMPS_AUTHENTICATION_MOM:
+                    Log.i(_LOG, "TaskComplete: IMPS Authentication method, result: " + result);
+                    if (_listener != null) {
+                        TransactionRequest<String> response = getPaymentResult(result , Methods.IMPS_AUTHENTICATION_MOM);
+                        _listener.onTaskSuccess(response, Methods.IMPS_AUTHENTICATION_MOM);
                     }
                     break;
 
@@ -341,18 +366,6 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.LOGIN);
             }
         }
-//        EphemeralStorage.getInstance(_applicationContext).getObject(AppConstants.CURRENT_PLATFORM,null);
-//        if( EphemeralStorage.getInstance(_applicationContext).getObject(AppConstants.CURRENT_PLATFORM,null) == PlatformIdentifier.MOM){
-//            Log.i("_currentPlatform123",EphemeralStorage.getInstance(_applicationContext).getObject(AppConstants.CURRENT_PLATFORM,null).toString());
-//             sCompanyId = AppConstants.NEW_PL_COMPANY_ID;
-//            Log.i("__comp" ,sCompanyId);
-//
-//        }
-//        else if( EphemeralStorage.getInstance(_applicationContext).getObject(AppConstants.CURRENT_PLATFORM,null) == PlatformIdentifier.B2C){
-//            Log.i("_currentPlatform987" ,EphemeralStorage.getInstance(_applicationContext).getObject(AppConstants.CURRENT_PLATFORM,null).toString());
-//             sCompanyId = AppConstants.NEW_B2C_COMPANY_ID;
-//
-//        }
 
 
 
@@ -655,49 +668,35 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         try {
             PullParser parser   = new PullParser(new ByteArrayInputStream(pResult.getRemoteResponse().getBytes()));
             String response     = parser.getTextResponse();
+            if(response.contains("~"))
+            {
+                String[] strArrayResponse = response.split("~");
+                int i = Integer.parseInt(strArrayResponse[0].toString());
+
+                switch (i) {
+                    case 0:
+
+                        String test = strArrayResponse[1].toString();
+                        Log.i("Response", strArrayResponse[1].toString());
+                        pResult.setRemoteResponse(test);
+
+                        break;
+                    default:
 
 
-            Log.d(_LOG, "Response: " + response);
-            String responseResult = response.toLowerCase();
-            Log.d(_LOG, "NewResponse:" + responseResult);
-            pResult.setRemoteResponse(responseResult);
+                        Log.i("Response", strArrayResponse[1].toString());
+                        pResult.setRemoteResponse(strArrayResponse[1].toString());
+                        break;
+                }
+            }
+         else {
+                Log.d(_LOG, "Response: " + response);
+                String responseResult = response.toLowerCase();
+                Log.d(_LOG, "NewResponse:" + responseResult);
+                pResult.setRemoteResponse(responseResult);
+            }
 
-          /*  switch (callback){
-                case BALANCE_TRANSFER:
-                    if(responseResult.startsWith("0")){
-                        pResult.setCompleted(true);
-                        pResult.setStatus(TransactionRequest.RequestStatus.SUCCESSFUL);
-                    }else if(responseResult.startsWith("-7")){
-                        pResult.setCompleted(true);
-                        pResult.setStatus(TransactionRequest.RequestStatus.FAILED);
-                    }else if(responseResult.contains("invalid user")){
-                        pResult.setCompleted(true);
-                        pResult.setStatus(TransactionRequest.RequestStatus.FAILED);
-                    }else if(responseResult.contains("invalid accessid")){
-                        pResult.setCompleted(true);
-                        pResult.setStatus(TransactionRequest.RequestStatus.FAILED);
-                    }
-                    break;
-                default:
-                    if(responseResult.contains("success")) {
-                        pResult.setCompleted(true);
-                        pResult.setStatus(TransactionRequest.RequestStatus.SUCCESSFUL);
-                    }else if(responseResult.contains("failed")){
-                        pResult.setCompleted(true);
-                        pResult.setStatus(TransactionRequest.RequestStatus.FAILED);
-                    }else if(responseResult.contains("pending")){
-                        pResult.setCompleted(true);
-                        pResult.setStatus(TransactionRequest.RequestStatus.PENDING);
-                    }else if(responseResult.contains("could not process transaction")){
-                        pResult.setCompleted(true);
-                        pResult.setStatus(TransactionRequest.RequestStatus.FAILED);
-                    }
-                    else if(responseResult.contains("no  productconfiguration  users")){
-                        pResult.setCompleted(true);
-                        pResult.setStatus(TransactionRequest.RequestStatus.FAILED);
-                    }
 
-            }*/
 
             return pResult;
         }catch (Exception e){
@@ -880,7 +879,7 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 Log.d("NEW_PL_DATA", "Parameters not sent for DJB");
 
                 if(_listener != null) {
-                    _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.LOGIN);
+                    _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.PAY_BILL);
                 }
 
                 return;
@@ -897,7 +896,7 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                     ){
                 Log.d("NEW_PL_DATA", "Parameters not sent for CESC");
             if(_listener != null) {
-                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.LOGIN);
+                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.PAY_BILL);
             }
             return;
         }
@@ -927,7 +926,7 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
                 Log.d("NEW_PL_DATA", "Parameters not sent for UHBVN");
                 if(_listener != null) {
-                    _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.LOGIN);
+                    _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.PAY_BILL);
                 }
                 return;
             }
@@ -946,7 +945,7 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
                 Log.d("NEW_PL_DATA", "Parameters not sent for SBE");
                 if(_listener != null) {
-                    _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.LOGIN);
+                    _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.PAY_BILL);
                 }
                 return;
             }
@@ -965,7 +964,7 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 Log.d("NEW_PL_DATA", "Parameters not sent for NBE");
 
                 if(_listener != null) {
-                    _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.LOGIN);
+                    _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.PAY_BILL);
                 }
 
                 return;
@@ -1872,7 +1871,25 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                                     String sAccountNumber ,String sIFSCCode , String sCustomerNumber , String sAmount){
 
     }
+    public void impsAuthentication(TransactionRequest request){
+        if (request == null) {
+            if (_listener != null) {
+                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.IMPS_AUTHENTICATION_MOM);
+            }
+        }
+        String sUserId              = EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_NEW_USER_ID, null);
+        String Url = AppConstants.URL_NEW_PLATFORM_IMPS + AppConstants.SVC_NEW_METHOD_IMPS_AUTHENTICATION;
 
+        AsyncDataEx dataEx = new AsyncDataEx(this, new TransactionRequest(), Url, Methods.IMPS_AUTHENTICATION_MOM);
+
+        dataEx.execute(
+
+                new BasicNameValuePair(AppConstants.PARAM_NEW_RETAILER_ID, sUserId)
+
+
+        );
+
+    }
 
 
 }

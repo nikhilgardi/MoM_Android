@@ -101,11 +101,10 @@ public class AsyncDataEx extends AsyncTask<NameValuePair, Integer, String>{
     @Override
     protected void onCancelled() {
         super.onCancelled();
-
-
+        Log.e("\n\n\n**************AsynTaskCancelled*************" , "testAlpha");
        Log.e("\n\n\n**************AsynTaskCancelled*************" , "test");
-DataExImpl._listener = null;
-
+        DataExImpl._listener = null;
+        DataExImpl._balance_listener = null;
     }
 
     public String postData(List<NameValuePair> pParams) {

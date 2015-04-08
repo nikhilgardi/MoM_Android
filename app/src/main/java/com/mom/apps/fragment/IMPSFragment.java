@@ -36,6 +36,7 @@ import com.mom.apps.model.pbxpl.BeneficiaryResult;
 import com.mom.apps.model.pbxpl.BranchNameResult;
 import com.mom.apps.model.pbxpl.CityNameResult;
 import com.mom.apps.model.pbxpl.ImpsAddBeneficiaryResult;
+import com.mom.apps.model.pbxpl.ImpsAuthenticationResult;
 import com.mom.apps.model.pbxpl.ImpsBeneficiaryDetailsResult;
 import com.mom.apps.model.pbxpl.ImpsCheckKYCResult;
 import com.mom.apps.model.pbxpl.ImpsConfirmPaymentResult;
@@ -222,12 +223,12 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
         day                         = cal.get(Calendar.DAY_OF_MONTH);
         month                       = cal.get(Calendar.MONTH);
         year                        = cal.get(Calendar.YEAR);
-
+        impsAuthentication();
         _etBeneficiaryName.setEnabled(true);
         _etAccountNumber.setEnabled(true);
         _etIFSC_Code.setEnabled(true);
         _etBeneficiaryMobile_Number.setEnabled(true);
-        _btnSubmit.setVisibility(view.VISIBLE);
+       // _btnSubmit.setVisibility(view.VISIBLE);
         _titleView.setVisibility(view.GONE);
 
 
@@ -451,6 +452,7 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
                 showMessage(null);
                 _etConsumerNumber.setText(null);
                 _etConsumerNumber.setEnabled(true);
+                _btnSubmit.setEnabled(true);
                 _btnSubmit.setVisibility(View.VISIBLE);
                 _etConsumerNumber.setVisibility(View.VISIBLE);
 
@@ -492,6 +494,7 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
 
                          // setupIMPSTransferView();
                 if ((isVerified == true)) {
+                    _btnNext.setEnabled(true);
                     _tvVerified.setVisibility(View.VISIBLE);
                     _etAmount.setEnabled(true);
                     _etBeneficiaryName.setEnabled(true);
@@ -536,6 +539,7 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
                     Toast.makeText(getActivity().getApplicationContext(), "true", Toast.LENGTH_LONG).show();
                 }
                 else if(isVerified == false){
+                    _btnNext.setEnabled(true);
                     _tvVerified.setVisibility(View.GONE);
                     _etAmount.setEnabled(true);
                     _etBeneficiaryName.setEnabled(true);
@@ -589,6 +593,7 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
             public void onClick(View view) {
 
                 _etAmount.setEnabled(true);
+                _btnNext.setEnabled(true);
                 _etConsumerNumber.setVisibility(View.VISIBLE);
                 _etAvailableLimit.setVisibility(View.VISIBLE);
                 _spOperator.setVisibility(View.VISIBLE);
@@ -729,6 +734,35 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
         getDataEx(this).registerIMPSCustomer(request);
 
 
+
+
+    }
+
+    private void impsAuthentication() {
+
+        if(_currentPlatform == PlatformIdentifier.PBX) {
+            TransactionRequest<ImpsAuthenticationResult> request = new TransactionRequest<ImpsAuthenticationResult>(
+
+                    getActivity().getString(TransactionType.IMPS_AUTHENTICATION.transactionTypeStringId),
+                    null
+            );
+
+
+            getDataEx(this).impsAuthentication(request);
+
+        }
+        else if(_currentPlatform == PlatformIdentifier.MOM)
+        {
+
+            TransactionRequest  request = new TransactionRequest (
+
+                    getActivity().getString(TransactionType.IMPS_AUTHENTICATION_MOM.transactionTypeStringId),
+                    null
+            );
+            getDataEx(this).impsAuthentication(request);
+//            _etConsumerNumber.setVisibility(View.VISIBLE);
+//            _btnSubmit.setVisibility(View.VISIBLE);
+        }
 
 
     }
@@ -1941,6 +1975,63 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
         Log.d(_LOG, "In onTaskSuccess");
 
         switch (callback) {
+
+            case IMPS_AUTHENTICATION:
+                Log.d(_LOG, "onTaskSuccess done_ImpsAuthentication");
+                showProgress(false);
+
+                if (result.getCustom() == null) {
+                    Log.d(_LOG, "response is in incorrect format!");
+                    showMessage("Couldn't Authenticate.Try Again Later");
+                    showProgress(false);
+                    return;
+                }
+
+
+                ImpsAuthenticationResult impsAuthenticationResult = (ImpsAuthenticationResult) result.getCustom();
+                if (impsAuthenticationResult.isIMPSActive && impsAuthenticationResult.isIMPSServiceAllowed) {
+                    Log.d(_LOG, "Both true");
+                   _etConsumerNumber.setVisibility(View.VISIBLE);
+                    _btnSubmit.setVisibility(View.VISIBLE);
+
+
+                }
+
+                else if (!impsAuthenticationResult.isIMPSServiceAllowed) {
+                    Log.d(_LOG, "You are not authorised to perform IMPS");
+                    showMessage("You are not authorised to perform IMPS");
+                }
+
+                else if (impsAuthenticationResult.isIMPSServiceAllowed && !impsAuthenticationResult.isIMPSActive) {
+                    Log.d(_LOG, "Service Temporary Unavailable.Please try Later");
+                    showMessage("Service Temporary Unavailable.Please try Later");
+                }
+
+               // showMessage(String.valueOf(impsAuthenticationResult.isIMPSActive));
+                break;
+
+            case IMPS_AUTHENTICATION_MOM:
+                Log.d(_LOG, "onTaskSuccess done_ImpsAuthentication");
+
+
+                if (result.getRemoteResponse() == null) {
+                    Log.d(_LOG, "response is in incorrect format!");
+                    showMessage("Couldn't Authenticate.Try Again Later");
+                    showProgress(false);
+                    return;
+                }
+
+               if(result.getRemoteResponse().equals("true")){
+                   Log.d(_LOG, "true");
+                   _etConsumerNumber.setVisibility(View.VISIBLE);
+                   _btnSubmit.setVisibility(View.VISIBLE);
+               }
+                else{
+                   Log.d(_LOG, "False");
+               }
+
+                   break;
+
             case IMPS_CUSTOMER_REGISTRATION:
 
                 showProgress(false);
@@ -2282,7 +2373,7 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
                 break;
 
             case IMPS_VERIFY_PAYMENT:
-
+                    showBalance();
                     Log.i(_LOG + "IMPS_VERIFY_PAYMENT", result.getRemoteResponse() + result.getResponseCode());
 
 
@@ -2337,6 +2428,7 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
 //                    showMessage(getResources().getString(R.string.lic_failed_msg_default));
 //                return;
 //                }
+                   showBalance();
 //
                     List<ImpsConfirmPaymentResult> impsConfirmPaymentResultList = null;
 
@@ -2421,6 +2513,7 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
             case IMPS_MOM_CONFIRM_PROCESS:
                 Log.i(_LOG + "IMPS_MOM_CONFIRM_PROCESS", result.getRemoteResponse());
                 showProgress(false);
+                showBalance();
                 showMessage(result.getRemoteResponse());
                 hideVerifyPaymentFields();
                 break;
@@ -2429,6 +2522,7 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
             case IMPS_MOM_SUBMIT_PAY_PROCESS:
                 showMessage(null);
                 _etOTP.setText(null);
+
 
                 Log.i(_LOG + "IMPS_MOM_SUBMIT_PROCESS", result.getRemoteResponse());
 
@@ -2534,6 +2628,10 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
             case IMPS_MOM_SUBMIT_PAY_PROCESS:
                 break;
             case IMPS_MOM_CONFIRM_PAY_PROCESS:
+                break;
+            case IMPS_AUTHENTICATION:
+                break;
+            case IMPS_AUTHENTICATION_MOM:
                 break;
         }
         showProgress(false);

@@ -41,6 +41,7 @@ import com.mom.apps.utils.DataProvider;
 
 import java.text.DecimalFormat;
 import java.util.List;
+import java.util.logging.Handler;
 
 /**
  * A simple {@link android.app.Fragment} subclass.
@@ -247,7 +248,7 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
 
             @Override
             public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
-                Log.e(_LOG, "Error obtaining bill amount");
+                Log.e(_LOG, "ErrorVerify Tpin");
 
             }
         });
@@ -259,7 +260,7 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
         request.setTpin(sTpin);
 
         dataEx.verifyTPin(sTpin);
-        Log.d(_LOG, "Get Bill Amount finished");
+        Log.d(_LOG, "Verify tpin finished");
 
 
         showProgress(true);
@@ -283,16 +284,20 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
         }
 
         switch(callback){
-            case RECHARGE_MOBILE:
-
+                case RECHARGE_MOBILE:
+//                    new android.os.Handler().postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            showBalance();
+//                        }
+//                    },2000) ;
+                showBalance();//THIS IS STILL PRESENT, IN PBX IT MIGHT GIVE OLD OR NEW BALANCE BASED ON THE SERVER STATUS
+                    //IDEALLY IT CAN BE REMOVED IN PBX, but we will defer it!
+                Log.e("Showbalance" , "method called");
                // getBalance();
                 taskCompleted(result);
                 Log.i("MobileRecharge" , result.getRemoteResponse());
-
-
                 break;
-
-
         }
 
     }

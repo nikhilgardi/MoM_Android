@@ -50,8 +50,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
 
     // String jsonStr =    "{\"Table\":[{\"PartyROWID\":92420,\"PartyRMN\":\"9769496026\",\"PartyName\":\"Akshay\",\"PartyGUID\":\"9163b4dd-f23d-41fd-99ab-7c0f57c9c7ed\",\"PartyEnum\":null,\"PartyTypeEnum\":16,\"userName\":\"Software\"}]}" ;
-
-    public PBXPLDataExImpl(Context pContext, Methods method, AsyncListener pListener) throws MOMException {
+    public PBXPLDataExImpl(Context pContext, Methods method, AsyncListener pListener, boolean isBalance) throws MOMException {
         checkConnectivity(pContext);
         _applicationContext = pContext;
 
@@ -59,8 +58,12 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         _userName = EphemeralStorage.getInstance(_applicationContext).getString(
                 AppConstants.LOGGED_IN_USERNAME, null
         );
+        if(!isBalance){
+            _listener = pListener;
+        }else{
+            _balance_listener = pListener;
+        }
 
-        _listener = pListener;
         _applicationContext = pContext;
         _deviceRegId = GcmUtil.getInstance(pContext).getRegistrationId();
         _token = EphemeralStorage.getInstance(pContext).getString(
@@ -85,6 +88,10 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
             }
         }
     }
+    public PBXPLDataExImpl(Context pContext, Methods method, AsyncListener pListener) throws MOMException {
+        this(pContext,method,pListener,false);
+    }
+
 
     public boolean setToken() {
         _token = EphemeralStorage.getInstance(_applicationContext).getString(
@@ -111,7 +118,14 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 case GET_BALANCE:
                     try {
                         float balance = parseBalanceResult(result);
-                        _listener.onTaskSuccess(balance, callback);
+//                        if(_listener!=null){
+//                            _listener.onTaskSuccess(balance, callback);
+//                        }
+                        if(_balance_listener!=null){
+                            _balance_listener.onTaskSuccess(balance, callback);
+                        }//yes
+
+
                     } catch (NumberFormatException nfe) {
                         onTaskError(new AsyncResult(AsyncResult.CODE.GENERAL_FAILURE), Methods.GET_BALANCE);
                         nfe.printStackTrace();
@@ -121,10 +135,16 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
 
                 case GET_OPERATOR_NAMES:
-                    _listener.onTaskSuccess(getOperatorNamesResult(result), callback);
+                    if(_listener!=null){
+                        _listener.onTaskSuccess(getOperatorNamesResult(result), callback);
+                    }
+
                     break;
                 case TRANSACTION_HISTORY:
-                    _listener.onTaskSuccess(extractTransactionshistory(result), callback);
+                    if(_listener!=null){
+                        _listener.onTaskSuccess(extractTransactionshistory(result), callback);
+                    }
+
                     break;
                 case RECHARGE_MOBILE:
                     Log.i(_LOG, "TaskComplete: rechargeMobile method, result: " + result);
@@ -170,6 +190,15 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                     if (_listener != null) {
 
                         _listener.onTaskSuccess(getIMPSCustomerRegistrationResponse(result), callback);
+
+                    }
+                    break;
+
+                case IMPS_AUTHENTICATION:
+                    Log.d(_LOG, "TaskComplete: IMPS Authentication method, result: " + result);
+                    if (_listener != null) {
+
+                        _listener.onTaskSuccess(getIMPSAuthenticationResponse(result), callback);
 
                     }
                     break;
@@ -402,16 +431,17 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
     ) {
         String url = AppConstants.URL_PBX_PLATFORM_APP;
         String operatorCode = request.getOperator().code;
+        Log.e("operatorCode" ,operatorCode);
         AsyncDataEx dataEx = new AsyncDataEx(this, request, url, Methods.UTILITY_BILL_PAY);
         if (operatorCode.equals("CES") && pExtraParamsMap != null) {
             if (
-                    !pExtraParamsMap.containsKey(AppConstants.PARAM_NEW_AC_MONTH) ||
-                            !pExtraParamsMap.containsKey(AppConstants.PARAM_NEW_DUE_DATE) ||
-                            !pExtraParamsMap.containsKey(AppConstants.PARAM_NEW_STUBTYPE)
+                    !pExtraParamsMap.containsKey(AppConstants.PARAM_PBX_AC_MONTH) ||
+                            !pExtraParamsMap.containsKey(AppConstants.PARAM_PBX_DUE_DATE) ||
+                            !pExtraParamsMap.containsKey(AppConstants.PARAM_PBX_STUBTYPE)
                     ) {
                 Log.d("NEW_PL_DATA", "Parameters not sent for CESC");
                 if (_listener != null) {
-                    _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.LOGIN);
+                    _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.UTILITY_BILL_PAY);
                 }
                 return;
             }
@@ -420,11 +450,11 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         dataEx.execute(
                 new BasicNameValuePair(AppConstants.PARAM_PBX_SERVICE, AppConstants.SVC_PBX_UTILITY_BILL_PAY),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_RMN, _userName),
-                new BasicNameValuePair(AppConstants.PARAM_PBX_CUSTOMER_NUMBER, request.getCustomerMobile()),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_CONSUMER_NUMBER_UBP, request.getCustomerMobile()),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_AMOUNT, String.valueOf(Math.round(request.getAmount()))),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_OPERTAORSHORTCODE, request.getOperator().getCode()),
 
-                new BasicNameValuePair(AppConstants.PARAM_PBX_ACCOUNT_NUMBER, request.getConsumerId()),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_ACCOUNT_NUMBER,  request.getCustomerMobile()),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_AC_MONTH, pExtraParamsMap.get(AppConstants.PARAM_PBX_AC_MONTH)),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_DUE_DATE, pExtraParamsMap.get(AppConstants.PARAM_PBX_DUE_DATE)),
                 new BasicNameValuePair(AppConstants.PARAM_PBX_STUBTYPE, pExtraParamsMap.get(AppConstants.PARAM_PBX_STUBTYPE)),
@@ -1129,6 +1159,73 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
         return request;
     }
+
+
+
+    public void impsAuthentication(TransactionRequest<ImpsAuthenticationResult> request) {
+        if (TextUtils.isEmpty(request.getConsumerId())) {
+            if (_listener != null) {
+                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.IMPS_AUTHENTICATION);
+            }
+        }
+
+        String Url = AppConstants.URL_PBX_PLATFORM_IMPS + AppConstants.SVC_NEW_METHOD_IMPS_CUSTOMER_REGISTRATION;
+
+        AsyncDataEx dataEx = new AsyncDataEx(this, new TransactionRequest(), Url, Methods.IMPS_AUTHENTICATION);
+
+        dataEx.execute(
+
+                new BasicNameValuePair(AppConstants.PARAM_PBX_SERVICE, AppConstants.PARAM_SERVICE_IMPS_AUTHENTICATION),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_CLIENT_TYPE, AppConstants.PARAM_IMPS_CLIENT_TYPE),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_ROWID, EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_PBX_USERID, null)),
+                new BasicNameValuePair(AppConstants.PARAM_PBX_RMN, EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.LOGGED_IN_USERNAME, null))
+        );
+    }
+
+
+    public TransactionRequest getIMPSAuthenticationResponse(TransactionRequest<ImpsAuthenticationResult> request) {
+        if (TextUtils.isEmpty(request.getRemoteResponse())) {
+            Log.e(_LOG, "Null remote response received");
+            return null;
+        }
+
+        try {
+            Gson gson = new GsonBuilder().create();
+
+            Type type = new TypeToken<ResponseBase<ImpsAuthenticationResult>>() {
+            }.getType();
+
+            ResponseBase<ImpsAuthenticationResult> responseBase = gson.fromJson(request.getRemoteResponse(), type);
+
+            if (responseBase == null) {
+                Log.w(_LOG, "Null response?");
+                return null;
+            }
+
+            Log.d(_LOG, "Response: " + responseBase.data);
+            ImpsAuthenticationResult response = responseBase.data;
+
+
+            request.setCustom(response);
+
+
+            EphemeralStorage.getInstance(_applicationContext).storeBoolean(
+                    AppConstants.PARAM_PBX_IMPS_SERVICEALLOWED,
+                    responseBase.data.isIMPSServiceAllowed);
+            Log.i("ServiceAllowed", String.valueOf(responseBase.data.isIMPSServiceAllowed));
+
+            EphemeralStorage.getInstance(_applicationContext).storeBoolean(
+                    AppConstants.PARAM_PBX_IMPS_ISREGISTERED,
+                    responseBase.data.isIMPSActive);
+            Log.i("IsIMPSActive", String.valueOf(responseBase.data.isIMPSActive));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return request;
+    }
+
 
 
     public void impsCheckKYC(TransactionRequest<ImpsCheckKYCResult> request , String sConsumerNumber) {

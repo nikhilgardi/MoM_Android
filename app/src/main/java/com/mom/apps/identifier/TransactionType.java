@@ -29,6 +29,8 @@ public enum TransactionType {
     IMPS_MOM_SUBMIT_PROCESS(R.string.action_IMPSMOMSubmitPayment),
     IMPS_MOM_CONFIRM_PROCESS(R.string.action_IMPSMOMConfirmPayment),
     IMPS_MOM_SUBMIT_PAY_PROCESS(R.string.action_IMPSMOMSubmitPayPayment),
+    IMPS_AUTHENTICATION(R.string.action_IMPSAuthentication),
+    IMPS_AUTHENTICATION_MOM(R.string.action_IMPSAuthenticationMOM),
     MOM_T_PIN(R.string.action_MOMTPin),
     SIGN_UP_CONSUMER(R.string.action_SignUp);
 

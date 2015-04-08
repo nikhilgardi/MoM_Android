@@ -21,6 +21,7 @@ import com.mom.apps.identifier.IdentifierUtils;
 import com.mom.apps.identifier.MessageCategory;
 import com.mom.apps.identifier.PlatformIdentifier;
 import com.mom.apps.model.AsyncListener;
+import com.mom.apps.model.DataExImpl;
 import com.mom.apps.model.IDataEx;
 import com.mom.apps.model.b2cpl.B2CPLDataExImpl;
 import com.mom.apps.model.mompl.MoMPLDataExImpl;
@@ -41,9 +42,10 @@ public abstract class FragmentBase extends Fragment{
     IFragmentListener _callbackListener;
 
     protected void showBalance(){
-        Bundle bundle       = new Bundle();
-        bundle.putSerializable(AppConstants.BUNDLE_MESSAGE_CATEGORY, MessageCategory.GET_AND_SHOW_BALANCE);
-        _callbackListener.processMessage(bundle);
+//        Bundle bundle       = new Bundle();
+//        bundle.putSerializable(AppConstants.BUNDLE_MESSAGE_CATEGORY, MessageCategory.GET_AND_SHOW_BALANCE);
+//        _callbackListener.processMessage(bundle);
+        _callbackListener.requestForBalanceRefresh();
     }
 
     protected void setCurrentPlatform() {
@@ -137,6 +139,17 @@ public abstract class FragmentBase extends Fragment{
 
     public IDataEx getDataEx(AsyncListener pListener){
         try {
+            //THE FIRST IF CODE WILL SET THE PLATFORM, UNFORTUNATELY IT IS HOLDING THE REFERENCE OF
+            //LISTENER AS WELL, AND THERE WAS NO WAY TO UPDATE REFERENCE TO LISTENER,
+            //SO WHEN IN SAME FRAGMENT U HAVE 2 ASYNC TASK LIKE, THE SECOND REFERNCE SHALL CALL LISTENER
+            //OF FIRST INIT, THE ELSE CONDITION WITLL ADDRESS THE ISSUE BY UPDATING THE LISTENER REFERENCES
+            //THIS IS FIX, IN FUTURE YOU MAY CONSIDER SOME RE-DESIGN
+            //ALSO ANY NEW PLATFORM SHOULD EXTEND THE ABSTRACT DataExImpl , THAN IT IS SAFE
+            //ALSO IT IS UNSAFE TO HAVE 2 NETWORK THREDS RUNNING IN SAME FRAGMENT PARALLELY
+            //THE USER INTERFACE SHOULD ENSURE THAT, ELSE THIS WILL FAIL
+            //FOR THIS REASON THE BALANCE REFERESH IS MOVED TO ACTIVITY LOGIC, AS IT IS SEPERATE
+            //AND BALANCE UI BELONG TO BASEACTIVITY, LET IT HANDLE ITS JOB:
+            //:::::
             if (_dataEx == null) {
                 if (_currentPlatform == PlatformIdentifier.MOM) {
                     _dataEx = new MoMPLDataExImpl(getActivity(), pListener);
@@ -146,7 +159,13 @@ public abstract class FragmentBase extends Fragment{
                 }else {
                     _dataEx = new PBXPLDataExImpl(getActivity(), null, pListener);
                 }
+            }else{
+                //CODE MOHIT
+                Log.i("getDataEx","update reference to listener start");
+                ((DataExImpl)_dataEx).set_listener(pListener);
+                Log.i("getDataEx","update reference to listener ends");
             }
+//            _dataEx.se
         }catch(MOMException me){
             Log.w(_LOG, "Logged out", me);
             goToLogin();

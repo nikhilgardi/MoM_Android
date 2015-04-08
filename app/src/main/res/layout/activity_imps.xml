@@ -137,7 +137,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/lblConsumerNumber"
-
+                android:visibility="gone"
                 android:background="@drawable/apptheme_edit_text_holo_light"
                 android:inputType="number"
                 android:maxLength="10"
@@ -153,6 +153,7 @@
                 style="@style/MoMTheme.wrapped.customButton"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="15dp"
+                android:visibility="gone"
                 android:text="@string/tpin_submit_btn"/>
             <EditText
                 android:id="@+id/et_name"

@@ -121,13 +121,19 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
         );
 //        getWindow().setBackgroundDrawable(
 //                getResources().getDrawable(R.drawable.appsbg));
-      getBalance();
+//      getBalance();
 
+    }
+
+    @Override
+    public void requestForBalanceRefresh() {
+        getBalance();
     }
 
     private BroadcastReceiver messageReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
             Log.d(_LOG, "BroadcastReceiver: Received message");
+            requestForBalanceRefresh();
             String jsonReceived     = intent.getStringExtra(AppConstants.PARAM_GCM_PAYLOAD);
             if(TextUtils.isEmpty(jsonReceived)){
                 Log.w(_LOG, "Did not receive any json payload");
@@ -166,7 +172,7 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
     @Override
     protected void onResume() {
         super.onResume();
-
+        getBalance();
         LocalBroadcastManager.getInstance(this).registerReceiver(
                 _networkMessageReceiver, new IntentFilter(AppConstants.INTENT_NETWORK)
         );
@@ -225,7 +231,10 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
         ) {
             public void onDrawerClosed(View view) {
                 Log.d(_LOG, "onDrawerClosed");
-                getBalance();
+//                //TEST CODE SX:
+//                showBalance(_tvBalance);
+//                //TEST CODE FX:
+             //  getBalance();
 //                getActionBar().setTitle(mTitle);
                 //invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
                 supportInvalidateOptionsMenu();
@@ -233,7 +242,11 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
 
             public void onDrawerOpened(View drawerView) {
                 Log.d(_LOG, "onDrawerOpened");
-                getBalance();
+//                //TEST CODE SX:
+//                showBalance(_tvBalance);
+//                //TEST CODE FX:
+
+                // getBalance();
 //                getActionBar().setTitle(mDrawerTitle);
                 //invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
                 supportInvalidateOptionsMenu();
@@ -243,6 +256,16 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
         Log.d(_LOG, "setting listener");
 
         _drawerLayout.setDrawerListener(_drawerToggle);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        Log.d(_LOG, "Invoker Sequence Analysis");
+        //TEST CODE SX:
+        showBalance(_tvBalance);
+        //TEST CODE FX:
+
+        return super.onPrepareOptionsMenu(menu);
     }
 
     private void setupActionBar(){
@@ -308,7 +331,7 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
 
 
             Log.d(_LOG, "Going to fetch balance");
-            getDataEx(listener).getBalance();
+            getDataEx(listener,true).getBalance();
 
 
     }
@@ -322,15 +345,19 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
     }
     String sBal         = null;
     protected void showBalance(TextView tv, Float balance){
-
-
+        openOptionsMenu();
+        //LOG HERE
+        Log.e("ShowBalance" ,String.valueOf(balance) );
         if(balance == AppConstants.ERROR_BALANCE){
+            //LOG HERE
+            Log.e("ShowBalance1" ,String.valueOf(balance) );
             sBal            = getString(R.string.error_getting_balance);
             return;
         }
 
         else {
-            try {
+            //LOG HERE
+            Log.e("ShowBalance2" ,String.valueOf(balance) );
                 if (balItem!=null) {
                     //  DecimalFormat df = new DecimalFormat("#,###,###,##0.00");
                     DecimalFormat df = new DecimalFormat("#0.00");
@@ -345,32 +372,25 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
                     Log.e("Balance Error" , String.valueOf(balance));
                 }
             }
-            catch(Exception ex){
-                Log.e("Exception" , ex.toString());
-                Intent intent 						= new Intent(BaseActivity.this, LoginActivity.class);
-                Log.i(_LOG, "Finishing LoginActivity");
 
-                startActivity(intent);
-            }
-        }
+
 
        // tv.setText("Balance: " + getResources().getString(R.string.Rupee) + sBal);
 
     }
-
-    public IDataEx getDataEx(AsyncListener<?> listener){
+    public IDataEx getDataEx(AsyncListener<?> listener, boolean isBalance){
         IDataEx dataEx;
 
         try {
             if (_currentPlatform == PlatformIdentifier.MOM) {
-                dataEx = new MoMPLDataExImpl(getApplicationContext(), listener);
+                dataEx = new MoMPLDataExImpl(getApplicationContext(), listener,isBalance);
             }
             else if(_currentPlatform == PlatformIdentifier.B2C){
-                dataEx = new MoMPLDataExImpl(getApplicationContext(), listener);
+                dataEx = new MoMPLDataExImpl(getApplicationContext(), listener,isBalance);
             }
 
             else {
-                dataEx = new PBXPLDataExImpl(getApplicationContext(), DataExImpl.Methods.LOGIN, listener);
+                dataEx = new PBXPLDataExImpl(getApplicationContext(), DataExImpl.Methods.LOGIN, listener,isBalance);
             }
 
             return dataEx;
@@ -379,6 +399,9 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
         }
 
         return null;
+    }
+    public IDataEx getDataEx(AsyncListener<?> listener){
+        return getDataEx(listener,false);
     }
 
     private void updateAsyncList(TransactionRequest request, Integer status){
@@ -481,34 +504,35 @@ private   MenuItem balItem = null;
     @Override
     public void processMessage(Bundle bundle) {
         int showProgressBarCode        = bundle.getInt(AppConstants.BUNDLE_PROGRESS, AppConstants.DEFAULT_INT);
-
+        Log.e("showProgressBarCodeStep1" , String.valueOf(showProgressBarCode));
         if(showProgressBarCode != AppConstants.DEFAULT_INT){
             if(showProgressBarCode == 0){
-
+                Log.e("showProgressBarCodeStep2" , "showProgressBarCode");
                 showProgress(false);
             }else{
-
+                Log.e("showProgressBarCodeStep3" , "showProgressBarCodenotZero");
                 showProgress(true);
             }
 
-
+            Log.e("showProgressBarCodeStep4" , "FinalShowProgessarCode");
             return;
         }
 
         MessageCategory category = (MessageCategory) bundle.getSerializable(AppConstants.BUNDLE_MESSAGE_CATEGORY);
-
+        Log.e("MessageCategoryStep5" , "category");
         if(category != null) {
-
+            Log.e("MessageCategoryStep6" , "category");
             switch (category) {
                 case GET_AND_SHOW_BALANCE:
-
+                    Log.e("MessageCategoryStep7" , "category");
                     getBalance();
                     return;
             }
+            Log.e("MessageCategoryStep8" , "category");
         }
-
+        Log.e("MessageCategoryStep9" , "category");
         FragmentBase fragmentBase = (FragmentBase) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
-
+        Log.e("FragmentBaseStep10" , "FragmentBase");
         if(fragmentBase == null){
             Log.d(_LOG, "No fragment found to pass the message");
             return;
@@ -709,6 +733,7 @@ private   MenuItem balItem = null;
 
     @Override
     public void onBackPressed() {
+        getBalance();
        Log.d(_LOG, "Back pressed");
        FragmentManager fragMgr = getSupportFragmentManager();
        FragmentBase fb= (FragmentBase)fragMgr.findFragmentById(R.id.contentFrame);

@@ -61,6 +61,10 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+        //MOHIT
+        DataExImpl._listener = null;
+        DataExImpl._balance_listener = null;
+
         setDefaultLocale();
         setContentView(R.layout.activity_login);
 
@@ -350,6 +354,7 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
             return;
         }
 
+
 		getLoginBtn().setEnabled(false);
         Log.d(_LOG, "Disable login button");
         
@@ -359,19 +364,35 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 	}
 
 	private boolean areLoginCredentialsPresent() {
+        int nMinLength          = 10;
+        int nMaxLength          = 10;
+        int nUserNumberLength   = _username.getText().toString().trim().length();
 
 		if (_username.getText().toString().trim().equals("")) {
-//			response.setText(R.string.login_username_required);
+
             _username.setError(getResources().getString(R.string.error_mobile_required));
 			return false;
-		} else if (_password.getText().toString().equals("")) {
-//			response.setText(R.string.login_pwd_required);
+		}
+        else if(nUserNumberLength < nMinLength || nUserNumberLength > nMaxLength){
+            if(nMinLength == nMaxLength){
+                _username.setError(String.format(getResources().getString(R.string.error_phone_length), nMinLength));
+
+            }else{
+                _username.setError(String.format(getResources().getString(R.string.error_phone_length_min_max), nMinLength, nMaxLength));
+
+            }
+            return false;
+      }
+      else if (_password.getText().toString().equals("")) {
+
             _password.setError(getResources().getString(R.string.login_pwd_required));
 			return false;
 		}
-		
+
 		return true;
 	}
+
+
 	
 	public void checkPlatformAndLogin(){
 		EditText uname 				= (EditText) findViewById(R.id.et_un);
@@ -518,4 +539,10 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
         finish();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        DataExImpl._listener = null;
+        DataExImpl._balance_listener = null;
+    }
 }

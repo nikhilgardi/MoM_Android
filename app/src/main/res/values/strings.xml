@@ -69,6 +69,8 @@
     <string name="action_IMPSMOMSubmitPayment">IMPS Submit Payment </string>
     <string name="action_IMPSMOMConfirmPayment">IMPS Confirm Payment </string>
     <string name="action_IMPSMOMSubmitPayPayment">IMPS Submit Pay Process </string>
+    <string name="action_IMPSAuthentication">IMPS Authentication </string>
+    <string name="action_IMPSAuthenticationMOM">IMPS MOM Authentication </string>
     <string name="action_MOMTPin">MOM T-Pin</string>
     <string name="action_SignUp">SignUp</string>
     <string name="signUp_btn">SignUp</string>

@@ -346,8 +346,8 @@
 
         <Spinner
             android:id="@+id/Spl_OperatorNBE"
-            android:layout_width="265dp"
-            android:layout_height="55dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
@@ -359,8 +359,8 @@
 
         <Spinner
             android:id="@+id/Spl_OperatorSBE"
-            android:layout_width="265dp"
-            android:layout_height="55dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_below="@id/Spl_OperatorNBE"
             android:layout_centerHorizontal="true"
@@ -373,12 +373,13 @@
 
         <EditText
             android:id="@+id/first_name"
-            android:layout_width="265dp"
-            android:layout_height="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@id/Spl_OperatorSBE"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="@dimen/small"
+            android:layout_marginBottom="@dimen/small"
             android:background="@drawable/custom"
             android:ems="10"
             android:hint="Enter First Name"
@@ -388,12 +389,13 @@
 
         <EditText
             android:id="@+id/last_name"
-            android:layout_width="265dp"
-            android:layout_height="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@id/first_name"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="@dimen/small"
+            android:layout_marginBottom="@dimen/small"
             android:ems="10"
             android:hint="Enter Last Name"
             android:inputType="text"
@@ -401,12 +403,13 @@
 
         <EditText
             android:id="@+id/mobile_number"
-            android:layout_width="265dp"
-            android:layout_height="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@id/last_name"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="@dimen/small"
+            android:layout_marginBottom="@dimen/small"
             android:ems="10"
             android:hint="Enter Mobile Number"
             android:inputType="number"
@@ -415,12 +418,13 @@
 
         <EditText
             android:id="@+id/spl_accountnumber"
-            android:layout_width="265dp"
-            android:layout_height="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@id/mobile_number"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="@dimen/small"
+            android:layout_marginBottom="@dimen/small"
             android:ems="10"
             android:hint="Enter Account Number"
             android:inputType="number"

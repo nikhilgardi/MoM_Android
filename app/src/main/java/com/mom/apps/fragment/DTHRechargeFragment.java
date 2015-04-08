@@ -169,6 +169,13 @@ public class DTHRechargeFragment extends FragmentBase implements AsyncListener<T
                     return;
                 }
 
+//                new android.os.Handler().postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        showBalance();
+//                    }
+//                },2000) ;
+
                 showBalance();
                 break;
         }
