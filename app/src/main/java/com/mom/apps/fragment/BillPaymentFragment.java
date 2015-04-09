@@ -242,11 +242,11 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
                     return;
                 }
 
-                showBalance();
+
                 Log.d(_LOG, "Starting navigation to TxnMsg Activity");
                 break;
         }
-
+        showBalance();
         taskCompleted(result);
     }
 

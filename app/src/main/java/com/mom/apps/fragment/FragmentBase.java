@@ -41,12 +41,7 @@ public abstract class FragmentBase extends Fragment{
     TextView tvMsgDisplay;
     IFragmentListener _callbackListener;
 
-//    protected void showBalance(){
-////        Bundle bundle       = new Bundle();
-////        bundle.putSerializable(AppConstants.BUNDLE_MESSAGE_CATEGORY, MessageCategory.GET_AND_SHOW_BALANCE);
-////        _callbackListener.processMessage(bundle);
-//        _callbackListener.requestForBalanceRefresh();
-//    }
+
 
     protected void showBalance(){
         Bundle bundle       = new Bundle();

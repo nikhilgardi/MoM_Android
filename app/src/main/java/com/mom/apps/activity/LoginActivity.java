@@ -63,7 +63,7 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 		super.onCreate(savedInstanceState);
         //MOHIT
         DataExImpl._listener = null;
-        DataExImpl._balance_listener = null;
+      //  DataExImpl._balance_listener = null;
 
         setDefaultLocale();
         setContentView(R.layout.activity_login);
@@ -538,6 +538,6 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
     protected void onDestroy() {
         super.onDestroy();
         DataExImpl._listener = null;
-        DataExImpl._balance_listener = null;
+       // DataExImpl._balance_listener = null;
     }
 }

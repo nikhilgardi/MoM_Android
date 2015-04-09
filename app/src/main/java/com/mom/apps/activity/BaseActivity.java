@@ -512,92 +512,41 @@ private   MenuItem balItem = null;
         return result;
     }
 
-//    @Override
-//    public void processMessage(Bundle bundle) {
-//        int showProgressBarCode        = bundle.getInt(AppConstants.BUNDLE_PROGRESS, AppConstants.DEFAULT_INT);
-//        Log.e("showProgressBarCodeStep1" , String.valueOf(showProgressBarCode));
-//        if(showProgressBarCode != AppConstants.DEFAULT_INT){
-//            if(showProgressBarCode == 0){
-//                Log.e("showProgressBarCodeStep2" , "showProgressBarCode");
-//                showProgress(false);
-//            }else{
-//                Log.e("showProgressBarCodeStep3" , "showProgressBarCodenotZero");
-//                showProgress(true);
-//            }
-//<<<<<<< HEAD
-//
-//            Log.e("showProgressBarCodeStep4" , "FinalShowProgessarCode");
-//=======
-//>>>>>>> 4ef65a11a9fe718373ef5774812be13a03de950d
-//            return;
-//        }
-//
-//        MessageCategory category = (MessageCategory) bundle.getSerializable(AppConstants.BUNDLE_MESSAGE_CATEGORY);
-//        Log.e("MessageCategoryStep5" , "category");
-//        if(category != null) {
-//            Log.e("MessageCategoryStep6" , "category");
-//            switch (category) {
-//                case GET_AND_SHOW_BALANCE:
-//                    Log.e("MessageCategoryStep7" , "category");
-//                    getBalance();
-//                    return;
-//            }
-//            Log.e("MessageCategoryStep8" , "category");
-//        }
-//        Log.e("MessageCategoryStep9" , "category");
-//        FragmentBase fragmentBase = (FragmentBase) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
-//        Log.e("FragmentBaseStep10" , "FragmentBase");
-//        if(fragmentBase == null){
-//            Log.d(_LOG, "No fragment found to pass the message");
-//            return;
-//        }
-//
-//        if(messageIntercepted(bundle)){
-//            Log.d(_LOG, "Message intercepted. Not being forwarded to attached fragment");
-//            return;
-//        }
-//
-//        Log.d(_LOG, "Passing the message to sub fragment");
-//
-//        try {
-//            fragmentBase.receiveMessage(bundle);
-//        }catch (MOMException me){
-//            me.printStackTrace();
-//        }
-//    }
+
 
 
     @Override
     public void processMessage(Bundle bundle) {
         int showProgressBarCode        = bundle.getInt(AppConstants.BUNDLE_PROGRESS, AppConstants.DEFAULT_INT);
-
+        Log.e("showProgressBarCodeStep1" , String.valueOf(showProgressBarCode));
         if(showProgressBarCode != AppConstants.DEFAULT_INT){
             if(showProgressBarCode == 0){
-
+                Log.e("showProgressBarCodeStep2" , "showProgressBarCode");
                 showProgress(false);
             }else{
-
+                Log.e("showProgressBarCodeStep3" , "showProgressBarCodenotZero");
                 showProgress(true);
             }
-
+            Log.e("showProgressBarCodeStep4" , "FinalShowProgessarCode");
 
             return;
         }
 
         MessageCategory category = (MessageCategory) bundle.getSerializable(AppConstants.BUNDLE_MESSAGE_CATEGORY);
-
+        Log.e("MessageCategoryStep5" , "category");
         if(category != null) {
-
+            Log.e("MessageCategoryStep6" , "category");
             switch (category) {
                 case GET_AND_SHOW_BALANCE:
-
+                    Log.e("MessageCategoryStep7" , "category");
                     getBalance();
                     return;
             }
+            Log.e("MessageCategoryStep8" , "category");
         }
-
+        Log.e("MessageCategoryStep9" , "category");
         FragmentBase fragmentBase = (FragmentBase) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
-
+        Log.e("FragmentBaseStep10" , "FragmentBase");
         if(fragmentBase == null){
             Log.d(_LOG, "No fragment found to pass the message");
             return;
