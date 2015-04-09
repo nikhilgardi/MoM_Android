@@ -7,5 +7,5 @@ import android.os.Bundle;
  */
 public interface IFragmentListener {
     void processMessage(Bundle bundle);
-    void requestForBalanceRefresh();
+  //  void requestForBalanceRefresh();
 }

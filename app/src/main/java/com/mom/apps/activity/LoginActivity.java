@@ -483,15 +483,10 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 
         try {
             if (platform == PlatformIdentifier.MOM) {
-
                 dataEx = new MoMPLDataExImpl(getApplicationContext(), listener);
-            }
-            else if(platform == PlatformIdentifier.B2C){
+            }else if(platform == PlatformIdentifier.B2C){
                 dataEx = new B2CPLDataExImpl(getApplicationContext() , listener);
-            }
-
-
-            else {
+            }else {
                 dataEx = new PBXPLDataExImpl(getApplicationContext(), DataExImpl.Methods.LOGIN, listener);
             }
 

@@ -13,33 +13,34 @@ public abstract class DataExImpl implements IDataEx{
 
 
     protected Context _applicationContext;
+    public static AsyncListener _listener;
+    protected boolean _connected;
 
-    //MOHIT
-    public AsyncListener get_listener() {
-        return _listener;
-    }
-    //MOHIT
-    public void set_listener(AsyncListener _listener) {
-        this._listener = _listener;
-    }
-    //COMMENTED MOHIT
-        public static AsyncListener _listener;
+//    //MOHIT
+//    public AsyncListener get_listener() {
+//        return _listener;
+//    }
+//    //MOHIT
+//    public void set_listener(AsyncListener _listener) {
+//        this._listener = _listener;
+//    }
+//    //COMMENTED MOHIT
+//        public static AsyncListener _listener;
+//
+//    public AsyncListener get_balance_listener() {
+//        return _balance_listener;
+//    }
+//
+//    public void set_balance_listener(AsyncListener _balance_listener) {
+//        this._balance_listener = _balance_listener;
+//    }
 
-    public AsyncListener get_balance_listener() {
-        return _balance_listener;
-    }
-
-    public void set_balance_listener(AsyncListener _balance_listener) {
-        this._balance_listener = _balance_listener;
-    }
-
-    public static AsyncListener _balance_listener;
+ //   public static AsyncListener _balance_listener;
 
 
 
     //MOHIT ADDED: TEMP REVERTED
 //    public AsyncListener _listener;
-    protected boolean _connected;
 
 
     public enum Methods{

@@ -34,6 +34,7 @@ import com.mom.apps.model.DataExImpl;
 import com.mom.apps.model.IDataEx;
 import com.mom.apps.model.Operator;
 import com.mom.apps.model.local.EphemeralStorage;
+import com.mom.apps.model.mompl.MoMPLDataExImpl;
 import com.mom.apps.model.pbxpl.PaymentResponse;
 import com.mom.apps.ui.TransactionRequest;
 import com.mom.apps.utils.AppConstants;
@@ -120,7 +121,7 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
             _etAmount.setVisibility(View.VISIBLE);
             _rechargeBtn.setVisibility(View.VISIBLE);
         }
-       else if(_currentPlatform == PlatformIdentifier.B2C)
+        else if(_currentPlatform == PlatformIdentifier.B2C)
         {
             _verifyTPin.setVisibility(View.VISIBLE);
             _btnSubmit.setVisibility(View.VISIBLE);
@@ -149,61 +150,64 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
         addListenerOnSpinnerItemSelection();
         return view;
     }
-    protected void getBalance() {
-        showProgress(true);
-        Log.e(_LOG, "MOMbalance");
-        Toast.makeText(getActivity().getApplicationContext(),"250.00",Toast.LENGTH_LONG).show();
-        showBalance(_tvBalance,Float.valueOf("250.00"));
-
-//        AsyncListener<Float> listener = new AsyncListener<Float>() {
-//            @Override
-//            public void onTaskSuccess(Float result, DataExImpl.Methods callback) {
-//                Log.d(_LOG, "Got balance: " + result);
-//                showProgress(false);
+//    protected void getBalance() {
+//        showProgress(true);
+//        Log.e(_LOG, "MOMbalance");
+//        Toast.makeText(getActivity().getApplicationContext(),"250.00",Toast.LENGTH_LONG).show();
+//        showBalance(_tvBalance,Float.valueOf("250.00"));
 //
-//                EphemeralStorage.getInstance(getActivity().getApplicationContext()).storeFloat(
-//                        AppConstants.USER_BALANCE, result
-//                );
+////        AsyncListener<Float> listener = new AsyncListener<Float>() {
+////            @Override
+////            public void onTaskSuccess(Float result, DataExImpl.Methods callback) {
+////                Log.d(_LOG, "Got balance: " + result);
+////                showProgress(false);
+////
+////                EphemeralStorage.getInstance(getActivity().getApplicationContext()).storeFloat(
+////                        AppConstants.USER_BALANCE, result
+////                );
+////
+////                showBalance(_tvBalance, result);
+////            }
+////
+////            @Override
+////            public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
+////                Log.e(_LOG, "Error retrieving balance");
+////                showProgress(false);
+////            }
+////        };
+////
+////
+////        Log.d(_LOG, "Going to fetch balanceMOM");
+////        getDataEx(listener).getBalance();
 //
-//                showBalance(_tvBalance, result);
-//            }
 //
-//            @Override
-//            public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
-//                Log.e(_LOG, "Error retrieving balance");
-//                showProgress(false);
-//            }
-//        };
+//    }
+//
+//    protected void showBalance(TextView tv){
+//        float balance         = EphemeralStorage.getInstance(getActivity().getApplicationContext() ).getFloat(AppConstants.USER_BALANCE, AppConstants.ERROR_BALANCE);
+//
+//        showBalance(tv, balance);
+//    }
 //
 //
-//        Log.d(_LOG, "Going to fetch balanceMOM");
-//        getDataEx(listener).getBalance();
+//    protected void showBalance(TextView tv, Float balance){
+//        String sBal         = null;
+//
+//        if(balance == AppConstants.ERROR_BALANCE){
+//            sBal            = getString(R.string.error_getting_balance);
+//            return;
+//        }else {
+//            DecimalFormat df = new DecimalFormat("#,###,###,##0.00");
+//            sBal = df.format(balance);
+//        }
+//
+//        // tv.setText("Balance: " + getResources().getString(R.string.Rupee) + sBal);
+//        balItem.setTitle("Balance: " + getResources().getString(R.string.Rupee) + sBal);
+//        Log.d(_LOG, sBal);
+//    }
 
-
-    }
-
-    protected void showBalance(TextView tv){
-        float balance         = EphemeralStorage.getInstance(getActivity().getApplicationContext() ).getFloat(AppConstants.USER_BALANCE, AppConstants.ERROR_BALANCE);
-
-        showBalance(tv, balance);
-    }
-    String sBal         = null;
-    protected void showBalance(TextView tv, Float balance){
-
-
-        if(balance == AppConstants.ERROR_BALANCE){
-            sBal            = getString(R.string.error_getting_balance);
-            return;
-        }else {
-            DecimalFormat df = new DecimalFormat("#,###,###,##0.00");
-            sBal = df.format(balance);
-        }
-
-        // tv.setText("Balance: " + getResources().getString(R.string.Rupee) + sBal);
-        balItem.setTitle("Balance: " + getResources().getString(R.string.Rupee) + sBal);
-        Log.d(_LOG, sBal);
-    }
     private MenuItem balItem = null;
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.main_activity_actions, menu);
@@ -216,7 +220,7 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
 
     private void getVerifyTpin() {
 
-        IDataEx dataEx = getDataEx(new AsyncListener<Integer>() {
+        IDataEx dataEx = new MoMPLDataExImpl(getActivity(), new AsyncListener<Integer>() {
             @Override
             public void onTaskSuccess(Integer result, DataExImpl.Methods callback) {
                 Log.e(_LOG, "VerifyTpin: " + result);
@@ -231,27 +235,20 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
                         _rechargeBtn.setVisibility(View.VISIBLE);
                         _verifyTPin.setVisibility(View.GONE);
                         _btnSubmit.setVisibility(View.GONE);
-                        break;
-
-
+                    break;
 
                     default:
-                       showMessage(getResources().getString(R.string.error_invalid_t_pin));
+                        showMessage(getResources().getString(R.string.error_invalid_t_pin));
                         _verifyTPin.setText(null);
-
-
-
                 }
-
-
             }
-
             @Override
             public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
                 Log.e(_LOG, "ErrorVerify Tpin");
 
             }
         });
+
         showMessage(null);
         String sTpin          = _verifyTPin.getText().toString();
 
@@ -284,6 +281,7 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
         }
 
         switch(callback){
+
                 case RECHARGE_MOBILE:
 //                    new android.os.Handler().postDelayed(new Runnable() {
 //                        @Override
@@ -291,15 +289,16 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
 //                            showBalance();
 //                        }
 //                    },2000) ;
-                showBalance();//THIS IS STILL PRESENT, IN PBX IT MIGHT GIVE OLD OR NEW BALANCE BASED ON THE SERVER STATUS
+//                showBalance();//THIS IS STILL PRESENT, IN PBX IT MIGHT GIVE OLD OR NEW BALANCE BASED ON THE SERVER STATUS
                     //IDEALLY IT CAN BE REMOVED IN PBX, but we will defer it!
                 Log.e("Showbalance" , "method called");
                // getBalance();
                 taskCompleted(result);
+                //Now that the transaction is done, retrieve and show the new balance
+                showBalance();
                 Log.i("MobileRecharge" , result.getRemoteResponse());
                 break;
         }
-
     }
 
     @Override
@@ -332,7 +331,7 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
         }else {
             Toast.makeText(getActivity().getApplicationContext(), "Error", Toast.LENGTH_LONG)
                     .show();
-    }
+        }
 
         showOperators(operatorList);
     }
@@ -461,8 +460,6 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
         updateAsyncQueue(request);
 
         getDataEx(this).rechargeMobile(request, nRechargeType);
-
-
 
         //showProgress(true);
 

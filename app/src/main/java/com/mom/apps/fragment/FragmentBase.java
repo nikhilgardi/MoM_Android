@@ -41,11 +41,17 @@ public abstract class FragmentBase extends Fragment{
     TextView tvMsgDisplay;
     IFragmentListener _callbackListener;
 
+//    protected void showBalance(){
+////        Bundle bundle       = new Bundle();
+////        bundle.putSerializable(AppConstants.BUNDLE_MESSAGE_CATEGORY, MessageCategory.GET_AND_SHOW_BALANCE);
+////        _callbackListener.processMessage(bundle);
+//        _callbackListener.requestForBalanceRefresh();
+//    }
+
     protected void showBalance(){
-//        Bundle bundle       = new Bundle();
-//        bundle.putSerializable(AppConstants.BUNDLE_MESSAGE_CATEGORY, MessageCategory.GET_AND_SHOW_BALANCE);
-//        _callbackListener.processMessage(bundle);
-        _callbackListener.requestForBalanceRefresh();
+        Bundle bundle       = new Bundle();
+        bundle.putSerializable(AppConstants.BUNDLE_MESSAGE_CATEGORY, MessageCategory.GET_AND_SHOW_BALANCE);
+        _callbackListener.processMessage(bundle);
     }
 
     protected void setCurrentPlatform() {
@@ -133,12 +139,12 @@ public abstract class FragmentBase extends Fragment{
         InputMethodManager imm = (InputMethodManager)
                 getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 
-
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     public IDataEx getDataEx(AsyncListener pListener){
         try {
+
             //THE FIRST IF CODE WILL SET THE PLATFORM, UNFORTUNATELY IT IS HOLDING THE REFERENCE OF
             //LISTENER AS WELL, AND THERE WAS NO WAY TO UPDATE REFERENCE TO LISTENER,
             //SO WHEN IN SAME FRAGMENT U HAVE 2 ASYNC TASK LIKE, THE SECOND REFERNCE SHALL CALL LISTENER
@@ -150,23 +156,30 @@ public abstract class FragmentBase extends Fragment{
             //FOR THIS REASON THE BALANCE REFERESH IS MOVED TO ACTIVITY LOGIC, AS IT IS SEPERATE
             //AND BALANCE UI BELONG TO BASEACTIVITY, LET IT HANDLE ITS JOB:
             //:::::
-            if (_dataEx == null) {
+
+
+//            if (_dataEx == null) {
+
                 if (_currentPlatform == PlatformIdentifier.MOM) {
                     _dataEx = new MoMPLDataExImpl(getActivity(), pListener);
-                }
-                else if (_currentPlatform == PlatformIdentifier.B2C) {
+                }else if (_currentPlatform == PlatformIdentifier.B2C) {
                     _dataEx = new B2CPLDataExImpl(getActivity(), pListener);
                 }else {
                     _dataEx = new PBXPLDataExImpl(getActivity(), null, pListener);
                 }
-            }else{
-                //CODE MOHIT
-                Log.i("getDataEx","update reference to listener start");
-                ((DataExImpl)_dataEx).set_listener(pListener);
-                Log.i("getDataEx","update reference to listener ends");
+
             }
-//            _dataEx.se
-        }catch(MOMException me){
+// else{
+//                //CODE MOHIT
+//                Log.i("getDataEx","update reference to listener start");
+//                ((DataExImpl)_dataEx).set_listener(pListener);
+//                Log.i("getDataEx","update reference to listener ends");
+//            }
+////            _dataEx.se
+//=======
+////            }
+//>>>>>>> 4ef65a11a9fe718373ef5774812be13a03de950d
+        catch(MOMException me){
             Log.w(_LOG, "Logged out", me);
             goToLogin();
             return null;

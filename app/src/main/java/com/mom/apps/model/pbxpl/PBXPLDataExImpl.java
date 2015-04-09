@@ -50,7 +50,48 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
 
     // String jsonStr =    "{\"Table\":[{\"PartyROWID\":92420,\"PartyRMN\":\"9769496026\",\"PartyName\":\"Akshay\",\"PartyGUID\":\"9163b4dd-f23d-41fd-99ab-7c0f57c9c7ed\",\"PartyEnum\":null,\"PartyTypeEnum\":16,\"userName\":\"Software\"}]}" ;
-    public PBXPLDataExImpl(Context pContext, Methods method, AsyncListener pListener, boolean isBalance) throws MOMException {
+//    public PBXPLDataExImpl(Context pContext, Methods method, AsyncListener pListener, boolean isBalance) throws MOMException {
+//        checkConnectivity(pContext);
+//        _applicationContext = pContext;
+//
+//        _deviceRegId = GcmUtil.getInstance(pContext).getRegistrationId();
+//        _userName = EphemeralStorage.getInstance(_applicationContext).getString(
+//                AppConstants.LOGGED_IN_USERNAME, null
+//        );
+//        if(!isBalance){
+//            _listener = pListener;
+//        }else{
+//            _balance_listener = pListener;
+//        }
+//
+//        _applicationContext = pContext;
+//        _deviceRegId = GcmUtil.getInstance(pContext).getRegistrationId();
+//        _token = EphemeralStorage.getInstance(pContext).getString(
+//                AppConstants.PARAM_PBX_TOKEN, null
+//        );
+//        _userName = EphemeralStorage.getInstance(pContext).getString(
+//                AppConstants.LOGGED_IN_USERNAME, null
+//        );
+//
+//
+//        if (method != Methods.LOGIN) {
+//            if (TextUtils.isEmpty(_userName)) {
+//                throw new IllegalStateException("username should not be empty here");
+//            }
+//
+//            if (TextUtils.isEmpty(_deviceRegId)) {
+//                throw new IllegalStateException("device id should not be empty here");
+//            }
+//
+//            if (TextUtils.isEmpty(_token)) {
+//                throw new MOMException(AsyncResult.CODE.NOT_LOGGED_IN);
+//            }
+//        }
+//    }
+//    public PBXPLDataExImpl(Context pContext, Methods method, AsyncListener pListener) throws MOMException {
+//        this(pContext,method,pListener,false);
+//    }
+    public PBXPLDataExImpl(Context pContext, Methods method, AsyncListener pListener) throws MOMException {
         checkConnectivity(pContext);
         _applicationContext = pContext;
 
@@ -58,12 +99,8 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         _userName = EphemeralStorage.getInstance(_applicationContext).getString(
                 AppConstants.LOGGED_IN_USERNAME, null
         );
-        if(!isBalance){
-            _listener = pListener;
-        }else{
-            _balance_listener = pListener;
-        }
 
+        _listener = pListener;
         _applicationContext = pContext;
         _deviceRegId = GcmUtil.getInstance(pContext).getRegistrationId();
         _token = EphemeralStorage.getInstance(pContext).getString(
@@ -87,9 +124,6 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 throw new MOMException(AsyncResult.CODE.NOT_LOGGED_IN);
             }
         }
-    }
-    public PBXPLDataExImpl(Context pContext, Methods method, AsyncListener pListener) throws MOMException {
-        this(pContext,method,pListener,false);
     }
 
 
@@ -118,12 +152,12 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 case GET_BALANCE:
                     try {
                         float balance = parseBalanceResult(result);
-//                        if(_listener!=null){
-//                            _listener.onTaskSuccess(balance, callback);
-//                        }
-                        if(_balance_listener!=null){
-                            _balance_listener.onTaskSuccess(balance, callback);
-                        }//yes
+                        if(_listener!=null){
+                            _listener.onTaskSuccess(balance, callback);
+                        }
+//                        if(_balance_listener!=null){
+//                            _balance_listener.onTaskSuccess(balance, callback);
+//                        }//yes
 
 
                     } catch (NumberFormatException nfe) {
@@ -131,9 +165,6 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                         nfe.printStackTrace();
                     }
                     break;
-
-
-
                 case GET_OPERATOR_NAMES:
                     if(_listener!=null){
                         _listener.onTaskSuccess(getOperatorNamesResult(result), callback);

@@ -74,21 +74,29 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
     public volatile boolean parsingComplete = true;
 
     TransactionRequest transactionRequest = new TransactionRequest();
+//
+//    public MoMPLDataExImpl(Context pContext, AsyncListener pListener, boolean isBalance){
+//        _applicationContext    = pContext;
+//        if(!isBalance){
+//            _listener   = pListener;
+//        }else{
+//            _balance_listener = pListener;
+//        }
+//
+//        checkConnectivity(pContext);
+//
+//    }
+//    public MoMPLDataExImpl(Context pContext, AsyncListener pListener){
+//        this(pContext,pListener,false);
+//    }
 
-    public MoMPLDataExImpl(Context pContext, AsyncListener pListener, boolean isBalance){
+    public MoMPLDataExImpl(Context pContext, AsyncListener pListener){
         _applicationContext    = pContext;
-        if(!isBalance){
-            _listener   = pListener;
-        }else{
-            _balance_listener = pListener;
-        }
-
+        _listener   = pListener;
         checkConnectivity(pContext);
 
     }
-    public MoMPLDataExImpl(Context pContext, AsyncListener pListener){
-        this(pContext,pListener,false);
-    }
+
 
 
     @SuppressWarnings("unchecked")
@@ -133,14 +141,14 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                     Log.d(_LOG, "TaskComplete: getBalance method, result: " + result);
                     float balance = extractBalance(result);
 
-//                    if (_listener != null) {
-//                        _listener.onTaskSuccess(balance, Methods.GET_BALANCE);
-//                    }
-
-
-                    if(_balance_listener!=null){
-                        _balance_listener.onTaskSuccess(balance, callback);
+                    if (_listener != null) {
+                        _listener.onTaskSuccess(balance, Methods.GET_BALANCE);
                     }
+
+
+//                    if(_balance_listener!=null){
+//                        _balance_listener.onTaskSuccess(balance, callback);
+//                    }
 
 
                     break;

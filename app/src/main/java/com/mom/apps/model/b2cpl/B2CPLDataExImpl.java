@@ -73,19 +73,26 @@ public class B2CPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
     TransactionRequest transactionRequest = new TransactionRequest();
 
-    public B2CPLDataExImpl(Context pContext, AsyncListener pListener, boolean isBalance){
-        _applicationContext    = pContext;
-        if(!isBalance){
-            _listener   = pListener;
-        }else{
-            _balance_listener = pListener;
-        }
+//    public B2CPLDataExImpl(Context pContext, AsyncListener pListener, boolean isBalance){
+//        _applicationContext    = pContext;
+//        if(!isBalance){
+//            _listener   = pListener;
+//        }else{
+//            _balance_listener = pListener;
+//        }
+//
+//        checkConnectivity(pContext);
+//
+//    }
+//    public B2CPLDataExImpl(Context pContext, AsyncListener pListener){
+//        this(pContext,pListener,false);
+//    }
 
+    public B2CPLDataExImpl(Context pContext, AsyncListener pListener){
+        _applicationContext    = pContext;
+        _listener   = pListener;
         checkConnectivity(pContext);
 
-    }
-    public B2CPLDataExImpl(Context pContext, AsyncListener pListener){
-        this(pContext,pListener,false);
     }
 
 
@@ -131,13 +138,13 @@ public class B2CPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                     Log.d(_LOG, "TaskComplete: getBalance method, result: " + result);
                     float balance = extractBalance(result);
 
-//                    if (_listener != null) {
-//                        _listener.onTaskSuccess(balance, Methods.GET_BALANCE);
-//                    }
-
-                    if(_balance_listener!=null){
-                        _balance_listener.onTaskSuccess(balance, callback);
+                    if (_listener != null) {
+                        _listener.onTaskSuccess(balance, Methods.GET_BALANCE);
                     }
+
+//                    if(_balance_listener!=null){
+//                        _balance_listener.onTaskSuccess(balance, callback);
+//                    }
 
                     break;
                 case SIGN_UP_ENCRYPT_DATA:
