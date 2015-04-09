@@ -534,10 +534,5 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
         finish();
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        DataExImpl._listener = null;
-       // DataExImpl._balance_listener = null;
-    }
+
 }
