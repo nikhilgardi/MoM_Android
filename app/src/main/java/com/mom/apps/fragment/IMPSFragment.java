@@ -138,6 +138,10 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
     Spinner _spOperator4;
     Spinner _OperatorPayFrom;
     Spinner _splOperatorNBE;
+    private Boolean isAgeValid = true;
+
+
+
 
     public static IMPSFragment newInstance(PlatformIdentifier currentPlatform) {
         IMPSFragment fragment = new IMPSFragment();
@@ -151,6 +155,7 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         _currentPlatform = (PlatformIdentifier) getArguments().getSerializable(AppConstants.ACTIVE_PLATFORM);
+
     }
 
     @Nullable
@@ -409,9 +414,8 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
 
             @Override
             public void onClick(View view) {
+                validateCustomerCreation(view);
 
-
-                createConsumerRegistration();
 
             }
 
@@ -536,7 +540,7 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
                     _tv_AmountPayable.setVisibility(View.GONE);
                     _tv_OTP.setVisibility(View.GONE);
 
-                    Toast.makeText(getActivity().getApplicationContext(), "true", Toast.LENGTH_LONG).show();
+                   // Toast.makeText(getActivity().getApplicationContext(), "true", Toast.LENGTH_LONG).show();
                 }
                 else if(isVerified == false){
                     _btnNext.setEnabled(true);
@@ -580,7 +584,7 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
                     _tv_ProcessingFees.setVisibility(View.GONE);
                     _tv_AmountPayable.setVisibility(View.GONE);
                     _tv_OTP.setVisibility(View.GONE);
-                    Toast.makeText(getActivity().getApplicationContext(), "false", Toast.LENGTH_LONG).show();
+                 //   Toast.makeText(getActivity().getApplicationContext(), "false", Toast.LENGTH_LONG).show();
                 }
 
             }
@@ -638,6 +642,24 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
 
         });
                 return view;
+    }
+    public  void validateCustomerCreation( View view) {
+        if (_etConsumerName.getText().toString().length() == 0) {
+            showMessage(getResources().getString(R.string.prompt_Validity_Name));
+            return ;
+        }else if (_etDob.getText().toString().length() == 0) {
+            showMessage(getResources().getString(R.string.prompt_Validity_DOB));
+            return ;
+        }else if (_etDob.getText().toString().length()!= 0 && !isAgeValid ) {
+            showMessage(getResources().getString(R.string.prompt_Validity_DOB_Age));
+            return ;
+        }else if ((isEmailValid(_etEmailAddress.getText().toString()))== 0) {
+            showMessage(getResources().getString(R.string.prompt_Validity_Email_Address));
+            return ;
+        }
+
+
+        createConsumerRegistration();
     }
 
 
@@ -1284,6 +1306,23 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
         showMessage(getResources().getString(R.string.lic_failed_policyDetails_msg_default));
        return;
     }
+    float balance         = EphemeralStorage.getInstance(getActivity().getApplicationContext()).getFloat(AppConstants.RMN_BALANCE, AppConstants.ERROR_BALANCE);
+               if(_currentPlatform == PlatformIdentifier.PBX) {
+//                   float bal = Math.abs(balance);
+                   Log.e("BalVal" , String.valueOf(balance*(-1)));
+                   if(balance*(-1)<Float.valueOf(_etAmount.getText().toString().trim()) ){
+
+                       showMessage(getResources().getString(R.string.Imps_failed_Amount));
+                       return;
+                   }
+               }
+               else {
+                   if (Float.valueOf(_etAmount.getText().toString().trim()) > balance) {
+                       Log.e("BalVal" , String.valueOf(balance));
+                       showMessage(getResources().getString(R.string.Imps_failed_Amount));
+                       return;
+                   }
+               }
 
     if ("".equals(_etTxnDescription.getText().toString().trim())) {
         showMessage(getResources().getString(R.string.prompt_TxnDescription));
@@ -1400,8 +1439,11 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
         if (minAdultAge.before(userAge)) {
 
             showMessage(getResources().getString(R.string.prompt_Validity_DOB_Age));
+            isAgeValid= false;
+
         } else {
             hideMessage();
+            isAgeValid= true;
         }
 
     }
@@ -1437,6 +1479,9 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
     }
 
     public void showCustomRegistrationFields() {
+        _etConsumerName.setText("");
+        _etDob.setText("");
+        _etEmailAddress.setText("");
         _etConsumerName.setEnabled(true);
         _etConsumerNumber.setVisibility(View.VISIBLE);
         _etConsumerName.setVisibility(View.VISIBLE);
@@ -2153,18 +2198,27 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
             case IMPS_CREATE_CUSTOMER_REGISTRATION:
                 Log.d(_LOG, "onTaskSuccess done_CreateCustomer");
 
-
-                if (result.getCustom() == null) {
-                    Log.d(_LOG, "response is in incorrect format!");
-                    showMessage("Couldn't Create Customer.");
-                    showProgress(false);
-                    return;
-                }
+                showProgress(false);
+//                if (result.getCustom() == null) {
+//                    Log.d(_LOG, "response is in incorrect format!");
+//                    showMessage("Couldn't Create Customer.");
+//                    showProgress(false);
+//                    return;
+//                }
 
 
                 ImpsCreateCustomerResult impsCreateCustomerResult = (ImpsCreateCustomerResult) result.getCustom();
 
                 showMessage(impsCreateCustomerResult.ErrorMessage);
+                if(impsCreateCustomerResult.RegistrationStatus){
+                    _etConsumerName.setVisibility(View.GONE);
+                    _etDob.setVisibility(View.GONE);
+                    _etEmailAddress.setVisibility(View.GONE);
+                    _btnImpsCreateCustomer.setVisibility(View.GONE);
+                    _btnImpsCancel.setVisibility(View.GONE);
+                    _btnSubmit.setVisibility(View.VISIBLE);
+
+                }
                 break;
 
             case IMPS_CHECK_KYC:
@@ -2580,7 +2634,7 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
                 break;
 
             case IMPS_CREATE_CUSTOMER_REGISTRATION:
-                showMessage(getActivity().getString(R.string.error_imps_customer_creation));
+              //  showMessage(getActivity().getString(R.string.error_imps_customer_creation));
                 break;
 
             case IMPS_BENEFICIARY_DETAILS:

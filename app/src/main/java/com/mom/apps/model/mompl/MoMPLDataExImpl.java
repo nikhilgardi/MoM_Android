@@ -849,7 +849,7 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         String sUserId              = EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_NEW_USER_ID, null);
 
         String operatorCode         = request.getOperator().code;
-        Log.i("Code" , operatorCode);
+        Log.e("Code" , operatorCode);
         String strCustomerNumber    = request.getCustomerMobile();
 
 
@@ -918,6 +918,7 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 AppConstants.OPERATOR_ID_BESCOM_BANGALURU.equals(operatorCode)||
                 AppConstants.OPERATOR_ID_CESCOM_MYSORE.equals(operatorCode)||
                 AppConstants.OPERATOR_ID_DHBVN_HARYANA.equals(operatorCode)||
+                AppConstants.OPERATOR_ID_TATA_POWER_DELHI.equals(operatorCode)||
                 AppConstants.OPERATOR_ID_INDRAPRASTHA_GAS.equals(operatorCode)){
 
             strCustomerNumber = request.getConsumerId() + "|" + request.getCustomerMobile();

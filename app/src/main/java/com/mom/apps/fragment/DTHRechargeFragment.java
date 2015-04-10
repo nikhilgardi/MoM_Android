@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +22,7 @@ import com.mom.apps.model.AsyncResult;
 import com.mom.apps.model.DataExImpl;
 import com.mom.apps.model.IDataEx;
 import com.mom.apps.model.Operator;
+import com.mom.apps.model.local.EphemeralStorage;
 import com.mom.apps.ui.TransactionRequest;
 import com.mom.apps.utils.AppConstants;
 import com.mom.apps.utils.DataProvider;
@@ -64,6 +66,7 @@ public class DTHRechargeFragment extends FragmentBase implements AsyncListener<T
         View view = inflater.inflate(R.layout.activity_dth_recharge, null, false);
 
         _spOperator = (Spinner) view.findViewById(R.id.Operator);
+        _spOperator.setOnItemSelectedListener(new OperatorSelectedListener());
         _etSubscriberId    = (EditText) view.findViewById(R.id.subscriberId);
         _etAmount = (EditText) view.findViewById(R.id.amount);
         _etCustomerNumber  = (EditText) view.findViewById(R.id.number);
@@ -264,6 +267,8 @@ public class DTHRechargeFragment extends FragmentBase implements AsyncListener<T
 
 
     public void validateAndRecharge(View view) {
+
+        float balance         = EphemeralStorage.getInstance(getActivity().getApplicationContext()).getFloat(AppConstants.RMN_BALANCE, AppConstants.ERROR_BALANCE);
         if (_spOperator.getSelectedItemPosition() < 1){
             showMessage(getResources().getString(R.string.prompt_select_operator));
             return;
@@ -338,6 +343,21 @@ public class DTHRechargeFragment extends FragmentBase implements AsyncListener<T
         if(nAmount < nMinAmount || nAmount > nMaxAmount){
             showMessage(String.format(getResources().getString(R.string.error_amount_min_max), nMinAmount, nMaxAmount));
             return;
+        }
+         if(_currentPlatform == PlatformIdentifier.PBX){
+            Log.e("BalVal", String.valueOf(balance * (-1)));
+            if(balance*(-1)<Float.valueOf(_etAmount.getText().toString().trim()) ){
+
+                showMessage(getResources().getString(R.string.Imps_failed_Amount));
+                return;
+            }
+        }
+        else {
+            if (Float.valueOf(_etAmount.getText().toString().trim()) > balance) {
+                Log.e("BalVal" , String.valueOf(balance));
+                showMessage(getResources().getString(R.string.Imps_failed_Amount));
+                return;
+            }
         }
 
         confirmRecharge();
@@ -421,4 +441,25 @@ Log.i("Params" , sSubscriberId +"/n" + sRechargeAmount +"/n"+ operator+ "/n" +  
 
         alertDialog.show();
     }
+
+
+
+    public class OperatorSelectedListener implements AdapterView.OnItemSelectedListener{
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
+
+        }
+
+
+        @Override
+        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+          _etSubscriberId.setText("");
+          _etCustomerNumber.setText("");
+          _etAmount.setText("");
+            showMessage(null);
+
+        }
+    }
+
 }

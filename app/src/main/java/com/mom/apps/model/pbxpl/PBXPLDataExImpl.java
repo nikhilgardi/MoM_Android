@@ -47,7 +47,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
     String _token = null;
     String _userName = null;
     PBXOperatorDataType _opType = null;
-
+    AsyncDataEx dataEx =null;
 
     // String jsonStr =    "{\"Table\":[{\"PartyROWID\":92420,\"PartyRMN\":\"9769496026\",\"PartyName\":\"Akshay\",\"PartyGUID\":\"9163b4dd-f23d-41fd-99ab-7c0f57c9c7ed\",\"PartyEnum\":null,\"PartyTypeEnum\":16,\"userName\":\"Software\"}]}" ;
 //    public PBXPLDataExImpl(Context pContext, Methods method, AsyncListener pListener, boolean isBalance) throws MOMException {
@@ -1946,6 +1946,7 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
     }
     public void cancelAsynctASK(){
-
+        dataEx = new AsyncDataEx(this);
+        dataEx.cancel(true);
     }
 }

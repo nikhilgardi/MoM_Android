@@ -68,7 +68,7 @@
     <!--<string name="lbl_IFSC_Code">IFSC Code</string>-->
     <!--<string name="lblBeneficiaryMobileNumber">Beneficiary Mobile Number</string>-->
     <string name="btn_newRecharge">కొత్త లావాదేవీ</string>
-
+    <string name="Imps_failed_Amount">చాలని వాలెట్ సంతులనం</string>
     <string name="login_failed_msg_default">లాగిన్ విఫలమైంది. దయచేసి మొబైల్ నెంబరు మరియు M-Pin తనిఖీ చేయండి.</string>
 
     <string name="login_username_pwd_required">దయచేసి మొబైల్ నెంబరు మరియు పాస్‌వర్డ్ నమోదు చేయండి</string>
@@ -613,7 +613,7 @@
 
 
 
-    <!--<string name="action_lic">lic</string>-->
+    <string name="action_lic">lic</string>
     <string name="action_IMPSCreateCustomerRegistration">imps కస్టమర్ రిజిస్ట్రేషన్ సృష్టిస్తుంది</string>
     <string name="action_IMPSCheckKYC">imps చెక్ kyc</string>
     <string name="action_IMPSCustomerRegistration">imps కస్టమర్ రిజిస్ట్రేషన్</string>
@@ -631,6 +631,8 @@
     <string name="action_IMPSMOMSubmitPayment">imps పేమెంట్ సబ్మిట్</string>
     <string name="action_IMPSMOMConfirmPayment">imps పేమెంట్ ధృవీకరించు</string>
     <string name="action_IMPSMOMSubmitPayPayment">imps పేమెంట్ ప్రాసెస్ సబ్మిట్ చేయి</string>
+    <string name="action_IMPSAuthentication">IMPS Authentication </string>
+    <string name="action_IMPSAuthenticationMOM">IMPS MOM Authentication </string>
     <string name="action_MOMTPin">mom టి- పిన్</string>
     <string name="action_SignUp">సైన్‌అప్</string>
     <string name="title_activity_transaction_confirmation">లావాదేవీ ఫలితం</string>

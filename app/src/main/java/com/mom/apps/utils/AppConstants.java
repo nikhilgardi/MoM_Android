@@ -8,6 +8,7 @@ public class AppConstants {
     public static final String LOG_PREFIX                   = "MOMAPP: ";
     public static final String UTF_8                        = "utf-8";
     public static final String USER_BALANCE                 = "userBalance";
+    public static final String RMN_BALANCE                  = "userBalance";
     public static final String USER_LANGUAGE                = "userLanguage";
     public static final String KEY_LANGUAGE                 = PACKAGE + USER_LANGUAGE;
     public static final String ACTIVE_PLATFORM              = "activePlatform";
@@ -432,6 +433,7 @@ public class AppConstants {
         OPERATOR_PBX.put("D2H", "VIDEOCON D2H");
 
         OPERATOR_PBX.put("BAI", "AIRTEL BILL");
+        OPERATOR_PBX.put("BAC", "AIRCEL BILL");
         OPERATOR_PBX.put("BLA", "AIRTELLANDLINE");
         OPERATOR_PBX.put("BLL", "BSNL BILL");
         OPERATOR_PBX.put("BID", "IDEA BILL");

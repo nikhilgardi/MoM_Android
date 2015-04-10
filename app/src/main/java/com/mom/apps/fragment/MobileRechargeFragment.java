@@ -355,6 +355,7 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
     }
 
     public void validateAndRecharge(View view) {
+        float balance         = EphemeralStorage.getInstance(getActivity().getApplicationContext()).getFloat(AppConstants.RMN_BALANCE, AppConstants.ERROR_BALANCE);
         if (_spOperator.getSelectedItemPosition() < 1){
             showMessage(getResources().getString(R.string.prompt_select_operator));
             return;
@@ -402,7 +403,21 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
             showMessage(String.format(getResources().getString(R.string.error_amount_min_max), nMinAmount, nMaxAmount));
             return;
         }
+        if(_currentPlatform == PlatformIdentifier.PBX){
+            Log.e("BalVal", String.valueOf(balance * (-1)));
+            if(balance*(-1)<Float.valueOf(_etAmount.getText().toString().trim()) ){
 
+                showMessage(getResources().getString(R.string.Imps_failed_Amount));
+                return;
+            }
+        }
+        else {
+            if (Float.valueOf(_etAmount.getText().toString().trim()) > balance) {
+                Log.e("BalVal" , String.valueOf(balance));
+                showMessage(getResources().getString(R.string.Imps_failed_Amount));
+                return;
+            }
+        }
 
         confirmRecharge();
     }
@@ -475,6 +490,7 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
 
             _etTargetPhone.setText("");
             _etAmount.setText("");
+            showMessage(null);
 
             _rbtnTopUp.setVisibility(View.GONE);
             _rbtnValidity.setVisibility(View.GONE);

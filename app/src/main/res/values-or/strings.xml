@@ -61,7 +61,7 @@
     <!--<string name="lbl_IFSC_Code">IFSC Code</string>-->
     <!--<string name="lblBeneficiaryMobileNumber">Beneficiary Mobile Number</string>-->
     <string name="btn_newRecharge">ନୂତନ ଟ୍ରାଞ୍ଜାକ୍‌ସନ୍</string>
-
+    <string name="Imps_failed_Amount">ଇନ୍ସୁffଇcଇଏନ୍ଟ୍ wଅଲ୍ଲେଟ୍ ବଲନ୍cଏ</string>
     <string name="login_failed_msg_default">ଲଗ୍‌ଇନ୍‌ ବିଫଳ ହୋଇଛି। ଦୟାକରି ଆପଣଙ୍କର ମୋବାଇଲ୍‌ ନମ୍ବର ଏବଂ  M-Pin ଯାଞ୍ଚ୍‌ କରନ୍ତୁ</string>
 
     <string name="title_activity_verify_tpin">T-Pin କାର୍ଯ୍ୟକଳାପ ତର୍ଜମା କରନ୍ତୁ</string>
@@ -688,6 +688,8 @@
     <string name="action_IMPSMOMSubmitPayment">imps ଦେୟ ଦାଖଲ କରନ୍ତୁ</string>
     <string name="action_IMPSMOMConfirmPayment">imps ଦେୟ ପ୍ରଦାନ ସୁନିଶ୍ଚିତ କରନ୍ତୁ</string>
     <string name="action_IMPSMOMSubmitPayPayment">imps ଦେୟ ପ୍ରକ୍ରିୟା ଦାଖଲ କରନ୍ତୁ</string>
+    <string name="action_IMPSAuthentication">IMPS Authentication </string>
+    <string name="action_IMPSAuthenticationMOM">IMPS MOM Authentication </string>
     <string name="action_MOMTPin">mom ଟି-ପିନ୍‍</string>
     <string name="action_SignUp">ସାଇନ୍‍‍ଅପ୍</string>
     <!--<string name="title_activity_transaction_confirmation">କାରବାର ଫଳାଫଳ</string>-->

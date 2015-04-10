@@ -59,7 +59,7 @@
     <!--<string name="lbl_isVerified">Verified</string>-->
     <!--<string name="lbl_IFSC_Code">IFSC Code</string>-->
     <!--<string name="lblBeneficiaryMobileNumber">Beneficiary Mobile Number</string>-->
-    <string name="btn_newRecharge">New Transaction</string>
+    <string name="btn_newRecharge">নতুন লেনদেন</string>
 
     <string name="login_failed_msg_default">লগিন ব্যর্থ হয়েছে। দয়া করে আপনার মোবাইল নম্বর এবং M-Pin চেক করুন</string>
 
@@ -271,6 +271,7 @@
     <string name="title_activity_base">MoneyOnMobile</string>
 
     <string name="action_lIC">LIC</string>
+    <string name="action_lic">lic</string>
 
     <!--<string name="lic_failed_policyDetails_msg_default">Insufficient Limit</string>-->
     <!--<string name="lic_failed_authorised_msg_default">Not Authorized</string>-->
@@ -678,9 +679,12 @@
     <string name="action_IMPSMOMSubmitPayment">imps পেমেন্ট জমা দিন</string>
     <string name="action_IMPSMOMConfirmPayment">imps পেমেন্ট নিশ্চিত করুন</string>
     <string name="action_IMPSMOMSubmitPayPayment">imps বেতন প্রক্রিয়া জমা দিন</string>
+    <string name="action_IMPSAuthentication">IMPS Authentication </string>
+    <string name="action_IMPSAuthenticationMOM">IMPS MOM Authentication </string>
     <string name="action_MOMTPin">mom t-pin</string>
     <string name="action_SignUp">সাইন আপ</string>
-    <!--<string name="title_activity_transaction_confirmation">লেনদেন ফলাফল</string>-->
+    <string name="Imps_failed_Amount">অপর্যাপ্ত মানিব্যাগ ভারসাম্য</string>
+
     <string name="lic_success_msg_default">পেমেন্ট সফল।</string>
     <string name="lic_failed_policyDetails_msg_default">অপর্যাপ্ত সীমা</string>
     <string name="lic_failed_authorised_msg_default">অনুমোদিত নয়</string>

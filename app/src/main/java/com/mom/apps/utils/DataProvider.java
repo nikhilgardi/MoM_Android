@@ -297,7 +297,7 @@ public class DataProvider {
     }
 
     public static List<Operator> getPBXPlatformBillPayOperators(){
-        String[] operatorNames  = {"BAI", "BLA", "BLL", "BID", "BRC", "BRG", "BTA", "BVO"};
+        String[] operatorNames  = {"BAI","BAC", "BLA", "BLL", "BID", "BRC", "BRG", "BTA", "BVO"};
 
         return getOperators(AppConstants.OPERATOR_PBX, operatorNames);
     }

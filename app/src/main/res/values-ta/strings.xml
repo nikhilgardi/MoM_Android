@@ -63,7 +63,7 @@
     <string name="btn_newRecharge">புதிய பரிவர்த்தனை</string>
     <string name="signUp_btn">பதிவு</string>
     <string name="login_failed_msg_default">உள்நுழைவு தோல்வி. உங்கள் மொபைல் எண் மற்றும் M-Pin-ஐச் சரிபார்க்கவும்</string>
-
+    <string name="Imps_failed_Amount">போதிய பணப்பை சமநிலை</string>
     <string name="title_activity_verify_tpin">VerifyTPinActivity</string>
 
     <string name="action_dashboard">டாஷ்போர்டு</string>
@@ -663,7 +663,7 @@
 
 
 
-    <!--<string name="action_lic">lic</string>-->
+    <string name="action_lic">lic</string>
     <string name="action_IMPSCreateCustomerRegistration">imps வாடிக்கையாளர் பதிவை உருவாக்கவும்</string>
     <string name="action_IMPSCheckKYC">imps kyc-ஐச் சரிபார்க்கவும்</string>
     <string name="action_IMPSCustomerRegistration">imps வாடிக்கையாளர் பதிவு உருவாக்கவும்</string>
@@ -680,6 +680,8 @@
     <string name="action_IMPSConfirmPayment">imps கட்டணத்தை உறுதிப்படுத்தவும்</string>
     <string name="action_IMPSMOMSubmitPayment">imps கட்டணத்தைச் சமர்ப்பிக்கவும்</string>
     <string name="action_IMPSMOMConfirmPayment">imps கட்டணத்தை உறுதிப்படுத்தவும்</string>
+    <string name="action_IMPSAuthentication">IMPS Authentication </string>
+    <string name="action_IMPSAuthenticationMOM">IMPS MOM Authentication </string>
     <string name="action_IMPSMOMSubmitPayPayment">imps பணம்செலுத்தும் செயலைச் சமர்ப்பிக்கவும்</string>
     <string name="action_MOMTPin">mom டி-பின்</string>
     <string name="action_SignUp">பதிவுபெறு</string>

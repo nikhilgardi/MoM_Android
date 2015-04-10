@@ -68,7 +68,7 @@ public class B2CPLDataExImpl extends DataExImpl implements AsyncListener<Transac
     private String receiptID;
     private String currentBalance;
     private PlatformIdentifier _currentPlatform;
-
+    AsyncDataEx dataEx =null;
     public volatile boolean parsingComplete = true;
 
     TransactionRequest transactionRequest = new TransactionRequest();
@@ -911,6 +911,7 @@ public class B2CPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 AppConstants.OPERATOR_ID_BESCOM_BANGALURU.equals(operatorCode)||
                 AppConstants.OPERATOR_ID_CESCOM_MYSORE.equals(operatorCode)||
                 AppConstants.OPERATOR_ID_DHBVN_HARYANA.equals(operatorCode)||
+                AppConstants.OPERATOR_ID_TATA_POWER_DELHI.equals(operatorCode)||
                 AppConstants.OPERATOR_ID_INDRAPRASTHA_GAS.equals(operatorCode)){
 
             strCustomerNumber = request.getConsumerId() + "|" + request.getCustomerMobile();
@@ -1877,7 +1878,8 @@ public void impsMomConfirmProcess(TransactionRequest request , String sOTP ,
 
     public void cancelAsynctASK(){
 
-
+        dataEx = new AsyncDataEx(this);
+        dataEx.cancel(true);
     }
 
 

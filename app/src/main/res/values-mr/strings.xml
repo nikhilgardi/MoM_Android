@@ -60,8 +60,8 @@
     <!--<string name="lbl_isVerified">Verified</string>-->
     <!--<string name="lbl_IFSC_Code">IFSC Code</string>-->
     <!--<string name="lblBeneficiaryMobileNumber">Beneficiary Mobile Number</string>-->
-    <string name="btn_newRecharge">New Transaction</string>
-
+    <string name="btn_newRecharge">नवीन व्यवहार</string>
+    <string name="Imps_failed_Amount">अपुरा पाकीट शिल्लक</string>
     <string name="login_failed_msg_default">लॉग-इन असफल कृपया आपला मोबाईल क्रमांक आणि M-पिन तपासा</string>
 
     <string name="title_activity_verify_tpin">Tपिन क्रियाकलाप सत्यापन करा </string>
@@ -299,7 +299,7 @@
     <string name="prompt_Validity_CRNID_number">अवैध CRNID क्रमांक</string>
     <string name="prompt_Validity_K_number">अवैध K क्रमांक</string>
     <string name="prompt_Validity_BP_number">अवैध BP क्रमांक</string>
-    <string name="prompt_Validity_north_serviceprovider">उत्तरीय सेवा प्रदाता निवडा</string>
+    <!--<string name="prompt_Validity_north_serviceprovider">उत्तरीय सेवा प्रदाता निवडा</string>-->
     <string name="prompt_Validity_Email_Address">वैध इमेल पत्ता प्रविष्ट करा</string>
     <string name="prompt_Validity_Name">आपले नाव प्रविष्ट करा</string>
     <string name="prompt_Validity_DOB_Age">साईण अप करण्यासाठी आवश्यक किमान आयु 18 वर्ष आहे.</string>
@@ -682,6 +682,8 @@
     <string name="action_IMPSMOMSubmitPayment">imps प्रदान सबमिट करा</string>
     <string name="action_IMPSMOMConfirmPayment">imps प्रदानाची पुष्टी करा</string>
     <string name="action_IMPSMOMSubmitPayPayment">imps प्रदान प्रक्रिया सबमिट करा</string>
+    <string name="action_IMPSAuthentication">IMPS Authentication </string>
+    <string name="action_IMPSAuthenticationMOM">IMPS MOM Authentication </string>
     <string name="action_MOMTPin">mom टी-पिन</string>
     <string name="action_SignUp">साइन अप</string>
     <!--<string name="title_activity_transaction_confirmation">व्यवहार परिणाम</string>-->

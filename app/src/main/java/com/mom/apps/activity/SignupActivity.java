@@ -54,7 +54,7 @@ public class SignupActivity extends Activity {
     private int day;
     private int month;
     private int year;
-
+    private Boolean isAgeValid = true;
 
     private ImageButton ib;
     TextView responseText , tv_signUp , lbl_login;
@@ -120,6 +120,12 @@ public class SignupActivity extends Activity {
         }else if (et_dob.getText().toString().length() == 0) {
             return 4;
         }
+        else if (et_dob.getText().toString().length()!= 0 && !isAgeValid ) {
+            return 5;
+        }
+
+
+
         else {
             return 0;
         }
@@ -206,6 +212,14 @@ public class SignupActivity extends Activity {
                         tv_signUp.setText("");
                         tv_signUp.setVisibility(View.VISIBLE);
                         tv_signUp.setText(getString(R.string.prompt_Validity_DOB));
+                        et_dob.setText("");
+                        break;
+
+                    case 5:
+
+                        tv_signUp.setText("");
+                        tv_signUp.setVisibility(View.VISIBLE);
+                        tv_signUp.setText(getString(R.string.prompt_Validity_DOB_Age));
                         et_dob.setText("");
                         break;
 
@@ -342,9 +356,12 @@ public class SignupActivity extends Activity {
         {
             tv_signUp.setVisibility(View.VISIBLE);
             tv_signUp.setText(getResources().getString(R.string.prompt_Validity_DOB_Age));
+            isAgeValid= false;
+
         }
         else{
             tv_signUp.setVisibility(View.GONE);
+            isAgeValid= true;
         }
 
     }

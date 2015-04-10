@@ -29,6 +29,7 @@ import com.mom.apps.model.AsyncResult;
 import com.mom.apps.model.DataExImpl;
 import com.mom.apps.model.IDataEx;
 import com.mom.apps.model.Operator;
+import com.mom.apps.model.local.EphemeralStorage;
 import com.mom.apps.ui.TransactionRequest;
 import com.mom.apps.utils.AppConstants;
 import com.mom.apps.utils.DataProvider;
@@ -587,6 +588,8 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
     public void showRetrieveBillFields(){
         _etSubscriberId.setVisibility(View.VISIBLE);
         _btnGetBillAmount.setVisibility(View.VISIBLE);
+        _etCustomerNumber.setText("");
+        _etAmount.setText("");
 
         String sOperator                = _spOperator.getSelectedItem().toString();
         Log.d(_LOG, "Operator selected: " + sOperator);
@@ -600,6 +603,8 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
                 sOperatorId.equals(AppConstants.OPERATOR_ID_DHBVN_HARYANA)||
                 sOperatorId.equals(AppConstants.OPERATOR_ID_TATA_POWER_DELHI)||
                 sOperatorId.equals(AppConstants.OPERATOR_ID_INDRAPRASTHA_GAS)){
+            _etCustomerNumber.setText("");
+            _etAmount.setText("");
             _btnGetBillAmount.setVisibility(View.GONE);
             _etDueDate.setVisibility(View.GONE);
             _etAcMonth.setVisibility(View.GONE);
@@ -620,6 +625,8 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
             _etFirstName.setText("");
             _etLastName.setText("");
             _etSubscriberId.setText("");
+            _etCustomerNumber.setText("");
+            _etAmount.setText("");
 
             _btnGetBillAmount.setVisibility(View.GONE);
             _etAcMonth.setVisibility(View.GONE);
@@ -641,6 +648,8 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
             _etFirstName.setText("");
             _etLastName.setText("");
             _etSubscriberId.setText("");
+            _etCustomerNumber.setText("");
+            _etAmount.setText("");
 
             _btnGetBillAmount.setVisibility(View.GONE);
             _etAcMonth.setVisibility(View.GONE);
@@ -658,6 +667,8 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
         }
         else if( sOperatorId.equals(AppConstants.OPERATOR_ID_DELHI_JAL_BOARD)){
             _etDueDate.setText("");
+            _etCustomerNumber.setText("");
+            _etAmount.setText("");
             _btnGetBillAmount.setVisibility(View.GONE);
             _etAcMonth.setVisibility(View.GONE);
             _rb.setVisibility(View.GONE);
@@ -676,6 +687,8 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
 
             _etDueDate.setText("");
             _etAcMonth.setText("");
+            _etCustomerNumber.setText("");
+            _etAmount.setText("");
             _btnGetBillAmount.setVisibility(View.GONE);
             _etSdCode.setVisibility(View.GONE);
             _etSop.setVisibility(View.GONE);
@@ -692,6 +705,11 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
         }
 
         else if(sOperatorId.equals(AppConstants.OPERATOR_ID_UHBVN_HARYANA)){
+            _etCustomerNumber.setText("");
+            _etAmount.setText("");
+            _etSdCode.setText("");
+            _etSop.setText("");
+            _etFsa.setText("");
             _btnGetBillAmount.setVisibility(View.GONE);
             _etDueDate.setVisibility(View.GONE);
             _etAcMonth.setVisibility(View.GONE);
@@ -728,7 +746,7 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
     }
     private void validateNBE_SBE( View view) {
 
-
+        float balance         = EphemeralStorage.getInstance(getActivity().getApplicationContext()).getFloat(AppConstants.RMN_BALANCE, AppConstants.ERROR_BALANCE);
 
 
         String sOperator        = _spOperator.getSelectedItem().toString();
@@ -785,7 +803,11 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
                 showMessage(String.format(getResources().getString(R.string.error_amount_min_max), nMinAmount, nMaxAmount));
                 return;
             }
-
+            else  if (Float.valueOf(_etAmount.getText().toString().trim()) > balance) {
+                Log.e("BalVal" , String.valueOf(balance));
+                showMessage(getResources().getString(R.string.Imps_failed_Amount));
+                return;
+            }
 
         } else if (AppConstants.OPERATOR_ID_SBE.equals(sOperatorId)) {
             if (_splOperatorSBE.getSelectedItemPosition() < 1) {
@@ -820,6 +842,11 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
                 showMessage(String.format(getResources().getString(R.string.error_amount_min_max), nMinAmount, nMaxAmount));
                 return;
             }
+            else  if (Float.valueOf(_etAmount.getText().toString().trim()) > balance) {
+                Log.e("BalVal" , String.valueOf(balance));
+                showMessage(getResources().getString(R.string.Imps_failed_Amount));
+                return;
+            }
 
 
         }
@@ -847,6 +874,11 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
                 showMessage(String.format(getResources().getString(R.string.error_amount_min_max), nMinAmount, nMaxAmount));
                 return;
             }
+            else  if (Float.valueOf(_etAmount.getText().toString().trim()) > balance) {
+                Log.e("BalVal" , String.valueOf(balance));
+                showMessage(getResources().getString(R.string.Imps_failed_Amount));
+                return;
+            }
 
 
         }
@@ -870,6 +902,11 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
             else if(Integer.parseInt(_etAmount.getText().toString().trim()) < nMinAmount
                     || Integer.parseInt(_etAmount.getText().toString().trim()) > nMaxAmount){
                 showMessage(String.format(getResources().getString(R.string.error_amount_min_max), nMinAmount, nMaxAmount));
+                return;
+            }
+            else  if (Float.valueOf(_etAmount.getText().toString().trim()) > balance) {
+                Log.e("BalVal" , String.valueOf(balance));
+                showMessage(getResources().getString(R.string.Imps_failed_Amount));
                 return;
             }
             else if (_etSdCode.getText().toString().length() == 0) {
@@ -917,6 +954,11 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
                 showMessage(String.format(getResources().getString(R.string.error_amount_min_max), nMinAmount, nMaxAmount));
                 return;
             }
+            else  if (Float.valueOf(_etAmount.getText().toString().trim()) > balance) {
+                Log.e("BalVal" , String.valueOf(balance));
+                showMessage(getResources().getString(R.string.Imps_failed_Amount));
+                return;
+            }
             else{
 
             }
@@ -948,6 +990,11 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
                 showMessage(String.format(getResources().getString(R.string.error_amount_min_max), nMinAmount, nMaxAmount));
                 return;
             }
+            else  if (Float.valueOf(_etAmount.getText().toString().trim()) > balance) {
+                Log.e("BalVal" , String.valueOf(balance));
+                showMessage(getResources().getString(R.string.Imps_failed_Amount));
+                return;
+            }
 
         }
         else if(AppConstants.OPERATOR_ID_BSES_YAMUNA.equals(sOperatorId)
@@ -975,6 +1022,11 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
                 showMessage(String.format(getResources().getString(R.string.error_amount_min_max), nMinAmount, nMaxAmount));
                 return;
             }
+            else  if (Float.valueOf(_etAmount.getText().toString().trim()) > balance) {
+                Log.e("BalVal" , String.valueOf(balance));
+                showMessage(getResources().getString(R.string.Imps_failed_Amount));
+                return;
+            }
 
         }
         else if(AppConstants.OPERATOR_ID_DELHI_JAL_BOARD.equals(sOperatorId) )
@@ -999,6 +1051,11 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
             else if(Integer.parseInt(_etAmount.getText().toString().trim()) < nMinAmount
                     || Integer.parseInt(_etAmount.getText().toString().trim()) > nMaxAmount){
                 showMessage(String.format(getResources().getString(R.string.error_amount_min_max), nMinAmount, nMaxAmount));
+                return;
+            }
+            else  if (Float.valueOf(_etAmount.getText().toString().trim()) > balance) {
+                Log.e("BalVal" , String.valueOf(balance));
+                showMessage(getResources().getString(R.string.Imps_failed_Amount));
                 return;
             }
 
@@ -1034,6 +1091,11 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
                 showMessage(String.format(getResources().getString(R.string.error_amount_min_max), nMinAmount, nMaxAmount));
                 return;
             }
+            else  if (Float.valueOf(_etAmount.getText().toString().trim()) > balance) {
+                Log.e("BalVal" , String.valueOf(balance));
+                showMessage(getResources().getString(R.string.Imps_failed_Amount));
+                return;
+            }
 
 
         }
@@ -1063,6 +1125,11 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
                 showMessage(String.format(getResources().getString(R.string.error_amount_min_max), nMinAmount, nMaxAmount));
                 return;
             }
+            else  if (Float.valueOf(_etAmount.getText().toString().trim()) > balance) {
+                Log.e("BalVal" , String.valueOf(balance));
+                showMessage(getResources().getString(R.string.Imps_failed_Amount));
+                return;
+            }
 
         }
         else if(AppConstants.OPERATOR_ID_CESC_LIMITED.equals(sOperatorId))
@@ -1090,7 +1157,11 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
             showMessage(String.format(getResources().getString(R.string.error_amount_min_max), nMinAmount, nMaxAmount));
             return;
         }
-
+            else  if (Float.valueOf(_etAmount.getText().toString().trim()) > balance) {
+                Log.e("BalVal" , String.valueOf(balance));
+                showMessage(getResources().getString(R.string.Imps_failed_Amount));
+                return;
+            }
 
             else if(_etDueDate.getText().toString().length() == 0){
 
@@ -1110,11 +1181,14 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
                 sOperatorId.equals(AppConstants.OPERATOR_ID_AIRCEL_BILL) ||
                         sOperatorId.equals(AppConstants.OPERATOR_ID_AIRTEL_BILL)||
                         sOperatorId.equals(AppConstants.OPERATOR_ID_BSNL_BILL_PAY) ||
+                        sOperatorId.equals(AppConstants.OPERATOR_ID_CELLONE_BILL_PAY) ||
                         sOperatorId.equals(AppConstants.OPERATOR_ID_IDEA_BILL) ||
                         sOperatorId.equals(AppConstants.OPERATOR_ID_RELIANCE_BILL_GSM) ||
                         sOperatorId.equals(AppConstants.OPERATOR_ID_RELIANCE_BILL_CDMA) ||
                         sOperatorId.equals(AppConstants.OPERATOR_ID_TATA_BILL) ||
+                        sOperatorId.equals(AppConstants.OPERATOR_ID_TIKONA_BILL)||
                         sOperatorId.equals(AppConstants.OPERATOR_ID_VODAFONE_BILL) ||
+                        sOperatorId.equals("BAI") ||
                         sOperatorId.equals("BAC") ||
                         sOperatorId.equals("BLL") ||
                         sOperatorId.equals("BID") ||
@@ -1122,7 +1196,7 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
                         sOperatorId.equals("BRC") ||
                         sOperatorId.equals("BTA") ||
                         sOperatorId.equals("BVO") ||
-                        sOperatorId.equals("BRC")
+                        sOperatorId.equals("BLA")
                 ){
 
             nMinAmount      = 50;
@@ -1144,6 +1218,22 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
                     || Integer.parseInt(_etAmount.getText().toString().trim()) > nMaxAmount){
                 showMessage(String.format(getResources().getString(R.string.error_amount_min_max), nMinAmount, nMaxAmount));
                 return;
+            }
+
+            else if(_currentPlatform == PlatformIdentifier.PBX){
+                Log.e("BalVal" , String.valueOf(balance*(-1)));
+                if(balance*(-1)<Float.valueOf(_etAmount.getText().toString().trim()) ){
+
+                    showMessage(getResources().getString(R.string.Imps_failed_Amount));
+                    return;
+                }
+            }
+            else {
+                if (Float.valueOf(_etAmount.getText().toString().trim()) > balance) {
+                    Log.e("BalVal" , String.valueOf(balance));
+                    showMessage(getResources().getString(R.string.Imps_failed_Amount));
+                    return;
+                }
             }
 
         }
@@ -1229,6 +1319,11 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
             else if(  AppConstants.OPERATOR_ID_DELHI_JAL_BOARD.equals(sOperatorId) ){
                 sHintDisplay              = sKNumber;
                 showRetrieveBillFields();
+            }
+            else{
+                _etCustomerNumber.setText("");
+                _etAmount.setText("");
+                showMessage(null);
             }
 
 

@@ -341,7 +341,7 @@
 
 
     <!---New Translations -->
-
+    <string name="Imps_failed_Amount">अपर्याप्त बटुआ संतुलन</string>
     <string name="signUp_btn">साइन अप करें</string>
     <string name="prompt_Validity_north_ServiceProvider">उत्तरी सेवा प्रदाता का चयन करें</string>
     <string name="prompt_Validity_south_ServiceProvider">Select SouthService Provider</string>
@@ -676,6 +676,8 @@
     <string name="action_IMPSMOMSubmitPayment">imps भुगतान करें</string>
     <string name="action_IMPSMOMConfirmPayment">imps भुगतान की पुष्टि करें</string>
     <string name="action_IMPSMOMSubmitPayPayment">imps भुगतान प्रक्रिया सबमिट करें</string>
+    <string name="action_IMPSAuthentication">IMPS Authentication </string>
+    <string name="action_IMPSAuthenticationMOM">IMPS MOM Authentication </string>
     <string name="action_MOMTPin">mom टी-पिन</string>
     <string name="action_SignUp">साइन अप करें</string>
     <!--<string name="title_activity_transaction_confirmation">लेन-देन परिणाम</string>-->

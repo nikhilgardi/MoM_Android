@@ -343,7 +343,7 @@
     <string name="prompt_Validity_emailId">અમાન્ય  ઇમેઇલ -Id</string>
     <string name="lbl_Name">નામ </string>
     <string name="lbl_DOB">જન્મ તારીખ</string>
-
+    <string name="Imps_failed_Amount">અપૂરતી વૉલેટ સંતુલન</string>
     <string name="signUp_btn">સાઇન અપ કરો</string>
     <string name="prompt_Validity_CA_number">અમાન્ય CA સંખ્યા</string>
     <string name="prompt_Validity_CRNID_number">અમાન્ય CRNID સંખ્યા</string>
@@ -672,10 +672,12 @@
     <string name="action_IMPSMOMSubmitPayment">Imps ચૂકવણી જમા કરો</string>
     <string name="action_IMPSMOMConfirmPayment">Imps ચૂકવણીની પુષ્ટિ કરો</string>
     <string name="action_IMPSMOMSubmitPayPayment">Imps ચૂકવણી પ્રક્રિયા જમા કરો</string>
+    <string name="action_IMPSAuthentication">IMPS Authentication </string>
+    <string name="action_IMPSAuthenticationMOM">IMPS MOM Authentication </string>
     <string name="action_MOMTPin">momટી-પીન</string>
     <string name="action_SignUp">સાઇન અપ</string>
     <string name="title_activity_transaction_confirmation">વ્યવહાર પરિણામ</string>
-    <!--<string name="lic_success_msg_default">ચૂકવણી સફળ.</string>-->
+    <string name="lic_success_msg_default">ચૂકવણી સફળ.</string>
     <string name="lic_failed_policyDetails_msg_default">અપર્યાપ્ત મર્યાદા</string>
     <string name="lic_failed_authorised_msg_default">અધિકૃત નથી</string>
     <string name="lic_failed_msg_default">ચૂકવણી નિષ્ફળ. કૃપા કરી બાદમાં ફરીથી પ્રયાસ કરો</string>

@@ -18,6 +18,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
+
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.TextUtils;
@@ -134,6 +135,7 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
         public void onReceive(Context context, Intent intent) {
             Log.d(_LOG, "BroadcastReceiver: Received message");
 //            requestForBalanceRefresh();
+            getBalance();
             String jsonReceived     = intent.getStringExtra(AppConstants.PARAM_GCM_PAYLOAD);
             if(TextUtils.isEmpty(jsonReceived)){
                 Log.w(_LOG, "Did not receive any json payload");
@@ -375,6 +377,9 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
                     balItem.setTitle("Balance: " + getResources().getString(R.string.Rupee) + sBal);
                     //  balItem.setTitle("Balance: "  + sBal);
                     Log.d(_LOG, sBal);
+                    EphemeralStorage.getInstance(getApplicationContext()).storeFloat(
+                            AppConstants.RMN_BALANCE, balance
+                    );
                 }
                 else{
                     Log.e("Balance Error" , String.valueOf(balance));
@@ -746,7 +751,7 @@ private   MenuItem balItem = null;
 
     @Override
     public void onBackPressed() {
-        getBalance();
+
        Log.d(_LOG, "Back pressed");
        FragmentManager fragMgr = getSupportFragmentManager();
        FragmentBase fb= (FragmentBase)fragMgr.findFragmentById(R.id.contentFrame);

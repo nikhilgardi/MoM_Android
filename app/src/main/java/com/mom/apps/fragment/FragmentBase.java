@@ -75,6 +75,7 @@ public abstract class FragmentBase extends Fragment{
     }
     public void cancelAsynTaskFromFrag(){
         if(_dataEx!=null){
+            Log.e("TestAsync" , "Working");
             _dataEx.cancelAsynctASK();
         }
     }
@@ -83,7 +84,7 @@ public abstract class FragmentBase extends Fragment{
         TextView response	= getMessageTextView();
 
         response.setVisibility(View.VISIBLE);
-      // response.requestFocus();
+        response.requestFocus();
         response.setText(psMsg);
     }
 

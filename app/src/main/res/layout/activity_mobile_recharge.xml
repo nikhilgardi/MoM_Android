@@ -72,9 +72,9 @@
                 android:id="@+id/rechargeTargetPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/EditTextAppTheme.phone"
+                android:inputType="number"
+                android:maxLength="10"
                 android:hint="@string/lblCustomerMobile"
-                android:inputType="phone"
                 android:layout_marginBottom="@dimen/small"
                 android:visibility="gone"/>
 
@@ -83,7 +83,8 @@
                 android:id="@+id/amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/EditTextAppTheme.money"
+                android:inputType="number"
+                android:maxLength="4"
                 android:hint="@string/lblAmount"
                 android:layout_marginBottom="@dimen/small"
                 android:visibility="gone"/>

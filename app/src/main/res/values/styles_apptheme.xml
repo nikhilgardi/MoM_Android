@@ -13,7 +13,14 @@
         <item name="android:inputType">number</item>
         <item name="android:maxLength">10</item>
     </style>
-
+    <style name="EditTextAppTheme.pin">
+        <item name="android:inputType">number</item>
+        <item name="android:maxLength">8</item>
+    </style>
+    <style name="EditTextAppTheme.pinPBX">
+        <item name="android:inputType">number</item>
+        <item name="android:maxLength">12</item>
+    </style>
     <style name="EditTextAppTheme.money">
         <item name="android:inputType">number</item>
         <item name="android:maxLength">4</item>

@@ -45,6 +45,8 @@
     <string name="action_retailerPayment">Retailer Payment</string>
     <string name="action_imps">Mobile Money Order</string>
 
+    <string name="action_Balance">Balance</string>
+
     <string name="action_history">History</string>
     <string name="action_settings">Settings</string>
     <string name="action_logout">Logout</string>
@@ -52,6 +54,7 @@
     <string name="action_changeTpin">Change T-PIN</string>
     <string name="action_changePassword">Change Password</string>
     <string name="action_lIC">LIC</string>
+    <string name="action_lic">lic</string>
     <string name="action_IMPSCreateCustomerRegistration">IMPS Create Customer Registration</string>
     <string name="action_IMPSCheckKYC">IMPS Check KYC</string>
     <string name="action_IMPSCustomerRegistration">IMPS Customer Registration</string>
@@ -77,6 +80,7 @@
     <string name="title_activity_transaction_confirmation">Transaction Result</string>
     <string name="lic_success_msg_default">Payment Successful.</string>
     <string name="lic_failed_policyDetails_msg_default">Insufficient Limit</string>
+    <string name="Imps_failed_Amount">Insufficient Wallet Balance</string>
     <string name="lic_failed_authorised_msg_default">Not Authorized</string>
     <string name="lic_failed_msg_default">Payment Failed.Please try again later</string>
     <string name="lic_failed_Receipt_msg_default">None of the policies entered is due for payment</string>
@@ -257,6 +261,12 @@
     <string name="AlertDialog_DTHRecharge">Confirm DTHRecharge</string>
     <string name="Lbl_SubscriberID">SubscriberId:</string>
     <string name="AlertDialog_BillPayment">Confirm Payment</string>
+
+    <string name="mpin_old">Old M-PIN</string>
+    <string name="mpin_new">New M-PIN</string>
+    <string name="mpin_new_confirm">Confirm New M-PIN</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
 
     <string name="changepassword_old">Old Password</string>
     <string name="changepassword_new">New Password</string>

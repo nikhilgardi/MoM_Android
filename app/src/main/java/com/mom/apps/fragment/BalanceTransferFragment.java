@@ -17,6 +17,7 @@ import com.mom.apps.identifier.TransactionType;
 import com.mom.apps.model.AsyncListener;
 import com.mom.apps.model.AsyncResult;
 import com.mom.apps.model.DataExImpl;
+import com.mom.apps.model.local.EphemeralStorage;
 import com.mom.apps.ui.TransactionRequest;
 import com.mom.apps.utils.AppConstants;
 
@@ -92,6 +93,7 @@ public class BalanceTransferFragment extends FragmentBase implements AsyncListen
     }
 
     public void validateAndTransfer() {
+        float balance         = EphemeralStorage.getInstance(getActivity().getApplicationContext()).getFloat(AppConstants.RMN_BALANCE, AppConstants.ERROR_BALANCE);
         int nMinAmount          = 10;
 
         int nMinPhoneLength     = 10;
@@ -123,7 +125,21 @@ public class BalanceTransferFragment extends FragmentBase implements AsyncListen
             showMessage(String.format(getResources().getString(R.string.error_amount_min), nMinAmount));
             return;
         }
+        if(_currentPlatform == PlatformIdentifier.PBX){
+            Log.e("BalVal", String.valueOf(balance * (-1)));
+            if(balance*(-1)<Float.valueOf(_etAmount.getText().toString().trim()) ){
 
+                showMessage(getResources().getString(R.string.Imps_failed_Amount));
+                return;
+            }
+        }
+        else {
+            if (Float.valueOf(_etAmount.getText().toString().trim()) > balance) {
+                Log.e("BalVal" , String.valueOf(balance));
+                showMessage(getResources().getString(R.string.Imps_failed_Amount));
+                return;
+            }
+        }
         confirmTransfer();
     }
 

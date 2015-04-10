@@ -62,7 +62,7 @@
     <!--<string name="lbl_IFSC_Code">IFSC Code</string>-->
     <!--<string name="lblBeneficiaryMobileNumber">Beneficiary Mobile Number</string>-->
     <string name="btn_newRecharge">പുതിയ ട്രാൻസാക്ഷൻ</string>
-
+    <string name="Imps_failed_Amount"> അപര്യാപ്തമായ വാലറ്റ് ബാലൻസ്</string>
     <string name="login_failed_msg_default">ലോഗിൻ പരാജയം. നിങ്ങളുടെ മൊബൈൽ നമ്പറും M-Pin-ഉം പരിശോധിക്കുക</string>
 
     <string name="title_activity_verify_tpin">TPin പ്രവർത്തനം സ്ഥിരീകരിക്കുക</string>
@@ -375,7 +375,7 @@
     <string name="changepassword_old">പഴയ പാസ്‌വേഡ്</string>
     <string name="changepassword_new">പുതിയ പാസ്‌വേഡ്</string>
     <string name="changepassword_confirm">പാസ്‌വേഡ് സ്ഥിരീകരിക്കുക</string>
-    <string name="password">പാസ്‌വേഡ്</string>
+    <!--<string name="password">പാസ്‌വേഡ്</string>-->
 
     <string name="Lbl_MobileNumber">മൊബൈൽ നമ്പർ: </string>
     <string name="Lbl_Operator">ഓപ്പറേറ്റർ: </string>
@@ -684,6 +684,8 @@
     <string name="action_IMPSMOMSubmitPayment">Imps ચૂકવણી જમા કરો</string>
     <string name="action_IMPSMOMConfirmPayment">Imps ચૂકવણીની પુષ્ટિ કરો</string>
     <string name="action_IMPSMOMSubmitPayPayment">Imps ચૂકવણી પ્રક્રિયા જમા કરો</string>
+    <string name="action_IMPSAuthentication">IMPS Authentication </string>
+    <string name="action_IMPSAuthenticationMOM">IMPS MOM Authentication </string>
     <string name="action_MOMTPin">momટી-પીન</string>
     <string name="action_SignUp">સાઇન અપ</string>
     <!--<string name="title_activity_transaction_confirmation">વ્યવહાર પરિણામ</string>-->

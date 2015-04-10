@@ -28,6 +28,7 @@ import com.mom.apps.model.AsyncResult;
 import com.mom.apps.model.DataExImpl;
 import com.mom.apps.model.IDataEx;
 import com.mom.apps.model.Operator;
+import com.mom.apps.model.local.EphemeralStorage;
 import com.mom.apps.ui.TransactionRequest;
 import com.mom.apps.utils.AppConstants;
 import com.mom.apps.utils.DataProvider;
@@ -492,7 +493,7 @@ public class UtilityBillPaymentFragment extends FragmentBase implements AsyncLis
     private void validateNBE_SBE( View view) {
 
 
-
+        float balance         = EphemeralStorage.getInstance(getActivity().getApplicationContext()).getFloat(AppConstants.RMN_BALANCE, AppConstants.ERROR_BALANCE);
 
         String sOperator        = _spOperator.getSelectedItem().toString();
         Log.i("sOperator" , sOperator);
@@ -538,6 +539,12 @@ public class UtilityBillPaymentFragment extends FragmentBase implements AsyncLis
             return;
         }
 
+           else  if(balance*(-1)<Float.valueOf(_etAmount.getText().toString().trim()) ){
+                Log.e("BalVal", String.valueOf(balance * (-1)));
+                showMessage(getResources().getString(R.string.Imps_failed_Amount));
+                return;
+            }
+
 
             else if(_etDueDate.getText().toString().length() == 0){
 
@@ -567,6 +574,9 @@ public class UtilityBillPaymentFragment extends FragmentBase implements AsyncLis
 
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            _etCustomerNumber.setText("");
+            _etAmount.setText("");
+            showMessage(null);
             String sConsumerNumber          = getResources().getString(R.string.lblConsumerNumber);
 
             String sHintDisplay             = sConsumerNumber;

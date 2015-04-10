@@ -63,7 +63,7 @@
     <!--<string name="lbl_IFSC_Code">IFSC Code</string>-->
     <!--<string name="lblBeneficiaryMobileNumber">Beneficiary Mobile Number</string>-->
     <string name="btn_newRecharge">ಹೊಸ ವಹಿವಾಟು </string>
-
+    <string name="Imps_failed_Amount"> ಸಾಕಷ್ಟು ಕೈಚೀಲ ಸಮತೋಲನ</string>
     <string name="title_activity_main">ಮುಖ್ಯ ಚಟುವಟಿಕೆ </string>
 
     <string name="title_activity_home_bill_activity__pbx">ಹೋಂ ಬಿಲ್ ಚಟುವಟಿಕೆ_PBX</string>
@@ -298,6 +298,7 @@
     <string name="action_imps">ಮೊಬೈಲ್ ಮನಿ ಆರ್ಡರ್</string>
 
     <string name="action_lIC">LIC</string>
+    <string name="action_lic">lic</string>
     <string name="action_Balance"> ಬ್ಯಾಲೆನ್ಸ್</string>
 
 
@@ -679,6 +680,8 @@
     <string name="action_IMPSMOMSubmitPayment">imps ಹಣ ಪಾವತಿ  ಸಲ್ಲಿಸಿ</string>
     <string name="action_IMPSMOMConfirmPayment">imps ಹಣ ಪಾವತಿಯ ದೃಢೀಕರಣ</string>
     <string name="action_IMPSMOMSubmitPayPayment">imps ಪಾವತಿ ಪ್ರಕ್ರಿಯೆಯನ್ನು ಸಲ್ಲಿಸಿ.</string>
+    <string name="action_IMPSAuthentication">IMPS Authentication </string>
+    <string name="action_IMPSAuthenticationMOM">IMPS MOM Authentication </string>
     <string name="action_MOMTPin">mom t - ಪಿನ್</string>
     <string name="action_SignUp">ಸೈನ್ಅಪ್</string>
     <!--<string name="title_activity_transaction_confirmation">ವ್ಯವಹಾರ ಫಲಿತಾಂಶ </string>-->
