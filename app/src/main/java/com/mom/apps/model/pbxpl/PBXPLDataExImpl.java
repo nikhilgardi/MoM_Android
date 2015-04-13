@@ -1779,6 +1779,10 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 Log.w(_LOG, "Null response?");
                 return null;
             }
+            if(responseBase.code== -1){
+                request.setResponseCode(-1);
+                return request;
+            }
 
             Log.d(_LOG, "Response: " + responseBase.data);
             ImpsVerifyPaymentResult impsVerifyPaymentResult = responseBase.data;
@@ -1910,6 +1914,10 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         Log.e("ErrorPayment123" , String.valueOf(request.getResponseCode()));
         if (responseBase == null || responseBase.data == null)  {
             return null;
+        }
+        if(responseBase.code== -1){
+            request.setResponseCode(-1);
+            return request;
         }
 
         List<ImpsConfirmPaymentResult> impsConfirmPaymentResultList = Arrays.asList(responseBase.data);

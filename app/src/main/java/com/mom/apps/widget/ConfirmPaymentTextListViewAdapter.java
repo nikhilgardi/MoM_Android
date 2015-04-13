@@ -55,8 +55,7 @@ public class ConfirmPaymentTextListViewAdapter extends ArrayAdapter {
 
 //        row.setBackgroundColor(Color.BLUE);
 
-        Log.d("LIST_VIEW", "Setting data in row: " + position + ", " + item.getErrorMessage());
-        Log.i("Output", item.getErrorMessage() + item.getRecieptId() + item.getStatus() + item.getTransactionId());
+
 
         holder.errorMessage.setText("Message:" + "\n" +item.getErrorMessage());
         holder.txtTransactionId.setText("TransactionId:" + "\n" +String.valueOf(item.getTransactionId()));

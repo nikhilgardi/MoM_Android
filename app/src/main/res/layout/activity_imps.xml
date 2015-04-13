@@ -25,11 +25,13 @@
             android:layout_weight="80"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/msgDisplay"
-                style="@style/MoMTheme.wrapped.alertMsg"
-                android:textSize="@dimen/text_medium"
-                android:visibility="gone" />
+            <!--<TextView-->
+                <!--android:id="@+id/msgDisplay"-->
+                <!--style="@style/MoMTheme.wrapped.alertMsg"-->
+                <!--android:textSize="@dimen/text_medium"-->
+                <!--android:visibility="gone"-->
+                <!--android:focusable="true"-->
+                <!--android:focusableInTouchMode="true"	/>-->
 
 
 
@@ -141,7 +143,7 @@
                 android:background="@drawable/apptheme_edit_text_holo_light"
                 android:inputType="number"
                 android:maxLength="10"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="4dp"
                 android:paddingLeft="20dp"
                 android:layout_marginBottom="@dimen/small"
                 android:textSize="@dimen/text_small"
@@ -688,6 +690,14 @@
                 style="@style/MoMTheme.wrapped.customButton"
                 android:text="@string/btn_cancel"
                 android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/msgDisplay"
+                style="@style/MoMTheme.wrapped.alertMsg"
+                android:textSize="@dimen/text_medium"
+                android:visibility="gone"
+                android:focusable="true"
+                android:focusableInTouchMode="true"	/>
             <!--<LinearLayout-->
                 <!--android:weightSum="3"-->
                 <!--style="@style/MoMTheme.btn_container">-->

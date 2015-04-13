@@ -27,7 +27,8 @@
                 android:id="@+id/msgDisplay"
                 style="@style/MoMTheme.wrapped.alertMsg"
                 android:textSize="@dimen/text_medium"
-                android:visibility="gone" />
+                android:visibility="gone"
+                />
 
             <EditText
                 android:id="@+id/payTo"

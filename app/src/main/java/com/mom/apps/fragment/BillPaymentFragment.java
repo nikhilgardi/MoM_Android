@@ -755,7 +755,7 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
         Log.i("sOperatorId" , sOperatorId);
         int nAmount             = 0;
         int nMinAmount          = 10;
-        int nMaxAmount          = 20000;
+        int nMaxAmount          = 200000;
         int nMinLength          = 10;
         int nMaxLength          = 10;
 
@@ -1199,8 +1199,8 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
                         sOperatorId.equals("BLA")
                 ){
 
-            nMinAmount      = 50;
-            nMaxAmount      = 500000;
+            nMinAmount      = 10;
+            nMaxAmount      = 50000;
             if(nCustomerNumberLength < nMinLength || nCustomerNumberLength > nMaxLength){
                 if(nMinLength == nMaxLength){
                     showMessage(String.format(getResources().getString(R.string.error_phone_length), nMinLength));

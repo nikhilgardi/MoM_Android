@@ -256,6 +256,8 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
 
                     _etTxnDescription.setText(null);
                     _etAmount.setText(null);
+                    _tv_amount.setVisibility(View.VISIBLE);
+                    _tv_txnDescription.setVisibility(View.VISIBLE);
                     _etAmount.setVisibility(View.VISIBLE);
                     _etTxnDescription.setVisibility(View.VISIBLE);
                     setupIMPSTransferView();
@@ -269,6 +271,8 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
                     _etTxnDescription.setText(null);
                     _etAmount.setText(null);
                     _etAmount.setEnabled(true);
+                    _tv_amount.setVisibility(View.VISIBLE);
+                    _tv_txnDescription.setVisibility(View.VISIBLE);
                     _etAmount.setVisibility(View.VISIBLE);
                     _etTxnDescription.setVisibility(View.VISIBLE);
                     setupIMPSTransferPayView();
@@ -345,7 +349,7 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
             @Override
             public void onClick(View view) {
                 showProgress(false);
-
+                showMessage(null);
                 _btnVerifyPaySubmit.setEnabled(true);
                 _btnPaymentPaySubmit.setEnabled(true);
                 validate(view);
@@ -370,6 +374,11 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
         _btnPaymentPaySubmit.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if(_etOTP.getText().toString().equals("")){
+                    showMessage(getResources().getString(R.string.error_otp));
+                    return;
+                }
 
                 _btnPaymentPaySubmit.setEnabled(false);
                 showProgress(false);
@@ -468,6 +477,8 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
                 _tv_beneficiary_name.setVisibility(View.GONE);
                 _tv_account_number.setVisibility(View.GONE);
                 _tv_consumerNumber.setVisibility(View.GONE);
+                _tv_amount.setVisibility(View.GONE);
+                _tv_txnDescription.setVisibility(View.GONE);
                 _tv_IFSC_Code.setVisibility(View.GONE);
                 _tv_BeneficiaryMobile_number.setVisibility(View.GONE);
                 _etBeneficiaryName.setVisibility(View.GONE);
@@ -495,7 +506,7 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
             public void onClick(View view) {
         Boolean isVerified = EphemeralStorage.getInstance(getActivity().getApplicationContext()).getBoolean(
                         AppConstants.PARAM_PBX_IMPS_ISBENEFICIAYSTATUS, false);
-
+                   showMessage(null);
                          // setupIMPSTransferView();
                 if ((isVerified == true)) {
                     _btnNext.setEnabled(true);
@@ -595,7 +606,7 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
         _btnPaymentPayCancel.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-
+                 showMessage(null);
                 _etAmount.setEnabled(true);
                 _btnNext.setEnabled(true);
                 _etConsumerNumber.setVisibility(View.VISIBLE);
@@ -616,17 +627,20 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
                 _rbVerify.setVisibility(View.GONE);
                 _btnVerifySubmit.setVisibility(View.GONE);
                 _btnVerifyCancel.setVisibility(View.GONE);
-                _tv_amount.setVisibility(View.GONE);
-                _tv_txnDescription.setVisibility(View.GONE);
+   //new updatedUI
+                _tv_consumerNumber.setVisibility(View.VISIBLE);
+                _tv_amount.setVisibility(View.VISIBLE);
+                _tv_availableLimit.setVisibility(View.VISIBLE);
+                _tv_txnDescription.setVisibility(View.VISIBLE);
                 _tv_ProcessingFees.setVisibility(View.GONE);
-                _tv_availableLimit.setVisibility(View.GONE);
-                _tv_operator.setVisibility(View.GONE);
-                _tv_beneficiary_name.setVisibility(View.GONE);
-                _tv_account_number.setVisibility(View.GONE);
-                _tv_IFSC_Code.setVisibility(View.GONE);
-                _tv_BeneficiaryMobile_number.setVisibility(View.GONE);
-                _tv_amount.setVisibility(View.GONE);
-                _tv_txnDescription.setVisibility(View.GONE);
+
+                _tv_operator.setVisibility(View.VISIBLE);
+                _tv_beneficiary_name.setVisibility(View.VISIBLE);
+                _tv_account_number.setVisibility(View.VISIBLE);
+                _tv_IFSC_Code.setVisibility(View.VISIBLE);
+                _tv_BeneficiaryMobile_number.setVisibility(View.VISIBLE);
+                _tv_amount.setVisibility(View.VISIBLE);
+                _tv_txnDescription.setVisibility(View.VISIBLE);
                 _tv_ProcessingFees.setVisibility(View.GONE);
                 _tv_AmountPayable.setVisibility(View.GONE);
                 _tv_OTP.setVisibility(View.GONE);
@@ -672,6 +686,12 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
         _etBeneficiaryName.setVisibility(View.VISIBLE);
         _etAccountNumber.setVisibility(View.VISIBLE);
         _etIFSC_Code.setVisibility(View.VISIBLE);
+        _tv_consumerNumber.setVisibility(View.VISIBLE);
+        _tv_availableLimit.setVisibility(View.VISIBLE);
+        _tv_beneficiary_name.setVisibility(View.VISIBLE);
+        _tv_account_number.setVisibility(View.VISIBLE);
+        _tv_IFSC_Code.setVisibility(View.VISIBLE);
+        _tv_BeneficiaryMobile_number.setVisibility(View.VISIBLE);
         _tvGetIFSC_List.setVisibility(View.VISIBLE);
         _etBeneficiaryMobile_Number.setVisibility(View.VISIBLE);
         _etTxnDescription.setVisibility(View.GONE);
@@ -1384,6 +1404,10 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
         if (_spOperator.getSelectedItemPosition() == 0) {
             _btnNext.setEnabled(false);
             _tvVerified.setVisibility(View.GONE);
+            _tv_amount.setVisibility(View.GONE);
+            _tv_txnDescription.setVisibility(View.GONE);
+            _etAmount.setVisibility(View.GONE);
+            _etTxnDescription.setVisibility(View.GONE);
 
             createNewBeneficiary();
         } else if((_spOperator.getSelectedItemPosition()!= 0)&& (_rbPay.isChecked()== true)) {
@@ -1482,7 +1506,7 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
         _etConsumerName.setText("");
         _etDob.setText("");
         _etEmailAddress.setText("");
-        _etConsumerName.setEnabled(true);
+
         _etConsumerNumber.setVisibility(View.VISIBLE);
         _etConsumerName.setVisibility(View.VISIBLE);
         _etDob.setVisibility(View.VISIBLE);
@@ -1507,6 +1531,7 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
         _btnCancel.setVisibility(View.GONE);
     }
     public void hideCustomRegistrationFields() {
+         showMessage(null);
         _etConsumerNumber.setEnabled(true);
         _etConsumerNumber.setVisibility(View.VISIBLE);
         _etConsumerName.setVisibility(View.GONE);
@@ -1592,14 +1617,14 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
       _btnVerifySubmit.setVisibility(View.GONE);
       _btnVerifyCancel.setVisibility(View.GONE);
 
-      _tv_availableLimit.setVisibility(View.GONE);
-      _tv_operator.setVisibility(View.GONE);
-      _tv_beneficiary_name.setVisibility(View.GONE);
-      _tv_account_number.setVisibility(View.GONE);
-      _tv_IFSC_Code.setVisibility(View.GONE);
-      _tv_BeneficiaryMobile_number.setVisibility(View.GONE);
-      _tv_amount.setVisibility(View.GONE);
-      _tv_txnDescription.setVisibility(View.GONE);
+      _tv_availableLimit.setVisibility(View.VISIBLE);
+      _tv_operator.setVisibility(View.VISIBLE);
+      _tv_beneficiary_name.setVisibility(View.VISIBLE);
+      _tv_account_number.setVisibility(View.VISIBLE);
+      _tv_IFSC_Code.setVisibility(View.VISIBLE);
+      _tv_BeneficiaryMobile_number.setVisibility(View.VISIBLE);
+      _tv_amount.setVisibility(View.VISIBLE);
+      _tv_txnDescription.setVisibility(View.VISIBLE);
       _tv_ProcessingFees.setVisibility(View.GONE);
       _tv_AmountPayable.setVisibility(View.GONE);
       _tv_OTP.setVisibility(View.GONE);
@@ -1629,13 +1654,13 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
         _btnCancel.setVisibility(View.VISIBLE);
         _btnVerifySubmit.setVisibility(View.GONE);
         _btnVerifyCancel.setVisibility(View.GONE);
-
-        _tv_availableLimit.setVisibility(View.GONE);
-        _tv_operator.setVisibility(View.GONE);
-        _tv_beneficiary_name.setVisibility(View.GONE);
-        _tv_account_number.setVisibility(View.GONE);
-        _tv_IFSC_Code.setVisibility(View.GONE);
-        _tv_BeneficiaryMobile_number.setVisibility(View.GONE);
+        _tv_consumerNumber.setVisibility(View.VISIBLE);
+        _tv_availableLimit.setVisibility(View.VISIBLE);
+        _tv_operator.setVisibility(View.VISIBLE);
+        _tv_beneficiary_name.setVisibility(View.VISIBLE);
+        _tv_account_number.setVisibility(View.VISIBLE);
+        _tv_IFSC_Code.setVisibility(View.VISIBLE);
+        _tv_BeneficiaryMobile_number.setVisibility(View.VISIBLE);
         _tv_amount.setVisibility(View.GONE);
         _tv_txnDescription.setVisibility(View.GONE);
         _tv_ProcessingFees.setVisibility(View.GONE);
@@ -2178,6 +2203,8 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
                             //  showMessage(sBeneficiaryId);
                             _etAmount.setText(null);
                             _etTxnDescription.setText(null);
+                            _tv_amount.setVisibility(View.VISIBLE);
+                            _tv_txnDescription.setVisibility(View.VISIBLE);
                             _etAmount.setVisibility(View.VISIBLE);
                             _etTxnDescription.setVisibility(View.VISIBLE);
 
@@ -2217,6 +2244,7 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
                     _btnImpsCreateCustomer.setVisibility(View.GONE);
                     _btnImpsCancel.setVisibility(View.GONE);
                     _btnSubmit.setVisibility(View.VISIBLE);
+                    _etConsumerNumber.setEnabled(true);
 
                 }
                 break;
@@ -2399,9 +2427,7 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
 
                 Log.i(_LOG + "IMPS_VERIFY_PROCESS", result.getRemoteResponse() + result.getResponseCode());
 
-                if (result.getCustom() == null) {
-                    showMessage("Couldn't process");
-                }
+
 
                 ImpsVerifyProcessResult impsVerifyProcessResult = (ImpsVerifyProcessResult) result.getCustom();
 
@@ -2427,6 +2453,22 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
                 break;
 
             case IMPS_VERIFY_PAYMENT:
+
+                if (result.getCustom() == null) {
+                    showProgress(false);
+                    showMessage(getResources().getString(R.string.lic_failed_msg_default));
+                    hideVerifyPaymentFields();
+                    return;
+                }
+
+                if(result.getResponseCode()== -1){
+                    showProgress(false);
+                    hideVerifyPaymentFields();
+                    showMessage(getActivity().getString(R.string.lic_failed_msg_default));
+                    //  Toast.makeText(getActivity().getApplicationContext(),String.valueOf(result.getResponseCode()) , Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                     showBalance();
                     Log.i(_LOG + "IMPS_VERIFY_PAYMENT", result.getRemoteResponse() + result.getResponseCode());
 
@@ -2478,42 +2520,57 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
 
             case IMPS_CONFIRM_PAYMENT:
 
-//                if (!(result.getCustom() instanceof ImpsConfirmPaymentResult)) {
-//                    showMessage(getResources().getString(R.string.lic_failed_msg_default));
-//                return;
+                if (result.getCustom() == null) {
+                    showMessage(getResources().getString(R.string.lic_failed_msg_default));
+                    showProgress(false);
+                    hideVerifyPaymentFields();
+                    return;
+                }
+
+                   if(result.getResponseCode()== -1){
+                      showProgress(false);
+                      hideVerifyPaymentFields();
+                      showMessage("Transaction Under Process");
+                    //  Toast.makeText(getActivity().getApplicationContext(),String.valueOf(result.getResponseCode()) , Toast.LENGTH_LONG).show();
+                      return;
+                  }
+
+//                   else{
+
+
+                showBalance();
+                List<ImpsConfirmPaymentResult> impsConfirmPaymentResultList = null;
+
+                impsConfirmPaymentResultList = (List<ImpsConfirmPaymentResult>) result.getCustom();
+//                if(impsConfirmPaymentResultList.equals(null)){
+//                    Toast.makeText(getActivity().getApplicationContext(),"TestError" , Toast.LENGTH_LONG).show();
 //                }
-                   showBalance();
-//
-                    List<ImpsConfirmPaymentResult> impsConfirmPaymentResultList = null;
 
-                    impsConfirmPaymentResultList = (List<ImpsConfirmPaymentResult>) result.getCustom();
+                showMessage(null);
 
 
-                    showMessage(null);
+                Log.d("IMPS_CONFIRM_PAYMENT", "Obtained result: " + impsConfirmPaymentResultList);
 
+                if (impsConfirmPaymentResultList == null || impsConfirmPaymentResultList.size() < 1) {
+                    setNoPaymentHistoryMessage();
+                    return;
+                }
 
-                    Log.d("HISTORY", "Obtained result: " + impsConfirmPaymentResultList);
+                Log.d("IMPS_CONFIRM_PAYMENT", "Creating list with " + impsConfirmPaymentResultList.size() + " transactions");
 
-                    if (impsConfirmPaymentResultList == null || impsConfirmPaymentResultList.size() < 1) {
-                        setNoPaymentHistoryMessage();
-                        return;
-                    }
+                ConfirmPaymentTextListViewAdapter adapter = new ConfirmPaymentTextListViewAdapter(
+                        getActivity(),
+                        R.layout.listview_impsconfirm_payment,
+                        impsConfirmPaymentResultList
+                );
 
-                    Log.d("HISTORY", "Creating list with " + impsConfirmPaymentResultList.size() + " transactions");
+                _titleView.setText(String.format(getResources().getString(R.string.title_activity_transaction_history_count), impsConfirmPaymentResultList.size()));
 
-                    ConfirmPaymentTextListViewAdapter adapter = new ConfirmPaymentTextListViewAdapter(
-                            getActivity(),
-                            R.layout.listview_impsconfirm_payment,
-                            impsConfirmPaymentResultList
-                    );
+                _listView.setAdapter(adapter);
+                _listView.setVisibility(View.VISIBLE);
 
-                    _titleView.setText(String.format(getResources().getString(R.string.title_activity_transaction_history_count), impsConfirmPaymentResultList.size()));
-
-                    _listView.setAdapter(adapter);
-                    _listView.setVisibility(View.VISIBLE);
-
-                    Log.d("HISTORY", "ListView created");
-
+                Log.d("HISTORY", "ListView created");
+//            }
                 showProgress(false);
                 hideVerifyPaymentFields();
                 break;

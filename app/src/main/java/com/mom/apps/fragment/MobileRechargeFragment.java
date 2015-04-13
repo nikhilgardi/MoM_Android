@@ -361,7 +361,7 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
             return;
         }
 
-        Operator operator               = (Operator) _spOperator.getSelectedItem();
+        Operator operator       = (Operator) _spOperator.getSelectedItem();
 
         int nMinAmount          = 10;
         int nMaxAmount          = 10000;
