@@ -221,9 +221,16 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 
     private void setDefaultLocale(){
         LanguageItem item       = getSelectedLanguageItem();
-        if(item != null){
-            setLocale(item);
+//        if(item != null){
+//            setLocale(item);
+//        }
+        if(item == null){
+            item            = LanguageItem.getDefault(this);
         }
+
+
+        setLocale(item);
+
     }
 
     private void setLocale(LanguageItem item){

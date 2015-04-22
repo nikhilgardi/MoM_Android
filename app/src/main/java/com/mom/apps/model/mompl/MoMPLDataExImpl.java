@@ -73,7 +73,7 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
     public volatile boolean parsingComplete = true;
 
-    TransactionRequest transactionRequest = new TransactionRequest();
+  //  TransactionRequest transactionRequest = new TransactionRequest();
 //
 //    public MoMPLDataExImpl(Context pContext, AsyncListener pListener, boolean isBalance){
 //        _applicationContext    = pContext;
@@ -698,6 +698,18 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 }
             }
          else {
+                if(response.contains("Success")){
+                    pResult.setStatus(0);
+                }
+                else if(response.contains("Failed")){
+                    pResult.setStatus(-1);
+                }
+                else if(response.contains("Pending")){
+                    pResult.setStatus(1);
+                }
+                else{
+                    pResult.setStatus(1);
+                }
                 Log.d(_LOG, "Response: " + response);
                 String responseResult = response.toLowerCase();
                 Log.d(_LOG, "NewResponse:" + responseResult);
