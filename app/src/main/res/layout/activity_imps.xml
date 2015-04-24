@@ -680,7 +680,7 @@
                 android:layout_width="match_parent"
                 style="@style/MoMTheme.wrapped.customButton"
 
-                android:text="@string/btn_payment"
+                android:text="@string/btn_pay"
                 android:visibility="gone" />
 
             <Button
