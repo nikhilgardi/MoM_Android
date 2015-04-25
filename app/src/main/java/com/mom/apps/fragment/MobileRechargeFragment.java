@@ -220,31 +220,29 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
 
     private void getVerifyTpin() {
 
-        IDataEx dataEx = new MoMPLDataExImpl(getActivity(), new AsyncListener<Integer>() {
+        IDataEx dataEx = new MoMPLDataExImpl(getActivity(), new AsyncListener<TransactionRequest>() {
             @Override
-            public void onTaskSuccess(Integer result, DataExImpl.Methods callback) {
-                Log.e(_LOG, "VerifyTpin: " + result);
+            public void onTaskSuccess(TransactionRequest result, DataExImpl.Methods callback) {
+                Log.e(_LOG, "VerifyTpin: " + result.getRemoteResponse().toString());
                 showProgress(false);
 
-                switch(result)
-                {
-                    case 101:
-                        _spOperator.setVisibility(View.VISIBLE);
-                        _etTargetPhone.setVisibility(View.VISIBLE);
-                        _etAmount.setVisibility(View.VISIBLE);
-                        _rechargeBtn.setVisibility(View.VISIBLE);
-                        _verifyTPin.setVisibility(View.GONE);
-                        _btnSubmit.setVisibility(View.GONE);
-                    break;
-
-                    default:
-                        showMessage(getResources().getString(R.string.error_invalid_t_pin));
-                        _verifyTPin.setText(null);
+                if(result.getRemoteResponse().equals("101")){
+                    _spOperator.setVisibility(View.VISIBLE);
+                    _etTargetPhone.setVisibility(View.VISIBLE);
+                    _etAmount.setVisibility(View.VISIBLE);
+                    _rechargeBtn.setVisibility(View.VISIBLE);
+                    _verifyTPin.setVisibility(View.GONE);
+                    _btnSubmit.setVisibility(View.GONE);
                 }
+               else{
+                   showMessage(result.getRemoteResponse().toString());
+                   _verifyTPin.setText(null);
+                }
+
             }
             @Override
             public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
-                Log.e(_LOG, "ErrorVerify Tpin");
+                Log.e(_LOG, "Error Verify Tpin");
 
             }
         });
@@ -257,7 +255,7 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
         request.setTpin(sTpin);
 
         dataEx.verifyTPin(sTpin);
-        Log.d(_LOG, "Verify tpin finished");
+        Log.d(_LOG, "Verify tpinMob Called");
 
 
         showProgress(true);

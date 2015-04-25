@@ -41,11 +41,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/tpin"
-                android:inputType="number"
-                android:password="true"
+                android:inputType="numberPassword"
                 android:maxLength="8"
                 android:layout_marginBottom="@dimen/small"
                 android:visibility="gone"/>
+
             <Button
                 android:id="@+id/btnSubmit"
                 android:layout_height="35dp"
@@ -69,6 +69,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/lblSubscriberId"
+                android:inputType="number"
                 android:layout_marginBottom="@dimen/ultra_small"
                 android:visibility="gone"/>
 
