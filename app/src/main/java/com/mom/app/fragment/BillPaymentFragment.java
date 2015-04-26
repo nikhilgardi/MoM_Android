@@ -183,29 +183,23 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
     }
     private void getVerifyTpin() {
 
-        IDataEx dataEx = getDataEx(new AsyncListener<Integer>() {
+        IDataEx dataEx = getDataEx(new AsyncListener<TransactionRequest>() {
             @Override
-            public void onTaskSuccess(Integer result, DataExImpl.Methods callback) {
-                Log.e(_LOG, "VerifyTpin: " + result);
+            public void onTaskSuccess(TransactionRequest result, DataExImpl.Methods callback) {
+                Log.e(_LOG, "VerifyTpinBillPay: " + result.getRemoteResponse().toString());
 
-                switch(result)
-                {
-                    case 101:
-                        _spOperator.setVisibility(View.VISIBLE);
+                if(result.getRemoteResponse().equals("101")){
+                    _spOperator.setVisibility(View.VISIBLE);
+                    _etCustomerNumber.setVisibility(View.VISIBLE);
+                    _etAmount.setVisibility(View.VISIBLE);
+                    _btnPay.setVisibility(View.VISIBLE);
+                    _verifyTPin.setVisibility(View.GONE);
+                    _btnSubmit.setVisibility(View.GONE);
 
-                        _etCustomerNumber.setVisibility(View.VISIBLE);
-                        _etAmount.setVisibility(View.VISIBLE);
-                        _btnPay.setVisibility(View.VISIBLE);
-                        _verifyTPin.setVisibility(View.GONE);
-                        _btnSubmit.setVisibility(View.GONE);
-                        break;
-
-                    default:
-                        showMessage(getResources().getString(R.string.error_invalid_t_pin));
-                        _verifyTPin.setText(null);
-
-
-
+                }
+                else{
+                    showMessage(result.getRemoteResponse().toString());
+                    _verifyTPin.setText(null);
                 }
                 showProgress(false);
 
@@ -225,7 +219,7 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
         request.setTpin(sTpin);
 
         dataEx.verifyTPin(sTpin);
-        Log.d(_LOG, "Get Bill Amount finished");
+        Log.d(_LOG, "Verify tpinBill Called");
 
 
         showProgress(true);

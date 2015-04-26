@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -111,31 +112,25 @@ public class DTHRechargeFragment extends FragmentBase implements AsyncListener<T
 
     private void getVerifyTpin() {
 
-        IDataEx dataEx = getDataEx(new AsyncListener<Integer>() {
+        IDataEx dataEx = getDataEx(new AsyncListener<TransactionRequest>() {
             @Override
-            public void onTaskSuccess(Integer result, DataExImpl.Methods callback) {
-                Log.e(_LOG, "VerifyTpin: " + result);
-
-                switch(result)
-                {
-                    case 101:
-                        _spOperator.setVisibility(View.VISIBLE);
-                        _etSubscriberId.setVisibility(View.VISIBLE);
-                        _etCustomerNumber.setVisibility(View.VISIBLE);
-                        _etAmount.setVisibility(View.VISIBLE);
-                        _rechargeButton.setVisibility(View.VISIBLE);
-                        _verifyTPin.setVisibility(View.GONE);
-                        _btnSubmit.setVisibility(View.GONE);
-                        break;
-
-                    default:
-                        showMessage(getResources().getString(R.string.error_invalid_t_pin));
-                        _verifyTPin.setText(null);
-
-
-
-                }
+            public void onTaskSuccess(TransactionRequest result, DataExImpl.Methods callback) {
+                Log.e(_LOG, "VerifyTpinDTH: " + result.getRemoteResponse().toString());
                 showProgress(false);
+                if(result.getRemoteResponse().equals("101")){
+                    _spOperator.setVisibility(View.VISIBLE);
+                    _etSubscriberId.setVisibility(View.VISIBLE);
+                    _etCustomerNumber.setVisibility(View.VISIBLE);
+                    _etAmount.setVisibility(View.VISIBLE);
+                    _rechargeButton.setVisibility(View.VISIBLE);
+                    _verifyTPin.setVisibility(View.GONE);
+                    _btnSubmit.setVisibility(View.GONE);
+                }
+                else{
+                    showMessage(result.getRemoteResponse());
+                    _verifyTPin.setText(null);
+                }
+
 
             }
 
@@ -153,7 +148,7 @@ public class DTHRechargeFragment extends FragmentBase implements AsyncListener<T
         request.setTpin(sTpin);
 
         dataEx.verifyTPin(sTpin);
-        Log.d(_LOG, "Get Bill Amount finished");
+        Log.d(_LOG, "Verify tpinDTH Called");
 
 
         showProgress(true);

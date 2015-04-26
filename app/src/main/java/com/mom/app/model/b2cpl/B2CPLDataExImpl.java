@@ -131,7 +131,10 @@ public class B2CPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                     //String bTPinSuccess = tpinVerified(result.getRemoteResponse());
                     if (_listener != null) {
                       //  _listener.onTaskSuccess((new Boolean(bTPinSuccess)), callback);
-                        _listener.onTaskSuccess(tpinVerified(result), callback);
+                      //  _listener.onTaskSuccess(tpinVerified(result), callback);
+
+                        TransactionRequest<String> response = getVerifyTpin(result , Methods.VERIFY_TPIN);
+                        _listener.onTaskSuccess(response, callback);
                     }
                     break;
                 case GET_BALANCE:
@@ -521,9 +524,11 @@ public class B2CPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 );
     }
 
-//    public boolean tpinVerified(TransactionRequest psResult){
+
+//NOT USED//
+//    public Integer tpinVerified(TransactionRequest psResult){
 //        if("".equals(psResult)){
-//            return false;
+//            return 0;
 //        }
 //
 //        try {
@@ -537,38 +542,59 @@ public class B2CPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 //
 //            if(i == AppConstants.NEW_PL_TPIN_VERIFIED){
 //                Log.d(_LOG, "TPin verified");
-//                return true;
+//                return 101;
 //            }
 //        }catch (Exception e){
 //            e.printStackTrace();
 //        }
 //
-//        return false;
+//        return 0;
 //    }
 
-    public Integer tpinVerified(TransactionRequest psResult){
-        if("".equals(psResult)){
-            return 0;
+
+    public TransactionRequest<String> getVerifyTpin(
+            TransactionRequest<String> pResult , Methods callback
+    ) throws MOMException{
+
+        if(pResult == null || "".equals(pResult.getRemoteResponse().trim())){
+            throw new MOMException();
         }
 
         try {
-            PullParser parser   = new PullParser(new ByteArrayInputStream(psResult.getRemoteResponse().getBytes()));
+            PullParser parser   = new PullParser(new ByteArrayInputStream(pResult.getRemoteResponse().getBytes()));
             String response     = parser.getTextResponse();
 
-            Log.d(_LOG, "Response: " + response);
+
+
             String[] strArrayResponse = response.split("~");
+            int i = Integer.parseInt(strArrayResponse[0].toString());
 
-            int i = Integer.parseInt(strArrayResponse[0]);
+            switch (i) {
+                case 101:
 
-            if(i == AppConstants.NEW_PL_TPIN_VERIFIED){
-                Log.d(_LOG, "TPin verified");
-                return 101;
+                    String test = strArrayResponse[1].toString();
+                    Log.i("Response", strArrayResponse[1].toString());
+                    pResult.setRemoteResponse(strArrayResponse[0].toString());
+
+                    break;
+                default:
+
+
+                    Log.i("Response", strArrayResponse[1].toString());
+                    pResult.setRemoteResponse(strArrayResponse[1].toString());
+                    break;
             }
+
+
+
+
+
+            return pResult;
         }catch (Exception e){
             e.printStackTrace();
         }
 
-        return 0;
+        return null;
     }
 
     public void signUpEncryptData(String composeData , String key)
@@ -656,48 +682,35 @@ public class B2CPLDataExImpl extends DataExImpl implements AsyncListener<Transac
             PullParser parser   = new PullParser(new ByteArrayInputStream(pResult.getRemoteResponse().getBytes()));
             String response     = parser.getTextResponse();
 
-
             Log.d(_LOG, "Response: " + response);
             String responseResult = response.toLowerCase();
             Log.d(_LOG, "NewResponse:" + responseResult);
             pResult.setRemoteResponse(responseResult);
 
-          /*  switch (callback){
-                case BALANCE_TRANSFER:
-                    if(responseResult.startsWith("0")){
-                        pResult.setCompleted(true);
-                        pResult.setStatus(TransactionRequest.RequestStatus.SUCCESSFUL);
-                    }else if(responseResult.startsWith("-7")){
-                        pResult.setCompleted(true);
-                        pResult.setStatus(TransactionRequest.RequestStatus.FAILED);
-                    }else if(responseResult.contains("invalid user")){
-                        pResult.setCompleted(true);
-                        pResult.setStatus(TransactionRequest.RequestStatus.FAILED);
-                    }else if(responseResult.contains("invalid accessid")){
-                        pResult.setCompleted(true);
-                        pResult.setStatus(TransactionRequest.RequestStatus.FAILED);
-                    }
-                    break;
-                default:
-                    if(responseResult.contains("success")) {
-                        pResult.setCompleted(true);
-                        pResult.setStatus(TransactionRequest.RequestStatus.SUCCESSFUL);
-                    }else if(responseResult.contains("failed")){
-                        pResult.setCompleted(true);
-                        pResult.setStatus(TransactionRequest.RequestStatus.FAILED);
-                    }else if(responseResult.contains("pending")){
-                        pResult.setCompleted(true);
-                        pResult.setStatus(TransactionRequest.RequestStatus.PENDING);
-                    }else if(responseResult.contains("could not process transaction")){
-                        pResult.setCompleted(true);
-                        pResult.setStatus(TransactionRequest.RequestStatus.FAILED);
-                    }
-                    else if(responseResult.contains("no  productconfiguration  users")){
-                        pResult.setCompleted(true);
-                        pResult.setStatus(TransactionRequest.RequestStatus.FAILED);
-                    }
+            if(responseResult.contains("success")){
+                pResult.setStatus(TransactionRequest.RequestStatus.SUCCESSFUL);
+            }
+            else if(responseResult.contains("failed")){
+                pResult.setStatus(TransactionRequest.RequestStatus.FAILED);
+            }
+            else if(responseResult.contains("pending")){
+                pResult.setStatus(TransactionRequest.RequestStatus.PENDING);
+            }
+            else if(responseResult.contains("could not process transaction")){
+                pResult.setStatus(TransactionRequest.RequestStatus.FAILED);
+            }
+            else if(responseResult.contains("no  productconfiguration  users")){
+                pResult.setStatus(TransactionRequest.RequestStatus.FAILED);
+            }
+            else{
+                pResult.setStatus(TransactionRequest.RequestStatus.PENDING);
+            }
 
-            }*/
+
+
+
+
+
 
             return pResult;
         }catch (Exception e){

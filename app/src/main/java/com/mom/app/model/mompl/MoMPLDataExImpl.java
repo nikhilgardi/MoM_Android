@@ -132,7 +132,9 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
                     if (_listener != null) {
                       //  _listener.onTaskSuccess((new Boolean(bTPinSuccess)), callback);
-                        _listener.onTaskSuccess(tpinVerified(result), callback);
+                     //   _listener.onTaskSuccess(tpinVerified(result), callback);
+                        TransactionRequest<String> response = getVerifyTpin(result , Methods.VERIFY_TPIN);
+                        _listener.onTaskSuccess(response, callback);
                     }
                     break;
                 case GET_BALANCE:
@@ -540,9 +542,11 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 );
     }
 
-//    public boolean tpinVerified(TransactionRequest psResult){
+
+//Not USED//
+//    public Integer tpinVerified(TransactionRequest psResult){
 //        if("".equals(psResult)){
-//            return false;
+//            return 0;
 //        }
 //
 //        try {
@@ -554,41 +558,21 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 //
 //            int i = Integer.parseInt(strArrayResponse[0]);
 //
+//
 //            if(i == AppConstants.NEW_PL_TPIN_VERIFIED){
 //                Log.d(_LOG, "TPin verified");
-//                return true;
+//                return 101;
+//            }
+//            else{
+//                return Integer.valueOf(strArrayResponse[1]);
 //            }
 //        }catch (Exception e){
 //            e.printStackTrace();
 //        }
 //
-//        return false;
+//        return 0;
 //    }
 
-    public Integer tpinVerified(TransactionRequest psResult){
-        if("".equals(psResult)){
-            return 0;
-        }
-
-        try {
-            PullParser parser   = new PullParser(new ByteArrayInputStream(psResult.getRemoteResponse().getBytes()));
-            String response     = parser.getTextResponse();
-
-            Log.d(_LOG, "Response: " + response);
-            String[] strArrayResponse = response.split("~");
-
-            int i = Integer.parseInt(strArrayResponse[0]);
-
-            if(i == AppConstants.NEW_PL_TPIN_VERIFIED){
-                Log.d(_LOG, "TPin verified");
-                return 101;
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-        return 0;
-    }
 
     public void signUpEncryptData(String composeData , String key)
     {
@@ -674,6 +658,11 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         try {
             PullParser parser   = new PullParser(new ByteArrayInputStream(pResult.getRemoteResponse().getBytes()));
             String response     = parser.getTextResponse();
+            Log.d(_LOG, "Response: " + response);
+            String responseResult = response.toLowerCase();
+            Log.d(_LOG, "NewResponse:" + responseResult);
+            pResult.setRemoteResponse(responseResult);
+
             if(response.contains("~"))
             {
                 String[] strArrayResponse = response.split("~");
@@ -696,23 +685,72 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 }
             }
          else {
-                if(response.contains("Success")){
-                    pResult.setStatus(0);
+                if(responseResult.contains("success")){
+                    pResult.setStatus(TransactionRequest.RequestStatus.SUCCESSFUL);
                 }
-                else if(response.contains("Failed")){
-                    pResult.setStatus(-1);
+                else if(responseResult.contains("failed")){
+                    pResult.setStatus(TransactionRequest.RequestStatus.FAILED);
                 }
-                else if(response.contains("Pending")){
-                    pResult.setStatus(1);
+                else if(responseResult.contains("pending")){
+                    pResult.setStatus(TransactionRequest.RequestStatus.PENDING);
+                }
+                else if(responseResult.contains("could not process transaction")){
+                    pResult.setStatus(TransactionRequest.RequestStatus.FAILED);
+                }
+                else if(responseResult.contains("no  productconfiguration  users")){
+                    pResult.setStatus(TransactionRequest.RequestStatus.FAILED);
                 }
                 else{
-                    pResult.setStatus(1);
+                    pResult.setStatus(TransactionRequest.RequestStatus.PENDING);
                 }
-                Log.d(_LOG, "Response: " + response);
-                String responseResult = response.toLowerCase();
-                Log.d(_LOG, "NewResponse:" + responseResult);
-                pResult.setRemoteResponse(responseResult);
+
             }
+
+
+
+            return pResult;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+
+    public TransactionRequest<String> getVerifyTpin(
+            TransactionRequest<String> pResult , Methods callback
+    ) throws MOMException{
+
+        if(pResult == null || "".equals(pResult.getRemoteResponse().trim())){
+            throw new MOMException();
+        }
+
+        try {
+            PullParser parser   = new PullParser(new ByteArrayInputStream(pResult.getRemoteResponse().getBytes()));
+            String response     = parser.getTextResponse();
+
+
+
+                String[] strArrayResponse = response.split("~");
+                int i = Integer.parseInt(strArrayResponse[0].toString());
+
+                switch (i) {
+                    case 101:
+
+                        String test = strArrayResponse[1].toString();
+                        Log.i("Response", strArrayResponse[1].toString());
+                        pResult.setRemoteResponse(strArrayResponse[0].toString());
+
+                        break;
+                    default:
+
+
+                        Log.i("Response", strArrayResponse[1].toString());
+                        pResult.setRemoteResponse(strArrayResponse[1].toString());
+                        break;
+                }
+
+
 
 
 
