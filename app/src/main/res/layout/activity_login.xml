@@ -29,7 +29,7 @@
             android:gravity="left"
             android:src="@drawable/logo"/>
 
-        <com.mom.apps.ui.CustomTextView
+        <com.mom.app.ui.CustomTextView
             android:id="@+id/tv_signUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
             android:layout_gravity="center_horizontal"
             android:visibility="invisible" />
 
-        <com.mom.apps.ui.CustomEditText
+        <com.mom.app.ui.CustomEditText
             android:id="@+id/et_un"
             style="@style/MoMTheme.wrapped.vert_layout.elements"
             android:background="@drawable/apptheme_edit_text_holo_light"
@@ -73,7 +73,7 @@
             android:maxLength="10"
             android:inputType="number"/>
 
-        <com.mom.apps.ui.CustomEditText
+        <com.mom.app.ui.CustomEditText
             android:id="@+id/et_pw"
             style="@style/MoMTheme.wrapped.vert_layout.elements"
             android:background="@drawable/apptheme_edit_text_holo_light"
@@ -84,7 +84,7 @@
             android:password="true"
             android:maxLength="8"/>
 
-        <com.mom.apps.ui.CustomButton
+        <com.mom.app.ui.CustomButton
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="35dp"
@@ -92,7 +92,7 @@
             android:onClick="startLogin"
             android:text="@string/btn_login" />
 
-        <com.mom.apps.ui.CustomButton
+        <com.mom.app.ui.CustomButton
             android:id="@+id/btn_signUp"
             android:layout_width="match_parent"
             android:layout_height="35dp"
@@ -103,13 +103,13 @@
 
         <!--<LinearLayout-->
             <!--style="@style/MoMTheme.btn_container">-->
-            <!--<com.mom.apps.ui.CustomButton-->
+            <!--<appui.CustomButton-->
                 <!--android:id="@+id/btnLogin"-->
                 <!--style="@style/MoMTheme.wrapped.customButton"-->
                 <!--android:onClick="startLogin"-->
                 <!--android:text="@string/btn_login" />-->
 
-            <!--<com.mom.apps.ui.CustomButton-->
+            <!--<appui.CustomButton-->
                 <!--android:id="@+id/btn_signUp"-->
                 <!--style="@style/MoMTheme.wrapped.customButton"-->
                 <!--android:onClick="signUp"-->

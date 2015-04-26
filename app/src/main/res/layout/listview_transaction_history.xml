@@ -9,7 +9,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <com.mom.apps.ui.CustomTextView
+        <com.mom.app.ui.CustomTextView
             android:id="@+id/txtDateTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -19,7 +19,7 @@
             android:textSize="@dimen/text_super_small"
             android:layout_weight="10"/>
 
-        <com.mom.apps.ui.CustomTextView
+        <com.mom.app.ui.CustomTextView
             android:id="@+id/txtTransactionId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
             android:textSize="@dimen/text_super_small"
             android:layout_weight="10"/>
 
-        <com.mom.apps.ui.CustomTextView
+        <com.mom.app.ui.CustomTextView
             android:id="@+id/txtStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <com.mom.apps.ui.CustomTextView
+        <com.mom.app.ui.CustomTextView
             android:id="@+id/txtOperator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
             android:textSize="@dimen/text_super_small"
             android:layout_weight="60"/>
 
-        <com.mom.apps.ui.CustomTextView
+        <com.mom.app.ui.CustomTextView
             android:id="@+id/amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

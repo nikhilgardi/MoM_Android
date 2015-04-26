@@ -36,7 +36,7 @@
                 android:textSize="@dimen/text_medium"
                 android:visibility="gone" />
 
-            <com.mom.apps.ui.CustomEditText
+            <com.mom.app.ui.CustomEditText
                 android:id="@+id/verifyTpin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
