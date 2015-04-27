@@ -25,6 +25,10 @@
         <item name="android:inputType">number</item>
         <item name="android:maxLength">4</item>
     </style>
+    <style name="EditTextAppTheme.loadTransfermoney">
+        <item name="android:inputType">number</item>
+        <item name="android:maxLength">6</item>
+    </style>
     <style name="EditTextAppTheme.impsmoney">
         <item name="android:inputType">number</item>
         <item name="android:maxLength">5</item>
