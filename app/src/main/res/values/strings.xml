@@ -30,6 +30,7 @@
     <string name="tvBeneficiaryName">Beneficiary Name</string>
     <string name="tvAccountNumber">Account Number</string>
     <string name="tvIFSCCode">IFSC Code</string>
+    <string name="tvForgotPassword">Forgot Password</string>
     <string name="tvBeneficiaryMobileNumber">Beneficiary Mobile Number</string>
     <string name="tvAmount">Amount </string>
     <string name="tvProcessingFees">Processing Fees</string>

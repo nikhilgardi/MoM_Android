@@ -303,7 +303,7 @@ public class DataProvider {
     }
 
     public static List<Operator> getPBXPlatformDTHOperators(){
-        String[] operatorNames  = {"ADG", "BIG", "SUN", "TSK", "D2H"};
+        String[] operatorNames  = {"ADG","DSH","BIG", "SUN", "TSK", "D2H"};
 
         return getOperators(AppConstants.OPERATOR_PBX, operatorNames);
     }

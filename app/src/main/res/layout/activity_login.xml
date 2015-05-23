@@ -101,6 +101,20 @@
             android:text="@string/signUp_btn"
             />
 
+        <com.mom.apps.ui.CustomTextView
+            android:id="@+id/tv_Forgot_Password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="@string/tvForgotPassword"
+            android:paddingLeft="20dp"
+            android:layout_marginTop="@dimen/small"
+            android:layout_marginBottom="@dimen/small"
+            android:textSize="@dimen/text_small"
+            android:textColor="#333"
+
+            android:visibility="gone" />
+
         <!--<LinearLayout-->
             <!--style="@style/MoMTheme.btn_container">-->
             <!--<com.mom.apps.ui.CustomButton-->

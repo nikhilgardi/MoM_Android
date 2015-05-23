@@ -24,6 +24,7 @@ import com.mom.apps.model.local.PersistentStorage;
 import com.mom.apps.model.mompl.MoMPLDataExImpl;
 import com.mom.apps.model.pbxpl.PBXPLDataExImpl;
 import com.mom.apps.ui.LanguageItem;
+import com.mom.apps.ui.TransactionRequest;
 import com.mom.apps.utils.AppConstants;
 
 import android.app.Activity;
@@ -55,6 +56,7 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
     private Spinner _languageSpinner;
     EditText _username, _password;
     boolean _spinnerCalledOnce = false;
+
     Intent myintent = new Intent();
 
 	/** Called when the activity is first created. */
@@ -274,7 +276,7 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 
     @Override
     public void onTaskSuccess(String result, DataExImpl.Methods pMethod) {
-        switch (pMethod){
+        switch (pMethod) {
             case CHECK_PLATFORM_DETAILS:
                 Log.i(_LOG, "Check result: " + result);
 
@@ -282,32 +284,40 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 //              result = null;
                 //TESTING
 
+                String[] sArrDetails = result.split("~");
+//                Log.i("Array", sArrDetails[1]);
+
                    if(TextUtils.isEmpty(result)) {
                         Log.i(_LOG, "User not of new PL");
-                        login(PlatformIdentifier.PBX);
+                       // login(PlatformIdentifier.PBX);
+                       //login(PlatformIdentifier.MOM);
+                      // loginB2C(PlatformIdentifier.B2C);
+                    //
+
+                      loginPBX(PlatformIdentifier.PBX);
+
                         return;
                     }
-
-
-                String[] sArrDetails	= result.split("~");
-                Log.i("Array", sArrDetails[1]);
-                if(sArrDetails.length < 13){
-                Log.i(_LOG, "2. User not of new PL");
-                login(PlatformIdentifier.PBX);
-                EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_USER_ID, sArrDetails[0]);
-
-                return;
-            }
-
-                if(sArrDetails[3].equals("184")){
-                    login(PlatformIdentifier.MOM);
-
-                }
-
-                else if(sArrDetails[3].equals("2365")){
-                    login(PlatformIdentifier.B2C);
-                }
-
+//
+//
+//                String[] sArrDetails	= result.split("~");
+//                Log.i("Array", sArrDetails[1]);
+//                if(sArrDetails.length < 13){
+//                Log.i(_LOG, "2. User not of new PL");
+//                login(PlatformIdentifier.PBX);
+//                EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_USER_ID, sArrDetails[0]);
+//
+//                return;
+//            }
+//
+//                if(sArrDetails[3].equals("184")){
+//                    login(PlatformIdentifier.MOM);
+//
+//                }
+//
+//                else if(sArrDetails[3].equals("2365")){
+//                    login(PlatformIdentifier.B2C);
+//                }
 
 
                 EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_USER_ID, sArrDetails[0]);
@@ -316,7 +326,7 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
                 EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_MOBILE_NUMBER, sArrDetails[2]);
                 EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_COMPANY_ID, sArrDetails[3]);
                 EphemeralStorage.getInstance(this).storeString(AppConstants.NEW_B2C_COMPANY_ID, sArrDetails[3]);
-                Log.i("testCID" , EphemeralStorage.getInstance(this).getString(AppConstants.PARAM_NEW_COMPANY_ID , null));
+                Log.i("testCID", EphemeralStorage.getInstance(this).getString(AppConstants.PARAM_NEW_COMPANY_ID, null));
                 EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_ROLE_ID, sArrDetails[4]);
                 EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_USER_AUTH_ID, sArrDetails[5]);
                 EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_USER_WALLET_ID, sArrDetails[6]);
@@ -327,9 +337,12 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
                 EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_USER_VAS01, sArrDetails[11]);
                 EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_USER_VAS02, sArrDetails[12]);
 
-                Log.i(_LOG, EphemeralStorage.getInstance(this).getString(AppConstants.PARAM_NEW_CUSTOMER_ID , null));
+                Log.i(_LOG, EphemeralStorage.getInstance(this).getString(AppConstants.PARAM_NEW_CUSTOMER_ID, null));
 
-               // login(PlatformIdentifier.MOM);
+                   login(PlatformIdentifier.MOM);
+
+
+
                 break;
         }
     }
@@ -368,6 +381,7 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 		showProgressBar();
 		
 		checkPlatformAndLogin();
+       // login(PlatformIdentifier.MOM);
 	}
 
 	private boolean areLoginCredentialsPresent() {
@@ -411,12 +425,12 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 
         MoMPLDataExImpl dataEx      = new MoMPLDataExImpl(this, this);
 
-        dataEx.checkPlatform(
-                new BasicNameValuePair(AppConstants.PARAM_NEW_RMN, username)
-              //  new BasicNameValuePair(AppConstants.PARAM_NEW_COMPANY_ID, AppConstants.NEW_PL_COMPANY_ID)
-        );
+    dataEx.checkPlatform(
+            new BasicNameValuePair(AppConstants.PARAM_NEW_RMN, username)
+    //  new BasicNameValuePair(AppConstants.PARAM_NEW_COMPANY_ID, AppConstants.NEW_PL_COMPANY_ID)
+    );
 
-	}
+}
 
 
     public void checkPlatformAndLoginB2C(){
@@ -435,9 +449,9 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
         );
 
     }
-	
-	public void login(PlatformIdentifier platform) {
-		Log.i(_LOG, "Going to login");
+
+    public void login(PlatformIdentifier platform) {
+        Log.i(_LOG, "Going to login");
         _currentPlatform        = platform;
 
         Log.i("_currentPlatform" , platform.toString());
@@ -452,7 +466,10 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
                 hideProgressBar();
                 hideMessage();
                 if (!result) {
-                    setLoginFailed(R.string.login_failed_msg_default);
+                    //  setLoginFailed(R.string.login_failed_msg_default);
+
+                    loginB2C(PlatformIdentifier.B2C);
+
                     return;
                 }
 
@@ -504,7 +521,160 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
         }
 
         Log.i(_LOG, "Async login request sent");
-	}
+    }
+
+
+    public void loginB2C(PlatformIdentifier platform) {
+        Log.i(_LOG, "Going to login");
+        _currentPlatform        = platform;
+
+        Log.i("_currentPlatform" , platform.toString());
+
+        final Context context   = this;
+
+        AsyncListener<Boolean> listener = new AsyncListener<Boolean>() {
+            @Override
+            public void onTaskSuccess(Boolean result, DataExImpl.Methods callback) {
+                String username = _username.getText().toString();
+                String password = _password.getText().toString();
+                hideProgressBar();
+                hideMessage();
+                if (!result) {
+                    //  setLoginFailed(R.string.login_failed_msg_default);
+
+                    loginPBX(PlatformIdentifier.PBX);
+                    return;
+                }
+
+//                switch (_currentPlatform){
+//                    case MOM:
+//
+//                        break;
+//                    case PBX:
+//                        break;
+//                }
+
+                getLoginBtn().setEnabled(true);
+                _username.setText(null);
+                _password.setText(null);
+                Log.d(_LOG, "Enable login button");
+                EphemeralStorage.getInstance(context).storeObject(AppConstants.ACTIVE_PLATFORM, _currentPlatform);
+                EphemeralStorage.getInstance(context).storeString(AppConstants.LOGGED_IN_USERNAME, username);
+                EphemeralStorage.getInstance(context).storeString(AppConstants.LOGGED_IN_PASSWORD, password);
+                Log.i("RMN", username);
+                EphemeralStorage.getInstance(context).storeBoolean(AppConstants.IS_LOGGED_IN, true);
+
+                // temporary
+                navigateToMain();
+
+            }
+
+            @Override
+            public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
+                getProgressBar().setVisibility(View.GONE);
+                setLoginFailed(R.string.login_failed_msg_default);
+            }
+        };
+
+        IDataEx dataEx;
+
+        try {
+            if (platform == PlatformIdentifier.MOM) {
+                dataEx = new MoMPLDataExImpl(getApplicationContext(), listener);
+            }else if(platform == PlatformIdentifier.B2C){
+                dataEx = new B2CPLDataExImpl(getApplicationContext() , listener);
+            }else {
+                dataEx = new PBXPLDataExImpl(getApplicationContext(), DataExImpl.Methods.LOGIN, listener);
+            }
+
+            dataEx.login(_username.getText().toString(), _password.getText().toString());
+        }catch(MOMException me){
+            Log.e(_LOG, "Error getting dataex", me);
+            showMessage(R.string.error_init_app);
+        }
+
+        Log.i(_LOG, "Async login request sent");
+    }
+
+
+    public void loginPBX(PlatformIdentifier platform) {
+        Log.i(_LOG, "Going to login");
+        _currentPlatform        = platform;
+
+        Log.i("_currentPlatform" , platform.toString());
+
+        final Context context   = this;
+
+        AsyncListener<Boolean> listener = new AsyncListener<Boolean>() {
+            @Override
+            public void onTaskSuccess(Boolean result, DataExImpl.Methods callback) {
+                String username = _username.getText().toString();
+                String password = _password.getText().toString();
+                hideProgressBar();
+                hideMessage();
+                if (!result) {
+                    setLoginFailed(R.string.login_failed_msg_default);
+
+
+                    return;
+                }
+
+//                switch (_currentPlatform){
+//                    case MOM:
+//
+//                        break;
+//                    case PBX:
+//                        break;
+//                }
+
+                getLoginBtn().setEnabled(true);
+                _username.setText(null);
+                _password.setText(null);
+                Log.d(_LOG, "Enable login button");
+                EphemeralStorage.getInstance(context).storeObject(AppConstants.ACTIVE_PLATFORM, _currentPlatform);
+                EphemeralStorage.getInstance(context).storeString(AppConstants.LOGGED_IN_USERNAME, username);
+                EphemeralStorage.getInstance(context).storeString(AppConstants.LOGGED_IN_PASSWORD, password);
+                Log.i("RMN", username);
+                EphemeralStorage.getInstance(context).storeBoolean(AppConstants.IS_LOGGED_IN, true);
+
+                // temporary
+                navigateToMain();
+
+            }
+
+            @Override
+            public void onTaskError(AsyncResult pResult, DataExImpl.Methods callback) {
+                getProgressBar().setVisibility(View.GONE);
+                setLoginFailed(R.string.login_failed_msg_default);
+            }
+        };
+
+        IDataEx dataEx;
+
+        try {
+            if (platform == PlatformIdentifier.MOM) {
+                dataEx = new MoMPLDataExImpl(getApplicationContext(), listener);
+            }else if(platform == PlatformIdentifier.B2C){
+                dataEx = new B2CPLDataExImpl(getApplicationContext() , listener);
+            }else {
+                dataEx = new PBXPLDataExImpl(getApplicationContext(), DataExImpl.Methods.LOGIN, listener);
+            }
+
+            dataEx.login(_username.getText().toString(), _password.getText().toString());
+        }catch(MOMException me){
+            Log.e(_LOG, "Error getting dataex", me);
+            showMessage(R.string.error_init_app);
+        }
+
+        Log.i(_LOG, "Async login request sent");
+    }
+
+
+
+
+
+
+
 
     public TextView getMessageTextView(){
         if(_tvMessage == null){
@@ -521,8 +691,17 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 		response.setVisibility(View.VISIBLE);
 		response.setText(getString(id));
 	}
-	
-	public void setLoginFailed(int id){
+
+    public void showMessageLogin(String psMsg){
+        TextView response	= getMessageTextView();
+
+        response.setVisibility(View.VISIBLE);
+        response.requestFocus();
+        response.setText(psMsg);
+    }
+
+
+    public void setLoginFailed(int id){
 		showMessage(id);
         _password.setText(null);
 

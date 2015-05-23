@@ -125,7 +125,9 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                 case LOGIN:
                     Log.d(_LOG, "TaskComplete: Login method, result: " + result);
                     if (_listener != null) {
-                        _listener.onTaskSuccess(loginSuccessful(result), callback);
+                       _listener.onTaskSuccess(loginSuccessful(result), callback);
+
+
                     }
                     break;
                 case VERIFY_TPIN:
@@ -717,6 +719,7 @@ public class MoMPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
         return null;
     }
+
 
 
     public TransactionRequest<String> getVerifyTpin(

@@ -613,6 +613,12 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
     }
 
 
+
+
+
+
+
+
     public boolean loginSuccessful(TransactionRequest pResult) {
         if (pResult == null || TextUtils.isEmpty(pResult.getRemoteResponse())) {
             return false;
@@ -1904,29 +1910,39 @@ public class PBXPLDataExImpl extends DataExImpl implements AsyncListener<Transac
     }
 
     public TransactionRequest getIMPSConfirmPaymentListResponse(TransactionRequest<List<ImpsConfirmPaymentResult>> request) {
-        Gson gson = new GsonBuilder().create();
 
-        Type type = new TypeToken<ResponseBase<ImpsConfirmPaymentResult[]>>() {
-        }.getType();
+        try {
+            Gson gson = new GsonBuilder().create();
 
-        ResponseBase<ImpsConfirmPaymentResult[]> responseBase = gson.fromJson(request.getRemoteResponse(), type);
-        request.setResponseCode(responseBase.code);
-        Log.e("ErrorPayment123" , String.valueOf(request.getResponseCode()));
-        if (responseBase == null || responseBase.data == null)  {
-            return null;
+            Type type = new TypeToken<ResponseBase<ImpsConfirmPaymentResult[]>>() {
+            }.getType();
+
+            ResponseBase<ImpsConfirmPaymentResult[]> responseBase = gson.fromJson(request.getRemoteResponse(), type);
+            request.setResponseCode(responseBase.code);
+            Log.e("ErrorPayment123", String.valueOf(request.getResponseCode()));
+            if (responseBase == null) {
+                return null;
+            }
+            if(responseBase.data == null){
+                return null;
+            }
+            if (responseBase.code == -1) {
+                request.setResponseCode(-1);
+                return request;
+            }
+
+            List<ImpsConfirmPaymentResult> impsConfirmPaymentResultList = Arrays.asList(responseBase.data);
+            // List<ImpsConfirmPaymentResult> impsConfirmPaymentResultList = new ArrayList<ImpsConfirmPaymentResult>(Arrays.asList(responseBase.data));
+
+            request.setCustom(impsConfirmPaymentResultList);
         }
-        if(responseBase.code== -1){
-            request.setResponseCode(-1);
-            return request;
+        catch(NullPointerException npe){
+            npe.printStackTrace();
         }
-
-        List<ImpsConfirmPaymentResult> impsConfirmPaymentResultList = Arrays.asList(responseBase.data);
-       // List<ImpsConfirmPaymentResult> impsConfirmPaymentResultList = new ArrayList<ImpsConfirmPaymentResult>(Arrays.asList(responseBase.data));
-
-        request.setCustom(impsConfirmPaymentResultList);
-
         return request;
     }
+
+
 
 
 

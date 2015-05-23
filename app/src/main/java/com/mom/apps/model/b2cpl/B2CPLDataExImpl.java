@@ -123,6 +123,7 @@ public class B2CPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                     Log.d(_LOG, "TaskComplete: Login method, result: " + result);
                     if (_listener != null) {
                         _listener.onTaskSuccess(loginSuccessful(result), callback);
+
                     }
                     break;
                 case VERIFY_TPIN:
@@ -550,6 +551,9 @@ public class B2CPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 //
 //        return 0;
 //    }
+
+
+
 
 
     public TransactionRequest<String> getVerifyTpin(

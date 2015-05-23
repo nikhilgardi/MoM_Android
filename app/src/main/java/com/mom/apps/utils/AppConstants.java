@@ -105,12 +105,12 @@ public class AppConstants {
    // LOCAL IMPS URL
    // public static final String URL_PBX_PLATFORM_IMPS           =   "http://test.api.pbx.momappworld.com/PbxIMPSApp.ashx";
   // PRODUCTION IMPS PBX
-   public static final String URL_PBX_PLATFORM_IMPS           =   "http://api.pbx.momappworld.com";
+    public static final String URL_PBX_PLATFORM_IMPS           =   "http://api.pbx.momappworld.com";
   // public static final String URL_PBX_PLATFORM_IMPS           =   "http://192.168.8.20/testapipbx/PbxIMPSApp.ashx";
      //-- production
       public static final String URL_PBX_PLATFORM_APP          =  "http://api.pbx.momappworld.com/pbxmobapp.ashx";
  // local pbx url
- // public static final String URL_PBX_PLATFORM_APP          =  "http://test.api.pbx.momappworld.com/pbxmobapp.ashx";
+  //public static final String URL_PBX_PLATFORM_APP          =  "http://test.api.pbx.momappworld.com/pbxmobapp.ashx";
 //local url
   //  public static final String URL_PBX_PLATFORM_APP          =  "http://192.168.8.20/testapipbx/pbxmobapp.ashx";
 //   public static final String URL_PBX_PLATFORM_APP          =  "http://test.api.pbx.momappworld.com/pbxmobapp.ashx";
@@ -182,7 +182,7 @@ public class AppConstants {
     public static final String PARAM_NEW_STR_PAYEE              = "Payee";
     public static final String PARAM_NEW_STR_TRANSFERAMOUNT     = "TransferAmount";
     public static final String PARAM_NEW_STR_TRANSVALUETPE      = "Transvaltype";
-    public static final String PARAM_NEW_STR_TRANSVALUE      = "Refilled";
+    public static final String PARAM_NEW_STR_TRANSVALUE        = "Refilled";
 
     public static final String PARAM_NEW_ROLE_ID            = "RoleID";
     public static final String PARAM_NEW_USER_AUTH_ID       = "UserAuthID";
@@ -427,6 +427,7 @@ public class AppConstants {
         OPERATOR_PBX.put("VOD", "VODAFONE");
 
         OPERATOR_PBX.put("ADG", "AIRTEL DTH");
+        OPERATOR_PBX.put("DSH", "DISH TV");
         OPERATOR_PBX.put("BIG", "RELIANCE BIGTV");
         OPERATOR_PBX.put("SUN", "SUN DIRECT");
         OPERATOR_PBX.put("TSK", "TATA SKY");

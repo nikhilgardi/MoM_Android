@@ -2551,7 +2551,7 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
 
                 Log.d("IMPS_CONFIRM_PAYMENT", "Obtained result: " + impsConfirmPaymentResultList);
 
-                if (impsConfirmPaymentResultList == null || impsConfirmPaymentResultList.size() < 1) {
+                if (impsConfirmPaymentResultList == null || impsConfirmPaymentResultList.size() < 1 || impsConfirmPaymentResultList.contains("[null]")) {
                     setNoPaymentHistoryMessage();
                     return;
                 }
