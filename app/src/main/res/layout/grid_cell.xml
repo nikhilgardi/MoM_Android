@@ -30,7 +30,7 @@
         </ImageView>
     </FrameLayout>
 
-    <com.mom.apps.ui.CustomTextView
+    <com.mom.app.ui.CustomTextView
         android:id="@+id/text"
         style="@style/MoMTheme.grid.cellTxt"/>
 

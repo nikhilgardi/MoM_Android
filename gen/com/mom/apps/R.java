@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package com.mom.apps;
+package com.mom.app;
 
 public final class R {
     public static final class array {

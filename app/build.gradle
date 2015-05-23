@@ -19,7 +19,7 @@ android {
     compileSdkVersion 20
     buildToolsVersion '20.0.0'
     defaultConfig {
-        applicationId 'com.mom.apps'
+        applicationId 'com.mom.app'
         minSdkVersion 9
         targetSdkVersion 20
     }
