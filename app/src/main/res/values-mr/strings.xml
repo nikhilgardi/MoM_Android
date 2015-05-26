@@ -293,7 +293,7 @@
     <string name="prompt_Validity_amount">अग्राह्य रक्कम</string>
     <string name="prompt_Validity_accntnumber">अग्राह्य खाते क्रमांक</string>
     <string name="prompt_Validity_radio_btn">रेडिओ बटण निवडा</string>
-    <string name="prompt_Message">तुम्ही मागे बटण दाबले आहे. तुम्हाला ऍपमधून बाहेर पडायचे आहे का?</string>
+    <!--<string name="prompt_Message">तुम्ही मागे बटण दाबले आहे. तुम्हाला ऍपमधून बाहेर पडायचे आहे का?</string>-->
 
     <string name="prompt_Validity_CA_number">अवैध CA क्रमांक</string>
     <string name="prompt_Validity_CRNID_number">अवैध CRNID क्रमांक</string>
