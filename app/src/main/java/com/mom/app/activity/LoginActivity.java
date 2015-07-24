@@ -428,45 +428,6 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 }
 
 
-
-    public void checkLIC(String sUserId){
-
-
-        List<NameValuePair> list	= new ArrayList<NameValuePair>();
-        list.add(new BasicNameValuePair(AppConstants.PARAM_PBX_SERVICE , "ISLIC"));
-        list.add(new BasicNameValuePair(AppConstants.PARAM_NEW_USER_ID, sUserId));
-
-
-        MoMPLDataExImpl dataEx      = new MoMPLDataExImpl(this, this);
-
-        dataEx.checkLic(
-                new BasicNameValuePair(AppConstants.PARAM_PBX_SERVICE , "ISLIC"),
-                new BasicNameValuePair(AppConstants.PARAM_NEW_RMN, sUserId)
-
-        );
-
-    }
-
-
-    public void checkPlatformAndLoginB2C(){
-        EditText uname 				= (EditText) findViewById(R.id.et_un);
-        String username 			= uname.getText().toString();
-
-        List<NameValuePair> list	= new ArrayList<NameValuePair>();
-        list.add(new BasicNameValuePair(AppConstants.PARAM_NEW_RMN, username));
-        list.add(new BasicNameValuePair(AppConstants.PARAM_NEW_COMPANY_ID, AppConstants.NEW_B2C_COMPANY_ID));
-
-        B2CPLDataExImpl dataEx      = new B2CPLDataExImpl(this, this);
-
-        dataEx.checkPlatform(
-                new BasicNameValuePair(AppConstants.PARAM_NEW_RMN, username),
-                new BasicNameValuePair(AppConstants.PARAM_NEW_COMPANY_ID, AppConstants.NEW_B2C_COMPANY_ID)
-        );
-
-    }
-
-
-
     public void login(PlatformIdentifier platform) {
         Log.i(_LOG, "Going to login");
         _currentPlatform        = platform;
