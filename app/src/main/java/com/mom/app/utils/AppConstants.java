@@ -118,6 +118,7 @@ public class AppConstants {
     public static final String SVC_PBX_BILL_PAY = "BILLPAY";
     public static final String SVC_PBX_UTILITY_BILL_PAY = "UBP";
     public static final String SVC_PBX_LIC = "LICENQ";
+    public static final String SVC_PBX_LIC_STATUS = "ISLIC";
 
     public static final String PARAM_SERVICE_LIC = "LICPAY";
     public static final String PARAM_SERVICE_IMPS_CUSTOMER_STATUS = "GETCUSTOMERSTATUS";
@@ -153,6 +154,7 @@ public class AppConstants {
     // public static final String URL_PBX_PLATFORM_IMPS           =   "http://192.168.8.20/testapipbx/PbxIMPSApp.ashx";
     //-- production
     public static final String URL_PBX_PLATFORM_APP = "http://utilities.money-on-mobile.net/lic_service/PbxMobApp.ashx";
+    public static final String URL_PBX_PLATFORM_APP_LIC = "http://utilities.money-on-mobile.net/lic_service/PbxMobApp.ashx?";
     // local pbx url
     //public static final String URL_PBX_PLATFORM_APP          =  "http://test.api.pbx.momappworld.com/pbxmobapp.ashx";
 //local url
@@ -462,6 +464,8 @@ public class AppConstants {
 
     public static final String PARAM_SERVICE_NEW = "Service";
 
+    public static final String PARAM_SERVICE_NEW_LIC_STATUS = "Service=";
+    public static final String PARAM_SERVICE_NEW_LIC_STATUS_USERID = "&userID=";
 
     //End: PBX Platform Params
 
