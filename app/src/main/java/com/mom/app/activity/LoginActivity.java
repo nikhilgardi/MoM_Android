@@ -173,38 +173,7 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
         GooglePlayServicesUtil.getErrorDialog(code, this, REQUEST_CODE_RECOVER_PLAY_SERVICES).show();
     }
 
-//    public void setupLanguageSelector(){
-//        _languageSpinner    = (Spinner) findViewById(R.id.selectLanguage);
-//
-//        ArrayAdapter<LanguageItem> dataAdapter = new ArrayAdapter<LanguageItem>(this,
-//                android.R.layout.simple_spinner_item, LanguageItem.getLanguages(this));
-//
-//        dataAdapter
-//                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//
-//        _languageSpinner.setAdapter(dataAdapter);
-//
-//        _languageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                Object objSelection    = adapterView.getItemAtPosition(i);
-//                Log.d(_LOG, "getting selection: " + objSelection);
-//                LanguageItem selection    = (LanguageItem) objSelection;
-//                Log.d(_LOG, "Language: " + selection + ", id: " + selection.resourceId);
-//                setLocale(selection);
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//                setLocale(LanguageItem.getDefault(getApplicationContext()));
-//            }
-//        });
-//
-//        LanguageItem item       = getSelectedLanguageItem();
-//        if(item != null){
-//            _languageSpinner.setSelection(dataAdapter.getPosition(item));
-//        }
-//    }
+
 
     public void setupLanguageSelector() {
         _languageSpinner = (Spinner) findViewById(R.id.selectLanguage);

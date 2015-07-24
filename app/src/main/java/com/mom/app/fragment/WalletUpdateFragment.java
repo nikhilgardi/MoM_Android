@@ -136,8 +136,8 @@ public class WalletUpdateFragment extends FragmentBase {
 
     public void validate(View view) {
 
-       //int nMinAmount          = 10;
-       int nMinAmount          = 1;
+
+       int nMinAmount          = 10;
        int nMaxAmount          = 10000;
 
 
