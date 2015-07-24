@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mom.app.R;
 import com.mom.app.utils.AppConstants;
@@ -64,6 +65,7 @@ public class DrawerAdapter<T> extends ArrayAdapter {
             holder.image        = imgView;
             holder.selectedImage    = (ImageView) row.findViewById(R.id.imgSelected);
             row.setTag(holder);
+
         } else {
             holder              = (ViewHolder) row.getTag();
         }
@@ -78,7 +80,9 @@ public class DrawerAdapter<T> extends ArrayAdapter {
         return row;
     }
 
+
     static class ViewHolder {
+
         TextView imageTitle;
         ImageView image;
         ImageView selectedImage;

@@ -67,6 +67,39 @@
     <!--<string name="lbl_isVerified">Verified</string>-->
     <!--<string name="lbl_IFSC_Code">IFSC Code</string>-->
     <!--<string name="lblBeneficiaryMobileNumber">Beneficiary Mobile Number</string>-->
+
+
+
+
+    <string name="prompt_select_complaint_type">పుర్యాదు రకాన్ని దయచేసి ఎంచుకో</string>
+    <string name="CustomerCare">గస్టమర్ కేర్:</string>
+    <string name="WestZone">వెస్ట్ జోన్:</string>
+    <string name="EastZone">తూర్పు జోన్:</string>
+    <string name="NorthZone">ఉత్తర జోన్:</string>
+    <string name="SouthZone">దక్షిణ జోన్:</string>
+    <string name="Timing">టైమింగ్:</string>
+    <string name="Phone">ఫోన్:</string>
+    <string name="E_mail">ఈ మెయిల్:</string>
+    <string name="get_Password_btn">పాస్‌వర్డ్ పొందండి</string>
+    <string name="lblTransactionID">లావాదేవీ ID:</string>
+    <string name="lblOccasion">సందర్భం ఎంటర్ చేయి</string>
+    <string name="lblDescription">వివరణ ఎంటర్ చేయి</string>
+    <string name="lblSentTo">కు పంపబడింది</string>
+    <string name="lblSentFrom">నుంచి పంపబడింది</string>
+    <string name="lblEmailId">ఈ మెయిల్ ఐడి ఎంటర్ చేయి</string>
+    <string name="lblComment">వ్యాఖ్యను నమోదు</string>
+    <string name="lblName">పేరు ఎంటర్ చేయి</string>
+    <string name="lblBtnPrint">ప్రింట్</string>
+    <string name="lblBtnEmail">ఈమెయిల్</string>
+    <string name="lblBtnSMS">SMS</string>
+    <string name="lblNewWithUsTitle">మనీఆన్‌మొబైల్  ప్రయాణం మీ ఇంటిని ముందునే లాంఛ్ చేసింది, దీనితో విశ్రాంతి అనుభవాన్ని తేలికగా అనుభవించండి :</string>
+    <string name="lblNewWithUsContentsRail">1. MoM Rail</string>
+    <string name="lblNewWithUsContentsAir">2. MoM గాలి మరియు వేడి ప్యాకేజీలు</string>
+    <string name="lblNewWithUsContentsBus">3. MoM bus</string>
+    <string name="lblNewWithUsContentsMessage">అవకాశాలను సొంతం చేసుకోవడానికి మాతో రిజిస్టర్ చేసుకోండి మా మిస్డ్ కాల్స్ నెంబర్లపై సాయం కొరకు సంప్రదించండి:</string>
+    <string name="lblNewWithUsContact">+91-8880881234, +91-8082812345</string>
+
+
     <string name="btn_newRecharge">కొత్త లావాదేవీ</string>
     <string name="Imps_failed_Amount">చాలని వాలెట్ సంతులనం</string>
     <string name="login_failed_msg_default">లాగిన్ విఫలమైంది. దయచేసి మొబైల్ నెంబరు మరియు M-Pin తనిఖీ చేయండి.</string>
@@ -183,6 +216,7 @@
     <string name="prompt_spinner_select_State">రాష్ట్రం ఎంచుకోండి</string>
     <string name="prompt_spinner_select_City">నగరం ఎంచుకోండి</string>
     <string name="prompt_spinner_select_Branch">బ్రాంచీ ఎంచుకోండి</string>
+    <string name="prompt_spinner_select_Beneficiary">ఎంచుకోండి లబ్ధిదారులు</string>
     <string name="prompt_numbers_only_IFSCCode">దయచేసి IFSC కోడ్ ఎంటర్ చేయండి</string>
     <string name="prompt_TxnDescription">దయచేసి ఫీల్డ్‌ను నింపండి</string>
     <string name="lbl_BeneficiaryName">లబ్ధిదారుని పేరు ఎంటర్ చేయండి</string>
@@ -207,7 +241,7 @@
     <string name="tvAmount">మొత్తం</string>
     <string name="tvProcessingFees">ప్రాసెసింగ్ ఫీజులు</string>
     <string name="tvAmountPayable">అమౌంట్ చెల్లింపులు</string>
-    <string name="tvOTP">OTP</string>
+
 
 
 
@@ -344,7 +378,10 @@
     <string name="tpin_submit_btn">సబ్మిట్</string>
     <string name="btn_Login">లాగిన్</string>
 
+    <string name="lblForgotPwdAmount">చివరి రీఛార్జ్ మొత్తం</string>
 
+
+    <string name="prompt_Title">సందేశం</string>
 
     <string name="Lbl_MobileNumber">మొబైల్ నెంబర్:</string>
     <string name="Lbl_Operator">ఆపరేటర్:</string>
@@ -695,5 +732,120 @@
     <string name="error_RadioButton">స్టడీ టైప్ రేడియోబటన్‌ను ఎంచుకోండి.</string>
     <string name="singUp_Successful_msg">వినియోగదారుడు విజయవంతంగా సృష్టించబడ్డాడు. దయచేసి లాగిన్ చేయండి.</string>
     <string name ="error_sinUp_msg">money on mobile తో మీరు ఇప్పటికే రిజిస్టర్ చేయించుకున్నారు.</string>
+
+
+
+
+    <string name="action_settings1">Settings</string>
+
+    <string name="tvSpinnerPayFrom">నుండి చెల్లించండి</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <string name="hello_world">Hello world!</string>
+
+
+    <string name="app_namelist">లిస్ట్ డిస్‌ప్లే</string>
+
+    <string name="action_giftVoucher">సెట్టింగ్స్</string>
+
+    <string name="tvSpinnerAliasName">మారు ఖాతా ఎంచుకో</string>
+
+    <string name="tvAvailableLimit">లభ్యం అయ్యే అవధి </string>
+
+    <string name="tvIPIN">IPIN</string>
+
+    <string name="action_walletUpdate">వాలెట్ నవీకరణ</string>
+
+    <string name="action_busTicketing">బస్ టికెట్లు</string>
+
+    <string name="action_railTicketing">రైలు టిక్కెట్లు</string>
+
+    <string name="action_airTicketing">గాలి టిక్కెట్లు</string>
+
+    <string name="action_bookComplaint">ఫిర్యాదు పుస్తకం </string>
+
+    <string name="action_newWithUs">మాతో కొత్త</string>
+
+    <string name="action_contactUs">మమ్మెలను షంప్రదించు</string>
+
+    <string name="action_IMPSResetIPIN">IMPS రీసెట్ IPIN</string>
+
+    <string name="action_IMPSMOMServiceCharge">IMPS సర్వీస్ ఛార్జ్ </string>
+
+    <string name="action_IMPSMOMConfirmPaymentByRefund">IMPS ధృవీకరణ రీఫండ్ పేమెంట్ </string>
+
+    <string name="action_IMPSRefundList">IMPS రిపండ్ లిస్ట్</string>
+
+    <string name="error_transfer_failed_payU">లావాదేవీలు నిర్వహించబడునప్పుడు దోషంబు జరిగింది దయచేసి మళ్లీ ప్రయత్నించండి.</string>
+
+    <string name="btn_resendIPIN"> IPIN రీసెట్ చేయండి</string>
+
+    <string name="prompt_spinner_select_payFrom">రిటైలర్ వాలెంట్</string>
+
+    <string name="lbl_AvailableLimit">లభ్యం అయ్యే అవధి</string>
+
+    <string name="lbl_FullKYC">నిండు KYC</string>
+
+    <string name="lbl_NillKYC">ఖాళీ KYC</string>
+
+    <string name="lblIPin">IPIN</string>
+
+
+
+    <string name="Lbl_ComplaintType">పిర్యాదు రకం:</string>
+
+    <string name="Lbl_Ticket_no">టిక్కట్టు నెంబరు:</string>
+
+    <string name="AlertDialog_Booking_Complaint">బుకింగ్ ఫిర్యాదు ధృవీకరించు</string>
+
+    <string name="title_activity_forgot_password">పాస్‌వర్డ్ మర్చిపోయిన కార్యకలాపం</string>
+
+    <string name="title_activity_list">లిస్ట్ యాక్టివిటీ</string>
+
+    <string name="title_activity_web_view">వెబ్ వీక్షణ యాక్టివిటీ</string>
+
+
+
+
+
+
+    <string name="tvOTP">IPIN</string>
+
+
+
+
+
+
+    <string name="tvForgotPassword">పాస్‌వర్డ్ మర్చిపోవడం</string>
+
+
+
+
+
+
+
+
+
 
 </resources>

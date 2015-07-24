@@ -38,6 +38,7 @@ public abstract class FragmentBase extends Fragment{
     protected PlatformIdentifier _currentPlatform;
     IDataEx _dataEx     = null;
     TextView tvMsgDisplay;
+    TextView tvResponseDisplay;
     IFragmentListener _callbackListener;
 
 
@@ -72,6 +73,13 @@ public abstract class FragmentBase extends Fragment{
         }
         return tvMsgDisplay;
     }
+    public TextView getMsgTextView(){
+        if(tvResponseDisplay == null){
+            tvResponseDisplay    = (TextView) getActivity().findViewById(R.id.msgDisplayResponse);
+           // tvResponseDisplay.requestFocus();
+        }
+        return tvResponseDisplay;
+    }
     public void cancelAsynTaskFromFrag(){
         if(_dataEx!=null){
             Log.e("TestAsync" , "Working");
@@ -86,11 +94,22 @@ public abstract class FragmentBase extends Fragment{
         response.requestFocus();
         response.setText(psMsg);
     }
+    public void showMessageResponse(String psMsg){
+        TextView response	= getMsgTextView();
+
+        response.setVisibility(View.VISIBLE);
+        response.requestFocus();
+        response.setText(psMsg);
+    }
 
     public void hideMessage(){
         getMessageTextView().setVisibility(View.GONE);
-    }
 
+    }
+//    public void hideMessageResponse(){
+//
+//        getMsgTextView().setVisibility(View.GONE);
+//    }
     public void receiveMessage(Bundle bundle) throws MOMException{
 
     }
@@ -194,14 +213,15 @@ public abstract class FragmentBase extends Fragment{
 
     protected void taskCompleted(TransactionRequest result){
         showProgress(false);
+        //Testing
         updateAsyncQueue(result);
     }
 
     protected void updateAsyncQueue(TransactionRequest request){
         Bundle bundle = new Bundle();
         bundle.putSerializable(AppConstants.BUNDLE_TRANSACTION_REQUEST, request);
-        Toast.makeText(getActivity().getApplicationContext(), R.string.added_to_queue, Toast.LENGTH_SHORT)
-                .show();
+//        Toast.makeText(getActivity().getApplicationContext(), R.string.added_to_queue, Toast.LENGTH_SHORT)
+//                .show();
 
         _callbackListener.processMessage(bundle);
     }

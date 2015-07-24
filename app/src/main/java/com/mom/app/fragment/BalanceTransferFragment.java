@@ -77,7 +77,7 @@ public class BalanceTransferFragment extends FragmentBase implements AsyncListen
                 Log.i("ResultBalanceTransfer" , result.getRemoteResponse()+ result.getResponseCode());
                 Log.i("ResultBalanceTransferData" , result.getRemoteResponse());
                 showProgress(false);
-                showMessage(result.getRemoteResponse());
+                showMessageResponse(result.getRemoteResponse());
 
                 showBalance();
 

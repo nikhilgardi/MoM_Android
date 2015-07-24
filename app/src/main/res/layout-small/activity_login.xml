@@ -54,7 +54,11 @@
             android:id="@+id/msgDisplay"
             style="@style/MoMTheme.wrapped.alertMsg"
             android:visibility="gone" />
-
+        <TextView
+            android:id="@+id/msgDisplayResponse"
+            style="@style/MoMTheme.wrapped.alertMsgResponse"
+            android:textSize="@dimen/text_medium"
+            android:visibility="gone" />
 
         <ProgressBar
             android:id="@+id/progressBar"

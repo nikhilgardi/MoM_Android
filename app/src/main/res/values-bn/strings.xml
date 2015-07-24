@@ -59,6 +59,39 @@
     <!--<string name="lbl_isVerified">Verified</string>-->
     <!--<string name="lbl_IFSC_Code">IFSC Code</string>-->
     <!--<string name="lblBeneficiaryMobileNumber">Beneficiary Mobile Number</string>-->
+
+
+
+    <string name="action_giftVoucher">গিফ্ট ভাউচার</string>
+
+    <string name="prompt_select_complaint_type">দয়া করে কি ধরনের অভিযোগ তা নির্বাচন করুন</string>
+    <string name="CustomerCare">গ্রাহক সেবা:</string>
+    <string name="WestZone">পশ্চিমাঞ্চল:</string>
+    <string name="EastZone">পূর্বাঞ্চল:</string>
+    <string name="NorthZone">উত্তরাঞ্চল:</string>
+    <string name="SouthZone">দক্ষিণাঞ্চল:</string>
+    <string name="Timing">সময়:</string>
+    <string name="Phone">ফোন:</string>
+    <string name="E_mail">ইমেল:</string>
+    <string name="get_Password_btn">পাসওয়ার্ড</string>
+    <string name="lblTransactionID">লেনদেন আইডি:</string>
+    <string name="lblOccasion">উদ্দেশ্য জানান</string>
+    <string name="lblDescription">বর্ণনা জানান</string>
+    <string name="lblSentTo">এতে পাঠানো হয়েছে</string>
+    <string name="lblSentFrom">এর থেকে পাঠানো হয়েছে</string>
+    <string name="lblEmailId">ইমেল আইডি লিখুন</string>
+
+    <string name="lblBtnPrint">প্রিন্ট করুন</string>
+    <string name="lblBtnEmail">ইমেল</string>
+    <string name="lblBtnSMS">SMS</string>
+    <string name="lblNewWithUsTitle">সহজে পেমেন্ট করে অবসরের মজা নিন কেননা  MoneyonMobile আপনার দোরগোড়ায় ভ্রমণের সুবিধার ব্যবস্থা করেছে:</string>
+    <string name="lblNewWithUsContentsRail">1. MoM রেল</string>
+    <string name="lblNewWithUsContentsAir">2. MoM এয়ার এবং হট প্যাকেজ</string>
+    <string name="lblNewWithUsContentsBus">3. MoM বাস</string>
+    <string name="lblNewWithUsContentsMessage">আমাদের সঙ্গে রেজিস্টার করে সেই সুযোগ নিন। সহায়তার জন্য আমাদের এই নম্বরে মিসড কল করুন।:</string>
+    <string name="lblNewWithUsContact">+91-8880881234, +91-8082812345</string>
+    <string name="lblName">নাম লিখুন</string>
+
     <string name="btn_newRecharge">নতুন লেনদেন</string>
 
     <string name="login_failed_msg_default">লগিন ব্যর্থ হয়েছে। দয়া করে আপনার মোবাইল নম্বর এবং M-Pin চেক করুন</string>
@@ -203,7 +236,7 @@
 
     <string name="prompt_spinner_select_operator">অপারেটর নির্বাচন করুন</string>
     <string name="prompt_enter_tpin">দয়া করে আপনার T-Pin লিখুন</string>
-
+    <string name="lblForgotPwdAmount">সর্বশেষ রিচার্জের পরিমাণ</string>
     <string name="lblBal">ব্যালেন্স:</string>
     <string name="lblSubscriberId">সাবস্ক্রাইবার আইডি</string>
     <string name="lblRechargeAmount">রিচার্জ পরিমাণ</string>
@@ -325,7 +358,7 @@
 
 
 
-
+    <string name="prompt_Title">মেসেজ</string>
     <string name="Lbl_MobileNumber">মোবাইল নম্বর:</string>
     <string name="Lbl_Operator">অপারেটর:</string>
     <string name="Lbl_Amount">পরিমাণ:</string>
@@ -382,6 +415,7 @@
     <string name="prompt_spinner_select_State">রাজ্য নির্বাচন করুন</string>
     <string name="prompt_spinner_select_City">শহর নির্বাচন করুন</string>
     <string name="prompt_spinner_select_Branch">শাখা নির্বাচন করুন</string>
+    <string name="prompt_spinner_select_Beneficiary">নির্বাচন বেনিফিশিয়ারি</string>
     <string name="prompt_numbers_only_IFSCCode">দয়া করেIFSCকোড লিখুন</string>
     <string name="prompt_TxnDescription">দয়া করে ফিল্ড পূরণ করুন</string>
     <string name="lbl_BeneficiaryName">বেনিফিসিয়ারি নাম লিখুন</string>
@@ -408,7 +442,7 @@
     <string name="tvAmount">পরিমাণ </string>
     <string name="tvProcessingFees">প্রক্রিয়ার ফী</string>
     <string name="tvAmountPayable">প্রদেয় অর্থরাশি</string>
-    <string name="tvOTP">OTP</string>
+
 
 
 
@@ -744,6 +778,76 @@
 <string name="error_RadioButton">stubtyperadiobutton নির্বাচন করুন</string>
 <string name="singUp_Successful_msg">উপভোক্তা সঠিকভাবে তৈরি করা হয়েছে. দয়া করে লগ ইন করুন</string>
 <string name ="error_sinUp_msg">আপনিনি ইতিমধ্যেই money on mobile-এর সঙ্গে নিবন্ধিত</string>
+
+
+    <string name="hello_world">Hello world!</string>
+
+    <string name="app_namelist">ListDisplay</string>
+
+    <string name="action_settings1">সেটিংস</string>
+
+    <string name="tvForgotPassword">পাসওয়ার্ড ভুলে গেছেন</string>
+
+    <string name="tvSpinnerPayFrom">এর থেকে পে করুন</string>
+
+    <string name="tvSpinnerAliasName">অ্যাকাউন্টের ছদ্মনাম চয়ন করুন</string>
+
+    <string name="tvAvailableLimit">উপলব্ধতা সীমা</string>
+
+    <string name="tvIPIN">IPIN</string>
+
+    <string name="action_walletUpdate">ওয়ালেট আপডেট</string>
+
+    <string name="action_busTicketing">বাস টিকিট</string>
+
+    <string name="action_railTicketing">রেল টিকিট</string>
+
+    <string name="action_airTicketing">বিমানের টিকিট</string>
+
+    <string name="action_bookComplaint">অভিযোগ দাখিল করুন</string>
+
+    <string name="action_newWithUs">আমাদের সঙ্গে নতুন</string>
+
+    <string name="action_contactUs">আমাদের সঙ্গে যোগাযোগ করুন</string>
+
+    <string name="action_IMPSResetIPIN">IMPS রিসেট IPIN</string>
+
+    <string name="action_IMPSMOMServiceCharge">IMPSপরিষেবা চার্জ </string>
+
+    <string name="action_IMPSMOMConfirmPaymentByRefund">IMPS রিফান্ড পেমেন্ট নিশ্চিত করুন </string>
+
+    <string name="action_IMPSRefundList">IMPS রিফান্ড তালিকা</string>
+
+    <string name="error_transfer_failed_payU">লেনদেনের সময় ত্রুটি ঘটেছে। আবার চেষ্টা করুন।</string>
+
+    <string name="btn_resendIPIN">IPIN রিসেট করুন</string>
+
+    <string name="prompt_spinner_select_payFrom">রিটেলার ওয়ালেট</string>
+
+    <string name="lbl_AvailableLimit">উপলব্ধতা সীমা</string>
+
+    <string name="lbl_FullKYC">সম্পূর্ণ KYC</string>
+
+    <string name="lbl_NillKYC">খালি KYC</string>
+
+    <string name="lblIPin">IPIN</string>
+
+    <string name="lblComment">মন্তব্য করুন</string>
+
+    <string name="Lbl_ComplaintType">অভিযোগ প্রকার:</string>
+
+    <string name="Lbl_Ticket_no">টিকিট নং:</string>
+
+    <string name="AlertDialog_Booking_Complaint">অভিযোগ দাখিল নিশ্চিত করুন</string>
+
+    <string name="title_activity_forgot_password">ForgotPasswordActivity</string>
+
+    <string name="title_activity_list">ListActivity</string>
+
+    <string name="title_activity_web_view">WebViewActivity</string>
+
+    <string name="tvOTP">IPIN</string>
+
 
 
     </resources>

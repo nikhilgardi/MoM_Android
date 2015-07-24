@@ -288,7 +288,13 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
                     //IDEALLY IT CAN BE REMOVED IN PBX, but we will defer it!
                 Log.e("Showbalance" , "method called");
                // getBalance();
-                taskCompleted(result);
+                //    Temporary check for response
+                    Log.i("ResultChangeMobile" , result.getRemoteResponse()+ result.getResponseCode());
+                    showProgress(false);
+                    if(_currentPlatform == PlatformIdentifier.MOM) {
+                        showMessageResponse(result.getRemoteResponse());
+                    }
+                    taskCompleted(result);
                 //Now that the transaction is done, retrieve and show the new balance
                 showBalance();
                 Log.i("MobileRecharge" , result.getRemoteResponse());
@@ -340,8 +346,16 @@ public class MobileRechargeFragment extends FragmentBase implements AsyncListene
         operatorList.add(0, new Operator("", getActivity().getString(R.string.prompt_spinner_select_operator)));
 
 
+//        ArrayAdapter<Operator> dataAdapter = new ArrayAdapter<Operator>(
+//                getActivity(), android.R.layout.simple_spinner_item,
+//                operatorList
+//        );
+//
+//        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+
         ArrayAdapter<Operator> dataAdapter = new ArrayAdapter<Operator>(
-                getActivity(), android.R.layout.simple_spinner_item,
+                getActivity(),android.R.layout.simple_spinner_item,
                 operatorList
         );
 

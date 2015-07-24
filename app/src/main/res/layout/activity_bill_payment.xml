@@ -30,6 +30,11 @@
                 style="@style/MoMTheme.wrapped.alertMsg"
                 android:textSize="@dimen/text_medium"
                 android:visibility="gone" />
+            <TextView
+                android:id="@+id/msgDisplayResponse"
+                style="@style/MoMTheme.wrapped.alertMsgResponse"
+                android:textSize="@dimen/text_medium"
+                android:visibility="gone" />
 
             <com.mom.app.ui.CustomEditText
                 android:id="@+id/verifyTpin"
@@ -38,6 +43,8 @@
                 android:hint="@string/tpin"
                 android:inputType="number"
                 android:password="true"
+                android:textSize="@dimen/text_medium"
+                android:layout_marginTop="@dimen/smallTPin"
                 android:layout_marginBottom="@dimen/small"
                 android:maxLength="8"
                 android:visibility="gone"/>
@@ -49,6 +56,8 @@
                 android:layout_gravity="center_horizontal"
                 android:text="@string/tpin_submit_btn"
                 android:visibility="gone"/>
+
+
 
             <Spinner
                 android:id="@+id/Operator"

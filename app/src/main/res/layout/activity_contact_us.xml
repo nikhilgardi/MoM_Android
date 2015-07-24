@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:scrollbars="vertical"
+    android:layout_height="match_parent"
+    android:layout_width="fill_parent">
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="80"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/transactionHistoryHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_activity_transaction_history"
+                android:layout_marginTop="@dimen/small"
+                android:textStyle="bold"
+                android:layout_gravity="left"
+                android:textSize="@dimen/listEmptyMessage" />
+
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1dp"-->
+                <!--android:layout_marginTop="@dimen/small_lower_version"-->
+                <!--android:background="#000000" />-->
+            <TextView
+                android:id="@+id/txtViewWestZoneHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_activity_transaction_history"
+                android:layout_marginTop="@dimen/small"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/list_margin" />
+            <TextView
+                android:id="@+id/txtViewWestZone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_lower_version"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/text_small"
+                android:textColor="@color/black"
+
+
+                />
+            <!--<View-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1dp"-->
+                <!--android:layout_marginTop="@dimen/small_lower_version"-->
+                <!--android:background="#000000" />-->
+            <TextView
+                android:id="@+id/txtViewNorthZoneHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_activity_transaction_history"
+                android:layout_marginTop="@dimen/small"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/list_margin" />
+            <TextView
+                android:id="@+id/txtViewNorthZone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_lower_version"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/text_small"
+                android:textColor="@color/black"
+
+
+                />
+            <TextView
+                android:id="@+id/txtViewEastZoneHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_activity_transaction_history"
+                android:layout_marginTop="@dimen/small"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/list_margin" />
+            <TextView
+                android:id="@+id/txtViewEastZone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small_lower_version"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/text_small"
+                android:textColor="@color/black"
+                />
+            <TextView
+                android:id="@+id/txtViewSouthZoneHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_activity_transaction_history"
+                android:layout_marginTop="@dimen/small"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/list_margin" />
+            <TextView
+                android:id="@+id/txtViewSouthZone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_activity_transaction_history"
+                android:layout_marginTop="@dimen/small_lower_version"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/text_small" />
+
+
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"/>
+    </LinearLayout>
+</RelativeLayout>
+</ScrollView>

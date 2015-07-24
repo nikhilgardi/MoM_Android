@@ -210,7 +210,7 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
         _tv_txnDescription          = (TextView) view.findViewById(R.id.tv_txnDescription);
         _tv_ProcessingFees          = (TextView) view.findViewById(R.id.tv_ProcessingFees);
         _tv_AmountPayable           = (TextView) view.findViewById(R.id.tv_AmountPayable);
-        _tv_OTP                     = (TextView) view.findViewById(R.id.tv_OTP);
+        _tv_OTP                     = (TextView) view.findViewById(R.id.tv_IPin);
         _tv_consumerNumber          = (TextView) view.findViewById(R.id.tv_consumerNumber);
         _btnPay                     = (Button) view.findViewById(R.id.btn_Pay);
         _etDueDate                  = (EditText) view.findViewById(R.id.DueDate);
@@ -970,7 +970,7 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
                 sConsumerNumber, sConsumerName, sConsumerDOB, sConsumerEmailAddress
         );
 
-        getDataEx(this).impsCustomerRegistration(request);
+        getDataEx(this).impsCustomerRegistration(request , sConsumerNumber);
 
     }
 
@@ -1040,7 +1040,7 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
             }
             else if(_currentPlatform == PlatformIdentifier.MOM){
                 String sAmount = "1";
-                String sTxnNarration  = _etTxnDescription.getText().toString();
+                String sTxnNarration  = "test";
                 TransactionRequest request  = new TransactionRequest(
                         getActivity().getString(TransactionType.IMPS_MOM_SUBMIT_PROCESS.transactionTypeStringId),
                         null
@@ -1055,6 +1055,22 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
 
         }
 
+    }
+
+    private void getMOMIMPSServiceCharge() {
+        try {
+            String sAmount  = _etAmount.getText().toString();
+            TransactionRequest request  = new TransactionRequest(
+                    getActivity().getString(TransactionType.IMPS_MOM_SEVICE_CHARGE_PROCESS.transactionTypeStringId),
+                    null
+
+            );
+            getDataEx(this).impsMomIMPSServiceCharge(request, sAmount);
+
+        } catch (Exception me) {
+            Log.e(_LOG, "Error getting dataex", me);
+
+        }
     }
 
     private void getIMPSVerifyPayment() {
@@ -1413,6 +1429,7 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
         } else if((_spOperator.getSelectedItemPosition()!= 0)&& (_rbPay.isChecked()== true)) {
            // todo enable
             _btnNext.setEnabled(false);
+            getMOMIMPSServiceCharge();
             getIMPSPaymentProcess();
 
             _tvVerified.setVisibility(View.GONE);
@@ -1803,7 +1820,8 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
     }
     public void showConfirmPaymentFields(){
         int amount = Integer.parseInt(_etAmount.getText().toString());
-        int processFees = 10;
+      //  int processFees = 10;
+        int processFees =  EphemeralStorage.getInstance(getActivity()).getInt(AppConstants.PARAM_NEW_IMPS_SERVICE_CHARGE, -1);
         int amountPayable = amount+processFees;
         _etBeneficiaryName.setVisibility(View.VISIBLE);
         _etAccountNumber.setVisibility(View.VISIBLE);
@@ -1834,8 +1852,8 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
 
 
         _tvGetIFSC_List.setVisibility(View.GONE);
-        _tv_availableLimit.setVisibility(View.VISIBLE);
-        _tv_operator.setVisibility(View.VISIBLE);
+//        _tv_availableLimit.setVisibility(View.VISIBLE);
+//        _tv_operator.setVisibility(View.VISIBLE);
         _tv_beneficiary_name.setVisibility(View.VISIBLE);
         _tv_account_number.setVisibility(View.VISIBLE);
         _tv_IFSC_Code.setVisibility(View.VISIBLE);
@@ -2096,8 +2114,9 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
                    _etConsumerNumber.setVisibility(View.VISIBLE);
                    _btnSubmit.setVisibility(View.VISIBLE);
                }
-                else{
+               else if (result.getRemoteResponse().equals("false")){
                    Log.d(_LOG, "False");
+                   showMessage("You are not authorised to perform IMPS");
                }
 
                    break;
@@ -2422,6 +2441,19 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
 
                 break;
 
+
+            case IMPS_MOM_SEVICE_CHARGE_PROCESS:
+                Log.i(_LOG + "IMPS_MOM_SEVICE_CHARGE_PROCESS", result.getRemoteResponse());
+
+                String serviceCharge = result.getRemoteResponse();
+                double d = Double.parseDouble(serviceCharge);
+                Log.e("ValueNew" , String.valueOf(d));
+                int service = ((int) d);
+                Log.e("ValueIntNew" , String.valueOf(service));
+                EphemeralStorage.getInstance(getActivity()).storeInt(AppConstants.PARAM_NEW_IMPS_SERVICE_CHARGE, service);
+                Log.d(_LOG, "Starting navigation to TxnMsg Activity");
+                break;
+
             case IMPS_VERIFY_PROCESS:
 
 
@@ -2499,7 +2531,8 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
 
                     _etOTP.setText(null);
                     int amount = Integer.parseInt(_etAmount.getText().toString());
-                    int processFees = 10;
+                  //  int processFees = 10;
+                    int processFees =  EphemeralStorage.getInstance(getActivity()).getInt(AppConstants.PARAM_NEW_IMPS_SERVICE_CHARGE, -1);
                     int amountPayable = amount + processFees;
                     _etProcessingFees.setText(String.valueOf(processFees));
                     _etAmountPayable.setText(String.valueOf(amountPayable));
@@ -2592,7 +2625,8 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
                     _etOTP.setVisibility(View.VISIBLE);
                     _etOTP.setText(null);
                     int amount = Integer.parseInt(_etAmount.getText().toString());
-                    int processFees = 10;
+                  //  int processFees = 10;
+                    int processFees =  EphemeralStorage.getInstance(getActivity()).getInt(AppConstants.PARAM_NEW_IMPS_SERVICE_CHARGE, -1);
                     int amountPayable = amount+processFees;
                     _etProcessingFees.setText(String.valueOf(processFees));
                     _etAmountPayable.setText(String.valueOf(amountPayable));
@@ -2646,7 +2680,8 @@ public class IMPSFragment extends FragmentBase implements AsyncListener<Transact
                     _etOTP.setVisibility(View.VISIBLE);
                     _etOTP.setText(null);
                     int amount = Integer.parseInt(_etAmount.getText().toString());
-                    int processFees = 10;
+                    //int processFees = 10;
+                    int processFees =  EphemeralStorage.getInstance(getActivity()).getInt(AppConstants.PARAM_NEW_IMPS_SERVICE_CHARGE, -1);
                     int amountPayable = amount+processFees;
                     _etProcessingFees.setText(String.valueOf(processFees));
                     _etAmountPayable.setText(String.valueOf(amountPayable));

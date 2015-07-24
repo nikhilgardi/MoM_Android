@@ -60,6 +60,38 @@
     <!--<string name="lbl_isVerified">Verified</string>-->
     <!--<string name="lbl_IFSC_Code">IFSC Code</string>-->
     <!--<string name="lblBeneficiaryMobileNumber">Beneficiary Mobile Number</string>-->
+
+
+    <string name="action_giftVoucher">ଉପହାର ଭାଉଚର୍‍</string>
+
+    <string name="prompt_select_complaint_type">ଦୟାକରି ଅଭିଯୋଗର ପ୍ରକାର ଚୟନ କରନ୍ତୁ</string>
+    <string name="CustomerCare">ଗ୍ରାହକ ସେବା:</string>
+    <string name="WestZone">ପଶ୍ଚିମ କ୍ଷେତ୍ର:</string>
+    <string name="EastZone">ପୂର୍ବ କ୍ଷେତ୍ର:</string>
+    <string name="NorthZone">ଉତ୍ତର କ୍ଷେତ୍ର:</string>
+    <string name="SouthZone">ଦକ୍ଷିଣ କ୍ଷେତ୍ର:</string>
+    <string name="Timing">ସମୟସୂଚୀ:</string>
+    <string name="Phone">ଫୋନ୍‍:</string>
+    <string name="E_mail">ଇ-ମେଲ୍‍:</string>
+    <string name="get_Password_btn">ପାସୱାର୍ଡ ପ୍ରାପ୍ତ କରନ୍ତୁ</string>
+    <string name="lblTransactionID">କାରବାର ID:</string>
+    <string name="lblOccasion">ଘଟଣା ଏଣ୍ଟର୍‍ କରନ୍ତୁ</string>
+    <string name="lblDescription">ବର୍ଣ୍ଣନା ଏଣ୍ଟର୍‍ କରନ୍ତୁ</string>
+    <string name="lblSentTo">ଏଥିକୁ ପ୍ରେରିତ</string>
+    <string name="lblSentFrom">ଏଠାରୁ ପ୍ରେରିତ</string>
+    <string name="lblEmailId">ଇମେଲ୍‍ ID ଏଣ୍ଟର୍‍ କରନ୍ତୁ</string>
+    <string name="lblComment">ମନ୍ତବ୍ୟ ଏଣ୍ଟର୍‍ କରନ୍ତୁ</string>
+    <string name="lblBtnPrint">ମୁଦ୍ରଣ</string>
+    <string name="lblBtnEmail">ଇମେଲ୍‍</string>
+    <string name="lblBtnSMS">SMS</string>
+    <string name="lblNewWithUsTitle">Payment MoneyonMobile ଆପଣଙ୍କ ହାତ ପାହାନ୍ତାରେ ଭ୍ରମଣ ଶୁଭାରମ୍ଭ ସୁବିଧା ସହିତ ଆପଣଙ୍କ ଅବସର ସମୟକୁ ଅନୁଭବ କରନ୍ତୁ :</string>
+    <string name="lblNewWithUsContentsRail">1. MoM ରେଳ</string>
+    <string name="lblNewWithUsContentsAir">2. MoM ଏୟାର ଏବଂ ଜବରଦସ୍ତ ପ୍ୟାକେଜ୍‍ଗୁଡିକ</string>
+    <string name="lblNewWithUsContentsBus">3. MoM ବସ୍‍</string>
+    <string name="lblNewWithUsContentsMessage">ଯାଆନ୍ତୁ ସୁଯୋଗ ହାସଲ କରନ୍ତୁ ଏବଂ ଆମ ସହିତ ପଞ୍ଜିକରଣ କରନ୍ତୁ । ସହାୟତା ପାଇଁ ଆମର ମିସଡ୍‍ କଲ୍‍ ନମ୍ବରରେ ଯୋଗାଯୋଗ କରନ୍ତୁ:</string>
+    <string name="lblNewWithUsContact">+91-8880881234, +91-8082812345</string>
+    <string name="lblName">ନାମ ଏଣ୍ଟର୍‍ କରନ୍ତୁ</string>
+
     <string name="btn_newRecharge">ନୂତନ ଟ୍ରାଞ୍ଜାକ୍‌ସନ୍</string>
     <string name="Imps_failed_Amount">ଇନ୍ସୁffଇcଇଏନ୍ଟ୍ wଅଲ୍ଲେଟ୍ ବଲନ୍cଏ</string>
     <string name="login_failed_msg_default">ଲଗ୍‌ଇନ୍‌ ବିଫଳ ହୋଇଛି। ଦୟାକରି ଆପଣଙ୍କର ମୋବାଇଲ୍‌ ନମ୍ବର ଏବଂ  M-Pin ଯାଞ୍ଚ୍‌ କରନ୍ତୁ</string>
@@ -197,7 +229,7 @@
     <string name="btn_dashboard">ଦାସ୍‌ବୋର୍ଡ</string>
     <string name="btn_recharge"> ରିଚାର୍ଜ</string>
 
-
+    <string name="lblForgotPwdAmount">ଅନ୍ତିମ ରିଚାର୍ଜ ରାଶି</string>
     <string name="btn_Ok">ଠିକ୍‌ଅଛି</string>
     <string name="btn_back">ବ୍ୟାକ୍‌</string>
     <string name="btn_cancel">କ୍ୟାନ୍‌ସଲ୍‌</string>
@@ -255,6 +287,7 @@
     <string name="prompt_spinner_select_State">ରାଜ୍ୟ ଚୟନ କରନ୍ତୁ</string>
     <string name="prompt_spinner_select_City">ସହର ଚୟନ କରନ୍ତୁ</string>
     <string name="prompt_spinner_select_Branch">ଶାଖା ଚୟନ କରନ୍ତୁ</string>
+    <string name="prompt_spinner_select_Beneficiary">ହିତାଧିକାରୀ ଚୟନ କରନ୍ତୁ</string>
     <string name="prompt_numbers_only_IFSCCode">ଦୟାକରି IFSC କୋଡ୍‍ ପ୍ରବିଷ୍ଟ କରନ୍ତୁ</string>
     <string name="prompt_TxnDescription">ଦୟାକରି କ୍ଷେତ୍ର ପୂରଣ କରନ୍ତୁ</string>
     <string name="lbl_BeneficiaryName">ହିତାଧିକାରୀ ନାମ ପ୍ରବିଷ୍ଟ କରନ୍ତୁ</string>
@@ -280,7 +313,7 @@
     <string name="tvAmount">ରାଶି</string>
     <string name="tvProcessingFees">ପ୍ରୋସେସିଂ ଖର୍ଚ୍ଚ</string>
     <string name="tvAmountPayable">ଦେୟଯୋଗ୍ୟ ରାଶି</string>
-    <string name="tvOTP">OTP</string>
+
 
 
 
@@ -343,6 +376,9 @@
     <string name="changepassword_old">ପୁରୁଣା ପାସ୍‌ୱାର୍ଡ</string>
     <string name="changepassword_new">ନୂତନ ପାସ୍‌ୱାର୍ଡ</string>
     <string name="changepassword_confirm">ସୁନିଶ୍ଚିତ ପାସ୍‌ୱାର୍ଡ</string>
+
+
+    <string name="prompt_Title">ସନ୍ଦେଶ</string>
 
     <string name="Lbl_MobileNumber">ମୋବାଇଲ୍‌ ନମ୍ବର:</string>
     <string name="Lbl_Operator">ଅପରେଟର୍‌:</string>
@@ -752,5 +788,97 @@
     <string name="error_RadioButton">stubtype radiobutton ଚୟନ କରନ୍ତୁ</string>
     <string name="singUp_Successful_msg">ସଫଳତାର ସହ ଉପଭୋକ୍ତା ସୃଷ୍ଟି ହୋଇଛି । ଦୟାକରି ଲଗ୍‍ ଇନ୍‍ କରନ୍ତୁ</string>
     <string name ="error_sinUp_msg">ଆପଣ ପୂର୍ବରୁ money on mobile ରେ ପଞ୍ଜିକୃତ ହୋଇସାରିଛନ୍ତି ।</string>
+
+
+
+
+    <string name="hello_world">Hello world!</string>
+
+
+    <string name="app_namelist">ତାଲିକା ପ୍ରଦର୍ଶନ</string>
+
+    <string name="action_settings1">ସେଟିଂଗୁଡିକ</string>
+
+    <string name="tvForgotPassword">ପାସ୍‍ୱାର୍ଡ ଭୁଲିଛନ୍ତି</string>
+
+    <string name="tvSpinnerPayFrom">ଏଠାରୁ ଦେୟ</string>
+
+    <string name="tvSpinnerAliasName">ଏକାଉଣ୍ଟ ଛଦ୍ମନାମ ବାଛନ୍ତୁ</string>
+
+    <string name="tvAvailableLimit">ଉପଲବ୍ଧ ସୀମା </string>
+
+    <string name="tvIPIN">IPIN</string>
+
+    <string name="action_walletUpdate">ୱାଲେଟ୍‍ ଅପଡେଟ୍‍</string>
+
+    <string name="action_busTicketing">ବସ୍‍ ଟିକେଟ୍‍ଗୁଡିକ</string>
+
+    <string name="action_railTicketing">ରେଳ ଟିକେଟ୍‍ଗୁଡିକ</string>
+
+    <string name="action_airTicketing">ବିମାନ ଟିକେଟ୍‍ଗୁଡିକ</string>
+
+    <string name="action_bookComplaint">ଅଭିଯୋଗ ବୁକ୍‍ କରନ୍ତୁ</string>
+
+    <string name="action_newWithUs">ଆମ ସହିତ ନୂଆ</string>
+
+    <string name="action_contactUs">ଆମକୁ ଯୋଗାଯୋଗ କରନ୍ତୁ</string>
+
+    <string name="action_IMPSResetIPIN">IMPS ପୁନଃସେଟ୍‍ IPIN</string>
+
+    <string name="action_IMPSMOMServiceCharge">IMPS ସେବା ଚାର୍ଜ୍‍ </string>
+
+    <string name="action_IMPSMOMConfirmPaymentByRefund">IMPS ସୁନିଶ୍ଚିତ ଫେରସ୍ତ ଦେୟ </string>
+
+    <string name="action_IMPSRefundList">IMPS ଫେରସ୍ତ ତାଲିକା</string>
+
+    <string name="error_transfer_failed_payU">କାରବାର ସମୟରେ ତ୍ରୁଟି ଘଟିଲା. ଦୟାକରି ପରେ ପୁନଃ ଚେଷ୍ଟା କରନ୍ତୁ.</string>
+
+    <string name="btn_resendIPIN">IPIN ପୁନଃସେଟ୍‍ କରନ୍ତୁ</string>
+
+    <string name="prompt_spinner_select_payFrom">ରିଟେଲର୍‍ ୱାଲେଟ୍‍</string>
+
+    <string name="lbl_AvailableLimit">ଉପଲବ୍ଧ ସୀମା</string>
+
+    <string name="lbl_FullKYC">ପୂର୍ଣ୍ଣ KYC</string>
+
+    <string name="lbl_NillKYC">ଶୂନ୍ୟ KYC</string>
+
+    <string name="lblIPin">IPIN</string>
+
+
+
+    <string name="Lbl_ComplaintType">ଅଭିଯୋଗର ପ୍ରକାର:</string>
+
+    <string name="Lbl_Ticket_no">ଟିକେଟ୍‍ ନମ୍ବର:</string>
+
+    <string name="AlertDialog_Booking_Complaint">ବୁକିଂ ଅଭିଯୋଗ ସୁନିଶ୍ଚିତ କରନ୍ତୁ</string>
+
+    <string name="title_activity_forgot_password">ପାସ୍‍ୱାର୍ଡ କାର୍ଯ୍ୟକଳାପ ଭୁଲିଛନ୍ତି</string>
+
+    <string name="title_activity_list">ତାଲିକା କାର୍ଯ୍ୟକଳାପ</string>
+
+    <string name="title_activity_web_view">ୱେବ୍‍ ଦର୍ଶନ କାର୍ଯ୍ୟକଳାପ</string>
+
+
+
+
+    <string name="tvOTP">IPIN</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </resources>

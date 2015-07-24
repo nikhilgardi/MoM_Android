@@ -20,7 +20,37 @@
     <string name="tpin_incorrect">ખોટો T-Pin</string>
     <string name="mpin_incorrect">ખોટો M-Pin</string>
     <!--<string name="action_imps">IMPS</string>-->
-    <string name="lblTxnDescription">Transaction Description</string>
+    <string name="lblTxnDescription">Transaction Description</string>GUJ
+    <string name="action_giftVoucher">ભેટકુપન</string>
+    <string name="lblOccasion">પ્રસંગ દાખલ કરો</string>
+    <string name="lblDescription">વર્ણન દાખલ કરો</string>
+    <string name="lblSentTo">પ્રતિ</string>
+    <string name="lblSentFrom">પ્રેષક</string>
+    <string name="lblEmailId">ઇમેઇલ આઇડી દાખલ કરો</string>
+    <string name="lblTransactionID">ટ્રાન્ઝેક્શન આઇડી:</string>
+    <string name="prompt_select_complaint_type">કૃપા કરી ફરિયાદ પ્રકાર પસંદ કરો</string>
+    <string name="CustomerCare">કસ્ટમર કેર:</string>
+    <string name="WestZone">પશ્ચિમ ક્ષેત્ર:</string>
+    <string name="EastZone">પૂર્વ ક્ષેત્ર:</string>
+    <string name="NorthZone">ઉત્તર ક્ષેત્ર:</string>
+    <string name="SouthZone">દક્ષિણ ક્ષેત્ર:</string>
+    <string name="Timing">સમય:</string>
+    <string name="Phone">ફોન:</string>
+    <string name="E_mail">ઇ-મેઇલ:</string>
+    <string name="get_Password_btn">પાસવર્ડ મેળવો</string>
+
+    <string name="lblComment">ટીપ્પણી દાખલ કરો</string>
+    <string name="lblBtnPrint">પ્રિન્ટ</string>
+    <string name="lblBtnEmail">ઇમેઇલ</string>
+    <string name="lblBtnSMS">એસએમએસ</string>
+    <string name="lblNewWithUsTitle">MoneyonMobile તમારા આંગણે મુસાફરી રજુ કરે છે તેની ચૂકવણીની સરળતા સાથે આરામનો અનુભવ કરોઃ</string>
+    <string name="lblNewWithUsContentsRail">1. MoM રેઇલ</string>
+    <string name="lblNewWithUsContentsAir">2. MoM એર અને હોટ પેકેજીસ</string>
+    <string name="lblNewWithUsContentsBus">3. MoM બસ</string>
+    <string name="lblNewWithUsContentsMessage">જાવ અને તક ઝડપો અને અમારી સાથે નોંધણી કરો. સહાય માટે આ નંબર પર અમે મિસ્ડ કોલ કરો:</string>
+    <string name="lblNewWithUsContact">+91-8880881234, +91-8082812345</string>
+    <string name="lblName">નામ દાખલ કરો</string>
+
     <!--<string name="lblProcessingFees">Processing Fees</string>-->
     <!--<string name="lblAmountPayable">Amount Payable</string>-->
     <!--<string name="lblOTP">OTP</string>-->
@@ -199,7 +229,7 @@
 
 
 
-
+    <string name="lblForgotPwdAmount">ગયા રિચાર્જ રકમ</string>
 
 
     <string name="prompt_spinner_select_operator">સંચાલન પસંદ કરો</string>
@@ -300,6 +330,7 @@
     <string name="prompt_spinner_select_State">રાજ્ય પસંદ કરો</string>
     <string name="prompt_spinner_select_City">શહેર પસંદ કરો</string>
     <string name="prompt_spinner_select_Branch">શાખા પસંદ કરો</string>
+    <string name="prompt_spinner_select_Beneficiary">પસંદ કરો લાભાર્થી</string>
     <string name="prompt_numbers_only_IFSCCode">કુપા કરી IFSC કોડ દાખલ કરો</string>
     <string name="prompt_TxnDescription">કૃપા કરી ખાનું ભરો</string>
     <string name="lbl_BeneficiaryName">બેનિફિસીયરી નામ દાખલ કરો</string>
@@ -324,7 +355,7 @@
     <string name="tvAmount">રકમ</string>
     <string name="tvProcessingFees">પ્રોસેસિંગ ફિ</string>
     <string name="tvAmountPayable">ચૂકવવાપાત્ર રકમ</string>
-    <string name="tvOTP">OTP</string>
+
 
 
     <!---New Translations -->
@@ -364,7 +395,7 @@
     <string name="changepassword_confirm">પાસવર્ડ પુષ્ટિ કરો</string>
 
 
-
+    <string name="prompt_Title">સંદેશ</string>
     <string name="Lbl_MobileNumber">મોબાઇલ નંબર:</string>
     <string name="Lbl_Operator">સંચાલક:</string>
     <string name="Lbl_Amount">રકમ: રૂ.</string>
@@ -736,6 +767,98 @@
     <string name="error_RadioButton">સ્ટડીપરઓડિયોબટન પસંદ કરો</string>
     <string name="singUp_Successful_msg">ગ્રાહક સફળતાપૂર્વક તેયાર થયાં. કૃપા કરી લોગ ઇન કરો</string>
     <string name ="error_sinUp_msg">money on mobile સાથે તમે પહેલાંથી નોંધાયેલ છો.</string>
+
+
+
+
+
+
+
+    <string name="hello_world">Hello world!</string>
+
+
+
+
+
+
+    <string name="app_namelist">સૂચિપ્રદર્શન</string>
+
+    <string name="action_settings1">સેટિંગ્સ</string>
+
+    <string name="tvForgotPassword">પાસવર્ડ ભૂલી ગયા</string>
+
+    <string name="tvSpinnerPayFrom">આ રીતે ચૂકવો</string>
+
+    <string name="tvSpinnerAliasName">ખાતાનું ઉપનામ પસંદ કરો</string>
+
+    <string name="tvAvailableLimit">ઉપલબ્ધ મર્યાદા</string>
+
+    <string name="tvIPIN">આઇપીન</string>
+
+    <string name="action_walletUpdate">વોલેટ અપડેટ</string>
+
+    <string name="action_busTicketing">બસ ટિકીટ્સ</string>
+
+    <string name="action_railTicketing">રેઇલ ટીકીટ્સ</string>
+
+    <string name="action_airTicketing">એર ટીકીટ્સ</string>
+
+    <string name="action_bookComplaint">ફરિયાદ નોંધાવો</string>
+
+    <string name="action_newWithUs">અમારી સાથે નવાં</string>
+
+    <string name="action_contactUs">અમારો સંપર્ક કરો</string>
+
+    <string name="action_IMPSResetIPIN">આઇએમપીએસ રીસેટ આઇપીન</string>
+
+    <string name="action_IMPSMOMServiceCharge">આઇએમપીએસ સેવા ખર્ચ </string>
+
+    <string name="action_IMPSMOMConfirmPaymentByRefund">આઇએમપીએસ કન્ફર્મ રીફંડ ચૂકવણી </string>
+
+    <string name="action_IMPSRefundList">આઇએમપીએસ રીફંડ સૂચિ</string>
+
+    <string name="error_transfer_failed_payU">વ્યવહાર દરમિયાન ભૂલ થઇ, કૃપા કરી ફરીથી પ્રયાસ કરો.</string>
+
+    <string name="btn_resendIPIN">આઇપીન રીસેટ કરો</string>
+
+    <string name="prompt_spinner_select_payFrom">રીટેલર વોલેટ</string>
+
+    <string name="lbl_AvailableLimit">ઉપલબ્ધ મર્યાદા</string>
+
+    <string name="lbl_FullKYC">સંપૂર્ણ કેવાયસી</string>
+
+    <string name="lbl_NillKYC">નીલ કેવાયસી</string>
+
+    <string name="lblIPin">આઇપીન</string>
+
+
+
+    <string name="Lbl_ComplaintType">ફરિયાદ પ્રકાર:</string>
+
+    <string name="Lbl_Ticket_no">ટિકીટ નં.:</string>
+
+    <string name="AlertDialog_Booking_Complaint">ફરિયાદ નોંધણીની પુષ્ટિ કરો</string>
+
+    <string name="title_activity_forgot_password">પાસવર્ડપ્રવૃત્તિભૂલીગયા</string>
+
+    <string name="title_activity_list">પ્રવૃત્તિસૂચિ</string>
+
+    <string name="title_activity_web_view">વેબદર્શનપ્રવૃત્તિ</string>
+
+    <string name="tvOTP">આઇપીન</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

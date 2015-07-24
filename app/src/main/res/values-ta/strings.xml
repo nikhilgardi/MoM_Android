@@ -60,6 +60,39 @@
     <!--<string name="lbl_isVerified">Verified</string>-->
     <!--<string name="lbl_IFSC_Code">IFSC Code</string>-->
     <!--<string name="lblBeneficiaryMobileNumber">Beneficiary Mobile Number</string>-->
+
+
+
+    <string name="action_giftVoucher">பரிசுப்பொருள் வவுச்சர்</string>
+
+    <string name="prompt_select_complaint_type">முறைப்பாட்டின் வகையைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="CustomerCare">வாடிக்கையாளர் ஆதரவு:</string>
+    <string name="WestZone">மேற்கு மண்டலம்:</string>
+    <string name="EastZone">கிழக்கு மண்டலம்:</string>
+    <string name="NorthZone">வடக்கு மண்டலம்:</string>
+    <string name="SouthZone">தெற்கு மண்டலம்:</string>
+    <string name="Timing">நேர அட்டவணை:</string>
+    <string name="Phone">தொலைபேசி:</string>
+    <string name="E_mail">மின்னஞ்சல்:</string>
+    <string name="get_Password_btn">கடவுச்சொல்லைப்</string>
+    <string name="lblTransactionID">பரிவர்த்தனை ID:</string>
+    <string name="lblOccasion">நிகழ்ச்சியை உள்ளிடுக</string>
+    <string name="lblDescription">விளக்கத்தை உள்ளிடுக</string>
+    <string name="lblSentTo">இவருக்கு அனுப்பப்பட்டது</string>
+    <string name="lblSentFrom">இவரிடமிருந்து அனுப்பப்பட்டது</string>
+    <string name="lblEmailId">மின்னஞ்சல் ID-ஐ உள்ளிடுக</string>
+
+    <string name="lblBtnPrint">அச்சிடு</string>
+    <string name="lblBtnEmail">மின்னஞ்சல்</string>
+    <string name="lblBtnSMS">SMS</string>
+    <string name="lblNewWithUsTitle">உங்கள் வீட்டு வாசலிலேயே எளிய கட்டணம் செலுத்தல் MoneyonMobile தொடங்குகின்ற பயணத்தைப் பயன்படுத்தி பொழுதுபோக்கை அனுபவிக்கவும் :</string>
+    <string name="lblNewWithUsContentsRail">1. MoM ரயில்</string>
+    <string name="lblNewWithUsContentsAir">2. MoM விமானம் மற்றும் சூடான தொகுப்புகள்</string>
+    <string name="lblNewWithUsContentsBus">3. MoM பேரூந்து</string>
+    <string name="lblNewWithUsContentsMessage">வாய்ப்பை அள்ளச் செல்லுங்கள் மற்றும் எங்களுடன் பதிவுசெய்யுங்கள். உதவிக்கு, எங்கள் தவறவிட்ட அழைப்பு எண்களில் தொடர்புகொள்ளுங்கள்:</string>
+    <string name="lblNewWithUsContact">+91-8880881234, +91-8082812345</string>
+    <string name="lblName">பெயரை உள்ளிடுக</string>
+
     <string name="btn_newRecharge">புதிய பரிவர்த்தனை</string>
     <string name="signUp_btn">பதிவு</string>
     <string name="login_failed_msg_default">உள்நுழைவு தோல்வி. உங்கள் மொபைல் எண் மற்றும் M-Pin-ஐச் சரிபார்க்கவும்</string>
@@ -197,7 +230,7 @@
 
     <string name="btn_login">உள்நுழைக</string>
     <string name="btn_getBillAmount">உங்கள் பில் தொகையை பெறவும்</string>
-
+    <string name="lblForgotPwdAmount">கடைசியாக ரீசார்ஜ் தொகை</string>
     <string name="prompt_spinner_select_operator">ஆபரேட்டரைத் தேர்ந்தெடுக்கவும்</string>
     <string name="prompt_enter_tpin">தயவுசெய்து உங்கள் T-Pin -ஐ உள்ளிடவும்</string>
 
@@ -250,7 +283,7 @@
     <string name="tvAmount">தொகை</string>
     <string name="tvProcessingFees">செயலாக்கக் கட்டணங்கள்</string>
     <string name="tvAmountPayable">செலுத்தக்கூடிய தொகை</string>
-    <string name="tvOTP">OTP</string>
+
 
 
     <string name="title_activity_aadhar_payment">AadharPaymentActivity</string>
@@ -363,6 +396,7 @@
     <string name="prompt_spinner_select_State">மாநிலத்தைத் தேர்ந்தெடு</string>
     <string name="prompt_spinner_select_City">நகரத்தைத் தேர்ந்தெடு</string>
     <string name="prompt_spinner_select_Branch">கிளையைத் தேர்ந்தெடு</string>
+    <string name="prompt_spinner_select_Beneficiary">தேர்வு பயனாளியின்</string>
     <string name="prompt_numbers_only_IFSCCode">IFSC குறியீட்டை உள்ளிடுக</string>
     <string name="prompt_TxnDescription">புலத்தை நிரப்புக</string>
     <string name="lbl_BeneficiaryName">பயனாளர் பெயரை உள்ளிடுக</string>
@@ -397,6 +431,7 @@
     <string name="tpin_submit_btn">சமர்ப்பி</string>
     <string name="btn_Login">உள்நுழைக</string>
 
+    <string name="prompt_Title">செய்தி</string>
 
 
     <string name="Lbl_MobileNumber">மொபைல் ரீசார்ஜ்:</string>
@@ -745,5 +780,97 @@
     <string name="error_RadioButton">ஸ்டப்டைப் ரேடியோபட்டன் தேர்ந்தெடுக்கவும்</string>
     <string name="singUp_Successful_msg">நுகர்வோர் வெற்றிகரமாக உருவாக்கப்பட்டார். உள்நுழைக</string>
     <string name ="error_sinUp_msg">நீங்கள் ஏற்கனவே money on mobile-இல் பதிவுசெய்துள்ளீர்கள்.</string>
+
+
+
+
+    <string name="hello_world">Hello world!</string>
+
+
+
+
+    TAM
+    <string name="app_namelist">ListDisplay</string>
+
+    <string name="action_settings1">அமைப்புகள்</string>
+
+    <string name="tvForgotPassword">கடவுச்சொல் மறந்துவிட்டது</string>
+
+    <string name="tvSpinnerPayFrom">இதிலிருந்து செலுத்து</string>
+
+    <string name="tvSpinnerAliasName">கணக்கு மறுபெயரைத் தேர்ந்தெடு</string>
+
+    <string name="tvAvailableLimit">கிடைக்கின்ற வரம்பு</string>
+
+    <string name="tvIPIN">IPIN</string>
+
+    <string name="action_walletUpdate">வாலட் புதுப்பிப்பு</string>
+
+    <string name="action_busTicketing">பேருந்து டிக்கட்கள்</string>
+
+    <string name="action_railTicketing">ரயில் டிக்கட்கள்</string>
+
+    <string name="action_airTicketing">விமான டிக்கட்கள்</string>
+
+    <string name="action_bookComplaint">முன்பதிவு முறைப்பாடு</string>
+
+    <string name="action_newWithUs">எங்களுடன் புதியவர்</string>
+
+    <string name="action_contactUs">எங்களைத் தொடர்புகொள்அ</string>
+
+    <string name="action_IMPSResetIPIN">IMPS மீட்டமைப்பு IPIN</string>
+
+    <string name="action_IMPSMOMServiceCharge">IMPS சேவைக் கட்டணம் </string>
+
+    <string name="action_IMPSMOMConfirmPaymentByRefund">IMPS கட்டணம் திருப்பியளிப்பு உறுதிப்படுத்தல் </string>
+
+    <string name="action_IMPSRefundList">IMPS திருப்பியளிப்புப் பட்டியல்</string>
+
+    <string name="error_transfer_failed_payU">பரிவர்த்தனையின் போது, பிழை ஏற்பட்டது. மீண்டும் முயற்சிக்கவும்.</string>
+
+    <string name="btn_resendIPIN">மீட்டமைப்பு IPIN</string>
+
+    <string name="prompt_spinner_select_payFrom">சில்லறை வியாபாரி வாலட்</string>
+
+    <string name="lbl_AvailableLimit">கிடைக்கின்ற வரம்பு</string>
+
+    <string name="lbl_FullKYC">முழு KYC</string>
+
+    <string name="lbl_NillKYC">ஒன்றுமில்லாத KYC</string>
+
+    <string name="lblIPin">IPIN</string>
+
+    <string name="lblComment">கருத்தை உள்ளிடு</string>
+
+    <string name="Lbl_ComplaintType">முறைப்பாட்டு வகை:</string>
+
+    <string name="Lbl_Ticket_no">டிக்கட் எண்:</string>
+
+    <string name="AlertDialog_Booking_Complaint">முன்பதிவு முறைப்பாட்டை உறுதிசெய்க</string>
+
+    <string name="title_activity_forgot_password">ForgotPasswordActivity</string>
+
+    <string name="title_activity_list">ListActivity</string>
+
+    <string name="title_activity_web_view">WebViewActivity</string>
+
+    <string name="tvOTP">IPIN</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </resources>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:fillViewport="false"
+    >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="80"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/msgDisplay"
+                style="@style/MoMTheme.wrapped.alertMsg"
+                android:textSize="@dimen/text_medium"
+                android:visibility="gone" />
+            <TextView
+                android:id="@+id/msgDisplayResponse"
+                style="@style/MoMTheme.wrapped.alertMsgResponse"
+                android:textSize="@dimen/text_medium"
+                android:visibility="gone" />
+
+
+            <EditText
+                android:id="@+id/TargetName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+
+                android:hint="@string/lblName"
+                android:layout_marginBottom="@dimen/small"
+                android:visibility="visible"/>
+
+
+            <EditText
+                android:id="@+id/emailId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:hint="@string/lblEmailId"
+                android:layout_marginBottom="@dimen/small"
+                android:visibility="visible"/>
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="@dimen/small"
+                android:layout_height="@dimen/small"
+                android:layout_gravity="center_horizontal"
+                android:visibility="invisible" />
+
+            <EditText
+                android:id="@+id/amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:maxLength="5"
+                android:hint="@string/lblAmount"
+                android:layout_marginBottom="@dimen/small"
+                android:visibility="visible"/>
+
+
+            <Button
+                android:id="@+id/btn_Submit"
+                android:layout_height="35dp"
+                android:layout_width="match_parent"
+                style="@style/MoMTheme.wrapped.customButton"
+                android:text="@string/tpin_submit_btn"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/btnCancel"
+                android:layout_height="35dp"
+                android:layout_width="match_parent"
+                style="@style/MoMTheme.wrapped.customButton"
+                android:text="@string/btn_cancel"
+                android:visibility="visible" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"/>
+
+    </LinearLayout>
+
+   </RelativeLayout>
+</ScrollView>

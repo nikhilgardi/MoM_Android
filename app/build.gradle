@@ -22,6 +22,8 @@ android {
         applicationId 'com.mom.app'
         minSdkVersion 9
         targetSdkVersion 20
+        versionCode 19
+        versionName="2.1"
     }
 //    buildTypes {
 //        release {

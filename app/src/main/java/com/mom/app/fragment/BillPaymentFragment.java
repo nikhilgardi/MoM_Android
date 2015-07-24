@@ -243,6 +243,9 @@ public class BillPaymentFragment extends FragmentBase implements AsyncListener<T
         }
         showBalance();
         taskCompleted(result);
+        if(_currentPlatform == PlatformIdentifier.MOM) {
+            showMessageResponse(result.getRemoteResponse());
+        }
     }
 
     @Override

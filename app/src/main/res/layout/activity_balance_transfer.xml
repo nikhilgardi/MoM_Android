@@ -24,11 +24,16 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/msgDisplay"
-                style="@style/MoMTheme.wrapped.alertMsg"
+            android:id="@+id/msgDisplay"
+            style="@style/MoMTheme.wrapped.alertMsg"
+            android:textSize="@dimen/text_medium"
+            android:visibility="gone"
+            />
+            <TextView
+                android:id="@+id/msgDisplayResponse"
+                style="@style/MoMTheme.wrapped.alertMsgResponse"
                 android:textSize="@dimen/text_medium"
-                android:visibility="gone"
-                />
+                android:visibility="gone" />
 
             <EditText
                 android:id="@+id/payTo"

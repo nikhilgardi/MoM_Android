@@ -135,6 +135,113 @@ public class DataProvider {
                 )
         );
 
+        imageItems.add(
+                new ImageItem<MoMScreen>(
+                        MoMScreen.GIFT_VOUCHER,
+                        MoMScreen.GIFT_VOUCHER.id,
+                        MoMScreen.GIFT_VOUCHER.drawableId,
+                        MoMScreen.GIFT_VOUCHER.drawableTransparentId,
+                        context.getResources().getString(MoMScreen.GIFT_VOUCHER.titleResId),
+                        false
+                )
+        );
+        if(platform == PlatformIdentifier.MOM) {
+            if ((EphemeralStorage.getInstance(context).getString(AppConstants.PARAM_NEW_ROLE_ID, null).equals("5"))
+                    || (EphemeralStorage.getInstance(context).getString(AppConstants.PARAM_NEW_ROLE_ID, null).equals("11")) ||
+                    EphemeralStorage.getInstance(context).getString(AppConstants.PARAM_NEW_ROLE_ID, null).equals("6")||
+                    (EphemeralStorage.getInstance(context).getString(AppConstants.PARAM_NEW_ROLE_ID, null).equals("3"))) {
+
+                imageItems.add(
+                        new ImageItem<MoMScreen>(
+                                MoMScreen.BUS_TICKETING,
+                                MoMScreen.BUS_TICKETING.id,
+                                MoMScreen.BUS_TICKETING.drawableId,
+                                MoMScreen.BUS_TICKETING.drawableTransparentId,
+                                context.getResources().getString(MoMScreen.BUS_TICKETING.titleResId),
+                                false
+                        )
+                );
+            }
+        }
+
+        if(platform == PlatformIdentifier.MOM) {
+            if ((EphemeralStorage.getInstance(context).getString(AppConstants.PARAM_NEW_ROLE_ID, null).equals("5"))
+                    || (EphemeralStorage.getInstance(context).getString(AppConstants.PARAM_NEW_ROLE_ID, null).equals("11")) ||
+                    EphemeralStorage.getInstance(context).getString(AppConstants.PARAM_NEW_ROLE_ID, null).equals("6") ||
+                    (EphemeralStorage.getInstance(context).getString(AppConstants.PARAM_NEW_ROLE_ID, null).equals("3"))) {
+                imageItems.add(
+                        new ImageItem<MoMScreen>(
+                                MoMScreen.RAIL_TICKETING,
+                                MoMScreen.RAIL_TICKETING.id,
+                                MoMScreen.RAIL_TICKETING.drawableId,
+                                MoMScreen.RAIL_TICKETING.drawableTransparentId,
+                                context.getResources().getString(MoMScreen.RAIL_TICKETING.titleResId),
+                                false
+                        )
+                );
+            }
+        }
+
+        if(platform == PlatformIdentifier.MOM) {
+            if ((EphemeralStorage.getInstance(context).getString(AppConstants.PARAM_NEW_ROLE_ID, null).equals("5"))
+                    || (EphemeralStorage.getInstance(context).getString(AppConstants.PARAM_NEW_ROLE_ID, null).equals("11")) ||
+                    EphemeralStorage.getInstance(context).getString(AppConstants.PARAM_NEW_ROLE_ID, null).equals("6") ||
+                    (EphemeralStorage.getInstance(context).getString(AppConstants.PARAM_NEW_ROLE_ID, null).equals("3"))) {
+                imageItems.add(
+                        new ImageItem<MoMScreen>(
+                                MoMScreen.AIR_TICKETING,
+                                MoMScreen.AIR_TICKETING.id,
+                                MoMScreen.AIR_TICKETING.drawableId,
+                                MoMScreen.AIR_TICKETING.drawableTransparentId,
+                                context.getResources().getString(MoMScreen.AIR_TICKETING.titleResId),
+                                false
+                        )
+                );
+            }
+        }
+        if(platform == PlatformIdentifier.B2C) {
+            imageItems.add(
+                    new ImageItem<MoMScreen>(
+                            MoMScreen.WALLET_UPDATE,
+                            MoMScreen.WALLET_UPDATE.id,
+                            MoMScreen.WALLET_UPDATE.drawableId,
+                            MoMScreen.WALLET_UPDATE.drawableTransparentId,
+                            context.getResources().getString(MoMScreen.WALLET_UPDATE.titleResId),
+                            false
+                    )
+            );
+        }
+        imageItems.add(
+                new ImageItem<MoMScreen>(
+                        MoMScreen.BOOK_COMPLAINT,
+                        MoMScreen.BOOK_COMPLAINT.id,
+                        MoMScreen.BOOK_COMPLAINT.drawableId,
+                        MoMScreen.BOOK_COMPLAINT.drawableTransparentId,
+                        context.getResources().getString(MoMScreen.BOOK_COMPLAINT.titleResId),
+                        false
+                )
+        );
+        imageItems.add(
+                new ImageItem<MoMScreen>(
+                        MoMScreen.NEW_WITH_US,
+                        MoMScreen.NEW_WITH_US.id,
+                        MoMScreen.NEW_WITH_US.drawableId,
+                        MoMScreen.NEW_WITH_US.drawableTransparentId,
+                        context.getResources().getString(MoMScreen.NEW_WITH_US.titleResId),
+                        false
+                )
+        );
+        imageItems.add(
+                new ImageItem<MoMScreen>(
+                        MoMScreen.CONTACT_US,
+                        MoMScreen.CONTACT_US.id,
+                        MoMScreen.CONTACT_US.drawableId,
+                        MoMScreen.CONTACT_US.drawableTransparentId,
+                        context.getResources().getString(MoMScreen.CONTACT_US.titleResId),
+                        false
+                )
+        );
+
      //   if(!showingDashboard || platform == PlatformIdentifier.PBX) {
             imageItems.add(
                     new ImageItem<MoMScreen>(
@@ -151,8 +258,10 @@ public class DataProvider {
 
 
 
-        int isLic = EphemeralStorage.getInstance(context).getInt(AppConstants.PARAM_IsLIC , -1);
-        if((isLic)== 0){
+
+        String isMOMLic = EphemeralStorage.getInstance(context).getString(AppConstants.PARAM_MERCHANTID_LIC, null);
+
+        if(!isMOMLic.equals("") && (isMOMLic!=null)){
             imageItems.add(
                     new ImageItem<MoMScreen>(
                             MoMScreen.LIC,
@@ -284,6 +393,12 @@ public class DataProvider {
 
         return getOperators(AppConstants.OPERATOR_NEW, operatorNames);
     }
+    public static List<Operator> getGiftVoucherOperators(){
+        String[] operatorNames  = {AppConstants.OPERATOR_ID_FLIPKART};
+
+        return getOperators(AppConstants.OPERATOR_GIFT_VOUCHER, operatorNames);
+    }
+
 
     public static List<Operator> getPBXPlatformMobileOperators(){
         String[] operatorNames  = {

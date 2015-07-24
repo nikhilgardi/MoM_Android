@@ -27,6 +27,11 @@
                 style="@style/MoMTheme.wrapped.alertMsg"
                 android:textSize="@dimen/text_small"
                 android:visibility="gone" />
+            <TextView
+                android:id="@+id/msgDisplayResponse"
+                style="@style/MoMTheme.wrapped.alertMsgResponse"
+                android:textSize="@dimen/text_medium"
+                android:visibility="gone" />
 
 
             <com.mom.app.ui.CustomEditText

@@ -8,7 +8,10 @@
     <dimen name="historyHeader">18sp</dimen>
     <dimen name="listEmptyMessage">18sp</dimen>
     <dimen name="text_super_small">12sp</dimen>
+    <dimen name="text_super_smallest">11sp</dimen>
+    <dimen name="text_small_contactUs">16sp</dimen>
     <dimen name="text_small">14sp</dimen>
+    <dimen name="text_rbsmall">16sp</dimen>
     <dimen name="text_login_small">12sp</dimen>
     <dimen name="text_medium">18sp</dimen>
     <dimen name="text_large">24sp</dimen>
@@ -24,6 +27,7 @@
     <dimen name="ultra_small">8dp</dimen>
     <!--<dimen name="small">16dp</dimen>-->
     <dimen name="small">4dp</dimen>
+    <dimen name="smallTPin">20dp</dimen>
     <dimen name="small_lower_version">10dp</dimen>
     <dimen name="medium">36dp</dimen>
     <dimen name="large">64dp</dimen>
@@ -34,5 +38,9 @@
     <dimen name="grid_icon">64dp</dimen>
     <dimen name="grid_text">10sp</dimen>
     <dimen name="grid_text_margin">5dp</dimen>
+
     <dimen name="async_status_list">100dp</dimen>
 </resources>
+
+<!--<dimen name="btnTextSize">10dp</dimen>-->
+<!--<dimen name="ultra_ultra_small">8dp</dimen>-->

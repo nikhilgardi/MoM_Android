@@ -124,6 +124,43 @@ public class DashboardFragment extends FragmentBase {
                 isVerificationNeeded    = false;
                 break;
 
+            case GIFT_VOUCHER:
+                Log.d(_LOG, "Starting Gift Voucher Activity");
+                isVerificationNeeded    = false;
+                break;
+
+
+            case BUS_TICKETING:
+                Log.d(_LOG, "Starting Bus Tickets Activity");
+                isVerificationNeeded    = false;
+                break;
+
+            case RAIL_TICKETING:
+                Log.d(_LOG, "Starting Rail Tickets Activity");
+                isVerificationNeeded    = false;
+                break;
+
+            case AIR_TICKETING:
+                Log.d(_LOG, "Starting Air Tickets Activity");
+                isVerificationNeeded    = false;
+                break;
+
+            case WALLET_UPDATE:
+                Log.d(_LOG, "Starting Gift Voucher Activity");
+                isVerificationNeeded    = false;
+                break;
+            case BOOK_COMPLAINT:
+                Log.d(_LOG, "Starting Book Complaint Activity");
+                isVerificationNeeded    = false;
+                break;
+            case NEW_WITH_US:
+                Log.d(_LOG, "Starting New With Us Activity");
+                isVerificationNeeded    = false;
+                break;
+            case CONTACT_US:
+                Log.d(_LOG, "Starting Contact Us Activity");
+                isVerificationNeeded    = false;
+                break;
             case SETTINGS:
                 Log.d(_LOG, "Starting Settings Activity");
                 isVerificationNeeded    = false;

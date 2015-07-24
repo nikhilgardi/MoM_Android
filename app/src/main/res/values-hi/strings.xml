@@ -69,6 +69,36 @@
     <string name="btn_Ok">ठीक है</string>
     <string name="btn_payment">भुगतान</string>
     <string name="welcome">स्वागतम्</string>
+    HIN
+    <string name="action_giftVoucher">गिफ़्ट वाउचर</string>
+    <string name="lblOccasion">अवसर दर्ज करें</string>
+    <string name="lblDescription">विवरण दर्ज करें</string>
+    <string name="lblSentTo">यहाँ भेजें</string>
+    <string name="lblSentFrom">यहाँ से भेजा गया</string>
+    <string name="lblEmailId">ईमेल आईडी दर्ज करें</string>
+    <string name="lblTransactionID">लेनदेन आईडी:</string>
+    <string name="prompt_select_complaint_type">कृपया शिकायत का प्रकार चुनें</string>
+    <string name="CustomerCare">कस्टमर केयर:</string>
+    <string name="WestZone">पश्चिम क्षेत्र:</string>
+    <string name="EastZone">पूर्व क्षेत्र:</string>
+    <string name="NorthZone">उत्तर क्षेत्र:</string>
+    <string name="SouthZone">दक्षिण क्षेत्र:</string>
+    <string name="Timing">समय:</string>
+    <string name="Phone">फ़ोन:</string>
+    <string name="E_mail">ईमेल:</string>
+    <string name="get_Password_btn">पासवर्ड प्राप्त करें</string>
+      
+    <string name="lblComment">टिप्पणी दर्ज करें</string>
+    <string name="lblBtnPrint">प्रिंट करें</string>
+    <string name="lblBtnEmail">ईमेल</string>
+    <string name="lblBtnSMS">एसएमएस</string>
+    <string name="lblNewWithUsTitle">भुगतान की आसानी के साथ छुट्टी का आनंद उठाएँ, MoneyonMobile द्वारा ट्रेवल ऐट योअर डूरस्टेप लॉन्च :</string>
+    <string name="lblNewWithUsContentsRail">1. MoM रेल</string>
+    <string name="lblNewWithUsContentsAir">2. MoM एयर और आकर्षक पैकेज</string>
+    <string name="lblNewWithUsContentsBus">3. MoM बस</string>
+    <string name="lblNewWithUsContentsMessage">अवसर को हाथ से न जाने दें और हमाअरे साथ पंजीकृत हों। सहायता के लिए हमारे मिस्ड कॉल नंबरों पर संपर्क करें:</string>
+    <string name="lblNewWithUsContact">+91-8880881234, +91-8082812345</string>
+    <string name="lblName">नाम दर्ज करें</string>
 
     <string name="login_failed_msg_default">लॉगिन में असफलता  कृपया अपना मोबाईल नंबर एवं M-Pin जांचें</string>
 
@@ -175,7 +205,7 @@
     <string name="btn_dashboard">डैशबोर्ड</string>
     <string name="btn_recharge">रीचार्ज</string>
 
-
+    <string name="lblForgotPwdAmount">अंतिम रिचार्ज राशि</string>
 
     <string name="btn_back">वापस</string>
 
@@ -237,7 +267,7 @@
     <string name="tvAmount">राशि</string>
     <string name="tvProcessingFees">प्रोसेसिंग शुल्क</string>
     <string name="tvAmountPayable">देय राशि</string>
-    <string name="tvOTP">OTP</string>
+
 
 
 
@@ -269,6 +299,7 @@
     <string name="prompt_spinner_select_State">राज्य का चयन करें</string>
     <string name="prompt_spinner_select_City">शहर का चयन करें</string>
     <string name="prompt_spinner_select_Branch">शाखा का चयन करें</string>
+    <string name="prompt_spinner_select_Beneficiary">चयन करें लाभार्थी</string>
     <string name="prompt_numbers_only_IFSCCode">कृपया IFSC कोड दर्ज करें</string>
     <string name="prompt_TxnDescription">कृपया फ़ील्ड भरें</string>
     <string name="lbl_BeneficiaryName">लाभार्थी का नाम दर्ज करें</string>
@@ -376,7 +407,7 @@
     <string name="changepassword_old">पुराना पासवर्ड</string>
     <string name="changepassword_new">नया पासवर्ड</string>
     <string name="changepassword_confirm">पासवर्ड की पुष्टि करें</string>
-
+    <string name="prompt_Title">संदेश</string>
     <string name="Lbl_MobileNumber">मोबाइल नंबर:</string>
     <string name="Lbl_Operator">ऑपरेटर:</string>
     <string name="Lbl_Amount">राशि: रु.</string>
@@ -740,6 +771,244 @@
 <string name="error_RadioButton">stubtyperadiobutton का चयन करें</string>
 <string name="singUp_Successful_msg">ग्राहक ने सफलतापूर्वक सृजन किया। कृपया लॉगइन करें</string>
 <string name ="error_sinUp_msg">आप money on mobile पर पहले से ही पंजीकृत हैं।</string>
+
+
+
+
+    <string name="hello_world">Hello world!</string>
+
+
+
+    <string name="app_namelist">सूचीप्रदर्शन</string>
+
+    <string name="action_settings1">सेटिंग</string>
+
+    <string name="tvForgotPassword">पासवर्ड भूल गए</string>
+
+    <string name="tvSpinnerPayFrom">इससे भुगतान करें</string>
+
+    <string name="tvSpinnerAliasName">खाता उपनाम चुनें</string>
+
+    <string name="tvAvailableLimit">उपलब्ध सीमा </string>
+
+    <string name="tvIPIN">IPIN</string>
+
+    <string name="action_walletUpdate">वॉलेट अद्यतन</string>
+
+    <string name="action_busTicketing">बस टिकट</string>
+
+    <string name="action_railTicketing">रेल टिकट</string>
+
+    <string name="action_airTicketing">हवाई टिकट</string>
+
+    <string name="action_bookComplaint">शिकायत दर्ज करें</string>
+
+    <string name="action_newWithUs">हमारे साथ नया</string>
+
+    <string name="action_contactUs">हमसे संपर्क करें</string>
+
+    <string name="action_IMPSResetIPIN">IMPS रीसेट IPIN</string>
+
+    <string name="action_IMPSMOMServiceCharge">IMPS सेवा शुल्क </string>
+
+    <string name="action_IMPSMOMConfirmPaymentByRefund">IMPS पुष्टि धनवापसी भुगतान </string>
+
+    <string name="action_IMPSRefundList">IMPS धन वापसी सूची</string>
+
+    <string name="error_transfer_failed_payU">अंतरण के दौरान त्रुटि हुई. कृपया पुन: प्रयास करें.</string>
+
+    <string name="btn_resendIPIN">IPIN रीसेट करें</string>
+
+    <string name="prompt_spinner_select_payFrom">रीटेलर वॉलेट</string>
+
+    <string name="lbl_AvailableLimit">उपलब्ध सीमा</string>
+
+    <string name="lbl_FullKYC">पूर्ण KYC</string>
+
+    <string name="lbl_NillKYC">शून्य KYC</string>
+
+    <string name="lblIPin">IPIN</string>
+
+    <string name="Lbl_ComplaintType">शिकायत प्रकार:</string>
+
+    <string name="Lbl_Ticket_no">टिकट संख्या:</string>
+
+    <string name="AlertDialog_Booking_Complaint">शिकायत बुकिंग की पुष्टि करें</string>
+
+    <string name="title_activity_forgot_password">ForgotPasswordActivity</string>
+
+    <string name="title_activity_list">ListActivity</string>
+
+    <string name="title_activity_web_view">WebViewActivity</string>
+
+    <string name="tvOTP">IPIN</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

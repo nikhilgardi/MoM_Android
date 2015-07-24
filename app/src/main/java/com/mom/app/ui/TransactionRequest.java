@@ -161,6 +161,20 @@ public class TransactionRequest<T> implements Serializable {
         this.operator = operator;
         this.dateStarted = new Date();
     }
+    public TransactionRequest(String type, String consumerId, String customerMobile, float amount,String sOccasion,
+                              String sDescription ,
+                              String sSentTo ,
+                              String sSentFrom,
+                              String sEmailId,
+                              Operator operator) {
+        this.id = MiscUtils.getRandomLong();
+        _type = type;
+        this.consumerId = consumerId;
+        this.customerMobile = customerMobile;
+        this.amount = amount;
+        this.operator = operator;
+        this.dateStarted = new Date();
+    }
 
 
     public TransactionRequest(String type, String sConsumerNumber, String sConsumerName, String sConsumerDOB, String sConsumerEmailAddress) {

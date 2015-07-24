@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -39,16 +40,23 @@ import com.mom.app.adapter.DrawerAdapter;
 import com.mom.app.error.MOMException;
 import com.mom.app.fragment.BalanceTransferFragment;
 import com.mom.app.fragment.BillPaymentFragment;
+
+import com.mom.app.fragment.BookComplaintFragment;
 import com.mom.app.fragment.ChangePinFragment;
+import com.mom.app.fragment.ContactUsFragment;
 import com.mom.app.fragment.DTHRechargeFragment;
 import com.mom.app.fragment.DashboardFragment;
 import com.mom.app.fragment.FragmentBase;
+import com.mom.app.fragment.GiftVoucherFragment;
 import com.mom.app.fragment.IMPSFragment;
+import com.mom.app.fragment.IMPSMOMFragment;
 import com.mom.app.fragment.LICFragment;
 import com.mom.app.fragment.MobileRechargeFragment;
+import com.mom.app.fragment.NewWithUsFragment;
 import com.mom.app.fragment.SettingsFragment;
 import com.mom.app.fragment.TransactionHistoryFragment;
 import com.mom.app.fragment.UtilityBillPaymentFragment;
+import com.mom.app.fragment.WalletUpdateFragment;
 import com.mom.app.identifier.IdentifierUtils;
 import com.mom.app.identifier.MessageCategory;
 import com.mom.app.identifier.PinType;
@@ -148,7 +156,8 @@ public class BaseActivity extends ActionBarActivity implements IFragmentListener
 
                 if(!TextUtils.isEmpty(message.getOriginTxnId())){
                     TransactionRequest request  = _asyncAdapter.getTransactionRequest(message.getOriginTxnId());
-                    updateAsyncList(request, message.getStatus());
+                   // Testing
+                   updateAsyncList(request, message.getStatus());
                 }
             }catch(Exception e){
                 Log.e(_LOG, "Error parsing json", e);
@@ -670,7 +679,8 @@ private   MenuItem balItem = null;
 //                }else{
 //                    _asyncStatusList.setVisibility(View.VISIBLE);
 //                }
-                showFragment(IMPSFragment.newInstance(_currentPlatform));
+                //showFragment(IMPSFragment.newInstance(_currentPlatform));
+                showFragment(IMPSMOMFragment.newInstance(_currentPlatform));
 
               break;
 
@@ -706,6 +716,67 @@ private   MenuItem balItem = null;
                 }
                 showFragment(TransactionHistoryFragment.newInstance(_currentPlatform));
                 break;
+
+            case GIFT_VOUCHER:
+                if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+                    _asyncStatusList.setVisibility(View.    GONE);
+                }else{
+                    _asyncStatusList.setVisibility(View.VISIBLE);
+                }
+                showFragment(GiftVoucherFragment.newInstance(_currentPlatform));
+                break;
+
+            case BUS_TICKETING:
+                Intent browserBusIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://mombus.money-on-mobile.net/"));
+                startActivity(browserBusIntent);
+                break;
+            case RAIL_TICKETING:
+                Intent browserRailIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://momrail.com/"));
+                startActivity(browserRailIntent);
+                break;
+            case AIR_TICKETING:
+                Intent browserAirIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://travel.money-on-mobile.net/"));
+                startActivity(browserAirIntent);
+                break;
+            case WALLET_UPDATE:
+                if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+                    _asyncStatusList.setVisibility(View.    GONE);
+                }else{
+                    _asyncStatusList.setVisibility(View.VISIBLE);
+                }
+                showFragment(WalletUpdateFragment.newInstance(_currentPlatform));
+                break;
+
+            case BOOK_COMPLAINT:
+                if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+                    _asyncStatusList.setVisibility(View.    GONE);
+                }else{
+                    _asyncStatusList.setVisibility(View.VISIBLE);
+                }
+                showFragment(BookComplaintFragment.newInstance(_currentPlatform));
+                break;
+
+
+            case NEW_WITH_US:
+                if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+                    _asyncStatusList.setVisibility(View.    GONE);
+                }else{
+                    _asyncStatusList.setVisibility(View.VISIBLE);
+                }
+                showFragment(NewWithUsFragment.newInstance(_currentPlatform));
+                break;
+
+
+            case CONTACT_US:
+                if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+                    _asyncStatusList.setVisibility(View.    GONE);
+                }else{
+                    _asyncStatusList.setVisibility(View.VISIBLE);
+                }
+                showFragment(ContactUsFragment.newInstance(_currentPlatform));
+                break;
+
+
             case SETTINGS:
                 if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
                     _asyncStatusList.setVisibility(View.    GONE);
@@ -839,7 +910,7 @@ private   MenuItem balItem = null;
                     }
                 });
         AlertDialog alert = alertDialog.create();
-        alert.setTitle("Message");
+        alert.setTitle(R.string.prompt_Title);
         alert.show();
     }
 }

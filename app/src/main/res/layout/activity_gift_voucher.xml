@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:fillViewport="false"
+    >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_weight="80"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/msgDisplay"
+                style="@style/MoMTheme.wrapped.alertMsg"
+                android:textSize="@dimen/text_medium"
+                android:visibility="gone" />
+            <TextView
+                android:id="@+id/msgDisplayResponse"
+                style="@style/MoMTheme.wrapped.alertMsgResponse"
+                android:textSize="@dimen/text_medium"
+                android:visibility="gone" />
+
+            <com.mom.app.ui.CustomEditText
+                android:id="@+id/verifyTpin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/tpin"
+                android:inputType="numberPassword"
+                android:layout_marginBottom="@dimen/small"
+                android:maxLength="8"
+                android:visibility="gone"/>
+
+            <Button
+                android:id="@+id/btnSubmit"
+                android:layout_height="35dp"
+                android:layout_width="match_parent"
+                style="@style/MoMTheme.wrapped.customButton"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/tpin_submit_btn"
+                android:visibility="gone"/>
+
+            <Spinner
+                android:id="@+id/Operator"
+                style="@style/SpinnerAppTheme"
+                android:prompt="@string/prompt_spinner_select_operator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/small"
+                android:layout_marginBottom="@dimen/ultra_small"
+                android:visibility="visible"/>
+            <EditText
+                android:id="@+id/occasion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:hint="@string/lblOccasion"
+                android:layout_marginBottom="@dimen/small"
+                android:visibility="visible"/>
+            <EditText
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:hint="@string/lblDescription"
+                android:layout_marginBottom="@dimen/small"
+                android:visibility="visible"/>
+            <EditText
+                android:id="@+id/sentTo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:hint="@string/lblSentTo"
+                android:layout_marginBottom="@dimen/small"
+                android:visibility="visible"/>
+            <EditText
+                android:id="@+id/sentFrom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:hint="@string/lblSentFrom"
+                android:layout_marginBottom="@dimen/small"
+                android:visibility="visible"/>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="@dimen/small"
+                android:layout_height="@dimen/small"
+                android:layout_gravity="center_horizontal"
+                android:visibility="invisible" />
+
+            <EditText
+                android:id="@+id/amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:maxLength="5"
+                android:hint="@string/lblAmount"
+                android:layout_marginBottom="@dimen/small"
+                android:visibility="visible"/>
+
+
+
+            <LinearLayout
+                android:id="@+id/LinLayout"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <RadioGroup
+                    android:id="@+id/RadioGroup01"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <RadioButton
+                        android:id="@+id/rbtnPrint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/RadioButtonAppTheme"
+                        android:text="@string/lblBtnPrint"
+                        android:visibility="visible"/>
+
+                    <RadioButton
+                        android:id="@+id/rbtnEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lblBtnEmail"
+                        style="@style/RadioButtonAppTheme"
+                        android:visibility="visible"/>
+
+                    <RadioButton
+                        android:id="@+id/rbtnSMS"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/lblBtnSMS"
+                        style="@style/RadioButtonAppTheme"
+                        android:visibility="visible"/>
+                </RadioGroup>
+            </LinearLayout>
+
+
+            <EditText
+                android:id="@+id/rechargeTargetPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:maxLength="10"
+                android:hint="@string/lblCustomerMobile"
+                android:layout_marginBottom="@dimen/small"
+                android:visibility="gone"/>
+
+            <EditText
+                android:id="@+id/emailId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+               android:inputType="text"
+                android:hint="@string/lblEmailId"
+                android:layout_marginBottom="@dimen/small"
+                android:visibility="gone"/>
+
+
+
+            <Button
+                android:id="@+id/btnRecharge"
+                android:layout_height="35dp"
+                android:layout_width="match_parent"
+                style="@style/MoMTheme.wrapped.customButton"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/btn_recharge"
+                android:visibility="visible"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"/>
+
+    </LinearLayout>
+   </RelativeLayout>
+</ScrollView>

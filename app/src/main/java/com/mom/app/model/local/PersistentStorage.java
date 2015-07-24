@@ -5,6 +5,10 @@ import android.content.SharedPreferences;
 
 import com.mom.app.utils.MiscUtils;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 /**
  * Created by vaibhavsinha on 7/25/14.
  */
@@ -13,6 +17,16 @@ public class PersistentStorage extends LocalStorage {
     SharedPreferences _pref             = null;
     SharedPreferences.Editor _prefEditor = null;
     static PersistentStorage _instance;
+    HashMap<String, String> beneficiaryList = new HashMap<String, String>();
+    HashMap<String, String> branchListMap = new HashMap<String, String>();
+    HashMap<String, String> hashMapRefundReceiptID = new HashMap<String, String>();
+    HashMap<String, String> hashMapRefundAmount = new HashMap<String, String>();
+    List<String> refundTxnDescriptionList = new ArrayList<String>();
+    List<String> list = new ArrayList<String>();
+    List<String> bankList = new ArrayList<String>();
+    List<String> stateList = new ArrayList<String>();
+    List<String> cityList  = new ArrayList<String>();
+    List<String> branchList  = new ArrayList<String>();
 
     private PersistentStorage(Context context){
         _context    = context;
@@ -94,5 +108,99 @@ public class PersistentStorage extends LocalStorage {
         }
 
         return MiscUtils.fromJson(sObj, pDefault.getClass());
+    }
+
+    @Override
+    public void storeBeneficiaryList(String psKey ,HashMap<String, String> beneficiaryListDetail){
+        beneficiaryList = beneficiaryListDetail;
+    }
+    @Override
+    public  String getBeneficiaryList( String beneficiaryId) {
+        return beneficiaryList.get(beneficiaryId);
+
+    }
+
+    @Override
+    public void storeBeneficiaryListDetail(String psKey ,List<String> beneficiaryListDetail){
+        list = beneficiaryListDetail;
+    }
+    @Override
+    public  List<String> getBeneficiaryListDetail( ) {
+        return list;
+
+    }
+
+    @Override
+    public void storeBankList(String psKey ,List<String> bankList){
+        bankList = bankList;
+    }
+    @Override
+    public  List<String> getBankList() {
+        return bankList;
+
+    }
+    @Override
+    public void storeStateList(String psKey ,List<String> stateNameList){
+        stateList = stateNameList;
+    }
+    @Override
+    public  List<String> getStateList() {
+        return stateList;
+
+    }
+    @Override
+    public void storeCityList(String psKey ,List<String> cityNameList){
+        cityList = cityNameList;
+    }
+    @Override
+    public  List<String> getCityList() {
+        return cityList;
+    }
+
+    @Override
+    public void storeBranchList(String psKey ,HashMap<String, String> branchListDetail){
+        branchListMap = branchListDetail;
+    }
+    @Override
+    public  String getBranchList( String branchName) {
+        return branchListMap.get(branchName);
+
+    }
+    @Override
+    public void storeBranchListDetail(String psKey ,List<String> branchListDetail){
+        branchList = branchListDetail;
+    }
+    @Override
+    public  List<String> getBranchListDetail( ) {
+        return branchList;
+
+    }
+    @Override
+    public void storeRefundReceiptIdMap(String psKey ,HashMap<String, String> refundListDetail){
+        hashMapRefundReceiptID = refundListDetail;
+    }
+    @Override
+    public  String getRefundReceiptIdMap( String TransactionDescription) {
+        return hashMapRefundReceiptID.get(TransactionDescription);
+
+    }
+    @Override
+    public void storeRefundAmountMap(String psKey ,HashMap<String, String> refundAmountListDetail){
+        hashMapRefundAmount = refundAmountListDetail;
+    }
+
+    @Override
+    public  String getRefundMapAmount( String TransactionDescription) {
+        return hashMapRefundAmount.get(TransactionDescription);
+
+    }
+    @Override
+    public void storeRefundTransactionDescriptionList(String psKey ,List<String> refundTransactionDescriptionList){
+        refundTxnDescriptionList = refundTransactionDescriptionList;
+    }
+    @Override
+    public  List<String> getRefundTransactionDescriptionList() {
+        return refundTxnDescriptionList;
+
     }
 }

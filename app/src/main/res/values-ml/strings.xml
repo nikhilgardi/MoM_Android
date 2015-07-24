@@ -61,6 +61,42 @@
     <!--<string name="lbl_isVerified">Verified</string>-->
     <!--<string name="lbl_IFSC_Code">IFSC Code</string>-->
     <!--<string name="lblBeneficiaryMobileNumber">Beneficiary Mobile Number</string>-->
+
+
+
+    <string name="action_giftVoucher">ഗിഫ്റ്റ് വൗച്ചര്‍</string>
+
+    <string name="prompt_select_complaint_type">ദയവായി ക്ലയന്‍റ് ടൈപ്പ് തെരഞ്ഞെടുക്കുക</string>
+    <string name="CustomerCare">കസ്റ്റമര്‍ കെയര്‍:</string>
+    <string name="WestZone">വെസ്റ്റ് സോണ്‍:</string>
+    <string name="EastZone">ഈസ്റ്റ് സോണ്‍:</string>
+    <string name="NorthZone">നോര്‍ത്ത് സോണ്‍:</string>
+    <string name="SouthZone">സൗത്ത് സോണ്‍:</string>
+    <string name="Timing">സമയക്രമം:</string>
+    <string name="Phone">ഫോണ്‍:</string>
+    <string name="E_mail">ഇമെയില്‍:</string>
+    <string name="get_Password_btn">പാസ്‍വേഡ് നേടുക</string>
+    <string name="lblTransactionID">ട്രാന്‍സാക്ഷന്‍ ഐഡി:</string>
+    <string name="lblOccasion">സന്ദര്‍ഭം നല്കുക</string>
+    <string name="lblDescription">വിശദാംശം നല്കുക</string>
+    <string name="lblSentTo">ലേക്ക് അയക്കുക</string>
+    <string name="lblSentFrom">ല്‍ നിന്ന് അയച്ചു</string>
+    <string name="lblEmailId">ഇമെയില്‍ ഐഡി നല്കുക</string>
+
+    <string name="lblBtnPrint">പ്രിന്‍റ്</string>
+    <string name="lblBtnEmail">ഇമെയില്‍</string>
+    <string name="lblBtnSMS">എസ്എംഎസ്</string>
+    <string name="lblNewWithUsTitle">വിശ്രമവേളകള്‍ ചെലവഴിക്കുന്നതിന് പണമടയ്ക്കുന്നത് എളുപ്പമാക്കുക. മണി ഓണ്‍ മൊബൈല്‍ ആരംഭിക്കുന്നു യാത്ര നിങ്ങളുടെ പടിവാതില്‍ക്കല്‍ :</string>
+    <string name="lblNewWithUsContentsRail">1. എംഒഎം റെയില്‍</string>
+    <string name="lblNewWithUsContentsAir">2. എംഒഎം എയര്‍ ആന്‍ഡ് ഹോട്ട് പാക്കേജുകള്‍</string>
+    <string name="lblNewWithUsContentsBus">3. എംഒഎം ബസ്</string>
+    <string name="lblNewWithUsContentsMessage">ഞങ്ങളുമായി രജിസ്റ്റര്‍ ചെയ്യുന്നതിനുള്ള അവസരം നേടുക. സഹായത്തിന് ഞങ്ങളുടെ മിസ്ഡ് കോള്‍ നമ്പറുകളില്‍ ബന്ധപ്പെടുക:</string>
+    <string name="lblNewWithUsContact">+91-8880881234, +91-8082812345</string>
+    <string name="lblName">പേര് നല്കുക</string>
+
+
+
+
     <string name="btn_newRecharge">പുതിയ ട്രാൻസാക്ഷൻ</string>
     <string name="Imps_failed_Amount"> അപര്യാപ്തമായ വാലറ്റ് ബാലൻസ്</string>
     <string name="login_failed_msg_default">ലോഗിൻ പരാജയം. നിങ്ങളുടെ മൊബൈൽ നമ്പറും M-Pin-ഉം പരിശോധിക്കുക</string>
@@ -172,7 +208,7 @@
     <string name="btn_dashboard">ഡാഷ്ബോഡ്</string>
     <string name="btn_recharge">റീചാർജ്ജ്</string>
 
-
+    <string name="lblForgotPwdAmount">അവസാനം റീചാർജ് തുക</string>
 
     <string name="btn_back">പിന്നിലേക്ക്</string>
     <string name="btn_Ok">ഓകെ</string>
@@ -233,6 +269,7 @@
     <string name="prompt_spinner_select_State">സംസ്ഥാനം തിരഞ്ഞെടുക്കുക</string>
     <string name="prompt_spinner_select_City">നഗരം തിരഞ്ഞെടുക്കുക</string>
     <string name="prompt_spinner_select_Branch">ബ്രാഞ്ച് തിരഞെടുക്കുക</string>
+    <string name="prompt_spinner_select_Beneficiary">ബെനിഫിഷ്യറി തിരഞ്ഞെടുക്കുക</string>
     <string name="prompt_numbers_only_IFSCCode">IFSC കോഡ് നൽകുക</string>
     <string name="prompt_TxnDescription">ഫീൽഡ് പൂരിപ്പിക്കുക</string>
     <string name="lbl_BeneficiaryName">ബെനിഫിഷ്യറി പേര് നൽകുക</string>
@@ -260,7 +297,7 @@
     <string name="tvAmount">തുക </string>
     <string name="tvProcessingFees">പ്രോസസ്സിംഗ് ഫീസ്</string>
     <string name="tvAmountPayable">നൽകേണ്ടുന്ന തുക</string>
-    <string name="tvOTP">OTP</string>
+
 
 
     <!--<string name="lic_failed_policyDetails_msg_default">Insufficient Limit</string>-->
@@ -376,6 +413,8 @@
     <string name="changepassword_new">പുതിയ പാസ്‌വേഡ്</string>
     <string name="changepassword_confirm">പാസ്‌വേഡ് സ്ഥിരീകരിക്കുക</string>
     <!--<string name="password">പാസ്‌വേഡ്</string>-->
+
+    <string name="prompt_Title">സന്ദേശം</string>
 
     <string name="Lbl_MobileNumber">മൊബൈൽ നമ്പർ: </string>
     <string name="Lbl_Operator">ഓപ്പറേറ്റർ: </string>
@@ -748,5 +787,78 @@
     <string name="error_RadioButton">સ્ટડીપરઓડિયોબટન પસંદ કરો</string>
     <string name="singUp_Successful_msg">ગ્રાહક સફળતાપૂર્વક તેયાર થયાં. કૃપા કરી લોગ ઇન કરો</string>
     <string name ="error_sinUp_msg">money on mobile સાથે તમે પહેલાંથી નોંધાયેલ છો.</string>
+
+
+
+
+    <string name="hello_world">Hello world!</string>
+
+
+    <string name="app_namelist">ലിസ്റ്റ്‌ഡിസ്പ്ലേ</string>
+
+    <string name="action_settings1">ക്രമീകരണങ്ങൾ</string>
+
+    <string name="tvForgotPassword">പാസ്‌വേഡ് മറന്നു</string>
+
+    <string name="tvSpinnerPayFrom">ഇതിൽ നിന്ന് പണമടയ്ക്കുക</string>
+
+    <string name="tvSpinnerAliasName">അക്കൗണ്ട് ഇതരനാമം തിരഞ്ഞെടുക്കുക</string>
+
+    <string name="tvAvailableLimit">ലഭ്യമായ പരിധി </string>
+
+    <string name="tvIPIN">IPIN</string>
+
+    <string name="action_walletUpdate">വാലറ്റ് അപ്‌ഡേറ്റ്</string>
+
+    <string name="action_busTicketing">ബസ് ടിക്കറ്റുകൾ</string>
+
+    <string name="action_railTicketing">റെയിൽ ടിക്കറ്റുകൾ</string>
+
+    <string name="action_airTicketing">എയർ ടിക്കറ്റുകൾ</string>
+
+    <string name="action_bookComplaint">പരാതി ബുക്കുചെയ്യുക</string>
+
+    <string name="action_newWithUs">ഞങ്ങളിൽ നിന്ന് പുതിയത്</string>
+
+    <string name="action_contactUs">ഞങ്ങളെ ബന്ധപ്പെടുക</string>
+
+    <string name="action_IMPSResetIPIN">IMPS പുന:സജ്ജീകരണ IPIN</string>
+
+    <string name="action_IMPSMOMServiceCharge">IMPS സേവന നിരക്ക് </string>
+
+    <string name="action_IMPSMOMConfirmPaymentByRefund">റീഫണ്ട് പെയ്‌മെന്റ് IMPS സ്ഥിരീകരണം</string>
+
+    <string name="action_IMPSRefundList">IMPS റീഫണ്ട് ലിസ്റ്റ്</string>
+
+    <string name="error_transfer_failed_payU">ഇടപാട് വേളയിൽ പിശക് സംഭവിച്ചു. വീണ്ടും ശ്രമിക്കുക.</string>
+
+    <string name="btn_resendIPIN">IPIN പുനഃസജ്ജീകരികുക</string>
+
+    <string name="prompt_spinner_select_payFrom">റീട്ടെയിലർ വാലറ്റ്</string>
+
+    <string name="lbl_AvailableLimit">ലഭ്യമായ പരിധി</string>
+
+    <string name="lbl_FullKYC">പൂർണ്ണ KYC</string>
+
+    <string name="lbl_NillKYC">KYC ഇല്ല</string>
+
+    <string name="lblIPin">IPIN</string>
+
+    <string name="lblComment">അഭിപ്രായം നൽകുക</string>
+
+    <string name="Lbl_ComplaintType">പരാതി തരം:</string>
+
+    <string name="Lbl_Ticket_no">ടിക്കറ്റ് നമ്പർ:</string>
+
+    <string name="AlertDialog_Booking_Complaint">പരാതി ബുക്കുചെയ്യൽ സ്ഥിരീകരിക്കുക</string>
+
+    <string name="title_activity_forgot_password">പാസ്‌വേഡ്‌മറന്നുപ്രവർത്തനം</string>
+
+    <string name="title_activity_list">ലിസ്റ്റ്‌പ്രവർത്തനം</string>
+
+    <string name="title_activity_web_view">വെബ്‌കാഴ്ചാപ്രവർത്തനം</string>
+
+    <string name="tvOTP">IPIN</string>
+
 
 </resources>

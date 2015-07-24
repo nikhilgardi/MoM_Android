@@ -14,6 +14,7 @@ import com.mom.app.model.AsyncDataEx;
 import com.mom.app.model.AsyncListener;
 import com.mom.app.model.AsyncResult;
 import com.mom.app.model.DataExImpl;
+import com.mom.app.model.Operator;
 import com.mom.app.model.Transaction;
 import com.mom.app.model.local.EphemeralStorage;
 import com.mom.app.model.pbxpl.BankNameResult;
@@ -1284,7 +1285,7 @@ public class B2CPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
     }
 
-    public void impsCustomerRegistration(TransactionRequest<ImpsCreateCustomerResult> request) {
+     public void impsCustomerRegistration(TransactionRequest request , String sConsumerNumber)  {
         if (TextUtils.isEmpty(request.getConsumerId())) {
             if (_listener != null) {
                 _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.IMPS_CREATE_CUSTOMER_REGISTRATION);
@@ -1338,7 +1339,7 @@ public class B2CPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         return request;
     }
 
-    public void registerIMPSCustomer(TransactionRequest<ImpsCustomerRegistrationResult> request) {
+    public void registerIMPSCustomer(TransactionRequest request) {
         if (request == null || TextUtils.isEmpty(request.getConsumerId())) {
             if (_listener != null) {
 
@@ -1407,7 +1408,7 @@ public class B2CPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
         return request;
     }
-    public void impsCheckKYC(TransactionRequest<ImpsCheckKYCResult> request , String sConsumerNumber) {
+    public void impsCheckKYC(TransactionRequest request , String sConsumerNumber) {
         if (TextUtils.isEmpty(sConsumerNumber)) {
             if (_listener != null) {
                 _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.IMPS_CHECK_KYC);
@@ -1463,7 +1464,7 @@ public class B2CPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         return request;
     }
 
-    public void impsAddBeneficiary(TransactionRequest<ImpsAddBeneficiaryResult> request) {
+    public void impsAddBeneficiary(TransactionRequest request) {
         if (request == null ) {
             if (_listener != null) {
                 _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.IMPS_ADD_BENEFICIARY);
@@ -1516,7 +1517,7 @@ public class B2CPLDataExImpl extends DataExImpl implements AsyncListener<Transac
 
         return request;
     }
-    public void getIMPSBeneficiaryList(TransactionRequest<List<BeneficiaryResult>> request) {
+    public void getIMPSBeneficiaryList(TransactionRequest request) {
         if (request == null || TextUtils.isEmpty(request.getConsumerId())) {
             if (_listener != null) {
                 _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.IMPS_CUSTOMER_REGISTRATION);
@@ -1557,7 +1558,7 @@ public class B2CPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         return request;
     }
 
-    public void impsBeneficiaryDetails(TransactionRequest<ImpsBeneficiaryDetailsResult> request , String sBeneficiaryName) {
+    public void impsBeneficiaryDetails(TransactionRequest request , String sBeneficiaryName) {
         if (request == null || TextUtils.isEmpty(sBeneficiaryName)) {
             if (_listener != null) {
                 _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.IMPS_BENEFICIARY_DETAILS);
@@ -1614,7 +1615,7 @@ public class B2CPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         return request;
     }
 
-    public void getIMPSBankName(TransactionRequest<List<BankNameResult>> request) {
+    public void getIMPSBankName(TransactionRequest request) {
         if (request == null ) {
             if (_listener != null) {
                 _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.IMPS_BANK_NAME_LIST);
@@ -1654,7 +1655,7 @@ public class B2CPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         return request;
     }
 
-    public void getIMPSStateName(TransactionRequest<List<StateNameResult>> request , String sBankName) {
+    public void getIMPSStateName(TransactionRequest request , String sBankName) {
         if (request == null ) {
             if (_listener != null) {
                 _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.IMPS_STATE_NAME);
@@ -1694,7 +1695,7 @@ public class B2CPLDataExImpl extends DataExImpl implements AsyncListener<Transac
     }
 
 
-    public void getIMPSCityName(TransactionRequest<List<CityNameResult>> request , String sBankName , String sStateName) {
+    public void getIMPSCityName(TransactionRequest request , String sBankName , String sStateName) {
         if (request == null ) {
             if (_listener != null) {
                 _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.IMPS_CITY_NAME);
@@ -1735,7 +1736,7 @@ public class B2CPLDataExImpl extends DataExImpl implements AsyncListener<Transac
         return request;
     }
 
-    public void getIMPSBranchName(TransactionRequest<List<BranchNameResult>> request , String sBankName , String sStateName ,String sCityName) {
+    public void getIMPSBranchName(TransactionRequest request , String sBankName , String sStateName ,String sCityName) {
         if (request == null ) {
             if (_listener != null) {
                 _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.IMPS_BRANCH_NAME);
@@ -1892,6 +1893,24 @@ public void impsMomConfirmProcess(TransactionRequest request , String sOTP ,
     public void impsAuthentication(TransactionRequest<ImpsAuthenticationResult> request){
 
     }
+    public void passwordCountDetails(String psCountDetails){}
+    public void getForgotPassword(String sRMN , String sOperator ,String sAmount){}
+    public void getAllOperators(){}
+    public void giftVoucher(Operator operator , String sDescription ,String sOccasion ,String sSentTo,
+                            String sSentFrom  ,String sConsumerNumber ,String sRechargeAmount ,String sEmailId,
+                            int nRechargeType , int nDeliveryMethod ) {}
+    public void getComplaintType(){}
+    public void bookComplaint( String sOperator , int sTransactionId , String sComment){}
+    public void payURequest(String sConsumerNumber, String sEmailId, String sRechargeAmount){}
+    public void impsMomIMPSServiceCharge(TransactionRequest request ,String sAmount){}
+    public void impsMomConfirmProcessTest(TransactionRequest request , String sAmount ,String sTxnDescription ,
+                                          String sIPin , String sClientTxnID ) {}
+    public void resetIPIN(TransactionRequest request , String sCustomerID){}
+    public void impsMomConfirmPaymentProcess(TransactionRequest request , String sAmount ,String sTxnDescription ,
+                                             String sIPin , String sClientTxnID ) {}
+    public void impsRefundDetails(TransactionRequest request){}
+    public void impsMomConfirmPaymentProcessByRefund(TransactionRequest request , String sReceiptID ,String sTxnDescription ,
+                                                     String sIPin , String sClientTxnID ) {}
 
     public void cancelAsynctASK(){
 

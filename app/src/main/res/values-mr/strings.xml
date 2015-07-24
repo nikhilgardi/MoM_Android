@@ -60,6 +60,38 @@
     <!--<string name="lbl_isVerified">Verified</string>-->
     <!--<string name="lbl_IFSC_Code">IFSC Code</string>-->
     <!--<string name="lblBeneficiaryMobileNumber">Beneficiary Mobile Number</string>-->
+
+
+    <string name="action_giftVoucher">गिफ्ट वाउचर</string>
+
+    <string name="prompt_select_complaint_type">कृपया तक्रारीचा प्रकार निवडा</string>
+    <string name="CustomerCare">ग्राहक सेवा:</string>
+    <string name="WestZone">पश्चिम झोन:</string>
+    <string name="EastZone">पूर्व झोन:</string>
+    <string name="NorthZone">उत्तर झोन:</string>
+    <string name="SouthZone">दक्षिण झोन:</string>
+    <string name="Timing">वेळ:</string>
+    <string name="Phone">दूरध्वनी:</string>
+    <string name="E_mail">ई-मेल:</string>
+    <string name="get_Password_btn">पासवर्ड मिळवा</string>
+    <string name="lblTransactionID">व्यवहार ID:</string>
+    <string name="lblOccasion">निमित्त प्रविष्ठ करा</string>
+    <string name="lblDescription">वर्णन प्रविष्ठ करा</string>
+    <string name="lblSentTo">ला पाठवले</string>
+    <string name="lblSentFrom">कडून पाठवले</string>
+    <string name="lblEmailId">ई-मेल ID प्रविष्ठ करा</string>
+    <!--<string name="lblComment">कॉमेंट प्रविष्ठ करा</string>-->
+    <string name="lblBtnPrint">मुद्रित करा</string>
+    <string name="lblBtnEmail">ईमेल</string>
+    <string name="lblBtnSMS">SMS</string>
+    <string name="lblNewWithUsTitle"> भूकतान करण्याचा सोपेपणांचा आरामदायक अनुभव  MoneyonMobileच्या प्रवास आपल्या दारात नी घ्या:</string>
+    <string name="lblNewWithUsContentsRail">1. MoM रेल</string>
+    <string name="lblNewWithUsContentsAir">2. MoM एयर आणि हॉट पॅकेज</string>
+    <string name="lblNewWithUsContentsBus">3. MoM बस</string>
+    <string name="lblNewWithUsContentsMessage">संधीचा लाभ घ्या आणि आमच्याकडे नोंदणीकरण करा. सहाय्यासाठी आमच्या मिस कॉल क्रमांकावर संपर्क साधा:</string>
+    <string name="lblNewWithUsContact">+91-8880881234, +91-8082812345</string>
+    <string name="lblName">नाव प्रविष्ठ करा</string>
+
     <string name="btn_newRecharge">नवीन व्यवहार</string>
     <string name="Imps_failed_Amount">अपुरा पाकीट शिल्लक</string>
     <string name="login_failed_msg_default">लॉग-इन असफल कृपया आपला मोबाईल क्रमांक आणि M-पिन तपासा</string>
@@ -176,7 +208,7 @@
     <string name="btn_dashboard">डॅशबोर्ड </string>
     <string name="btn_recharge">रीचार्ज</string>
 
-
+    <string name="lblForgotPwdAmount">गेल्या रिचार्ज रक्कम</string>
     <string name="btn_Ok">ठीक</string>
     <string name="btn_back">मागे</string>
     <string name="btn_cancel">रद्द करा</string>
@@ -269,6 +301,7 @@
     <string name="prompt_spinner_select_State">राज्य निवडा</string>
     <string name="prompt_spinner_select_City">शहर निवडा</string>
     <string name="prompt_spinner_select_Branch">शाखा निवडा</string>
+    <string name="prompt_spinner_select_Beneficiary">निवडा लाभार्थी</string>
     <string name="prompt_numbers_only_IFSCCode">कृपया आपला IFSC  कोड प्रविष्ठ करा</string>
     <string name="prompt_TxnDescription">कृपया हा रकाना भरा</string>
     <string name="lbl_BeneficiaryName">लाभार्थ्याचे नाव प्रविष्ठ करा</string>
@@ -322,7 +355,7 @@
     <string name="changepassword_old">जुना पासवर्ड </string>
     <string name="changepassword_new">नवा पासवर्ड</string>
     <string name="changepassword_confirm">पासवर्डची पुष्टी करा</string>
-
+    <string name="prompt_Title">संदेश</string>
     <string name="Lbl_MobileNumber">मोबाईल क्रमांक:</string>
     <string name="Lbl_Operator">ऑपरेटर:</string>
     <string name="Lbl_Amount">रक्कम: रु. </string>
@@ -748,6 +781,102 @@
     <string name="error_RadioButton">stubtyperadiobutton निवडा</string>
     <string name="singUp_Successful_msg">उपभोक्ता यशस्वीरित्या तयार केला. कृपया लॉग इन करा</string>
     <string name ="error_sinUp_msg">money on mobile वर आपली आधीच नोंदणी झालेली आहे.</string>
+
+
+
+
+
+
+    <string name="hello_world">Hello world!</string>
+
+    <string name="app_namelist">यादीप्रदर्शन</string>
+
+    <string name="action_settings1">सेटिंग्ज</string>
+
+    <string name="tvForgotPassword">पासवर्ड विसरला</string>
+
+    <string name="tvSpinnerPayFrom">मधून प्रदान करा</string>
+
+    <string name="tvSpinnerAliasName">खाते टोपणनाव निवडा</string>
+
+    <string name="tvAvailableLimit">उपलब्ध मर्यादा </string>
+
+    <string name="tvIPIN">Iपिन</string>
+
+    <string name="action_walletUpdate">वॉलेट अपडेट</string>
+
+    <string name="action_busTicketing">बस तिकिटे</string>
+
+    <string name="action_railTicketing">रेल्वे तिकिटे</string>
+
+    <string name="action_airTicketing">हवाई तिकिटे</string>
+
+    <string name="action_bookComplaint">तक्रार बुक करा</string>
+
+    <string name="action_newWithUs">आमच्यासह नवीन</string>
+
+    <string name="action_contactUs">आमच्याशी संपर्क साधा</string>
+
+    <string name="action_IMPSResetIPIN">IMPS रिसेट Iपिन</string>
+
+    <string name="action_IMPSMOMServiceCharge">IMPS सेवा शुल्क </string>
+
+    <string name="action_IMPSMOMConfirmPaymentByRefund">IMPS परतावा प्रदानाची पुष्टी करा </string>
+
+    <string name="action_IMPSRefundList">IMPS परतावा यादी</string>
+
+    <string name="error_transfer_failed_payU">व्यवहारादरम्यान त्रुटी. कृपया पुन्हा प्रयत्न करा.</string>
+
+    <string name="btn_resendIPIN"> I पिन रिसेट करा</string>
+
+    <string name="prompt_spinner_select_payFrom">रिटेलर वॉलेट</string>
+
+    <string name="lbl_AvailableLimit">उपलब्ध मर्यादा</string>
+
+    <string name="lbl_FullKYC">पूर्ण KYC</string>
+
+    <string name="lbl_NillKYC">शून्य KYC</string>
+
+    <string name="lblIPin">Iपिन</string>
+
+    <string name="lblComment">टिप्पणी प्रविष्ट करा</string>
+
+    <string name="Lbl_ComplaintType">तक्रार प्रकार:</string>
+
+    <string name="Lbl_Ticket_no">तिकिट क्र:</string>
+
+    <string name="AlertDialog_Booking_Complaint">बुकिंग तक्रारीची पुष्टी करा</string>
+
+    <string name="title_activity_forgot_password">पासवर्डविसरलाकार्यकलाप</string>
+
+    <string name="title_activity_list">कार्यकलापयादी</string>
+
+    <string name="title_activity_web_view">वेबदृश्यकार्यकलाप</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </resources>
 

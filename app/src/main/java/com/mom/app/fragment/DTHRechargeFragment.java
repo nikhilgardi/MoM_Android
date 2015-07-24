@@ -179,6 +179,9 @@ public class DTHRechargeFragment extends FragmentBase implements AsyncListener<T
         }
         
         taskCompleted(result);
+        if(_currentPlatform == PlatformIdentifier.MOM) {
+            showMessageResponse(result.getRemoteResponse());
+        }
     }
 
     @Override

@@ -173,6 +173,7 @@ public class UtilityBillPaymentFragment extends FragmentBase implements AsyncLis
         }
 
         taskCompleted(result);
+        showMessageResponse(result.getRemoteResponse());
     }
 
     @Override

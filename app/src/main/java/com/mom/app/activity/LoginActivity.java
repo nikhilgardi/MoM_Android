@@ -1,14 +1,31 @@
 package com.mom.app.activity;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
+import org.apache.http.util.EntityUtils;
+import org.w3c.dom.Text;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import com.mom.app.MoMApp;
 import com.mom.app.R;
 import com.mom.app.error.MOMException;
 
@@ -23,15 +40,22 @@ import com.mom.app.model.local.EphemeralStorage;
 import com.mom.app.model.local.PersistentStorage;
 import com.mom.app.model.mompl.MoMPLDataExImpl;
 import com.mom.app.model.pbxpl.PBXPLDataExImpl;
+import com.mom.app.model.pbxpl.ResponseBase;
 import com.mom.app.ui.LanguageItem;
+import com.mom.app.ui.TransactionRequest;
 import com.mom.app.utils.AppConstants;
 
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.provider.SyncStateContract;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -52,11 +76,11 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 	private ProgressBar _pb;
 	private PlatformIdentifier _currentPlatform;
 	private Button _loginBtn , _SignUpBtn;
-	private TextView _tvMessage ,_tvsignUp;
+	private TextView _tvMessage ,_tvsignUp ,_tvForgotPassword;
     private Spinner _languageSpinner;
     EditText _username, _password;
     boolean _spinnerCalledOnce = false;
-
+    String responseBody;
     Intent myintent = new Intent();
 
 	/** Called when the activity is first created. */
@@ -72,11 +96,15 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 
 		_username 	        = (EditText) findViewById(R.id.et_un);
 		_password 	        = (EditText) findViewById(R.id.et_pw);
-        _tvsignUp = (TextView) findViewById(R.id.tv_signUp);
+        _tvsignUp           = (TextView) findViewById(R.id.tv_signUp);
+        _tvForgotPassword   = (TextView) findViewById(R.id.tv_ForgotPassword);
         _SignUpBtn          = (Button) findViewById(R.id.btn_signUp);
+        getVersion();
         setupLanguageSelector();
         getMessageTextView().setVisibility(View.GONE);
 		getProgressBar().setVisibility(View.GONE);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder() .permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
         //
 //		getWindow().setBackgroundDrawable(
@@ -104,6 +132,15 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 
         }
         Log.i("test34" , String.valueOf(isRegistered));
+
+        _tvForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this , ForgotPasswordActivity.class);
+                startActivity(intent);
+
+            }
+        });
 	}
 
     @Override
@@ -276,31 +313,33 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 
     @Override
     public void onTaskSuccess(String result, DataExImpl.Methods pMethod) {
-        switch (pMethod) {
-            case CHECK_PLATFORM_DETAILS:
-                Log.i(_LOG, "Check result: " + result);
 
-                //TESTING. TODO: Remove this
+                switch (pMethod) {
+                    case CHECK_PLATFORM_DETAILS:
+                        Log.i(_LOG, "Check result: " + result);
+
+                        //TESTING. TODO: Remove this
 //              result = null;
-                //TESTING
+                        //TESTING
 
-                String[] sArrDetails = result.split("~");
-
-
-                   if(TextUtils.isEmpty(result)) {
-                        Log.i(_LOG, "User not of new PL");
+                        String[] sArrDetails = result.split("~");
 
 
-                      loginPBX(PlatformIdentifier.PBX);
+                        if(TextUtils.isEmpty(result)) {
+//                            Log.i(_LOG, "User not of new PL");
+                            Log.i(_LOG, "Response null for RMN Details");
+                            setLoginFailed(R.string.login_failed_msg_default);
+//                            loginPBX(PlatformIdentifier.PBX);
 
-                        return;
-                    }
-
+                            return;
+                        }
+                       new GetLoginTaskCheckLIC().onPostExecute(sArrDetails[0]);
 
 
                 EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_USER_ID, sArrDetails[0]);
 
                 EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_CUSTOMER_ID, sArrDetails[1]);
+                        Log.e("CustIDDD" , EphemeralStorage.getInstance(this).getString(AppConstants.PARAM_NEW_CUSTOMER_ID, null));
                 EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_MOBILE_NUMBER, sArrDetails[2]);
                 EphemeralStorage.getInstance(this).storeString(AppConstants.PARAM_NEW_COMPANY_ID, sArrDetails[3]);
                 EphemeralStorage.getInstance(this).storeString(AppConstants.NEW_B2C_COMPANY_ID, sArrDetails[3]);
@@ -317,11 +356,15 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 
                 Log.i(_LOG, EphemeralStorage.getInstance(this).getString(AppConstants.PARAM_NEW_CUSTOMER_ID, null));
 
+
                    login(PlatformIdentifier.MOM);
 
 
 
                 break;
+
+
+
         }
     }
 
@@ -342,10 +385,13 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 		startActivity(intent);
 	}
 
-
 	public void onBackPressed() {
+
         finish();
+
 	}
+
+
 	
 	public void startLogin(View v) {
         if(!areLoginCredentialsPresent()){
@@ -357,8 +403,10 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
         Log.d(_LOG, "Disable login button");
         
 		showProgressBar();
-		
+
 		checkPlatformAndLogin();
+
+
        // login(PlatformIdentifier.MOM);
 	}
 
@@ -411,6 +459,26 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 }
 
 
+
+    public void checkLIC(String sUserId){
+
+
+        List<NameValuePair> list	= new ArrayList<NameValuePair>();
+        list.add(new BasicNameValuePair(AppConstants.PARAM_PBX_SERVICE , "ISLIC"));
+        list.add(new BasicNameValuePair(AppConstants.PARAM_NEW_USER_ID, sUserId));
+
+
+        MoMPLDataExImpl dataEx      = new MoMPLDataExImpl(this, this);
+
+        dataEx.checkLic(
+                new BasicNameValuePair(AppConstants.PARAM_PBX_SERVICE , "ISLIC"),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_RMN, sUserId)
+
+        );
+
+    }
+
+
     public void checkPlatformAndLoginB2C(){
         EditText uname 				= (EditText) findViewById(R.id.et_un);
         String username 			= uname.getText().toString();
@@ -427,6 +495,8 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
         );
 
     }
+
+
 
     public void login(PlatformIdentifier platform) {
         Log.i(_LOG, "Going to login");
@@ -470,7 +540,9 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
                 EphemeralStorage.getInstance(context).storeBoolean(AppConstants.IS_LOGGED_IN, true);
 
                 // temporary
+
                 navigateToMain();
+
 
             }
 
@@ -518,9 +590,9 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
                 hideProgressBar();
                 hideMessage();
                 if (!result) {
-                    //  setLoginFailed(R.string.login_failed_msg_default);
+                      setLoginFailed(R.string.login_failed_msg_default);
 
-                    loginPBX(PlatformIdentifier.PBX);
+                   // loginPBX(PlatformIdentifier.PBX);
                     return;
                 }
 
@@ -653,7 +725,6 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 
 
 
-
     public TextView getMessageTextView(){
         if(_tvMessage == null){
             _tvMessage = (TextView) findViewById(R.id.msgDisplay);
@@ -697,6 +768,69 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
         startActivity(myintent);
         finish();
     }
+    private String getVersion(){
+        try {
+            PackageManager packageManager=getPackageManager();
+            PackageInfo packageInfo=packageManager.getPackageInfo(getPackageName(),0);
+            String version = packageInfo.versionName;
+            Log.e("VersionNameNew" ,version );
+            return packageInfo.versionName;
+        }
+        catch (  PackageManager.NameNotFoundException e) {
+            Log.e("Error while fetching app version","r");
+            return "?";
+        }
+    }
 
 
+
+
+    private class GetLoginTaskCheckLIC extends AsyncTask<Void, Void, String> {
+
+        @Override
+        protected String doInBackground(Void... params) {
+
+            return responseBody;
+        }
+        @Override
+        protected void onPostExecute(String data) {
+
+
+            try {
+
+
+
+                HttpClient httpclient = new DefaultHttpClient();
+
+                HttpPost httppostnew = new HttpPost(
+                        "http://utilities.money-on-mobile.net/lic_service/PbxMobApp.ashx?Service=ISLIC&userID="+ data);
+
+                final HttpParams httpParams = httpclient.getParams();
+                HttpConnectionParams.setConnectionTimeout(httpParams, 15000);
+                HttpConnectionParams.setSoTimeout(httpParams, 15000);
+                HttpResponse response = httpclient.execute(httppostnew);
+                HttpEntity entity = response.getEntity();
+                String responseBodyhistory = EntityUtils.toString(entity);
+                String strResponse = responseBodyhistory;
+
+
+                Gson gson = new GsonBuilder().create();
+
+                Type type = new TypeToken<ResponseBase<String>>() {
+                }.getType();
+                ResponseBase<String> responseBase = gson.fromJson(strResponse, type);
+                Log.e("JsonData1" , responseBase.data);
+
+                EphemeralStorage.getInstance(getApplicationContext()).storeString(AppConstants.PARAM_MERCHANTID_LIC, responseBase.data);
+                Log.e("LicStore" ,   EphemeralStorage.getInstance(getApplicationContext()).getString(AppConstants.PARAM_MERCHANTID_LIC, null));
+
+
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+
+        }
+
+    }
 }

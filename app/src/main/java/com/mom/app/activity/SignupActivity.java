@@ -629,6 +629,11 @@ public class SignupActivity extends Activity {
     }
 
 
+    public void onBackPressed() {
+
+        finish();
+
+    }
 
 
 }

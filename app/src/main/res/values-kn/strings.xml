@@ -62,6 +62,39 @@
     <!--<string name="lbl_isVerified">Verified</string>-->
     <!--<string name="lbl_IFSC_Code">IFSC Code</string>-->
     <!--<string name="lblBeneficiaryMobileNumber">Beneficiary Mobile Number</string>-->
+
+
+    <string name="action_giftVoucher">ಗಿಫ್ಟ್ ವೋಚರ್</string>
+
+    <string name="prompt_select_complaint_type">ದಯವಿಟ್ಟು ದೂರಿನನಮೂನೆಯನ್ನುಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="CustomerCare">ಗ್ರಾಹಕಸೇವೆ:</string>
+    <string name="WestZone">ಪಶ್ಚಿಮವಲಯ:</string>
+    <string name="EastZone">ಪೂರ್ವವಲಯ:</string>
+    <string name="NorthZone">ಉತ್ತರವಲಯ:</string>
+    <string name="SouthZone">ದಕ್ಷಿಣವಲಯ:</string>
+    <string name="Timing">ಕಾಲಮಾನ:</string>
+    <string name="Phone">ಫೋನ್:</string>
+    <string name="E_mail">ಇಮೇಲ್:</string>
+    <string name="get_Password_btn">ಪಾಸ್ವರ್ಡ್ ಪಡೆಯಿರಿ</string>
+    <string name="lblTransactionID">ವ್ಯವಹಾರID:</string>
+    <string name="lblOccasion">ಸಂದರ್ಭನಮೂದಿಸಿ</string>
+    <string name="lblDescription">ವಿವರನಮೂದಿಸಿ</string>
+    <string name="lblSentTo">ಗೆಕಳುಹಿಸಲಾಗಿದೆ</string>
+    <string name="lblSentFrom">ಇಂದಸ್ವೀಕರಿಸಲಾಗಿದೆ </string>
+    <string name="lblEmailId">ಇಮೇಲ್IDನಮೂದಿಸಿ</string>
+
+    <string name="lblBtnPrint">ಮುದ್ರಿಸಿ</string>
+    <string name="lblBtnEmail">ಇಮೇಲ್</string>
+    <string name="lblBtnSMS">SMS</string>
+    <string name="lblNewWithUsTitle">ಸುಲಭಪಾವತಿಅನುಭವದೊಂದಿಗೆ MoneyonMobile"ನಿಮ್ಮಮನೆಬಾಗಿಲಿಗೆಪ್ರಯಾಣ"ಆರಂಭಿಸುತ್ತಿದೆ  :</string>
+    <string name="lblNewWithUsContentsRail">1. MoM ರೇಲ್</string>
+    <string name="lblNewWithUsContentsAir">2. MoM ರ್ ಮತ್ತು ಹಾಟ್ ಪ್ಯಾಕೇಜ್ ಗಳು</string>
+    <string name="lblNewWithUsContentsBus">3. MoM ಬಸ್</string>
+    <string name="lblNewWithUsContentsMessage">ಅವಕಾಶವನ್ನು ದೋಚಿಕೊಳ್ಳಿ ಮತ್ತು ನಮ್ಮೊಂದಿಗೆ ನೋಂದಾಯಿಸಿಕೊಳ್ಳಿ. ಸಹಾಯಕ್ಕಾಗಿ ನಮ್ಮ ತಪ್ಪಿದ ಕರೆ ಸಂಖ್ಯೆಗಳನ್ನು ಸಂಪರ್ಕಿಸಿ:</string>
+    <string name="lblNewWithUsContact">+91-8880881234, +91-8082812345</string>
+    <string name="lblName">ಹೆಸರನ್ನು ನಮೂದಿಸಿ</string>
+
+
     <string name="btn_newRecharge">ಹೊಸ ವಹಿವಾಟು </string>
     <string name="Imps_failed_Amount"> ಸಾಕಷ್ಟು ಕೈಚೀಲ ಸಮತೋಲನ</string>
     <string name="title_activity_main">ಮುಖ್ಯ ಚಟುವಟಿಕೆ </string>
@@ -202,7 +235,7 @@
     <string name="btn_login">ಲಾಗಿನ್ </string>
     <string name="btn_getBillAmount">ನಿಮ್ಮ ಬಿಲ್ ಮೊತ್ತವನ್ನು ಪಡೆಯಿರಿ</string>
 
-
+    <string name="lblForgotPwdAmount">ಕೊನೆಯ ರೀಚಾರ್ಜ್ ಪ್ರಮಾಣ</string>
 
     <string name="prompt_spinner_select_operator">ಆಯೋಜಕರನ್ನು ಆರಿಸಿ</string>
     <string name="prompt_enter_tpin">ದಯವಿಟ್ಟು ನಿಮ್ಮ T-Pin ನಮೂದಿಸಿ </string>
@@ -259,7 +292,7 @@
     <string name="tvAmount">ಮೊತ್ತ</string>
     <string name="tvProcessingFees">ಪ್ರಕ್ರಿಯಾ ಶುಲ್ಕಗಳು</string>
     <string name="tvAmountPayable">ಪಾವತಿಮಾಡುವ ಮೊತ್ತ</string>
-    <string name="tvOTP">OTP</string>
+
 
 
 
@@ -290,6 +323,7 @@
     <string name="prompt_spinner_select_State">ರಾಜ್ಯ ಆರಿಸಿ</string>
     <string name="prompt_spinner_select_City">ನಗರ ಆರಿಸಿ</string>
     <string name="prompt_spinner_select_Branch">ಶಾಖೆ ಆರಿಸಿ</string>
+    <string name="prompt_spinner_select_Beneficiary">ಆಯ್ಕೆ ಫಲಾನುಭವಿ</string>
     <string name="prompt_numbers_only_IFSCCode">ದಯವಿಟ್ಟು IFSC ಕೋಡ್ ಆರಿಸಿ</string>
     <string name="prompt_TxnDescription">ದಯವಿಟ್ಟು ಕ್ಷೇತ್ರವನ್ನು ಭರ್ತಿ ಮಾಡಿ</string>
     <string name="lbl_BeneficiaryName">ಲಾಭ ಪಡೆಯುವವರ ಹೆಸರನ್ನು ಸೇರಿಸಿ</string>
@@ -362,6 +396,9 @@
     <string name="changepassword_old">ಹಳೆಯ ಪಾಸ್‌ವರ್ಡ್‌ </string>
     <string name="changepassword_new">ಹೊಸ ಪಾಸ್‌ವರ್ಡ್‌ </string>
     <string name="changepassword_confirm">ಪಾಸ್‌ವರ್ಡ್‌ ಖಚಿತಪಡಿಸಿ </string>
+
+    <string name="prompt_Title">ಸಂದೇಶ </string>
+
 
     <string name="Lbl_MobileNumber">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ:</string>
     <string name="Lbl_Operator">ಆಪರೇಟರ್:</string>
@@ -747,6 +784,77 @@
     <string name="singUp_Successful_msg">ಗ್ರಾಹಕ ರಚನೆ ಯಶಸ್ವಿ.  ದಯವಿಟ್ಟು ಲಾಗ್ ಇನ್ ಆಗಿ.</string>
     <string name ="error_sinUp_msg">ನೀವು ಈಗಾಗಲೇ money on mobile ನಲ್ಲಿ ನೋಂದಾಯಿತರಾಗಿರುವಿರಿ</string>
 
+
+
+
+    <string name="hello_world">Hello world!</string>
+
+
+    <string name="app_namelist">ಲಿಸ್ಟ್ ಪ್ರದರ್ಶನ</string>
+
+    <string name="action_settings1">ಸಂಯೋಜನೆಗಳು</string>
+
+    <string name="tvForgotPassword">ಪಾಸ್‌ವರ್ಡ್ ಮರೆತುಹೋಗಿದೆ</string>
+
+    <string name="tvSpinnerPayFrom">ನಿಂದ ಪಾವತಿಸಿ</string>
+
+    <string name="tvSpinnerAliasName">ಅಕೌಂಟ್ ಆಲಿಯಾಸ್ ಆಯ್ಕೆಮಾಡಿ</string>
+
+    <string name="tvAvailableLimit">ಲಭ್ಯ ಮಿತಿ </string>
+
+    <string name="tvIPIN">IPIN</string>
+
+    <string name="action_walletUpdate">ವ್ಯಾಲೆಟ್ ಅಪ್‌ಡೇಟ್</string>
+
+    <string name="action_busTicketing">ಬಸ್ ಟಿಕೆಟ್‌ಗಳು</string>
+
+    <string name="action_railTicketing">ರೈಲು ಟಿಕೆಟ್‌ಗಳು</string>
+
+    <string name="action_airTicketing">ವಿಮಾನ ಟಿಕೆಟ್‌ಗಳು</string>
+
+    <string name="action_bookComplaint">ದೂರು ದಾಖಲಿಸಿ</string>
+
+    <string name="action_newWithUs">ನಮ್ಮೊಂದಿಗೆ ಹೊಸತು</string>
+
+    <string name="action_contactUs">ನಮ್ಮನ್ನು ಸಂಪರ್ಕಿಸಿ</string>
+
+    <string name="action_IMPSResetIPIN">IMPS ರೀಸೆಟ್ IPIN</string>
+
+    <string name="action_IMPSMOMServiceCharge">IMPS ಸೇವಾ ಶುಲ್ಕ </string>
+
+    <string name="action_IMPSMOMConfirmPaymentByRefund">IMPS ಹಣ ಮರುಪಾವತಿ ದೃಢೀಕರಿಸಿ </string>
+
+    <string name="action_IMPSRefundList">IMPS ಮರುಪಾವತಿ ಪಟ್ಟಿ</string>
+
+    <string name="error_transfer_failed_payU">ವಹಿವಾಟಿನ ಸಂದರ್ಭದಲ್ಲಿ ದೋಷವುಂಟಾಗಿದೆ. ದಯವಿಟ್ಟು ಪುನಃ ಪ್ರಯತ್ನಿಸಿ.</string>
+
+    <string name="btn_resendIPIN">IPIN ರೀಸೆಟ್ ಮಾಡಿ</string>
+
+    <string name="prompt_spinner_select_payFrom">ರಿಟೇಲರ್ ವ್ಯಾಲೆಟ್</string>
+
+    <string name="lbl_AvailableLimit">ಲಭ್ಯ ಮಿತಿ</string>
+
+    <string name="lbl_FullKYC">ಪೂರ್ಣ KYC</string>
+
+    <string name="lbl_NillKYC">KYC ಇಲ್ಲ</string>
+
+    <string name="lblIPin">IPIN</string>
+
+    <string name="lblComment">ಹೇಳಿಕೆ ನಮೂದಿಸಿ</string>
+
+    <string name="Lbl_ComplaintType">ದೂರಿನ ವಿಧ:</string>
+
+    <string name="Lbl_Ticket_no">ಟಿಕೆಟ್ ಸಂಖ್ಯೆ:</string>
+
+    <string name="AlertDialog_Booking_Complaint">ದೂರು ದಾಖಲಿಸುವಿಕೆ ದೃಢೀಕರಿಸಿ</string>
+
+    <string name="title_activity_forgot_password"> ಪಾಸ್‌ವರ್ಡ್ ಚಟುವಟಿಕೆ ಮರೆತುಹೋಗಿದೆ</string>
+
+    <string name="title_activity_list">ಚಟುವಟಿಕೆಪಟ್ಟಿಮಾಡಿ</string>
+
+    <string name="title_activity_web_view">ವೆಬ್‌ವೀಕ್ಷಣೆಚಟುವಟಿಕೆ</string>
+
+    <string name="tvOTP">IPIN</string>
 
 
 </resources>

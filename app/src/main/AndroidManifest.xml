@@ -8,131 +8,18 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="com.google.android.psf.perroviders.gmission.READ_GSERVICES" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
-    <permission android:name="com.mom.app.permission.C2D_MESSAGE"
+    <permission
+        android:name="com.mom.app.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
+
     <uses-permission android:name="com.mom.app.permission.C2D_MESSAGE" />
 
     <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-
-
-    <application
-        android:name="com.mom.app.MoMApp"
-        android:allowBackup="true"
-        android:icon="@drawable/momicon"
-        android:label="@string/app_name"
-        android:theme="@style/MoMTheme">
-
-        <meta-data android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
-
-        <receiver
-            android:name="com.mom.app.gcm.GcmBroadcastReceiver"
-            android:permission="com.google.android.c2dm.permission.SEND" >
-            <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-                <category android:name="com.mom.app" />
-            </intent-filter>
-        </receiver>
-
-        <service android:name="com.mom.app.gcm.GcmIntentService" />
-
-
-        <activity
-            android:windowSoftInputMode="adjustPan"
-            android:name="com.mom.app.activity.BaseActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation"
-            android:screenOrientation="portrait"
-            android:label="@string/title_activity_base" >
-
-        </activity>
-
-        <activity
-            android:name="com.mom.app.activity.LoginActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-
-
-        <!-- Credit sale -->
-        <activity android:name="com.mom.app.MSwipeAndroidSDKListActivity1" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
->
-        </activity>
-        <activity
-            android:name="com.mom.app.CreditSaleView"
-            android:configChanges="keyboard|keyboardHidden|orientation"
-            android:label="mSwipe"
-            android:windowSoftInputMode="stateVisible|adjustResize" >
-        </activity>
-        <activity
-            android:name="com.mom.app.CreditSaleSignatureView"
-            android:label="mSwipe"
-            android:screenOrientation="landscape" >
-        </activity>
-        <activity
-            android:name="com.mom.app.CreditSaleViewAmexCard"
-            android:configChanges="keyboard|keyboardHidden|orientation"
-            android:label="mSwipe" >
-        </activity>
-        <activity
-            android:name="com.mom.app.LastTrxStatus"
-            android:configChanges="keyboard|keyboardHidden|orientation"
-            android:label="mSwipe" >
-        </activity>
-        <activity
-            android:name="com.mom.app.ChangePassword"
-            android:configChanges="keyboard|keyboardHidden|orientation"
-            android:label="mSwipe" >
-        </activity>
-
-        <service
-            android:name="com.mom.app.SwiperCallStateService"
-            android:enabled="true" >
-            <intent-filter>
-                <action android:name="com.bbpos.swiper.CALL_STATE" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </service>
-
-        <activity
-            android:name="com.mom.app.activity.VerifyTPinActivity"
-            android:label="@string/title_activity_verify_tpin" >
-        </activity>
-        <activity
-            android:name="com.mom.app.activity.TransactionMessageActivity"
-            android:label="@string/title_activity_transaction_confirmation" >
-        </activity>
-
-        <activity
-            android:name="com.mom.app.activity.SignupActivity"
-            >
-        </activity>
-        <activity
-            android:name="com.mom.app.activity.ChangePINActivity"
-            android:label="@string/title_activity_change_pin" >
-        </activity>
-        <meta-data
-            android:name="com.crashlytics.ApiKey"
-            android:value="da418bfcdda0ecf34013b3a98c08fa6fb5cd3fe8" />
-
-    </application>
 
     <!--
      To retrieve OAuth 2.0 tokens or invalidate tokens to disconnect a user. This disconnect
@@ -145,5 +32,119 @@
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.READ_PROFILE" />
+
+    <application
+        android:name=".MoMApp"
+        android:allowBackup="true"
+        android:icon="@drawable/momicon"
+        android:label="@string/app_name"
+        android:theme="@style/MoMTheme" >
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <receiver
+            android:name=".gcm.GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
+                <category android:name="com.mom.app" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".gcm.GcmIntentService" />
+
+        <activity
+            android:name=".activity.BaseActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:label="@string/title_activity_base"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
+        <activity
+            android:name=".activity.LoginActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Credit sale -->
+        <activity android:name=".MSwipeAndroidSDKListActivity1" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+>
+        </activity>
+        <activity
+            android:name=".CreditSaleView"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:label="mSwipe"
+            android:windowSoftInputMode="stateVisible|adjustResize" >
+        </activity>
+        <activity
+            android:name=".CreditSaleSignatureView"
+            android:label="mSwipe"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name=".CreditSaleViewAmexCard"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:label="mSwipe" >
+        </activity>
+        <activity
+            android:name=".LastTrxStatus"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:label="mSwipe" >
+        </activity>
+        <activity
+            android:name=".ChangePassword"
+            android:configChanges="keyboard|keyboardHidden|orientation"
+            android:label="mSwipe" >
+        </activity>
+
+        <service
+            android:name=".SwiperCallStateService"
+            android:enabled="true" >
+            <intent-filter>
+                <action android:name="com.bbpos.swiper.CALL_STATE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name=".activity.VerifyTPinActivity"
+            android:label="@string/title_activity_verify_tpin" >
+        </activity>
+        <activity
+            android:name=".activity.TransactionMessageActivity"
+            android:label="@string/title_activity_transaction_confirmation" >
+        </activity>
+        <activity android:name=".activity.SignupActivity" >
+        </activity>
+        <activity android:name=".activity.ForgotPasswordActivity" >
+        </activity>
+        <activity android:name=".activity.ListActivity" >
+        </activity>
+        <activity
+            android:name=".activity.WebViewActivity">
+        </activity>
+        <activity
+            android:name=".activity.ChangePINActivity"
+            android:label="@string/title_activity_change_pin" >
+        </activity>
+
+        <meta-data
+            android:name="com.crashlytics.ApiKey"
+            android:value="da418bfcdda0ecf34013b3a98c08fa6fb5cd3fe8" />
+
+
+    </application>
 
 </manifest>

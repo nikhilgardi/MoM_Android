@@ -4,7 +4,14 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical" >
-
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:fillViewport="false"
+        >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,6 +35,14 @@
                 android:textSize="@dimen/text_medium"
                 android:visibility="gone" />
 
+            <!-- android:textSize="@dimen/text_small"-->
+            <TextView
+                android:id="@+id/msgDisplayResponse"
+                style="@style/MoMTheme.wrapped.alertMsgResponse"
+                android:textSize="@dimen/text_medium"
+                android:visibility="gone" />
+
+            <!--  android:textSize="@dimen/text_small"-->
 
             <com.mom.app.ui.CustomEditText
                 android:id="@+id/verifyTpin"
@@ -35,9 +50,12 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/tpin"
                 android:inputType="numberPassword"
+
+                android:layout_marginTop="@dimen/smallTPin"
                 android:layout_marginBottom="@dimen/small"
                 android:maxLength="8"
                 android:visibility="gone"/>
+            <!--  android:textSize="@dimen/text_medium"-->
             <Button
                 android:id="@+id/btnSubmit"
                 android:layout_height="35dp"
@@ -48,6 +66,7 @@
                 android:visibility="gone"/>
 
 
+            <!--android:textSize="@dimen/btnTextSize"-->
 
 
             <Spinner
@@ -56,9 +75,12 @@
                 android:prompt="@string/prompt_spinner_select_operator"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:layout_marginTop="@dimen/small"
                 android:layout_marginBottom="@dimen/ultra_small"
                 android:visibility="gone"/>
+
+            <!--style="@style/SpinnerAppTheme"-->
 
             <ProgressBar
                 android:id="@+id/progressBar"
@@ -74,9 +96,11 @@
                 android:layout_height="wrap_content"
                 android:inputType="number"
                 android:maxLength="10"
+
                 android:hint="@string/lblCustomerMobile"
                 android:layout_marginBottom="@dimen/small"
                 android:visibility="gone"/>
+            <!--android:textSize="@dimen/text_medium"-->
 
 
             <EditText
@@ -85,9 +109,11 @@
                 android:layout_height="wrap_content"
                 android:inputType="number"
                 android:maxLength="5"
+
                 android:hint="@string/lblAmount"
                 android:layout_marginBottom="@dimen/small"
                 android:visibility="gone"/>
+            <!--android:textSize="@dimen/text_medium"-->
 
 
 
@@ -111,34 +137,52 @@
                         android:layout_height="wrap_content"
                         style="@style/RadioButtonAppTheme"
                         android:text="Top-Up"
+
+                        android:paddingRight="@dimen/small_lower_version"
                         android:visibility="gone"/>
+                    <!--android:textSize="@dimen/text_rbsmall"-->
+                    <!--android:paddingRight="@dimen/small_lower_version"-->
+                    <!--   android:textSize="@dimen/text_small"-->
 
                     <RadioButton
                         android:id="@+id/rbtnValidity"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Validity"
+
                         style="@style/RadioButtonAppTheme"
+
                         android:visibility="gone"/>
+                    <!--android:textSize="@dimen/text_rbsmall"-->
+                    <!-- android:textSize="@dimen/text_small"-->
 
                     <RadioButton
                         android:id="@+id/rbtnSpecial"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Special"
+
+
                         style="@style/RadioButtonAppTheme"
                         android:visibility="gone"/>
+                    <!--android:textSize="@dimen/text_rbsmall"-->
+                    <!-- android:textSize="@dimen/text_small"-->
                 </RadioGroup>
             </LinearLayout>
 
             <Button
                 android:id="@+id/btnRecharge"
-                android:layout_height="35dp"
+
                 android:layout_width="match_parent"
+                android:layout_height="35dp"
                 style="@style/MoMTheme.wrapped.customButton"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/btn_recharge"
+
                 android:visibility="gone"/>
+            <!--android:layout_height="35dp"-->
+            <!--android:textSize="@dimen/btnTextSize"-->
+            <!--android:textSize="@dimen/text_medium"-->
 
         </LinearLayout>
 
@@ -147,4 +191,5 @@
             android:layout_height="wrap_content"
             android:layout_weight="10"/>
     </LinearLayout>
+    </ScrollView>
 </RelativeLayout>

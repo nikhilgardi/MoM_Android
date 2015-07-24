@@ -45,6 +45,8 @@
         android:dividerHeight="0dp"
         android:background="@color/drawer"/>
 
+    <!--android:layout_width="240dp"-->
+
     <TextView
         android:id="@+id/appMessage"
         android:layout_width="match_parent"

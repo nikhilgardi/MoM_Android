@@ -148,6 +148,30 @@
                 android:layout_marginBottom="@dimen/small"
                 android:textSize="@dimen/text_small"
                />
+            <TextView
+                android:id="@+id/GetFullKYC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_FullKYC"
+                android:visibility="gone"
+                android:paddingLeft="20dp"
+                android:textColor="@color/green"
+                android:layout_marginTop="@dimen/small"
+                android:layout_marginBottom="@dimen/small"
+                android:gravity="right"
+                />
+            <TextView
+                android:id="@+id/GetNillKYC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_NillKYC"
+                android:visibility="gone"
+                android:textColor="@color/red"
+                android:paddingLeft="20dp"
+                android:layout_marginTop="@dimen/small"
+                android:layout_marginBottom="@dimen/small"
+                android:gravity="right"
+                />
             <Button
                 android:id="@+id/BTN_Submit"
                 android:layout_height="35dp"
@@ -216,7 +240,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:text="Available Limit"
+                android:text="@string/tvAvailableLimit"
                 android:paddingLeft="20dp"
 
                 android:layout_marginTop="@dimen/small"
@@ -229,7 +253,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_small"
-                android:hint="Available Limit"
+                android:hint="@string/lbl_AvailableLimit"
                 android:paddingLeft="20dp"
                 android:background="@drawable/apptheme_edit_text_holo_light"
 
@@ -243,7 +267,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:text="Select Account Alias"
+                android:text="@string/tvSpinnerAliasName"
                 android:paddingLeft="20dp"
 
                 android:layout_marginTop="@dimen/small"
@@ -336,21 +360,7 @@
                 android:textSize="@dimen/text_small"
                 android:visibility="gone" />
 
-            <!--<RelativeLayout-->
-                <!--android:id="@+id/titleLinearLayout"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content" >-->
 
-            <!--<LinearLayout android:layout_width="fill_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:orientation="horizontal"-->
-
-                <!--android:layout_marginTop="10dp">-->
-
-               <!---->
-
-
-            <!--</LinearLayout>-->
 
             <com.mom.app.ui.CustomTextView
                 android:id="@+id/tv_IFSC_Code"
@@ -421,16 +431,32 @@
                 android:textSize="@dimen/text_small"
                 android:visibility="gone" />
 
+            <com.mom.app.ui.CustomTextView
+                android:id="@+id/tv_spinner_PayFrom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="@string/tvSpinnerPayFrom"
+                android:paddingLeft="20dp"
+
+                android:layout_marginTop="@dimen/small"
+                android:layout_marginBottom="@dimen/small"
+                android:textSize="@dimen/text_small"
+                android:textColor="#333"
+
+                android:visibility="gone" />
+
             <Spinner
-                android:id="@+id/Operator_PayFrom"
+                android:id="@+id/spinner_PayFrom"
                 style="@style/SpinnerAppTheme"
-                android:prompt="@string/prompt_spinner_select_operator"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
                 android:layout_marginTop="@dimen/small"
                 android:layout_marginBottom="@dimen/small"
                 android:visibility="gone" />
+            <!--android:entries="@array/RetailerList"-->
 
 
             <com.mom.app.ui.CustomTextView
@@ -549,6 +575,41 @@
                 android:layout_marginBottom="@dimen/small"
                 android:textSize="@dimen/text_small"
                 android:visibility="gone" />
+
+            <com.mom.app.ui.CustomTextView
+                android:id="@+id/tv_IPin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="@string/tvIPIN"
+                android:paddingLeft="20dp"
+                android:layout_marginTop="@dimen/small"
+                android:layout_marginBottom="@dimen/small"
+                android:textSize="@dimen/text_small"
+                android:textColor="#333"
+                android:visibility="gone" />
+            <EditText
+                android:id="@+id/IPin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberPassword"
+                android:hint="@string/lblIPin"
+                android:paddingLeft="20dp"
+                android:background="@drawable/apptheme_edit_text_holo_light"
+                android:layout_marginTop="@dimen/small"
+                android:layout_marginBottom="@dimen/small"
+                android:textSize="@dimen/text_small"
+                android:maxLength="8"
+                android:visibility="gone" />
+            <Button
+                android:id="@+id/btn_IPINResend"
+                android:layout_height="35dp"
+                android:layout_width="match_parent"
+                android:text="@string/btn_resendIPIN"
+                style="@style/MoMTheme.wrapped.customButton"
+
+                android:visibility="gone"/>
+
 
             <com.mom.app.ui.CustomTextView
                 android:id="@+id/tv_OTP"

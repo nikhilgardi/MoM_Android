@@ -338,7 +338,7 @@
                 android:layout_marginBottom="@dimen/small"
                 android:visibility="gone" />
             <EditText
-                android:id="@+id/OTP"
+                android:id="@+id/IPin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
