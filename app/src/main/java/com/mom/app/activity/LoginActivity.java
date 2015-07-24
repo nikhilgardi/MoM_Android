@@ -773,7 +773,7 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 
 //
                 HttpPost httpPost = new HttpPost(AppConstants.URL_PBX_PLATFORM_APP_LIC+AppConstants.PARAM_SERVICE_NEW_LIC_STATUS+AppConstants.SVC_PBX_LIC_STATUS+AppConstants.PARAM_SERVICE_NEW_LIC_STATUS_USERID+ data);
-                Log.e("URLFINAL" , AppConstants.URL_PBX_PLATFORM_APP_LIC+AppConstants.PARAM_SERVICE_NEW_LIC_STATUS+AppConstants.SVC_PBX_LIC_STATUS+AppConstants.PARAM_SERVICE_NEW_LIC_STATUS_USERID+ data);
+               // Log.e("URLFINAL" , AppConstants.URL_PBX_PLATFORM_APP_LIC+AppConstants.PARAM_SERVICE_NEW_LIC_STATUS+AppConstants.SVC_PBX_LIC_STATUS+AppConstants.PARAM_SERVICE_NEW_LIC_STATUS_USERID+ data);
                 final HttpParams httpParams = httpclient.getParams();
                 HttpConnectionParams.setConnectionTimeout(httpParams, 15000);
                 HttpConnectionParams.setSoTimeout(httpParams, 15000);
