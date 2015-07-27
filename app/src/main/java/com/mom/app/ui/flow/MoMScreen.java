@@ -36,7 +36,7 @@ public enum MoMScreen implements Serializable{
     BUS_TICKETING(550, R.string.action_busTicketing, R.drawable.bus, R.drawable.bus),
     RAIL_TICKETING(600, R.string.action_railTicketing, R.drawable.rail, R.drawable.rail),
     AIR_TICKETING(650, R.string.action_airTicketing, R.drawable.air, R.drawable.air),
-    WALLET_UPDATE(700, R.string.action_walletUpdate, R.drawable.walletupdate, R.drawable.walletupdate),
+    WALLET_UPDATE(700, R.string.action_walletUpdate, R.drawable.wallet_update, R.drawable.wallet_update),
     BOOK_COMPLAINT(750, R.string.action_bookComplaint, R.drawable.bookcomplaint, R.drawable.bookcomplaint),
     NEW_WITH_US(800, R.string.action_newWithUs, R.drawable.newwithus, R.drawable.newwithus),
     CONTACT_US(850, R.string.action_contactUs, R.drawable.contactus, R.drawable.contactus),

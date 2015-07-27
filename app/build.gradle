@@ -23,7 +23,9 @@ android {
         minSdkVersion 9
         targetSdkVersion 20
         versionCode 20
+
         versionName="2.2"
+
     }
 //    buildTypes {
 //        release {
