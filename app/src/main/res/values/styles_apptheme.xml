@@ -13,6 +13,10 @@
         <item name="android:inputType">number</item>
         <item name="android:maxLength">10</item>
     </style>
+    <style name="EditTextAppTheme.forgotpwdphone">
+        <item name="android:inputType">number</item>
+        <item name="android:maxLength">20</item>
+    </style>
     <style name="EditTextAppTheme.pin">
         <item name="android:inputType">number</item>
         <item name="android:maxLength">8</item>

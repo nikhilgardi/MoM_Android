@@ -321,8 +321,67 @@ public class B2CPLDataExImpl extends DataExImpl implements AsyncListener<Transac
                     }
 
                     break;
+                case GIFT_VOUCHER:
+                    Log.d(_LOG, "TaskComplete: GiftVoucher method, result: " + result);
 
-             }
+                    if (_listener != null) {
+
+                        Log.d(_LOG, "TaskComplete: getGiftVoucher method, result: " + result);
+                        if (_listener != null) {
+                            _listener.onTaskSuccess(extractGiftVoucherResponse(result.getRemoteResponse()), Methods.GIFT_VOUCHER);
+                        }
+                    }
+                    break;
+
+                case GET_COMPLAINT_TYPE:
+                    Log.d(_LOG, "TaskComplete: getComplaintType method, result: " + result);
+
+
+//                    if (_listener != null) {
+//
+//                        TransactionRequest<String> response = getComplaintTypeResponse(result , Methods.GET_COMPLAINT_TYPE);
+//                        _listener.onTaskSuccess(response, callback);
+//                    }
+
+                    if (_listener != null) {
+                        _listener.onTaskSuccess(result.getRemoteResponse(), callback);
+                    }
+                    break;
+
+                case GET_BOOK_COMPLAINT:
+                    Log.d(_LOG, "TaskComplete:GetBookComplaint, result: " + result);
+                    if (_listener != null) {
+                        _listener.onTaskSuccess(result.getRemoteResponse(), callback);
+                    }
+                    break;
+
+                case PASSWORD_COUNT_DETAILS:
+                    Log.d(_LOG, "TaskComplete: RMN CountDetails method, result: " + result);
+                    if (_listener != null) {
+
+                        TransactionRequest<String> response = getRMNCountDetails(result , Methods.PASSWORD_COUNT_DETAILS);
+                        _listener.onTaskSuccess(response, callback);
+                    }
+                    break;
+                case GET_ALL_OPERATORS_FORGOTPWD:
+                    Log.d(_LOG, "TaskComplete: RMN CountDetails method, result: " + result);
+                    if (_listener != null) {
+
+                        TransactionRequest<String> response = getAllOperatorResult(result , Methods.GET_ALL_OPERATORS_FORGOTPWD);
+                        _listener.onTaskSuccess(response, callback);
+                    }
+                    break;
+                case GET_FORGOT_PASSWORD:
+                    Log.d(_LOG, "TaskComplete: RMN CountDetails method, result: " + result);
+                    if (_listener != null) {
+
+                        TransactionRequest<String> response = getForgotPasswordResult(result , Methods.GET_FORGOT_PASSWORD);
+                        _listener.onTaskSuccess(response, callback);
+                    }
+                    break;
+
+
+            }
         }catch (Exception e){
             e.printStackTrace();
             if(_listener != null) {
@@ -1885,6 +1944,269 @@ public void impsMomConfirmProcess(TransactionRequest request , String sOTP ,
 
     );
 }
+
+
+    public void giftVoucher(Operator operator , String sDescription ,String sOccasion ,String sSentTo,
+                            String sSentFrom ,String sEmailId,String sConsumerNumber ,String sRechargeAmount ,
+                            int nRechargeType , int nDeliveryMethod) {
+
+        int amount = Integer.parseInt(sRechargeAmount);
+        if(
+                sDescription == null || TextUtils.isEmpty(sDescription) ||TextUtils.isEmpty(sOccasion) ||
+                        TextUtils.isEmpty(sSentTo) ||
+                        TextUtils.isEmpty(sSentFrom) ||
+                        TextUtils.isEmpty(sEmailId) ||
+                        TextUtils.isEmpty(sConsumerNumber) ||
+                        amount < 1 || operator == null
+                ){
+
+            if(_listener != null) {
+                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.GIFT_VOUCHER);
+            }
+            return;
+        }
+
+        String url				    = AppConstants.URL_NEW_PLATFORM_TXN + AppConstants.SVC_NEW_METHOD_FLIPKART;
+
+        AsyncDataEx dataEx		    = new AsyncDataEx(this,  new TransactionRequest(), url, Methods.GIFT_VOUCHER);
+
+        dataEx.execute(
+                new BasicNameValuePair(
+                        AppConstants.PARAM_NEW_INT_CUSTOMER_ID,
+                        EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_NEW_CUSTOMER_ID, null)
+                ),
+                new BasicNameValuePair(
+                        AppConstants.PARAM_NEW_COMPANY_ID,
+                        EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_NEW_COMPANY_ID, null)
+                ),
+
+                new BasicNameValuePair(AppConstants.PARAM_NEW_STR_ACCESS_ID, "Test"),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_STR_MOBILE_NUMBER, sConsumerNumber),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_RECHARGE_AMOUNT, sRechargeAmount),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_OPERATOR, operator.getCode()),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_INT_RECHARGE_TYPE, Integer.valueOf(nRechargeType).toString()),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_STR_OCCASION, sOccasion),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_STR_DESCRIPTION, sDescription),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_STR_SENT_TO, sSentTo),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_STR_SENT_FROM, sSentFrom),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_STR_DELIVERY_METHOD, String.valueOf(nDeliveryMethod)),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_STR_EMAIL_ID, sEmailId)
+
+        );
+    }
+
+    public TransactionRequest extractGiftVoucherResponse(String psResult) throws MOMException{
+        if(psResult == null || "".equals(psResult.trim())){
+            throw new MOMException();
+        }
+        TransactionRequest transactionRequest = new TransactionRequest();
+        try {
+            PullParser parser   = new PullParser(new ByteArrayInputStream(psResult.getBytes()));
+            String response     = parser.getTextResponse();
+
+            Log.d(_LOG, "Response: " + response);
+
+            transactionRequest.setRemoteResponse(response);
+            return transactionRequest;
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return transactionRequest;
+    }
+
+    public void getComplaintType(){
+
+
+        String url				= AppConstants.URL_NEW_BOOK_COMPLAINT_OPERATOR ;
+
+        dataEx		    = new AsyncDataEx(this, new TransactionRequest(), url, Methods.GET_COMPLAINT_TYPE );
+        dataEx.execute(
+                new BasicNameValuePair(AppConstants.PARAM_NEW_MOBILE_NUMBER, "")
+        );
+
+
+    }
+
+    public void bookComplaint( String sOperator , int sTransactionId , String sComment){
+
+//        if(_listener != null) {
+//            _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.GET_BOOK_COMPLAINT);
+//
+//        }
+
+        String sUserId          = EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_NEW_USER_ID, null);
+        String url				= AppConstants.URL_NEW_BOOK_COMPLAINT ;
+
+        dataEx		    = new AsyncDataEx(this, new TransactionRequest(), url, Methods.GET_BOOK_COMPLAINT , AsyncDataEx.HttpMethod.GET );
+        dataEx.execute(
+                new BasicNameValuePair(AppConstants.PARAM_NEW_STR_COMPLAINT_TYPE,sOperator),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_STR_TRANSACTION_ID, String.valueOf(sTransactionId)),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_STR_COMMENTS, sComment),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_STR_COMPLAINT_BOOKED_BY, sUserId)
+
+        );
+
+
+    }
+
+
+    public void payURequest(String sConsumerNumber, String sEmailId, String sRechargeAmount){
+
+        if(("".equals(sConsumerNumber)) ||("".equals(sEmailId)) || ("".equals(sRechargeAmount))){
+            if(_listener != null) {
+                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.GET_PAY_U);
+            }
+        }
+        String url				= AppConstants.URL_NEW_PAY_U_REQUEST + AppConstants.SVC_NEW_METHOD_PAY_U; ;
+
+        dataEx		    = new AsyncDataEx(this, new TransactionRequest(), url, Methods.GET_PAY_U );
+        dataEx.execute(
+                new BasicNameValuePair(AppConstants.PARAM_NEW_STR_NAME, "Akanskha"),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_STR_EMAIL, sEmailId),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_STR_AMOUNT, sRechargeAmount),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_STR_MOBILE_NUMBER_PAY_U, sConsumerNumber)
+        );
+
+
+    }
+
+    public TransactionRequest<String> getRMNCountDetails(
+            TransactionRequest<String> pResult , Methods callback
+    ) throws MOMException{
+
+        if(pResult == null || "".equals(pResult.getRemoteResponse().trim())){
+            throw new MOMException();
+        }
+
+        try {
+            InputStream in = new ByteArrayInputStream(pResult.getRemoteResponse().getBytes("UTF-8"));
+            new PullParserHandler(in);
+
+
+
+            String responseResultTest ="Code:"+ " "+ EphemeralStorage.getInstance(_applicationContext).getInt(AppConstants.PARAM_NEW_FORGOT_PASSWORD_CODE, -1) + " "
+                    +"\n" + " " + "Message: " + " "+ EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_NEW_FORGOT_PASSWORD_MESSAGE, null);
+            Log.d(_LOG, "NewResponse:" + responseResultTest);
+            String responseResult = EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_NEW_FORGOT_PASSWORD_MESSAGE ,null);
+            pResult.setRemoteResponse(responseResult);
+
+
+
+
+
+
+            return pResult;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public TransactionRequest<String> getForgotPasswordResult(
+            TransactionRequest<String> pResult , Methods callback
+    ) throws MOMException{
+
+        if(pResult == null || "".equals(pResult.getRemoteResponse().trim())){
+            throw new MOMException();
+        }
+
+        try {
+            InputStream in = new ByteArrayInputStream(pResult.getRemoteResponse().getBytes("UTF-8"));
+            new PullParserHandler(in);
+
+
+
+            String responseResultTest ="Code:"+ " "+ EphemeralStorage.getInstance(_applicationContext).getInt(AppConstants.PARAM_NEW_FORGOT_PASSWORD_CODE, -1) + " "
+                    +"\n" + " " + "Message: " + " "+ EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_NEW_FORGOT_PASSWORD_MESSAGE, null);
+            Log.d(_LOG, "NewResponse:" + responseResultTest);
+            String responseResult = EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_NEW_FORGOT_PASSWORD_MESSAGE ,null);
+            pResult.setRemoteResponse(responseResult);
+
+
+
+
+
+
+            return pResult;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public TransactionRequest<String> getAllOperatorResult(
+            TransactionRequest<String> pResult , Methods callback
+    ) throws MOMException{
+
+        if(pResult == null || "".equals(pResult.getRemoteResponse().trim())){
+            throw new MOMException();
+        }
+
+        try {
+            PullParser parser   = new PullParser(new ByteArrayInputStream(pResult.getRemoteResponse().getBytes()));
+            String response     = parser.getTextResponse();
+            Log.d(_LOG, "Response: " + response);
+            pResult.setRemoteResponse(response);
+            return pResult;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public void passwordCountDetails(String psCountDetails){
+        if(psCountDetails == null || "".equals(psCountDetails)){
+            if(_listener != null) {
+                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.PASSWORD_COUNT_DETAILS);
+            }
+        }
+
+        String url				= AppConstants.URL_NEW_PLATFORM_FORGOTPWD + AppConstants.SVC_NEW_METHOD_GET_PASSWORD_COUNT;
+
+        dataEx		    = new AsyncDataEx(this, new TransactionRequest(), url, Methods.PASSWORD_COUNT_DETAILS);
+
+        dataEx.execute(
+                new BasicNameValuePair(AppConstants.PARAM_NEW_MOBILE_NUMBER, psCountDetails)
+
+        );
+    }
+    public void getForgotPassword(String sRMN , String sOperator ,String sAmount){
+        if(sRMN == null || "".equals(sRMN)){
+            if(_listener != null) {
+                _listener.onTaskError(new AsyncResult(AsyncResult.CODE.INVALID_PARAMETERS), Methods.PASSWORD_COUNT_DETAILS);
+            }
+        }
+
+        String url				= AppConstants.URL_NEW_PLATFORM_FORGOTPWD + AppConstants.SVC_NEW_METHOD_GET_FORGOTPASSWORD;
+
+        dataEx		    = new AsyncDataEx(this, new TransactionRequest(), url, Methods.PASSWORD_COUNT_DETAILS);
+
+        dataEx.execute(
+                new BasicNameValuePair(AppConstants.PARAM_NEW_RMN, sRMN),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_OPERATOR_ID, sOperator),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_FORGOT_PWD_AMOUNT, sAmount),
+                new BasicNameValuePair(AppConstants.PARAM_NEW_COMPANY_ID, EphemeralStorage.getInstance(_applicationContext).getString(AppConstants.PARAM_NEW_COMPANY_ID, null))
+
+        );
+    }
+    public void getAllOperators(){
+
+
+
+        String url				= AppConstants.URL_NEW_PLATFORM_FORGOTPWD + AppConstants.SVC_NEW_METHOD_GET_PASSWORD_OPERATORS;
+
+        dataEx		            = new AsyncDataEx(this, new TransactionRequest(), url, Methods.GET_ALL_OPERATORS_FORGOTPWD);
+        dataEx.execute(
+                new BasicNameValuePair(AppConstants.PARAM_NEW_MOBILE_NUMBER, "")
+
+        );
+
+    }
     public void impsConfirmPayment (TransactionRequest<List<ImpsConfirmPaymentResult>> request , String sOTP ,
                                     String sAccountNumber ,String sIFSCCode , String sCustomerNumber , String sAmount){
 
@@ -1893,15 +2215,12 @@ public void impsMomConfirmProcess(TransactionRequest request , String sOTP ,
     public void impsAuthentication(TransactionRequest<ImpsAuthenticationResult> request){
 
     }
-    public void passwordCountDetails(String psCountDetails){}
-    public void getForgotPassword(String sRMN , String sOperator ,String sAmount){}
-    public void getAllOperators(){}
-    public void giftVoucher(Operator operator , String sDescription ,String sOccasion ,String sSentTo,
-                            String sSentFrom  ,String sConsumerNumber ,String sRechargeAmount ,String sEmailId,
-                            int nRechargeType , int nDeliveryMethod ) {}
-    public void getComplaintType(){}
-    public void bookComplaint( String sOperator , int sTransactionId , String sComment){}
-    public void payURequest(String sConsumerNumber, String sEmailId, String sRechargeAmount){}
+
+
+
+
+
+
     public void impsMomIMPSServiceCharge(TransactionRequest request ,String sAmount){}
     public void impsMomConfirmProcessTest(TransactionRequest request , String sAmount ,String sTxnDescription ,
                                           String sIPin , String sClientTxnID ) {}

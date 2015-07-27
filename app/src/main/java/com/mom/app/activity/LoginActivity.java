@@ -3,6 +3,7 @@ package com.mom.app.activity;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.lang.reflect.Type;
+import java.net.SocketException;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -87,6 +88,15 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+        if (!isTaskRoot()) {
+            final Intent intent = getIntent();
+            final String intentAction = intent.getAction();
+            if (intent.hasCategory(Intent.CATEGORY_LAUNCHER) && intentAction != null && intentAction.equals(Intent.ACTION_MAIN)) {
+                Log.w(_LOG, "Main Activity is not the root.  Finishing Main Activity instead of launching.");
+                finish();
+                return;
+            }
+        }
         //MOHIT
         DataExImpl._listener = null;
       //  DataExImpl._balance_listener = null;
@@ -734,10 +744,8 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
 
 //
                 HttpPost httpPost = new HttpPost(AppConstants.URL_PBX_PLATFORM_APP_LIC+AppConstants.PARAM_SERVICE_NEW_LIC_STATUS+AppConstants.SVC_PBX_LIC_STATUS+AppConstants.PARAM_SERVICE_NEW_LIC_STATUS_USERID+ data);
-               // Log.e("URLFINAL" , AppConstants.URL_PBX_PLATFORM_APP_LIC+AppConstants.PARAM_SERVICE_NEW_LIC_STATUS+AppConstants.SVC_PBX_LIC_STATUS+AppConstants.PARAM_SERVICE_NEW_LIC_STATUS_USERID+ data);
+                Log.e("URLFINAL" , AppConstants.URL_PBX_PLATFORM_APP_LIC+AppConstants.PARAM_SERVICE_NEW_LIC_STATUS+AppConstants.SVC_PBX_LIC_STATUS+AppConstants.PARAM_SERVICE_NEW_LIC_STATUS_USERID+ data);
                 final HttpParams httpParams = httpclient.getParams();
-                HttpConnectionParams.setConnectionTimeout(httpParams, 15000);
-                HttpConnectionParams.setSoTimeout(httpParams, 15000);
                 HttpResponse response = httpclient.execute(httpPost);
                 HttpEntity entity = response.getEntity();
                 String responseBodyhistory = EntityUtils.toString(entity);
@@ -749,15 +757,27 @@ public class LoginActivity extends Activity implements AsyncListener <String>{
                 Type type = new TypeToken<ResponseBase<String>>() {
                 }.getType();
                 ResponseBase<String> responseBase = gson.fromJson(strResponse, type);
-                Log.e("JsonData1" , responseBase.data);
+
+                if(responseBase.code== -1){
+                    EphemeralStorage.getInstance(getApplicationContext()).storeString(AppConstants.PARAM_MERCHANTID_LIC, null);
+                    return;
+                }
 
                 EphemeralStorage.getInstance(getApplicationContext()).storeString(AppConstants.PARAM_MERCHANTID_LIC, responseBase.data);
-                Log.e("LicStore" ,   EphemeralStorage.getInstance(getApplicationContext()).getString(AppConstants.PARAM_MERCHANTID_LIC, null));
 
 
 
-            } catch (Exception ex) {
+            }catch (SocketException socketex) {
+                socketex.printStackTrace();
+                Log.e("SocketEx" , "Called");
+                EphemeralStorage.getInstance(getApplicationContext()).storeString(AppConstants.PARAM_MERCHANTID_LIC, null);
+                return;
+            }
+            catch (Exception ex) {
                 ex.printStackTrace();
+                Log.e("Exception" , "ex");
+                EphemeralStorage.getInstance(getApplicationContext()).storeString(AppConstants.PARAM_MERCHANTID_LIC, null);
+                return;
             }
 
         }

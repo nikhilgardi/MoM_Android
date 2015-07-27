@@ -385,8 +385,8 @@ public class ForgotPasswordActivity extends Activity  {
 
               if(EphemeralStorage.getInstance(getApplicationContext()).getInt(AppConstants.PARAM_NEW_FORGOT_PASSWORD_CODE ,-1) == 1){
 
-                Log.e("REsponse" ,String.valueOf(EphemeralStorage.getInstance(getApplicationContext()).getInt(AppConstants.PARAM_NEW_FORGOT_PASSWORD_CODE, -1)));
-                  Toast.makeText(getApplicationContext(),"Validate", Toast.LENGTH_LONG).show();
+                //Log.e("REsponse" ,String.valueOf(EphemeralStorage.getInstance(getApplicationContext()).getInt(AppConstants.PARAM_NEW_FORGOT_PASSWORD_CODE, -1)));
+                 // Toast.makeText(getApplicationContext(),"Validate", Toast.LENGTH_LONG).show();
                   getPassword();
               }
                 else{
@@ -454,12 +454,12 @@ public class ForgotPasswordActivity extends Activity  {
     }
 
 
-    public void onBackPressed() {
-
-
-        finish();
-
-    }
+//    public void onBackPressed() {
+//
+//
+//        finish();
+//
+//    }
 
 
 }

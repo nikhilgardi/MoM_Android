@@ -261,7 +261,7 @@ public class DataProvider {
 
         String isMOMLic = EphemeralStorage.getInstance(context).getString(AppConstants.PARAM_MERCHANTID_LIC, null);
 
-        if(!isMOMLic.equals("") && (isMOMLic!=null)){
+        if((!isMOMLic.equals("")) && (isMOMLic!=null)){
             imageItems.add(
                     new ImageItem<MoMScreen>(
                             MoMScreen.LIC,
@@ -273,6 +273,7 @@ public class DataProvider {
                     )
             );
        }
+
 
 
         imageItems.add(

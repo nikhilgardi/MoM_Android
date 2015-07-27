@@ -630,7 +630,9 @@ public class SignupActivity extends Activity {
 
 
     public void onBackPressed() {
-
+        myintent = new Intent(SignupActivity.this, LoginActivity.class);
+        myintent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(myintent);
         finish();
 
     }
