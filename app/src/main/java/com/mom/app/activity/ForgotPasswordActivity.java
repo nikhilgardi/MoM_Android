@@ -207,7 +207,7 @@ public class ForgotPasswordActivity extends Activity  {
 
         checkPlatformAndLogin();
 
-        getPasswordCountDetails(_etMobileNumber.getText().toString());
+      //  getPasswordCountDetails(_etMobileNumber.getText().toString());
     }
 
     public  String getOperatorCode(String param) {
@@ -297,9 +297,28 @@ public class ForgotPasswordActivity extends Activity  {
                 HttpEntity entity = response.getEntity();
                 this.responseBody = EntityUtils.toString(entity);
                 String check = responseBody;
-                Log.i("postDatadetails", response.getStatusLine().toString());
-                Log.i("postDataPltDetails", this.responseBody);
+                Log.i("ForgotPwdDetails", response.getStatusLine().toString());
+                Log.i("ForgotPwdResponse", check);
                 String[] sArrDetails = check.split("~");
+                if(TextUtils.isEmpty(check)) {
+
+                    Log.e(_LOG, "Response null for RMN Details");
+                    showMessage(R.string.prompt_Validity_mobile_number);
+                    _etMobileNumber.setText("");
+                    _spOperator.setSelection(0);
+                    _etAmount.setText("");
+
+                    return;
+                }
+                if(sArrDetails.length<=1){
+                    Log.e(_LOG, "Response null for RMN DetailsResponse");
+                    showMessage(R.string.prompt_Validity_mobile_number);
+                    _etMobileNumber.setText("");
+                    _spOperator.setSelection(0);
+                    _etAmount.setText("");
+
+                    return;
+                }
                 EphemeralStorage.getInstance(getApplicationContext()).storeString(AppConstants.PARAM_NEW_USER_ID, sArrDetails[0]);
 
                 EphemeralStorage.getInstance(getApplicationContext()).storeString(AppConstants.PARAM_NEW_CUSTOMER_ID, sArrDetails[1]);
@@ -311,7 +330,7 @@ public class ForgotPasswordActivity extends Activity  {
 
                 Log.i(_LOG, EphemeralStorage.getInstance(getApplicationContext()).getString(AppConstants.PARAM_NEW_CUSTOMER_ID, null));
 
-
+                getPasswordCountDetails(_etMobileNumber.getText().toString());
 
 
             } catch (Exception ex) {
